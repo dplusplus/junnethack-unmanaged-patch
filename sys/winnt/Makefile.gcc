@@ -41,7 +41,7 @@
 # Set to anything else (or undefine) for a "release" version
 # You can set your debug options below.
 
-DEBUG = Y
+DEBUG = N
 
 cc     = gcc
 rc     = windres
@@ -390,6 +390,7 @@ VOBJ24 = $(O)trap.o     $(O)u_init.o   $(O)uhitm.o    $(O)vault.o
 VOBJ25 = $(O)vis_tab.o  $(O)vision.o   $(O)weapon.o   $(O)were.o
 VOBJ26 = $(O)wield.o    $(O)windows.o  $(O)wizard.o   $(O)worm.o
 VOBJ27 = $(O)worn.o     $(O)write.o    $(O)zap.o
+JOBJ = $(O)jconj.o $(O)jlib.o $(O)jtrns.o
 
 DLBOBJ = $(O)dlb.o
 
@@ -403,7 +404,7 @@ OBJS   = $(VOBJ01) $(VOBJ02) $(VOBJ03) $(VOBJ04) $(VOBJ05) \
 	$(VOBJ11) $(VOBJ12) $(VOBJ13) $(VOBJ14) $(VOBJ15) \
 	$(VOBJ16) $(VOBJ17) $(VOBJ18) $(VOBJ19) $(VOBJ20) \
 	$(VOBJ21) $(VOBJ22) $(VOBJ23) $(VOBJ24) $(VOBJ25) \
-	$(VOBJ26) $(VOBJ27)
+	$(VOBJ26) $(VOBJ27) $(JOBJ)
 
 WINPOBJ = $(WINPORT)
 
@@ -452,7 +453,7 @@ TILE_H      = ../win/share/tile.h
 # Miscellaneous
 #==========================================
 
-DATABASE = $(DAT)/data.base
+DATABASE = $(DAT)/jdata.base
 
 #
 #  The name of the game.
@@ -493,8 +494,8 @@ install: graphicschk $(GAME) $(O)install.tag
 	@echo Done.
 
 
-$(O)install.tag:  $(DAT)/data    $(DAT)/rumors    $(DAT)/dungeon \
-	       $(DAT)/oracles $(DAT)/quest.dat $(O)sp_lev.tag $(DLB)
+$(O)install.tag:  $(DAT)/data    $(DAT)/jrumors    $(DAT)/dungeon \
+	       $(DAT)/joracles $(DAT)/quest.dat $(O)sp_lev.tag $(DLB)
 ifeq  "$(USE_DLB)" "Y"
 	$(subst /,\,copy nhdat                $(GAMEDIR))
 	$(subst /,\,copy $(DAT)/license       $(GAMEDIR))
@@ -505,7 +506,7 @@ else
 	$(subst /,\,copy $(DAT)/*.lev         $(GAMEDIR))
 	$(subst /,\,if exist $(GAMEDIR)/makefile del $(GAMEDIR)/makefile)
 endif
-	$(subst /,\,if exist $(DOC)/guidebook.txt copy $(DOC)/guidebook.txt $(GAMEDIR)/Guidebook.txt)
+	$(subst /,\,if exist $(DOC)/jguidebook.txt copy $(DOC)/jguidebook.txt $(GAMEDIR)/jGuidebook.txt)
 	$(subst /,\,if exist $(DOC)/nethack.txt copy $(DOC)/nethack.txt $(GAMEDIR)/NetHack.txt)
 	$(subst /,\,copy $(NTSYS)/defaults.nh   $(GAMEDIR)/defaults.nh)
 	$(subst /,\,echo install done > $@)
@@ -674,6 +675,9 @@ $(INCL)/vis_tab.h: $(U)makedefs.exe
 
 $(SRC)/vis_tab.c: $(U)makedefs.exe
 	$(subst /,\,$(U)makedefs -z)
+
+$(INCL)/jdata.h : $(U)makedefs.exe
+	$(subst /,\,$(U)makedefs -j)
 
 #==========================================
 # uudecode utility and uuencoded targets
@@ -869,24 +873,24 @@ $(O)dlb_main.o: $(UTIL)/dlb_main.c $(INCL)/config.h $(INCL)/dlb.h
 $(DAT)/porthelp: $(NTSYS)/porthelp
 	$(subst /,\,@copy $(NTSYS)/porthelp $@ >nul)
 
-nhdat:  $(U)dlb_main.exe $(DAT)/data $(DAT)/oracles $(OPTIONS_FILE) \
-	 $(DAT)/quest.dat $(DAT)/rumors $(DAT)/help $(DAT)/hh $(DAT)/cmdhelp \
-	 $(DAT)/history $(DAT)/opthelp $(DAT)/wizhelp $(DAT)/dungeon \
+nhdat:  $(U)dlb_main.exe $(DAT)/data $(DAT)/joracles $(OPTIONS_FILE) \
+	 $(DAT)/quest.dat $(DAT)/jrumors $(DAT)/jhelp $(DAT)/jhh $(DAT)/jcmdhelp \
+	 $(DAT)/jhistory $(DAT)/jopthelp $(DAT)/jwizhelp $(DAT)/dungeon \
 	 $(DAT)/porthelp $(DAT)/license $(O)sp_lev.tag
 	$(subst /,\,echo data >$(DAT)/dlb.lst)
-	$(subst /,\,echo oracles >>$(DAT)/dlb.lst)
+	$(subst /,\,echo joracles >>$(DAT)/dlb.lst)
 	$(subst /,\,if exist $(DAT)/options echo options >>$(DAT)/dlb.lst)
 	$(subst /,\,if exist $(DAT)/ttyoptions echo ttyoptions >>$(DAT)/dlb.lst)
 	$(subst /,\,if exist $(DAT)/guioptions echo guioptions >>$(DAT)/dlb.lst)
 	$(subst /,\,if exist $(DAT)/porthelp echo porthelp >>$(DAT)/dlb.lst)
 	$(subst /,\,echo quest.dat >>$(DAT)/dlb.lst)
-	$(subst /,\,echo rumors >>$(DAT)/dlb.lst)
-	$(subst /,\,echo help >>$(DAT)/dlb.lst)
-	$(subst /,\,echo hh >>$(DAT)/dlb.lst)
-	$(subst /,\,echo cmdhelp >>$(DAT)/dlb.lst)
-	$(subst /,\,echo history >>$(DAT)/dlb.lst)
-	$(subst /,\,echo opthelp >>$(DAT)/dlb.lst)
-	$(subst /,\,echo wizhelp >>$(DAT)/dlb.lst)
+	$(subst /,\,echo jrumors >>$(DAT)/dlb.lst)
+	$(subst /,\,echo jhelp >>$(DAT)/dlb.lst)
+	$(subst /,\,echo jhh >>$(DAT)/dlb.lst)
+	$(subst /,\,echo jcmdhelp >>$(DAT)/dlb.lst)
+	$(subst /,\,echo jhistory >>$(DAT)/dlb.lst)
+	$(subst /,\,echo jopthelp >>$(DAT)/dlb.lst)
+	$(subst /,\,echo jwizhelp >>$(DAT)/dlb.lst)
 	$(subst /,\,echo dungeon >>$(DAT)/dlb.lst)
 	$(subst /,\,echo license >>$(DAT)/dlb.lst)
 	dir /l /b /-p $(subst /,\,$(DAT)/*.lev >>$(DAT)/dlb.lst)
@@ -1066,13 +1070,14 @@ clean:
 $(DAT)/data: $(O)utility.tag    $(DATABASE)
 	$(subst /,\,$(U)makedefs -d)
 
-$(DAT)/rumors: $(O)utility.tag    $(DAT)/rumors.tru   $(DAT)/rumors.fal
+$(DAT)/jrumors: $(O)utility.tag    $(DAT)/rumors.tru   $(DAT)/rumors.fal
 	$(subst /,\,$(U)makedefs -r)
 
-$(DAT)/quest.dat: $(O)utility.tag  $(DAT)/quest.txt
+$(DAT)/quest.dat: $(O)utility.tag  $(DAT)/jquest.txt
 	$(subst /,\,$(U)makedefs -q)
 
-$(DAT)/oracles: $(O)utility.tag    $(DAT)/oracles.txt
+
+$(DAT)/joracles: $(O)utility.tag    $(DAT)/oracles.txt
 	$(subst /,\,$(U)makedefs -h)
 
 $(DAT)/dungeon: $(O)utility.tag  $(DAT)/dungeon.def
@@ -1098,6 +1103,17 @@ $(O)mapimail.o: $(HACK_H) $(INCL)/nhlan.h $(NTSYS)/mapimail.c
 
 $(O)panic.o:  $(U)panic.c $(CONFIG_H)
 	$(cc) $(CFLAGS) -o$@ $(U)panic.c
+
+#
+# Japanese translation
+#
+
+$(O)jconj.o: ../japanese/jconj.c  $(HACK_H)
+	$(cc) $(CFLAGS) -o$@ ../japanese/jconj.c
+$(O)jlib.o: ../japanese/jlib.c $(HACK_H)
+	$(cc) $(CFLAGS) -o$@ ../japanese/jlib.c
+$(O)jtrns.o: ../japanese/jtrns.c $(HACK_H) ../include/jdata.h
+	$(cc) $(CFLAGS) -o$@ ../japanese/jtrns.c
 
 #
 # The rest are stolen from sys/unix/Makefile.src,

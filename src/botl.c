@@ -2,18 +2,34 @@
 /* Copyright (c) Stichting Mathematisch Centrum, Amsterdam, 1985. */
 /* NetHack may be freely redistributed.  See license for details. */
 
+/*
+**	Japanese version Copyright
+**	(c) Issei Numata, Naoki Hamada, Shigehiro Miyashita, 1994-2000
+**	For 3.4, Copyright (c) Kentaro Shirakata, 2002-2003
+**	JNetHack may be freely redistributed.  See license for details. 
+*/
+
 #include "hack.h"
 
 #ifdef OVL0
 extern const char *hu_stat[];	/* defined in eat.c */
 
 const char * const enc_stat[] = {
+#if 0 /*JP*/
 	"",
 	"Burdened",
 	"Stressed",
 	"Strained",
 	"Overtaxed",
 	"Overloaded"
+#else
+	"",
+	"ÇÊÇÎÇﬂÇ´",
+	"à≥îó",
+	"å¿äE",
+	"â◊èd",
+	"í¥âﬂ"
+#endif
 };
 
 STATIC_DCL void NDECL(bot1);
@@ -274,14 +290,24 @@ bot1()
 
 	Strcpy(newbot1, plname);
 	if('a' <= newbot1[0] && newbot1[0] <= 'z') newbot1[0] += 'A'-'a';
+#if 1 /*JP*/
+	if(is_kanji1(newbot1, 9))
+		newbot1[9] = '_';
+#endif
 	newbot1[10] = 0;
+/*JP
 	Sprintf(nb = eos(newbot1)," the ");
+*/
+	Sprintf(nb = eos(newbot1)," ");
 
 	if (Upolyd) {
 		char mbot[BUFSZ];
 		int k = 0;
 
+/*JP
 		Strcpy(mbot, mons[u.umonnum].mname);
+*/
+		Strcpy(mbot, jtrns_mon_gen(mons[u.umonnum].mname, flags.female));
 		while(mbot[k] != 0) {
 		    if ((k == 0 || (k > 0 && mbot[k-1] == ' ')) &&
 					'a' <= mbot[k] && mbot[k] <= 'z')
@@ -299,21 +325,45 @@ bot1()
 		Sprintf(nb = eos(nb),"%*s", i-j, " ");	/* pad with spaces */
 	if (ACURR(A_STR) > 18) {
 		if (ACURR(A_STR) > STR18(100))
+/*JP
 		    Sprintf(nb = eos(nb),"St:%2d ",ACURR(A_STR)-100);
+*/
+		    Sprintf(nb = eos(nb),"ã≠:%2d ",ACURR(A_STR)-100);
 		else if (ACURR(A_STR) < STR18(100))
+/*JP
 		    Sprintf(nb = eos(nb), "St:18/%02d ",ACURR(A_STR)-18);
+*/
+		    Sprintf(nb = eos(nb), "ã≠:18/%02d ",ACURR(A_STR)-18);
 		else
+#if 0 /*JP*/
 		    Sprintf(nb = eos(nb),"St:18/** ");
+#else
+		    Sprintf(nb = eos(nb),"ã≠:18/** ");
+#endif
 	} else
+/*JP
 		Sprintf(nb = eos(nb), "St:%-1d ",ACURR(A_STR));
+*/
+		Sprintf(nb = eos(nb), "ã≠:%-1d ",ACURR(A_STR));
 	Sprintf(nb = eos(nb),
+/*JP
 		"Dx:%-1d Co:%-1d In:%-1d Wi:%-1d Ch:%-1d",
+*/
+		"ëÅ:%-1d ëœ:%-1d ím:%-1d å´:%-1d ñ£:%-1d ",
 		ACURR(A_DEX), ACURR(A_CON), ACURR(A_INT), ACURR(A_WIS), ACURR(A_CHA));
+#if 0 /*JP*/
 	Sprintf(nb = eos(nb), (u.ualign.type == A_CHAOTIC) ? "  Chaotic" :
 			(u.ualign.type == A_NEUTRAL) ? "  Neutral" : "  Lawful");
+#else
+	Sprintf(nb = eos(nb), (u.ualign.type == A_CHAOTIC) ? "ç¨ì◊" :
+			(u.ualign.type == A_NEUTRAL) ? "íÜóß" : "íÅèò");
+#endif
 #ifdef SCORE_ON_BOTL
 	if (flags.showscore)
+/*JP
 	    Sprintf(nb = eos(nb), " S:%ld", botl_score());
+*/
+	    Sprintf(nb = eos(nb), "%ldì_", botl_score());
 #endif
 #ifdef DUMP_LOG
 }
@@ -337,25 +387,50 @@ char *buf;
 
 	/* TODO:	Add in dungeon name */
 	if (Is_knox(&u.uz))
+/*JP
 		Sprintf(buf, "%s ", dungeons[u.uz.dnum].dname);
+*/
+		Sprintf(buf, "%s ", jtrns_obj('d', dungeons[u.uz.dnum].dname));
 	else if (In_quest(&u.uz))
+/*JP
 		Sprintf(buf, "Home %d ", dunlev(&u.uz));
+*/
+		Sprintf(buf, "åÃãΩ %d ", dunlev(&u.uz));
 	else if (In_endgame(&u.uz))
 		Sprintf(buf,
+/*JP
 			Is_astralevel(&u.uz) ? "Astral Plane " : "End Game ");
+*/
+			Is_astralevel(&u.uz) ? "ê∏óÏäE " : "ç≈èIééó˚ ");
 	else if (Is_blackmarket(&u.uz))
+/*JP
 		Sprintf(buf, "Blackmarket ");
+*/
+		Sprintf(buf, "à≈és ");
 	else if (Is_town_level(&u.uz))
+/*JP
 		Sprintf(buf, "Town ");
+*/
+		Sprintf(buf, "äX ");
 	else if (Is_minetown_level(&u.uz))
+/*JP
 		Sprintf(buf, "Mine Town:%-2d ", depth(&u.uz));
+*/
+		Sprintf(buf, "çzéRäX:%-2d ", depth(&u.uz));
 	else {
+#if 0/*JP*/
 		char *dgn_name = dungeons[u.uz.dnum].dname;
 		if (!strncmpi(dgn_name, "The ", 4)) { dgn_name += 4; }
 		/* ports with more room may expand this one */
 		Sprintf(buf, "%s:%-2d ", 
 		        iflags.show_dgn_name ? dgn_name : "Dlvl",
 		        depth(&u.uz));
+#else
+		/* ports with more room may expand this one */
+		Sprintf(buf, "%s:%-2d ", iflags.show_dgn_name
+		        ? jtrns_obj('d', dungeons[u.uz.dnum].dname)
+		        : "ínâ∫", depth(&u.uz));
+#endif
 		ret = 0;
 	}
 	return ret;
@@ -393,7 +468,10 @@ bot2()
 	       );
 
 #if defined(STATUS_COLORS) && defined(TEXTCOLOR)
+/*JP
 	Strcat(nb = eos(newbot2), " HP:");
+*/
+	Strcat(nb = eos(newbot2), " ëÃ:");
 	curs(WIN_STATUS, 1, 1);
 	putstr(WIN_STATUS, 0, newbot2);
 	flags.botlx = 0;
@@ -401,30 +479,51 @@ bot2()
 	Sprintf(nb = eos(nb), "%d(%d)", hp, hpmax);
 	apply_color_option(percentage_color_of(hp, hpmax, hp_colors), newbot2);
 #else
+/*JP
 	Sprintf(nb = eos(nb), " HP:%d(%d)", hp, hpmax);
+*/
+	Sprintf(nb = eos(nb), " ëÃ:%d(%d)", hp, hpmax);
 #endif
 #if defined(STATUS_COLORS) && defined(TEXTCOLOR)
+/*JP
 	Strcat(nb = eos(nb), " Pw:");
+*/
+	Strcat(nb = eos(nb), " ñÇ:");
 	curs(WIN_STATUS, 1, 1);
 	putstr(WIN_STATUS, 0, newbot2);
 
 	Sprintf(nb = eos(nb), "%d(%d)", u.uen, u.uenmax);
 	apply_color_option(percentage_color_of(u.uen, u.uenmax, pw_colors), newbot2);
 #else
+/*JP
 	Sprintf(nb = eos(nb), " Pw:%d(%d)", u.uen, u.uenmax);
+*/
+	Sprintf(nb = eos(nb), " ñÇ:%d(%d)", u.uen, u.uenmax);
 #endif
+/*JP
 	Sprintf(nb = eos(nb), " AC:%-2d", u.uac);
+*/
+	Sprintf(nb = eos(nb), " äZ:%-2d", u.uac);
 	if (Upolyd)
 		Sprintf(nb = eos(nb), " HD:%d", mons[u.umonnum].mlevel);
 #ifdef EXP_ON_BOTL
 	else if(flags.showexp)
+/*JP
 		Sprintf(nb = eos(nb), " Xp:%u/%-1ld", u.ulevel,u.uexp);
+*/
+		Sprintf(nb = eos(nb), " åoå±:%u/%-1ld", u.ulevel,u.uexp);
 #endif
 	else
+/*JP
 		Sprintf(nb = eos(nb), " Exp:%u", u.ulevel);
+*/
+		Sprintf(nb = eos(nb), " åoå±:%u", u.ulevel);
 
 	if(flags.time)
+/*JP
 		Sprintf(nb = eos(nb), " T:%ld", moves);
+*/
+		Sprintf(nb = eos(nb), " ï‡:%ld", moves);
 
 #ifdef REALTIME_ON_BOTL
 	if(iflags.showrealtime) {
@@ -442,47 +541,86 @@ bot2()
 #endif
 	if(Confusion)
 #if defined(STATUS_COLORS) && defined(TEXTCOLOR)
+/*JP
 		add_colored_text("Conf", newbot2);
+*/
+		add_colored_text("ç¨óê", newbot2);
 #else
+/*JP
 		Strcat(nb = eos(nb), " Conf");
+*/
+		Strcat(nb = eos(nb), " ç¨óê");
 #endif
 	if(Sick) {
 		if (u.usick_type & SICK_VOMITABLE)
 #if defined(STATUS_COLORS) && defined(TEXTCOLOR)
+/*JP
 			add_colored_text("FoodPois", newbot2);
+*/
+			add_colored_text("êHì≈", newbot2);
 #else
 			Strcat(nb = eos(nb), " FoodPois");
 #endif
 		if (u.usick_type & SICK_NONVOMITABLE)
 #if defined(STATUS_COLORS) && defined(TEXTCOLOR)
+/*JP
 			add_colored_text("Ill", newbot2);
+*/
+			add_colored_text("ïaãC", newbot2);
 #else
+/*JP
 			Strcat(nb = eos(nb), " Ill");
+*/
+			Strcat(nb = eos(nb), " ïaãC");
 #endif
 	}
 	if(Blind)
 #if defined(STATUS_COLORS) && defined(TEXTCOLOR)
+/*JP
 	     	add_colored_text("Blind", newbot2);
+*/
+	     	add_colored_text("ñ”ñ⁄", newbot2);
 #else
+/*JP
 		Strcat(nb = eos(nb), " Blind");
+*/
+		Strcat(nb = eos(nb), " ñ”ñ⁄");
 #endif
 	if(Stunned)
 #if defined(STATUS_COLORS) && defined(TEXTCOLOR)
+/*JP
 	     	add_colored_text("Stun", newbot2);
+*/
+	     	add_colored_text("·øùÚ", newbot2);
 #else
+/*JP
 		Strcat(nb = eos(nb), " Stun");
+*/
+		Strcat(nb = eos(nb), " ·øùÚ");
 #endif
 	if(Hallucination)
 #if defined(STATUS_COLORS) && defined(TEXTCOLOR)
+/*JP
 	     	add_colored_text("Hallu", newbot2);
+*/
+	     	add_colored_text("å∂äo", newbot2);
 #else
+/*JP
 		Strcat(nb = eos(nb), " Hallu");
+*/
+		Strcat(nb = eos(nb), " å∂äo");
 #endif
 	if(Slimed)
 #if defined(STATUS_COLORS) && defined(TEXTCOLOR)
+/*JP
 	     	add_colored_text("Slime", newbot2);
+*/
+	     	add_colored_text("ónâ", newbot2);
 #else
+/*JP
 		Strcat(nb = eos(nb), " Slime");
+*/
+		Strcat(nb = eos(nb), " ónâ");
 #endif
 	if(cap > UNENCUMBERED)
 #if defined(STATUS_COLORS) && defined(TEXTCOLOR)

@@ -60,6 +60,7 @@ echo makedefs.exe -o	makedefs.exe  -o	\
 echo makedefs.exe -p	makedefs.exe -p	\
 echo makedefs.exe -m	makedefs.exe -m	\
 echo makedefs.exe -z	makedefs.exe -z	\
+echo makedefs.exe -j	makedefs.exe -j	\
 echo chdir ..\dat	chdir ..\dat	chdir	\
 echo Generating NetHack database	echo ..\util\makedefs.exe -d	..\util\makedefs.exe -d	\
 echo Generating rumors	echo ..\util\makedefs.exe -r	..\util\makedefs.exe -r	\
@@ -102,6 +103,7 @@ echo makedefs.exe -o	makedefs.exe  -o	\
 echo makedefs.exe -p	makedefs.exe -p	\
 echo makedefs.exe -m	makedefs.exe -m	\
 echo makedefs.exe -z	makedefs.exe -z	\
+echo makedefs.exe -j	makedefs.exe -j	\
 echo chdir ..\dat	chdir ..\dat	chdir	\
 echo Generating NetHack database	echo ..\util\makedefs.exe -d	..\util\makedefs.exe -d	\
 echo Generating rumors	echo ..\util\makedefs.exe -r	..\util\makedefs.exe -r	\

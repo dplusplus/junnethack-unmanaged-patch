@@ -8,6 +8,13 @@
  *	+ No global functions.
  */
 
+/*
+**	Japanese version Copyright (C) Issei Numata, 1994-1999
+**	changing point is marked `JP' (94/6/7) or XI18N (96/7/19)
+**	For 3.4, Copyright (c) Kentaro Shirakata, 2002-2003
+**	JNetHack may be freely redistributed.  See license for details. 
+*/
+
 #ifndef SYSV
 #define PRESERVE_NO_SYSV	/* X11 include files may define SYSV */
 #endif
@@ -36,6 +43,9 @@
 #include <X11/xpm.h>
 #endif
 
+#ifdef	INSTALLCOLORMAP
+extern Colormap     cmap;
+#endif
 
 #define TRANSIENT_TEXT	/* text window is a transient window (no positioning) */
 
@@ -143,7 +153,11 @@ add_to_text_window(wp, attr, str)
     append_text_buffer(&text_info->text, str, FALSE);
 
     /* Calculate text width and save longest line */
+#ifndef XI18N
     width = XTextWidth(text_info->fs, str, (int) strlen(str));
+#else
+    width = XmbTextEscapement(text_info->fontset, str, (int) strlen(str));
+#endif
     if (width > text_info->max_width)
 	text_info->max_width = width;
 }
@@ -158,12 +172,21 @@ display_text_window(wp, blocking)
     Cardinal num_args;
     Dimension width, height, font_height;
     int nlines;
+/*JP*/
+#ifdef XI18N
+    XFontSetExtents *extent;
+#endif
 
     text_info = wp->text_information;
     width  = text_info->max_width + text_info->extra_width;
     text_info->blocked = blocking;
     text_info->destroy_on_ack = FALSE;
     font_height = nhFontHeight(wp->w);
+
+/*JP*/
+#ifdef XI18N
+    extent = XExtentsOfFontSet(text_info->fontset);
+#endif
 
     /*
      * Calculate the number of lines to use.  First, find the number of
@@ -173,14 +196,26 @@ display_text_window(wp, blocking)
      * _some_ lines.  Finally, use the number of lines in the text if
      * there are fewer than the max.
      */
+/*JP*/
+#ifndef XI18N
     nlines = (XtScreen(wp->w)->height - text_info->extra_height) / font_height;
+#else
+    nlines = (XtScreen(wp->w)->height - text_info->extra_height) /
+			extent->max_logical_extent.height;
+#endif
     nlines -= 4;
 
     if (nlines > text_info->text.num_lines)
 	nlines = text_info->text.num_lines;
     if (nlines <= 0) nlines = 1;
 
+/*JP*/
+#ifndef XI18N
     height = nlines * font_height + text_info->extra_height;
+#else
+    height = (nlines * extent->max_logical_extent.height)
+						    + text_info->extra_height;
+#endif
 
     num_args = 0;
 
@@ -288,6 +323,10 @@ create_text_window(wp)
     XtSetArg(args[num_args], XtNresize, XawtextResizeBoth);	num_args++;
     XtSetArg(args[num_args], XtNtranslations,
 		XtParseTranslationTable(text_translations));	num_args++;
+/*JP*/
+#if defined(X11R6) && defined(XI18N)
+    XtSetArg(args[num_args], XtNinternational, True);	num_args++;
+#endif
 
     wp->w = XtCreateManagedWidget(
 		killer && WIN_MAP == WIN_ERR ?
@@ -299,7 +338,11 @@ create_text_window(wp)
 
     /* Get the font and margin information. */
     num_args = 0;
+#ifndef XI18N
     XtSetArg(args[num_args], XtNfont,	      &text_info->fs); num_args++;
+#else
+    XtSetArg(args[num_args], XtNfontSet,	      &text_info->fontset); num_args++;
+#endif
     XtSetArg(args[num_args], XtNtopMargin,    &top_margin);    num_args++;
     XtSetArg(args[num_args], XtNbottomMargin, &bottom_margin); num_args++;
     XtSetArg(args[num_args], XtNleftMargin,   &left_margin);   num_args++;
@@ -308,6 +351,11 @@ create_text_window(wp)
 
     text_info->extra_width  = left_margin + right_margin;
     text_info->extra_height = top_margin + bottom_margin;
+
+#if 1 /*JP*/
+    /* Send events to "text" which is where the translations are. */
+    XtSetKeyboardFocus (form, wp->w);
+#endif
 }
 
 void
@@ -455,7 +503,11 @@ static char rip_line[YEAR_LINE+1][STONE_LINE_LEN+1];
 extern const char *killed_by_prefix[];
 
 void
+#ifndef XI18N
 calculate_rip_text(int how)
+#else
+calculate_rip_text(int how, XFontSet fontset)
+#endif
 {
 	/* Follows same algorithm as genl_outrip() */
 
@@ -477,28 +529,79 @@ calculate_rip_text(int how)
 	switch (killer_format) {
 		default: impossible("bad killer format?");
 		case KILLED_BY_AN:
+#if 0 /*JP*/
 			Strcpy(buf, killed_by_prefix[how]);
 			Strcat(buf, an(killer));
+#else
+			Strcpy(buf, an(killer));
+			Strcat(buf, killed_by_prefix[how]);
+#endif
 			break;
 		case KILLED_BY:
+#if 0 /*JP*/
 			Strcpy(buf, killed_by_prefix[how]);
 			Strcat(buf, killer);
+#else
+			Strcpy(buf, killer);
+			Strcat(buf, killed_by_prefix[how]);
+#endif
 			break;
 		case NO_KILLER_PREFIX:
 			Strcpy(buf, killer);
 			break;
+#if 1 /*JP*/
+		case KILLED_SUFFIX:
+			Strcpy(buf, killer);
+			Strcat(buf, "‚ÉŽE‚³‚ê‚½");
+			break;
+#endif
 	}
 
 	/* Put death type on stone */
 	for (line=DEATH_LINE, dpx = buf; line<YEAR_LINE; line++) {
 		register int i,i0;
 		char tmpchar;
+#if 1 /*JP*/
+		unsigned char *uc;
+		int jstone_line;
 
+		if ((i0=strlen(dpx))<= STONE_LINE_LEN)
+		  jstone_line = STONE_LINE_LEN;
+		else if (i0/2 <= STONE_LINE_LEN )
+		  jstone_line = ((i0+3)/4)*2;
+		else if (i0/3 <= STONE_LINE_LEN )
+		  jstone_line = ((i0+5)/6)*2;
+		else
+		  jstone_line = ((i0+7)/8)*2;
+#endif
+
+#if 0 /*JP*/
 		if ( (i0=strlen(dpx)) > STONE_LINE_LEN) {
 			for(i = STONE_LINE_LEN;
 			    ((i0 > STONE_LINE_LEN) && i); i--)
+#else
+		if ( i0 > jstone_line) {
+				for(i = jstone_line;
+				    ((i0 > jstone_line) && i); i--)
+#endif
 				if(dpx[i] == ' ') i0 = i;
+#if 0 /*JP*/
 			if(!i) i0 = STONE_LINE_LEN;
+#else
+				if(!i){
+				  i0=0;
+/*
+				  while(i0<STONE_LINE_LEN){
+*/
+				  while(i0<jstone_line){
+				    uc = (unsigned char *)(dpx+i0);
+				    if(*uc <128)
+				      ++i0;
+				    else
+				      i0+=2;
+				  }
+				}
+#endif
 		}
 		tmpchar = dpx[i0];
 		dpx[i0] = 0;
@@ -567,10 +670,18 @@ rip_exposed(w, client_data, widget_data)
     y=appResources.tombtext_y;
     for (i=0; i<=YEAR_LINE; i++) {
 	int len=strlen(rip_line[i]);
+#ifndef XI18N
 	XFontStruct* font=WindowFontStruct(w);
 	int width=XTextWidth(font, rip_line[i], len);
 	XDrawString(dpy, XtWindow(w), gc,
 		x-width/2, y, rip_line[i], len);
+#else
+	XFontSet fontset = WindowFontSet(w);
+/*	XFontSetExtents *extent = XExtentsOfFontSet(fontset);*/
+	int width = XmbTextEscapement(fontset, rip_line[i], len);
+	XmbDrawString(dpy, XtWindow(w), fontset, gc,
+		x-width/2, y, rip_line[i], len);
+#endif
 	x+=appResources.tombtext_dx;
 	y+=appResources.tombtext_dy;
     }
@@ -594,7 +705,12 @@ create_ripout_widget(Widget parent)
 	XpmAttributes attributes;
 	int errorcode;
 
+#if 0 /*JP*/
 	attributes.valuemask = XpmCloseness;
+#else
+	attributes.valuemask = XpmCloseness | XpmColormap;
+#endif
+	attributes.colormap = cmap;
 	attributes.closeness = 65535; /* Try anything */
 	errorcode = XpmReadFileToImage(XtDisplay(parent), appResources.tombstone, &rip_image, 0, &attributes);
 	if (errorcode != XpmSuccess) {

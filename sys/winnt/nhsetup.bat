@@ -1,4 +1,4 @@
-@REM  SCCS Id: @(#)nhsetup.bat  3.4     $Date: 2002/07/24 08:25:21 $
+@REM  SCCS Id: @(#)nhsetup.bat  3.4     $Date: 2003/03/06 07:41:00 $
 @REM  Copyright (c) NetHack PC Development Team 1993, 1996, 2002
 @REM  NetHack may be freely redistributed.  See license for details. 
 @REM  Win32 setup batch file, see Install.nt for details
@@ -89,7 +89,7 @@ echo to build NetHack.
 goto :fini
 
 :err_data
-echo A required file ..\..\dat\data.bas seems to be missing.
+echo A required file ..\..\dat\jdata.bas seems to be missing.
 echo Check "Files." in the root directory for your NetHack distribution
 echo and make sure that all required files exist.
 goto :fini

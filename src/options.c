@@ -242,19 +242,41 @@ static struct Comp_Opt
 			 * a different format */
 	int optflags;
 } compopt[] = {
+#if 0 /*JP*/
 	{ "align",    "your starting alignment (lawful, neutral, or chaotic)",
 						8, DISP_IN_GAME },
 	{ "align_message", "message window alignment", 20, DISP_IN_GAME }, 	/*WC*/
 	{ "align_status", "status window alignment", 20, DISP_IN_GAME }, 	/*WC*/
 	{ "altkeyhandler", "alternate key handler", 20, DISP_IN_GAME },
+#else
+	{ "align",    "ゲームスタート時の属性 (lawful, neutral, chaoticのいずれか)",
+						8, DISP_IN_GAME },
+	{ "align_message", "メッセージウィンドウの揃え", 20, DISP_IN_GAME }, 	/*WC*/
+	{ "align_status", "状況ウィンドウの揃え", 20, DISP_IN_GAME }, 	/*WC*/
+	{ "altkeyhandler", "ALTキーハンドラ", 20, DISP_IN_GAME },
+#endif
+#if 0 /*JP*/
 	{ "boulder",  "the symbol to use for displaying boulders",
 						1, SET_IN_GAME },
+#else
+	{ "boulder",  "巨岩を表示するシンボル文字",
+						1, SET_IN_GAME },
+#endif
+#if 0 /*JP*/
 	{ "catname",  "the name of your (first) cat (e.g., catname:Tabby)",
 						PL_PSIZ, DISP_IN_GAME },
 #ifdef EXOTIC_PETS
 	{ "crocodilename", "the name of your (first) crocodile (e.g., crocodilename:TickTock)",
 						PL_PSIZ, DISP_IN_GAME },
 #endif
+#else /*JP*/
+	{ "catname",  "冒険を供にする(最初の)猫の名前 (例 catname:たま)",
+						PL_PSIZ, DISP_IN_GAME },
+#ifdef EXOTIC_PETS
+	{ "crocodilename", "冒険を供にする(最初の)ワニの名前 (例 crocodilename:チクタク)",
+						PL_PSIZ, DISP_IN_GAME },
+#endif
+#endif /*JP*/
 	{ "disclose", "the kinds of information to disclose at end of game",
 						sizeof(flags.end_disclose) * 2,
 						SET_IN_GAME },
@@ -270,8 +292,31 @@ static struct Comp_Opt
 #endif
 	{ "dungeon",  "the symbols to use in drawing the dungeon map",
 						MAXDCHARS+1, SET_IN_FILE },
+#else /*JP*/
+	{ "disclose", "ゲーム終了時に見る情報の種類",
+						sizeof(flags.end_disclose) * 2,
+						SET_IN_GAME },
+	{ "dogname",  "冒険を供にする(最初の)犬の名前 (例 dogname:ポチ)",
+						PL_PSIZ, DISP_IN_GAME },
+#ifdef DUMP_LOG
+	{ "dumpfile", "ダンプの出力位置 (例 dumpfile:/tmp/dump.nh)",
+#ifdef DUMP_FN
+						PL_PSIZ, DISP_IN_GAME },
+#else
+						PL_PSIZ, SET_IN_GAME },
+#endif
+#endif
+	{ "dungeon",  "ダンジョンを描画するシンボル文字",
+						MAXDCHARS+1, SET_IN_FILE },
+#endif /*JP*/
+#if 0 /*JP*/
 	{ "effects",  "the symbols to use in drawing special effects",
 						MAXECHARS+1, SET_IN_FILE },
+#else /*JP*/
+	{ "effects",  "特殊効果を描画するシンボル文字",
+						MAXECHARS+1, SET_IN_FILE },
+#endif /*JP*/
+#if 0 /*JP*/
 	{ "font_map", "the font to use in the map window", 40, DISP_IN_GAME },	/*WC*/
 	{ "font_menu", "the font to use in menus", 40, DISP_IN_GAME },		/*WC*/
 	{ "font_message", "the font to use in the message window",
@@ -285,10 +330,35 @@ static struct Comp_Opt
 	{ "font_text", "the font to use in text windows", 40, DISP_IN_GAME },	/*WC*/
 	{ "fruit",    "the name of a fruit you enjoy eating",
 						PL_FSIZ, SET_IN_GAME },
+#else /*JP*/
+	{ "font_map", "マップウィンドウに使用するフォント", 40, DISP_IN_GAME },	/*WC*/
+	{ "font_menu", "メニューに使用するフォント", 40, DISP_IN_GAME },	/*WC*/
+	{ "font_message", "メッセージウィンドウに使用するフォント",
+						40, DISP_IN_GAME },		/*WC*/
+	{ "font_size_map", "マップフォントのサイズ", 20, DISP_IN_GAME },	/*WC*/
+	{ "font_size_menu", "メニューフォントのサイズ", 20, DISP_IN_GAME },	/*WC*/
+	{ "font_size_message", "メッセージフォントのサイズ", 20, DISP_IN_GAME },	/*WC*/
+	{ "font_size_status", "状況フォントのサイズ", 20, DISP_IN_GAME },	/*WC*/
+	{ "font_size_text", "テキストフォントのサイズ", 20, DISP_IN_GAME },	/*WC*/
+	{ "font_status", "状況ウィンドウに使用するフォント", 40, DISP_IN_GAME }, /*WC*/
+	{ "font_text", "テキストウィンドウに使用するフォント", 40, DISP_IN_GAME },	/*WC*/
+	{ "fruit",    "好物の果物の名前",	PL_FSIZ, SET_IN_GAME },
+#endif /*JP*/
+#if 0 /*JP*/
 	{ "gender",   "your starting gender (male or female)",
 						8, DISP_IN_GAME },
+#else /*JP*/
+	{ "gender",   "ゲーム開始時の性別(male または female)",
+						8, DISP_IN_GAME },
+#endif /*JP*/
+#if 0 /*JP*/
 	{ "horsename", "the name of your (first) horse (e.g., horsename:Silver)",
 						PL_PSIZ, DISP_IN_GAME },
+#else /*JP*/
+	{ "horsename", "冒険を供にする(最初の)馬の名前 (例 ghoulname:シルバー)",
+						PL_PSIZ, DISP_IN_GAME },
+#endif /*JP*/
+#if 0 /*JP*/
 	{ "map_mode", "map display mode under Windows", 20, DISP_IN_GAME },	/*WC*/
 	{ "menucolor", "set menu colors", PL_PSIZ, SET_IN_FILE },
 	{ "menustyle", "user interface for object selection",
@@ -322,13 +392,61 @@ static struct Comp_Opt
 # else
 	{"msg_window", "the type of message window required", 1, SET_IN_FILE},
 # endif
+#else /*JP*/
+	{ "map_mode", "ウィンドウ表示時のマップの表示モード", 20, DISP_IN_GAME },	/*WC*/
+        { "menucolor", "メニューの色設定", PL_PSIZ, SET_IN_FILE },
+	{ "menustyle", "オブジェクトを選択するときのユーザーインタフェース",
+						MENUTYPELEN, SET_IN_GAME },
+	{ "menu_deselect_all", "全てのアイテムを非選択", 4, SET_IN_FILE },
+	{ "menu_deselect_page", "現在表示されているページのアイテムを非選択",
+						4, SET_IN_FILE },
+	{ "menu_first_page", "メニューの最初のページへ",
+						4, SET_IN_FILE },
+	{ "menu_headings", "強調，反転または下線で種類を表示する", 9, SET_IN_GAME },
+	{ "menu_invert_all", "全てのアイテムを反転", 4, SET_IN_FILE },
+	{ "menu_invert_page", "現在表示されているページのアイテムを反転",
+						4, SET_IN_FILE },
+	{ "menu_last_page", "メニューの最後のページへ", 4, SET_IN_FILE },
+	{ "menu_next_page", "次のメニューのページへ", 4, SET_IN_FILE },
+	{ "menu_previous_page", "前のメニューのページへ", 4, SET_IN_FILE },
+	{ "menu_search", "メニューの検索", 4, SET_IN_FILE },
+	{ "menu_select_all", "全てのアイテムを選択", 4, SET_IN_FILE },
+	{ "menu_select_page", "現在表示されている全てのアイテムを選択",
+						4, SET_IN_FILE },
+	{ "monsters", "モンスターに使用されるシンボル文字",
+						MAXMCLASSES, SET_IN_FILE },
+	{ "msghistory", "先頭行に表示されたメッセージ履歴の保存数",
+						5, DISP_IN_GAME },
+# ifdef TTY_GRAPHICS
+	{"msg_window", "メッセージウィンドウのタイプを設定",1, SET_IN_GAME},
+# else
+	{"msg_window", "メッセージウィンドウのタイプを設定", 1, SET_IN_FILE},
+# endif
+#endif /*JP*/
+#if 0 /*JP*/
 	{ "name",     "your character's name (e.g., name:Merlin-W)",
 						PL_NSIZ, DISP_IN_GAME },
 	{ "number_pad", "use the number pad", 1, SET_IN_GAME},
+#else /*JP*/
+	{ "name",     "あなたの名前 (例 name:マーリン-W)",
+						PL_NSIZ, DISP_IN_GAME },
+	{ "number_pad", "ナンバーパッドを使用する", 1, SET_IN_GAME},
+#endif /*JP*/
+#if 0 /*JP*/
 	{ "objects",  "the symbols to use for objects",
 						MAXOCLASSES, SET_IN_FILE },
+#else /*JP*/
+	{ "objects",  "アイテムに使用されるシンボル文字",
+						MAXOCLASSES, SET_IN_FILE },
+#endif /*JP*/
+#if 0 /*JP*/
 	{ "packorder", "the inventory order of the items in your pack",
 						MAXOCLASSES, SET_IN_GAME },
+#else /*JP*/
+	{ "packorder", "背負い袋内の物の順番を決めるシンボル",
+						MAXOCLASSES, SET_IN_GAME },
+#endif /*JP*/
+#if 0 /*JP*/
 #ifdef CHANGE_COLOR
 	{ "palette",  "palette (00c/880/-fff is blue/yellow/reverse white)",
 						15 , SET_IN_GAME },
@@ -337,6 +455,17 @@ static struct Comp_Opt
 						15, SET_IN_FILE },
 # endif
 #endif
+#else /*JP*/
+#ifdef CHANGE_COLOR
+	{ "palette",  "パレット (00c/880/-fffはそれぞれ青/黄/反転白を示す)",
+						15 , SET_IN_GAME },
+# if defined(MAC)
+	{ "hicolor",  "パレットが同じとき、指示したものだけ反転させる",
+						15, SET_IN_FILE },
+# endif
+#endif
+#endif /*JP*/
+#if 0 /*JP*/
 	{ "pettype",  "your preferred initial pet type", 4, DISP_IN_GAME },
 	{ "pickup_burden",  "maximum burden picked up before prompt",
 						20, SET_IN_GAME },
@@ -344,12 +473,31 @@ static struct Comp_Opt
 						MAXOCLASSES, SET_IN_GAME },
 	{ "player_selection", "choose character via dialog or prompts",
 						12, DISP_IN_GAME },
+#else /*JP*/
+	{ "pettype",  "あなたの選択した初期ペットの種類", 4, DISP_IN_GAME },
+	{ "pickup_burden",  "拾うときに最大荷重になる手前で確認する",
+						20, SET_IN_GAME },
+	{ "pickup_types", "自動で拾いあげる物のシンボル",
+						MAXOCLASSES, SET_IN_GAME },
+	{ "player_selection", "キャラクター選択にダイアログや確認画面を使う",
+						12, DISP_IN_GAME },
+#endif
+#if 0 /*JP*/
 	{ "race",     "your starting race (e.g., Human, Elf)",
 						PL_CSIZ, DISP_IN_GAME },
 	{ "role",     "your starting role (e.g., Barbarian, Valkyrie)",
 						PL_CSIZ, DISP_IN_GAME },
 	{ "runmode", "display frequency when `running' or `travelling'",
 						sizeof "teleport", SET_IN_GAME },
+#else /*JP*/
+	{ "race",     "ゲーム開始時の種族 (例 Human, Elf)",
+						PL_CSIZ, DISP_IN_GAME },
+	{ "role",     "ゲーム開始時の職業 (例 Barbarian, Valkyrie)",
+						PL_CSIZ, DISP_IN_GAME },
+	{ "runmode", "トラベルコマンド等での連続移動時の描画頻度",
+						sizeof "teleport", SET_IN_GAME },
+#endif
+#if 0 /*JP*/
 	{ "scores",   "the parts of the score list you wish to see",
 						32, SET_IN_GAME },
 	{ "scroll_amount", "amount to scroll map when scroll_margin is reached",
@@ -361,11 +509,34 @@ static struct Comp_Opt
 	{ "statuscolor", "set status colors", PL_PSIZ, SET_IN_FILE },
 	{ "suppress_alert", "suppress alerts about version-specific features",
 						8, SET_IN_GAME },
+#else /*JP*/
+	{ "scores",   "ゲーム終了時に見るスコアの種類",
+						32, SET_IN_GAME },
+	{ "scroll_amount", "scroll_marginに届いたときのマップスクロール量",
+						20, DISP_IN_GAME }, /*WC*/
+	{ "scroll_margin", "マップ端からのマップスクロール開始距離", 20, DISP_IN_GAME }, /*WC*/
+#ifdef MSDOS
+	{ "soundcard", "使用しているサウンドカードの種類", 20, SET_IN_FILE },
+#endif
+	{ "suppress_alert", "バージョン間の違いに関する警告メッセージの無効化",
+						8, SET_IN_GAME },
+#endif /*JP*/
+#if 0 /*JP*/
 	{ "tile_width", "width of tiles", 20, DISP_IN_GAME},	/*WC*/
 	{ "tile_height", "height of tiles", 20, DISP_IN_GAME},	/*WC*/
 	{ "tile_file", "name of tile file", 70, DISP_IN_GAME},	/*WC*/
 	{ "traps",    "the symbols to use in drawing traps",
 						MAXTCHARS+1, SET_IN_FILE },
+#else /*JP*/
+	{ "tile_width", "タイルの幅", 20, DISP_IN_GAME},	/*WC*/
+	{ "tile_height", "タイルの高さ", 20, DISP_IN_GAME},	/*WC*/
+	{ "tile_file", "タイルファイルの名前", 70, DISP_IN_GAME},	/*WC*/
+	{ "tileset",  "あらかじめ設定されたタイルセット名を使用する",
+						PL_PSIZ, SET_IN_GAME },
+	{ "traps",    "罠を描画するシンボル文字",
+						MAXTCHARS+1, SET_IN_FILE },
+#endif /*JP*/
+#if 0 /*JP*/
 	{ "vary_msgcount", "show more old messages at a time", 20, DISP_IN_GAME }, /*WC*/
 #ifdef MSDOS
 	{ "video",    "method of video updating", 20, SET_IN_FILE },
@@ -381,12 +552,40 @@ static struct Comp_Opt
 #ifdef WIN32CON
 	{"subkeyvalue", "override keystroke value", 7, SET_IN_FILE},
 #endif
+#else /*JP*/
+	{ "vary_msgcount", "一度に表示するメッセージの数", 20, DISP_IN_GAME }, /*WC*/
+#ifdef MSDOS
+	{ "video",    "使用するビデオモードを設定する", 20, SET_IN_FILE },
+#endif
+#ifdef VIDEOSHADES
+	{ "videocolors", "内蔵スクリーンルーチン用のカラーマップを用いる",
+						40, DISP_IN_GAME },
+	{ "videoshades", "表示にグレイスケールを用いる",
+						32, DISP_IN_GAME },
+#endif
+#ifdef WIN32CON
+	{"subkeyvalue", "キーマッピングを変更する", 7, SET_IN_FILE},
+#endif
+#endif /*JP*/
+#if 0 /*JP*/
 	{ "windowcolors",  "the foreground/background colors of windows",	/*WC*/
 						80, DISP_IN_GAME },
 	{ "windowtype", "windowing system to use", WINTYPELEN, DISP_IN_GAME },
 #ifdef EXOTIC_PETS
 	{ "wolfname", "the name of your (first) wolf (e.g., wolfname:Gnasher)",
 						PL_PSIZ, DISP_IN_GAME },
+#endif
+#else /*JP*/
+	{ "windowcolors",  "ウィンドウを指定した前景色/背景色で表示する",	/*WC*/
+						80, DISP_IN_GAME },
+	{ "windowtype", "使用するウインドウシステム", WINTYPELEN, DISP_IN_GAME },
+#ifdef EXOTIC_PETS
+	{ "wolfname", "冒険を供にする(最初の)狼の名前 (例 wolfname:ロボ)",
+						PL_PSIZ, DISP_IN_GAME },
+#endif
+#endif /*JP*/
+#if 1 /*JP*/
+	{ "kcode", "端末の漢字コード,", 4, SET_IN_FILE },
 #endif
 	{ (char *)0, (char *)0, 0, 0 }
 };
@@ -515,7 +714,11 @@ boolean val_allowed;
 		       *q = index(user_string, '=');
 
 	    if (!p || (q && q < p)) p = q;
+#if 0 /*JP*/
 	    while(p && p > user_string && isspace(*(p-1))) p--;
+#else
+	    while(p && p > user_string && isspace_8(*(p-1))) p--;
+#endif
 	    if (p) len = (int)(p - user_string);
 	}
 
@@ -1329,9 +1532,17 @@ boolean tinitial, tfrom_file;
 	}
 
 	/* strip leading and trailing white space */
+#if 0 /*JP*/
 	while (isspace(*opts)) opts++;
+#else
+	while (isspace_8(*opts)) opts++;
+#endif
 	op = eos(opts);
+#if 0 /*JP*/
 	while (--op >= opts && isspace(*op)) *op = '\0';
+#else
+	while (--op >= opts && isspace_8(*op)) *op = '\0';
+#endif
 
 	if (!*opts) return;
 	negated = FALSE;
@@ -1402,7 +1613,11 @@ boolean tinitial, tfrom_file;
 			    preferred_pet = 'n';
 			    break;
 			default:
+#if 0 /*JP*/
 			    pline("Unrecognized pet type '%s'.", op);
+#else
+			    pline("'%s'はペットの種類として受け付けられません．", op);
+#endif
 			    break;
 		    }
 		} else if (negated) preferred_pet = 'n';
@@ -1744,7 +1959,10 @@ boolean tinitial, tfrom_file;
 			num++;
 		    }
 		    if (num >= 100) {
+/*JP
 			pline("Doing that so many times isn't very fruitful.");
+*/
+			pline("そんなに何回もやってもほとんど意味はない．");
 			return;
 		    }
 		}
@@ -2067,8 +2285,13 @@ goodfruit:
 		    if (flags.menu_style == MENU_TRADITIONAL ||
 			    flags.menu_style == MENU_COMBINATION) {
 			use_menu = FALSE;
+#if 0 /*JP*/
 			Sprintf(qbuf, "New pickup_types: [%s am] (%s)",
 				ocl, *tbuf ? tbuf : "all");
+#else
+			Sprintf(qbuf, "新しいpickup_typeを入力してください：[%s am] (%s)",
+				ocl, *tbuf ? tbuf : "all");
+#endif
 			getlin(qbuf, abuf);
 			op = mungspaces(abuf);
 			if (abuf[0] == '\0' || abuf[0] == '\033')
@@ -2077,8 +2300,13 @@ goodfruit:
 			    use_menu = TRUE;
 		    }
 		    if (use_menu) {
+#if 0 /*JP*/
 			(void) choose_classes_menu("Auto-Pickup what?", 1,
 						   TRUE, ocl, tbuf);
+#else
+			(void) choose_classes_menu("どれを自動拾いに設定しますか？", 1,
+						   TRUE, ocl, tbuf);
+#endif
 			op = tbuf;
 		    }
 		}
@@ -2198,6 +2426,14 @@ goodfruit:
 		if (badopt) badoption(opts);
 		return;
 	}
+#if 1 /*JP*/
+        if (!strncmpi(opts, "kcode", 3)){
+	    if ((op = string_for_env_opt("kcode", opts, FALSE)) != 0){
+		setkcode(*op);
+	    }
+	    return;
+        }
+#endif
 
 	/* scores:5t[op] 5a[round] o[wn] */
 	if (match_optname(opts, "scores", 4, TRUE)) {
@@ -2667,12 +2903,21 @@ static NEARDATA const char *menutype[] = {
 };
 
 static NEARDATA const char *burdentype[] = {
+#if 0 /*JP*/
 	"unencumbered", "burdened", "stressed",
 	"strained", "overtaxed", "overloaded"
+#else
+	"通常", "よろめき", "圧迫",
+	"限界", "荷重", "超過"
+#endif
 };
 
 static NEARDATA const char *runmodes[] = {
+#if 0 /*JP*/
 	"teleport", "run", "walk", "crawl"
+#else
+	"一瞬", "走る", "歩く", "這う"
+#endif
 };
 
 /*
@@ -2795,8 +3040,13 @@ doset()
 	start_menu(tmpwin);
 
 	any.a_void = 0;
+#if 0 /*JP*/
  add_menu(tmpwin, NO_GLYPH, &any, 0, 0, iflags.menu_headings,
 		 "Booleans (selecting will toggle value):", MENU_UNSELECTED);
+#else
+ add_menu(tmpwin, NO_GLYPH, &any, 0, 0, iflags.menu_headings,
+		 "真偽オプション (選択すると値が切り替わります)：", MENU_UNSELECTED);
+#endif
 	any.a_int = 0;
 	/* first list any other non-modifiable booleans, then modifiable ones */
 	for (pass = 0; pass <= 1; pass++)
@@ -2829,9 +3079,15 @@ doset()
 	indexoffset = boolcount;
 	any.a_void = 0;
 	add_menu(tmpwin, NO_GLYPH, &any, 0, 0, ATR_NONE, "", MENU_UNSELECTED);
+#if 0 /*JP*/
  add_menu(tmpwin, NO_GLYPH, &any, 0, 0, iflags.menu_headings,
 		 "Compounds (selecting will prompt for new value):",
 		 MENU_UNSELECTED);
+#else
+ add_menu(tmpwin, NO_GLYPH, &any, 0, 0, iflags.menu_headings,
+		 "文字列オプション (選択すると新しい値の入力を求めます)：",
+		 MENU_UNSELECTED);
+#endif
 
 	startpass = DISP_IN_GAME;
 	endpass = SET_IN_GAME;
@@ -2873,8 +3129,13 @@ doset()
 		}
 #ifdef AUTOPICKUP_EXCEPTIONS
 	any.a_int = -1;
+#if 0 /*JP*/
 	Sprintf(buf, "autopickup exceptions (%d currently set)",
 		count_ape_maps((int *)0, (int *)0));
+#else
+	Sprintf(buf, "自動拾いの対象外 (現在の設定数：%d)",
+		count_ape_maps((int *)0, (int *)0));
+#endif
 	add_menu(tmpwin, NO_GLYPH, &any, 0, 0, ATR_NONE, buf, MENU_UNSELECTED);
 
 #endif /* AUTOPICKUP_EXCEPTIONS */
@@ -2886,7 +3147,10 @@ doset()
 	for (i = 0; i < PREFIX_COUNT; i++)
 		doset_add_menu(tmpwin, fqn_prefix_names[i], 0);
 #endif
+/*JP
 	end_menu(tmpwin, "Set what options?");
+*/
+	end_menu(tmpwin, "どのオプションを設定しますか？");
 	need_redraw = FALSE;
 	if ((pick_cnt = select_menu(tmpwin, PICK_ANY, &pick_list)) > 0) {
 	    /*
@@ -2917,7 +3181,10 @@ doset()
 
 		    if (!special_handling(compopt[opt_indx].name,
 							setinitial, fromfile)) {
+/*JP
 			Sprintf(buf, "Set %s to what?", compopt[opt_indx].name);
+*/
+			Sprintf(buf, "%sに何を設定しますか？", compopt[opt_indx].name);
 			getlin(buf, buf2);
 			if (buf2[0] == '\033')
 			    continue;
@@ -2970,7 +3237,10 @@ boolean setinitial,setfromfile;
 		add_menu(tmpwin, NO_GLYPH, &any, *style_name, 0,
 			 ATR_NONE, style_name, MENU_UNSELECTED);
         }
+/*JP
 	end_menu(tmpwin, "Select menustyle:");
+*/
+	end_menu(tmpwin, "メニュースタイルを選択してください：");
 	if (select_menu(tmpwin, PICK_ONE, &style_pick) > 0) {
 		flags.menu_style = style_pick->item.a_int - 1;
 		free((genericptr_t)style_pick);
@@ -2988,7 +3258,10 @@ boolean setinitial,setfromfile;
 		add_menu(tmpwin, NO_GLYPH, &any, burden_letters[i], 0,
 			 ATR_NONE, burden_name, MENU_UNSELECTED);
         }
+/*JP
 	end_menu(tmpwin, "Select encumbrance level:");
+*/
+	end_menu(tmpwin, "警告を出す荷重レベルを選択してください：");
 	if (select_menu(tmpwin, PICK_ONE, &burden_pick) > 0) {
 		flags.pickup_burden = burden_pick->item.a_int - 1;
 		free((genericptr_t)burden_pick);
@@ -3007,7 +3280,10 @@ boolean setinitial,setfromfile;
          * must correspond to disclosure_options in decl.h
          */
 	static const char *disclosure_names[] = {
+/*JP
 		"inventory", "attributes", "vanquished", "genocides", "conduct"
+*/
+		"所持アイテム", "最終属性", "殺害一覧", "虐殺一覧", "挑戦一覧"
 	};
 	int disc_cat[NUM_DISCLOSURE_OPTIONS];
 	const char *disclosure_name;
@@ -3021,7 +3297,10 @@ boolean setinitial,setfromfile;
 			 ATR_NONE, disclosure_name, MENU_UNSELECTED);
 		disc_cat[i] = 0;
         }
+/*JP
 	end_menu(tmpwin, "Change which disclosure options categories:");
+*/
+	end_menu(tmpwin, "どのカテゴリの表示情報オプションを変更しますか：");
 	if ((pick_cnt = select_menu(tmpwin, PICK_ANY, &disclosure_category_pick)) > 0) {
 	    for (pick_idx = 0; pick_idx < pick_cnt; ++pick_idx) {
 		opt_idx = disclosure_category_pick[pick_idx].item.a_int - 1;
@@ -3036,24 +3315,47 @@ boolean setinitial,setfromfile;
 	    if (disc_cat[i]) {
 	    	char dbuf[BUFSZ];
 		menu_item *disclosure_option_pick = (menu_item *)0;
+/*JP
 		Sprintf(dbuf, "Disclosure options for %s:", disclosure_names[i]);
+*/
+		Sprintf(dbuf, "%sの出力形式：", disclosure_names[i]);
 	        tmpwin = create_nhwindow(NHW_MENU);
 		start_menu(tmpwin);
 		any.a_char = DISCLOSE_NO_WITHOUT_PROMPT;
+#if 0 /*JP*/
 		add_menu(tmpwin, NO_GLYPH, &any, 'a', 0,
 			ATR_NONE,"Never disclose and don't prompt", MENU_UNSELECTED);
+#else
+		add_menu(tmpwin, NO_GLYPH, &any, 'a', 0,
+			ATR_NONE,"確認せずに出力もしない", MENU_UNSELECTED);
+#endif
 		any.a_void = 0;
 		any.a_char = DISCLOSE_YES_WITHOUT_PROMPT;
+#if 0 /*JP*/
 		add_menu(tmpwin, NO_GLYPH, &any, 'b', 0,
 			ATR_NONE,"Always disclose and don't prompt", MENU_UNSELECTED);
+#else
+		add_menu(tmpwin, NO_GLYPH, &any, 'b', 0,
+			ATR_NONE,"確認せずに出力する", MENU_UNSELECTED);
+#endif
 		any.a_void = 0;
 		any.a_char = DISCLOSE_PROMPT_DEFAULT_NO;
+#if 0 /*JP*/
 		add_menu(tmpwin, NO_GLYPH, &any, 'c', 0,
 			ATR_NONE,"Prompt and default answer to \"No\"", MENU_UNSELECTED);
+#else
+		add_menu(tmpwin, NO_GLYPH, &any, 'c', 0,
+			ATR_NONE,"デフォルトを「出力しない」として確認する", MENU_UNSELECTED);
+#endif
 		any.a_void = 0;
 		any.a_char = DISCLOSE_PROMPT_DEFAULT_YES;
+#if 0 /*JP*/
 		add_menu(tmpwin, NO_GLYPH, &any, 'd', 0,
 			ATR_NONE,"Prompt and default answer to \"Yes\"", MENU_UNSELECTED);
+#else
+		add_menu(tmpwin, NO_GLYPH, &any, 'd', 0,
+			ATR_NONE,"デフォルトを「出力する」として確認する", MENU_UNSELECTED);
+#endif
 		end_menu(tmpwin, dbuf);
 		if (select_menu(tmpwin, PICK_ONE, &disclosure_option_pick) > 0) {
 			flags.end_disclose[i] = disclosure_option_pick->item.a_char;
@@ -3065,16 +3367,28 @@ boolean setinitial,setfromfile;
 	retval = TRUE;
     } else if (!strcmp("runmode", optname)) {
 	const char *mode_name;
+#if 1 /*JP*/
+	const char *mode_letters = "trwc";
+#endif
 	menu_item *mode_pick = (menu_item *)0;
 	tmpwin = create_nhwindow(NHW_MENU);
 	start_menu(tmpwin);
 	for (i = 0; i < SIZE(runmodes); i++) {
 		mode_name = runmodes[i];
 		any.a_int = i + 1;
+#if 0 /*JP*/
 		add_menu(tmpwin, NO_GLYPH, &any, *mode_name, 0,
 			 ATR_NONE, mode_name, MENU_UNSELECTED);
+#else
+		add_menu(tmpwin, NO_GLYPH, &any, mode_letters[i], 0,
+			 ATR_NONE, mode_name, MENU_UNSELECTED);
+#endif
 	}
+#if 0 /*JP*/
 	end_menu(tmpwin, "Select run/travel display mode:");
+#else
+	end_menu(tmpwin, "走行/トラベルの表示モードを選択してください：");
+#endif
 	if (select_menu(tmpwin, PICK_ONE, &mode_pick) > 0) {
 		iflags.runmode = mode_pick->item.a_int - 1;
 		free((genericptr_t)mode_pick);
@@ -3089,18 +3403,41 @@ boolean setinitial,setfromfile;
 	tmpwin = create_nhwindow(NHW_MENU);
 	start_menu(tmpwin);
 	any.a_char = 's';
+#if 0 /*JP*/
 	add_menu(tmpwin, NO_GLYPH, &any, 's', 0,
 		ATR_NONE, "single", MENU_UNSELECTED);
+#else
+	add_menu(tmpwin, NO_GLYPH, &any, 's', 0,
+		ATR_NONE, "一行ずつ表示(single)", MENU_UNSELECTED);
+#endif
 	any.a_char = 'c';
+#if 0 /*JP*/
 	add_menu(tmpwin, NO_GLYPH, &any, 'c', 0,
 		ATR_NONE, "combination", MENU_UNSELECTED);
+#else
+	add_menu(tmpwin, NO_GLYPH, &any, 'c', 0,
+		ATR_NONE, "single×２の後にfull(combination)", MENU_UNSELECTED);
+#endif
 	any.a_char = 'f';
+#if 0 /*JP*/
 	add_menu(tmpwin, NO_GLYPH, &any, 'f', 0,
 		ATR_NONE, "full", MENU_UNSELECTED);
+#else
+	add_menu(tmpwin, NO_GLYPH, &any, 'f', 0,
+		ATR_NONE, "古いものから一画面表示(full)", MENU_UNSELECTED);
+#endif
 	any.a_char = 'r';
+#if 0 /*JP*/
 	add_menu(tmpwin, NO_GLYPH, &any, 'r', 0,
 		ATR_NONE, "reversed", MENU_UNSELECTED);
+#else
+	add_menu(tmpwin, NO_GLYPH, &any, 'r', 0,
+		ATR_NONE, "最近のものから一画面表示(reversed)", MENU_UNSELECTED);
+#endif
+/*JP
 	end_menu(tmpwin, "Select message history display type:");
+*/
+	end_menu(tmpwin, "メッセージ履歴の表示方法を選択してください：");
 	if (select_menu(tmpwin, PICK_ONE, &window_pick) > 0) {
 		iflags.prevmsg_window = window_pick->item.a_char;
 		free((genericptr_t)window_pick);
@@ -3118,19 +3455,44 @@ boolean setinitial,setfromfile;
 	tmpwin = create_nhwindow(NHW_MENU);
 	start_menu(tmpwin);
 	any.a_int = ALIGN_TOP;
+#if 0 /*JP*/
 	add_menu(tmpwin, NO_GLYPH, &any, 't', 0,
 		ATR_NONE, "top", MENU_UNSELECTED);
+#else
+	add_menu(tmpwin, NO_GLYPH, &any, 't', 0,
+		ATR_NONE, "上側", MENU_UNSELECTED);
+#endif
 	any.a_int = ALIGN_BOTTOM;
+#if 0 /*JP*/
 	add_menu(tmpwin, NO_GLYPH, &any, 'b', 0,
 		ATR_NONE, "bottom", MENU_UNSELECTED);
+#else
+	add_menu(tmpwin, NO_GLYPH, &any, 'b', 0,
+		ATR_NONE, "下側", MENU_UNSELECTED);
+#endif
 	any.a_int = ALIGN_LEFT;
+#if 0 /*JP*/
 	add_menu(tmpwin, NO_GLYPH, &any, 'l', 0,
 		ATR_NONE, "left", MENU_UNSELECTED);
+#else
+	add_menu(tmpwin, NO_GLYPH, &any, 'l', 0,
+		ATR_NONE, "左側", MENU_UNSELECTED);
+#endif
 	any.a_int = ALIGN_RIGHT;
+#if 0 /*JP*/
 	add_menu(tmpwin, NO_GLYPH, &any, 'r', 0,
 		ATR_NONE, "right", MENU_UNSELECTED);
+#else
+	add_menu(tmpwin, NO_GLYPH, &any, 'r', 0,
+		ATR_NONE, "右側", MENU_UNSELECTED);
+#endif
+#if 0 /*JP*/
 	Sprintf(abuf, "Select %s window placement relative to the map:",
 		msg ? "message" : "status");
+#else
+	Sprintf(abuf, "%sウィンドウのマップに対する表示位置を選択してください：",
+		msg ? "メッセージ" : "状態");
+#endif
 	end_menu(tmpwin, abuf);
 	if (select_menu(tmpwin, PICK_ONE, &window_pick) > 0) {		
 		if (msg) iflags.wc_align_message = window_pick->item.a_int;
@@ -3141,7 +3503,10 @@ boolean setinitial,setfromfile;
         retval = TRUE;
     } else if (!strcmp("number_pad", optname)) {
 	static const char *npchoices[3] =
+/*JP
 		{"0 (off)", "1 (on)", "2 (on, DOS compatible)"};
+*/
+		{"0 (無効)", "1 (有効)", "2 (有効，DOS互換)"};
 	const char *npletters = "abc";
 	menu_item *mode_pick = (menu_item *)0;
 
@@ -3152,7 +3517,10 @@ boolean setinitial,setfromfile;
 		add_menu(tmpwin, NO_GLYPH, &any, npletters[i], 0,
 			 ATR_NONE, npchoices[i], MENU_UNSELECTED);
         }
+/*JP
 	end_menu(tmpwin, "Select number_pad mode:");
+*/
+	end_menu(tmpwin, "number_padモードを選択してください：");
 	if (select_menu(tmpwin, PICK_ONE, &mode_pick) > 0) {
 		int mode = mode_pick->item.a_int - 1;
 		switch(mode) {
@@ -3174,7 +3542,10 @@ boolean setinitial,setfromfile;
 	destroy_nhwindow(tmpwin);
         retval = TRUE;
     } else if (!strcmp("menu_headings", optname)) {
+/*JP
 	static const char *mhchoices[3] = {"bold", "inverse", "underline"};
+*/
+	static const char *mhchoices[3] = {"太字", "反転", "下線"};
 	const char *npletters = "biu";
 	menu_item *mode_pick = (menu_item *)0;
 
@@ -3185,7 +3556,10 @@ boolean setinitial,setfromfile;
 		add_menu(tmpwin, NO_GLYPH, &any, npletters[i], 0,
 			 ATR_NONE, mhchoices[i], MENU_UNSELECTED);
         }
+/*JP
 	end_menu(tmpwin, "How to highlight menu headings:");
+*/
+	end_menu(tmpwin, "メニューヘッダの強調方法を選択してください：");
 	if (select_menu(tmpwin, PICK_ONE, &mode_pick) > 0) {
 		int mode = mode_pick->item.a_int - 1;
 		switch(mode) {
@@ -3213,10 +3587,17 @@ boolean setinitial,setfromfile;
 	char apebuf[BUFSZ];
 	struct autopickup_exception *ape;
 	static const char *action_titles[] = {
+#if 0 /*JP*/
 		"a", "add new autopickup exception",
 		"l", "list autopickup exceptions",
 		"r", "remove existing autopickup exception",
 		"e", "exit this menu",
+#else
+		"a", "新しい自動拾いの例外を追加",
+		"l", "自動拾いの例外を一覧表示",
+		"r", "既にある自動拾いの例外を削除",
+		"e", "このメニューを閉じる",
+#endif
 	};
 ape_again:
 	opt_idx = 0;
@@ -3230,7 +3611,10 @@ ape_again:
 		add_menu(tmpwin, NO_GLYPH, &any, *action_titles[i],
 		      0, ATR_NONE, action_titles[i+1], MENU_UNSELECTED);
         }
+/*JP
 	end_menu(tmpwin, "Do what?");
+*/
+	end_menu(tmpwin, "どうしますか？");
 	if ((pick_cnt = select_menu(tmpwin, PICK_ONE, &pick_list)) > 0) {
 		for (pick_idx = 0; pick_idx < pick_cnt; ++pick_idx) {
 			opt_idx = pick_list[pick_idx].item.a_int - 1;
@@ -3242,7 +3626,10 @@ ape_again:
 	if (pick_cnt < 1) return FALSE;
 
 	if (opt_idx == 0) {	/* add new */
+/*JP
 		getlin("What new autopickup exception pattern?", &apebuf[1]);
+*/
+		getlin("新しい自動拾い例外のパターンを入力してください：", &apebuf[1]);
 		if (apebuf[1] == '\033') return FALSE;
 		apebuf[0] = '"';
 		Strcat(apebuf,"\"");
@@ -3257,8 +3644,13 @@ ape_again:
 		    if (numapes[pass] == 0) continue;
 		    ape = iflags.autopickup_exceptions[pass];
 		    any.a_void = 0;
+#if 0 /*JP*/
 		    add_menu(tmpwin, NO_GLYPH, &any, 0, 0, iflags.menu_headings,
 				(pass == 0) ? "Never pickup" : "Always pickup",
+#else
+		    add_menu(tmpwin, NO_GLYPH, &any, 0, 0, iflags.menu_headings,
+				(pass == 0) ? "常に拾わない" : "常に拾う",
+#endif
 				MENU_UNSELECTED);
 		    for (i = 0; i < numapes[pass] && ape; i++) {
 			any.a_void = (opt_idx == 1) ? 0 : ape;
@@ -3268,8 +3660,14 @@ ape_again:
 			ape = ape->next;
 		    }
 		}
+#if 0 /*JP*/
 		Sprintf(apebuf, "%s autopickup exceptions",
 			(opt_idx == 1) ? "List of" : "Remove which");
+#else
+		Sprintf(apebuf, "%s自動拾い例外%s",
+			(opt_idx == 1) ? "" : "どの",
+			(opt_idx == 1) ? "の一覧" : "を削除しますか？");
+#endif
 		end_menu(tmpwin, apebuf);
 		pick_cnt = select_menu(tmpwin,
 					(opt_idx == 1) ?  PICK_NONE : PICK_ANY,
@@ -3301,31 +3699,59 @@ const char *optname;
 char *buf;
 {
 	char ocl[MAXOCLASSES+1];
+#if 0 /*JP*/
 	static const char none[] = "(none)", randomrole[] = "random",
 		     to_be_done[] = "(to be done)",
 		     defopt[] = "default",
 		     defbrief[] = "def";
+#else
+	static const char none[] = "(なし)", randomrole[] = "ランダム",
+		     to_be_done[] = "(設定済み)",
+		     defopt[] = "デフォルト",
+		     defbrief[] = "def";
+#endif
 	int i;
 
 	buf[0] = '\0';
 	if (!strcmp(optname,"align_message"))
+#if 0 /*JP*/
 		Sprintf(buf, "%s", iflags.wc_align_message == ALIGN_TOP     ? "top" :
 				   iflags.wc_align_message == ALIGN_LEFT    ? "left" :
 				   iflags.wc_align_message == ALIGN_BOTTOM  ? "bottom" :
 				   iflags.wc_align_message == ALIGN_RIGHT   ? "right" :
 				   defopt);
+#else
+		Sprintf(buf, "%s", iflags.wc_align_message == ALIGN_TOP     ? "上側" :
+				   iflags.wc_align_message == ALIGN_LEFT    ? "左側" :
+				   iflags.wc_align_message == ALIGN_BOTTOM  ? "下側" :
+				   iflags.wc_align_message == ALIGN_RIGHT   ? "右側" :
+				   defopt);
+#endif
 	else if (!strcmp(optname,"align_status"))
+#if 0 /*JP*/
 		Sprintf(buf, "%s", iflags.wc_align_status == ALIGN_TOP     ? "top" :
 				   iflags.wc_align_status == ALIGN_LEFT    ? "left" :
 				   iflags.wc_align_status == ALIGN_BOTTOM  ? "bottom" :
 				   iflags.wc_align_status == ALIGN_RIGHT   ? "right" :
 				   defopt);
+#else
+		Sprintf(buf, "%s", iflags.wc_align_status == ALIGN_TOP     ? "上側" :
+				   iflags.wc_align_status == ALIGN_LEFT    ? "左側" :
+				   iflags.wc_align_status == ALIGN_BOTTOM  ? "下側" :
+				   iflags.wc_align_status == ALIGN_RIGHT   ? "右側" :
+				   defopt);
+#endif
 	else if (!strcmp(optname,"align"))
 		Sprintf(buf, "%s", rolestring(flags.initalign, aligns, adj));
 #ifdef WIN32CON
 	else if (!strcmp(optname,"altkeyhandler"))
+#if 0 /*JP*/
 		Sprintf(buf, "%s", iflags.altkeyhandler[0] ?
 			iflags.altkeyhandler : "default");
+#else
+		Sprintf(buf, "%s", iflags.altkeyhandler[0] ?
+			iflags.altkeyhandler : defopt);
+#endif /*JP*/
 #endif
 	else if (!strcmp(optname, "boulder"))
 		Sprintf(buf, "%c", iflags.bouldersym ?
@@ -3391,7 +3817,11 @@ char *buf;
 	else if (!strcmp(optname, "fruit")) 
 		Sprintf(buf, "%s", pl_fruit);
 	else if (!strcmp(optname, "gender"))
+#if 0 /*JP*/
 		Sprintf(buf, "%s", rolestring(flags.initgend, genders, adj));
+#else
+		Sprintf(buf, "%s", rolestring(flags.initgend, genders, j));
+#endif
 	else if (!strcmp(optname, "horsename")) 
 		Sprintf(buf, "%s", horsename[0] ? horsename : none);
 	else if (!strcmp(optname, "map_mode"))
@@ -3419,10 +3849,17 @@ char *buf;
 	else if (!strcmp(optname, "menu_invert_all"))
 		Sprintf(buf, "%s", to_be_done);
 	else if (!strcmp(optname, "menu_headings")) {
+#if 0 /*JP*/
 		Sprintf(buf, "%s", (iflags.menu_headings == ATR_BOLD) ?
 			"bold" :   (iflags.menu_headings == ATR_INVERSE) ?
 			"inverse" :   (iflags.menu_headings == ATR_ULINE) ?
 			"underline" : "unknown");
+#else
+		Sprintf(buf, "%s", (iflags.menu_headings == ATR_BOLD) ?
+			"太字" :   (iflags.menu_headings == ATR_INVERSE) ?
+			"反転" :   (iflags.menu_headings == ATR_ULINE) ?
+			"下線" : "不明");
+#endif
 	}
 	else if (!strcmp(optname, "menu_invert_page"))
 		Sprintf(buf, "%s", to_be_done);
@@ -3455,9 +3892,15 @@ char *buf;
 	else if (!strcmp(optname, "name"))
 		Sprintf(buf, "%s", plname);
 	else if (!strcmp(optname, "number_pad"))
+#if 0 /*JP*/
 		Sprintf(buf, "%s",
 			(!iflags.num_pad) ? "0=off" :
 			(iflags.num_pad_mode) ? "2=on, DOS compatible" : "1=on");
+#else
+		Sprintf(buf, "%s",
+			(!iflags.num_pad) ? "0=無効" :
+			(iflags.num_pad_mode) ? "2=有効，DOS互換" : "1=有効");
+#endif
 	else if (!strcmp(optname, "objects"))
 		Sprintf(buf, "%s", to_be_done);
 	else if (!strcmp(optname, "packorder")) {
@@ -3469,10 +3912,17 @@ char *buf;
 		Sprintf(buf, "%s", get_color_string());
 #endif
 	else if (!strcmp(optname, "pettype")) 
+#if 0 /*JP*/
 		Sprintf(buf, "%s", (preferred_pet == 'c') ? "cat" :
 				(preferred_pet == 'd') ? "dog" :
 				(preferred_pet == 'e') ? "exotic" :
 				(preferred_pet == 'n') ? "none" : "random");
+#else
+		Sprintf(buf, "%s", (preferred_pet == 'c') ? "猫" :
+				(preferred_pet == 'd') ? "犬" :
+				(preferred_pet == 'e') ? "犬猫以外" :
+				(preferred_pet == 'n') ? "なし" : randomrole);
+#endif
 	else if (!strcmp(optname, "pickup_burden"))
 		Sprintf(buf, "%s", burdentype[flags.pickup_burden] );
 	else if (!strcmp(optname, "pickup_types")) {
@@ -3480,9 +3930,17 @@ char *buf;
 		Sprintf(buf, "%s", ocl[0] ? ocl : "all" );
 	     }
 	else if (!strcmp(optname, "race"))
+#if 0 /*JP*/
 		Sprintf(buf, "%s", rolestring(flags.initrace, races, noun));
+#else
+		Sprintf(buf, "%s", rolestring(flags.initrace, races, j));
+#endif
 	else if (!strcmp(optname, "role"))
+#if 0 /*JP*/
 		Sprintf(buf, "%s", rolestring(flags.initrole, roles, name.m));
+#else
+		Sprintf(buf, "%s", rolestring(flags.initrole, roles, jname.m));
+#endif
 	else if (!strcmp(optname, "runmode"))
 		Sprintf(buf, "%s", runmodes[iflags.runmode]);
 	else if (!strcmp(optname, "scores")) {
@@ -3498,7 +3956,11 @@ char *buf;
 		else Strcpy(buf, defopt);
 	}
 	else if (!strcmp(optname, "player_selection"))
+#if 0 /*JP*/
 		Sprintf(buf, "%s", iflags.wc_player_selection ? "prompts" : "dialog");
+#else
+		Sprintf(buf, "%s入力", iflags.wc_player_selection ? "プロンプト" : "ダイアログ");
+#endif
 #ifdef MSDOS
 	else if (!strcmp(optname, "soundcard"))
 		Sprintf(buf, "%s", to_be_done);
@@ -3583,7 +4045,11 @@ char *buf;
 #endif
 
 	if (buf[0]) return buf;
+#if 0 /*JP*/
 	else return "unknown";
+#else
+	else return "不明";
+#endif
 }
 
 int
@@ -3594,7 +4060,10 @@ dotogglepickup()
 	flags.pickup = !flags.pickup;
 	if (flags.pickup) {
 	    oc_to_str(flags.pickup_types, ocl);
+/*JP
 	    Sprintf(buf, "ON, for %s objects%s", ocl[0] ? ocl : "all",
+*/
+	    Sprintf(buf, "%sアイテムについてオン", ocl[0] ? ocl : "全ての",
 #ifdef AUTOPICKUP_EXCEPTIONS
 			(iflags.autopickup_exceptions[AP_LEAVE] ||
 			 iflags.autopickup_exceptions[AP_GRAB]) ?
@@ -3603,9 +4072,15 @@ dotogglepickup()
 #endif
 			"");
 	} else {
+/*JP
 	    Strcpy(buf, "OFF");
+*/
+	    Strcpy(buf, "オフ");
 	}
+/*JP
 	pline("Autopickup: %s.", buf);
+*/
+	pline("自動拾い：%s．", buf);
 	return 0;
 }
 
@@ -3707,27 +4182,51 @@ free_autopickup_exceptions()
 /* data for option_help() */
 static const char *opt_intro[] = {
 	"",
+/*JP
 	"                 UnNetHack Options Help:",
+*/
+	"                 UnNetHackオプションヘルプ：",
 	"",
 #define CONFIG_SLOT 3	/* fill in next value at run-time */
 	(char *)0,
 #if !defined(MICRO) && !defined(MAC)
+/*JP
 	"or use `NETHACKOPTIONS=\"<options>\"' in your environment",
+*/
+	"または環境変数に`NETHACKOPTIONS=\"<options>\"'と定義できます",
 #endif
+/*JP
 	"(<options> is a list of options separated by commas)",
+*/
+	"(<options>はカンマで区切って連続して指定することができます)",
 #ifdef VMS
+/*JP
 	"-- for example, $ DEFINE NETHACKOPTIONS \"noautopickup,fruit:kumquat\"",
+*/
+	"-- 例えば次のようにします：$ DEFINE NETHACKOPTIONS \"noautopickup,fruit:kumquat\"",
 #endif
+/*JP
 	"or press \"O\" while playing and use the menu.",
+*/
+	"もしくはゲームプレイ中に\"O\"ボタンを押すことで設定可能です．",
 	"",
+/*JP
  "Boolean options (which can be negated by prefixing them with '!' or \"no\"):",
+*/
+ "真偽値オプション (否定の値を指定する場合，'!'もしくは\"no\"を先頭に付加します):",
 	(char *)0
 };
 
 static const char *opt_epilog[] = {
 	"",
+/*JP
  "Some of the options can be set only before the game is started; those",
+*/
+ "幾つかのオプションはゲーム開始前のみにしか設定できないものがあります．",
+/*JP
 	"items will not be selectable in the 'O' command's menu.",
+*/
+	"それらは'O'コマンドのメニューでは選択することができません．",
 	(char *)0
 };
 
@@ -3739,7 +4238,10 @@ option_help()
     winid datawin;
 
     datawin = create_nhwindow(NHW_TEXT);
+/*JP
     Sprintf(buf, "Set options as OPTIONS=<options> in %s", configfile);
+*/
+    Sprintf(buf, "オプションは%sの中でOPTIONS=<options>と設定します", configfile);
     opt_intro[CONFIG_SLOT] = (const char *) buf;
     for (i = 0; opt_intro[i]; i++)
 	putstr(datawin, 0, opt_intro[i]);
@@ -3757,7 +4259,10 @@ option_help()
     next_opt(datawin, "");
 
     /* Compound options */
+/*JP
     putstr(datawin, 0, "Compound options:");
+*/
+    putstr(datawin, 0, "文字列オプション:");
     for (i = 0; compopt[i].name; i++) {
 	Sprintf(buf2, "`%s'", compopt[i].name);
 	Sprintf(buf, "%-20s - %s%c", buf2, compopt[i].descr,
@@ -3853,7 +4358,11 @@ char *str;
 
 		    for(c = pl_fruit; *c >= '0' && *c <= '9'; c++)
 			;
+#if 0 /*JP*/
 		    if (isspace(*c) || *c == 0) numeric = TRUE;
+#else
+		    if (isspace_8(*c) || *c == 0) numeric = TRUE;
+#endif
 		}
 		if (found || numeric ||
 		    !strncmp(str, "cursed ", 7) ||

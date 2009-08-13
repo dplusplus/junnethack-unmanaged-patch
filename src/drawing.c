@@ -2,6 +2,12 @@
 /* Copyright (c) NetHack Development Team 1992.			  */
 /* NetHack may be freely redistributed.  See license for details. */
 
+/*
+**	Japanese version Copyright
+**	For 3.4, Copyright (c) Kentaro Shirakata, 2002-2003
+**	JNetHack may be freely redistributed.  See license for details. 
+*/
+
 #include "hack.h"
 #include "tcap.h"
 
@@ -189,6 +195,7 @@ const char * const monexplain[MAXMCLASSES] = {
 };
 
 const struct symdef def_warnsyms[WARNCOUNT] = {
+#if 0 /*JP*/
 	{'0', "unknown creature causing you worry", C(CLR_WHITE)},  	/* white warning  */
 	{'1', "unknown creature causing you concern", C(CLR_RED)},	/* pink warning   */
 	{'2', "unknown creature causing you anxiety", C(CLR_RED)},	/* red warning    */
@@ -197,6 +204,15 @@ const struct symdef def_warnsyms[WARNCOUNT] = {
 						C(CLR_MAGENTA)},        /* purple warning */
 	{'5', "unknown creature causing you dread",
 						C(CLR_BRIGHT_MAGENTA)}	/* black warning  */
+#else
+	{'0', "あなたが気にしている謎の怪物", C(CLR_WHITE)},  	/* white warning  */
+	{'1', "あなたが心配している謎の怪物", C(CLR_RED)},	/* pink warning   */
+	{'2', "あなたが懸念している謎の怪物", C(CLR_RED)},	/* red warning    */
+	{'3', "あなたが気をもんでいる謎の怪物", C(CLR_RED)},	/* ruby warning   */
+	{'4', "あなたが恐れている謎の怪物", C(CLR_MAGENTA)},        /* purple warning */
+	{'5', "あなたが非常に恐れている謎の怪物",
+						C(CLR_BRIGHT_MAGENTA)}	/* black warning  */
+#endif
 };
 
 /*
@@ -314,6 +330,7 @@ struct symdef defsyms[MAXPCHARS] = {
 void NDECL((*ibmgraphics_mode_callback)) = 0;	/* set in tty_start_screen() */
 #endif /* PC9800 */
 
+#if 0/*JP*/
 static uchar ibm_graphics[MAXPCHARS] = {
 /* 0*/	g_FILLER(S_stone),
 	0xb3,	/* S_vwall:	meta-3, vertical rule */
@@ -408,6 +425,7 @@ static uchar ibm_graphics[MAXPCHARS] = {
 /*90*/	g_FILLER(S_explode8),
 	g_FILLER(S_explode9)
 };
+#endif
 #endif  /* ASCIIGRAPH */
 
 #ifdef TERMLIB
@@ -663,6 +681,7 @@ int gr_set_flag;
 	    if (ascgraphics_mode_callback) (*ascgraphics_mode_callback)();
 #endif
 	    break;
+#if 0 /*JP*/
 #ifdef ASCIIGRAPH
 	case IBM_GRAPHICS:
 /*
@@ -680,6 +699,7 @@ int gr_set_flag;
 #endif
 	    break;
 #endif /* ASCIIGRAPH */
+#endif /*JP*/
 #ifdef TERMLIB
 	case DEC_GRAPHICS:
 /*
@@ -731,6 +751,7 @@ static const uchar r_oc_syms[MAXOCLASSES] = {
 	VENOM_SYM
 };
 
+#if 0 /*JP*/
 # ifdef ASCIIGRAPH
 /* Rogue level graphics.  Under IBM graphics mode, use the symbols that were
  * used for Rogue on the IBM PC.  Unfortunately, this can't be completely
@@ -774,6 +795,7 @@ static const uchar IBM_r_oc_syms[MAXOCLASSES] = {	/* a la EPYX Rogue */
 	VENOM_SYM
 };
 # endif /* ASCIIGRAPH */
+#endif /*JP*/
 
 void
 assign_rogue_graphics(is_rlevel)
@@ -794,6 +816,7 @@ boolean is_rlevel;
 	/* Use a loop: char != uchar on some machines. */
 	for (i = 0; i < MAXMCLASSES; i++)
 	    monsyms[i] = def_monsyms[i];
+#if 0 /*JP*/
 # if defined(ASCIIGRAPH) && !defined(MSWIN_GRAPHICS)
 	if (iflags.IBMgraphics
 #  if defined(USE_TILES) && defined(MSDOS)
@@ -802,6 +825,7 @@ boolean is_rlevel;
 		)
 	    monsyms[S_HUMAN] = 0x01; /* smiley face */
 # endif
+#endif
 	for (i = 0; i < MAXPCHARS; i++)
 	    showsyms[i] = defsyms[i].sym;
 
@@ -811,6 +835,7 @@ boolean is_rlevel;
  * all of this info and to simply initialize it via a for() loop like r_oc_syms.
  */
 
+#if 0 /*JP*/
 # ifdef ASCIIGRAPH
 	if (!iflags.IBMgraphics
 #  if defined(USE_TILES) && defined(MSDOS)
@@ -818,8 +843,10 @@ boolean is_rlevel;
 #  endif
 				) {
 # endif
+#endif /*JP*/
 	    showsyms[S_vodoor]  = showsyms[S_hodoor]  = showsyms[S_ndoor] = '+';
 	    showsyms[S_upstair] = showsyms[S_dnstair] = '%';
+#if 0 /*JP*/
 # ifdef ASCIIGRAPH
 	} else {
 	    /* a la EPYX Rogue */
@@ -868,8 +895,10 @@ boolean is_rlevel;
 #endif
 	}
 #endif /* ASCIIGRAPH */
+#endif /* JP */
 
 	for (i = 0; i < MAXOCLASSES; i++) {
+#if 0 /* JP */
 #ifdef ASCIIGRAPH
 	    if (iflags.IBMgraphics
 # if defined(USE_TILES) && defined(MSDOS)
@@ -879,6 +908,7 @@ boolean is_rlevel;
 		oc_syms[i] = IBM_r_oc_syms[i];
 	    else
 #endif /* ASCIIGRAPH */
+#endif /* JP */
 		oc_syms[i] = r_oc_syms[i];
 	}
 #if defined(MSDOS) && defined(USE_TILES)

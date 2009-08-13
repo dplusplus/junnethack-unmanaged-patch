@@ -480,7 +480,10 @@ LRESULT CALLBACK MainWndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lPar
 			}
 			else
 			{
+/*JP
 			    switch (NHMessageBox(hWnd, TEXT("Save?"), MB_YESNOCANCEL | MB_ICONQUESTION)) {
+*/
+			    switch (NHMessageBox(hWnd, TEXT("ï€ë∂ÇµÇƒèIóπÇµÇ‹Ç∑Ç©ÅH"), MB_YESNOCANCEL | MB_ICONQUESTION)) {
 			    case IDYES: NHEVENT_KBD('y'); dosave(); break;
 			    case IDNO: NHEVENT_KBD('q'); done(QUIT); break;
 			    case IDCANCEL: break;

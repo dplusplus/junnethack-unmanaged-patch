@@ -935,9 +935,13 @@ GOLD:500,(38,17)
 GOLD:500,(38,18)
 OBJECT:'"',"amulet of change",(37,16)
 OBJECT:'=',"hunger",(37,18),cursed,0
-OBJECT:'*',"diamond",(38,16),cursed,0,"The Tears of Koth"
-OBJECT:'*',"ruby",(38,17),cursed,0,"The Heart of Cassanova" 
-OBJECT:'*',"emerald",(38,18),cursed,0,"The Eye of Hera"
+#JP
+#OBJECT:'*',"diamond",(38,16),cursed,0,"The Tears of Koth"
+#OBJECT:'*',"ruby",(38,17),cursed,0,"The Heart of Cassanova" 
+#OBJECT:'*',"emerald",(38,18),cursed,0,"The Eye of Hera"
+OBJECT:'*',"diamond",(38,16),cursed,0,"コスの涙"
+OBJECT:'*',"ruby",(38,17),cursed,0,"カサノヴァの心臓" 
+OBJECT:'*',"emerald",(38,18),cursed,0,"ヘラの目"
 MONSTER:'&',random,(38,16)
 MONSTER:'&',random,(38,17)
 MONSTER:'&',random,(38,18)

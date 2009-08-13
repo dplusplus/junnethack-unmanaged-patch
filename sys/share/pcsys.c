@@ -411,13 +411,26 @@ const char *str;
 #ifndef WIN32CON
 void
 msmsg VA_DECL(const char *, fmt)
+#if 1 /*JP*/
+	char buf[ROWNO * COLNO];	/* worst case scenario */
+#endif
 	VA_START(fmt);
 	VA_INIT(fmt, const char *);
 # if defined(MSDOS) && defined(NO_TERMS)
 	if (iflags.grmode)
 		gr_finish();
 # endif
+#if 0 /*JP*/
 	Vprintf(fmt, VA_ARGS);
+#else
+	Vsprintf(buf, fmt, VA_ARGS);
+	{
+	    char *str = buf;
+	    while(*str){
+		jbuffer(*(str++), NULL, NULL, NULL, NULL);
+	    }
+	}
+#endif
 	flushout();
 	VA_END();
 	return;

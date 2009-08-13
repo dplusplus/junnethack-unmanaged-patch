@@ -2,6 +2,13 @@
 /* Copyright (c) Stichting Mathematisch Centrum, Amsterdam, 1985. */
 /* NetHack may be freely redistributed.  See license for details. */
 
+/*
+**	Japanese version Copyright
+**	(c) Issei Numata, Naoki Hamada, Shigehiro Miyashita, 2000
+**	For 3.4, Copyright (c) Kentaro Shirakata, 2002-2003
+**	JNetHack may be freely redistributed.  See license for details. 
+*/
+
 #include "hack.h"
 #include "dlb.h"
 
@@ -491,9 +498,15 @@ char errbuf[];
 	   settle for `lock' instead of `fq_lock' because the latter
 	   might end up being too big for nethack's BUFSZ */
 	if (fd < 0 && errbuf)
+#if 0 /*JP*/
 	    Sprintf(errbuf,
 		    "Cannot open file \"%s\" for level %d (errno %d).",
 		    lock, lev, errno);
+#else
+	    Sprintf(errbuf,
+		    "地下%d階のファイル\"%s\"を開けない(errno %d)．",
+		    lev, lock, errno);
+#endif
 
 	return fd;
 }
@@ -1611,6 +1624,15 @@ const char *filename;
 		return(fp);
 # else	/* should be only UNIX left */
 	envp = nh_getenv("HOME");
+#if 1 /*JP*/
+/* Kazuhiro Fujieda <fujieda@jaist.ac.jp> 94/6/22 */
+	if (!envp)
+		Strcpy(tmp_config, ".jnethackrc");
+	else
+		Sprintf(tmp_config, "%s/%s", envp, ".jnethackrc");
+	if ((fp = fopenp(tmp_config, "r")) != (FILE *)0)
+		return(fp);
+#endif
 	if (!envp)
 		Strcpy(tmp_config, configfile);
 	else
@@ -1761,7 +1783,10 @@ char		*tmp_levels;
 
 	/* remove trailing whitespace */
 	bufp = eos(buf);
+/*JP
 	while (--bufp > buf && isspace(*bufp))
+*/
+	while (--bufp > buf && isspace_8(*bufp))
 		continue;
 
 	if (bufp <= buf)
@@ -1776,7 +1801,10 @@ char		*tmp_levels;
 	if (!bufp) return 0;
 
 	/* skip  whitespace between '=' and value */
+/*JP
 	do { ++bufp; } while (isspace(*bufp));
+*/
+	do { ++bufp; } while (isspace_8(*bufp));
 
 	/* Go through possible variables */
 	/* some of these (at least LEVELS and SAVE) should now set the
@@ -2071,6 +2099,8 @@ const char *filename;
 # endif
 #endif
 	char	buf[4*BUFSZ];
+/*JP*/
+	char	jbuf[4*BUFSZ];
 	FILE	*fp;
 
 	if (!(fp = fopen_config_file(filename))) return;
@@ -2087,10 +2117,17 @@ const char *filename;
 	set_duplicate_opt_detection(1);
 
 	while (fgets(buf, 4*BUFSZ, fp)) {
+	    Strcpy(jbuf, str2ic(buf));
+#if 0 /*JP*/
 		if (!parse_config_line(fp, buf, tmp_ramdisk, tmp_levels)) {
 			raw_printf("Bad option line:  \"%.50s\"", buf);
 			wait_synch();
 		}
+#else
+		if (!parse_config_line(fp, jbuf, tmp_ramdisk, tmp_levels)) {
+			raw_printf("Bad option line:  \"%.50s\"", jbuf);
+		}
+#endif
 	}
 	(void) fclose(fp);
 	

@@ -585,6 +585,29 @@ char ch;
 	}
 }
 
+/*JP*/
+void
+xputc2(ch, ch2)	/* write 2 bytes character (and attribute) */
+int ch;
+int ch2;
+{
+	int i;
+	char attribute;
+
+	i = iflags.grmode ? attrib_gr_normal
+			 : attrib_text_normal;
+
+	attribute = (char)((g_attribute == 0) ? i : g_attribute);
+	if (!iflags.grmode) {
+		txt_xputc2(ch, ch2, attribute);
+#  ifdef SCREEN_VGA
+	} else if (iflags.usevga) {
+		vga_xputc2(ch, ch2, attribute);
+#  endif /*SCREEN_VGA*/
+	}
+}
+
+
 void
 xputg(glyphnum,ch,special)	/* write out a glyph picture at current location */
 int glyphnum;

@@ -230,8 +230,9 @@ default : all
 all :	$(INCL)\date.h	$(INCL)\onames.h $(INCL)\pm.h \
 	$(SRC)\monstr.c	$(SRC)\vis_tab.c $(U)lev_comp.exe $(INCL)\vis_tab.h \
 	$(U)dgn_comp.exe $(U)uudecode.exe \
-	$(DAT)\data	$(DAT)\rumors	 $(DAT)\dungeon \
-	$(DAT)\oracles	$(DAT)\quest.dat $(O)sp_lev.tag $(DLB) $(SRC)\tile.c \
+	$(INCL)\jdata.h $(DAT)\jtrnsobj.dat \
+	$(DAT)\data	$(DAT)\jrumors	 $(DAT)\dungeon \
+	$(DAT)\joracles	$(DAT)\quest.dat $(O)sp_lev.tag $(DLB) $(SRC)\tile.c \
 	$(SWINCE)\nethack.ico $(SWINCE)\tiles.bmp $(SWINCE)\mnsel.bmp \
 	$(SWINCE)\mnunsel.bmp $(SWINCE)\petmark.bmp $(SWINCE)\mnselcnt.bmp \
 	$(SWINCE)\keypad.bmp $(SWINCE)\menubar.bmp
@@ -295,7 +296,7 @@ $(O)makedefs.o: $(CONFIG_H)	$(INCL)\monattk.h $(INCL)\monflag.h   $(INCL)\objcla
 		 $(U)makedefs.c
 	if not exist $(OBJ)\*.* echo creating directory $(OBJ)
 	if not exist $(OBJ)\*.* mkdir $(OBJ)
-	$(CC) $(CFLAGSU) -Fo$@ $(U)makedefs.c
+	$(CC) $(CFLAGSU) -Fo$@ /DMSWIN_GRAPHICS $(U)makedefs.c
 
 #
 #  date.h should be remade every time any of the source or include
@@ -322,6 +323,9 @@ $(INCL)\vis_tab.h: $(U)makedefs.exe
 
 $(SRC)\vis_tab.c: $(U)makedefs.exe
 	$(U)makedefs -z
+
+$(INCL)\jdata.h $(DAT)\jtrnsobj.dat: $(U)makedefs.exe
+	$(U)makedefs -j
 
 #==========================================
 # uudecode utility and uuencoded targets
@@ -505,25 +509,25 @@ $(O)dlb_main.o: $(UTIL)\dlb_main.c $(INCL)\config.h $(INCL)\dlb.h
 #$(DAT)\porthelp: $(NTSYS)\porthelp
 #	copy $(NTSYS)\porthelp $@ >nul
 
-$(DAT)\nhdat:	$(U)dlb_main.exe $(DAT)\data $(DAT)\oracles $(OPTIONS_FILE) \
-	$(DAT)\quest.dat $(DAT)\rumors $(DAT)\help $(DAT)\hh $(DAT)\cmdhelp \
-	$(DAT)\history $(DAT)\opthelp $(DAT)\wizhelp $(DAT)\dungeon  \
+$(DAT)\nhdat:	$(U)dlb_main.exe $(DAT)\data $(DAT)\joracles $(OPTIONS_FILE) \
+	$(DAT)\quest.dat $(DAT)\jrumors $(DAT)\jhelp $(DAT)\jhh $(DAT)\jcmdhelp \
+	$(DAT)\jhistory $(DAT)\jopthelp $(DAT)\jwizhelp $(DAT)\dungeon  \
 	$(DAT)\license $(O)sp_lev.tag
 	cd $(DAT)
 	echo data >dlb.lst
-	echo oracles >>dlb.lst
+	echo joracles >>dlb.lst
 	if exist options echo options >>dlb.lst
 	if exist ttyoptions echo ttyoptions >>dlb.lst
 	if exist guioptions echo guioptions >>dlb.lst
 	if exist porthelp echo porthelp >>dlb.lst
 	echo quest.dat >>dlb.lst
-	echo rumors >>dlb.lst
-	echo help >>dlb.lst
-	echo hh >>dlb.lst
-	echo cmdhelp >>dlb.lst
-	echo history >>dlb.lst
-	echo opthelp >>dlb.lst
-	echo wizhelp >>dlb.lst
+	echo jrumors >>dlb.lst
+	echo jhelp >>dlb.lst
+	echo jhh >>dlb.lst
+	echo jcmdhelp >>dlb.lst
+	echo jhistory >>dlb.lst
+	echo jopthelp >>dlb.lst
+	echo jwizhelp >>dlb.lst
 	echo dungeon >>dlb.lst
 	echo license >>dlb.lst
 	for %%N in (*.lev) do echo %%N >>dlb.lst
@@ -607,13 +611,13 @@ $(O)til2bm32.o: $(WSHR)\tile2bmp.c $(HACK_H) $(TILE_H) $(INCL)\win32api.h
 $(DAT)\data: $(UTIL)\makedefs.exe
 	$(U)makedefs -d
 
-$(DAT)\rumors: $(UTIL)\makedefs.exe    $(DAT)\rumors.tru   $(DAT)\rumors.fal
+$(DAT)\jrumors: $(UTIL)\makedefs.exe    $(DAT)\jrumors.tru   $(DAT)\jrumors.fal
 	$(U)makedefs -r
 
 $(DAT)\quest.dat: $(UTIL)\makedefs.exe  $(DAT)\quest.txt
 	$(U)makedefs -q
 
-$(DAT)\oracles: $(UTIL)\makedefs.exe    $(DAT)\oracles.txt
+$(DAT)\joracles: $(UTIL)\makedefs.exe    $(DAT)\joracles.txt
 	$(U)makedefs -h
 
 $(DAT)\dungeon: $(UTIL)\makedefs.exe  $(DAT)\dungeon.def

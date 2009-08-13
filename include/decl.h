@@ -197,6 +197,9 @@ E NEARDATA char *save_cm;
 #define KILLED_BY_AN	 0
 #define KILLED_BY	 1
 #define NO_KILLER_PREFIX 2
+#if 1 /*JP*/
+#define KILLED_SUFFIX	 3
+#endif
 E NEARDATA int killer_format;
 E const char *killer;
 E const char *delayed_killer;
@@ -459,6 +462,15 @@ E int mailckfreq;
 E gsl_rng *rngstate;
 #endif
 
+
+#if 1 /*JP*/
+struct trans_verb {
+    const char *en;
+    const char *what;
+    const char *particle;
+    const char *jp;
+};
+#endif
 
 #undef E
 

@@ -356,6 +356,24 @@ int col,row;
 	}
 }
 
+#if 1 /*JP*/
+void
+vga_xputc2(ch, ch2, attr)
+int ch;
+int ch2;
+int attr;
+{
+  int col, row;
+
+  col = curcol;
+  row = currow;
+
+  vga_WriteChar2((unsigned char)ch,(unsigned char)ch2,col,row,attr);
+  if (col < (CO -2 )) col+=2;
+  vga_gotoloc(col,row);
+}
+#endif
+
 void
 vga_xputc(ch,attr)	/* write out character (and attribute) */
 char ch;
@@ -442,6 +460,9 @@ int col,row;
 {
 	curcol = min(col,CO - 1); /* protection from callers */
 	currow = min(row,LI - 1);
+#if 1 /*JP*/
+	txt_gotoxy(col, row);
+#endif
 }
 
 #  if defined(USE_TILES) && defined(CLIPPING)
@@ -866,6 +887,40 @@ int vga_detect()
 	return 0;
 }
 
+#if 1 /*JP*/
+void
+vga_WriteChar2(chr, chr2, col, row, colour)
+int chr, chr2, col, row, colour;
+{
+  int saved_col, saved_row;
+
+  saved_col = curcol;
+  saved_row = currow;
+
+  vga_gotoloc(col, row);
+  txt_xputc2(chr, chr2, 14);
+
+  curcol = saved_col;
+  currow = saved_row;
+}
+
+void
+vga_WriteChar(chr, col, row, colour)
+int chr, col, row, colour;
+{
+  int saved_col, saved_row;
+
+  saved_col = curcol;
+  saved_row = currow;
+
+  vga_gotoloc(col, row);
+  txt_xputc(chr, 14);
+
+  curcol = saved_col;
+  currow = saved_row;
+}
+
+#else
 /*
  * Write character 'ch', at (x,y) and
  * do it using the colour 'colour'.
@@ -910,6 +965,7 @@ int chr,col,row,colour;
 	outportb(0x3ce,8);
 	outportb(0x3cf,255);
 }
+#endif
 
 /*
  * This is the routine that displays a high-res "cell" pointed to by 'gp'
@@ -988,6 +1044,20 @@ vga_WriteStr(s,len,col,row,colour)
 char *s;
 int len,col,row,colour;
 {
+#if 1 /*JP*/
+	int i = 0;
+
+	g_attribute = 14;
+
+	if(s)
+	  while(*s && i<len){
+		  vga_gotoloc(col, row);
+		  jputchar(*s);
+		  ++col;
+		  ++s;
+		  ++i;
+	  }
+#else
 	unsigned char *us;
 	int i = 0;
 
@@ -1002,6 +1072,7 @@ int len,col,row,colour;
 		++i;
 		++col;
 	}
+#endif
 }
 
 # endif /* OVLB */

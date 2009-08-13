@@ -26,6 +26,10 @@
 #endif
 
 #include "hack.h"	/* #define for const for non __STDC__ compilers */
+/*JP*/
+#ifdef XAW_I18N
+#include <X11/Xaw/Xawi18n.h>
+#endif
 #include "winX.h"
 
 #define WNAME "name"
@@ -52,6 +56,10 @@ create_value(parent, name_value)
     XtSetArg(args[num_args], XtNjustify, XtJustifyRight);	num_args++;
     XtSetArg(args[num_args], XtNborderWidth, 0);		num_args++;
     XtSetArg(args[num_args], XtNlabel, name_value);		num_args++;
+/*JP*/
+#if defined(X11R6) && defined(XI18N)
+    XtSetArg(args[num_args], XtNinternational, True);	num_args++;
+#endif
     XtSetArg(args[num_args], XtNinternalHeight, 0);		num_args++;
     name = XtCreateManagedWidget(WNAME,
 				labelWidgetClass,
@@ -61,6 +69,10 @@ create_value(parent, name_value)
     XtSetArg(args[num_args], XtNjustify, XtJustifyRight);	num_args++;
     XtSetArg(args[num_args], XtNborderWidth, 0);		num_args++;
     XtSetArg(args[num_args], XtNfromHoriz, name);		num_args++;
+/*JP*/
+#if defined(X11R6) && defined(XI18N)
+    XtSetArg(args[num_args], XtNinternational, True);	num_args++;
+#endif
     XtSetArg(args[num_args], XtNinternalHeight, 0);		num_args++;
     (void) XtCreateManagedWidget(WVALUE,
 				labelWidgetClass,

@@ -59,20 +59,20 @@ PostBuild_Cmds=echo chdir ..\dat	\
 chdir ..\dat	\
 chdir	\
  echo data >dlb.lst	\
- echo oracles >>dlb.lst	\
+ echo joracles >>dlb.lst	\
  if exist options echo options >>dlb.lst	\
  if exist ttyoptions echo ttyoptions >>dlb.lst	\
  if exist guioptions echo guioptions >>dlb.lst	\
  if NOT exist porthelp copy ..\sys\winnt\porthelp porthelp	\
  if exist porthelp echo porthelp >>dlb.lst	\
  echo quest.dat >>dlb.lst	\
- echo rumors >>dlb.lst	\
- echo help >>dlb.lst	\
- echo hh >>dlb.lst	\
- echo cmdhelp >>dlb.lst	\
- echo history >>dlb.lst	\
- echo opthelp >>dlb.lst	\
- echo wizhelp >>dlb.lst	\
+ echo jrumors >>dlb.lst	\
+ echo jhelp >>dlb.lst	\
+ echo jhh >>dlb.lst	\
+ echo jcmdhelp >>dlb.lst	\
+ echo jhistory >>dlb.lst	\
+ echo jopthelp >>dlb.lst	\
+ echo jwizhelp >>dlb.lst	\
  echo dungeon >>dlb.lst	\
  echo license >>dlb.lst	\
  for %%N in (*.lev) do echo %%N >>dlb.lst	\
@@ -113,20 +113,20 @@ PostBuild_Cmds=echo chdir ..\dat	\
 chdir ..\dat	\
 chdir	\
  echo data >dlb.lst	\
- echo oracles >>dlb.lst	\
+ echo joracles >>dlb.lst	\
  if exist options echo options >>dlb.lst	\
  if exist ttyoptions echo ttyoptions >>dlb.lst	\
  if exist guioptions echo guioptions >>dlb.lst	\
  if NOT exist porthelp copy ..\sys\winnt\porthelp porthelp	\
  if exist porthelp echo porthelp >>dlb.lst	\
  echo quest.dat >>dlb.lst	\
- echo rumors >>dlb.lst	\
- echo help >>dlb.lst	\
- echo hh >>dlb.lst	\
- echo cmdhelp >>dlb.lst	\
- echo history >>dlb.lst	\
- echo opthelp >>dlb.lst	\
- echo wizhelp >>dlb.lst	\
+ echo jrumors >>dlb.lst	\
+ echo jhelp >>dlb.lst	\
+ echo jhh >>dlb.lst	\
+ echo jcmdhelp >>dlb.lst	\
+ echo jhistory >>dlb.lst	\
+ echo jopthelp >>dlb.lst	\
+ echo jwizhelp >>dlb.lst	\
  echo dungeon >>dlb.lst	\
  echo license >>dlb.lst	\
  for %%N in (*.lev) do echo %%N >>dlb.lst	\

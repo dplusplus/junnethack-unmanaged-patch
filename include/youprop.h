@@ -126,6 +126,10 @@
 
 #define HSleeping		u.uprops[SLEEPING].intrinsic
 #define ESleeping		u.uprops[SLEEPING].extrinsic
+#ifdef	JPEXTENSION
+#define Totter			u.uprops[TOTTER].p_flgs
+#endif
+
 #define Sleeping		(HSleeping || ESleeping)
 
 #define HHunger			u.uprops[HUNGER].intrinsic

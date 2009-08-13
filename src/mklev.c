@@ -2,6 +2,13 @@
 /* Copyright (c) Stichting Mathematisch Centrum, Amsterdam, 1985. */
 /* NetHack may be freely redistributed.  See license for details. */
 
+/*
+**	Japanese version Copyright
+**	(c) Issei Numata, Naoki Hamada, Shigehiro Miyashita, 1994-2000
+**	For 3.4, Copyright (c) Kentaro Shirakata, 2002-2003
+**	JNetHack may be freely redistributed.  See license for details. 
+*/
+
 #include "hack.h"
 /* #define DEBUG */	/* uncomment to enable code debugging */
 
@@ -455,7 +462,10 @@ static NEARDATA const char *trap_engravings[TRAPNUM] = {
 			(char *)0, (char *)0, (char *)0, (char *)0, (char *)0,
 			(char *)0, (char *)0, (char *)0, (char *)0,
 			/* 14..16: trap door, teleport, level-teleport */
+/*JP
 			"Vlad was here", "ad aerarium", "ad aerarium",
+*/
+			"ヴラドはここにいる", "ad aerarium", "ad aerarium",
 			(char *)0, (char *)0, (char *)0, (char *)0, (char *)0,
 			(char *)0,
 };
@@ -1442,7 +1452,10 @@ struct mkroom *croom;
 	} while (occupied(m.x, m.y) || bydoor(m.x, m.y));
 
 	/* Put a grave at m.x, m.y */
+/*JP
 	make_grave(m.x, m.y, dobell ? "Saved by the bell!" : (char *) 0);
+*/
+	make_grave(m.x, m.y, dobell ? "ベルに救われた！" : (char *) 0);
 
 	/* Possibly fill it with objects */
 	if (!rn2(3)) (void) mkgold(0L, m.x, m.y);
@@ -1480,8 +1493,14 @@ mkinvokearea()
     xchar ymin = inv_pos.y, ymax = inv_pos.y;
     register xchar i;
 
+/*JP
     pline_The("floor shakes violently under you!");
+*/
+    pline("あなたの下の床が突然揺れた！");
+/*JP
     pline_The("walls around you begin to bend and crumble!");
+*/
+    pline("そしてまわりの壁がねじれ，砕けた！");
     display_nhwindow(WIN_MESSAGE, TRUE);
 
     mkinvpos(xmin, ymin, 0);		/* middle, before placing stairs */
@@ -1508,7 +1527,10 @@ mkinvokearea()
 	delay_output();
     }
 
+/*JP
     You("are standing at the top of a stairwell leading down!");
+*/
+    You("下に続く吹き抜け階段の上に立っている！");
     mkstairs(u.ux, u.uy, 0, (struct mkroom *)0); /* down */
     newsym(u.ux, u.uy);
     vision_full_recalc = 1;	/* everything changed */

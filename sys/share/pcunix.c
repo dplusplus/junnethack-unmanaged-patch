@@ -269,9 +269,26 @@ regularize(s)
  */
 register char *s;
 {
+#if 0 /*JP*/
 	register char *lp;
+#else
+	register unsigned char *lp;
+#endif
 
+#if 0 /*JP*/
 	for (lp = s; *lp; lp++)
+#else
+#ifdef SJIS_FILESYSTEM
+	lp = (unsigned char *)ic2str( s );
+	strcpy(s, lp);
+#endif
+
+	for (lp = s; *lp; lp++){
+		if (is_kanji(*lp)){
+		  lp++;
+		  continue;
+		}
+#endif
 		if (*lp <= ' ' || *lp == '"' || (*lp >= '*' && *lp <= ',') ||
 		    *lp == '.' || *lp == '/' || (*lp >= ':' && *lp <= '?') ||
 # ifdef OS2
@@ -279,6 +296,9 @@ register char *s;
 # endif
 		    *lp == '|' || *lp >= 127 || (*lp >= '[' && *lp <= ']'))
                         *lp = '_';
+#if 1 /*JP*/
+	 }
+#endif
 }
 # endif /* WIN32 */
 #endif /* OVLB */

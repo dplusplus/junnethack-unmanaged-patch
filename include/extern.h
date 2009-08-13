@@ -810,6 +810,9 @@ E boolean NDECL(wearing_armor);
 E boolean FDECL(is_worn, (struct obj *));
 E struct obj *FDECL(g_at, (int,int));
 E struct obj *FDECL(mkgoldobj, (long));
+#if 1 /*JP*/
+E struct trans_verb *FDECL(trans_verb, (const char *));
+#endif
 E struct obj *FDECL(getobj, (const char *,const char *));
 E int FDECL(ggetobj, (const char *,int (*)(OBJ_P),int,BOOLEAN_P,unsigned *));
 E void FDECL(fully_identify_obj, (struct obj *));
@@ -1226,6 +1229,9 @@ E int FDECL(big_to_little, (int));
 E const char *FDECL(locomotion, (const struct permonst *,const char *));
 E const char *FDECL(stagger, (const struct permonst *,const char *));
 E const char *FDECL(on_fire, (struct permonst *,struct attack *));
+#if 1 /*JP*/
+E const char *FDECL(jumpedthrough, (const struct permonst *,const char *));
+#endif
 E const struct permonst *FDECL(raceptr, (struct monst *));
 
 /* ### monmove.c ### */
@@ -1410,9 +1416,11 @@ E char *FDECL(An, (const char *));
 E char *FDECL(The, (const char *));
 E char *FDECL(the, (const char *));
 E char *FDECL(aobjnam, (struct obj *,const char *));
+#if 0 /*JP*//*“ú–{Œê‚É‚ÍŽO’PŒ»‚Ìs‚Í‚È‚¢*/
 E char *FDECL(Tobjnam, (struct obj *,const char *));
 E char *FDECL(otense, (struct obj *,const char *));
 E char *FDECL(vtense, (const char *,const char *));
+#endif
 E char *FDECL(Doname2, (struct obj *));
 E char *FDECL(yname, (struct obj *));
 E char *FDECL(Yname2, (struct obj *));
@@ -1594,6 +1602,9 @@ E void FDECL(make_stunned, (long,BOOLEAN_P));
 E void FDECL(make_blinded, (long,BOOLEAN_P));
 E void FDECL(make_sick, (long, const char *, BOOLEAN_P,int));
 E void FDECL(make_vomiting, (long,BOOLEAN_P));
+#ifdef JPEXTENSION
+E void FDECL(make_totter, (long, BOOLEAN_P));
+#endif
 E boolean FDECL(make_hallucinated, (long,BOOLEAN_P,long));
 E int NDECL(dodrink);
 E int FDECL(dopotion, (struct obj *));
@@ -1782,8 +1793,13 @@ E int FDECL(pick_align, (int, int, int, int));
 E void NDECL(role_init);
 E void NDECL(rigid_role_checks);
 E void NDECL(plnamesuffix);
+#if 0 /*JP*/
 E const char *FDECL(Hello, (struct monst *));
 E const char *NDECL(Goodbye);
+#else
+E const char *FDECL(Hello, (struct monst *, int));
+E const char *FDECL(Goodbye, (int));
+#endif
 E char *FDECL(build_plselection_prompt, (char *, int, int, int, int, int));
 E char *FDECL(root_plselection_prompt, (char *, int, int, int, int, int));
 
@@ -2461,6 +2477,60 @@ E int NDECL(doshout);
 
 #endif /* !MAKEDEFS_C && !LEV_LEX_C */
 
+#if 1 /*JP*/
+
+/* ### jlib.c  ### */
+
+E  int FDECL(is_kanji, (unsigned int));
+E  void FDECL(setkcode,(int));
+E  unsigned char *FDECL(e2sj, (unsigned char *));
+E  unsigned char *FDECL(sj2e, (unsigned char *));
+E  const char *FDECL(str2ic, (const char *));
+#ifdef SJIS_FILESYSTEM
+E  const char *FDECL(ic2str, (const char *));
+#endif
+E  int FDECL(jbuffer, (unsigned int, unsigned int *, void (*)(), void (*)(unsigned int), void (*)(unsigned int, unsigned int)));
+E  int FDECL(cbuffer, (unsigned int, unsigned int *, void (*)(), void (*)(unsigned int), void (*)(unsigned int, unsigned int)));
+E  void FDECL(cputchar,(int));
+E  void FDECL(jputchar,(int));
+E  void FDECL(jputs,(const char *));
+E  int FDECL(is_kanji2, (const char *,int));
+E  int FDECL(is_kanji1, (const char *,int));
+E  int FDECL(isspace_8, (int));
+E  void FDECL(split_japanese, (char *,char *,char *,int));
+E  void FDECL(jrndm_replace, (char *));
+E  const char *FDECL(joffmsg, (struct obj *, const char **));
+E  const char *FDECL(jonmsg, (struct obj *, const char **));
+E  const char *FDECL(numeral, (struct obj *));
+
+/* ### jconj.c  ### */
+
+E  const char *FDECL(jconj, (const char *,const char *));
+E  const char *FDECL(jcan, (const char *));
+E  const char *FDECL(jcannot, (const char *));
+E  const char *FDECL(jpast, (const char *));
+E  const char *FDECL(jpolite, (const char *));
+E  const char *FDECL(jconj_adj, (const char *));
+E  int FDECL(jrubout, (char *, int, int, int));
+
+/* ### jtrns.c ### */
+
+E  void NDECL(init_jtrns);
+E  int NDECL(dotogglelang);
+E  int NDECL(query_lang_mode);
+E  void FDECL(set_trns_mode, (int));
+E  const char *FDECL(jtrns_mon_gen, (const char *, int));
+E  const char *FDECL(jtrns_mon, (const char *));
+E  const char *FDECL(jtrns_obj, (const int, const char *));
+E  const char *FDECL(etrns_mon, (const char *));
+E  const char *FDECL(etrns_obj, (const int, const char *));
+E  char FDECL(objclass_to_sym, (const int));
+
+/*E  void FDECL(zen2han, (char *));*/
+
+#endif
+
 #undef E
 
 #endif /* EXTERN_H */
+

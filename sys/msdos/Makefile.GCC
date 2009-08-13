@@ -1,4 +1,4 @@
-#	SCCS Id: @(#)Makefile.GCC	      3.4     $Date: 2003/06/15 15:56:45 $
+#	SCCS Id: @(#)Makefile.GCC	      3.4     $Date: 2003/09/03 19:05:10 $
 #	Copyright (c) NetHack PC Development Team 1996-2003.
 #	PC NetHack 3.4 Makefile for djgpp V2
 #
@@ -21,7 +21,7 @@
 # Game Installation Variables
 # NOTE: Make sure GAMEDIR exists before make is started.
 
-GAME = nethack
+GAME = jnethack
 # The GNU Make has a problem if you include a drive spec below (unfortunately).
 GAMEDIR =../binary
 
@@ -39,6 +39,7 @@ SSHR = ../sys/share
 UTIL = ../util
 WIN  = ../win/tty
 WSHR = ../win/share
+JP   = ../japanese
 
 #
 #  Executables.
@@ -76,7 +77,7 @@ endif
 # your tools.
 #
 YACC   = bison -y
-LEX    = flex
+LEX    = flex -8
 YTABC  = y_tab.c
 YTABH  = y_tab.h
 #If your tool produces y.tab.c and y.tab.h DOS might require
@@ -224,17 +225,17 @@ VGAOBJ      = $(O)vidvga.o
 
 MAKESRC	    = makedefs.c
 
-SPLEVSRC    = lev_yacc.c  lev_$(LEX).c	 lev_main.c  panic.c
+SPLEVSRC    = lev_yacc.c  lev_lex.c	 lev_main.c  panic.c
 
-DGNCOMPSRC  = dgn_yacc.c  dgn_$(LEX).c	 dgn_main.c
+DGNCOMPSRC  = dgn_yacc.c  dgn_lex.c	 dgn_main.c
 
 MAKEOBJS    = $(O)makedefs.o  $(O)monst.o	 $(O)objects.o
 
-SPLEVOBJS   = $(O)lev_yacc.o  $(O)lev_$(LEX).o	$(O)lev_main.o  $(O)alloc.o	\
+SPLEVOBJS   = $(O)lev_yacc.o  $(O)lev_lex.o	$(O)lev_main.o  $(O)alloc.o	\
 		$(O)monst.o	    $(O)objects.o	    $(O)panic.o  \
 		$(O)drawing.o	$(O)decl.o	$(O)stubvid.o
 
-DGNCOMPOBJS = $(O)dgn_yacc.o  $(O)dgn_$(LEX).o	$(O)dgn_main.o  $(O)alloc.o	 \
+DGNCOMPOBJS = $(O)dgn_yacc.o  $(O)dgn_lex.o	$(O)dgn_main.o  $(O)alloc.o	 \
 		$(O)panic.o
 
 RECOVOBJS   = $(O)recover.o
@@ -322,13 +323,15 @@ SOBJ   = $(O)msdos.o    $(O)sound.o   $(O)sys.o      $(O)tty.o	    $(O)unix.o \
 
 VVOBJ  = $(O)version.o
 
+JOBJ   = jconj.o jlib.o jtrns.o
+
 VOBJ  = $(VOBJ01) $(VOBJ02) $(VOBJ03) $(VOBJ04) $(VOBJ05) \
 	$(VOBJ06) $(VOBJ07) $(VOBJ08) $(VOBJ09) $(VOBJ10) \
 	$(VOBJ11) $(VOBJ12) $(VOBJ13) $(VOBJ14) $(VOBJ15) \
 	$(VOBJ16) $(VOBJ17) $(VOBJ18) $(VOBJ19) $(VOBJ20) \
 	$(VOBJ21) $(VOBJ22) $(VOBJ23)
 
-ALLOBJ = $(VOBJ) $(SOBJ) $(TILOBJ) $(VVOBJ)
+ALLOBJ = $(VOBJ) $(SOBJ) $(TILOBJ) $(VVOBJ) $(JOBJ)
 
 #==========================================
 # Header file macros
@@ -433,7 +436,9 @@ endif
 	@$(subst /,\,if exist $(DAT)/*.tib copy $(DAT)/*.tib $(GAMEDIR))
 	@$(subst /,\,copy $(SSHR)/NetHack.cnf  $(GAMEDIR)/defaults.nh)
 	@$(subst /,\,copy $(MSYS)/NHAccess.nh  $(GAMEDIR))
-	@$(subst /,\,copy $(DOC)/guidebo*.txt  $(GAMEDIR))
+	@$(subst /,\,copy $(DOC)/jguideb*.txt  $(GAMEDIR))
+	@$(subst /,\,copy ../Change*.j         $(GAMEDIR)/change.j)
+	@$(subst /,\,copy ../readme.j          $(GAMEDIR))
 	@$(subst /,\,if exist $(DOC)/nethack.txt copy $(DOC)/nethack.txt $(GAMEDIR))
 ifdef CWSDPMI
 	@$(subst /,\,if exist $(CWSDPMI) copy $(CWSDPMI) $(GAMEDIR))
@@ -479,6 +484,7 @@ $(O)$(GAME).lnk: $(ALLOBJ)
 	 echo $(SOBJ)   >> $(subst /,\,$@)
 	 echo $(TILOBJ) >> $(subst /,\,$@)
 	 echo $(VVOBJ)  >> $(subst /,\,$@)
+	 echo $(JOBJ)   >> $(subst /,\,$@)
 
 
 #==========================================
@@ -526,8 +532,8 @@ spotless: clean
 	$(subst /,\,if exist $(DAT)/rumors del $(DAT)/rumors)
 	$(subst /,\,if exist $(DAT)/dungeon.pdf del $(DAT)/dungeon.pdf)
 	$(subst /,\,if exist $(DAT)/dungeon del $(DAT)/dungeon)
-	$(subst /,\,if exist $(DAT)/oracles del $(DAT)/oracles)
-	$(subst /,\,if exist $(DAT)/quest.dat del $(DAT)/quest.dat)
+	$(subst /,\,if exist $(DAT)/joracles del $(DAT)/joracles)
+	$(subst /,\,if exist $(DAT)/jquest.dat del $(DAT)/jquest.dat)
 	$(subst /,\,if exist $(DAT)/dlb.lst del $(DAT)/dlb.lst)
 	$(subst /,\,if exist $(DAT)/nhdat del $(DAT)/nhdat)
 	$(subst /,\,if exist $(DAT)/*.lev del $(DAT)/*.lev)
@@ -536,6 +542,10 @@ spotless: clean
 	$(subst /,\,if exist $(WSHR)/monthin.txt del $(WSHR)/monthin.txt)
 	$(subst /,\,if exist $(WSHR)/objthin.txt del $(WSHR)/objthin.txt)
 	$(subst /,\,if exist $(WSHR)/oththin.txt del $(WSHR)/oththin.txt)
+	$(subst /,\,if exist $(SRC)\jlib.c del $(SRC)\jlib.c)
+	$(subst /,\,if exist $(SRC)\jtrns.c del $(SRC)\jtrns.c)
+	$(subst /,\,if exist $(SRC)\jconj.c del $(SRC)\jconj.c)
+	$(subst /,\,if exist $(INCL)\jdata.h del $(INCL)\jdata.h)
 
 #==========================================
 # Create directory for holding object files
@@ -609,9 +619,9 @@ $(O)lev_yacc.o:  $(HACK_H)	 $(SP_LEV_H) $(INCL)/lev_comp.h $(U)lev_yacc.c
 
 endif
 
-$(O)lev_$(LEX).o:  $(HACK_H)   $(SP_LEV_H)	  $(INCL)/lev_comp.h \
-	$(U)lev_$(LEX).c
-	$(CC) $(cflags) -o$@ $(U)lev_$(LEX).c
+$(O)lev_lex.o:  $(HACK_H)   $(SP_LEV_H)	  $(INCL)/lev_comp.h \
+	$(U)lev_lex.c
+	$(CC) $(cflags) -o$@ $(U)lev_lex.c
 
 $(O)lev_main.o:  $(HACK_H) $(INCL)/sp_lev.h $(INCL)/date.h $(U)lev_main.c
 
@@ -645,7 +655,7 @@ $(INCL)/lev_comp.h : $(SSHR)/lev_comp.h
 
 endif
 
-$(U)lev_$(LEX).c: $(U)lev_comp.l
+$(U)lev_lex.c: $(U)lev_comp.l
 ifeq  "$(DO_LEX)" "LEX_ACT"
 	@$(subst /,\,chdir $(UTIL))
 	@$(subst /,\,$(LEX) $(FLEXSKEL) lev_comp.l)
@@ -696,7 +706,7 @@ endif
 
 ifeq  "$(DO_LEX)" "LEX_ACT"
 
-$(U)dgn_$(LEX).c: $(U)dgn_comp.l $(INCL)/dgn_comp.h
+$(U)dgn_lex.c: $(U)dgn_comp.l $(INCL)/dgn_comp.h
 	@$(subst /,\,chdir $(UTIL))
 	@$(subst /,\,$(LEX) $(FLEXSKEL) dgn_comp.l)
 	@$(subst /,\,if exist $@ del $@)
@@ -705,7 +715,7 @@ $(U)dgn_$(LEX).c: $(U)dgn_comp.l $(INCL)/dgn_comp.h
 	@$(subst /,\,chdir $(SRC))
 else
 
-$(U)dgn_$(LEX).c: $(SSHR)/dgn_lex.c $(INCL)/dgn_comp.h
+$(U)dgn_lex.c: $(SSHR)/dgn_lex.c $(INCL)/dgn_comp.h
 	@echo ---
 	@echo For now, we will copy the prebuilt dgn_lex.c
 	@echo from $(SSHR) into $(U) and use it.
@@ -825,6 +835,9 @@ $(O)ppmwrite.o: $(CONFIG_H)	$(WSHR)/tile.h
 $(O)ppmwrit2.o:  $(CONFIG_H) $(WSHR)/tile.h ppmwrite.c
 	$(CC) $(cflags) -DTILE_X=8 -o$@ ppmwrite.c
 
+$(INCL)/jdata.h: $(U)makedefs.exe $(DAT)/jtrnsobj.dat $(DAT)/jtrnsmon.dat
+	-$(subst /,\,$(U)makedefs -j)
+
 #
 #  Optional tile viewer (development sources only)
 #
@@ -861,10 +874,10 @@ $(O)objects.o: $(CONFIG_H)	      $(INCL)/obj.h	 $(INCL)/objclass.h \
 $(O)panic.o:   $(CONFIG_H)	  $(U)panic.c
 
 #============================================================
-# make data.base an 8.3 filename to prevent an make warning
+# make jdata.base an 8.3 filename to prevent an make warning
 #============================================================
 
-DATABASE = $(DAT)/data.bas
+DATABASE = $(DAT)/jdata.bas
 
 
 $(O)dat.tag: $(DAT)/nhdat
@@ -876,10 +889,16 @@ $(DAT)/data: $(O)utility.tag	$(DATABASE)
 $(DAT)/rumors:	     $(O)utility.tag    $(DAT)/rumors.tru	$(DAT)/rumors.fal
 	@$(subst /,\,$(U)makedefs.exe -r)
 
-$(DAT)/quest.dat: $(O)utility.tag  $(DAT)/quest.txt
+$(DAT)/jrumors:	     $(O)utility.tag    $(DAT)/jrumors.tru	$(DAT)/jrumors.fal
+	@$(subst /,\,$(U)makedefs.exe -r)
+
+$(DAT)/quest.dat: $(O)utility.tag  $(DAT)/jquest.txt
 	@$(subst /,\,$(U)makedefs.exe -q)
 
 $(DAT)/oracles:	     $(O)utility.tag    $(DAT)/oracles.txt
+	@$(subst /,\,$(U)makedefs.exe -h)
+
+$(DAT)/joracles:     $(O)utility.tag    $(DAT)/joracles.txt
 	@$(subst /,\,$(U)makedefs.exe -h)
 
 $(O)sp_lev.tag: $(O)utility.tag $(DAT)/bigroom.des  $(DAT)/castle.des \
@@ -931,22 +950,22 @@ $(DAT)/dungeon:	  $(O)utility.tag  $(DAT)/dungeon.def
 #note that dir below assumes bin/dir.exe from djgpp distribution
 #
 $(DAT)/nhdat:	$(U)dlb_main.exe $(DAT)/data $(DAT)/rumors $(DAT)/dungeon \
-	    $(DAT)/oracles $(DAT)/quest.dat $(O)sp_lev.tag
+	    $(DAT)/joracles $(DAT)/quest.dat $(O)sp_lev.tag
 	@$(subst /,\,echo dat done >$(O)dat.tag)
 	@$(subst /,\,cd $(DAT))
 	@$(subst /,\,copy $(MSYS)/msdoshlp.txt .)
 	@$(subst /,\,echo data >dlb.lst)
 	@$(subst /,\,echo dungeon >>dlb.lst)
-	@$(subst /,\,echo oracles >>dlb.lst)
+	@$(subst /,\,echo joracles >>dlb.lst)
 	@$(subst /,\,echo options >>dlb.lst)
 	@$(subst /,\,echo quest.dat >>dlb.lst)
-	@$(subst /,\,echo rumors >>dlb.lst)
-	@$(subst /,\,echo help >>dlb.lst)
-	@$(subst /,\,echo hh >>dlb.lst)
-	@$(subst /,\,echo cmdhelp >>dlb.lst)
-	@$(subst /,\,echo history >>dlb.lst)
-	@$(subst /,\,echo opthelp >>dlb.lst)
-	@$(subst /,\,echo wizhelp >>dlb.lst)
+	@$(subst /,\,echo jrumors >>dlb.lst)
+	@$(subst /,\,echo jhelp >>dlb.lst)
+	@$(subst /,\,echo jhh >>dlb.lst)
+	@$(subst /,\,echo jcmdhelp >>dlb.lst)
+	@$(subst /,\,echo jhistory >>dlb.lst)
+	@$(subst /,\,echo jopthelp >>dlb.lst)
+	@$(subst /,\,echo jwizhelp >>dlb.lst)
 	@$(subst /,\,echo license >>dlb.lst)
 	@$(subst /,\,echo msdoshlp.txt >>dlb.lst)
 	$(LS) $(subst /,\,*.lev) >>dlb.lst
@@ -976,8 +995,12 @@ $(O)unix.o:	 $(HACK_H) $(SSHR)/pcunix.c
 $(O)sys.o : $(HACK_H) $(SSHR)/pcsys.c
 	$(CC) $(cflags) -o$@ $(SSHR)/pcsys.c
 
+random.o: $(HACK_H) $(SSHR)/random.c
+	@$(subst /,\,copy $(SSHR)\random.c .)
+	$(CC) $(CFLAGS) -D_POSIX_SOURCE -o$@ random.c
+
 # sys/msdos
-$(O)msdos.o : $(HACK_H)  $(MSYS)/msdos.c
+$(O)msdos.o : $(HACK_H)  $(MSYS)/msdos.c $(MSYS)/portio.h
 #	$(CC) $(cflags) -o$@ $(MSYS)/msdos.c
 
 $(O)pckeys.o : $(HACK_H)  $(MSYS)/pckeys.c
@@ -989,7 +1012,8 @@ $(O)pctiles.o : $(HACK_H)  $(MSYS)/pctiles.c $(MSYS)/portio.h
 $(O)sound.o : $(HACK_H)  $(MSYS)/sound.c $(MSYS)/portio.h
 #	$(CC) $(cflags) -o$@ $(MSYS)/sound.c
 
-$(O)video.o : $(HACK_H)  $(MSYS)/pcvideo.h $(MSYS)/portio.h $(MSYS)/video.c
+$(O)video.o : $(HACK_H)  $(MSYS)/pcvideo.h $(MSYS)/portio.h $(MSYS)/video.c \
+	$(MSYS)/pctiles.h
 #	$(CC) $(cflags) -o$@ -I$(MSYS) $(MSYS)/video.c
 
 $(O)vidvga.o : $(HACK_H)  $(MSYS)/pcvideo.h $(MSYS)/portio.h $(TILE_H) $(MSYS)/vidvga.c
@@ -1001,6 +1025,15 @@ $(O)vidtxt.o : $(HACK_H)  $(MSYS)/pcvideo.h $(MSYS)/portio.h $(TILE_H) $(MSYS)/v
 $(O)stubvid.o : $(HACK_H) $(MSYS)/pcvideo.h $(MSYS)/video.c
 	$(CC) $(cflags) -I$(MSYS) -DSTUBVIDEO -o$@ $(MSYS)/video.c
 
+
+jlib.o: $(JP)\jlib.c $(HACK_H)
+	$(CC) $(cflags) -o$@ $(JP)/jlib.c
+
+jconj.o: $(JP)\jconj.c $(HACK_H)
+	$(CC) $(cflags) -o$@ $(JP)/jconj.c
+
+jtrns.o: $(JP)/jtrns.c $(HACK_H) $(INCL)/jdata.h
+	$(CC) $(cflags) -o$@ $(JP)/jtrns.c
 
 # src dependencies
 
@@ -1244,7 +1277,7 @@ $(O)trap.o: trap.c $(HACK_H)
 $(O)u_init.o: u_init.c $(HACK_H)
 $(O)uhitm.o: uhitm.c $(HACK_H)
 $(O)vault.o: vault.c $(HACK_H) $(INCL)/vault.h
-$(O)version.o: version.c $(HACK_H) $(INCL)/date.h $(PATCHLEV_H)
+$(O)version.o: version.c $(HACK_H) $(INCL)/date.h $(PATCHLEV_H) $(JP)/jpatchle.h
 $(O)vision.o: vision.c $(HACK_H) $(INCL)/vis_tab.h
 $(O)weapon.o: weapon.c $(HACK_H)
 $(O)were.o: were.c $(HACK_H)

@@ -2,6 +2,12 @@
 /* Copyright (c) Stichting Mathematisch Centrum, Amsterdam, 1985. */
 /* NetHack may be freely redistributed.  See license for details. */
 
+/*
+**	Japanese version Copyright (C) Issei Numata, 2000
+**	For 3.4, Copyright (c) Kentaro Shirakata, 2002-2003
+**	JNetHack may be freely redistributed.  See license for details. 
+*/
+
 /* main.c - MSDOS, OS/2, ST, Amiga, and NT NetHack */
 
 #include "hack.h"
@@ -238,7 +244,13 @@ char *argv[];
 # if defined(CHDIR) && !defined(NOCWD_ASSUMPTIONS)
 			chdirx(hackdir,0);
 # endif
+#if 1 /*JP*/
+			init_jtrns();
+#endif
 			prscore(argc, argv);
+#if 1 /*JP*/
+			jputchar('\0'); /* reset */
+#endif
 #else
 			raw_printf("-s is not supported for the Graphical Interface\n");
 #endif /*MSWIN_GRAPHICS*/
@@ -415,7 +427,10 @@ char *argv[];
 		    iflags.news = FALSE;
 		}
 #endif
+/*JP
 		pline("Restoring save file...");
+*/
+		pline("セーブファイルを復元中．．．");
 		mark_synch();	/* flush output */
 
 		if(!dorecover(fd))
@@ -425,10 +440,16 @@ char *argv[];
 #endif
 		check_special_room(FALSE);
 		if (discover)
+/*JP
 			You("are in non-scoring discovery mode.");
+*/
+			pline("発見モードではスコアはのらないよ．");
 
 		if (discover || wizard) {
+/*JP
 			if(yn("Do you want to keep the save file?") == 'n'){
+*/
+			if(yn("セーブファイルを残しておきますか？") == 'n'){
 				(void) delete_savefile();
 			}
 		}
@@ -439,7 +460,10 @@ not_recovered:
 		player_selection();
 		newgame();
 		if (discover)
+/*JP
 			You("are in non-scoring discovery mode.");
+*/
+			pline("発見モードではスコアはのらないよ．");
 
 		flags.move = 0;
 		set_wear();
@@ -502,11 +526,17 @@ char *argv[];
 #endif
 		case 'u':
 			if(argv[0][2])
+/*JP
 			  (void) strncpy(plname, argv[0]+2, sizeof(plname)-1);
+*/
+			  (void) strncpy(plname, str2ic(argv[0]+2), sizeof(plname)-1);
 			else if(argc > 1) {
 			  argc--;
 			  argv++;
+/*JP
 			  (void) strncpy(plname, argv[0], sizeof(plname)-1);
+*/
+			  (void) strncpy(plname, str2ic(argv[0]), sizeof(plname)-1);
 			} else
 				raw_print("Player name expected after -u");
 			break;

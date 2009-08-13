@@ -2,6 +2,14 @@
 /*	Copyright 1988, 1989, 1990, 1992, M. Stephenson		  */
 /* NetHack may be freely redistributed.  See license for details. */
 
+/*
+**	Japanese version Copyright
+**	(c) Issei Numata, Naoki Hamada, Shigehiro Miyashita, 1994-2000
+**	For 3.4, Copyright (c) Kentaro Shirakata, 2002-2003
+**	JNetHack may be freely redistributed.  See license for details. 
+*/
+
+
 /*  attribute modification routines. */
 
 #include "hack.h"
@@ -13,10 +21,16 @@
 	/* part of the output on gain or loss of attribute */
 static
 const char	* const plusattr[] = {
+/*JP
 	"strong", "smart", "wise", "agile", "tough", "charismatic"
+*/
+	"強い","賢明だ","賢い","機敏だ","頑丈だ","魅力的だ"
 },
 		* const minusattr[] = {
+/*JP
 	"weak", "stupid", "foolish", "clumsy", "fragile", "repulsive"
+*/
+	"弱い","愚かだ","間抜けだ","不器用だ","ひ弱だ","醜い"
 };
 
 
@@ -27,70 +41,148 @@ const struct innate {
 	const char *gainstr, *losestr;
 }	arc_abil[] = { {	 1, &(HStealth), "", "" },
 		     {   1, &(HFast), "", "" },
+/*JP
 		     {  10, &(HSearching), "perceptive", "" },
+*/
+		     {  10, &(HSearching), "知覚力を得た", "知覚力を失った" },
 		     {	 0, 0, 0, 0 } },
 
 	bar_abil[] = { {	 1, &(HPoison_resistance), "", "" },
+/*JP
 		     {   7, &(HFast), "quick", "slow" },
+*/
+		     {   7, &(HFast), "素早さを得た", "遅くなった" },
+/*JP
 		     {  15, &(HStealth), "stealthy", "" },
+*/
+		     {  15, &(HStealth), "人目を盗む力を得た", "人目を盗む力を失った" },
 		     {	 0, 0, 0, 0 } },
 
+/*JP
 	cav_abil[] = { {	 7, &(HFast), "quick", "slow" },
+*/
+	cav_abil[] = { {	 7, &(HFast), "素早さを得た", "遅くなった" },
+/*JP
 		     {	15, &(HWarning), "sensitive", "" },
+*/
+		     {	15, &(HWarning), "敏感になった", "鈍感になった" },
 		     {	 0, 0, 0, 0 } },
 
 	hea_abil[] = { {	 1, &(HPoison_resistance), "", "" },
+/*JP
 		     {	15, &(HWarning), "sensitive", "" },
+*/
+		     {  15, &(HWarning), "敏感になった", "鈍感になった" },
 		     {	 0, 0, 0, 0 } },
 
+/*JP
 	kni_abil[] = { {	 7, &(HFast), "quick", "slow" },
+*/
+	kni_abil[] = { {	 7, &(HFast), "素早さを得た", "遅くなった" },
 		     {	 0, 0, 0, 0 } },
 
 	mon_abil[] = { {   1, &(HFast), "", "" },
 		     {   1, &(HSleep_resistance), "", "" },
 		     {   1, &(HSee_invisible), "", "" },
+/*JP
 		     {   3, &(HPoison_resistance), "healthy", "" },
+*/
+		     {   3, &(HPoison_resistance), "健康になった", "不健康になった" },
+/*JP
 		     {   5, &(HStealth), "stealthy", "" },
+*/
+		     {   5, &(HStealth), "人目を盗む力を得た", "人目を盗む力を失った" },
+/*JP
 		     {   7, &(HWarning), "sensitive", "" },
+*/
+		     {   7, &(HWarning), "敏感になった", "鈍感になった" },
+/*JP
 		     {   9, &(HSearching), "perceptive", "unaware" },
+*/
+		     {   9, &(HSearching), "知覚力を得た", "知覚力を失った" },
+/*JP
 		     {  11, &(HFire_resistance), "cool", "warmer" },
+*/
+		     {  11, &(HFire_resistance), "冷たくなった", "暖かくなった" },
+/*JP
 		     {  13, &(HCold_resistance), "warm", "cooler" },
+*/
+		     {  13, &(HCold_resistance), "暖かくなった", "冷たくなった"},
+/*JP
 		     {  15, &(HShock_resistance), "insulated", "conductive" },
+*/
+		     {  15, &(HShock_resistance), "絶縁された", "導電された" },
+/*JP
 		     {  17, &(HTeleport_control), "controlled","uncontrolled" },
+*/
+		     {  17, &(HTeleport_control), "制御力を得た","制御力を失った" },
 		     {   0, 0, 0, 0 } },
 
+/*JP
 	pri_abil[] = { {	15, &(HWarning), "sensitive", "" },
+*/
+	pri_abil[] = { {	15, &(HWarning), "敏感になった", "鈍感になった" },
+/*JP
 		     {  20, &(HFire_resistance), "cool", "warmer" },
+*/
+		     {  20, &(HFire_resistance), "冷たくなった", "暖かくなった" },
 		     {	 0, 0, 0, 0 } },
 
 	ran_abil[] = { {   1, &(HSearching), "", "" },
+/*JP
 		     {	 7, &(HStealth), "stealthy", "" },
+*/
+		     {   7, &(HStealth), "人目を盗む力を得た", "人目を盗む力を失った" },
 		     {	15, &(HSee_invisible), "", "" },
 		     {	 0, 0, 0, 0 } },
 
 	rog_abil[] = { {	 1, &(HStealth), "", ""  },
+/*JP
 		     {  10, &(HSearching), "perceptive", "" },
+*/
+		     {  10, &(HSearching), "知覚力を得た", "知覚力を失った" },
 		     {	 0, 0, 0, 0 } },
 
 	sam_abil[] = { {	 1, &(HFast), "", "" },
+/*JP
 		     {  15, &(HStealth), "stealthy", "" },
+*/
+		     {  15, &(HStealth), "人目を盗む力を得た", "人目を盗む力を失った" },
 		     {	 0, 0, 0, 0 } },
 
+/*JP
 	tou_abil[] = { {	10, &(HSearching), "perceptive", "" },
+*/
+	tou_abil[] = { {	10, &(HSearching), "知覚力を得た", "知覚力を失った" },
+/*JP
 		     {	20, &(HPoison_resistance), "hardy", "" },
+*/
+		     {	20, &(HPoison_resistance), "免疫力を得た", "免疫力を失った" },
 		     {	 0, 0, 0, 0 } },
 
 	val_abil[] = { {	 1, &(HCold_resistance), "", "" },
 		     {	 1, &(HStealth), "", "" },
+/*JP
 		     {   7, &(HFast), "quick", "slow" },
+*/
+		     {   7, &(HFast), "素早さを得た", "遅くなった" },
 		     {	 0, 0, 0, 0 } },
 
+/*JP
 	wiz_abil[] = { {	15, &(HWarning), "sensitive", "" },
+*/
+	wiz_abil[] = { {	15, &(HWarning), "敏感になった", "鈍感になった" },
+/*JP
 		     {  17, &(HTeleport_control), "controlled","uncontrolled" },
+*/
+		     {  17, &(HTeleport_control), "制御力を得た","制御力を失った" },
 		     {	 0, 0, 0, 0 } },
 
 	/* Intrinsics conferred by race */
+/*JP
 	elf_abil[] = { {	4, &(HSleep_resistance), "awake", "tired" },
+*/
+	elf_abil[] = { {	4, &(HSleep_resistance), "目が覚めた", "眠くなった" },
 		     {	 0, 0, 0, 0 } },
 
 	orc_abil[] = { {	1, &(HPoison_resistance), "", "" },
@@ -111,14 +203,20 @@ adjattrib(ndx, incr, msgflg)
 	if ((ndx == A_INT || ndx == A_WIS)
 				&& uarmh && uarmh->otyp == DUNCE_CAP) {
 		if (msgflg == 0)
+/*JP
 		    Your("cap constricts briefly, then relaxes again.");
+*/
+		    Your("帽子がしばらくの間キュっと締めつけ，そしてゆるんだ．");
 		return FALSE;
 	}
 
 	if (incr > 0) {
 	    if ((AMAX(ndx) >= ATTRMAX(ndx)) && (ACURR(ndx) >= AMAX(ndx))) {
 		if (msgflg == 0 && flags.verbose)
+/*JP
 		    pline("You're already as %s as you can get.",
+*/
+		    You("もう十分に%s．",
 			  plusattr[ndx]);
 		ABASE(ndx) = AMAX(ndx) = ATTRMAX(ndx); /* just in case */
 		return FALSE;
@@ -135,7 +233,10 @@ adjattrib(ndx, incr, msgflg)
 	} else {
 	    if (ABASE(ndx) <= ATTRMIN(ndx)) {
 		if (msgflg == 0 && flags.verbose)
+/*JP
 		    pline("You're already as %s as you can get.",
+*/
+		    You("もう十分%s．",
 			  minusattr[ndx]);
 		ABASE(ndx) = ATTRMIN(ndx); /* just in case */
 		return FALSE;
@@ -151,9 +252,15 @@ adjattrib(ndx, incr, msgflg)
 	    }
 	}
 	if (msgflg <= 0)
+#if 0 /*JP*/
 	    You_feel("%s%s!",
 		  (incr > 1 || incr < -1) ? "very ": "",
 		  (incr > 0) ? plusattr[ndx] : minusattr[ndx]);
+#else
+	    You("%s%sなったような気がした！",
+		  (incr > 1 || incr < -1) ? "とても ": "",
+		  jconj_adj((incr > 0) ? plusattr[ndx] : minusattr[ndx]));
+#endif
 	flags.botl = 1;
 	if (moves > 1 && (ndx == A_STR || ndx == A_CON))
 		(void)encumber_msg();
@@ -420,20 +527,40 @@ exerchk()
 		    /* then print an explanation */
 		    switch(i) {
 		    case A_STR: You((mod_val >0) ?
+#if 0 /*JP*/
 				    "must have been exercising." :
 				    "must have been abusing your body.");
+#else
+				    "運動したに違いない．" :
+				    "体を酷使したに違いない．");
+#endif
 				break;
 		    case A_WIS: You((mod_val >0) ?
+#if 0 /*JP*/
 				    "must have been very observant." :
 				    "haven't been paying attention.");
+#else
+				    "慎重に行動してたに違いない．" :
+				    "注意不足だったに違いない．");
+#endif
 				break;
 		    case A_DEX: You((mod_val >0) ?
+#if 0 /*JP*/
 				    "must have been working on your reflexes." :
 				    "haven't been working on reflexes lately.");
+#else
+				    "反射神経を使ったに違いない．" :
+				    "最近反射神経を使ってなかったに違いない．");
+#endif
 				break;
 		    case A_CON: You((mod_val >0) ?
+#if 0 /*JP*/
 				    "must be leading a healthy life-style." :
 				    "haven't been watching your health.");
+#else
+				    "健康的な生活をしていたに違いない．" :
+				    "健康管理を怠っていたに違いない．");
+#endif
 				break;
 		    }
 		}
@@ -592,13 +719,22 @@ int oldlevel, newlevel;
 				*(abil->ability) |= mask;
 			if(!(*(abil->ability) & INTRINSIC & ~mask)) {
 			    if(*(abil->gainstr))
+/*JP
 				You_feel("%s!", abil->gainstr);
+*/
+				You("%sような気がした！", abil->gainstr);
 			}
 		} else if (oldlevel >= abil->ulevel && newlevel < abil->ulevel) {
 			*(abil->ability) &= ~mask;
 			if(!(*(abil->ability) & INTRINSIC)) {
 			    if(*(abil->losestr))
+/*JP
 				You_feel("%s!", abil->losestr);
+*/
+				You("%sような気がした！", abil->losestr);
+/*JP 
+**	この条件は満さないはず．
+*/
 			    else if(*(abil->gainstr))
 				You_feel("less %s!", abil->gainstr);
 			}

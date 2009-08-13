@@ -7,6 +7,14 @@
  * command.
  */
 
+/*
+**	Japanese version Copyright
+**	(c) Issei Numata, Naoki Hamada, Shigehiro Miyashita, 1996-2000
+**	changing point is marked `JP' (96/7/21)
+**	For 3.4, Copyright (c) Kentaro Shirakata, 2002-2003
+**	JNetHack may be freely redistributed.  See license for details. 
+*/
+
 #include "hack.h"
 #include "artifact.h"
 
@@ -209,8 +217,12 @@ register struct obj *sobj;
 	if (sobj) {
 		char buf[BUFSZ];
 		if (youmonst.data == &mons[PM_GOLD_GOLEM]) {
+#if 0 /*JP*/
 			Sprintf(buf, "You feel like a million %s!",
 				currency(2L));
+#else
+			Strcpy(buf, "あなたは金持ちになったように感じた！");
+#endif
 		} else if (hidden_gold() ||
 #ifndef GOLDOBJ
 				u.ugold)
@@ -218,16 +230,25 @@ register struct obj *sobj;
 			        money_cnt(invent))
 #endif
 			Strcpy(buf,
+/*JP
 				"You feel worried about your future financial situation.");
+*/
+				"あなたは将来の経済状況が心配になった．");
 		else
+/*JP
 			Strcpy(buf, "You feel materially poor.");
+*/
+			Strcpy(buf, "あなたはひもじさを感じた．");
 		strange_feeling(sobj, buf);
         }
 	return(1);
     }
     /* only under me - no separate display required */
     if (stale) docrt();
+/*JP
     You("notice some gold between your %s.", makeplural(body_part(FOOT)));
+*/
+    You("%sの間に金貨が落ちていることに気がついた．", body_part(FOOT));
     return(0);
 
 outgoldmap:
@@ -278,7 +299,10 @@ outgoldmap:
     }
     
     newsym(u.ux,u.uy);
+/*JP
     You_feel("very greedy, and sense gold!");
+*/
+    You("どん欲になったような気がした，そして金貨の位置を感知した！");
     exercise(A_WIS, TRUE);
     display_nhwindow(WIN_MAP, TRUE);
     docrt();
@@ -299,7 +323,10 @@ register struct obj	*sobj;
     register int ct = 0, ctu = 0;
     boolean confused = (Confusion || (sobj && sobj->cursed)), stale;
     char oclass = confused ? POTION_CLASS : FOOD_CLASS;
+/*JP
     const char *what = confused ? something : "food";
+*/
+    const char *what = confused ? "ハラヘリ" : "食べ物";
     int uw = u.uinwater;
 
     stale = clear_stale_map(oclass, 0);
@@ -322,15 +349,26 @@ register struct obj	*sobj;
 	known = stale && !confused;
 	if (stale) {
 	    docrt();
+/*JP
 	    You("sense a lack of %s nearby.", what);
+*/
+	    You("%sが減っているのに気がついた．",what);
 	    if (sobj && sobj->blessed) {
+/*JP
 		if (!u.uedibility) Your("%s starts to tingle.", body_part(NOSE));
+*/
+		if (!u.uedibility) Your("%sがぴくっと動いた．", body_part(NOSE));
 		u.uedibility = 1;
 	    }
 	} else if (sobj) {
 	    char buf[BUFSZ];
+#if 0 /*JP*/
 	    Sprintf(buf, "Your %s twitches%s.", body_part(NOSE),
 			(sobj->blessed && !u.uedibility) ? " then starts to tingle" : "");
+#else
+	    Sprintf(buf, "あなたの%sがひくひくと動い%s．", body_part(NOSE),
+			(sobj->blessed && !u.uedibility) ? "て，うずうずしだした" : "た");
+#endif
 	    if (sobj->blessed && !u.uedibility) {
 		boolean savebeginner = flags.beginner;	/* prevent non-delivery of */
 		flags.beginner = FALSE;			/* 	message            */
@@ -343,9 +381,15 @@ register struct obj	*sobj;
 	return !stale;
     } else if (!ct) {
 	known = TRUE;
+/*JP
 	You("%s %s nearby.", sobj ? "smell" : "sense", what);
+*/
+	You("近くの%sを%s．", what, sobj ? "嗅ぎつけた" : "感知した");
 	if (sobj && sobj->blessed) {
+/*JP
 		if (!u.uedibility) pline("Your %s starts to tingle.", body_part(NOSE));
+*/
+		if (!u.uedibility) pline("あなたの%sはうずうずしだした．", body_part(NOSE));
 		u.uedibility = 1;
 	}
     } else {
@@ -373,13 +417,24 @@ register struct obj	*sobj;
 	newsym(u.ux,u.uy);
 	if (sobj) {
 	    if (sobj->blessed) {
+#if 0 /*JP*/
 	    	Your("%s %s to tingle and you smell %s.", body_part(NOSE),
 	    		u.uedibility ? "continues" : "starts", what);
+#else
+	    	Your("%sはうずうずし%s，%sの匂いを嗅ぎとった．", body_part(NOSE),
+	    		u.uedibility ? "続け" : "始め", what);
+#endif
 		u.uedibility = 1;
 	    } else
+/*JP
 		Your("%s tingles and you smell %s.", body_part(NOSE), what);
+*/
+		Your("%sはうずうずし，%sの匂いを嗅ぎとった．", body_part(NOSE), what);
 	}
+/*JP
 	else You("sense %s.", what);
+*/
+	else You("%sを感知した．", what);
 	display_nhwindow(WIN_MAP, TRUE);
 	exercise(A_WIS, TRUE);
 	docrt();
@@ -431,8 +486,14 @@ int		class;		/* an object class, 0 for all */
     if (Hallucination || (Confusion && class == SCROLL_CLASS))
 	Strcpy(stuff, something);
     else
+/*JP
     	Strcpy(stuff, class ? oclass_names[class] : "objects");
+*/
+    	Strcpy(stuff, class ? oclass_names[class] : "物体");
+/*JP
     if (boulder && class != ROCK_CLASS) Strcat(stuff, " and/or large stones");
+*/
+    if (boulder && class != ROCK_CLASS) Strcat(stuff, "と巨岩");
 
     if (do_dknown) for(obj = invent; obj; obj = obj->nobj) do_dknown_of(obj);
 
@@ -473,11 +534,17 @@ int		class;		/* an object class, 0 for all */
     if (!clear_stale_map(!class ? ALL_CLASSES : class, 0) && !ct) {
 	if (!ctu) {
 	    if (detector)
+/*JP
 		strange_feeling(detector, "You feel a lack of something.");
+*/
+		strange_feeling(detector, "あなたは何かが欠乏しているような気がした．");
 	    return 1;
 	}
 
+/*JP
 	You("sense %s nearby.", stuff);
+*/
+	You("近くの%sを感知した．", stuff);
 	return 0;
     }
 
@@ -559,7 +626,10 @@ int		class;		/* an object class, 0 for all */
     }
 
     newsym(u.ux,u.uy);
+/*JP
     You("detect the %s of %s.", ct ? "presence" : "absence", stuff);
+*/
+    You("%s%s．", stuff, ct ? "を発見した" : "は何もないことがわかった" );
     display_nhwindow(WIN_MAP, TRUE);
     /*
      * What are we going to do when the hero does an object detect while blind
@@ -602,8 +672,13 @@ int mclass;			/* monster class, 0 for all */
     if (!mcnt) {
 	if (otmp)
 	    strange_feeling(otmp, Hallucination ?
+#if 0 /*JP*/
 			    "You get the heebie jeebies." :
 			    "You feel threatened.");
+#else
+			    "あなたは金鳥の夏でキンチョーした．" :
+			    "あなたは恐怖でぞくぞくした．");
+#endif
 	return 1;
     } else {
 	boolean woken = FALSE;
@@ -630,9 +705,15 @@ int mclass;			/* monster class, 0 for all */
 	    }
 	}
 	display_self();
+/*JP
 	You("sense the presence of monsters.");
+*/
+	You("怪物の存在を嗅ぎつけた．");
 	if (woken)
+/*JP
 	    pline("Monsters sense the presence of you.");
+*/
+	    pline("怪物はあなたの存在を嗅ぎつけた．");
 	display_nhwindow(WIN_MAP, TRUE);
 	docrt();
 	if (Underwater) under_water(2);
@@ -711,12 +792,18 @@ register struct obj *sobj;
     }
     if (!found) {
 	char buf[42];
+/*JP
 	Sprintf(buf, "Your %s stop itching.", makeplural(body_part(TOE)));
+*/
+	Sprintf(buf, "あなたの%sのむずむずはおさまった．", makeplural(body_part(TOE)));
 	strange_feeling(sobj,buf);
 	return(1);
     }
     /* traps exist, but only under me - no separate display required */
+/*JP
     Your("%s itch.", makeplural(body_part(TOE)));
+*/
+    Your("%sはむずむずした．", makeplural(body_part(TOE)));
     return(0);
 outtrapmap:
     cls();
@@ -737,7 +824,10 @@ outtrapmap:
     }
 
     newsym(u.ux,u.uy);
+/*JP
     You_feel("%s.", sobj && sobj->cursed ? "very greedy" : "entrapped");
+*/
+    You("%s気持になった．", sobj && sobj->cursed ? "とてもどん欲な" : "だまされているような");
     display_nhwindow(WIN_MAP, TRUE);
     docrt();
     u.uinwater = uw;
@@ -755,37 +845,91 @@ d_level *where;
 
     if (ll < 0) {
 	if (ll < (-8 - rn2(3)))
+/*JP
 	    if (!indun)	return "far away";
+*/
+	    if (!indun)	return "はるか彼方に";
+/*JP
 	    else	return "far below";
+*/
+	    else	return "はるか下方に";
 	else if (ll < -1)
+/*JP
 	    if (!indun)	return "away below you";
+*/
+	    if (!indun)	return "ずっと下方に";
+/*JP
 	    else	return "below you";
+*/
+	    else	return "下方に";
 	else
+/*JP
 	    if (!indun)	return "in the distance";
+*/
+	    if (!indun)	return "遠くに";
+/*JP
 	    else	return "just below";
+*/
+	    else	return "真下に";
     } else if (ll > 0) {
 	if (ll > (8 + rn2(3)))
+/*JP
 	    if (!indun)	return "far away";
+*/
+	    if (!indun)	return "はるか彼方に";
+/*JP
 	    else	return "far above";
+*/
+	    else	return "はるか上方に";
 	else if (ll > 1)
+/*JP
 	    if (!indun)	return "away above you";
+*/
+	    if (!indun)	return "ずっと上方に";
+/*JP
 	    else	return "above you";
+*/
+	    else	return "上方に";
 	else
+/*JP
 	    if (!indun)	return "in the distance";
+*/
+	    if (!indun)	return "遠くに";
+/*JP
 	    else	return "just above";
+*/
+	    else	return "真上に";
     } else
+/*JP
 	    if (!indun)	return "in the distance";
+*/
+	    if (!indun)	return "遠くに";
+/*JP
 	    else	return "near you";
+*/
+	    else	return "近くに";
 }
 
 static const struct {
     const char *what;
     d_level *where;
 } level_detects[] = {
+/*JP
   { "Delphi", &oracle_level },
+*/
+  { "デルファイ", &oracle_level },
+/*JP
   { "Medusa's lair", &medusa_level },
+*/
+  { "メデューサの住みか", &medusa_level },
+/*JP
   { "a castle", &stronghold_level },
+*/
+  { "城", &stronghold_level },
+/*JP
   { "the Wizard of Yendor's tower", &wiz1_level },
+*/
+  { "イェンダーの魔法使いの塔", &wiz1_level },
 };
 
 void
@@ -796,33 +940,60 @@ struct obj *obj;
     int oops;
 
     if (Blind) {
+/*JP
 	pline("Too bad you can't see %s.", the(xname(obj)));
+*/
+	pline("なんてことだ．%sを見ることができない．", the(xname(obj)));
 	return;
     }
     oops = (rnd(obj->blessed ? 10 : 20) > ACURR(A_INT) || obj->cursed);
     if (oops && (obj->spe > 0)) {
 	switch (rnd(obj->oartifact ? 4 : 5)) {
+/*JP
 	case 1 : pline("%s too much to comprehend!", Tobjnam(obj, "are"));
+*/
+	case 1 : pline("%sを覗いたが何のことだかさっぱりわからなかった！", xname(obj));
 	    break;
+/*JP
 	case 2 : pline("%s you!", Tobjnam(obj, "confuse"));
+*/
+	case 2 : pline("%sを覗いてるとふらついてきた！", xname(obj));
 	    make_confused(HConfusion + rnd(100),FALSE);
 	    break;
 	case 3 : if (!resists_blnd(&youmonst)) {
+/*JP
 		pline("%s your vision!", Tobjnam(obj, "damage"));
+*/
+		pline("%sがあなたの視界に迫ってきた．", xname(obj));
 		make_blinded(Blinded + rnd(100),FALSE);
 		if (!Blind) Your(vision_clears);
 	    } else {
+/*JP
 		pline("%s your vision.", Tobjnam(obj, "assault"));
+*/
+		pline("%sがあなたの視界に迫ってきた．", xname(obj));
+/*JP
 		You("are unaffected!");
+*/
+		pline("しかし，あなたは影響を受けなかった！");
 	    }
 	    break;
+/*JP
 	case 4 : pline("%s your mind!", Tobjnam(obj, "zap"));
+*/
+	case 4 : pline("%sを覗いていると五感がおかしくなってきた！", xname(obj));
 	    (void) make_hallucinated(HHallucination + rnd(100),FALSE,0L);
 	    break;
+/*JP
 	case 5 : pline("%s!", Tobjnam(obj, "explode"));
+*/
+	case 5 : pline("%sは爆発した！", xname(obj));
 	    useup(obj);
 	    obj = 0;	/* it's gone */
+/*JP
 	    losehp(rnd(30), "exploding crystal ball", KILLED_BY_AN);
+*/
+	    losehp(rnd(30), "水晶玉の爆発で", KILLED_BY_AN);
 	    break;
 	}
 	if (obj) consume_obj_charge(obj, TRUE);
@@ -831,22 +1002,46 @@ struct obj *obj;
 
     if (Hallucination) {
 	if (!obj->spe) {
+/*JP
 	    pline("All you see is funky %s haze.", hcolor((char *)0));
+*/
+	    pline("おお！ファンキーモンキーな%sもやが見える．", hcolor((char *)0));
 	} else {
 	    switch(rnd(6)) {
+/*JP
 	    case 1 : You("grok some groovy globs of incandescent lava.");
+*/
+	    case 1 : You("水門の鍵をもった水戸黄門が壁の影に隠れているのが見えた．");
 		break;
+/*JP
 	    case 2 : pline("Whoa!  Psychedelic colors, %s!",
+*/
+	    case 2 : pline("ワーオ！ラリってるかい？%s！",
+/*JP
 			   poly_gender() == 1 ? "babe" : "dude");
+*/
+			   poly_gender() == 1 ? "ベイビー" : "ユー");
 		break;
+/*JP
 	    case 3 : pline_The("crystal pulses with sinister %s light!",
+*/
+	    case 3 : pline("水晶は不吉な%sパルスを発した！", 
 				hcolor((char *)0));
 		break;
+/*JP
 	    case 4 : You("see goldfish swimming above fluorescent rocks.");
+*/
+	    case 4 : You("蛍光岩の上を金魚が泳いでいるのが見えた．");
 		break;
+/*JP
 	    case 5 : You("see tiny snowflakes spinning around a miniature farmhouse.");
+*/
+	    case 5 : You("小さい雪片がミニチュアの農家の家のまわりを舞ってるのが見えた．");
 		break;
+/*JP
 	    default: pline("Oh wow... like a kaleidoscope!");
+*/
+	    default: pline("ワーオ．万華鏡のようだ！");
 		break;
 	    }
 	    consume_obj_charge(obj, TRUE);
@@ -855,18 +1050,30 @@ struct obj *obj;
     }
 
     /* read a single character */
+/*JP
     if (flags.verbose) You("may look for an object or monster symbol.");
+*/
+    if (flags.verbose) You("物体や怪物の記号を探せる．");
+/*JP
     ch = yn_function("What do you look for?", (char *)0, '\0');
+*/
+    ch = yn_function("何を探しますか？", (char *)0, '\0');
     /* Don't filter out ' ' here; it has a use */
     if ((ch != def_monsyms[S_GHOST]) && index(quitchars,ch)) { 
 	if (flags.verbose) pline(Never_mind);
 	return;
     }
+/*JP
     You("peer into %s...", the(xname(obj)));
+*/
+    You("%sを覗きこんだ．．．", the(xname(obj)));
     nomul(-rnd(10));
     nomovemsg = "";
     if (obj->spe <= 0)
+/*JP
 	pline_The("vision is unclear.");
+*/
+	pline("映像は不鮮明だった．");
     else {
 	int class;
 	int ret = 0;
@@ -892,7 +1099,10 @@ struct obj *obj;
 		default:
 		    {
 		    int i = rn2(SIZE(level_detects));
+/*JP
 		    You("see %s, %s.",
+*/
+		    You("%sを%s見た．",
 			level_detects[i].what,
 			level_distance(level_detects[i].where));
 		    }
@@ -902,8 +1112,14 @@ struct obj *obj;
 
 	if (ret) {
 	    if (!rn2(100))  /* make them nervous */
+/*JP
 		You("see the Wizard of Yendor gazing out at you.");
+*/
+		You("イェンダーの魔法使いがあなたをにらんでいるのが見えた．");
+/*JP
 	    else pline_The("vision is unclear.");
+*/
+	    else pline("映像は不鮮明になった．");
 	}
     }
     return;
@@ -1069,11 +1285,21 @@ genericptr_t num;
 		if(levl[zx][zy].typ == SDOOR)
 		    cvt_sdoor_to_door(&levl[zx][zy]);	/* .typ = DOOR */
 		if(levl[zx][zy].doormask & D_TRAPPED) {
+/*JP
 		    if(distu(zx, zy) < 3) b_trapped("door", 0);
+*/
+		    if(distu(zx, zy) < 3) b_trapped("扉", 0);
+#if 0 /*JP*/
 		    else Norep("You %s an explosion!",
 				cansee(zx, zy) ? "see" :
 				   (flags.soundok ? "hear" :
 						"feel the shock of"));
+#else
+		    else Norep("あなたは爆発%s！",
+				cansee(zx, zy) ? "を見た" :
+				   (flags.soundok ? "音を聞いた" :
+						"の衝撃を感じた"));
+#endif
 		    wake_nearto(zx, zy, 11*11);
 		    levl[zx][zy].doormask = D_NODOOR;
 		} else
@@ -1116,8 +1342,14 @@ openit()	/* returns number of things found and opened */
 
 	if(u.uswallow) {
 		if (is_animal(u.ustuck->data)) {
+/*JP
 			if (Blind) pline("Its mouth opens!");
+*/
+			if (Blind) pline("何者かの口が開いた！");
+/*JP
 			else pline("%s opens its mouth!", Monnam(u.ustuck));
+*/
+			else pline("%sは口を開いた！", Monnam(u.ustuck));
 		}
 		expels(u.ustuck, u.ustuck->data, TRUE);
 		return(-1);
@@ -1149,7 +1381,10 @@ struct trap *trap;
 	cleared = TRUE;
     }
 
+/*JP
     You("find %s.", an(defsyms[trap_to_defsym(tt)].explanation));
+*/
+    You("%sを見つけた．", jtrns_obj('^', defsyms[trap_to_defsym(tt)].explanation));
 
     if (cleared) {
 	display_nhwindow(WIN_MAP, TRUE);	/* wait */
@@ -1176,7 +1411,10 @@ register int aflag;
 
 	if(u.uswallow) {
 		if (!aflag)
+/*JP
 			pline("What are you looking for?  The exit?");
+*/
+			pline("何を探すんだい？非常口？");
 	} else {
 	    int fund = (uwep && uwep->oartifact &&
 		    spec_ability(uwep, SPFX_SEARCH)) ?
@@ -1222,11 +1460,17 @@ register int aflag;
 					 */
 					continue;
 				    } else {
+/*JP
 					You_feel("an unseen monster!");
+*/
+					You("見えない怪物の気配を感じた！");
 					map_invisible(x, y);
 				    }
 				} else if (!sensemon(mtmp))
+/*JP
 				    You("find %s.", a_monnam(mtmp));
+*/
+				    You("%sを見つけた．", a_monnam(mtmp));
 				return(1);
 			    }
 			    if(!canspotmon(mtmp)) {

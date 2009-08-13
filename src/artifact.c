@@ -2,6 +2,13 @@
 /* Copyright (c) Stichting Mathematisch Centrum, Amsterdam, 1985. */
 /* NetHack may be freely redistributed.  See license for details. */
 
+/*
+**	Japanese version Copyright
+**	(c) Issei Numata, Naoki Hamada, Shigehiro Miyashita, 1994-2000
+**	For 3.4, Copyright (c) Kentaro Shirakata, 2002-2003
+**	JNetHack may be freely redistributed.  See license for details. 
+*/
+
 #include "hack.h"
 #include "artifact.h"
 #ifdef OVLB
@@ -552,16 +559,25 @@ touch_artifact(obj,mon)
 	char buf[BUFSZ];
 
 	if (!yours) return 0;
+/*JP
 	You("are blasted by %s power!", s_suffix(the(xname(obj))));
+*/
+	You("%sの力を浴びた！", xname(obj));
 	dmg = d((Antimagic ? 2 : 4), (self_willed ? 10 : 4));
+/*JP
 	Sprintf(buf, "touching %s", oart->name);
+*/
+	Sprintf(buf, "%sに触れて", jtrns_obj('A', oart->name));
 	losehp(dmg, buf, KILLED_BY);
 	exercise(A_WIS, FALSE);
     }
 
     /* can pick it up unless you're totally non-synch'd with the artifact */
     if (badclass && badalign && self_willed) {
+/*JP
 	if (yours) pline("%s your grasp!", Tobjnam(obj, "evade"));
+*/
+	if (yours) pline("%sは握ろうとするとするりと抜けた！", xname(obj));
 	return 0;
     }
 
@@ -721,11 +737,19 @@ winid tmpwin;		/* supplied by dodiscover() */
 
     for (i = 0; i < NROFARTIFACTS; i++) {
 	if (artidisco[i] == 0) break;	/* empty slot implies end of list */
+/*JP
 	if (i == 0) putstr(tmpwin, iflags.menu_headings, "Artifacts");
+*/
+	if (i == 0) putstr(tmpwin, iflags.menu_headings, "聖器");
 	m = artidisco[i];
 	otyp = artilist[m].otyp;
+#if 0 /*JP*/
 	Sprintf(buf, "  %s [%s %s]", artiname(m),
 		align_str(artilist[m].alignment), simple_typename(otyp));
+#else
+	Sprintf(buf, "  %s [%s %s]", jtrns_obj('A', artiname(m)),
+		align_str(artilist[m].alignment), simple_typename(otyp));
+#endif
 	putstr(tmpwin, 0, buf);
     }
     return i;
@@ -758,8 +782,14 @@ winid tmpwin;		/* supplied by dodiscover() */
 	 */
 #define MB_MAX_DIEROLL		8	/* rolls above this aren't magical */
 static const char * const mb_verb[2][4] = {
+#if 0 /*JP*/
 	{ "probe", "stun", "scare", "cancel" },
 	{ "prod", "amaze", "tickle", "purge" },
+#else
+	/* Mb_hit() で "%sた"の形で利用 */
+	{"調べ", "くらくらさせ", "怯えさせ", "浄化し"},
+	{ "励まし", "驚かせ", "くすぐっ", "清め" },
+#endif
 };
 #define MB_INDEX_PROBE		0
 #define MB_INDEX_STUN		1
@@ -823,8 +853,13 @@ char *hittee;			/* target's name: "you" or mon_nam(mdef) */
     verb = mb_verb[!!Hallucination][attack_indx];
     if (youattack || youdefend || vis) {
 	result = TRUE;
+#if 0 /*JP*/
 	pline_The("magic-absorbing blade %s %s!",
 		  vtense((const char *)0, verb), hittee);
+#else
+	pline("魔力を吸いとる刃が%sを%sた！",
+		  hittee, verb);
+#endif
 	/* assume probing has some sort of noticeable feedback
 	   even if it is being done by one monster to another */
 	if (attack_indx == MB_INDEX_PROBE && !canspotmon(mdef))
@@ -847,7 +882,10 @@ char *hittee;			/* target's name: "you" or mon_nam(mdef) */
 		if (youmonst.data != old_uasmon)
 		    *dmgptr = 0;    /* rehumanized, so no more damage */
 		if (u.uenmax > 0) {
+/*JP
 		    You("lose magical energy!");
+*/
+		    You("魔法のエネルギーを失った！");
 		    u.uenmax--;
 		    if (u.uen > 0) u.uen--;
 		    flags.botl = 1;
@@ -856,7 +894,10 @@ char *hittee;			/* target's name: "you" or mon_nam(mdef) */
 		if (mdef->data == &mons[PM_CLAY_GOLEM])
 		    mdef->mhp = 1;	/* cancelled clay golems will die */
 		if (youattack && attacktype(mdef->data, AT_MAGC)) {
+/*JP
 		    You("absorb magical energy!");
+*/
+		    You("魔法のエネルギーを吸いとった！");
 		    u.uenmax++;
 		    u.uen++;
 		    flags.botl = 1;
@@ -874,7 +915,10 @@ char *hittee;			/* target's name: "you" or mon_nam(mdef) */
 		nomovemsg = "";
 		if (magr && magr == u.ustuck && sticks(youmonst.data)) {
 		    u.ustuck = (struct monst *)0;
+/*JP
 		    You("release %s!", mon_nam(magr));
+*/
+		    You("%sを解放した！", mon_nam(magr));
 		}
 	    }
 	} else {
@@ -892,7 +936,10 @@ char *hittee;			/* target's name: "you" or mon_nam(mdef) */
 
     case MB_INDEX_PROBE:
 	if (youattack && (mb->spe == 0 || !rn2(3 * abs(mb->spe)))) {
+/*JP
 	    pline_The("%s is insightful.", verb);
+*/
+	    pline("識別できた．");
 	    /* pre-damage status */
 	    probe_monster(mdef);
 	}
@@ -919,7 +966,10 @@ char *hittee;			/* target's name: "you" or mon_nam(mdef) */
     if (youattack || youdefend || vis) {
 	(void) upstart(hittee);	/* capitalize */
 	if (resisted) {
+/*JP
 	    pline("%s %s!", hittee, vtense(hittee, "resist"));
+*/
+	    pline("%sは防いだ！", hittee);
 	    shieldeff(youdefend ? u.ux : mdef->mx,
 		      youdefend ? u.uy : mdef->my);
 	}
@@ -927,11 +977,19 @@ char *hittee;			/* target's name: "you" or mon_nam(mdef) */
 	    char buf[BUFSZ];
 
 	    buf[0] = '\0';
+#if 0 /*JP:T*/
 	    if (do_stun) Strcat(buf, "stunned");
 	    if (do_stun && do_confuse) Strcat(buf, " and ");
 	    if (do_confuse) Strcat(buf, "confused");
 	    pline("%s %s %s%c", hittee, vtense(hittee, "are"),
 		  buf, (do_stun && do_confuse) ? '!' : '.');
+#else
+	    if (do_stun && do_confuse) Strcat(buf, "よろめいて");
+	    else if (do_stun) Strcat(buf, "よろめいた");
+	    if (do_confuse) Strcat(buf, "混乱した");
+	    pline("%sは%s%s", hittee,
+		  buf, (do_stun && do_confuse) ? "！" : "．");
+#endif
 	}
     }
 
@@ -960,7 +1018,10 @@ int dieroll; /* needed for Magicbane and vorpal blades */
 	    || (youattack && u.uswallow && mdef == u.ustuck && !Blind);
 	boolean realizes_damage;
 	const char *wepdesc;
+/*JP
 	static const char you[] = "you";
+*/
+	static const char you[] = "あなた";
 	char hittee[BUFSZ];
 
 	Strcpy(hittee, youdefend ? you : mon_nam(mdef));
@@ -983,11 +1044,19 @@ int dieroll; /* needed for Magicbane and vorpal blades */
 	/* the four basic attacks: fire, cold, shock and missiles */
 	if (attacks(AD_FIRE, otmp)) {
 	    if (realizes_damage)
+#if 0 /*JP*/
 		pline_The("fiery blade %s %s%c",
 			!spec_dbon_applies ? "hits" :
 			(mdef->data == &mons[PM_WATER_ELEMENTAL]) ?
 			"vaporizes part of" : "burns",
 			hittee, !spec_dbon_applies ? '.' : '!');
+#else
+		pline_The("猛火が%s%s",
+			hittee,
+			!spec_dbon_applies ? "に命中した．" :
+			(mdef->data == &mons[PM_WATER_ELEMENTAL]) ?
+			"の一部を消滅させた！" : "を焼いた！");
+#endif
 	    if (!rn2(4)) (void) destroy_mitem(mdef, POTION_CLASS, AD_FIRE);
 	    if (!rn2(4)) (void) destroy_mitem(mdef, SCROLL_CLASS, AD_FIRE);
 	    if (!rn2(7)) (void) destroy_mitem(mdef, SPBOOK_CLASS, AD_FIRE);
@@ -996,27 +1065,45 @@ int dieroll; /* needed for Magicbane and vorpal blades */
 	}
 	if (attacks(AD_COLD, otmp)) {
 	    if (realizes_damage)
+#if 0 /*JP*/
 		pline_The("ice-cold blade %s %s%c",
 			!spec_dbon_applies ? "hits" : "freezes",
 			hittee, !spec_dbon_applies ? '.' : '!');
+#else
+		pline_The("猛吹雪が%s%s",
+			hittee,
+			!spec_dbon_applies ? "に命中した．" : "を襲った！");
+#endif
 	    if (!rn2(4)) (void) destroy_mitem(mdef, POTION_CLASS, AD_COLD);
 	    return realizes_damage;
 	}
 	if (attacks(AD_ELEC, otmp)) {
 	    if (realizes_damage)
+#if 0 /*JP*/
 		pline_The("massive hammer hits%s %s%c",
 			  !spec_dbon_applies ? "" : "!  Lightning strikes",
 			  hittee, !spec_dbon_applies ? '.' : '!');
+#else
+		    pline("巨大なハンマーは%sに命中した%s", hittee,
+			  !spec_dbon_applies ? "．" : "！電撃が襲った！");
+#endif
 	    if (!rn2(5)) (void) destroy_mitem(mdef, RING_CLASS, AD_ELEC);
 	    if (!rn2(5)) (void) destroy_mitem(mdef, WAND_CLASS, AD_ELEC);
 	    return realizes_damage;
 	}
 	if (attacks(AD_MAGM, otmp)) {
 	    if (realizes_damage)
+#if 0 /*JP*/
 		pline_The("imaginary widget hits%s %s%c",
 			  !spec_dbon_applies ? "" :
 				"!  A hail of magic missiles strikes",
 			  hittee, !spec_dbon_applies ? '.' : '!');
+#else
+		pline("実体を持たない物体が%sを攻撃した%s",
+			  hittee,
+			  !spec_dbon_applies ? "．" :
+				"！魔法の矢が雨あられと命中した！");
+#endif
 	    return realizes_damage;
 	}
 
@@ -1035,10 +1122,16 @@ int dieroll; /* needed for Magicbane and vorpal blades */
 	/* reverse from AD&D. */
 	if (spec_ability(otmp, SPFX_BEHEAD)) {
 	    if (otmp->oartifact == ART_TSURUGI_OF_MURAMASA && dieroll == 1) {
+/*JP
 		wepdesc = "The razor-sharp blade";
+*/
+		wepdesc = "斬鉄剣";
 		/* not really beheading, but so close, why add another SPFX */
 		if (youattack && u.uswallow && mdef == u.ustuck) {
+/*JP
 		    You("slice %s wide open!", mon_nam(mdef));
+*/
+		    You("%sを輪切りにした！", mon_nam(mdef));
 		    *dmgptr = 2 * mdef->mhp + FATAL_DAMAGE_MODIFIER;
 		    return TRUE;
 		}
@@ -1049,21 +1142,33 @@ int dieroll; /* needed for Magicbane and vorpal blades */
 
 			if (bigmonst(mdef->data)) {
 				if (youattack)
+/*JP
 					You("slice deeply into %s!",
+*/
+					You("%sに深く斬りつけた！",
 						mon_nam(mdef));
 				else if (vis)
+/*JP
 					pline("%s cuts deeply into %s!",
+*/
+					pline("%sは%sに深く斬りつけた！",
 					      Monnam(magr), hittee);
 				*dmgptr *= 2;
 				return TRUE;
 			}
 			*dmgptr = 2 * mdef->mhp + FATAL_DAMAGE_MODIFIER;
+/*JP
 			pline("%s cuts %s in half!", wepdesc, mon_nam(mdef));
+*/
+			pline("%sが%sを真っ二つにした！", wepdesc, mon_nam(mdef));
 			otmp->dknown = TRUE;
 			return TRUE;
 		} else {
 			if (bigmonst(youmonst.data)) {
+/*JP
 				pline("%s cuts deeply into you!",
+*/
+				pline("%sはあなたに深く斬りつけた！",
 				      magr ? Monnam(magr) : wepdesc);
 				*dmgptr *= 2;
 				return TRUE;
@@ -1075,33 +1180,53 @@ int dieroll; /* needed for Magicbane and vorpal blades */
 			 * damage does not prevent death.
 			 */
 			*dmgptr = 2 * (Upolyd ? u.mh : u.uhp) + FATAL_DAMAGE_MODIFIER;
+/*JP
 			pline("%s cuts you in half!", wepdesc);
+*/
+			pline("%sがあなたを真っ二つにした！", wepdesc);
 			otmp->dknown = TRUE;
 			return TRUE;
 		}
 	    } else if (otmp->oartifact == ART_VORPAL_BLADE &&
 		       (dieroll == 1 || mdef->data->mlet == S_JABBERWOCK)) {
 		static const char * const behead_msg[2] = {
+#if 0 /*JP*/
 		     "%s beheads %s!",
 		     "%s decapitates %s!"
+#else
+		     "%sは%sの首を切った！",
+		     "%sは%sの首を切り落した！"
+#endif
 		};
 
 		if (youattack && u.uswallow && mdef == u.ustuck)
 			return FALSE;
+/*JP
 		wepdesc = artilist[ART_VORPAL_BLADE].name;
+*/
+		wepdesc = jtrns_obj('A', artilist[ART_VORPAL_BLADE].name);
 		if (!youdefend) {
 			if (!has_head(mdef->data) || notonhead || u.uswallow) {
 				if (youattack)
+/*JP
 					pline("Somehow, you miss %s wildly.",
+*/
+					pline("なぜか，%sへの攻撃は大きくはずれた．",
 						mon_nam(mdef));
 				else if (vis)
+/*JP
 					pline("Somehow, %s misses wildly.",
+*/
+					pline("なぜか，%sの攻撃は大きくはずれた．",
 						mon_nam(magr));
 				*dmgptr = 0;
 				return ((boolean)(youattack || vis));
 			}
 			if (noncorporeal(mdef->data) || amorphous(mdef->data)) {
+/*JP
 				pline("%s slices through %s %s.", wepdesc,
+*/
+				pline("%sは%sの%sを切り落した．", wepdesc,
 				      s_suffix(mon_nam(mdef)),
 				      mbodypart(mdef,NECK));
 				return TRUE;
@@ -1113,20 +1238,29 @@ int dieroll; /* needed for Magicbane and vorpal blades */
 			return TRUE;
 		} else {
 			if (!has_head(youmonst.data)) {
+/*JP
 				pline("Somehow, %s misses you wildly.",
+*/
+				pline("なぜか，%sの攻撃は大きくはずれた．",
 				      magr ? mon_nam(magr) : wepdesc);
 				*dmgptr = 0;
 				return TRUE;
 			}
 			if (noncorporeal(youmonst.data) || amorphous(youmonst.data)) {
+/*JP
 				pline("%s slices through your %s.",
+*/
+				pline("%sはあなたの%sを切り落した．",
 				      wepdesc, body_part(NECK));
 				return TRUE;
 			}
 			*dmgptr = 2 * (Upolyd ? u.mh : u.uhp)
 				  + FATAL_DAMAGE_MODIFIER;
 			pline(behead_msg[rn2(SIZE(behead_msg))],
+/*JP
 			      wepdesc, "you");
+*/
+			      wepdesc, "あなた");
 			otmp->dknown = TRUE;
 			/* Should amulets fall off? */
 			return TRUE;
@@ -1137,11 +1271,17 @@ int dieroll; /* needed for Magicbane and vorpal blades */
 		if (!youdefend) {
 			if (vis) {
 			    if(otmp->oartifact == ART_STORMBRINGER)
+/*JP
 				pline_The("%s blade draws the life from %s!",
+*/
+				pline("%s刃が%sの生命力を奪った！",
 				      hcolor(NH_BLACK),
 				      mon_nam(mdef));
 			    else
+/*JP
 				pline("%s draws the life from %s!",
+*/
+				pline("%sは%sの生命力を奪った！",
 				      The(distant_name(otmp, xname)),
 				      mon_nam(mdef));
 			}
@@ -1160,16 +1300,31 @@ int dieroll; /* needed for Magicbane and vorpal blades */
 			int oldhpmax = u.uhpmax;
 
 			if (Blind)
+/*JP
 				You_feel("an %s drain your life!",
+*/
+				pline("%sに生命力を奪われたような気がした！",
 				    otmp->oartifact == ART_STORMBRINGER ?
+/*JP
 				    "unholy blade" : "object");
+*/
+				    "不浄な刃" : "何か");
 			else if (otmp->oartifact == ART_STORMBRINGER)
+/*JP
 				pline_The("%s blade drains your life!",
+*/
+				pline("%s刃があなたの生命力を奪った！",
 				      hcolor(NH_BLACK));
 			else
+/*JP
 				pline("%s drains your life!",
+*/
+				pline("%sがあなたの生命力を奪った！",
 				      The(distant_name(otmp, xname)));
+/*JP
 			losexp("life drainage");
+*/
+			losexp("生命力を吸収されて");
 			if (magr && magr->mhp < magr->mhpmax) {
 			    magr->mhp += (oldhpmax - u.uhpmax)/2;
 			    if (magr->mhp > magr->mhpmax) magr->mhp = magr->mhpmax;
@@ -1188,6 +1343,7 @@ int dieroll; /* needed for Magicbane and vorpal blades */
 	    otmp->oartifact == ART_OGRESMASHER) {
 		if (!mdef->mcan && dieroll < 4) {
 		    if (realizes_damage) {
+			/* TODO:翻訳 */
 			pline("%s %s!", The(distant_name(otmp, xname)), Blind ?
 				"roars deafeningly" : "shines brilliantly");
 			pline("It strikes %s!", hittee);
@@ -1240,8 +1396,12 @@ arti_invoke(obj)
 	/* It's a special power, not "just" a property */
 	if(obj->age > monstermoves) {
 	    /* the artifact is tired :-) */
+#if 0 /*JP:T*/
 	    You_feel("that %s %s ignoring you.",
 		     the(xname(obj)), otense(obj, "are"));
+#else
+	    You_feel("%sが無視しているように感じた．", xname(obj));
+#endif
 	    /* and just got more so; patience is essential... */
 	    obj->age += (long) d(3,10);
 	    return 1;
@@ -1263,7 +1423,10 @@ arti_invoke(obj)
 
 	    if (Upolyd) healamt = (u.mhmax + 1 - u.mh) / 2;
 	    if (healamt || Sick || Slimed || Blinded > creamed)
+/*JP
 		You_feel("better.");
+*/
+		You_feel("気分がよくなった．");
 	    else
 		goto nothing_special;
 	    if (healamt > 0) {
@@ -1281,7 +1444,10 @@ arti_invoke(obj)
 	    if (epboost > 120) epboost = 120;		/* arbitrary */
 	    else if (epboost < 12) epboost = u.uenmax - u.uen;
 	    if(epboost) {
+/*JP
 		You_feel("re-energized.");
+*/
+		You("エネルギーが満たされた．");
 		u.uen += epboost;
 		flags.botl = 1;
 	    } else
@@ -1322,6 +1488,7 @@ arti_invoke(obj)
 	    any.a_void = 0;	/* set all bits to zero */
  #ifdef BLACKMARKET           
 	    if (Is_blackmarket(&u.uz) && *u.ushops) {
+		/* TODO:翻訳 */
 		You("feel very disoriented for a moment.");
 		break;
 	    }
@@ -1332,11 +1499,17 @@ arti_invoke(obj)
 		if (!dungeons[i].dunlev_ureached) continue;
 		any.a_int = i+1;
 		add_menu(tmpwin, NO_GLYPH, &any, 0, 0, ATR_NONE,
+/*JP
 			 dungeons[i].dname, MENU_UNSELECTED);
+*/
+			 jtrns_obj('d', dungeons[i].dname), MENU_UNSELECTED);
 		num_ok_dungeons++;
 		last_ok_dungeon = i;
 	    }
+/*JP
 	    end_menu(tmpwin, "Open a portal to which dungeon?");
+*/
+	    end_menu(tmpwin, "どの迷宮への魔法の入口を開きますか？");
 	    if (num_ok_dungeons > 1) {
 		/* more than one entry; display menu for choices */
 		menu_item *selected;
@@ -1366,10 +1539,19 @@ arti_invoke(obj)
 		newlev.dlevel = dungeons[i].dunlev_ureached;
 	    if(u.uhave.amulet || In_endgame(&u.uz) || In_endgame(&newlev) ||
 	       newlev.dnum == u.uz.dnum) {
+/*JP
 		You_feel("very disoriented for a moment.");
+*/
+		You("一瞬方向感覚を失った．");
 	    } else {
+/*JP
 		if(!Blind) You("are surrounded by a shimmering sphere!");
+*/
+		if(!Blind) You("チカチカ光る球体に覆われた！");
+/*JP
 		else You_feel("weightless for a moment.");
+*/
+		else You_feel("一瞬，無重力感を感じた！");
 		goto_level(&newlev, FALSE, FALSE, FALSE);
 	    }
 	    break;
@@ -1392,8 +1574,13 @@ arti_invoke(obj)
 	    } else
 		otmp->quan += rnd(5);
 	    otmp->owt = weight(otmp);
+#if 0 /*JP*/
 	    otmp = hold_another_object(otmp, "Suddenly %s out.",
 				       aobjnam(otmp, "fall"), (const char *)0);
+#else
+	    otmp = hold_another_object(otmp, "突然%sが落ちた．",
+				       xname(otmp), 0);
+#endif
 	    break;
 	  }
 	}
@@ -1405,8 +1592,12 @@ arti_invoke(obj)
 	if(on && obj->age > monstermoves) {
 	    /* the artifact is tired :-) */
 	    u.uprops[oart->inv_prop].extrinsic ^= W_ARTI;
+#if 0 /*JP:T*/
 	    You_feel("that %s %s ignoring you.",
 		     the(xname(obj)), otense(obj, "are"));
+#else
+	    You_feel("%sが無視しているように感じた．", xname(obj));
+#endif
 	    /* can't just keep repeatedly trying */
 	    obj->age += (long) d(3,10);
 	    return 1;
@@ -1420,13 +1611,22 @@ arti_invoke(obj)
 nothing_special:
 	    /* you had the property from some other source too */
 	    if (carried(obj))
+/*JP
 		You_feel("a surge of power, but nothing seems to happen.");
+*/
+		You("力が渦巻いたような気がした，しかし何も起きなかった．");
 	    return 1;
 	}
 	switch(oart->inv_prop) {
 	case CONFLICT:
+/*JP
 	    if(on) You_feel("like a rabble-rouser.");
+*/
+	    if(on) You("民衆扇動家のような気がした．");
+/*JP
 	    else You_feel("the tension decrease around you.");
+*/
+	    else pline("まわりの緊張感がなくなったような気がした．");
 	    break;
 	case LEVITATION:
 	    if(on) {
@@ -1438,10 +1638,18 @@ nothing_special:
 	    if (BInvis || Blind) goto nothing_special;
 	    newsym(u.ux, u.uy);
 	    if (on)
+#if 0 /*JP*/
 		Your("body takes on a %s transparency...",
 		     Hallucination ? "normal" : "strange");
+#else
+		pline("%s，体は透過性をもった．．．",
+		      Hallucination ? "あたりまえのことだが" : "奇妙なことに");
+#endif
 	    else
+/*JP
 		Your("body seems to unfade...");
+*/
+		Your("体は次第に見えるようになってきた．．．");
 	    break;
 	}
     }
@@ -1474,8 +1682,14 @@ arti_speak(obj)
 
 	line = getrumor(bcsign(obj), buf, TRUE);
 	if (!*line)
+/*JP
 		line = "UnNetHack rumors file closed for renovation.";
+*/
+		line = "噂の真相は新装のため一時閉店．";
+/*JP
 	pline("%s:", Tobjnam(obj, "whisper"));
+*/
+	pline("%sはささやいた：", xname(obj));
 	verbalize("%s", line);
 	return;
 }

@@ -55,6 +55,9 @@ SYSOBJ = ioctl.o unixmain.o unixtty.o unixunix.o unixres.o
 #SYSSRC = ../sys/be/bemain.c ../sys/share/unixtty.c ../sys/share/ioctl.c
 #SYSOBJ = bemain.o unixtty.o ioctl.o
 
+#JP by issei(93/11/10)
+JSRC = ../japanese/jconj.c ../japanese/jtrns.c ../japanese/jlib.c
+JOBJ = jconj.o jtrns.o jlib.o
 
 # if you are using gcc as your compiler:
 #	uncomment the CC definition below if it's not in your environment
@@ -69,7 +72,7 @@ SYSOBJ = ioctl.o unixmain.o unixtty.o unixunix.o unixres.o
 #
 #	If you are using GCC 2.2.2 or higher on a DPX/2, just use:
 #
-# CC = gcc -ansi
+CC = gcc
 #
 #	For HP/UX 10.20 with GCC:
 # CC = gcc -D_POSIX_SOURCE
@@ -151,7 +154,7 @@ GNOMEINC=-I/usr/lib/glib/include -I/usr/lib/gnome-libs/include -I../win/gnome
 # flags for debugging:
 # CFLAGS = -g -I../include
 
-CFLAGS = -O -I../include
+CFLAGS = -W -g -O -I../include
 LFLAGS = 
 
 # The Qt and Be window systems are written in C++, while the rest of
@@ -163,6 +166,16 @@ CXX=g++
 #	For cross-compiling, eg. with gcc on Linux (see also CC further up):
 #CXX=arm-linux-g++
 #LINK=arm-linux-gcc
+
+# flags for IPv6 support
+#   for Linux + glibc-2.1.x / Solaris users
+# CFLAGS += -DINET6
+#   for KAME users
+# CFLAGS += -DINET6
+# LFLAGS += -L/usr/local/v6/lib -linet6
+#   for Linux libinet users
+# CFLAGS  = -DINET6 -I/usr/inet6/include $(CFLAGS)
+# LFLAGS += -L/usr/inet6/lib -linet6
 
 # Set the WINSRC, WINOBJ, and WINLIB lines to correspond to your desired
 # combination of windowing systems.  Also set windowing systems in config.h.
@@ -230,8 +243,8 @@ WINOBJ = $(WINTTYOBJ)
 # WINTTYLIB = -ltermcap
 # WINTTYLIB = -lcurses
 # WINTTYLIB = -lcurses16
-# WINTTYLIB = -lncurses
-WINTTYLIB = -ltermlib
+ WINTTYLIB = -lncurses
+# WINTTYLIB = -ltermlib
 #
 # libraries for X11
 # If USE_XPM is defined in config.h, you will also need -lXpm here.
@@ -282,10 +295,14 @@ WINLIB = $(WINTTYLIB)
 # IRIX 4.0.x needs -lsun if NIS (YP) is being used for passwd file lookup
 # LIBS = -lsun
 #
+# FreeBSD-2.2 needs -lxpg4 to use locale
+# LIBS = -lxpg4
+#
 LIBS =
 
 # make NetHack
-GAME     = nethack
+#JP by issei(96/5/27)
+GAME     = jnethack
 # GAME     = nethack.prg
 
 # if you defined RANDOM in unixconf.h/tosconf.h since your system did not come
@@ -343,10 +360,10 @@ WINCSRC = $(WINTTYSRC) $(WINX11SRC) $(WINGNOMESRC) $(WINGEMSRC)
 WINCXXSRC = $(WINQTSRC) $(WINBESRC)
 
 # .c files for this version (for date.h)
-VERSOURCES = $(HACKCSRC) $(SYSSRC) $(WINSRC) $(GENCSRC)
+VERSOURCES = $(HACKCSRC) $(JSRC) $(SYSSRC) $(WINSRC) $(GENCSRC)
 
 # .c files for all versions using this Makefile (for lint and tags)
-CSOURCES = $(HACKCSRC) $(SYSSRC) $(WINCSRC) $(GENCSRC)
+CSOURCES = $(HACKCSRC) $(JSRC) $(SYSSRC) $(WINCSRC) $(GENCSRC)
 
 
 # all .h files except date.h, onames.h, pm.h, and vis_tab.h which would
@@ -384,7 +401,7 @@ HOBJ = $(FIRSTOBJ) allmain.o alloc.o apply.o artifact.o attrib.o ball.o \
 	steal.o steed.o teleport.o timeout.o topten.o track.o trap.o u_init.o \
 	uhitm.o vault.o vision.o vis_tab.o weapon.o were.o wield.o windows.o \
 	wizard.o worm.o worn.o write.o zap.o \
-	$(RANDOBJ) $(SYSOBJ) $(WINOBJ) version.o
+	$(RANDOBJ) $(JOBJ) $(SYSOBJ) $(WINOBJ) version.o
 # the .o files from the HACKCSRC, SYSSRC, and WINSRC lists
 
 $(GAME):	$(SYSTEM)
@@ -488,6 +505,9 @@ monstr.c: $(MAKEDEFS)
 vis_tab.c: ../include/vis_tab.h
 tile.c: ../win/share/tilemap.c $(HACK_H)
 	@( cd ../util ; $(MAKE) ../src/tile.c )
+#JP by issei(94/07/13)
+../include/jdata.h: $(MAKEDEFS) ../dat/jtrnsobj.dat ../dat/jtrnsmon.dat
+	@( cd ../util ; $(MAKE) ../include/jdata.h )
 
 ../win/gnome/gn_rip.h: ../win/X11/rip.xpm
 	cp ../win/X11/rip.xpm ../win/gnome/gn_rip.h
@@ -684,6 +704,32 @@ load_img.o: ../win/gem/load_img.c ../include/load_img.h
 gr_rect.o: ../win/gem/gr_rect.c ../include/gr_rect.h
 	$(CC) $(CFLAGS) -c ../win/gem/gr_rect.c
 tile.o: tile.c $(HACK_H)
+jconj.o: ../japanese/jconj.c  ../include/hack.h
+	$(CC) $(CFLAGS) -c ../japanese/jconj.c
+jtrns.o: ../japanese/jtrns.c  ../include/hack.h ../include/jdata.h
+	$(CC) $(CFLAGS) -c ../japanese/jtrns.c
+jlib.o: ../japanese/jlib.c  ../include/hack.h
+	$(CC) $(CFLAGS) -c ../japanese/jlib.c
+gtk.o: ../win/gtk/gtk.c ../include/hack.h ../include/winGTK.h
+	$(CC) $(CFLAGS) -c ../win/gtk/gtk.c
+gtkgetlin.o: ../win/gtk/gtkgetlin.c ../include/hack.h ../include/winGTK.h
+	$(CC) $(CFLAGS) -c ../win/gtk/gtkgetlin.c
+gtkstatus.o: ../win/gtk/gtkstatus.c ../include/hack.h ../include/winGTK.h
+	$(CC) $(CFLAGS) -c ../win/gtk/gtkstatus.c
+gtkmenu.o: ../win/gtk/gtkmenu.c ../include/hack.h ../include/winGTK.h
+	$(CC) $(CFLAGS) -c ../win/gtk/gtkmenu.c
+gtkyn.o: ../win/gtk/gtkyn.c ../include/hack.h ../include/winGTK.h
+	$(CC) $(CFLAGS) -c ../win/gtk/gtkyn.c
+gtkmap.o: ../win/gtk/gtkmap.c ../include/hack.h ../include/winGTK.h
+	$(CC) $(CFLAGS) -c ../win/gtk/gtkmap.c
+gtkmessage.o: ../win/gtk/gtkmessage.c ../include/hack.h ../include/winGTK.h
+	$(CC) $(CFLAGS) -c ../win/gtk/gtkmessage.c
+gtkmisc.o: ../win/gtk/gtkmisc.c ../include/hack.h ../include/winGTK.h
+	$(CC) $(CFLAGS) -c ../win/gtk/gtkmisc.c
+xshmmap.o: ../win/gtk/xshmmap.c ../include/hack.h ../include/winGTK.h
+	$(CC) $(CFLAGS) -c ../win/gtk/xshmmap.c
+xshm.o: ../win/gtk/xshm.c ../include/hack.h ../include/xshm.h
+	$(CC) $(CFLAGS) -c ../win/gtk/xshm.c
 qt_win.o: ../win/Qt/qt_win.cpp $(HACK_H) ../include/func_tab.h \
 		../include/dlb.h ../include/patchlevel.h ../include/tile2x11.h \
 		../include/qt_win.h ../include/qt_clust.h ../include/qt_kde0.h \

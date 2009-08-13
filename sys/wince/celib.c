@@ -436,11 +436,20 @@ char* __cdecl _strdup(const char* s)
 
 char* __cdecl strrchr( const char *s, int c )
 {
+#if 0 /*JP*/
 	WCHAR wstr[1024];
 	WCHAR *w;
 	w = wcsrchr(NH_A2W(s, wstr, 1024), c);
 	if(w) return (char*)(s + (w - wstr));
 	else return NULL;
+#else
+	int i;
+	for(i = strlen(s) - 1; i >= 0; i--) {
+		if (s[i] == c)
+			return (char *)(s + i);
+	}
+	return NULL;
+#endif
 }
 
 int   __cdecl _stricmp(const char* a, const char* b)

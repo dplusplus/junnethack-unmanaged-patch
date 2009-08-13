@@ -2,6 +2,13 @@
 /* Copyright (c) Stichting Mathematisch Centrum, Amsterdam, 1985,1993. */
 /* NetHack may be freely redistributed.  See license for details. */
 
+/*
+**	Japanese version Copyright
+**	(c) Issei Numata, Naoki Hamada, Shigehiro Miyashita, 1994-2000
+**	For 3.4, Copyright (c) Kentaro Shirakata, 2002-2003
+**	JNetHack may be freely redistributed.  See license for details. 
+*/
+
 #include "hack.h"
 #include "lev.h"
 
@@ -287,8 +294,13 @@ struct obj *corpse;
 		}
 		mtmp = christen_monst(mtmp, plname);
 		newsym(u.ux, u.uy);
+#if 0 /*JP*/
 		Your("body rises from the dead as %s...",
 			an(mons[u.ugrave_arise].mname));
+#else
+		Your("体は%sとして死体から蘇った．．．",
+			jtrns_mon_gen(mons[u.ugrave_arise].mname, mtmp->female));
+#endif
 		display_nhwindow(WIN_MESSAGE, FALSE);
 		drop_upon_death(mtmp, (struct obj *)0);
 		m_dowear(mtmp, TRUE);
@@ -402,7 +414,10 @@ getbones()
 #ifdef WIZARD
 	    if (!wizard)
 #endif
+/*JP
 		pline("Discarding unuseable bones; no need to panic...");
+*/
+		pline("使えない骨を捨てた．慌てる必要はない．．．");
 	} else {
 #ifdef WIZARD
 		if(wizard)  {

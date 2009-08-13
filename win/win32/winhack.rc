@@ -23,8 +23,8 @@ LANGUAGE LANG_ENGLISH,SUBLANG_ENGLISH_US
 
 #if !defined(AFX_RESOURCE_DLL) || defined(AFX_TARG_ENU)
 #ifdef _WIN32
-LANGUAGE LANG_ENGLISH, SUBLANG_ENGLISH_US
-#pragma code_page(1252)
+LANGUAGE LANG_JAPANESE, SUBLANG_DEFAULT
+#pragma code_page(932)
 #endif //_WIN32
 
 /////////////////////////////////////////////////////////////////////////////
@@ -41,6 +41,7 @@ IDI_NETHACKW            ICON    DISCARDABLE     "NETHACK.ICO"
 // Menu
 //
 
+#if 0 /*JP*/
 IDC_NETHACKW MENU DISCARDABLE 
 BEGIN
     POPUP "&File"
@@ -85,7 +86,52 @@ BEGIN
         MENUITEM "UnNetHack for &Windows help",   IDM_HELP_PORTHELP
     END
 END
-
+#else
+IDC_NETHACKW MENU DISCARDABLE 
+BEGIN
+    POPUP "ファイル(&F)"
+    BEGIN
+        MENUITEM "保存して終了(&S)",               IDM_SAVE
+        MENUITEM SEPARATOR
+        MENUITEM "NetHackの終了(&Q)",              IDM_EXIT
+    END
+    POPUP "表示(&M)"
+    BEGIN
+        MENUITEM "&0 - タイルを使用する",       IDM_MAP_TILES
+        MENUITEM "&1 - ASCII (4x6)",            IDM_MAP_ASCII4X6
+        MENUITEM "&2 - ASCII (6x8)",            IDM_MAP_ASCII6X8
+        MENUITEM "&3 - ASCII (8x8)",            IDM_MAP_ASCII8X8
+        MENUITEM "&4 - ASCII (16x8)",           IDM_MAP_ASCII16X8
+        MENUITEM "&5 - ASCII (7x12)",           IDM_MAP_ASCII7X12
+        MENUITEM "&6 - ASCII (8x12)",           IDM_MAP_ASCII8X12
+        MENUITEM "&7 - ASCII (16x12)",          IDM_MAP_ASCII16X12
+        MENUITEM "&8 - ASCII (12x16)",          IDM_MAP_ASCII12X16
+        MENUITEM "&9 - ASCII (10x18)",          IDM_MAP_ASCII10X18
+        MENUITEM SEPARATOR
+        MENUITEM "ウインドウに合わせる(&F)",    IDM_MAP_FIT_TO_SCREEN
+    END
+    POPUP "設定(&S)"
+    BEGIN
+        MENUITEM "NetHackモード(&N)",               IDM_NHMODE
+        MENUITEM SEPARATOR
+        MENUITEM "すべての設定をクリア(&C)",    IDM_CLEARSETTINGS
+    END
+    POPUP "ヘルプ(&H)"
+    BEGIN
+        MENUITEM "NetHackについて(&A)...",               IDM_ABOUT
+        MENUITEM "ゲームおよびコマンドの解説(長文)(&L)", IDM_HELP_LONG
+        MENUITEM "コマンド一覧(&C)",                     IDM_HELP_COMMANDS
+        MENUITEM "NetHackの簡単な歴史(&H)",              IDM_HELP_HISTORY
+        MENUITEM "画面に表示される文字の説明(&I)",       IDM_HELP_INFO_CHAR
+        MENUITEM "このキーが何を意味するかの説明(&K)",   IDM_HELP_INFO_KEY
+        MENUITEM "ゲームのオプション一覧(&O)",           IDM_HELP_OPTIONS
+        MENUITEM "ゲームのオプション一覧(長文)(&U)",     IDM_HELP_OPTIONS_LONG
+        MENUITEM "拡張コマンド一覧(&X)",                 IDM_HELP_EXTCMD
+        MENUITEM "NetHackのライセンス(&N)",              IDM_HELP_LICENSE
+        MENUITEM "Windowsに特有のヘルプおよびコマンド(&W)",  IDM_HELP_PORTHELP
+    END
+END
+#endif
 
 /////////////////////////////////////////////////////////////////////////////
 //
@@ -107,7 +153,11 @@ END
 IDD_ABOUTBOX DIALOG DISCARDABLE  22, 17, 230, 75
 STYLE DS_MODALFRAME | WS_CAPTION | WS_SYSMENU
 CAPTION "About"
+#if 0 /*JP*/
 FONT 8, "System"
+#else
+FONT 10, "ＭＳ Ｐゴシック"
+#endif
 BEGIN
     LTEXT           "UnNetHack",IDC_ABOUT_VERSION,10,10,170,15,SS_NOPREFIX
     LTEXT           "Copyright",IDC_ABOUT_COPYRIGHT,10,30,210,40
@@ -117,7 +167,11 @@ END
 IDD_NHTEXT DIALOGEX 0, 0, 172, 178
 STYLE DS_SETFOREGROUND | WS_CHILD | WS_THICKFRAME
 EXSTYLE WS_EX_STATICEDGE
+#if 0 /*JP*/
 FONT 8, "MS Sans Serif"
+#else
+FONT 10, "ＭＳ Ｐゴシック"
+#endif
 BEGIN
     DEFPUSHBUTTON   "OK",IDOK,54,163,50,14
     EDITTEXT        IDC_TEXT_CONTROL,0,0,170,160,ES_MULTILINE | 
@@ -127,7 +181,11 @@ END
 IDD_MENU DIALOGEX 0, 0, 187, 153
 STYLE WS_CHILD | WS_CLIPSIBLINGS | WS_THICKFRAME
 EXSTYLE WS_EX_CLIENTEDGE | WS_EX_CONTROLPARENT | WS_EX_STATICEDGE
+#if 0 /*JP*/
 FONT 8, "MS Sans Serif"
+#else
+FONT 10, "ＭＳ Ｐゴシック"
+#endif
 BEGIN
     DEFPUSHBUTTON   "OK",IDOK,7,132,50,14,BS_FLAT
     PUSHBUTTON      "Cancel",IDCANCEL,130,132,50,14,BS_FLAT
@@ -139,7 +197,11 @@ END
 IDD_GETLIN DIALOG DISCARDABLE  0, 0, 131, 29
 STYLE DS_MODALFRAME | DS_CENTER | WS_POPUP | WS_CAPTION | WS_SYSMENU
 CAPTION "Question?"
+#if 0 /*JP*/
 FONT 8, "MS Sans Serif"
+#else
+FONT 10, "ＭＳ Ｐゴシック"
+#endif
 BEGIN
     DEFPUSHBUTTON   "OK",IDOK,0,15,65,14
     PUSHBUTTON      "Cancel",IDCANCEL,65,15,65,14
@@ -148,8 +210,13 @@ END
 
 IDD_EXTCMD DIALOG DISCARDABLE  0, 0, 137, 117
 STYLE DS_MODALFRAME | WS_POPUP | WS_CAPTION | WS_SYSMENU
+#if 0 /*JP*/
 CAPTION "Extended Commands"
 FONT 8, "MS Sans Serif"
+#else
+CAPTION "拡張コマンド"
+FONT 10, "ＭＳ Ｐゴシック"
+#endif
 BEGIN
     DEFPUSHBUTTON   "OK",IDOK,80,7,50,14
     PUSHBUTTON      "Cancel",IDCANCEL,80,24,50,14
@@ -160,30 +227,60 @@ END
 IDD_PLAYER_SELECTOR DIALOG DISCARDABLE  0, 0, 152, 169
 STYLE DS_MODALFRAME | WS_POPUP | WS_CAPTION | WS_SYSMENU
 CAPTION "What are you?"
+#if 0 /*JP*/
 FONT 8, "MS Sans Serif"
+#else
+FONT 10, "ＭＳ Ｐゴシック"
+#endif
 BEGIN
+#if 0 /*JP*/
     DEFPUSHBUTTON   "Play",IDOK,7,148,66,14
     PUSHBUTTON      "Quit",IDCANCEL,79,148,66,14
     LTEXT           "Name:",IDC_STATIC,7,8,25,10
+#else
+    DEFPUSHBUTTON   "OK",IDOK,7,148,66,14
+    PUSHBUTTON      "Quit",IDCANCEL,79,148,66,14
+    LTEXT           "名前:",IDC_STATIC,7,8,25,10
+#endif
     EDITTEXT        IDC_PLSEL_NAME,40,7,105,12,ES_AUTOHSCROLL | ES_READONLY | 
                     NOT WS_TABSTOP
+#if 0 /*JP*/
     GROUPBOX        "Role",IDC_STATIC,7,21,138,30
     CONTROL         "Random",IDC_PLSEL_ROLE_RANDOM,"Button",BS_AUTOCHECKBOX | 
+#else
+    GROUPBOX        "職業",IDC_STATIC,7,21,138,30
+    CONTROL         "ランダム",IDC_PLSEL_ROLE_RANDOM,"Button",BS_AUTOCHECKBOX | 
+#endif
                     WS_TABSTOP,14,34,40,10
     COMBOBOX        IDC_PLSEL_ROLE_LIST,63,33,75,50,CBS_DROPDOWNLIST | 
                     WS_VSCROLL | WS_TABSTOP
+#if 0 /*JP*/
     GROUPBOX        "Race",IDC_STATIC,7,51,138,30
     CONTROL         "Random",IDC_PLSEL_RACE_RANDOM,"Button",BS_AUTOCHECKBOX | 
+#else
+    GROUPBOX        "種族",IDC_STATIC,7,51,138,30
+    CONTROL         "ランダム",IDC_PLSEL_RACE_RANDOM,"Button",BS_AUTOCHECKBOX | 
+#endif
                     WS_TABSTOP,14,63,40,10
     COMBOBOX        IDC_PLSEL_RACE_LIST,63,62,75,45,CBS_DROPDOWNLIST | 
                     WS_VSCROLL | WS_TABSTOP
+#if 0 /*JP*/
     GROUPBOX        "Gender",IDC_STATIC,7,81,138,30
     CONTROL         "Random",IDC_PLSEL_GENDER_RANDOM,"Button",
+#else
+    GROUPBOX        "性別",IDC_STATIC,7,81,138,30
+    CONTROL         "ランダム",IDC_PLSEL_GENDER_RANDOM,"Button",
+#endif
                     BS_AUTOCHECKBOX | WS_TABSTOP,14,93,40,10
     COMBOBOX        IDC_PLSEL_GENDER_LIST,63,92,75,40,CBS_DROPDOWNLIST | 
                     WS_VSCROLL | WS_TABSTOP
+#if 0 /*JP*/
     GROUPBOX        "Alignment",IDC_STATIC,7,111,138,30
     CONTROL         "Random",IDC_PLSEL_ALIGN_RANDOM,"Button",BS_AUTOCHECKBOX | 
+#else
+    GROUPBOX        "属性",IDC_STATIC,7,111,138,30
+    CONTROL         "ランダム",IDC_PLSEL_ALIGN_RANDOM,"Button",BS_AUTOCHECKBOX | 
+#endif
                     WS_TABSTOP,13,123,40,10
     COMBOBOX        IDC_PLSEL_ALIGN_LIST,63,122,75,45,CBS_DROPDOWNLIST | 
                     WS_VSCROLL | WS_TABSTOP
@@ -192,7 +289,11 @@ END
 IDD_NHRIP DIALOGEX 0, 0, 281, 209
 STYLE DS_MODALFRAME | WS_POPUP | WS_CAPTION | WS_SYSMENU
 CAPTION "Here lies..."
+#if 0 /*JP*/
 FONT 8, "MS Sans Serif"
+#else
+FONT 10, "ＭＳ Ｐゴシック"
+#endif
 BEGIN
     DEFPUSHBUTTON   "OK",IDOK,82,188,50,14
 END
@@ -200,7 +301,11 @@ END
 IDD_SPLASH DIALOG DISCARDABLE  0, 0, 281, 257
 STYLE DS_MODALFRAME | WS_POPUP | WS_CAPTION | WS_SYSMENU
 CAPTION "Welcome to UnNetHack"
+#if 0 /*JP*/
 FONT 8, "MS Sans Serif"
+#else
+FONT 10, "ＭＳ Ｐゴシック"
+#endif
 BEGIN
     DEFPUSHBUTTON   "OK",IDOK,224,236,50,14
     EDITTEXT        IDC_EXTRAINFO,7,176,267,52,ES_MULTILINE | ES_READONLY | 
@@ -358,7 +463,11 @@ END
 
 STRINGTABLE DISCARDABLE 
 BEGIN
+#if 0 /*JP*/
     IDS_APP_TITLE           "UnNetHack for Windows - Graphical Interface"
+#else
+    IDS_APP_TITLE           "JUnNetHack for Windows - Graphical Interface"
+#endif
     IDC_NETHACKW            "NETHACKW"
     IDS_APP_TITLE_SHORT     "UnNetHack for Windows"
 END

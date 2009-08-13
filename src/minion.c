@@ -2,6 +2,13 @@
 /* Copyright (c) Stichting Mathematisch Centrum, Amsterdam, 1985. */
 /* NetHack may be freely redistributed.  See license for details. */
 
+/*
+**	Japanese version Copyright
+**	(c) Issei Numata, Naoki Hamada, Shigehiro Miyashita, 1994-2000
+**	For 3.4, Copyright (c) Kentaro Shirakata, 2002-2003
+**	JNetHack may be freely redistributed.  See license for details. 
+*/
+
 #include "hack.h"
 #include "emin.h"
 #include "epri.h"
@@ -126,10 +133,19 @@ boolean talk;
 	mon = makemon(&mons[mnum], u.ux, u.uy, NO_MM_FLAGS);
     if (mon) {
 	if (talk) {
+/*JP
 	    pline_The("voice of %s booms:", align_gname(alignment));
+*/
+	    pline("%sの声が響いた:", align_gname(alignment));
+/*JP
 	    verbalize("Thou shalt pay for thy indiscretion!");
+*/
+	    verbalize("汝，無分別なる行いの罰を受けるべし！");
 	    if (!Blind)
+/*JP
 		pline("%s appears before you.", Amonnam(mon));
+*/
+		pline("%sがあなたの前に現われた．", Amonnam(mon));
 	}
 	mon->mpeaceful = FALSE;
 	/* don't call set_malign(); player was naughty */
@@ -145,7 +161,10 @@ register struct monst *mtmp;
 	long cash, demand, offer;
 
 	if (uwep && uwep->oartifact == ART_EXCALIBUR) {
+/*JP
 	    pline("%s looks very angry.", Amonnam(mtmp));
+*/
+	    pline("%sはとても怒っているように見える．", Amonnam(mtmp));
 	    mtmp->mpeaceful = mtmp->mtame = 0;
 	    set_malign(mtmp);
 	    newsym(mtmp->mx, mtmp->my);
@@ -155,12 +174,20 @@ register struct monst *mtmp;
 	/* Slight advantage given. */
 	if (is_dprince(mtmp->data) && mtmp->minvis) {
 	    mtmp->minvis = mtmp->perminvis = 0;
+/*JP
 	    if (!Blind) pline("%s appears before you.", Amonnam(mtmp));
+*/
+	    if (!Blind) pline("%sが目の前に現われた．", Amonnam(mtmp));
 	    newsym(mtmp->mx,mtmp->my);
 	}
 	if (youmonst.data->mlet == S_DEMON) {	/* Won't blackmail their own. */
+#if 0 /*JP*/
 	    pline("%s says, \"Good hunting, %s.\"",
 		  Amonnam(mtmp), flags.female ? "Sister" : "Brother");
+#else
+	    pline("%sは言った「よう兄%s！」．そして消えた．",
+		  Amonnam(mtmp), flags.female ? "妹" : "弟");
+#endif
 	    if (!tele_restrict(mtmp)) (void) rloc(mtmp, FALSE);
 	    return(1);
 	}
@@ -199,17 +226,30 @@ register struct monst *mtmp;
 #endif
 				+ (long)rn1(10000,40);
 
+#if 0 /*JP*/
 	    pline("%s demands %ld %s for safe passage.",
+#else
+	    pline("%sは通行料として%ld%s要求した．",
+#endif
 		  Amonnam(mtmp), demand, currency(demand));
 
 	    if ((offer = bribe(mtmp)) >= demand) {
+/*JP
 		pline("%s vanishes, laughing about cowardly mortals.",
+*/
+		pline("臆病な定命のものを笑いながら，%sは消えた．",
 		      Amonnam(mtmp));
 	    } else if (offer > 0L && (long)rnd(40) > (demand - offer)) {
-		pline("%s scowls at you menacingly, then vanishes.",
+/*JP
+		    pline("%s scowls at you menacingly, then vanishes.",
+*/
+		    pline("%sはあなたを威嚇し，消えた．",
 		      Amonnam(mtmp));
 	    } else {
-		pline("%s gets angry...", Amonnam(mtmp));
+/*JP
+		    pline("%s gets angry...", Amonnam(mtmp));
+*/
+		    pline("%sは怒った．．．", Amonnam(mtmp));
 		mtmp->mpeaceful = 0;
 		set_malign(mtmp);
 		return 0;
@@ -229,33 +269,54 @@ struct monst *mtmp;
 	long umoney = money_cnt(invent);
 #endif
 
+/*JP
 	getlin("How much will you offer?", buf);
+*/
+	getlin("お金をいくら与える？", buf);
 	if (sscanf(buf, "%ld", &offer) != 1) offer = 0L;
 
 	/*Michael Paddon -- fix for negative offer to monster*/
 	/*JAR880815 - */
 	if (offer < 0L) {
+/*JP
 		You("try to shortchange %s, but fumble.",
+*/
+		You("%sをだまそうとしたが，失敗した．",
 			mon_nam(mtmp));
 		return 0L;
 	} else if (offer == 0L) {
+/*JP
 		You("refuse.");
+*/
+		You("拒んだ．");
 		return 0L;
 #ifndef GOLDOBJ
 	} else if (offer >= u.ugold) {
+/*JP
 		You("give %s all your gold.", mon_nam(mtmp));
+*/
+		You("%sにお金を全て与えた．", mon_nam(mtmp));
 		offer = u.ugold;
 	} else {
+/*JP
 		You("give %s %ld %s.", mon_nam(mtmp), offer, currency(offer));
+*/
+		You("%sに%ld%s与えた．", mon_nam(mtmp), offer, currency(offer));
 	}
 	u.ugold -= offer;
 	mtmp->mgold += offer;
 #else
 	} else if (offer >= umoney) {
+/*JP
 		You("give %s all your gold.", mon_nam(mtmp));
+*/
+		You("%sにお金を全て与えた．", mon_nam(mtmp));
 		offer = umoney;
 	} else {
+/*JP
 		You("give %s %ld %s.", mon_nam(mtmp), offer, currency(offer));
+*/
+		You("%sに%ld%s与えた．", mon_nam(mtmp), offer, currency(offer));
 	}
 	(void) money2mon(mtmp, offer);
 #endif

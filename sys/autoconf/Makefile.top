@@ -20,8 +20,8 @@ srcdir=@srcdir@
 # make UnNetHack
 PREFIX   = @prefix@
 EXEEXT	 = @EXEEXT@
-SCRIPT   = unnethack
-GAME     = unnethack$(EXEEXT)
+SCRIPT   = junnethack
+GAME     = junnethack$(EXEEXT)
 GAMEUID  = @OWNER@
 GAMEGRP  = @GROUP@
 
@@ -82,7 +82,8 @@ CNF_SHARE_PROXYND = gltile64.png gltile32.png gltile16.png \
 # CNF_SHARE_DATND = $(CNF_SHARE_PROXYND)
 CNF_SHARE_DATND = @CNF_SHARE_DATND@
 
-CNF_SHARE_DATD = data oracles @OPTIONS_FILES@ quest.dat rumors
+#CNF_SHARE_DATD = data oracles @OPTIONS_FILES@ quest.dat rumors
+CNF_SHARE_DATD = data joracles @OPTIONS_FILES@ quest.dat jrumors
 CNF_SHARE_DAT = $(CNF_SHARE_DATD) $(CNF_SHARE_DATND)
 
 # Some versions of make use the SHELL environment variable as the shell
@@ -104,7 +105,9 @@ CHMOD = @CHMOD@
 # end of configuration
 #
 
-DATHELP = help hh cmdhelp history opthelp wizhelp
+# by issei 1994/2/5, 1994/6/25
+#DATHELP = help hh cmdhelp history opthelp wizhelp
+DATHELP = jhelp jhh jcmdhelp jhistory jopthelp jwizhelp
 
 SPEC_LEVS = asmod-?.lev baalz-?.lev bigrm-*.lev blkmar.lev castle-?.lev fakewiz?.lev \
 	juiblex.lev knox-?.lev town-?.lev \
@@ -141,11 +144,15 @@ manpages:
 data: $(GAME)
 	( cd dat ; $(MAKE) data )
 
-rumors: $(GAME)
-	( cd dat ; $(MAKE) rumors )
+#rumors: $(GAME)
+#	( cd dat ; $(MAKE) rumors )
+jrumors: $(GAME)
+	( cd dat ; $(MAKE) jrumors )
 
-oracles: $(GAME)
-	( cd dat ; $(MAKE) oracles )
+#oracles: $(GAME)
+#	( cd dat ; $(MAKE) oracles )
+joracles: $(GAME)
+	( cd dat ; $(MAKE) joracles )
 
 #	Note: options should have already been made with make, but...
 @OPTIONS_FILE@: $(GAME)

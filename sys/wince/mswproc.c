@@ -416,7 +416,10 @@ give_up:	/* Quit */
 		any.a_int = i+1;	/* must be non-zero */
 		add_menu(win, NO_GLYPH, &any , 'q', 0, ATR_NONE,
 				"Quit", MENU_UNSELECTED);
+/*JP
 		Sprintf(pbuf, "Pick a role for your %s", plbuf);
+*/
+		Sprintf(pbuf, "%s職業を選択してください．", plbuf);
 		end_menu(win, pbuf);
 		n = select_menu(win, PICK_ONE, &selected);
 		destroy_nhwindow(win);
@@ -487,7 +490,10 @@ give_up:	/* Quit */
 		    any.a_int = i+1;	/* must be non-zero */
 		    add_menu(win, NO_GLYPH, &any , 'q', 0, ATR_NONE,
 				    "Quit", MENU_UNSELECTED);
+/*JP
 		    Sprintf(pbuf, "Pick the race of your %s", plbuf);
+*/
+		    Sprintf(pbuf, "%s種族を選択してください．", plbuf);
 		    end_menu(win, pbuf);
 		    n = select_menu(win, PICK_ONE, &selected);
 		    destroy_nhwindow(win);
@@ -630,7 +636,10 @@ give_up:	/* Quit */
 		    any.a_int = i+1;	/* must be non-zero */
 		    add_menu(win, NO_GLYPH, &any , 'q', 0, ATR_NONE,
 				    "Quit", MENU_UNSELECTED);
+/*JP
 		    Sprintf(pbuf, "Pick the alignment of your %s", plbuf);
+*/
+		    Sprintf(pbuf, "%s属性を選択してください", plbuf);
 		    end_menu(win, pbuf);
 		    n = select_menu(win, PICK_ONE, &selected);
 		    destroy_nhwindow(win);
@@ -652,7 +661,10 @@ void mswin_askname(void)
 {
 	logDebug("mswin_askname()\n");
 
+/*JP
 	if( mswin_getlin_window("who are you?", plname, PL_NSIZ)==IDCANCEL ) {
+*/
+	if( mswin_getlin_window("あなたのキャラクタの名前は?", plname, PL_NSIZ)==IDCANCEL ) {
 		bail("bye-bye");
 		/* not reached */
 	}

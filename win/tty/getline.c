@@ -2,6 +2,12 @@
 /* Copyright (c) Stichting Mathematisch Centrum, Amsterdam, 1985. */
 /* NetHack may be freely redistributed.  See license for details. */
 
+/*
+**	Japanese version Copyright
+**	For 3.4, Copyright (c) Kentaro Shirakata, 2002-2003
+**	JNetHack may be freely redistributed.  See license for details. 
+*/
+
 #include "hack.h"
 
 #ifdef TTY_GRAPHICS
@@ -42,15 +48,25 @@ register char *bufp;
 }
 
 STATIC_OVL void
-hooked_tty_getlin(query, bufp, hook)
+hooked_tty_getlin(query, bfp, hook)
 const char *query;
-register char *bufp;
+register char *bfp;
 getlin_hook_proc hook;
 {
+#if 1 /*JP*/
+	char tmp[BUFSZ];
+	char *bufp = tmp;
+#endif
 	register char *obufp = bufp;
+/*JP
 	register int c;
+*/
+	int c;
 	struct WinDesc *cw = wins[WIN_MESSAGE];
 	boolean doprev = 0;
+#if 1 /*JP*/
+	unsigned int uc;
+#endif
 
 	if(ttyDisplay->toplin == 1 && !(cw->flags & WIN_STOP)) more();
 	cw->flags &= ~WIN_STOP;
@@ -68,6 +84,10 @@ getlin_hook_proc hook;
 #endif /* not NEWAUTOCOMP */
 			break;
 		}
+#if 1 /*JP*/
+		uc = (*((unsigned int *)&c));
+		uc &= 0377;
+#endif
 		if(c == '\033') {
 			*obufp = c;
 			obufp[1] = 0;
@@ -106,6 +126,9 @@ getlin_hook_proc hook;
 		    addtopl(obufp);
 		}
 		if(c == erase_char || c == '\b') {
+#if 1 /*JP*/
+		moreback:
+#endif
 			if(bufp != obufp) {
 #ifdef NEWAUTOCOMP
 				char *i;
@@ -121,6 +144,10 @@ getlin_hook_proc hook;
 				*bufp = 0;
 #endif /* NEWAUTOCOMP */
 			} else	tty_nhbell();
+#if 1 /*JP*/
+			if(is_kanji2(tmp, bufp-tmp))
+			  goto moreback;
+#endif
 #if defined(apollo)
 		} else if(c == '\n' || c == '\r') {
 #else
@@ -130,7 +157,11 @@ getlin_hook_proc hook;
 			*bufp = 0;
 #endif /* not NEWAUTOCOMP */
 			break;
+#if 0 /*JP*/
 		} else if(' ' <= (unsigned char) c && c != '\177' &&
+#else
+		} else if(' ' <= uc && uc < '\377' &&
+#endif
 			    (bufp-obufp < BUFSZ-1 && bufp-obufp < COLNO)) {
 				/* avoid isprint() - some people don't have it
 				   ' ' is not always a printing char */
@@ -140,10 +171,18 @@ getlin_hook_proc hook;
 #endif /* NEWAUTOCOMP */
 			*bufp = c;
 			bufp[1] = 0;
+#if 0 /*JP*/
 			putsyms(bufp);
+#else
+			raw_putsyms(bufp);
+#endif
 			bufp++;
 			if (hook && (*hook)(obufp)) {
+#if 0 /*JP*/
 			    putsyms(bufp);
+#else
+			    raw_putsyms(bufp);
+#endif
 #ifndef NEWAUTOCOMP
 			    bufp = eos(bufp);
 #else /* NEWAUTOCOMP */
@@ -175,6 +214,9 @@ getlin_hook_proc hook;
 	ttyDisplay->toplin = 2;		/* nonempty, no --More-- required */
 	ttyDisplay->inread--;
 	clear_nhwindow(WIN_MESSAGE);	/* clean up after ourselves */
+#if 1 /*JP*/
+	Strcpy(bfp, str2ic(tmp));
+#endif
 }
 
 void
@@ -271,7 +313,10 @@ tty_get_ext_cmd()
 #endif
 
 	if (extcmdlist[i].ef_txt == (char *)0) {
+/*JP
 		pline("%s: unknown extended command.", buf);
+*/
+		pline("%s:拡張コマンドエラー", buf);
 		i = -1;
 	}
 

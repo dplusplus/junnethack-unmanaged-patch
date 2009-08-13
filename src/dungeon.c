@@ -6,6 +6,11 @@
 #include "dgn_file.h"
 #include "dlb.h"
 
+#if defined(_MSC_VER) && !defined(WIN32)
+#include "../japanese/emalloc.h"
+#define alloc(s) emalloc(s)
+#endif
+
 #ifdef OVL1
 
 #define DUNGEON_FILE	"dungeon"

@@ -4,6 +4,13 @@
 
 /* shknam.c -- initialize a shop */
 
+/*
+**	Japanese version Copyright
+**	(c) Issei Numata, Naoki Hamada, Shigehiro Miyashita, 1994-2000
+**	For 3.4, Copyright (c) Kentaro Shirakata, 2002-2003
+**	JNetHack may be freely redistributed.  See license for details. 
+*/
+
 #include "hack.h"
 #include "eshk.h"
 
@@ -204,39 +211,72 @@ static const char *shkblack[] = {
  */
 
 const struct shclass shtypes[] = {
+/*JP
 	{"general store", RANDOM_CLASS, 44,
+*/
+	{"ŽG‰Ý‰®", RANDOM_CLASS, 44,
 	    D_SHOP, {{100, RANDOM_CLASS}, {0, 0}, {0, 0}}, shkgeneral},
+/*JP
 	{"used armor dealership", ARMOR_CLASS, 14,
+*/
+	{"’†ŒÃŠZ¤‰ï", ARMOR_CLASS, 14,
 	    D_SHOP, {{90, ARMOR_CLASS}, {10, WEAPON_CLASS}, {0, 0}},
 	     shkarmors},
+/*JP
 	{"second-hand bookstore", SCROLL_CLASS, 10, D_SHOP,
+*/
+	{"ŒÃ‘“X", SCROLL_CLASS, 10, D_SHOP,
 	    {{90, SCROLL_CLASS}, {10, SPBOOK_CLASS}, {0, 0}}, shkbooks},
+/*JP
 	{"liquor emporium", POTION_CLASS, 10, D_SHOP,
+*/
+	{"‚¨Žð‚Ì•S‰Ý“X", POTION_CLASS, 10, D_SHOP,
 	    {{100, POTION_CLASS}, {0, 0}, {0, 0}}, shkliquors},
+/*JP
 	{"antique weapons outlet", WEAPON_CLASS, 5, D_SHOP,
+*/
+	{"ŒÃ•Šíê–å¬”„“X", WEAPON_CLASS, 5, D_SHOP,
 	    {{90, WEAPON_CLASS}, {10, ARMOR_CLASS}, {0, 0}}, shkweapons},
+/*JP
 	{"delicatessen", FOOD_CLASS, 5, D_SHOP,
+*/
+	{"H•i“X", FOOD_CLASS, 5, D_SHOP,
 	    {{83, FOOD_CLASS}, {5, -POT_FRUIT_JUICE}, {4, -POT_BOOZE},
 	     {5, -POT_WATER}, {3, -ICE_BOX}}, shkfoods},
+/*JP
 	{"jewelers", RING_CLASS, 3, D_SHOP,
+*/
+	{"•óÎ“X", RING_CLASS, 3, D_SHOP,
 	    {{85, RING_CLASS}, {10, GEM_CLASS}, {5, AMULET_CLASS}, {0, 0}},
 	    shkrings},
+/*JP
 	{"quality apparel and accessories", WAND_CLASS, 3, D_SHOP,
+*/
+	{"‚¨ƒVƒƒƒŒ‚È—m•i“X", WAND_CLASS, 3, D_SHOP,
 	    {{90, WAND_CLASS}, {5, -LEATHER_GLOVES}, {5, -ELVEN_CLOAK}, {0, 0}},
 	     shkwands},
+/*JP
 	{"hardware store", TOOL_CLASS, 3, D_SHOP,
+*/
+	{"“¹‹ï‰®", TOOL_CLASS, 3, D_SHOP,
 	    {{100, TOOL_CLASS}, {0, 0}, {0, 0}}, shktools},
 	/* Actually shktools is ignored; the code specifically chooses a
 	 * random implementor name (along with candle shops having
 	 * random shopkeepers)
 	 */
+/*JP
 	{"rare books", SPBOOK_CLASS, 3, D_SHOP,
+*/
+	{"Œ¶‚Ì–{‰®", SPBOOK_CLASS, 3, D_SHOP,
 	    {{90, SPBOOK_CLASS}, {10, SCROLL_CLASS}, {0, 0}}, shkbooks},
 	/* Shops below this point are "unique".  That is they must all have a
 	 * probability of zero.  They are only created via the special level
 	 * loader.
 	 */
+/*JP
 	{"lighting store", TOOL_CLASS, 0, D_SHOP,
+*/
+	{"Æ–¾“X", TOOL_CLASS, 0, D_SHOP,
 	    {{32, -WAX_CANDLE}, {50, -TALLOW_CANDLE},
 	     {5, -BRASS_LANTERN}, {10, -OIL_LAMP}, {3, -MAGIC_LAMP}}, shklight},
 #ifdef BLACKMARKET
@@ -300,7 +340,11 @@ nameshk(shk, nlp)
 struct monst *shk;
 const char * const *nlp;
 {
+#if 0 /*JP*/
 	int i, trycnt, names_avail;
+#else
+        int trycnt, names_avail;
+#endif
 	const char *shname = 0;
 	struct monst *mtmp;
 	int name_wanted;
@@ -318,6 +362,32 @@ const char * const *nlp;
 	    shk->female = shk->data->mflags2 & M2_MALE ? FALSE : TRUE;
 #endif /* BLACKMARKET */
 	} else {
+#if 1 /*JP*/
+	     /* We decide to use simple way */
+	    for (names_avail = 0; nlp[names_avail]; names_avail++)
+		 ;
+
+	    for (trycnt = 0; trycnt < 50; trycnt++) {
+		 name_wanted = rn2(names_avail);
+		 shk->female = name_wanted & 1;
+		 shname = nlp[name_wanted];
+		 if(shname[0] & 0x80){
+		      shk->female = 0;
+		 }
+		 else if(shname[0] == '_'){
+		      ++shname;
+		      shk->female = 1;
+		 }
+		 for (mtmp = fmon; mtmp; mtmp = mtmp->nmon) {
+		      if (mtmp == shk) continue;
+		      if (!mtmp->isshk) continue;
+		      if (strcmp(ESHK(mtmp)->shknam, shname)) continue;
+		      break;
+		 }
+		 if(!mtmp)
+		      break;
+	    }
+#else
 	    /* We want variation from game to game, without needing the save
 	       and restore support which would be necessary for randomization;
 	       try not to make too many assumptions about time_t's internals;
@@ -357,6 +427,7 @@ const char * const *nlp;
 		}
 		if (!mtmp) break;	/* new name */
 	    }
+#endif
 	}
 	(void) strncpy(ESHK(shk)->shknam, shname, PL_NSIZ);
 	ESHK(shk)->shknam[PL_NSIZ-1] = 0;
@@ -553,7 +624,10 @@ register struct mkroom *sroom;
 	    else if(inside_shop(sx-1,sy)) m++;
 	    if(inside_shop(sx,sy+1)) n--;
 	    else if(inside_shop(sx,sy-1)) n++;
+/*JP
 	    Sprintf(buf, "Closed for inventory");
+*/
+	    Sprintf(buf, "’I‰µ‚µ‚Ì‚½‚ß•Â“X");
 	    make_engr_at(m, n, buf, 0L, DUST);
     }
 

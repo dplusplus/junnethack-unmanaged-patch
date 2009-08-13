@@ -235,6 +235,9 @@ E void NDECL(txt_nhbell);
 E void FDECL(txt_startup,(int*,int*));
 E void FDECL(txt_xputs, (const char *, int, int));
 E void FDECL(txt_xputc, (CHAR_P, int));
+#if 1 /*JP*/
+E void FDECL(txt_xputc2, (int, int, int));
+#endif
 
 /* ### vidvga.c ### */
 
@@ -266,9 +269,15 @@ E void FDECL(vga_SetPalette, (char *));
 E void NDECL(vga_tty_end_screen);
 E void FDECL(vga_tty_startup,(int*,int*));
 E void FDECL(vga_WriteChar, (int, int, int, int));
+#if 1 /*JP*/
+E void FDECL(vga_WriteChar2, (int, int, int, int, int));
+#endif
 E void FDECL(vga_WriteStr, (char *, int, int, int, int));
 E void FDECL(vga_xputs, (const char *, int, int));
 E void FDECL(vga_xputc, (CHAR_P, int));
+#if 1 /*JP*/
+E void FDECL(vga_xputc2, (CHAR_P, CHAR_P, int));
+#endif
 E void FDECL(vga_xputg, (int, int, unsigned));
 E void FDECL(vga_userpan, (BOOLEAN_P));
 E void FDECL(vga_overview, (BOOLEAN_P));

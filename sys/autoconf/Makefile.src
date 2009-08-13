@@ -26,12 +26,20 @@ SYSMSWINOBJ = nttty.o winnt.o pcsys.o pcunix.o pcmain.o random.o nhlan.o ntsound
 #
 SYSSRC=@SYSSRC@
 SYSOBJ=@SYSOBJ@
+ 
+#JP by issei(93/11/10)
+JSRC = ../japanese/jconj.c ../japanese/jtrns.c ../japanese/jlib.c
+JOBJ = jconj.o jtrns.o jlib.o
 
 CC = @CC@ -DAUTOCONF
 WINDRES = @WINDRES@
 
-CFLAGS = -Wall -I../include -I$(srcdir)/../include @CFLAGS@ #-fbounds-check #-fprofile-arcs -ftest-coverage
+CFLAGS = -Wall -g -I../include -I$(srcdir)/../include @CFLAGS@ #-fbounds-check #-fprofile-arcs -ftest-coverage
 LFLAGS = @LFLAGS@ #-fbounds-check
+
+#JP GCC for MinGW 3.4
+CFLAGS += -finput-charset=CP932 -fexec-charset=CP932
+WINDRESSFLAGS = --language=0411
 
 # Only used for the Gnome interface.
 GNOMEINC=`gnome-config gnome --cflags` -I$(srcdir)/../win/gnome
@@ -130,7 +138,7 @@ WINLIB = @WINLIB@
 LIBS =
 
 # make UnNetHack
-GAME     = unnethack$(EXEEXT)
+GAME     = junnethack$(EXEEXT)
 
 RANDOBJ =
 
@@ -201,10 +209,10 @@ WINCSRC = $(WINTTYSRC) $(WINX11SRC) $(WINGNOMESRC) $(WINGEMSRC) \
 WINCXXSRC = $(WINQTSRC) $(WINBESRC)
 
 # .c files for this version (for date.h)
-VERSOURCES = $(HACKCSRC) $(SYSSRC) $(WINSRC) $(GENCSRC)
+VERSOURCES = $(HACKCSRC) $(JSRC) $(SYSSRC) $(WINSRC) $(GENCSRC)
 
 # .c files for all versions using this Makefile (for lint and tags)
-CSOURCES = $(HACKCSRC) $(SYSSRC) $(WINCSRC) $(GENCSRC)
+CSOURCES = $(HACKCSRC) $(JSRC) $(SYSSRC) $(WINCSRC) $(GENCSRC)
 
 
 # all .h files except date.h, onames.h, pm.h, and vis_tab.h which would
@@ -242,7 +250,7 @@ HOBJ = $(FIRSTOBJ) allmain.o apply.o artifact.o attrib.o ball.o \
 	steal.o steed.o teleport.o timeout.o topten.o track.o trap.o u_init.o \
 	uhitm.o vault.o vision.o vis_tab.o weapon.o were.o wield.o windows.o \
 	wizard.o worm.o worn.o write.o zap.o \
-	$(RANDOBJ) $(SYSOBJ) $(WINOBJ) version.o \
+	$(RANDOBJ) $(JSRC) $(SYSOBJ) $(WINOBJ) version.o \
 	livelog.o
 # the .o files from the HACKCSRC, SYSSRC, and WINSRC lists
 
@@ -383,6 +391,9 @@ monstr.c: $(MAKEDEFS)
 vis_tab.c: ../include/vis_tab.h
 tile.c: $(srcdir)/../win/share/tilemap.c $(HACK_H)
 	@( cd ../util ; $(MAKE) ../src/tile.c )
+#JP by issei(94/07/13)
+../include/jdata.h: $(MAKEDEFS) ../dat/jtrnsobj.dat ../dat/jtrnsmon.dat
+	@( cd ../util ; $(MAKE) ../include/jdata.h )
 
 $(srcdir)/../win/gnome/gn_rip.h: $(srcdir)/../win/X11/rip.xpm
 	cp $(srcdir)/../win/X11/rip.xpm $(srcdir)/../win/gnome/gn_rip.h
@@ -660,6 +671,12 @@ mhrip.o: $(srcdir)/../win/win32/mhrip.c ../win/win32/winMS.h \
 		../win/win32/mhmsg.h ../win/win32/mhfont.h
 	$(CC) $(CFLAGS) $(WINMSCFLAGS) -c $(srcdir)/../win/win32/mhrip.c
 tile.o: tile.c $(HACK_H)
+jconj.o: ../japanese/jconj.c  ../include/hack.h
+	$(CC) $(CFLAGS) -c ../japanese/jconj.c
+jtrns.o: ../japanese/jtrns.c  ../include/hack.h ../include/jdata.h
+	$(CC) $(CFLAGS) -c ../japanese/jtrns.c
+jlib.o: ../japanese/jlib.c  ../include/hack.h
+	$(CC) $(CFLAGS) -c ../japanese/jlib.c
 qt_win.o: $(srcdir)/../win/Qt/qt_win.cpp $(HACK_H) ../include/func_tab.h \
 		../include/dlb.h ../include/date.h ../include/patchlevel.h \
 		../include/tile2x11.h ../include/qt_win.h \

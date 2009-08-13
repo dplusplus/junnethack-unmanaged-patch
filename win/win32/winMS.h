@@ -29,7 +29,11 @@
 #define TILE_BK_COLOR RGB(71, 108, 108)
 
 /* minimum/maximum font size (in points - 1/72 inch) */
+#if 0 /*JP*/
 #define NHFONT_DEFAULT_SIZE 9
+#else
+#define NHFONT_DEFAULT_SIZE 10
+#endif
 #define NHFONT_SIZE_MIN 3
 #define NHFONT_SIZE_MAX 20
 

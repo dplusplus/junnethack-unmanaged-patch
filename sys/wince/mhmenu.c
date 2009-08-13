@@ -590,7 +590,10 @@ void onMSNHCommand(HWND hWnd, WPARAM wParam, LPARAM lParam)
 				if (p != NULL) *p = '\0'; /* for time being, view tab field as zstring */
 				DrawText(hDC,
 					NH_A2W(p1, wbuf, BUFSZ),
+/*JP
 					strlen(p1),
+*/
+					-1,
 					&drawRect,
 					DT_CALCRECT | DT_LEFT | DT_VCENTER | DT_EXPANDTABS | DT_SINGLELINE
 				);
@@ -910,7 +913,10 @@ LRESULT onDrawItem(HWND hWnd, WPARAM wParam, LPARAM lParam)
 				buf[1] = '\x0';
 
 				SetRect( &drawRect, x, lpdis->rcItem.top, lpdis->rcItem.right, lpdis->rcItem.bottom );
+/*JP
 				DrawText(lpdis->hDC, NH_A2W(buf, wbuf, 2), 1, &drawRect, DT_LEFT | DT_VCENTER | DT_SINGLELINE | DT_NOPREFIX);
+*/
+				DrawText(lpdis->hDC, NH_A2W(buf, wbuf, 2), -1, &drawRect, DT_LEFT | DT_VCENTER | DT_SINGLELINE | DT_NOPREFIX);
 			}
 			x += tm.tmAveCharWidth + tm.tmOverhang + 5;
 		} else {
@@ -949,7 +955,10 @@ LRESULT onDrawItem(HWND hWnd, WPARAM wParam, LPARAM lParam)
 			if (p != NULL) *p = '\0'; /* for time being, view tab field as zstring */
 			DrawText(lpdis->hDC,
 				NH_A2W(p1, wbuf, BUFSZ),
+/*JP
 				strlen(p1),
+*/
+				-1,
 				&drawRect,
 				DT_LEFT | DT_VCENTER | DT_SINGLELINE
 			);
@@ -967,7 +976,10 @@ LRESULT onDrawItem(HWND hWnd, WPARAM wParam, LPARAM lParam)
 		SetRect( &drawRect, x, lpdis->rcItem.top, lpdis->rcItem.right, lpdis->rcItem.bottom);
 		DrawText(lpdis->hDC,
 			NH_A2W(item->str, wbuf, BUFSZ),
+/*JP
 			strlen(item->str),
+*/
+			-1,
 			&drawRect,
 			DT_LEFT | DT_VCENTER | DT_SINGLELINE
 		);
@@ -992,7 +1004,10 @@ LRESULT onDrawItem(HWND hWnd, WPARAM wParam, LPARAM lParam)
 
 			/* calculate text rectangle */
 			SetRect( &drawRect, client_rt.left, lpdis->rcItem.top, client_rt.right, lpdis->rcItem.bottom );
+/*JP
 			DrawText(lpdis->hDC, wbuf, _tcslen(wbuf), &drawRect, 
+*/
+			DrawText(lpdis->hDC, wbuf, -1, &drawRect, 
 					 DT_CALCRECT | DT_RIGHT | DT_VCENTER | DT_SINGLELINE | DT_NOPREFIX );
 			
 			/* erase text rectangle */
@@ -1005,7 +1020,10 @@ LRESULT onDrawItem(HWND hWnd, WPARAM wParam, LPARAM lParam)
 			DeleteObject( bkBrush );
 
 			/* draw text */
+/*JP
 			DrawText(lpdis->hDC, wbuf, _tcslen(wbuf), &drawRect, 
+*/
+			DrawText(lpdis->hDC, wbuf, -1, &drawRect, 
 					 DT_RIGHT | DT_VCENTER | DT_SINGLELINE | DT_NOPREFIX );
 		}
 
@@ -1356,7 +1374,10 @@ void mswin_menu_window_size (HWND hWnd, LPSIZE sz)
 					if (p != NULL) *p = '\0'; /* for time being, view tab field as zstring */
 					DrawText(hdc,
 						NH_A2W(p1, wbuf, BUFSZ),
+/*JP
 						strlen(p1),
+*/
+						-1,
 						&tabRect,
 						DT_CALCRECT | DT_LEFT | DT_VCENTER | DT_SINGLELINE
 					);

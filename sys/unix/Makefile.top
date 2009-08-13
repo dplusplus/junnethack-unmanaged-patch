@@ -15,7 +15,7 @@
 
 # make NetHack
 PREFIX	 = /usr
-GAME     = nethack
+GAME     = jnethack
 # GAME     = nethack.prg
 GAMEUID  = games
 GAMEGRP  = bin
@@ -50,7 +50,7 @@ VARDATND =
 # for Gnome
 # VARDATND = x11tiles pet_mark.xbm rip.xpm mapbg.xpm
 
-VARDATD = data oracles options quest.dat rumors
+VARDATD = data joracles options quest.dat jrumors
 VARDAT = $(VARDATD) $(VARDATND)
 
 # Some versions of make use the SHELL environment variable as the shell
@@ -71,7 +71,9 @@ CHGRP = chgrp
 # end of configuration
 #
 
-DATHELP = help hh cmdhelp history opthelp wizhelp
+# by issei 1994/2/5, 1994/6/25
+#DATHELP = help hh cmdhelp history opthelp wizhelp
+DATHELP = jhelp jhh jcmdhelp jhistory jopthelp jwizhelp
 
 SPEC_LEVS = asmodeus.lev baalz.lev bigrm-?.lev castle.lev fakewiz?.lev \
 	juiblex.lev knox.lev medusa-?.lev minend-?.lev minefill.lev \
@@ -102,11 +104,11 @@ manpages:
 data: $(GAME)
 	( cd dat ; $(MAKE) data )
 
-rumors: $(GAME)
-	( cd dat ; $(MAKE) rumors )
+jrumors: $(GAME)
+	( cd dat ; $(MAKE) jrumors )
 
-oracles: $(GAME)
-	( cd dat ; $(MAKE) oracles )
+joracles: $(GAME)
+	( cd dat ; $(MAKE) joracles )
 
 #	Note: options should have already been made with make, but...
 options: $(GAME)
@@ -201,6 +203,9 @@ dofiles:
 
 dofiles-dlb: check-dlb
 	( cd dat ; cp nhdat $(DATNODLB) $(GAMEDIR) )
+#	( cd win/X11 ; cp JNetHack.ad $(GAMEDIR)/JNetHack )
+#	( cd win/gtk ; cp GTKRC $(GAMEDIR)/gtkrc )
+#	( bdftopcf win/X11/nh10.bdf > $(GAMEDIR)/nh10.pcf ; mkfontdir $(GAMEDIR))
 # set up their permissions
 	-( cd $(GAMEDIR) ; $(CHOWN) $(GAMEUID) nhdat $(DATNODLB) ; \
 			$(CHGRP) $(GAMEGRP) nhdat $(DATNODLB) ; \
@@ -209,6 +214,9 @@ dofiles-dlb: check-dlb
 dofiles-nodlb:
 # copy over the game files
 	( cd dat ; cp $(DAT) $(GAMEDIR) )
+#	( cd win/X11 ; cp JNetHack.ad $(GAMEDIR)/JNetHack )
+#	( cd win/gtk ; cp GTKRC $(GAMEDIR)/gtkrc )
+#	( bdftopcf win/X11/nh10.bdf > $(GAMEDIR)/nh10.pcf ; mkfontdir $(GAMEDIR))
 # set up their permissions
 	-( cd $(GAMEDIR) ; $(CHOWN) $(GAMEUID) $(DAT) ; \
 			$(CHGRP) $(GAMEGRP) $(DAT) ; \
@@ -235,7 +243,7 @@ install: $(GAME) recover $(VARDAT) dungeon spec_levs
 # not all mkdirs have -p; those that don't will create a -p directory
 	-mkdir -p $(SHELLDIR)
 	-rm -rf $(GAMEDIR) $(VARDIR)
-	-mkdir -p $(GAMEDIR) $(VARDIR) $(VARDIR)/save
+	-mkdir -p $(SHELLDIR)/lib $(GAMEDIR) $(VARDIR) $(VARDIR)/save
 	-rmdir ./-p
 	-$(CHOWN) $(GAMEUID) $(GAMEDIR) $(VARDIR) $(VARDIR)/save
 	$(CHGRP) $(GAMEGRP) $(GAMEDIR) $(VARDIR) $(VARDIR)/save

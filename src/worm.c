@@ -2,6 +2,13 @@
 /* Copyright (c) Stichting Mathematisch Centrum, Amsterdam, 1985. */
 /* NetHack may be freely redistributed.  See license for details. */
 
+/*
+**	Japanese version Copyright
+**	(c) Issei Numata, Naoki Hamada, Shigehiro Miyashita, 1994-2000
+**	For 3.4, Copyright (c) Kentaro Shirakata, 2002-2003
+**	JNetHack may be freely redistributed.  See license for details. 
+*/
+
 #include "hack.h"
 #include "lev.h"
 
@@ -313,9 +320,15 @@ cutoff(worm, tail)
     struct wseg *tail;
 {
 	if (flags.mon_moving)
+/*JP
 	    pline("Part of the tail of %s is cut off.", mon_nam(worm));
+*/
+	    pline("%sの尾の一部が切り落とされた．", mon_nam(worm));
 	else
+/*JP
 	    You("cut part of the tail off of %s.", mon_nam(worm));
+*/
+	    You("%sの尾の一部を切り落とした．", mon_nam(worm));
 	toss_wsegs(tail, TRUE);
 	if (worm->mhp > 1) worm->mhp /= 2;
 }
@@ -420,7 +433,10 @@ cutworm(worm, x, y, weap)
     if (flags.mon_moving)
 	pline("%s is cut in half.", Monnam(worm));
     else
-	You("cut %s in half.", mon_nam(worm));
+/*JP
+    You("cut %s in half.", mon_nam(worm));
+*/
+    You("%sを真っぷたつにした．", mon_nam(worm));
 }
 
 

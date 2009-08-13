@@ -2,6 +2,13 @@
 /*	Copyright (c) Izchak Miller, 1992.			  */
 /* NetHack may be freely redistributed.  See license for details. */
 
+/*
+**	Japanese version Copyright
+**	(c) Issei Numata, Naoki Hamada, Shigehiro Miyashita, 1994-2000
+**	For 3.4, Copyright (c) Kentaro Shirakata, 2002-2003
+**	JNetHack may be freely redistributed.  See license for details. 
+*/
+
 #include "hack.h"
 
 STATIC_DCL const char *NDECL(dev_name);
@@ -34,6 +41,10 @@ static const char *developers[] = {
 	"Helge", "Ron", "Timo",
 	/* VMS team */
 	"Joshua", "Pat",
+#if 1 /*JP*/
+	/* Japanese team */
+	"Issei", "Nao", "Mya",
+#endif
 	""};
 
 
@@ -70,6 +81,9 @@ char *nam;
 {
 	boolean fmlkind = is_female(mtmp->data);
 	const char *devnam;
+#if 1 /*JP*/
+	char tmp_nam[PL_NSIZ];
+#endif
 
 	devnam = dev_name();
 	if (!devnam)
@@ -82,10 +96,19 @@ char *nam;
 	    mtmp->female = 1;
 	else
 	    mtmp->female = 0;
+#if 0 /*JP*/
 	Strcat(nam, " the ");
 	Strcat(nam, rank_of((int)mtmp->m_lev,
 			    monsndx(mtmp->data),
 			    (boolean)mtmp->female));
+#else
+	Strcpy(tmp_nam, rank_of(rn1(11, 20),
+			    highc(mtmp->data->mname[0]),
+			    (boolean)mtmp->female));
+	Strcat(tmp_nam, "の");
+	Strcat(tmp_nam, nam);
+	Strcpy(nam, tmp_nam);
+#endif
 }
 
 STATIC_OVL void
@@ -319,6 +342,7 @@ void
 mplayer_talk(mtmp)
 register struct monst *mtmp;
 {
+#if 0 /*JP*/
 	static const char *same_class_msg[3] = {
 		"I can't win, and neither will you!",
 		"You don't deserve to win!",
@@ -328,13 +352,46 @@ register struct monst *mtmp;
 		"Fight, scum!",
 		"Here is what I have to say!",
 	};
+#else
+	static const char *same_class_msg_f[3] = {
+		"私ですら達成できないのに，あなたに達成できて？",
+		"あなたが成功するなんてありえませんわ．",
+		"名誉は私に！あなたになんてとんでもない．",
+	},		  *other_class_msg_f[3] = {
+		"私と話したいですって？",
+		"剣を取りなさい！",
+		"あなたと話すことなどありませんわ！",
+	};
+	static const char *same_class_msg[3] = {
+		"私ですら達成できないのに，お前に達成できるのか？",
+		"お前が成功するなんてことはないな．",
+		"名誉を我に！お前じゃない！",
+	},		  *other_class_msg[3] = {
+		"下衆が話しかけるか？ははーん？",
+		"戦え！この野郎！",
+		"お前と話すことなどなにもない！",
+	};
+#endif
 
 	if(mtmp->mpeaceful) return; /* will drop to humanoid talk */
 
+#if 0 /*JP*/
 	pline("Talk? -- %s",
 		(mtmp->data == &mons[urole.malenum] ||
 		mtmp->data == &mons[urole.femalenum]) ?
 		same_class_msg[rn2(3)] : other_class_msg[rn2(3)]);
+#else
+	if(mtmp->female)
+	    pline("話す？ -- %s",
+		  (mtmp->data == &mons[urole.malenum] ||
+		   mtmp->data == &mons[urole.femalenum]) ?
+		  same_class_msg_f[rn2(3)] : other_class_msg_f[rn2(3)]);
+	else
+	    pline("話す？ -- %s",
+		  (mtmp->data == &mons[urole.malenum] ||
+		   mtmp->data == &mons[urole.femalenum]) ?
+		  same_class_msg[rn2(3)] : other_class_msg[rn2(3)]);
+#endif
 }
 
 /*mplayer.c*/

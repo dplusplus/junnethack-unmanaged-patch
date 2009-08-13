@@ -2,6 +2,13 @@
 /* Copyright (c) Stichting Mathematisch Centrum, Amsterdam, 1985. */
 /* NetHack may be freely redistributed.  See license for details. */
 
+/*
+**	Japanese version Copyright
+**	(c) Issei Numata, Naoki Hamada, Shigehiro Miyashita, 1994-2000
+**	For 3.4, Copyright (c) Kentaro Shirakata, 2002-2003
+**	JNetHack may be freely redistributed.  See license for details. 
+*/
+
 #include "hack.h"
 
 STATIC_PTR int NDECL(stealarm);
@@ -16,13 +23,28 @@ register struct obj *otmp;
 {
 	return (
 #ifdef TOURIST
+/*JP
 		(otmp == uarmu) ? "shirt" :
+*/
+		(otmp == uarmu) ? "シャツ" :
 #endif
+/*JP
 		(otmp == uarmf) ? "boots" :
+*/
+		(otmp == uarmf) ? "靴" :
+/*JP
 		(otmp == uarms) ? "shield" :
+*/
+		(otmp == uarms) ? "盾" :
+/*JP
 		(otmp == uarmg) ? "gloves" :
+*/
+		(otmp == uarmg) ? "小手" :
 		(otmp == uarmc) ? cloak_simple_name(otmp) :
+/*JP
 		(otmp == uarmh) ? "helmet" : "armor");
+*/
+		(otmp == uarmh) ? "兜" : "鎧");
 }
 
 #ifndef GOLDOBJ
@@ -48,7 +70,10 @@ register struct monst *mtmp;
 	    mtmp->mgold += gold->quan;
 	    delobj(gold);
 	    newsym(u.ux, u.uy);
+/*JP
 	    pline("%s quickly snatches some gold from between your %s!",
+*/
+	    pline("%sは素早くあなたの%s元から金をひったくった！",
 		    Monnam(mtmp), makeplural(body_part(FOOT)));
 	    if(!u.ugold || !rn2(5)) {
 		if (!tele_restrict(mtmp)) (void) rloc(mtmp, FALSE);
@@ -57,7 +82,10 @@ register struct monst *mtmp;
 	    }
 	} else if(u.ugold) {
 	    u.ugold -= (tmp = somegold());
+/*JP
 	    Your("purse feels lighter.");
+*/
+	    Your("財布は軽くなった．");
 	    mtmp->mgold += tmp;
 	if (!tele_restrict(mtmp)) (void) rloc(mtmp, FALSE);
 	    mtmp->mavenge = 1;
@@ -117,7 +145,10 @@ register struct monst *mtmp;
             obj_extract_self(fgold);
 	    add_to_minv(mtmp, fgold);
 	    newsym(u.ux, u.uy);
+/*JP
 	    pline("%s quickly snatches some gold from between your %s!",
+*/
+	    pline("%sは素早くあなたの%s元から金をひったくった！",
 		    Monnam(mtmp), makeplural(body_part(FOOT)));
 	    if(!ygold || !rn2(5)) {
 		if (!tele_restrict(mtmp)) (void) rloc(mtmp, FALSE);
@@ -130,7 +161,10 @@ register struct monst *mtmp;
             if (tmp < ygold->quan) ygold = splitobj(ygold, tmp);
             freeinv(ygold);
             add_to_minv(mtmp, ygold);
+/*JP
 	    Your("purse feels lighter.");
+*/
+	    Your("財布は軽くなった．");
 	    if (!tele_restrict(mtmp)) (void) rloc(mtmp, FALSE);
 	    monflee(mtmp, 0, FALSE, FALSE);
 	    flags.botl = 1;
@@ -158,7 +192,10 @@ stealarm()
 			if(otmp->unpaid)
 			    subfrombill(otmp, shop_keeper(*u.ushops));
 			freeinv(otmp);
+/*JP
 			pline("%s steals %s!", Monnam(mtmp), doname(otmp));
+*/
+			pline("%sは%sを盗んだ！", Monnam(mtmp), doname(otmp));
 			(void) mpickobj(mtmp,otmp);	/* may free otmp */
 			/* Implies seduction, "you gladly hand over ..."
 			   so we don't set mavenge bit here. */
@@ -251,9 +288,15 @@ char *objnambuf;
 nothing_to_steal:
 	    /* Not even a thousand men in armor can strip a naked man. */
 	    if(Blind)
+/*JP
 	      pline("Somebody tries to rob you, but finds nothing to steal.");
+*/
+	      pline("誰かがあなたから盗もうとしたが，盗むものがないことに気がついた．");
 	    else
+/*JP
 	      pline("%s tries to rob you, but there is nothing to steal!",
+*/
+	      pline("%sはあなたから盗もうとしたが，盗むものがないことに気がついた！",
 		Monnam(mtmp));
 	    return(1);	/* let her flee */
 	}
@@ -321,12 +364,20 @@ gotobj:
 		ostuck = (otmp->cursed && otmp->owornmask);
 
 	    if (ostuck || !can_carry(mtmp, otmp)) {
+#if 0 /*JP*/
 		static const char * const how[] = { "steal","snatch","grab","take" };
  cant_take:
 		pline("%s tries to %s your %s but gives up.",
 		      Monnam(mtmp), how[rn2(SIZE(how))],
 		      (otmp->owornmask & W_ARMOR) ? equipname(otmp) :
 		       cxname(otmp));
+#else
+ cant_take:
+		pline("%sは%sを盗もうとしたが諦めた．",
+		      Monnam(mtmp),
+		      (otmp->owornmask & W_ARMOR) ? equipname(otmp) :
+		       cxname(otmp));
+#endif
 		/* the fewer items you have, the less likely the thief
 		   is going to stick around to try again (0) instead of
 		   running away (1) */
@@ -372,17 +423,39 @@ gotobj:
 			if (multi < 0 && is_fainted()) unmul((char *)0);
 			slowly = (armordelay >= 1 || multi < 0);
 			if(flags.female)
+#if 0 /*JP*/
 			    pline("%s charms you.  You gladly %s your %s.",
 				  !seen ? "She" : Monnam(mtmp),
 				  curssv ? "let her take" :
 				  slowly ? "start removing" : "hand over",
 				  equipname(otmp));
+#else
+			    pline("%sはあなたを魅了した．あなたはよろこんで%sを%s%s．",
+				  !seen ? "彼女" : Monnam(mtmp),
+				  equipname(otmp),
+				  slowly ? "はずし始め" : "はずして",
+				  curssv ? "あげた" : "手渡した");
+#endif
 			else
+#if 0 /*JP*/
 			    pline("%s seduces you and %s off your %s.",
 				  !seen ? "She" : Adjmonnam(mtmp, "beautiful"),
 				  curssv ? "helps you to take" :
 				  slowly ? "you start taking" : "you take",
 				  equipname(otmp));
+#else
+			    if(curssv){
+				pline("%sはあなたを誘惑して，あなたが%sをはずすのを%s．",
+				  !seen ? "何者か" : Adjmonnam(mtmp, "美しい"),
+				  equipname(otmp),
+				  slowly ? "手伝い始めた" : "手伝った");
+			    } else {
+				pline("%sはあなたを誘惑した．あなたは%sを%s．",
+				  !seen ? "何者か" : Adjmonnam(mtmp, "美しい"),
+				  equipname(otmp),
+				  slowly ? "はずし始めた" : "はずした");
+			    }
+#endif
 			named++;
 			/* the following is to set multi for later on */
 			nomul(-armordelay);
@@ -417,7 +490,10 @@ gotobj:
 	mtmp->mavenge = 1;
 
 	freeinv(otmp);
+/*JP
 	pline("%s stole %s.", named ? "She" : Monnam(mtmp), doname(otmp));
+*/
+	pline("%sは%sを盗んだ．", named ? "彼女" : Monnam(mtmp), doname(otmp));
 	could_petrify = (otmp->otyp == CORPSE &&
 			 touch_petrifies(&mons[otmp->corpsenm]));
 	(void) mpickobj(mtmp,otmp);	/* may free otmp */
@@ -455,7 +531,10 @@ register struct obj *otmp;
 	attacktype(mtmp->data, AT_ENGL)) {
 	/* this is probably a burning object that you dropped or threw */
 	if (u.uswallow && mtmp == u.ustuck && !Blind)
+/*JP
 	    pline("%s out.", Tobjnam(otmp, "go"));
+*/
+	    pline("%sは飛びだした．", xname(otmp));
 	snuff_otmp = TRUE;
     }
     /* Must do carrying effects on object prior to add_to_minv() */
@@ -512,7 +591,10 @@ struct monst *mtmp;
 	/* mpickobj wont merge otmp because none of the above things
 	   to steal are mergable */
 	(void) mpickobj(mtmp,otmp);	/* may merge and free otmp */
+/*JP
 	pline("%s stole %s!", Monnam(mtmp), doname(otmp));
+*/
+	pline("%sは%sを盗んだ！", Monnam(mtmp), doname(otmp));
 	if (can_teleport(mtmp->data) && !tele_restrict(mtmp))
 	    (void) rloc(mtmp, FALSE);
     }
@@ -547,8 +629,14 @@ boolean verbosely;
 	obj->owornmask = 0L;
     }
     if (verbosely && cansee(omx, omy))
+/*JP
 	pline("%s drops %s.", Monnam(mon), distant_name(obj, doname));
+*/
+	pline("%sは%sを置いた．", Monnam(mon), distant_name(obj, doname));
+/*JP
     if (!flooreffects(obj, omx, omy, "fall")) {
+*/
+    if (!flooreffects(obj, omx, omy, "落ちる")) {
 	place_object(obj, omx, omy);
 	stackobj(obj);
     }
@@ -623,8 +711,12 @@ boolean is_pet;		/* If true, pet should keep wielded/worn items */
 		register long g = mtmp->mgold;
 		(void) mkgold(g, omx, omy);
 		if (is_pet && cansee(omx, omy) && flags.verbose)
+#if 0 /*JP*/
 			pline("%s drops %ld gold piece%s.", Monnam(mtmp),
 				g, plur(g));
+#else
+			pline("%sは%ld枚の金貨を置いた．", Monnam(mtmp), g);
+#endif
 		mtmp->mgold = 0L;
 	}
 #endif

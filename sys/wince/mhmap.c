@@ -604,7 +604,10 @@ void onPaint(HWND hWnd)
 
 				DrawText(hDC, 
 						 NH_A2W(&ch, &wch, 1),
+/*JP
 						 1,
+*/
+						 -1,
 						 &glyph_rect,
 						 DT_CENTER | DT_VCENTER | DT_NOPREFIX
 						 );

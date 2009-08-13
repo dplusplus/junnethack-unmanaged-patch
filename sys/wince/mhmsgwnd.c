@@ -503,12 +503,21 @@ void onPaint(HWND hWnd)
 				oldFont = SelectObject(hdc, mswin_get_font(NHW_MESSAGE, data->window_text[i].attr, hdc, FALSE));
 
 #ifdef MSG_WRAP_TEXT				
+/*JP
 				DrawText(hdc, wbuf, wlen, &draw_rt, DT_NOPREFIX | DT_WORDBREAK | DT_CALCRECT);
+*/
+				DrawText(hdc, wbuf, -1, &draw_rt, DT_NOPREFIX | DT_WORDBREAK | DT_CALCRECT);
 				draw_rt.top = y - (draw_rt.bottom - draw_rt.top);
 				draw_rt.bottom = y;
+/*JP
 				DrawText(hdc, wbuf, wlen, &draw_rt, DT_NOPREFIX | DT_WORDBREAK);
+*/
+				DrawText(hdc, wbuf, -1, &draw_rt, DT_NOPREFIX | DT_WORDBREAK);
 #else
+/*JP
 				DrawText(hdc, wbuf, wlen, &draw_rt, DT_NOPREFIX );
+*/
+				DrawText(hdc, wbuf, -1, &draw_rt, DT_NOPREFIX );
 #endif
 				SelectObject(hdc, oldFont);
 
@@ -521,7 +530,10 @@ void onPaint(HWND hWnd)
 			if( i==MSG_LINES-1 ) {
 				draw_rt.left = client_rt.left;
 				draw_rt.right = draw_rt.left + 2*data->xChar;
+/*JP
 				DrawText(hdc, TEXT("> "), 2, &draw_rt, DT_NOPREFIX );
+*/
+				DrawText(hdc, TEXT("> "), -1, &draw_rt, DT_NOPREFIX );
 
 				y -= 2;
 				draw_rt.left = client_rt.left;

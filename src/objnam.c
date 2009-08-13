@@ -2,10 +2,22 @@
 /* Copyright (c) Stichting Mathematisch Centrum, Amsterdam, 1985. */
 /* NetHack may be freely redistributed.  See license for details. */
 
+/*
+**	Japanese version Copyright
+**	(c) Issei Numata, Naoki Hamada, Shigehiro Miyashita, 1994-2000
+**	For 3.4, Copyright (c) Kentaro Shirakata, 2002-2003
+**	JNetHack may be freely redistributed.  See license for details. 
+*/
+
 #include "hack.h"
 
 /* "an uncursed greased partly eaten guardian naga hatchling [corpse]" */
+#if 0 /*JP*/
 #define PREFIX	80	/* (56) */
+#else
+/* 「呪われていない油の塗られた食べかけのクロマティック・ドラゴン(の死体)」*/
+#define PREFIX	100
+#endif
 #define SCHAR_LIM 127
 #define NUMOBUF 12
 
@@ -15,6 +27,11 @@ static boolean FDECL(wishymatch, (const char *,const char *,BOOLEAN_P));
 #endif
 static char *NDECL(nextobuf);
 static void FDECL(add_erosion_words, (struct obj *, char *));
+static char *FDECL(substitute, (char *,     char *,     char *));
+static char *FDECL(transpose, (char *buf,char *));
+static char *FDECL(delete, (char *, char *str));
+static int FDECL(digit_8, (int));
+static int FDECL(atoi_8, (const char *));
 
 struct Jitem {
 	int item;
@@ -97,30 +114,87 @@ register int otyp;
 	register const char *dn = OBJ_DESCR(*ocl);
 	register const char *un = ocl->oc_uname;
 	register int nn = ocl->oc_name_known;
+#if 1 /*JP*/
+	char type;
+	char type_name[BUFSZ];
+#endif
 
 	if (Role_if(PM_SAMURAI) && Japanese_item_name(otyp))
 		actualn = Japanese_item_name(otyp);
+#if 1 /*JP*/
+	buf[0]='\0';
+	type_name[0]='\0';
+	if(un)
+	  Sprintf(buf, "%sと呼ばれる", un);
+#endif
 	switch(ocl->oc_class) {
 	case COIN_CLASS:
+#if 0 /*JP*/
 		Strcpy(buf, "coin");
+#else
+		if(nn)
+		  Strcat(buf,jtrns_obj('$',actualn));
+		type = '$';
+#endif
 		break;
 	case POTION_CLASS:
+#if 0 /*JP*/
 		Strcpy(buf, "potion");
+#else
+		if(nn)
+		  Strcat(buf,jtrns_obj('!',actualn));
+		else if(un)
+		  Strcat(buf, "薬");
+		type = '!';
+#endif
 		break;
 	case SCROLL_CLASS:
+#if 0 /*JP*/
 		Strcpy(buf, "scroll");
+#else
+		if(nn)
+		  Strcat(buf,jtrns_obj('?',actualn));
+		else if(un)
+		  Strcat(buf, "巻物");
+		 type = '?';
+#endif
 		break;
 	case WAND_CLASS:
+#if 0 /*JP*/
 		Strcpy(buf, "wand");
+#else
+		if(nn)
+		  Strcat(buf,jtrns_obj('/',actualn));
+		else if(un)
+		  Strcat(buf, "杖");
+		type = '/';
+#endif
 		break;
 	case SPBOOK_CLASS:
+#if 0 /*JP*/
 		Strcpy(buf, "spellbook");
+#else
+		if(nn)
+		  Strcat(buf,jtrns_obj('+',actualn));
+		else if(un)
+		  Strcat(buf, "魔法書");
+		type = '+';
+#endif
 		break;
 	case RING_CLASS:
+#if 0 /*JP*/
 		Strcpy(buf, "ring");
+#else
+		if(nn)
+		  Strcat(buf,jtrns_obj('=',actualn));
+		else if(un)
+		  Strcat(buf, "指輪");
+		type = '=';
+#endif
 		break;
 	case AMULET_CLASS:
 		if(nn)
+#if 0 /*JP*/
 			Strcpy(buf,actualn);
 		else
 			Strcpy(buf,"amulet");
@@ -129,8 +203,28 @@ register int otyp;
 		if(dn)
 			Sprintf(eos(buf)," (%s)",dn);
 		return(buf);
+#else
+			Strcat(buf,jtrns_obj('"',actualn));
+		else if(un)
+		    Strcat(buf, "魔除け");
+		type = '"';
+		break;
+#endif
+#if 1 /*JP*/
+	case GEM_CLASS:
+		if(nn)
+		  Strcat(buf,jtrns_obj('*',actualn));
+		else if(un)
+		  Strcat(buf, "宝石");
+		type = '*';
+		break;
+#endif
 	default:
+#if 1 /*JP*/
+		type = ' ';
+#endif
 		if(nn) {
+#if 0 /*JP*/
 			Strcpy(buf, actualn);
 			if (GemStone(otyp))
 				Strcat(buf, " stone");
@@ -138,16 +232,29 @@ register int otyp;
 				Sprintf(eos(buf), " called %s", un);
 			if(dn)
 				Sprintf(eos(buf), " (%s)", dn);
+#else
+			Strcat(buf, jtrns_obj(' ',actualn));
+#endif
 		} else {
+#if 0 /*JP*/
 			Strcpy(buf, dn ? dn : actualn);
 			if(ocl->oc_class == GEM_CLASS)
 				Strcat(buf, (ocl->oc_material == MINERAL) ?
 						" stone" : " gem");
 			if(un)
 				Sprintf(eos(buf), " called %s", un);
+#else
+			Strcat(buf, dn ? jtrns_obj(' ',dn)
+			   : jtrns_obj(' ',actualn));
+#endif
 		}
+#if 0 /*JP*/
 		return(buf);
+#else
+		break;
+#endif
 	}
+#if 0 /*JP*/
 	/* here for ring/scroll/potion/wand */
 	if(nn) {
 	    if (ocl->oc_unique)
@@ -157,8 +264,14 @@ register int otyp;
 	}
 	if(un)
 		Sprintf(eos(buf), " called %s", un);
+#endif
 	if(dn)
+#if 0 /*JP*/
 		Sprintf(eos(buf), " (%s)", dn);
+#else
+		Sprintf(eos(buf), "(%s%s)", jtrns_obj(type, dn),
+		  ocl->oc_class == POTION_CLASS ? "薬" : "");
+#endif
 	return(buf);
 }
 
@@ -215,6 +328,11 @@ char *
 fruitname(juice)
 boolean juice;	/* whether or not to append " juice" to the name */
 {
+#if 1 /*JP*//*日本語ではそこまでしない*/
+    char *buf = nextobuf();
+    Sprintf(buf, "%s%s", pl_fruit, juice ? "ジュース" : "");
+    return buf;
+#else
     char *buf = nextobuf();
     const char *fruit_nam = strstri(pl_fruit, " of ");
 
@@ -225,6 +343,7 @@ boolean juice;	/* whether or not to append " juice" to the name */
 
     Sprintf(buf, "%s%s", makesingular(fruit_nam), juice ? " juice" : "");
     return buf;
+#endif
 }
 
 #endif /* OVLB */
@@ -243,6 +362,9 @@ register struct obj *obj;
 	register const char *actualn = OBJ_NAME(*ocl);
 	register const char *dn = OBJ_DESCR(*ocl);
 	register const char *un = ocl->oc_uname;
+#if 1 /*JP*/
+	register const char *jactualn = NULL,*jdn = NULL;
+#endif
 
 	buf = nextobuf() + PREFIX;	/* leave room for "17 -3 " */
 	if (Role_if(PM_SAMURAI) && Japanese_item_name(typ))
@@ -259,65 +381,157 @@ register struct obj *obj;
 	if (!Blind) obj->dknown = TRUE;
 	if (Role_if(PM_PRIEST)) obj->bknown = TRUE;
 	if (obj_is_pname(obj))
+#if 0 /*JP*/
 	    goto nameit;
+#else
+	{
+	    Strcat(buf, jtrns_obj('A', ONAME(obj)));
+	    goto nameit;
+	}
+#endif
+#if 1 /*JP*/
+	if (obj->onamelth && obj->dknown) {
+	  if(!obj->oartifact)
+	    Strcat(buf, ONAME(obj));
+	  else
+	    Strcat(buf, jtrns_obj('A', ONAME(obj)));
+	  Strcat(buf, "と名づけられた");
+	}
+#endif
 	switch (obj->oclass) {
 	    case AMULET_CLASS:
+#if 1 /*JP*/
+		jactualn = jtrns_obj('"', actualn);
+		jdn = jtrns_obj('"', dn);
+#endif
 		if (!obj->dknown)
+/*JP
 			Strcpy(buf, "amulet");
+*/
+			Strcat(buf, "魔除け");  
 		else if (typ == AMULET_OF_YENDOR ||
 			 typ == FAKE_AMULET_OF_YENDOR)
 			/* each must be identified individually */
+/*JP
 			Strcpy(buf, obj->known ? actualn : dn);
+*/
+			Strcat(buf, obj->known ? jactualn : jdn);
 		else if (nn)
+#if 0 /*JP*/
 			Strcpy(buf, actualn);
+#else
+			Strcat(buf, jactualn);
+#endif
 		else if (un)
+/*JP
 			Sprintf(buf,"amulet called %s", un);
+*/
+			Sprintf(eos(buf),"%sと呼ばれる魔除け", un);
 		else
+/*JP
 			Sprintf(buf,"%s amulet", dn);
+*/
+			Sprintf(eos(buf),"%s", jdn);
 		break;
 	    case WEAPON_CLASS:
+#if 1 /*JP*/
+		jactualn = jtrns_obj(')',actualn);
+		jdn = jtrns_obj(')',dn);
+#endif
 		if (is_poisonable(obj) && obj->opoisoned)
+/*JP
 			Strcpy(buf, "poisoned ");
+*/
+			Strcpy(buf, "毒の塗られた");
 	    case VENOM_CLASS:
 	    case TOOL_CLASS:
+#if 1 /*JP*/
+		if(obj->oclass == VENOM_CLASS){
+		  jactualn = jtrns_obj('\'',actualn);
+		  jdn = jtrns_obj('\'',dn);
+		}
+		else if(obj->oclass == TOOL_CLASS){
+		  jactualn = jtrns_obj('(',actualn);
+		  jdn = jtrns_obj('(',dn);
+		}
+		if (typ == FIGURINE)
+			Sprintf(eos(buf), "%sの", jtrns_mon(mons[obj->corpsenm].mname));
+#endif
 		if (typ == LENSES)
+/*JP
 			Strcpy(buf, "pair of ");
+*/
+			Strcpy(buf, "一対の");
 
 		if (!obj->dknown)
+/*JP
 			Strcat(buf, dn ? dn : actualn);
+*/
+			Strcat(buf, jdn ? jdn : jactualn);
 		else if (nn)
+/*JP
 			Strcat(buf, actualn);
+*/
+			Strcat(buf, jactualn);
 		else if (un) {
+#if 0 /*JP*/
 			Strcat(buf, dn ? dn : actualn);
 			Strcat(buf, " called ");
 			Strcat(buf, un);
+#else
+			Strcat(buf, un);
+			Strcat(buf, "と呼ばれる");
+			Strcat(buf, dn ? jdn : jactualn);
+#endif
 		} else
+/*JP
 			Strcat(buf, dn ? dn : actualn);
+*/
+			Strcat(buf, dn ? jdn : jactualn);
+#if 0 /*JP*/ /*これは語順の関係から上の方で定義*/
 		/* If we use an() here we'd have to remember never to use */
 		/* it whenever calling doname() or xname(). */
 		if (typ == FIGURINE)
 		    Sprintf(eos(buf), " of a%s %s",
 			index(vowels,*(mons[obj->corpsenm].mname)) ? "n" : "",
 			mons[obj->corpsenm].mname);
+#endif
 		break;
 	    case ARMOR_CLASS:
+#if 1 /*JP*/
+		jactualn = jtrns_obj(']',actualn);
+		jdn = jtrns_obj(']',dn);
+#endif
 		/* depends on order of the dragon scales objects */
 		if (typ >= GRAY_DRAGON_SCALES && typ <= YELLOW_DRAGON_SCALES) {
+/*JP
 			Sprintf(buf, "set of %s", actualn);
+*/
+			Sprintf(buf, "%s一式", jactualn);
 			break;
 		}
+/*JP
 		if(is_boots(obj) || is_gloves(obj)) Strcpy(buf,"pair of ");
+*/
+		if(is_boots(obj) || is_gloves(obj)) Strcat(buf,"一対の");
 
 		if(obj->otyp >= ELVEN_SHIELD && obj->otyp <= ORCISH_SHIELD
 				&& !obj->dknown) {
+/*JP
 			Strcpy(buf, "shield");
+*/
+			Strcat(buf, "盾");
 			break;
 		}
 		if(obj->otyp == SHIELD_OF_REFLECTION && !obj->dknown) {
+/*JP
 			Strcpy(buf, "smooth shield");
+*/
+			Strcat(buf, "すべすべした盾");
 			break;
 		}
 
+#if 0 /*JP*/
 		if(nn)	Strcat(buf, actualn);
 		else if(un) {
 			if(is_boots(obj))
@@ -335,8 +549,25 @@ register struct obj *obj;
 			Strcat(buf, " called ");
 			Strcat(buf, un);
 		} else	Strcat(buf, dn);
+#else
+		if(nn)	Strcat(buf, jactualn);
+		else if(un) {
+			char *p;
+			if(is_boots(obj)) p = "靴";
+			else if(is_gloves(obj)) p = "小手";
+			else if(is_cloak(obj)) p = "クローク";
+			else if(is_helmet(obj)) p = "兜";
+			else if(is_shield(obj)) p = "盾";
+			else p = "鎧";
+			Sprintf(eos(buf), "%sと呼ばれる%s", un, p);
+		} else	Strcat(buf, jdn);
+#endif
 		break;
 	    case FOOD_CLASS:
+#if 1 /*JP*/
+		jactualn = jtrns_obj('%',actualn);
+		jdn = jtrns_obj('%',dn);
+#endif
 		if (typ == SLIME_MOLD) {
 			register struct fruit *f;
 
@@ -350,24 +581,58 @@ register struct obj *obj;
 			break;
 		}
 
+#if 0 /*JP*/
 		Strcpy(buf, actualn);
+#endif
 		if (typ == TIN && obj->known) {
 		    if(obj->spe > 0)
+/*JP
 			Strcat(buf, " of spinach");
+*/
+			Strcat(buf, "ホウレン草の");
 		    else if (obj->corpsenm == NON_PM)
+/*JP
 		        Strcpy(buf, "empty tin");
+*/
+		        Strcat(buf, "空っぽの");
 		    else if (vegetarian(&mons[obj->corpsenm]))
+/*JP
 			Sprintf(eos(buf), " of %s", mons[obj->corpsenm].mname);
+*/
+			Sprintf(eos(buf), "%sの", jtrns_mon(mons[obj->corpsenm].mname));
 		    else
+/*JP
 			Sprintf(eos(buf), " of %s meat", mons[obj->corpsenm].mname);
+*/
+			Sprintf(eos(buf), "%sの肉の", jtrns_mon(mons[obj->corpsenm].mname));
 		}
+#if 1 /*JP*/
+		Strcat(buf, jactualn);
+#endif
 		break;
 	    case COIN_CLASS:
+#if 1 /*JP*/
+		jactualn = jtrns_obj('$',actualn);
+		jdn = jtrns_obj('$',dn);
+		Strcat(buf, jactualn);
+		break;
+#endif
 	    case CHAIN_CLASS:
+#if 0 /*JP*/
 		Strcpy(buf, actualn);
+#else
+		jactualn = jtrns_obj('_',actualn);
+		jdn = jtrns_obj('_',dn);
+		Strcat(buf, jactualn);
+#endif
 		break;
 	    case ROCK_CLASS:
+#if 1 /*JP*/
+		jactualn = jtrns_obj('\'',actualn);
+		jdn = jtrns_obj('\'',dn);
+#endif
 		if (typ == STATUE)
+#if 0 /*JP*/
 		    Sprintf(buf, "%s%s of %s%s",
 			(Role_if(PM_ARCHEOLOGIST) && (obj->spe & STATUE_HISTORIC)) ? "historic " : "" ,
 			actualn,
@@ -377,102 +642,243 @@ register struct obj *obj;
 								"an " : "a "),
 			mons[obj->corpsenm].mname);
 		else Strcpy(buf, actualn);
+#else
+		    Sprintf(eos(buf), "%s%sの%s", 
+			    (Role_if(PM_ARCHEOLOGIST) && obj->spe) ? "歴史的な" : "" ,
+			    jtrns_mon(mons[obj->corpsenm].mname), jactualn);
+		else Strcat(buf, jactualn);
+#endif
 		break;
 	    case BALL_CLASS:
+#if 0 /*JP*/
 		Sprintf(buf, "%sheavy iron ball",
 			(obj->owt > ocl->oc_weight) ? "very " : "");
+#else
+		Sprintf(eos(buf), "%s%s",
+			(obj->owt > ocl->oc_weight) ? "とても" : "",
+			jtrns_obj('0', "heavy iron ball"));
+#endif
 		break;
 	    case POTION_CLASS:
+#if 1 /*JP*/
+		jactualn = jtrns_obj('!',actualn);
+		jdn = jtrns_obj('!',dn);
+#endif
 		if (obj->dknown && obj->odiluted)
+/*JP
 			Strcpy(buf, "diluted ");
+*/
+			Strcat(buf, "薄まった");
 		if(nn || un || !obj->dknown) {
+#if 0 /*JP*/
 			Strcat(buf, "potion");
 			if(!obj->dknown) break;
+#else
+			if(!obj->dknown){
+			  Strcat(buf,"薬");
+			  break;
+			}
+#endif
 			if(nn) {
+#if 0 /*JP*/
 			    Strcat(buf, " of ");
+#endif
 			    if (typ == POT_WATER &&
 				obj->bknown && (obj->blessed || obj->cursed)) {
+/*JP
 				Strcat(buf, obj->blessed ? "holy " : "unholy ");
+*/
+				Strcat(buf, obj->blessed ? "聖" : "不浄な");
 			    }
+/*JP
 			    Strcat(buf, actualn);
+*/
+			    Strcat(buf, jactualn);
 			} else {
+#if 0 /*JP*/
 				Strcat(buf, " called ");
 				Strcat(buf, un);
+#else
+				Strcat(buf, un);
+				Strcat(buf, "と呼ばれる薬");
+#endif
 			}
 		} else {
+#if 0 /*JP*/
 			Strcat(buf, dn);
 			Strcat(buf, " potion");
+#else
+			Strcat(buf, jdn);
+			Strcat(buf, "薬");
+#endif
 		}
 		break;
 	case SCROLL_CLASS:
+#if 1 /*JP*/
+		jactualn = jtrns_obj('?', actualn);
+		jdn = jtrns_obj('?', dn);
+		if(!obj->dknown){
+			Strcat(buf,"巻物");
+			break;
+		}
+#else
 		Strcpy(buf, "scroll");
 		if(!obj->dknown) break;
+#endif
 		if(nn) {
+#if 0 /*JP*/
 			Strcat(buf, " of ");
 			Strcat(buf, actualn);
+#else
+			Strcat(buf, jactualn);
+#endif
 		} else if(un) {
+#if 0 /*JP*/
 			Strcat(buf, " called ");
 			Strcat(buf, un);
+#else
+			Strcat(buf, un);
+			Strcat(buf, "と呼ばれる巻物");
+#endif
 		} else if (ocl->oc_magic) {
+#if 0 /*JP*/
 			Strcat(buf, " labeled ");
 			Strcat(buf, dn);
+#else
+			Strcat(buf, jdn);
+#endif
 		} else {
+#if 0 /*JP*/
 			Strcpy(buf, dn);
 			Strcat(buf, " scroll");
+#else
+			Strcat(buf, jdn);
+#endif
 		}
 		break;
 	case WAND_CLASS:
+#if 1 /*JP*/
+		jactualn = jtrns_obj('/',actualn);
+		jdn = jtrns_obj('/',dn);
+#endif
 		if(!obj->dknown)
+/*JP
 			Strcpy(buf, "wand");
+*/
+			Strcat(buf, "杖");
 		else if(nn)
+/*JP
 			Sprintf(buf, "wand of %s", actualn);
+*/
+			Strcat(buf, jactualn);
 		else if(un)
+/*JP
 			Sprintf(buf, "wand called %s", un);
+*/
+			Sprintf(eos(buf), "%sと呼ばれる杖", un);
 		else
+/*JP
 			Sprintf(buf, "%s wand", dn);
+*/
+			Strcat(buf, jdn);
 		break;
 	case SPBOOK_CLASS:
+#if 1 /*JP*/
+		jactualn = jtrns_obj('+',actualn);
+		jdn = jtrns_obj('+',dn);
+#endif
 		if (!obj->dknown) {
+/*JP
 			Strcpy(buf, "spellbook");
+*/
+			Strcat(buf, "魔法書");
 		} else if (nn) {
+#if 0 /*JP*/
 			if (typ != SPE_BOOK_OF_THE_DEAD)
 			    Strcpy(buf, "spellbook of ");
 			Strcat(buf, actualn);
+#else
+			Strcat(buf, jactualn);
+#endif
 		} else if (un) {
+/*JP
 			Sprintf(buf, "spellbook called %s", un);
+*/
+			Sprintf(eos(buf), "%sと呼ばれる魔法書", un);
 		} else
+/*JP
 			Sprintf(buf, "%s spellbook", dn);
+*/
+			Sprintf(eos(buf), "%s", jdn);
 		break;
 	case RING_CLASS:
+#if 1 /*JP*/
+		jactualn = jtrns_obj('=',actualn);
+		jdn = jtrns_obj('=',dn);
+#endif
 		if(!obj->dknown)
+/*JP
 			Strcpy(buf, "ring");
+*/
+			Strcat(buf, "指輪");
 		else if(nn)
+/*JP
 			Sprintf(buf, "ring of %s", actualn);
+*/
+			Strcat(buf, jactualn);
 		else if(un)
+/*JP
 			Sprintf(buf, "ring called %s", un);
+*/
+			Sprintf(eos(buf), "%sと呼ばれる指輪", un);
 		else
+/*JP
 			Sprintf(buf, "%s ring", dn);
+*/
+			Strcat(buf, jdn);
 		break;
 	case GEM_CLASS:
+#if 1 /*JP*/
+		jactualn = jtrns_obj('*',actualn);
+		jdn = jtrns_obj('*',dn);
+#endif
 	    {
 		const char *rock =
+/*JP
 			    (ocl->oc_material == MINERAL) ? "stone" : "gem";
+*/
+			    (ocl->oc_material == MINERAL) ? "石" : "宝石";
 		if (!obj->dknown) {
+/*JP
 		    Strcpy(buf, rock);
+*/
+		    Strcat(buf, rock);
 		} else if (!nn) {
+#if 0 /*JP*/
 		    if (un) Sprintf(buf,"%s called %s", rock, un);
 		    else Sprintf(buf, "%s %s", dn, rock);
+#else
+		    if (un) Sprintf(eos(buf), "%sと呼ばれる%s", un, rock);
+		    else Strcat(buf, jdn);
+#endif
 		} else {
+#if 0 /*JP*/
 		    Strcpy(buf, actualn);
 		    if (GemStone(typ)) Strcat(buf, " stone");
+#else
+		    Strcpy(buf, jactualn);
+#endif
 		}
 		break;
 	    }
 	default:
 		Sprintf(buf,"glorkum %d %d %d", obj->oclass, typ, obj->spe);
 	}
+#if 0 /*JP*/
 	if (obj->quan != 1L) Strcpy(buf, makeplural(buf));
+#endif
 
+#if 0 /*JP*/
 	if (obj->onamelth && obj->dknown) {
 		Strcat(buf, " named ");
 nameit:
@@ -480,6 +886,9 @@ nameit:
 	}
 
 	if (!strncmpi(buf, "the ", 4)) buf += 4;
+#else
+nameit:
+#endif
 	return(buf);
 }
 
@@ -496,7 +905,11 @@ struct obj *obj;
 	Strcpy(tmpbuf, onm);
 	/* "the Nth arrow"; value will eventually be passed to an() or
 	   The(), both of which correctly handle this "the " prefix */
+#if 0 /*JP*/
 	Sprintf(onm, "the %d%s %s", m_shot.i, ordin(m_shot.i), tmpbuf);
+#else
+	Sprintf(onm, "%d%s目の%s", m_shot.i, numeral(obj), tmpbuf);
+#endif
     }
 
     return onm;
@@ -505,6 +918,7 @@ struct obj *obj;
 #endif /* OVL1 */
 #ifdef OVL0
 
+#if 0 /*JP*/
 /* used for naming "the unique_item" instead of "a unique_item" */
 boolean
 the_unique_obj(obj)
@@ -518,6 +932,7 @@ register struct obj *obj;
 	return (boolean)(objects[obj->otyp].oc_unique &&
 			 (obj->known || obj->otyp == AMULET_OF_YENDOR));
 }
+#endif
 
 static void
 add_erosion_words(obj,prefix)
@@ -533,26 +948,50 @@ char *prefix;
 	 * rotted food and diluted potions, which are all not is_damageable().
 	 */
 	if (obj->oeroded && !iscrys) {
+#if 0 /*JP*/
 		switch (obj->oeroded) {
 			case 2:	Strcat(prefix, "very "); break;
 			case 3:	Strcat(prefix, "thoroughly "); break;
 		}			
 		Strcat(prefix, is_rustprone(obj) ? "rusty " : "burnt ");
+#else
+		switch (obj->oeroded) {
+			case 2:	Strcat(prefix, "とても"); break;
+			case 3:	Strcat(prefix, "かなり"); break;
+		}			
+		Strcat(prefix, is_rustprone(obj) ? "錆びた" : "傷ついた");
+#endif
 	}
 	if (obj->oeroded2 && !iscrys) {
+#if 0 /*JP*/
 		switch (obj->oeroded2) {
 			case 2:	Strcat(prefix, "very "); break;
 			case 3:	Strcat(prefix, "thoroughly "); break;
 		}			
 		Strcat(prefix, is_corrodeable(obj) ? "corroded " :
 			"rotted ");
+#else
+		switch (obj->oeroded2) {
+			case 2:	Strcat(prefix, "とても"); break;
+			case 3:	Strcat(prefix, "かなり"); break;
+		}			
+		Strcat(prefix, is_corrodeable(obj) ? "腐食した" :
+			"腐った");
+#endif
 	}
 	if (obj->rknown && obj->oerodeproof)
 		Strcat(prefix,
+#if 0 /*JP*/
 		       iscrys ? "fixed " :
 		       is_rustprone(obj) ? "rustproof " :
 		       is_corrodeable(obj) ? "corrodeproof " :	/* "stainless"? */
 		       is_flammable(obj) ? "fireproof " : "");
+#else
+		       iscrys ? "安定した" :
+		       is_rustprone(obj) ? "錆びない" :
+		       is_corrodeable(obj) ? "腐食しない" :	/* "stainless"? */
+		       is_flammable(obj) ? "燃えない" : "");
+#endif
 }
 
 char *
@@ -561,11 +1000,16 @@ register struct obj *obj;
 {
 	boolean ispoisoned = FALSE;
 	char prefix[PREFIX];
+#if 0 /*JP*/
 	char tmpbuf[PREFIX+1];
+#endif
 	/* when we have to add something at the start of prefix instead of the
 	 * end (Strcat is used on the end)
 	 */
 	register char *bp = xname(obj);
+#if 1 /*JP*/ /*  苦肉の策 */
+	char preprefix[PREFIX], *tp;
+#endif
 
 	/* When using xname, we want "poisoned arrow", and when using
 	 * doname, we want "poisoned +0 arrow".  This kludge is about the only
@@ -573,22 +1017,52 @@ register struct obj *obj;
 	 * combining both into one function taking a parameter.
 	 */
 	/* must check opoisoned--someone can have a weirdly-named fruit */
+#if 0 /*JP*/
 	if (!strncmp(bp, "poisoned ", 9) && obj->opoisoned) {
 		bp += 9;
 		ispoisoned = TRUE;
 	}
+#else
+	if (!strncmp(bp, "毒の塗られた", 12) && obj->opoisoned) {
+		bp += 12;
+		ispoisoned = TRUE;
+	}
+#endif
+#if 1 /*JP*/
+	/* JP
+	 *「子猫のたまと名づけられた死体」より「たまと名づけられた子猫の死体」
+	 *  のほうが自然である．
+         */
+	preprefix[0] = '\0';
+	if((tp = strstri(bp, "名づけられた")) != NULL){
+	  tp += 12; /* 「名づけられた」*/
+	  strncpy(preprefix, bp, tp - bp);
+	  preprefix[tp - bp] = '\0';
+	  bp = tp;
+	}
+	Strcpy(prefix, "");
+#endif
 
 	if(obj->quan != 1L)
+#if 0 /*JP*/
 		Sprintf(prefix, "%ld ", obj->quan);
+#else /* 日本語としては数詞がないのは不自然 */
+		Sprintf(prefix, "%ld%sの", obj->quan, numeral(obj));
+#endif
+#if 0 /*JP*/ /* 冠詞は不要 */
 	else if (obj_is_pname(obj) || the_unique_obj(obj)) {
 		if (!strncmpi(bp, "the ", 4))
 		    bp += 4;
 		Strcpy(prefix, "the ");
 	} else
 		Strcpy(prefix, "a ");
+#endif
 
 #ifdef INVISIBLE_OBJECTS
+/*JP
 	if (obj->oinvis) Strcat(prefix,"invisible ");
+*/
+	if (obj->oinvis) Strcat(prefix,"透明な");
 #endif
 
 	if (obj->bknown &&
@@ -599,9 +1073,15 @@ register struct obj *obj;
 	     * always allow "uncursed potion of water"
 	     */
 	    if (obj->cursed)
+/*JP
 		Strcat(prefix, "cursed ");
+*/
+		Strcat(prefix, "呪われた");
 	    else if (obj->blessed)
+/*JP
 		Strcat(prefix, "blessed ");
+*/
+		Strcat(prefix, "祝福された");
 	    else if (iflags.show_buc || (!obj->known || !objects[obj->otyp].oc_charged ||
 		      (obj->oclass == ARMOR_CLASS ||
 		       obj->oclass == RING_CLASS))
@@ -621,19 +1101,31 @@ register struct obj *obj;
 			&& obj->otyp != FAKE_AMULET_OF_YENDOR
 			&& obj->otyp != AMULET_OF_YENDOR
 			&& !Role_if(PM_PRIEST))
+/*JP
 		Strcat(prefix, "uncursed ");
+*/
+		Strcat(prefix, "呪われていない");
 	}
 
+/*JP
 	if (obj->greased) Strcat(prefix, "greased ");
+*/
+	if (obj->greased) Strcat(prefix, "油の塗られた");
 
 	switch(obj->oclass) {
 	case AMULET_CLASS:
 		if(obj->owornmask & W_AMUL)
+/*JP
 			Strcat(bp, " (being worn)");
+*/
+			Strcat(bp, "(身につけている)");
 		break;
 	case WEAPON_CLASS:
 		if(ispoisoned)
+/*JP
 			Strcat(prefix, "poisoned ");
+*/
+			Strcat(prefix, "毒の塗られた");
 plus:
 		add_erosion_words(obj, prefix);
 		if(obj->known) {
@@ -643,8 +1135,13 @@ plus:
 		break;
 	case ARMOR_CLASS:
 		if(obj->owornmask & W_ARMOR)
+#if 0 /*JP*/
 			Strcat(bp, (obj == uskin) ? " (embedded in your skin)" :
 				" (being worn)");
+#else
+			Strcat(bp, (obj == uskin) ? "(肌に埋めこまれている)" :
+				"(身につけている)");
+#endif
 		goto plus;
 	case TOOL_CLASS:
 		/* weptools already get this done when we go to the +n code */
@@ -655,16 +1152,23 @@ plus:
 				| W_SADDLE
 #endif
 				)) {
+/*JP
 			Strcat(bp, " (being worn)");
+*/
+			Strcat(bp, "(身につけている)");
 			break;
 		}
 		if (obj->otyp == LEASH && obj->leashmon != 0) {
+/*JP
 			Strcat(bp, " (in use)");
+*/
+			Strcat(bp, "(結びつけている)");
 			break;
 		}
 		if (is_weptool(obj))
 			goto plus;
 		if (obj->otyp == CANDELABRUM_OF_INVOCATION) {
+#if 0 /*JP*/
 			if (!obj->spe)
 			    Strcpy(tmpbuf, "no");
 			else
@@ -672,14 +1176,32 @@ plus:
 			Sprintf(eos(bp), " (%s candle%s%s)",
 				tmpbuf, plur(obj->spe),
 				!obj->lamplit ? " attached" : ", lit");
+#else
+			if(!obj->spe)
+			    Sprintf(eos(bp), "(一本も取りつけられていない)");
+			else {
+			    if(!obj->lamplit)
+				Sprintf(eos(bp), "(%d本取りつけられている)",
+					obj->spe);
+			    else
+				Sprintf(eos(bp), "(%d本光っている)",
+					obj->spe);
+			}
+#endif
 			break;
 		} else if (obj->otyp == OIL_LAMP || obj->otyp == MAGIC_LAMP ||
 			obj->otyp == BRASS_LANTERN || Is_candle(obj)) {
 			if (Is_candle(obj) &&
 			    obj->age < 20L * (long)objects[obj->otyp].oc_cost)
+/*JP
 				Strcat(prefix, "partly used ");
+*/
+				Strcat(prefix, "使いさしの");
 			if(obj->lamplit)
+/*JP
 				Strcat(bp, " (lit)");
+*/
+				Strcat(bp, "(光っている)");
 			break;
 		}
 		if(objects[obj->otyp].oc_charged)
@@ -689,39 +1211,68 @@ plus:
 		add_erosion_words(obj, prefix);
 charges:
 		if(obj->known)
+/*JP
 		    Sprintf(eos(bp), " (%d:%d)", (int)obj->recharged, obj->spe);
+*/
+		    Sprintf(eos(bp), "(%d:%d)", (int)obj->recharged, obj->spe);
 		break;
 	case POTION_CLASS:
 		if (obj->otyp == POT_OIL && obj->lamplit)
+/*JP
 		    Strcat(bp, " (lit)");
+*/
+		    Strcat(bp, "(光っている)");
 		break;
 	case RING_CLASS:
 		add_erosion_words(obj, prefix);
 ring:
+/*JP
 		if(obj->owornmask & W_RINGR) Strcat(bp, " (on right ");
+*/
+		if(obj->owornmask & W_RINGR) Strcat(bp, "(右");
+/*JP
 		if(obj->owornmask & W_RINGL) Strcat(bp, " (on left ");
+*/
+		if(obj->owornmask & W_RINGL) Strcat(bp, "(左");
 		if(obj->owornmask & W_RING) {
 		    Strcat(bp, body_part(HAND));
 		    Strcat(bp, ")");
 		}
 		if(obj->known && objects[obj->otyp].oc_charged) {
+#if 1 /*JP*/
+			Strcat(prefix, " ");
+#endif
 			Strcat(prefix, sitoa(obj->spe));
 			Strcat(prefix, " ");
 		}
 		break;
 	case FOOD_CLASS:
 		if (obj->oeaten)
+/*JP
 		    Strcat(prefix, "partly eaten ");
+*/
+		    Strcat(prefix, "食べかけの");
 		if (obj->otyp == CORPSE) {
 		    if (mons[obj->corpsenm].geno & G_UNIQ) {
+#if 0 /*JP*/
 			Sprintf(prefix, "%s%s ",
 				(type_is_pname(&mons[obj->corpsenm]) ?
 					"" : "the "),
 				s_suffix(mons[obj->corpsenm].mname));
 			if (obj->oeaten) Strcat(prefix, "partly eaten ");
+#else
+			if (obj->oeaten) Strcpy(prefix, "食べかけの");
+			Sprintf(eos(prefix), "%sの",
+				jtrns_mon(mons[obj->corpsenm].mname));
+#endif
 		    } else {
+#if 0 /*JP*/
 			Strcat(prefix, mons[obj->corpsenm].mname);
 			Strcat(prefix, " ");
+#else
+			Strcat(prefix, jtrns_mon(mons[obj->corpsenm].mname));
+			Strcat(prefix, "の");
+#endif
 		    }
 		} else if (obj->otyp == EGG) {
 #if 0	/* corpses don't tell if they're stale either */
@@ -731,10 +1282,18 @@ ring:
 		    if (obj->corpsenm >= LOW_PM &&
 			    (obj->known ||
 			    mvitals[obj->corpsenm].mvflags & MV_KNOWS_EGG)) {
+#if 0 /*JP*/
 			Strcat(prefix, mons[obj->corpsenm].mname);
 			Strcat(prefix, " ");
+#else
+			Strcat(prefix, jtrns_mon(mons[obj->corpsenm].mname));
+			Strcat(prefix, "の");
+#endif
 			if (obj->spe)
+/*JP
 			    Strcat(bp, " (laid by you)");
+*/
+			    Strcat(bp, "(あなたが産んだ)");
 		    }
 		}
 		if (obj->otyp == MEAT_RING) goto ring;
@@ -743,28 +1302,46 @@ ring:
 	case CHAIN_CLASS:
 		add_erosion_words(obj, prefix);
 		if(obj->owornmask & W_BALL)
+/*JP
 			Strcat(bp, " (chained to you)");
+*/
+			Strcat(bp, "(あなたに繋がれている)");
 			break;
 	}
 
 	if((obj->owornmask & W_WEP) && !mrg_to_wielded) {
 		if (obj->quan != 1L) {
+/*JP
 			Strcat(bp, " (wielded)");
+*/
+			Strcat(bp, "(装備している)");
 		} else {
 			const char *hand_s = body_part(HAND);
 
 			if (bimanual(obj)) hand_s = makeplural(hand_s);
+/*JP
 			Sprintf(eos(bp), " (weapon in %s)", hand_s);
+*/
+			Sprintf(eos(bp), "(%sにしている)", hand_s);
 		}
 	}
 	if(obj->owornmask & W_SWAPWEP) {
 		if (u.twoweap)
+/*JP
 			Sprintf(eos(bp), " (wielded in other %s)",
+*/
+			Sprintf(eos(bp), "(左%sにしている)",
 				body_part(HAND));
 		else
+/*JP
 			Strcat(bp, " (alternate weapon; not wielded)");
+*/
+			Strcat(bp, "(予備の武器;装備していない)");
 	}
+/*JP
 	if(obj->owornmask & W_QUIVER) Strcat(bp, " (in quiver)");
+*/
+	if(obj->owornmask & W_QUIVER) Strcat(bp, "(装填している)");
 	if(obj->unpaid) {
 		xchar ox, oy; 
 		long quotedprice = unpaid_cost(obj);
@@ -775,9 +1352,14 @@ ring:
 		    costly_spot(ox, oy) &&
 		    (shkp = shop_keeper(*in_rooms(ox, oy, SHOPBASE))))
 			quotedprice += contained_cost(obj, shkp, 0L, FALSE, TRUE);
+#if 0 /*JP*/
 		Sprintf(eos(bp), " (unpaid, %ld %s)",
+#else
+		Sprintf(eos(bp), "(未払い，%ld%s)",
+#endif
 			quotedprice, currency(quotedprice));
 	}
+#if 0 /*JP*/ /* a-an はない */
 	if (!strncmp(prefix, "a ", 2) &&
 			index(vowels, *(prefix+2) ? *(prefix+2) : *bp)
 			&& (*(prefix+2) || (strncmp(bp, "uranium", 7)
@@ -788,6 +1370,10 @@ ring:
 		Strcpy(prefix+3, tmpbuf+2);
 	}
 	bp = strprepend(bp, prefix);
+#else
+	Strcat(preprefix,prefix);
+	bp = strprepend(bp, preprefix);
+#endif
 	return(bp);
 }
 
@@ -838,12 +1424,17 @@ boolean ignore_oquan;	/* to force singular */
 {
 	char *nambuf = nextobuf();
 
+#if 1 /*JP*/
+	Sprintf(nambuf, "%sの死体", jtrns_mon(mons[otmp->corpsenm].mname));
+	return nambuf;
+#else
 	Sprintf(nambuf, "%s corpse", mons[otmp->corpsenm].mname);
 
 	if (ignore_oquan || otmp->quan < 2)
 	    return nambuf;
 	else
 	    return makeplural(nambuf);
+#endif
 }
 
 /* xname, unless it's a corpse, then corpse_xname(obj, FALSE) */
@@ -925,6 +1516,7 @@ register const char *str;
 {
 	char *buf = nextobuf();
 
+#if 0 /*JP*/
 	buf[0] = '\0';
 
 	if (strncmpi(str, "the ", 4) &&
@@ -943,6 +1535,9 @@ register const char *str;
 	}
 
 	Strcat(buf, str);
+#else
+	Strcpy(buf, str);
+#endif
 	return buf;
 }
 
@@ -951,7 +1546,9 @@ An(str)
 const char *str;
 {
 	register char *tmp = an(str);
+#if 0 /*JP*/
 	*tmp = highc(*tmp);
+#endif
 	return tmp;
 }
 
@@ -964,6 +1561,7 @@ the(str)
 const char *str;
 {
 	char *buf = nextobuf();
+#if 0 /*JP*/
 	boolean insert_the = FALSE;
 
 	if (!strncmpi(str, "the ", 4)) {
@@ -1003,6 +1601,9 @@ const char *str;
 	    buf[0] = '\0';
 	Strcat(buf, str);
 
+#else
+	Strcpy(buf, str);
+#endif /*JP*/
 	return buf;
 }
 
@@ -1011,10 +1612,22 @@ The(str)
 const char *str;
 {
     register char *tmp = the(str);
+#if 0 /*JP*/
     *tmp = highc(*tmp);
+#endif
     return tmp;
 }
 
+#if 1 /*JP*/
+char *
+aobjnam(otmp, verb)
+register struct obj *otmp;
+register const char *verb;
+{
+    return xname(otmp);
+}
+
+#else
 /* returns "count cxname(otmp)" or just cxname(otmp) if count == 1 */
 char *
 aobjnam(otmp,verb)
@@ -1022,6 +1635,17 @@ register struct obj *otmp;
 register const char *verb;
 {
 	register char *bp = cxname(otmp);
+#if 1 /*JP*/
+	static char prefix[PREFIX];
+
+	Strcpy(prefix,bp);
+	if(verb){
+	  Strcat(prefix,"は");
+	  Strcat(prefix,verb);
+	}
+
+	return prefix;
+#else
 	char prefix[PREFIX];
 
 	if(otmp->quan != 1L) {
@@ -1034,8 +1658,11 @@ register const char *verb;
 	    Strcat(bp, otense(otmp, verb));
 	}
 	return(bp);
+#endif
 }
+#endif
 
+#if 0 /*JP*//*日本語には三単現のsはない*/
 /* like aobjnam, but prepend "The", not count, and use xname */
 char *
 Tobjnam(otmp, verb)
@@ -1050,7 +1677,9 @@ register const char *verb;
 	}
 	return(bp);
 }
+#endif
 
+#if 0 /*JP*//*日本語には三単現のsはない*/
 /* return form of the verb (input plural) if xname(otmp) were the subject */
 char *
 otense(otmp, verb)
@@ -1071,6 +1700,7 @@ register const char *verb;
 	Strcpy(buf, verb);
 	return buf;
 }
+#endif
 
 /* various singular words that vtense would otherwise categorize as plural */
 static const char * const special_subjs[] = {
@@ -1085,6 +1715,7 @@ static const char * const special_subjs[] = {
 	0
 };
 
+#if 0 /*JP*//*日本語には三単現のsはない*/
 /* return form of the verb (input plural) for present tense 3rd person subj */
 char *
 vtense(subj, verb)
@@ -1179,6 +1810,7 @@ register const char *verb;
 
 	return buf;
 }
+#endif
 
 /* capitalized variant of doname() */
 char *
@@ -1198,9 +1830,15 @@ struct obj *obj;
 {
 	char *outbuf = nextobuf();
 	char *s = shk_your(outbuf, obj);	/* assert( s == outbuf ); */
+#if 0 /*JP*/
 	int space_left = BUFSZ - strlen(s) - sizeof " ";
 
 	return strncat(strcat(s, " "), cxname(obj), space_left);
+#else
+	int space_left = BUFSZ - strlen(s);
+
+	return strncat(s, xname(obj), space_left);
+#endif
 }
 
 /* capitalized variant of yname() */
@@ -1210,7 +1848,9 @@ struct obj *obj;
 {
 	char *s = yname(obj);
 
+#if 0 /*JP*/
 	*s = highc(*s);
+#endif
 	return s;
 }
 
@@ -1224,9 +1864,15 @@ struct obj *obj;
 {
 	char *outbuf = nextobuf();
 	char *s = shk_your(outbuf, obj);	/* assert( s == outbuf ); */
+#if 0 /*JP*/
 	int space_left = BUFSZ - strlen(s) - sizeof " ";
 
 	return strncat(strcat(s, " "), simple_typename(obj->otyp), space_left);
+#else
+	int space_left = BUFSZ - strlen(s);
+
+	return strncat(s, simple_typename(obj->otyp), space_left);
+#endif
 }
 
 /* capitalized variant of ysimple_name() */
@@ -1236,7 +1882,9 @@ struct obj *obj;
 {
 	char *s = ysimple_name(obj);
 
+#if 0 /*JP*/
 	*s = highc(*s);
+#endif
 	return s;
 }
 
@@ -1270,6 +1918,11 @@ char *
 makeplural(oldstr)
 const char *oldstr;
 {
+/*JP: Japanese is simple... */
+#if 1 /*JP*/
+	char *str = nextobuf();
+	Strcpy(str, oldstr);
+#else
 	/* Note: cannot use strcmpi here -- it'd give MATZot, CAVEMeN,... */
 	register char *spot;
 	char *str = nextobuf();
@@ -1480,6 +2133,7 @@ const char *oldstr;
 	Strcpy(spot+1, "s");
 
 bottom:	if (excess) Strcpy(eos(str), excess);
+#endif /*JP*/
 	return str;
 }
 
@@ -1534,11 +2188,20 @@ STATIC_OVL NEARDATA const struct o_range o_ranges[] = {
  * of readobjnam, and is also used in pager.c to singularize the string
  * for which help is sought.
  */
+/*JP
+ * 基本的には単数化は必要ないのでコメントアウト。
+ * 但し、願いで複数形の英語を入力すると判定されなくなるので、
+ * それを避けたい場合は #define USE_MAKESINGULAR すれば単数化される。
+ */
 char *
 makesingular(oldstr)
 const char *oldstr;
 {
+#ifdef USE_MAKESINGULAR /*JP*/
 	register char *p, *bp;
+#else
+	register char *bp;
+#endif
 	char *str = nextobuf();
 
 	if (!oldstr || !*oldstr) {
@@ -1549,6 +2212,7 @@ const char *oldstr;
 	Strcpy(str, oldstr);
 	bp = str;
 
+#ifdef USE_MAKESINGULAR /*JP*//*日本語は単複同形*/
 	while (*bp == ' ') bp++;
 	/* find "cloves of garlic", "worthless pieces of blue glass" */
 	if ((p = strstri(bp, "s of ")) != 0) {
@@ -1636,6 +2300,7 @@ const char *oldstr;
 
 		/* here we cannot find the plural suffix */
 	}
+#endif
 	return bp;
 }
 
@@ -1746,6 +2411,7 @@ struct alt_spellings {
  * return null.
  * If from_user is false, we're reading from the wizkit, nothing was typed in.
  */
+
 struct obj *
 readobjnam(bp, no_wish, from_user)
 register char *bp;
@@ -1766,6 +2432,10 @@ boolean from_user;
 	struct fruit *f;
 	int ftype = current_fruit;
 	char fruitbuf[BUFSZ];
+#if 1 /*JP*/
+	char buf[BUFSZ];
+	char pfx[BUFSZ];
+#endif
 	/* Fruits may not mess up the ability to wish for real objects (since
 	 * you can leave a fruit in a bones file and it will be added to
 	 * another person's game), so they must be checked for last, after
@@ -1801,6 +2471,147 @@ boolean from_user;
 	actualn = dn = un = 0;
 
 	if (!bp) goto any;
+
+#if 1 /*JP*/
+	/* 2バイト文字のスペースを削除 */
+#undef WISHDEBUG
+
+#ifdef WISHDEBUG
+	pline("Wish DEBUG[%s]\n", bp);
+#endif
+	while(delete(bp, "　"))
+	      ;
+#ifdef WISHDEBUG
+	pline("Wish DEBUG[%s]\n", bp);
+#endif
+	Strcpy(buf, bp);
+
+#define S(a, b)	substitute(buf, (a), (b))
+#define T(a)	transpose(buf, (a))
+#define D(a)	delete(buf, (a))
+#define I(a)	insert(buf, (a))
+
+/* 特殊2バイト文字を1バイト文字へ変換 */
+
+	while(S("＋", "+") ||
+	      S("－", "-") ||
+	      S("（", "(") ||
+	      S("）", ")") ||
+	      S("０", "0") ||
+	      S("１", "1") ||
+	      S("２", "2") ||
+	      S("３", "3") ||
+	      S("４", "4") ||
+	      S("５", "5") ||
+	      S("６", "6") ||
+	      S("７", "7") ||
+	      S("８", "8") ||
+	      S("９", "9"))
+	  ;
+
+#ifdef WISHDEBUG
+	pline("Wish DEBUG0[%s]\n", bp);
+#endif
+
+	/* 特殊処理 */
+	S("聖なる冠", "The Mitre of Holiness");
+	S("脂の缶", "can of grease");
+
+	T("と名づけられた");
+	T("と呼ばれる");
+	T("と言う名の");
+	T("という名の");
+
+	S("と名づけられた", " named ");
+	S("と呼ばれる", " called ");
+	S("と言う名の", " named ");
+	S("という名の", " named ");
+
+	T("ホウレン草の");
+	S("ホウレン草の", " of spinach "); 
+
+	T("の死体");
+	S("の死体", " corpse of "); 
+
+	T("の死骸");
+	S("の死骸", " corpse of "); 
+
+	T("の像");
+	S("の像", " statue of "); 
+
+	T("の人形");
+	S("の人形", " figurine of "); 
+
+	T("の卵");
+	S("の卵", " egg of ");
+
+	S("の肉の缶", "の缶");
+	T("の缶");
+	S("の缶", " tin of ");
+
+	S("祝福された", "blessed ");
+	S("聖水", "holy water ");
+	S("聖なる", "blessed ");
+
+	S("呪われた", "cursed ");
+	S("不浄な", "cursed ");
+
+	S("呪われていない", "uncursed ");
+
+	S("錆びない", "rustproof ");
+	S("腐食しない", "erodeproof ");
+	S("燃えない", "corrodeproof ");
+	S("傷つかない", "fireproof ");
+
+	S("光っている", "lit ");
+	S("燃えている", "burning ");
+	S("消えている", "unlit ");
+	S("ラベルのない", "unlabelled ");
+	S("真っ白な", "blank ");
+
+	S("毒の塗られた", "poisoned ");
+	S("油の塗られた", "greased ");
+	S("脂の塗られた", "greased ");
+
+	S("とても", "very ");
+	S("かなり", "thoroughly ");
+
+	S("錆びた", "rusty ");
+	S("腐食した", "eroded ");
+	S("傷ついた", "damaged ");
+	S("腐った", "rotted ");
+	S("燃えた", "burned ");
+
+	S("食べかけの", "partly eaten ");
+
+	S("薄い", "diluted ");
+	S("薄まった", "diluted ");
+
+	S("空の", "empty ");
+	S("空っぽの", "empty ");
+
+	D("一式");
+
+	if(strlen(buf)>4 && !strcmp(buf + strlen(buf) - 4, "巻物"))
+	  Strcpy(pfx, "scroll of ");
+	else if(strlen(buf)>6 && !strcmp(buf + strlen(buf) - 6, "巻き物"))
+	  Strcpy(pfx, "scroll of ");
+	else if(strlen(buf)>6 && !strcmp(buf + strlen(buf) - 6, "魔法書"))
+	  Strcpy(pfx, "spellbook of ");
+	else if(strlen(buf)>2 && !strcmp(buf + strlen(buf) - 2, "杖"))
+	  Strcpy(pfx, "wand of ");
+	else if(strlen(buf)>4 && !strcmp(buf + strlen(buf) - 4, "指輪"))
+	  Strcpy(pfx, "ring of ");
+	else if(strlen(buf)>2 && !strcmp(buf + strlen(buf) - 2, "薬"))
+	  Strcpy(pfx, "potion of ");
+	else
+	  pfx[0] = '\0';
+
+	bp = buf;
+#ifdef WISHDEBUG
+	pline("Wish DEBUG1[%s]\n", bp);
+#endif
+#endif /*JP*/
 	/* first, remove extra whitespace they may have typed */
 	(void)mungspaces(bp);
 	/* allow wishing for "nothing" to preserve wishless conduct...
@@ -1819,15 +2630,88 @@ boolean from_user;
 			cnt = 1;
 		} else if (!strncmpi(bp, "the ", l=4)) {
 			;	/* just increment `bp' by `l' below */
+#if 0 /*JP*/
 		} else if (!cnt && digit(*bp) && strcmp(bp, "0")) {
 			cnt = atoi(bp);
 			while(digit(*bp)) bp++;
+#else
+		} else if (!cnt && digit_8(*bp) && strcmp(bp, "0")) {
+			cnt = atoi_8(bp);
+			while(digit_8(*bp)) bp++;
+#endif
 			while(*bp == ' ') bp++;
 			l = 0;
+#if 1 /*JP*/
+/* 後に数詞があるときは削除 */
+			if(!strncmp(bp, "冊の", l = 4) ||
+			   !strncmp(bp, "本の", l = 4) ||
+			   !strncmp(bp, "着の", l = 4) ||
+			   !strncmp(bp, "個の", l = 4) ||
+			   !strncmp(bp, "枚の", l = 4) ||
+			   !strncmp(bp, "つの", l = 4) ||
+			   !strncmp(bp, "の", l = 2))
+			  ;
+			else
+			  l = 0;
+#endif
+#if 1 /*JP*/
+ /*
+漢字で数字を指定するときは数詞が必要
+*/
+		} else if(!cnt && 
+			  (!strncmp(bp + 2, "冊の", l = 4) ||
+			   !strncmp(bp + 2, "本の", l = 4) ||
+			   !strncmp(bp + 2, "着の", l = 4) ||
+			   !strncmp(bp + 2, "個の", l = 4) ||
+			   !strncmp(bp + 2, "枚の", l = 4) ||
+			   !strncmp(bp + 2, "つの", l = 4) ||
+			   !strncmp(bp + 2, "の", l = 2))){
+		  if(!strncmp(bp, "一", 2)){
+		    cnt = 1;
+		  }
+		  else if(!strncmp(bp, "二", 2)){
+		    cnt = 2;
+		  }
+		  else if(!strncmp(bp, "三", 2)){
+		    cnt = 3;
+		  }
+		  else if(!strncmp(bp, "四", 2)){
+		    cnt = 4;
+		  }
+		  else if(!strncmp(bp, "五", 2)){
+		    cnt = 5;
+		  }
+		  else if(!strncmp(bp, "六", 2)){
+		    cnt = 6;
+		  }
+		  else if(!strncmp(bp, "七", 2)){
+		    cnt = 7;
+		  }
+		  else if(!strncmp(bp, "八", 2)){
+		    cnt = 8;
+		  }
+		  else if(!strncmp(bp, "九", 2)){
+		    cnt = 9;
+		  }
+		  else if(!strncmp(bp, "十", 2)){
+		    cnt = 10;
+		  }
+		  if(cnt)
+		    l += 2;
+		  else{
+		    l = 0;
+		    cnt = 1;
+		  }
+#endif
 		} else if (*bp == '+' || *bp == '-') {
 			spesgn = (*bp++ == '+') ? 1 : -1;
+#if 0 /*JP*/
 			spe = atoi(bp);
 			while(digit(*bp)) bp++;
+#else
+			spe = atoi_8(bp);
+			while(digit_8(*bp)) bp++;
+#endif
 			while(*bp == ' ') bp++;
 			l = 0;
 		} else if (!strncmpi(bp, "blessed ", l=8) ||
@@ -1903,7 +2787,10 @@ boolean from_user;
 		if (!strcmpi(p, "lit)")) {
 		    islit = 1;
 		} else {
+/*JP
 		    spe = atoi(p);
+*/
+		    spe = atoi_8(p);
 		    while (digit(*p)) p++;
 		    if (*p == ':') {
 			p++;
@@ -1921,6 +2808,79 @@ boolean from_user;
 		}
 	    }
 	}
+#if 1 /*JP*/
+	while(*bp == ' ')
+	  ++bp;
+/*
+天邪鬼のために 1から10まではサポート．
+*/
+	if(!strncmp(bp, "一", 2)){
+	  spe = 1; bp += 2;
+	}
+	else if(!strncmp(bp, "二", 2)){
+	  spe = 2; bp += 2;
+	}
+	else if(!strncmp(bp, "三", 2)){
+	  spe = 3; bp += 2;
+	}
+	else if(!strncmp(bp, "四", 2)){
+	  spe = 4; bp += 2;
+	}
+	else if(!strncmp(bp, "五", 2)){
+	  spe = 5; bp += 2;
+	}
+	else if(!strncmp(bp, "六", 2)){
+	  spe = 6; bp += 2;
+	}
+	else if(!strncmp(bp, "七", 2)){
+	  spe = 7; bp += 2;
+	}
+	else if(!strncmp(bp, "八", 2)){
+	  spe = 8; bp += 2;
+	}
+	else if(!strncmp(bp, "九", 2)){
+	  spe = 9; bp += 2;
+	}
+	else if(!strncmp(bp, "十", 2)){
+	  spe = 10; bp += 2;
+	}
+
+	while(*bp == ' ')
+	  ++bp;
+
+	/* 残っている日本語部分は怪物名かアイテム名のはずなので、変換する */
+	while(1)
+	{
+	  unsigned char *bp2, *bp1;
+	  unsigned char buf1[BUFSZ];
+	  const char *en;
+
+	  bp1 = buf1;
+	  bp2 = (unsigned char *)bp;
+
+	  while(!(*bp2 & 0x80))
+	    ++bp2;
+
+	  while(*bp2 & 0x80){
+	    *(bp1++) = *(bp2++);
+	    *(bp1++) = *(bp2++);
+	  }
+	  *bp1 = '\0';
+
+#ifdef WISHDEBUG
+	  pline("Wish DEBUG2[%s]\n", bp);
+#endif
+	  en = etrns_obj(' ', buf1);
+	  if(!strncmpi(en, "The Staff of Aesculapius", 24))
+		  substitute(pfx, "wand of ", "");
+	  Strcat(pfx, en);
+	  if(!strcmp(en, buf1) || !substitute(bp, buf1, pfx))
+	    break;
+	}
+#ifdef WISHDEBUG
+	pline("Wish DEBUG3[%s]", bp);
+#endif
+#endif
 /*
    otmp->spe is type schar; so we don't want spe to be any bigger or smaller.
    also, spe should always be positive  -- some cheaters may try to confuse
@@ -2702,7 +3662,10 @@ typfnd:
 	    artifact_exists(otmp, ONAME(otmp), FALSE);
 	    obfree(otmp, (struct obj *) 0);
 	    otmp = &zeroobj;
+/*JP
 	    pline("For a moment, you feel %s in your %s, but it disappears!",
+*/
+	    pline("一瞬%sが%sの中にあるような感じがしたが，すぐに消えさった！",
 		  something,
 		  makeplural(body_part(HAND)));
 	}
@@ -2760,17 +3723,34 @@ struct obj *cloak;
     if (cloak) {
 	switch (cloak->otyp) {
 	case ROBE:
+#if 0 /*JP*/
 	    return "robe";
+#else
+	    return "ローブ";
+#endif
 	case MUMMY_WRAPPING:
+#if 0 /*JP*/
 	    return "wrapping";
+#else
+	    return "包帯";
+#endif
 	case ALCHEMY_SMOCK:
+#if 0 /*JP*/
 	    return (objects[cloak->otyp].oc_name_known &&
 			cloak->dknown) ? "smock" : "apron";
+#else
+	    return (objects[cloak->otyp].oc_name_known &&
+			cloak->dknown) ? "スモック" : "エプロン";
+#endif
 	default:
 	    break;
 	}
     }
+#if 0 /*JP*/
     return "cloak";
+#else
+    return "クローク";
+#endif
 }
 
 const char *
@@ -2779,11 +3759,149 @@ struct monst *mtmp;
 {
 	if (mtmp->m_ap_type == M_AP_OBJECT && mtmp->mappearance != STRANGE_OBJECT) {
 		int idx = objects[mtmp->mappearance].oc_descr_idx;
+#if 0 /*JP*/
 		if (mtmp->mappearance == GOLD_PIECE) return "gold";
+#else
+		if (mtmp->mappearance == GOLD_PIECE) return "金貨";
+#endif
 		return obj_descr[idx].oc_name;
 	}
+#if 0 /*JP*/
 	return "whatcha-may-callit";
+#else
+	return "何とかいうもの";
+#endif
 }
 #endif /* OVLB */
 
+#if 1 /*JP*/
+/*
+**  文字列 buf の str1を str2へ置換
+**  bufは置換後の文字列が入るだけの領域が必要
+*/
+static
+char *
+substitute(buf, str1, str2)
+     char *buf;
+     char *str1;
+     char *str2;
+{
+  unsigned char *p, *pp;
+  char tmp[BUFSZ];
+  int len = strlen(str1);
+
+  if(!buf)
+    return buf;
+
+  p = (unsigned char *)buf;
+
+  while(*p){
+    if(!strncmp(p, str1, len)){
+      Strcpy(tmp, p + len);
+      while(*str2)
+	*(p++) = *(str2++);
+
+      pp = tmp;
+      while(*pp)
+	*(p++) = *(pp++);
+      *(p++) = '\0';
+      return buf;
+    }
+    if(*p >= 0x80)
+      p += 2;
+    else
+      ++p;
+  }
+
+  return (char *)0;
+}
+
+/*
+**  文字列 buf の strの前の部分と strの後の部分を交換する．
+**
+**  EX) ほえほえ(と名づけられた)犬 -> 犬(と名づけられた)ほえほえ
+*/
+static 
+char *
+transpose(buf, str)
+     char *buf;
+     char *str;
+{
+  unsigned char *p, *pp, *ppp;
+  char tmp[BUFSZ];
+  int len = strlen(str);
+
+  Strcpy(tmp, buf);
+  ppp = pp = p = (unsigned char *)tmp;
+
+  while(*p){
+    if(!strncmp(p, str, len)){
+      Strcpy(buf, p + len);
+      Strcat(buf, str);
+      ppp = eos(buf);
+      while(pp != p)
+	*(ppp++) = *(pp++);
+      *(ppp++) = '\0';
+      return buf;
+    }
+    if(*p >= 0x80)
+      p += 2;
+    else
+      ++p;
+  }
+
+  return (char *)0;
+
+}
+/*
+**  文字列 buf の先頭に strを挿入する
+*/
+#if 0
+static 
+char *
+insert(buf, str)
+     char *buf;
+     char *str;
+{
+  return substitute(buf, "", str);
+}
+#endif
+  
+/*
+**  文字列 buf から strを取り除く．
+*/
+static
+char *
+delete(buf, str)
+     char *buf;
+     char *str;
+{
+  return substitute(buf, str, (char *)"");
+}
+
+static int
+digit_8(c)
+     int c;
+{
+  unsigned int uc = c;
+
+  return (uc >= '0' && uc <= '9') ? 1 : 0;
+}
+
+static int
+atoi_8(s)
+     const char *s;
+{
+  char *pp;
+  char tmp[BUFSZ];
+
+  pp = tmp;
+
+  while(digit_8(*s))
+    *(pp++) = *(s++);
+  *pp = '\0';
+
+  return atoi(tmp);
+}
+#endif
 /*objnam.c*/

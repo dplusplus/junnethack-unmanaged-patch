@@ -74,7 +74,10 @@ LRESULT CALLBACK GetlinDlgProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lP
 		/* get title text width */
 		SetRect(&text_rt, 0, 0, 100, 50);
 		hdc = GetWindowDC(hWnd);
+/*JP
 		DrawText(hdc, wbuf, _tcslen(wbuf), &text_rt, 
+*/
+		DrawText(hdc, wbuf, -1, &text_rt, 
 			     DT_CALCRECT | DT_SINGLELINE | DT_NOPREFIX | DT_LEFT | DT_VCENTER );
 		ReleaseDC(hWnd, hdc);
 

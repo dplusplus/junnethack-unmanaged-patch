@@ -41,6 +41,10 @@
  *	window itself.  Suggestion from David E. Wexelblat, dwex@goblin.org.
  */
 
+/*
+** marked as XI18N for i18n by issei (1994/1/10)
+*/
+
 #ifndef SYSV
 #define PRESERVE_NO_SYSV	/* X11 include files may define SYSV */
 #endif
@@ -62,12 +66,23 @@
 #endif
 
 #include "config.h"	/* #define for const for non __STDC__ compilers */
+#if 1 /*JP*/
+#ifdef XAW_I18N
+#include <X11/Xaw/Xawi18n.h>
+#endif
+#endif
 
 /* ":" added to both translations below to allow limited redefining of
  * keysyms before testing for keysym values -- dlc */
 static const char okay_accelerators[] =
+#if 0 /*JP*/
     "#override\n\
      :<Key>Return: set() notify() unset()\n";
+#else
+    "#override\n\
+     :<Key>Return: set() notify() unset()\n\
+     :<Ctrl>m: set() notify() unset()\n";
+#endif
 
 static const char cancel_accelerators[] =
     "#override\n\
@@ -113,6 +128,10 @@ CreateDialog(parent, name, okay_callback, cancel_callback)
     XtSetArg(args[num_args], XtNright, XtChainLeft);	num_args++;
     XtSetArg(args[num_args], XtNresizable, True);	num_args++;
     XtSetArg(args[num_args], XtNborderWidth, 0);	num_args++;
+
+#if defined(X11R6) && defined(XI18N)
+    XtSetArg(args[num_args], XtNinternational, True);	num_args++;
+#endif
     prompt = XtCreateManagedWidget("prompt", labelWidgetClass,
 				   form, args, num_args);
 
@@ -132,6 +151,9 @@ CreateDialog(parent, name, okay_callback, cancel_callback)
     XtSetArg(args[num_args], XtNeditType, XawtextEdit);	num_args++;
     XtSetArg(args[num_args], XtNresize, XawtextResizeWidth);	num_args++;
     XtSetArg(args[num_args], XtNstring, "");		num_args++;
+#if defined(X11R6) && defined(XI18N)
+    XtSetArg(args[num_args], XtNinternational, True);	num_args++;
+#endif
     response = XtCreateManagedWidget("response", asciiTextWidgetClass,
 				     form, args, num_args);
 
@@ -150,7 +172,14 @@ CreateDialog(parent, name, okay_callback, cancel_callback)
     XtSetArg(args[num_args], XtNresizable, True);	num_args++;
     XtSetArg(args[num_args], XtNaccelerators,
 	     XtParseAcceleratorTable(okay_accelerators));	num_args++;
+#if defined(X11R6) && defined(XI18N)
+    XtSetArg(args[num_args], XtNinternational, True);	num_args++;
+#endif
+#if 0 /*JP*/
     okay = XtCreateManagedWidget("okay", commandWidgetClass,
+#else
+    okay = XtCreateManagedWidget("OK", commandWidgetClass,
+#endif
 				 form, args, num_args);
     XtAddCallback(okay, XtNcallback, okay_callback, form);
 
@@ -172,7 +201,14 @@ CreateDialog(parent, name, okay_callback, cancel_callback)
 	XtSetArg(args[num_args], XtNresizable, True);		num_args++;
 	XtSetArg(args[num_args], XtNaccelerators,
 	     XtParseAcceleratorTable(cancel_accelerators));	num_args++;
+#if defined(X11R6) && defined(XI18N)
+    XtSetArg(args[num_args], XtNinternational, True);	num_args++;
+#endif
+#if 0 /*JP*/
 	cancel = XtCreateManagedWidget("cancel", commandWidgetClass,
+#else
+	cancel = XtCreateManagedWidget("ƒLƒƒƒ“ƒZƒ‹", commandWidgetClass,
+#endif
 				       form, args, num_args);
 	XtAddCallback(cancel, XtNcallback, cancel_callback, form);
 	XtInstallAccelerators(response, cancel);
@@ -231,26 +267,44 @@ GetDialogResponse(w)
     return XtNewString(s);
 }
 
+#ifndef max
 #define max(a,b) (((a) > (b)) ? (a) : (b))
+#endif
 /* set the default reponse */
 void
 SetDialogResponse(w, s)
     Widget w;
     String s;
 {
+#ifndef XI18N
     Arg args[4];
+#else
+    Arg args[5];
+#endif
     Widget response;
     XFontStruct *font;
     Dimension width, nwidth, leftMargin, rightMargin;
+#ifdef XI18N
+    XFontSet fontset;
+    XFontSetExtents *extent;
+#endif
 
     response = XtNameToWidget(w, "response");
     XtSetArg(args[0], XtNfont, &font);
     XtSetArg(args[1], XtNleftMargin, &leftMargin);
     XtSetArg(args[2], XtNrightMargin, &rightMargin);
     XtSetArg(args[3], XtNwidth, &width);
+#ifndef XI18N
     XtGetValues(response, args, FOUR);
     /* width includes margins as per Xaw documentation */
     nwidth = (font->max_bounds.width * strlen(s))+leftMargin+rightMargin;
+#else
+    XtSetArg(args[4], XtNfontSet, &fontset);
+    XtGetValues(response, args, FIVE);
+    extent = XExtentsOfFontSet(fontset);
+    nwidth = ((extent->max_logical_extent.width * strlen(s)) + leftMargin
+	      + rightMargin);
+#endif
     if (nwidth < width)
 	nwidth = width;
 

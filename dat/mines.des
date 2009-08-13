@@ -1022,8 +1022,10 @@ NON_DIGGABLE:(74,01,74,16)
 NON_DIGGABLE:(53,07,55,07)
 NON_DIGGABLE:(53,14,61,14)
 # The Gnome King's wine cellar.
-ENGRAVING:(12,03),engrave,"You are now entering the Gnome King's wine cellar."
-ENGRAVING:(12,04),engrave,"Trespassers will be persecuted!"
+#ENGRAVING:(12,03),engrave,"You are now entering the Gnome King's wine cellar."
+#ENGRAVING:(12,04),engrave,"Trespassers will be persecuted!"
+ENGRAVING:(12,03),engrave,"ノームの王のワイン倉庫"
+ENGRAVING:(12,04),engrave,"侵入者はそれ相応の償いを求められる！"
 OBJECT:'!',"booze",(10,07)
 OBJECT:'!',"booze",(10,07)
 OBJECT:'!',random,(10,07)

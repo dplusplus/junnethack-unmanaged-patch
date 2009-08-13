@@ -163,7 +163,10 @@ UINT mswin_charset()
 		if( TranslateCharsetInfo((DWORD*)GetACP(), &cis, TCI_SRCCODEPAGE) ) 
 			return cis.ciCharset;
 		else
+/*JP
 			return ANSI_CHARSET;
+*/
+			return SHIFTJIS_CHARSET;
 }
 
 void __cdecl font_table_cleanup(void)

@@ -2,6 +2,14 @@
 /* Copyright (c) Stichting Mathematisch Centrum, Amsterdam, 1985. */
 /* NetHack may be freely redistributed.  See license for details. */
 
+/*
+**	Japanese version Copyright
+**	(c) Issei Numata, Naoki Hamada, Shigehiro Miyashita, 1994-2000
+**	changing point is marked `JP' (94/6/7)
+**	For 3.4, Copyright (c) Kentaro Shirakata, 2002-2003
+**	JNetHack may be freely redistributed.  See license for details. 
+*/
+
 #include "hack.h"
 
 int NDECL((*afternmv));
@@ -229,13 +237,21 @@ char dump_fn[PL_PSIZ] = DUMMY;
 #endif /* DUMP_LOG */
 
 NEARDATA struct c_color_names c_color_names = {
+#if 0 /*JP*/
 	"black", "amber", "golden",
 	"light blue", "red", "green",
 	"silver", "blue", "purple",
 	"white"
+#else
+	"黒い", "琥珀色の", "金色の",
+	"水色の", "赤い", "緑色の",
+	"銀色の", "青い", "紫色の",
+	"白い"
+#endif
 };
 
 const char *c_obj_colors[] = {
+#if 0 /*JP*/
 	"black",		/* CLR_BLACK */
 	"red",			/* CLR_RED */
 	"green",		/* CLR_GREEN */
@@ -252,6 +268,24 @@ const char *c_obj_colors[] = {
 	"bright magenta",	/* CLR_BRIGHT_MAGENTA */
 	"bright cyan",		/* CLR_BRIGHT_CYAN */
 	"white",		/* CLR_WHITE */
+#else
+	"黒い",			/* CLR_BLACK */
+	"赤い",			/* CLR_RED */
+	"緑色の",		/* CLR_GREEN */
+	"茶色の",		/* CLR_BROWN */
+	"青い",			/* CLR_BLUE */
+	"マゼンダ色の",		/* CLR_MAGENTA */
+	"シアン色の",		/* CLR_CYAN */
+	"灰色の",		/* CLR_GRAY */
+	"透明な",		/* no_color */
+	"橙色の",		/* CLR_ORANGE */
+	"明るい緑色の",		/* CLR_BRIGHT_GREEN */
+	"黄色の",		/* CLR_YELLOW */
+	"明るい青色の",		/* CLR_BRIGHT_BLUE */
+	"明るいマゼンダ色の",	/* CLR_BRIGHT_MAGENTA */
+	"明るいシアン色の",	/* CLR_BRIGHT_CYAN */
+	"白い",			/* CLR_WHITE */
+#endif
 };
 
 #ifdef MENU_COLOR
@@ -259,19 +293,33 @@ struct menucoloring *menu_colorings = 0;
 #endif
 
 struct c_common_strings c_common_strings = {
+#if 0 /*JP*/
 	"Nothing happens.",		"That's enough tries!",
 	"That is a silly thing to %s.",	"shudder for a moment.",
 	"something", "Something", "You can move again.", "Never mind.",
 	"vision quickly clears.", {"the", "your"}
+#else
+	"何も起きなかった．",		"いい加減にしろ！",
+	"%s？そりゃばかげている．",	"一瞬震えた．",
+	"何か", "何か", "また動けるようになった．", "え？",
+	"視界がはっきりした．", {"", ""}
+#endif
 };
 
 /* NOTE: the order of these words exactly corresponds to the
    order of oc_material values #define'd in objclass.h. */
 const char *materialnm[] = {
+#if 0 /*JP*/
 	"mysterious", "liquid", "wax", "organic", "flesh",
 	"paper", "cloth", "leather", "wooden", "bone", "dragonhide",
 	"iron", "metal", "copper", "silver", "gold", "platinum", "mithril",
 	"plastic", "glass", "gemstone", "stone"
+#else
+	"神秘", "液状", "蝋", "有機", "肉",
+	"紙", "布", "革", "木", "骨", "竜皮",
+	"鉄", "金属", "銅", "白銀", "金", "プラチナ", "ミスリル",
+	"プラスチック", "ガラス", "宝石", "石"
+#endif
 };
 
 /* Vision */

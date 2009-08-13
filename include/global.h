@@ -15,6 +15,7 @@
  */
 
 #define RECORD	      "record"	/* file containing list of topscorers */
+#if 0 /*JP*/
 #define HELP	      "help"	/* file containing command descriptions */
 #define SHELP	      "hh"	/* abbreviated form of the same */
 #define DEBUGHELP     "wizhelp" /* file containing debug mode cmds */
@@ -25,7 +26,20 @@
 #define HISTORY       "history" /* file giving nethack's history */
 #define LICENSE       "license" /* file with license information */
 #define OPTIONFILE    "opthelp" /* file explaining runtime options */
+#else
+#define DATAFILE      "data"	/* file giving the meaning of symbols used */
+#define LICENSE       "license" /* file with license information */
 #define OPTIONS_USED  "options" /* compile-time options, for #version */
+
+#define HELP		"jhelp"	  /* a file containing command descriptions */
+#define RUMORFILE	"jrumors"	/* Japanese version */
+#define ORACLEFILE	"joracles"	/* Japanese version */
+#define SHELP		"jhh"		/* Japanese version */
+#define DEBUGHELP	"jwizhelp"	/* Japanese version */
+#define CMDHELPFILE	"jcmdhelp"	/* file telling what commands do */
+#define HISTORY		"jhistory"	/* a file giving nethack's history */
+#define OPTIONFILE	"jopthelp"	/* a file explaining runtime options */
+#endif
 
 #define LEV_EXT ".lev"		/* extension for special level files */
 
@@ -196,7 +210,7 @@ typedef xchar	boolean;		/* 0 or 1 */
 #  else
 #  define PORT_ID	"PC"
 #  endif
-#  ifdef DJGPP
+#  ifdef __DJGPP__
 #  define PORT_SUB_ID	"djgpp"
 #  else
 #   ifdef OVERLAY
@@ -234,6 +248,10 @@ typedef xchar	boolean;		/* 0 or 1 */
 #if !defined(AMIGA) && !defined(TOS) && !defined(OS2_HPFS)
 #define SHORT_FILENAMES		/* filenames are 8.3 */
 #endif
+#endif
+
+#if defined(MSDOS) || defined(CYGWIN32)
+# define SJIS_FILESYSTEM	/* filename encoding is sjis */ 
 #endif
 
 #ifdef VMS

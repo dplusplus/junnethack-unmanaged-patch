@@ -2,6 +2,13 @@
 /*	Copyright 1991, M. Stephenson		  */
 /* NetHack may be freely redistributed.  See license for details. */
 
+/*
+**	Japanese version Copyright
+**	(c) Issei Numata, Naoki Hamada, Shigehiro Miyashita, 1994-2000
+**	For 3.4, Copyright (c) Kentaro Shirakata, 2002-2003
+**	JNetHack may be freely redistributed.  See license for details.
+*/
+
 #include "hack.h"
 #include "dlb.h"
 
@@ -29,7 +36,9 @@ static char	in_line[80], cvt_buf[64], out_line[128];
 static struct	qtlists	qt_list;
 static dlb	*msg_file;
 /* used by ldrname() and neminame(), then copied into cvt_buf */
+#if 0 /*JP*/
 static char	nambuf[sizeof cvt_buf];
+#endif
 
 #ifdef DEBUG
 static void NDECL(dump_qtlist);
@@ -165,10 +174,14 @@ ldrname()	/* return your role leader's name */
 {
 	int i = urole.ldrnum;
 
+#if 0 /*JP*/
 	Sprintf(nambuf, "%s%s",
 		type_is_pname(&mons[i]) ? "" : "the ",
 		mons[i].mname);
 	return nambuf;
+#else
+	return(jtrns_mon(mons[i].mname));
+#endif
 }
 
 STATIC_OVL const char *
@@ -189,10 +202,14 @@ neminame()	/* return your role nemesis' name */
 {
 	int i = urole.neminum;
 
+#if 0 /*JP*/
 	Sprintf(nambuf, "%s%s",
 		type_is_pname(&mons[i]) ? "" : "the ",
 		mons[i].mname);
 	return nambuf;
+#else
+	return(jtrns_mon(mons[i].mname));
+#endif
 }
 
 STATIC_OVL const char *
@@ -200,7 +217,10 @@ guardname()	/* return your role leader's guard monster name */
 {
 	int i = urole.guardnum;
 
+/*JP
 	return(mons[i].mname);
+*/
+	return(jtrns_mon(mons[i].mname));
 }
 
 STATIC_OVL const char *
@@ -232,23 +252,37 @@ char c;
 
 	    case 'p':	str = plname;
 			break;
+#if 0 /*JP*/
 	    case 'c':	str = (flags.female && urole.name.f) ?
 	    			urole.name.f : urole.name.m;
+#else
+	    case 'c':	str = (flags.female && urole.jname.f) ?
+	    			urole.jname.f : urole.jname.m;
+#endif
 			break;
 	    case 'r':	str = rank_of(u.ulevel, Role_switch, flags.female);
 			break;
 	    case 'R':	str = rank_of(MIN_QUEST_LEVEL, Role_switch,
 	    			flags.female);
 			break;
+/*JP
 	    case 's':	str = (flags.female) ? "sister" : "brother";
+*/
+	    case 's':	str = (flags.female) ? "ñÖ" : "íÌ";
 			break;
+/*JP
 	    case 'S':	str = (flags.female) ? "daughter" : "son";
+*/
+	    case 'S':	str = (flags.female) ? "ñ∫" : "ëßéq";
 			break;
 	    case 'l':	str = ldrname();
 			break;
 	    case 'i':	str = intermed();
 			break;
+/*JP
 	    case 'o':	str = the(artiname(urole.questarti));
+*/
+	    case 'o':	str = jtrns_obj('A', (artiname(urole.questarti)));
 			break;
 	    case 'n':	str = neminame();
 			break;
@@ -262,19 +296,40 @@ char c;
 			break;
 	    case 'A':	str = align_str(u.ualign.type);
 			break;
+/*JP
 	    case 'd':	str = align_gname(u.ualignbase[A_ORIGINAL]);
+*/
+	    case 'd':	str = jtrns_mon(align_gname(u.ualignbase[A_ORIGINAL]));
 			break;
+/*JP
 	    case 'D':	str = align_gname(A_LAWFUL);
+*/
+	    case 'D':	str = jtrns_mon(align_gname(A_LAWFUL));
 			break;
+/*JP
 	    case 'C':	str = "chaotic";
+*/
+	    case 'C':	str = "ç¨ì◊";
 			break;
+/*JP
 	    case 'N':	str = "neutral";
+*/
+	    case 'N':	str = "íÜóß";
 			break;
+/*JP
 	    case 'L':	str = "lawful";
+*/
+	    case 'L':	str = "íÅèò";
 			break;
+/*JP
 	    case 'x':	str = Blind ? "sense" : "see";
+*/
+	    case 'x':	str = Blind ? "ä¥Ç∂" : "å©";
 			break;
+/*JP
 	    case 'Z':	str = dungeons[0].dname;
+*/
+	    case 'Z':	str = jtrns_obj('d',dungeons[0].dname);
 			break;
 	    case '%':	str = "%";
 			break;

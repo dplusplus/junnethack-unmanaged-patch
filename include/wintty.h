@@ -108,6 +108,7 @@ E void NDECL(tty_shutdown);
 E void FDECL(xputc, (int));
 #else
 E void FDECL(xputc, (CHAR_P));
+E void FDECL(xputc2, (int, int));
 #endif
 E void FDECL(xputs, (const char *));
 #if defined(SCREEN_VGA) || defined(SCREEN_8514)
@@ -157,6 +158,10 @@ E void FDECL(addtopl, (const char *));
 E void NDECL(more);
 E void FDECL(update_topl, (const char *));
 E void FDECL(putsyms, (const char*));
+/*JP
+Sat Aug 27 00:42:03 JST 1994 by issei
+*/
+E void FDECL(raw_putsyms, (const char*));
 
 /* ### wintty.c ### */
 #ifdef CLIPPING

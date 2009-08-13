@@ -64,7 +64,7 @@ PostBuild_Cmds=copy $(OutDir)\NetHackW.exe ..\binary	\
 copy ..\dat\nhdat ..\binary	\
 copy ..\dat\license ..\binary	\
 if exist tiles.bmp copy tiles.bmp ..\binary	\
-if exist ..\doc\Guidebook.txt copy ..\doc\Guidebook.txt ..\binary\Guidebook.txt	\
+if exist ..\doc\jGuidebook.txt copy ..\doc\jGuidebook.txt ..\binary\jGuidebook.txt	\
 if exist ..\doc\nethack.txt copy ..\doc\nethack.txt ..\binary\NetHack.txt	\
 copy ..\sys\winnt\defaults.nh ..\binary\defaults.nh
 # End Special Build Tool
@@ -104,7 +104,7 @@ copy $(OutDir)\NetHackW.exe ..\binary	\
 copy ..\dat\nhdat ..\binary	\
 copy ..\dat\license ..\binary	\
 if exist tiles.bmp copy tiles.bmp ..\binary	\
-if exist ..\doc\Guidebook.txt copy ..\doc\Guidebook.txt ..\binary\Guidebook.txt	\
+if exist ..\doc\jGuidebook.txt copy ..\doc\jGuidebook.txt ..\binary\jGuidebook.txt	\
 if exist ..\doc\nethack.txt copy ..\doc\nethack.txt ..\binary\NetHack.txt	\
 copy ..\sys\winnt\defaults.nh ..\binary\defaults.nh
 # End Special Build Tool
@@ -261,6 +261,18 @@ SOURCE=..\src\hacklib.c
 # Begin Source File
 
 SOURCE=..\src\invent.c
+# End Source File
+# Begin Source File
+
+SOURCE=..\japanese\jconj.c
+# End Source File
+# Begin Source File
+
+SOURCE=..\japanese\jlib.c
+# End Source File
+# Begin Source File
+
+SOURCE=..\japanese\jtrns.c
 # End Source File
 # Begin Source File
 

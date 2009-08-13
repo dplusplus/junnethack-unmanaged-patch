@@ -5,7 +5,9 @@
 # NetHack may be freely redistributed.  See license for details.
 #
 LEVEL: "town-1"
-MESSAGE: "You step into the sunlight. You hear the sounds of civilization."
+#JP
+#MESSAGE: "You step into the sunlight. You hear the sounds of civilization."
+MESSAGE: "あなたは陽のあたる場所に踏み込んだ． あなたは市場のざわめきを聞いた．"
 RANDOM_MONSTERS:'@','r'
 ROOM: "ordinary" , lit, random, random, (76,17)
 NAME: "town" 
@@ -13,7 +15,9 @@ FOUNTAIN: ( 6,12)
 FOUNTAIN: (39, 9)
 FOUNTAIN: (68, 3)
 STAIR: random, down
-ENGRAVING: random, mark, "Welcome to the town of Angband!"
+#JP
+#ENGRAVING: random, mark, "Welcome to the town of Angband!"
+ENGRAVING: random, mark, "アングバンドの街にようこそ！"
 #
 #       The Town Watch.
 #

@@ -2,6 +2,14 @@
 /* Copyright (c) Stichting Mathematisch Centrum, Amsterdam, 1985. */
 /* NetHack may be freely redistributed.  See license for details. */
 
+/*
+**	Japanese version Copyright
+**	(c) Issei Numata, Naoki Hamada, Shigehiro Miyashita, 1994-2000
+**	changing point is marked `JP' (94/6/7)
+**	For 3.4, Copyright (c) Kentaro Shirakata, 2002-2003
+**	JNetHack may be freely redistributed.  See license for details. 
+*/
+
 #include "hack.h"
 
 #ifdef OVLB
@@ -21,19 +29,36 @@ const char *goal;
     boolean doing_what_is;
     winid tmpwin = create_nhwindow(NHW_MENU);
 
+/*JP
     Sprintf(sbuf, "Use [%s] to move the cursor to %s.",
+*/
+    Sprintf(sbuf, "[%s]で%sへ移動できる．",
 	    iflags.num_pad ? "2468" : "hjkl", goal);
     putstr(tmpwin, 0, sbuf);
+/*JP
     putstr(tmpwin, 0, "Use [HJKL] to move the cursor 8 units at a time.");
+*/
+    putstr(tmpwin, 0, "[HJKL]で一度に8歩移動できる．");
+/*JP
     putstr(tmpwin, 0, "Or enter a background symbol (ex. <).");
+*/
+    putstr(tmpwin, 0, "背景のシンボルを入力するとその位置に移動する(例：<)．");
     /* disgusting hack; the alternate selection characters work for any
        getpos call, but they only matter for dowhatis (and doquickwhatis) */
     doing_what_is = (goal == what_is_an_unknown_object);
+#if 0 /*JP*/
     Sprintf(sbuf, "Type a .%s when you are at the right place.",
             doing_what_is ? " or , or ; or :" : "");
+#else
+    Sprintf(sbuf, "[.]%sで決定．",
+            doing_what_is ? "[,][;][:]" : "");
+#endif
     putstr(tmpwin, 0, sbuf);
     if (!force)
+/*JP
 	putstr(tmpwin, 0, "Type Space or Escape when you're done.");
+*/
+	putstr(tmpwin, 0, "スペースまたはエスケープで終了．");
     putstr(tmpwin, 0, "");
     display_nhwindow(tmpwin, TRUE);
     destroy_nhwindow(tmpwin);
@@ -55,7 +80,10 @@ const char *goal;
     if(iflags.num_pad) sdp = ndir; else sdp = sdir;	/* DICE workaround */
 
     if (flags.verbose) {
+/*JP
 	pline("(For instructions type a ?)");
+*/
+	pline("(?でヘルプ)");
 	msg_given = TRUE;
     }
     cx = cc->x;
@@ -155,19 +183,34 @@ const char *goal;
 			    }	/* column */
 			}	/* row */
 		    }		/* pass */
+/*JP
 		    pline("Can't find dungeon feature '%c'.", c);
+*/
+		    pline("'%c'？", c);
 		    msg_given = TRUE;
 		    goto nxtc;
 		} else {
+#if 0 /*JP*/
 		    pline("Unknown direction: '%s' (%s).",
 			  visctrl((char)c),
 			  !force ? "aborted" :
 			  iflags.num_pad ? "use 2468 or ." : "use hjkl or .");
+#else
+		    pline("その方向はない：'%s' (%s)",
+			  visctrl((char)c),
+			  force ?
+			  iflags.num_pad ? "[2468]で移動，[.]で終了" :
+			  "[hjkl]で移動，[.]で終了" :
+			  "中断した");
+#endif
 		    msg_given = TRUE;
 		} /* k => matching */
 	    } /* !quitchars */
 	    if (force) goto nxtc;
+/*JP
 	    pline("Done.");
+*/
+	    pline("以上．");
 	    msg_given = FALSE;	/* suppress clear */
 	    cx = -1;
 	    cy = 0;
@@ -211,6 +254,11 @@ const char *name;
 		if (lth) Strcpy(NAME(mtmp), name);
 		return mtmp;
 	}
+#if 1 /*JP*/
+	if(is_kanji2(name,lth-1))
+	  --lth;
+#endif
+
 	mtmp2 = newmonst(mtmp->mxlth + lth);
 	*mtmp2 = *mtmp;
 	(void) memcpy((genericptr_t)mtmp2->mextra,
@@ -231,12 +279,18 @@ do_mname()
 	char qbuf[QBUFSZ];
 
 	if (Hallucination) {
+/*JP
 		You("would never recognize it anyway.");
+*/
+		You("それを認識できない．");
 		return 0;
 	}
 	cc.x = u.ux;
 	cc.y = u.uy;
+/*JP
 	if (getpos(&cc, FALSE, "the monster you want to name") < 0 ||
+*/
+	if (getpos(&cc, FALSE, "あなたが名づけたい怪物") < 0 ||
 			(cx = cc.x) < 0)
 		return 0;
 	cy = cc.y;
@@ -247,11 +301,19 @@ do_mname()
 		mtmp = u.usteed;
 	    else {
 #endif
+#if 0 /*JP*/
 		pline("This %s creature is called %s and cannot be renamed.",
 		ACURR(A_CHA) > 14 ?
 		(flags.female ? "beautiful" : "handsome") :
 		"ugly",
 		plname);
+#else
+		pline("この%s生き物は%sと呼ばれていて，名前は変更できない．",
+		ACURR(A_CHA) > 14 ?
+		(flags.female ? "美人の" : "かっこいい") :
+		"醜い",
+		plname);
+#endif
 		return(0);
 #ifdef STEED
 	    }
@@ -264,19 +326,28 @@ do_mname()
 			|| mtmp->m_ap_type == M_AP_FURNITURE
 			|| mtmp->m_ap_type == M_AP_OBJECT
 			|| (mtmp->minvis && !See_invisible)))) {
+/*JP
 		pline("I see no monster there.");
+*/
+		pline("そこに怪物はいない．");
 		return(0);
 	}
 	/* special case similar to the one in lookat() */
 	(void) distant_monnam(mtmp, ARTICLE_THE, buf);
+/*JP
 	Sprintf(qbuf, "What do you want to call %s?", buf);
+*/
+	Sprintf(qbuf, "%sを何と呼びますか？", buf);
 	getlin(qbuf,buf);
 	if(!*buf || *buf == '\033') return(0);
 	/* strip leading and trailing spaces; unnames monster if all spaces */
 	(void)mungspaces(buf);
 
 	if (mtmp->data->geno & G_UNIQ)
+/*JP
 	    pline("%s doesn't like being called names!", Monnam(mtmp));
+*/
+	    pline("%sはあだ名で呼ばれるのが嫌いなようだ！", Monnam(mtmp));
 	else
 	    (void) christen_monst(mtmp, buf);
 	return(0);
@@ -295,31 +366,76 @@ register struct obj *obj;
 	char buf[BUFSZ], qbuf[QBUFSZ];
 	const char *aname;
 	short objtyp;
+#if 1 /*JP*/
+	boolean is_japanese = FALSE;
+#endif
 
+#if 0 /*JP*/
 	Sprintf(qbuf, "What do you want to name %s %s?",
 		is_plural(obj) ? "these" : "this", xname(obj));
+#else
+	Sprintf(qbuf, "%sを何と名づけますか？", xname(obj));
+#endif
 	getlin(qbuf, buf);
 	if(!*buf || *buf == '\033')	return;
 	/* strip leading and trailing spaces; unnames item if all spaces */
 	(void)mungspaces(buf);
 
 	/* relax restrictions over proper capitalization for artifacts */
+#if 0 /*JP*/
 	if ((aname = artifact_name(buf, &objtyp)) != 0 && objtyp == obj->otyp)
 		Strcpy(buf, aname);
+#else
+	if ((aname = artifact_name(etrns_obj('A', buf), &objtyp)) != 0 && objtyp == obj->otyp) {
+		is_japanese = is_kanji(*buf);
+		Strcpy(buf, aname);
+	}
+#endif
 
 	if (obj->oartifact) {
+/*JP
 		pline_The("artifact seems to resist the attempt.");
+*/
+		pline("聖器は名づけを拒否しているようだ．");
 		return;
 	} else if (restrict_name(obj, buf, FALSE) || exist_artifact(obj->otyp, buf)) {
+#if 0 /*JP*/
 		int n = rn2((int)strlen(buf));
 		register char c1, c2;
+#else
+		int n;
+		register char c1, c2;
 
+		if(is_japanese && aname)
+			Strcpy(buf, jtrns_obj('A', aname));
+
+		n = rn2((int)strlen(buf));
+/*JP
+**	2BYTE文字を間違わずに消す
+*/
+		if (is_kanji2(buf, n))
+			--n;
+
+		if (is_kanji1(buf, n)) {
+			buf[n]   = "？"[0];
+			buf[n+1] = "？"[1];
+		} else {
+#endif
 		c1 = lowc(buf[n]);
 		do c2 = 'a' + rn2('z'-'a'); while (c1 == c2);
 		buf[n] = (buf[n] == c1) ? c2 : highc(c2);  /* keep same case */
+#if 1 /*JP*/
+		}
+#endif
+/*JP
 		pline("While engraving your %s slips.", body_part(HAND));
+*/
+		pline("刻んでいる間に%sが滑ってしまった．", body_part(HAND));
 		display_nhwindow(WIN_MESSAGE, FALSE);
+/*JP
 		You("engrave: \"%s\".",buf);
+*/
+		You("刻んだ: 「%s」．",buf);
 	}
 	obj = oname(obj, buf);
 }
@@ -407,6 +523,10 @@ const char *name;
 
 	lth = *name ? (int)(strlen(name) + 1) : 0;
 	if (lth > PL_PSIZ) {
+#if 1 /*JP*/
+		if(is_kanji2(buf,lth-1))
+		  --lth;
+#endif
 		lth = PL_PSIZ;
 		name = strncpy(buf, name, PL_PSIZ - 1);
 		buf[PL_PSIZ - 1] = '\0';
@@ -453,7 +573,10 @@ ddocall()
 #ifdef REDO
 		ch =
 #endif
+/*JP
 		ynq("Name an individual object?")) {
+*/
+		ynq("持ち物に個別の名前をつけますか？")) {
 	case 'q':
 		break;
 	case 'y':
@@ -476,7 +599,10 @@ ddocall()
 			(void) xname(obj);
 
 			if (!obj->dknown) {
+/*JP
 				You("would never recognize another one.");
+*/
+				You("他に認識できない．");
 				return 0;
 			}
 			docall(obj);
@@ -501,10 +627,18 @@ register struct obj *obj;
 	otemp.oxlth = 0;
 	if (objects[otemp.otyp].oc_class == POTION_CLASS && otemp.fromsink)
 	    /* kludge, meaning it's sink water */
+#if 0 /*JP*/
 	    Sprintf(qbuf,"Call a stream of %s fluid:",
 		    OBJ_DESCR(objects[otemp.otyp]));
+#else
+	    Sprintf(qbuf,"%s液体:",
+		    jtrns_obj('!', OBJ_DESCR(objects[otemp.otyp])));
+#endif
 	else
+/*JP
 	    Sprintf(qbuf, "Call %s:", an(xname(&otemp)));
+*/
+	    Sprintf(qbuf, "%sに何と名前をつける？", an(xname(&otemp)));
 	getlin(qbuf, buf);
 	if(!*buf || *buf == '\033')
 		return;
@@ -591,8 +725,10 @@ boolean called;
 #endif
 	struct permonst *mdat = mtmp->data;
 	boolean do_hallu, do_invis, do_it, do_saddle;
+#if 0 /*JP*/
 	boolean name_at_start, has_adjectives;
 	char *bp;
+#endif
 
 	if (program_state.gameover)
 	    suppress |= SUPPRESS_HALLUCINATION;
@@ -615,7 +751,10 @@ boolean called;
 
 	/* unseen monsters, etc.  Use "it" */
 	if (do_it) {
+/*JP
 	    Strcpy(buf, "it");
+*/
+	    Strcpy(buf, "何者か");
 	    return buf;
 	}
 
@@ -632,8 +771,10 @@ boolean called;
 	    name = priestname(mtmp, priestnambuf);
 	    EHalluc_resistance = save_prop;
 	    mtmp->minvis = save_invis;
+#if 0 /*JP*/
 	    if (article == ARTICLE_NONE && !strncmp(name, "the ", 4))
 		name += 4;
+#endif
 	    return strcpy(buf, name);
 	}
 
@@ -643,6 +784,7 @@ boolean called;
 	 * none of this applies.
 	 */
 	if (mtmp->isshk && !do_hallu) {
+#if 0 /*JP*/
 	    if (adjective && article == ARTICLE_THE) {
 		/* pathological case: "the angry Asidonhopo the blue dragon"
 		   sounds silly */
@@ -659,37 +801,67 @@ boolean called;
 		Strcat(buf, "invisible ");
 	    Strcat(buf, mdat->mname);
 	    return buf;
+#else
+	    if (mdat == &mons[PM_SHOPKEEPER] && !do_invis){
+		    Strcpy(buf, shkname(mtmp));
+	    } else {
+		    Sprintf(buf, "%sという名の%s%s",
+		    shkname(mtmp), do_invis ? "姿の見えない" : "",
+		    jtrns_mon(mdat->mname));
+	    }
+	    return buf;
+#endif
 	}
 
 	/* Put the adjectives in the buffer */
 	if (adjective)
 	    Strcat(strcat(buf, adjective), " ");
 	if (do_invis)
+/*JP
 	    Strcat(buf, "invisible ");
+*/
+	    Strcat(buf, "姿の見えない");
 #ifdef STEED
 	if (do_saddle && (mtmp->misc_worn_check & W_SADDLE) &&
 	    !Blind && !Hallucination)
+/*JP
 	    Strcat(buf, "saddled ");
+*/
+	    Strcat(buf, "鞍のついている");
 #endif
+#if 0 /*JP*/
 	if (buf[0] != 0)
 	    has_adjectives = TRUE;
 	else
 	    has_adjectives = FALSE;
+#endif
 
 	/* Put the actual monster name or type into the buffer now */
 	/* Be sure to remember whether the buffer starts with a name */
 	if (do_hallu) {
 	    Strcat(buf, rndmonnam());
+#if 0 /*JP*/
 	    name_at_start = FALSE;
+#endif
 	} else if (mtmp->mnamelth) {
 	    char *name = NAME(mtmp);
 
 	    if (mdat == &mons[PM_GHOST]) {
+#if 0 /*JP*/
 		Sprintf(eos(buf), "%s ghost", s_suffix(name));
 		name_at_start = TRUE;
+#else
+		Sprintf(buf, "%sの幽霊", name);
+#endif
 	    } else if (called) {
+#if 0 /*JP*/
 		Sprintf(eos(buf), "%s called %s", mdat->mname, name);
 		name_at_start = (boolean)type_is_pname(mdat);
+#else
+		Sprintf(eos(buf), "%sという名の%s", name,
+		    jtrns_mon_gen(mdat->mname, mtmp->female));
+#endif
+#if 0 /*JP*/
 	    } else if (is_mplayer(mdat) && (bp = strstri(name, " the ")) != 0) {
 		/* <name> the <adjective> <invisible> <saddled> <rank> */
 		char pbuf[BUFSZ];
@@ -702,27 +874,46 @@ boolean called;
 		Strcpy(buf, pbuf);
 		article = ARTICLE_NONE;
 		name_at_start = TRUE;
+#endif
 	    } else {
 		Strcat(buf, name);
+#if 0 /*JP*/
 		name_at_start = TRUE;
+#endif
 	    }
 	} else if (is_mplayer(mdat) && !In_endgame(&u.uz)) {
 	    char pbuf[BUFSZ];
 	    Strcpy(pbuf, rank_of((int)mtmp->m_lev,
 				 monsndx(mdat),
 				 (boolean)mtmp->female));
+#if 0 /*JP*/
 	    Strcat(buf, lcase(pbuf));
 	    name_at_start = FALSE;
+#else
+	    Strcat(buf, pbuf);
+#endif
 	} else if (is_rider(mtmp->data) && 
 		   (distu(mtmp->mx, mtmp->my) > 2)) {
 		/* prevent the three horsemen to be identified from afar */
+#if 0 /*JP*/
 		Strcat(buf, "Rider");
 		name_at_start = FALSE;
+#else
+		Strcat(buf, "乗り手");
+#endif
 	} else {
+#if 0 /*JP*/
 		Strcat(buf, mdat->mname);
 		name_at_start = (boolean)type_is_pname(mdat);
+#else
+	    Strcat(buf, jtrns_mon_gen(mdat->mname, mtmp->female));
+#endif
 	}
 
+#if 1 /*JP*/
+	/* 日本語に冠詞はない */
+	return buf;
+#else
 	if (name_at_start && (article == ARTICLE_YOUR || !has_adjectives)) {
 	    if (mdat == &mons[PM_WIZARD_OF_YENDOR])
 		article = ARTICLE_THE;
@@ -753,6 +944,7 @@ boolean called;
 		    return buf;
 	    }
 	}
+#endif /*JP*/
 }
 
 #endif /* OVL0 */
@@ -882,8 +1074,12 @@ char *outbuf;
        its own obfuscation) */
     if (mon->data == &mons[PM_HIGH_PRIEST] && !Hallucination &&
 	    Is_astralevel(&u.uz) && distu(mon->mx, mon->my) > 2) {
+#if 0 /*JP*/
 	Strcpy(outbuf, article == ARTICLE_THE ? "the " : "");
 	Strcat(outbuf, mon->female ? "high priestess" : "high priest");
+#else
+	Strcpy(outbuf, "法王");
+#endif
     } else {
 	Strcpy(outbuf, x_monnam(mon, article, (char *)0, 0, TRUE));
     }
@@ -1029,8 +1225,13 @@ rndmonnam()
 	} while (name < SPECIAL_PM &&
 	    (type_is_pname(&mons[name]) || (mons[name].geno & G_NOGEN)));
 
+#if 0 /*JP*/
 	if (name >= SPECIAL_PM) return bogusmons[name - SPECIAL_PM];
 	return mons[name].mname;
+#else
+	if (name >= SPECIAL_PM) return jtrns_mon(bogusmons[name - SPECIAL_PM]);
+	return jtrns_mon_gen(mons[name].mname, rn2(2));
+#endif
 }
 
 #ifdef REINCARNATION
@@ -1057,6 +1258,7 @@ roguename() /* Name of a Rogue player */
 #ifdef OVL2
 
 static NEARDATA const char * const hcolors[] = {
+#if 0 /*JP*/
 	"ultraviolet", "infrared", "bluish-orange",
 	"reddish-green", "dark white", "light black", "sky blue-pink",
 	"salty", "sweet", "sour", "bitter",
@@ -1066,6 +1268,17 @@ static NEARDATA const char * const hcolors[] = {
 	"cabernet", "sangria", "fuchsia", "wisteria",
 	"lemon-lime", "strawberry-banana", "peppermint",
 	"romantic", "incandescent"
+#else
+	"紫外色の", "赤外色の", "青色がかったオレンジ色の",
+	"赤みがかった緑色の", "暗い白色の", "明るい黒の", "水色がかったピンク色の",
+	"塩辛い", "甘い", "すっぱい", "苦い",
+	"しま模様の", "らせん状の", "波状の", "格子模様状の", "チェック状の", "放射状の",
+	"ペーズリー模様の", "しみ状の", "青色の斑点状の", "点状の",
+	"四角形状の", "丸状の", "三角状の",
+	"日本酒色の", "ぶどう酒色の", "桜色の", "藤色の",
+	"レモンライム色の", "苺バナナ色の", "ペパーミント色の",
+	"ロマンチックな色の", "まぶしい"
+#endif
 };
 
 const char *
@@ -1081,13 +1294,19 @@ const char *
 rndcolor()
 {
 	int k = rn2(CLR_MAX);
+#if 0 /*JP:T*/
 	return Hallucination ? hcolor((char *)0) : (k == NO_COLOR) ?
 		"colorless" : c_obj_colors[k];
+#else
+	return Hallucination ? hcolor((char *)0) : (k == NO_COLOR) ?
+		"無色の" : c_obj_colors[k];
+#endif
 }
 
 /* Aliases for road-runner nemesis
  */
 static const char * const coynames[] = {
+#if 0 /*JP*/
 	"Carnivorous Vulgaris","Road-Runnerus Digestus",
 	"Eatibus Anythingus"  ,"Famishus-Famishus",
 	"Eatibus Almost Anythingus","Eatius Birdius",
@@ -1099,6 +1318,33 @@ static const char * const coynames[] = {
 	"Hungrii Flea-Bagius","Overconfidentii Vulgaris",
 	"Caninus Nervous Rex","Grotesques Appetitus",
 	"Nemesis Riduclii","Canis latrans"
+#else
+	/* http://www.daneel.org/r_gakume.htm 参考 */ 
+	"肉食犬科卑劣属","路走鳥食科消化属", 
+	"食欲強科何物食属","飢餓科飢餓属", 
+	"食欲強科凡何物食属","食欲科鳥食属", 
+	"餓死科凄絶属","永久科餓鬼属", 
+	"飢餓科野卑属","餓死科卑劣利口属", 
+	"食欲科垂涎属","石頭科恋母王属", 
+	"肉食狼科垂涎属","石頭科貪欲属", 
+	"常準備科食欲強属","欲望科巨大属", 
+	"腹減科蚤沢山属","過信科卑劣属", 
+	"神経質犬科大王属","奇怪科嗜好属", 
+	"復讐科揶揄属","犬科犬属" 
+	/*
+	"何としてもつかまえ食べたいーの","オッタマゲーションおっかけ科", 
+	"いざとなったら何でも食べちゃう狼科" ,"お腹と背中がくっつく寸前狼科", 
+	"食いたがり狼科","鳥食いたがり狼科", 
+	"ハングリー狼科","永久性腹ぺこ科", 
+	"腹ペコで食べたいーの","あの手この手狼科", 
+	"腹へりひれはれ科","Hardheadipus Oedipus", 
+	"アイディア狼科","Hard-Headipus Ravenus", 
+	"なんとしてもつかまえ食べたいーの","腹ペコ狼科", 
+	"なんとしてもつかまえ食べたいーの","なんとしてもつかまえ食べたいーの", 
+	"なんとしてもつかまえ食べたいーの","腹へりポンポコリン狼科", 
+	"２４時間戦える腹ぺこ狼科","普通のコヨーテ" 
+	*/ 
+#endif 
 };
 	
 char *

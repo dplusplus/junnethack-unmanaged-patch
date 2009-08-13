@@ -2,6 +2,14 @@
 /* Copyright (c) Stichting Mathematisch Centrum, Amsterdam, 1985. */
 /* NetHack may be freely redistributed.  See license for details. */
 
+/*
+**	Japanese version Copyright
+**	(c) Issei Numata, Naoki Hamada, Shigehiro Miyashita, 1994-2000
+**	changing point is marked `JP' (94/6/7)
+**	For 3.4, Copyright (c) Kentaro Shirakata, 2002-2003
+**	JNetHack may be freely redistributed.  See license for details. 
+*/
+
 #include "hack.h"
 
 #include "mfndpos.h"
@@ -161,10 +169,17 @@ boolean devour;
 	/* However, invisible monsters should still be "it" even though out of
 	   sight locations should not. */
 	if (cansee(x, y) || cansee(mtmp->mx, mtmp->my))
+#if 0 /*JP*/
 	    pline("%s %s %s.", mon_visible(mtmp) ? noit_Monnam(mtmp) : "It",
 		  devour ? "devours" : "eats",
 		  (obj->oclass == FOOD_CLASS) ?
 			singular(obj, doname) : doname(obj));
+#else
+	    pline("%sは%sを%s．", mon_visible(mtmp) ? noit_Monnam(mtmp) : "何か",
+		  (obj->oclass == FOOD_CLASS) ?
+			singular(obj, doname) : doname(obj),
+		  devour ? "飲み込んでいる" : "食べている");
+#endif
 	/* It's a reward if it's DOGFOOD and the player dropped/threw it. */
 	/* We know the player had it if invlet is set -dlc */
 	if(dogfood(mtmp,obj) == DOGFOOD && obj->invlet)
@@ -179,7 +194,10 @@ boolean devour;
 	    obj->oerodeproof = 0;
 	    mtmp->mstun = 1;
 	    if (canseemon(mtmp) && flags.verbose) {
+/*JP
 		pline("%s spits %s out in disgust!",
+*/
+		pline("%sは%sをペッと吐き出した！",
 		      Monnam(mtmp), distant_name(obj,doname));
 	    }
 	} else if (obj == uball) {
@@ -228,11 +246,17 @@ register struct edog *edog;
 		    mtmp->mhp = mtmp->mhpmax;
 		if (mtmp->mhp < 1) goto dog_died;
 		if (cansee(mtmp->mx, mtmp->my))
+/*JP
 		    pline("%s is confused from hunger.", Monnam(mtmp));
+*/
+		    pline("%sは空腹のため混乱している．", Monnam(mtmp));
 		else if (couldsee(mtmp->mx, mtmp->my))
 		    beg(mtmp);
 		else
+/*JP
 		    You_feel("worried about %s.", y_monnam(mtmp));
+*/
+		    You("%sが心配になった．", y_monnam(mtmp));
 		stop_occupation();
 	    } else if (monstermoves > edog->hungrytime + 750 || mtmp->mhp < 1) {
  dog_died:
@@ -241,12 +265,23 @@ register struct edog *edog;
 		    && mtmp != u.usteed
 #endif
 		    )
+/*JP
 		    Your("leash goes slack.");
+*/
+		    Your("紐はたるんだ．");
 		else if (cansee(mtmp->mx, mtmp->my))
+/*JP
 		    pline("%s starves.", Monnam(mtmp));
+*/
+		    pline("%sは飢えで死んだ．", Monnam(mtmp));
 		else
+#if 0 /*JP*/
 		    You_feel("%s for a moment.",
 			Hallucination ? "bummed" : "sad");
+#else
+		    You("%s気分におそわれた．",
+			Hallucination ? "がっかりした" : "悲しい");
+#endif
 		mondied(mtmp);
 		return(TRUE);
 	    }
@@ -306,7 +341,10 @@ int udist;
 		    if(rn2(20) < edog->apport+3) {
 			if (rn2(udist) || !rn2(edog->apport)) {
 			    if (cansee(omx, omy) && flags.verbose)
+/*JP
 				pline("%s picks up %s.", Monnam(mtmp),
+*/
+				pline("%sは%sを拾った．", Monnam(mtmp),
 				    distant_name(obj, doname));
 			    obj_extract_self(obj);
 			    newsym(omx,omy);
@@ -553,8 +591,14 @@ register int after;	/* this is extra fast monster movement */
 		 * it disappears, angrily, and sends in some nasties
 		 */
 		if (canspotmon(mtmp)) {
+/*JP
 		    pline("%s rebukes you, saying:", Monnam(mtmp));
+*/
+		    pline("%sはあなたを非難した：", Monnam(mtmp));
+/*JP
 		    verbalize("Since you desire conflict, have some more!");
+*/
+		    verbalize("闘争を望んでいるようだから，もっと与えてやろう！");
 		}
 		mongone(mtmp);
 		i = rnd(4);
@@ -572,7 +616,10 @@ register int after;	/* this is extra fast monster movement */
 	if (!Conflict && !mtmp->mconf &&
 	    mtmp == u.ustuck && !sticks(youmonst.data)) {
 	    unstuck(mtmp);	/* swallowed case handled above */
+/*JP
 	    You("get released!");
+*/
+	    You("動けるようになった！");
 	}
 	if (!nohands(mtmp->data) && !verysmall(mtmp->data)) {
 		allowflags |= OPENDOOR;
@@ -720,8 +767,13 @@ newdogpos:
 
 		if (info[chi] & ALLOW_U) {
 			if (mtmp->mleashed) { /* play it safe */
+#if 0 /*JP*/
 				pline("%s breaks loose of %s leash!",
 				      Monnam(mtmp), mhis(mtmp));
+#else
+				pline("%sは自分についている紐をはずした！",
+				      Monnam(mtmp));
+#endif
 				m_unleash(mtmp, FALSE);
 			}
 			(void) mattacku(mtmp);
@@ -751,7 +803,10 @@ newdogpos:
 		remove_monster(omx, omy);
 		place_monster(mtmp, nix, niy);
 		if (cursemsg[chi] && (cansee(omx,omy) || cansee(nix,niy)))
+/*JP
 			pline("%s moves only reluctantly.", Monnam(mtmp));
+*/
+			pline("%sはいやいや動いた．", Monnam(mtmp));
 		for (j=MTSZ-1; j>0; j--) mtmp->mtrack[j] = mtmp->mtrack[j-1];
 		mtmp->mtrack[0].x = omx;
 		mtmp->mtrack[0].y = omy;

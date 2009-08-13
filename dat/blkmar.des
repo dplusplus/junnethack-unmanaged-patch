@@ -30,23 +30,41 @@ NON_PASSWALL: (00,00,74,17)
 REGION: (03,01,73,16), lit, "black market", filled
 BRANCH: (01,01,01,01), (0,0,0,0)
 DOOR: open, (02,14)
-ENGRAVING: (01,03), engrave, "Pets are not allowed in the shop"
-ENGRAVING: (01,05), engrave, "Thieves will be killed."
-ENGRAVING: (01,07), engrave, "Sorry about the mess. Remember, ask if you need help!"
-ENGRAVING: (01,09), engrave, "Don't even think about stealing anything."
+#JP
+#ENGRAVING: (01,03), engrave, "Pets are not allowed in the shop"
+#ENGRAVING: (01,05), engrave, "Thieves will be killed."
+#ENGRAVING: (01,07), engrave, "Sorry about the mess. Remember, ask if you need help!"
+#ENGRAVING: (01,09), engrave, "Don't even think about stealing anything."
+ENGRAVING: (01,03), engrave, "店内へのペット同伴はご遠慮ください"
+ENGRAVING: (01,05), engrave, "泥棒には死，あるのみ．"
+ENGRAVING: (01,07), engrave, "申し訳ありませんが店内は散らかっております．御用のときはお声をおかけください！"
+ENGRAVING: (01,09), engrave, "万引きしようなどとは思わないことだ．"
 # black marketeer's assistants:
 # from The Hobbit (Tolkien)
-MONSTER: 'T', "rock troll",  (03,03), "William", asleep, peaceful
-MONSTER: 'T', "rock troll",  (03,12), "Thomas", asleep, peaceful
+#JP
+#MONSTER: 'T', "rock troll",  (03,03), "William", asleep, peaceful
+#MONSTER: 'T', "rock troll",  (03,12), "Thomas", asleep, peaceful
+MONSTER: 'T', "rock troll",  (03,03), "ウィリアム", asleep, peaceful
+MONSTER: 'T', "rock troll",  (03,12), "トーマス", asleep, peaceful
 # from the Bible
-MONSTER: 'H', "frost giant", (03,16), "Goliath", asleep, peaceful
+#JP
+#MONSTER: 'H', "frost giant", (03,16), "Goliath", asleep, peaceful
+MONSTER: 'H', "frost giant", (03,16), "ゴリアテ", asleep, peaceful
 # from Greek mythology & high-energy physics
-MONSTER: 'n', "wood nymph",  (03,09), "Daphne",  asleep, peaceful
+#JP
+#MONSTER: 'n', "wood nymph",  (03,09), "Daphne",  asleep, peaceful
+MONSTER: 'n', "wood nymph",  (03,09), "ダフネ",  asleep, peaceful
 # Add your favorite monsters here.  Make them peaceful and named,
 # otherwise they will not behave like assistants.
-MONSTER: '&', "balrog",  (03,04), "Njalnohaar",  asleep, peaceful
-MONSTER: '&', "pit fiend",  (03,02), "Hilvuuloth",  asleep, peaceful
-MONSTER: 'c', "cockatrice",  (03,13), "Wilbur",  asleep, peaceful
-MONSTER: 'c', "cockatrice",  (03,08), "Simon",  asleep, peaceful
-MONSTER: ':', "salamander",  (03,11), "Izzy",  asleep, peaceful
+#JP
+#MONSTER: '&', "balrog",  (03,04), "Njalnohaar",  asleep, peaceful
+#MONSTER: '&', "pit fiend",  (03,02), "Hilvuuloth",  asleep, peaceful
+#MONSTER: 'c', "cockatrice",  (03,13), "Wilbur",  asleep, peaceful
+#MONSTER: 'c', "cockatrice",  (03,08), "Simon",  asleep, peaceful
+#MONSTER: ':', "salamander",  (03,11), "Izzy",  asleep, peaceful
+MONSTER: '&', "balrog",  (03,04), "ニャルノハール",  asleep, peaceful
+MONSTER: '&', "pit fiend",  (03,02), "ハイルヴーロス",  asleep, peaceful
+MONSTER: 'c', "cockatrice",  (03,13), "ウィルバー",  asleep, peaceful
+MONSTER: 'c', "cockatrice",  (03,08), "シモン",  asleep, peaceful
+MONSTER: ':', "salamander",  (03,11), "イズィー",  asleep, peaceful
 

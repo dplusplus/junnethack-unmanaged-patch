@@ -2,6 +2,12 @@
 /* NetHack may be freely redistributed.  See license for details. */
 
 /*
+**	Japanese version
+**	For 3.4, Copyright (c) Kentaro Shirakata, 2003
+**	JNetHack may be freely redistributed.  See license for details. 
+*/
+
+/*
  * This file implements the interface between the window port specific
  * code in the mswin port and the rest of the nethack game engine. 
 */
@@ -1775,16 +1781,32 @@ void mswin_outrip(winid wid, int how)
 	switch (killer_format) {
 		default: impossible("bad killer format?");
 		case KILLED_BY_AN:
+#if 0 /*JP*/
 			Strcpy(buf, killed_by_prefix[how]);
 			Strcat(buf, an(killer));
+#else
+			Strcpy(buf, an(killer));
+			Strcat(buf, killed_by_prefix[how]);
+#endif
 			break;
 		case KILLED_BY:
+#if 0 /*JP*/
 			Strcpy(buf, killed_by_prefix[how]);
 			Strcat(buf, killer);
+#else
+			Strcpy(buf, killer);
+			Strcat(buf, killed_by_prefix[how]);
+#endif
 			break;
 		case NO_KILLER_PREFIX:
 			Strcpy(buf, killer);
 			break;
+#if 1 /*JP*/
+		case KILLED_SUFFIX:
+			Strcpy(buf, killer);
+			Strcat(buf, "‚ÉŽE‚³‚ê‚½");
+			break;
+#endif
 	}
 
 	/* Put death type on stone */

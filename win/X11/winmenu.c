@@ -691,6 +691,10 @@ X11_select_menu(window, how, menu_list)
     Boolean *boolp;
 #endif
     char gacc[QBUFSZ], *ap;
+#ifdef XI18N
+/*    XFontSet fontset;*/
+    XFontSetExtents *extent;
+#endif
 
     *menu_list = (menu_item *) 0;
     check_winid(window);
@@ -822,7 +826,11 @@ X11_select_menu(window, how, menu_list)
 	XtSetArg(args[num_args], XtNbottom, XtChainTop);	num_args++;
 	XtSetArg(args[num_args], XtNleft, XtChainLeft);		num_args++;
 	XtSetArg(args[num_args], XtNright, XtChainLeft);	num_args++;
+#if 0 /*JP*/
 	cancel = XtCreateManagedWidget("cancel",
+#else
+	cancel = XtCreateManagedWidget("ƒLƒƒƒ“ƒZƒ‹",
+#endif
 			commandWidgetClass,
 			form,
 			args, num_args);
@@ -837,7 +845,11 @@ X11_select_menu(window, how, menu_list)
 	XtSetArg(args[num_args], XtNbottom, XtChainTop);	num_args++;
 	XtSetArg(args[num_args], XtNleft, XtChainLeft);		num_args++;
 	XtSetArg(args[num_args], XtNright, XtChainLeft);	num_args++;
+#if 0 /*JP*/
 	all = XtCreateManagedWidget("all",
+#else
+	all = XtCreateManagedWidget("‚·‚×‚Ä‘I‘ð",
+#endif
 			commandWidgetClass,
 			form,
 			args, num_args);
@@ -851,7 +863,11 @@ X11_select_menu(window, how, menu_list)
 	XtSetArg(args[num_args], XtNbottom, XtChainTop);	num_args++;
 	XtSetArg(args[num_args], XtNleft, XtChainLeft);		num_args++;
 	XtSetArg(args[num_args], XtNright, XtChainLeft);	num_args++;
+#if 0 /*JP*/
 	none = XtCreateManagedWidget("none",
+#else
+	none = XtCreateManagedWidget("‚·‚×‚Ä‰ðœ",
+#endif
 			commandWidgetClass,
 			form,
 			args, num_args);
@@ -865,7 +881,11 @@ X11_select_menu(window, how, menu_list)
 	XtSetArg(args[num_args], XtNbottom, XtChainTop);	num_args++;
 	XtSetArg(args[num_args], XtNleft, XtChainLeft);		num_args++;
 	XtSetArg(args[num_args], XtNright, XtChainLeft);	num_args++;
+#if 0 /*JP*/
 	invert = XtCreateManagedWidget("invert",
+#else
+	invert = XtCreateManagedWidget("”½“]",
+#endif
 			commandWidgetClass,
 			form,
 			args, num_args);
@@ -879,7 +899,11 @@ X11_select_menu(window, how, menu_list)
 	XtSetArg(args[num_args], XtNbottom, XtChainTop);	num_args++;
 	XtSetArg(args[num_args], XtNleft, XtChainLeft);		num_args++;
 	XtSetArg(args[num_args], XtNright, XtChainLeft);	num_args++;
+#if 0 /*JP*/
 	search = XtCreateManagedWidget("search",
+#else
+	search = XtCreateManagedWidget("ŒŸõ",
+#endif
 			commandWidgetClass,
 			form,
 			args, num_args);
@@ -919,6 +943,9 @@ X11_select_menu(window, how, menu_list)
 	XtSetArg(args[num_args], XtNmaxSelectable,
 			menu_info->curr_menu.count);		num_args++;
 #endif
+#if defined(X11R6) && defined(XI18N)
+	XtSetArg(args[num_args], XtNinternational, True);	num_args++;
+#endif
 	wp->w = XtCreateManagedWidget(
 		    "menu_list",		/* name */
 #ifdef USE_FWF
@@ -934,7 +961,11 @@ X11_select_menu(window, how, menu_list)
 
 	/* Get the font and margin information. */
 	num_args = 0;
+#ifndef XI18N
 	XtSetArg(args[num_args], XtNfont, &menu_info->fs);	num_args++;
+#else
+	XtSetArg(args[num_args], XtNfontSet, &menu_info->fontset); 	num_args++;
+#endif
 	XtSetArg(args[num_args], XtNinternalHeight,
 				&menu_info->internal_height);	num_args++;
 	XtSetArg(args[num_args], XtNinternalWidth,
@@ -943,9 +974,15 @@ X11_select_menu(window, how, menu_list)
 	XtGetValues(wp->w, args, num_args);
 
 	/* font height is ascent + descent */
+#ifndef XI18N
 	menu_info->line_height =
 		menu_info->fs->max_bounds.ascent +
 		menu_info->fs->max_bounds.descent + row_spacing;
+#else
+	extent = XExtentsOfFontSet(menu_info->fontset);
+	menu_info->line_height =
+		extent->max_logical_extent.height + row_spacing;
+#endif	
 
 	menu_info->valid_widgets = TRUE;
 
@@ -961,7 +998,11 @@ X11_select_menu(window, how, menu_list)
 	/* get the longest string on new menu */
 	v_pixel_width = 0;
 	for (ptr = menu_info->new_menu.list_pointer; *ptr; ptr++) {
+#ifndef XI18N
 	    len = XTextWidth(menu_info->fs, *ptr, strlen(*ptr));
+#else
+	    len = XmbTextEscapement(menu_info->fontset, *ptr, strlen(*ptr));
+#endif
 	    if (len > v_pixel_width) v_pixel_width = len;
 	}
 

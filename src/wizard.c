@@ -2,6 +2,13 @@
 /* Copyright (c) Stichting Mathematisch Centrum, Amsterdam, 1985. */
 /* NetHack may be freely redistributed.  See license for details. */
 
+/*
+**	Japanese version Copyright
+**	(c) Issei Numata, Naoki Hamada, Shigehiro Miyashita, 1994-2000
+**	For 3.4, Copyright (c) Kentaro Shirakata, 2002-2003
+**	JNetHack may be freely redistributed.  See license for details. 
+*/
+
 /* wizard code - inspired by rogue code from Merlyn Leroy (digi-g!brian) */
 /*	       - heavily modified to give the wiz balls.  (genat!mike)   */
 /*	       - dewimped and given some maledictions. -3. */
@@ -67,11 +74,20 @@ amulet()
 		if(ttmp->ttyp == MAGIC_PORTAL) {
 		    int du = distu(ttmp->tx, ttmp->ty);
 		    if (du <= 9)
+/*JP
 			pline("%s hot!", Tobjnam(amu, "feel"));
+*/
+			pline("%sは熱く感じた！", xname(amu));
 		    else if (du <= 64)
+/*JP
 			pline("%s very warm.", Tobjnam(amu, "feel"));
+*/
+			pline("%sはとても暖かく感じた．", xname(amu));
 		    else if (du <= 144)
+/*JP
 			pline("%s warm.", Tobjnam(amu, "feel"));
+*/
+			pline("%sは暖かく感じた．", xname(amu));
 		    /* else, the amulet feels normal */
 		    break;
 		}
@@ -86,7 +102,10 @@ amulet()
 		mtmp->msleeping = 0;
 		if (distu(mtmp->mx,mtmp->my) > 2)
 		    You(
+/*JP
     "get the creepy feeling that somebody noticed your taking the Amulet."
+*/
+ "あなたが魔除けを持っていることが誰かに知られたと感じてぞくぞくした．"
 		    );
 		return;
 	    }
@@ -357,7 +376,10 @@ tactics(mtmp)
 
 			if ((otmp = on_ground(which_arti(targ))) != 0) {
 			    if (cansee(mtmp->mx, mtmp->my))
+/*JP
 				pline("%s picks up %s.",
+*/
+				pline("%sは%sを拾った．",
 				    Monnam(mtmp),
 				    (distu(mtmp->mx, mtmp->my) <= 5) ?
 				     doname(otmp) : distant_name(otmp, doname));
@@ -484,11 +506,17 @@ resurrect()
 
 	if (!flags.no_of_wizards) {
 	    /* make a new Wizard */
+/*JP
 	    verb = "kill";
+*/
+	    verb = "を討てし";
 	    mtmp = makemon(&mons[PM_WIZARD_OF_YENDOR], u.ux, u.uy, MM_NOWAIT);
 	} else {
 	    /* look for a migrating Wizard */
+/*JP
 	    verb = "elude";
+*/
+	    verb = "より逃れん";
 	    mmtmp = &migrating_mons;
 	    while ((mtmp = *mmtmp) != 0) {
 		if (mtmp->iswiz &&
@@ -517,8 +545,14 @@ resurrect()
 	if (mtmp) {
 		mtmp->msleeping = mtmp->mtame = mtmp->mpeaceful = 0;
 		set_malign(mtmp);
+/*JP
 		pline("A voice booms out...");
+*/
+		pline("声が高く鳴り響いた．．．");
+/*JP
 		verbalize("So thou thought thou couldst %s me, fool.", verb);
+*/
+		verbalize("余%sと思いしか，痴れ者が．", verb);
 	}
 
 }
@@ -532,10 +566,16 @@ intervene()
 	/* cases 0 and 5 don't apply on the Astral level */
 	switch (which) {
 	    case 0:
+/*JP
 	    case 1:	You_feel("vaguely nervous.");
+*/
+	    case 1:	You("何となく不安になった．");
 			break;
 	    case 2:	if (!Blind)
+/*JP
 			    You("notice a %s glow surrounding you.",
+*/
+			    pline("%s光があなたをとりまいているのに気がついた．",
 				  hcolor(NH_BLACK));
 			rndcurse();
 			break;
@@ -559,6 +599,7 @@ wizdead()
 }
 
 const char * const random_insult[] = {
+#if 0 /*JP*/
 	"antic",
 	"blackguard",
 	"caitiff",
@@ -587,9 +628,40 @@ const char * const random_insult[] = {
 	"wittol",
 	"worm",
 	"wretch",
+#else
+	"ふざけた野郎",
+	"悪党",
+	"くそったれ",
+	"のろま",
+	"あんぽんたん",
+	"臆病者",
+	"白痴",
+	"ろくでなし",
+	"うつけ",
+	"悪魔の餌食",
+	"うすのろ",
+	"まぬけ",
+	"馬鹿",
+	"おいはぎ",
+	"愚か者",
+	"ならず者",
+	"悪人",
+	"極悪人",
+	"馬鹿たれ",
+	"卑怯者",
+	"風船頭",
+	"道楽者",
+	"厄介者",
+	"下郎",
+	"奴隷",	/* (sic.) */
+	"ふなむし",
+	"蛆虫",
+	"人でなし",
+#endif
 };
 
 const char * const random_malediction[] = {
+#if 0 /*JP*/
 	"Hell shall soon claim thy remains,",
 	"I chortle at thee, thou pathetic",
 	"Prepare to die, thou",
@@ -601,6 +673,19 @@ const char * const random_malediction[] = {
 	"Thou art doomed,",
 	"Thy fate is sealed,",
 	"Verily, thou shalt be one dead"
+#else
+	"地獄はいづれ，汝の亡骸を要求するであろう，",
+	"哀れなやつよのう．余は満足じゃ",
+	"汝，死に備えよ",
+	"抵抗しても無駄じゃ，",
+	"降参せよ．さもなくば死じゃ．",
+	"慈悲は無からん",
+	"汝，ずるを後悔すべし，",
+	"汝は余にとってノミのようなものじゃ，",
+	"汝は呪われておる，",
+	"汝の運命は封印されておる，",
+	"まことに汝は死にたる者なり"
+#endif
 };
 
 /* Insult or intimidate the player */
@@ -610,22 +695,42 @@ register struct monst	*mtmp;
 {
 	if (mtmp->iswiz) {
 	    if (!rn2(5))  /* typical bad guy action */
+/*JP
 		pline("%s laughs fiendishly.", Monnam(mtmp));
+*/
+		pline("%sは悪魔のように笑った．", Monnam(mtmp));
 	    else
 		if (u.uhave.amulet && !rn2(SIZE(random_insult)))
+/*JP
 		    verbalize("Relinquish the amulet, %s!",
+*/
+		    verbalize("魔よけを手放せ，%s！",
 			  random_insult[rn2(SIZE(random_insult))]);
 		else if (u.uhp < 5 && !rn2(2))	/* Panic */
 		    verbalize(rn2(2) ?
+#if 0 /*JP*/
 			  "Even now thy life force ebbs, %s!" :
 			  "Savor thy breath, %s, it be thy last!",
+#else
+			  "今となってもなお汝の命はあえて衰えるのだ，%s！" :
+			  "息を味わっておけ，%s，汝の最期の時だ！",
+#endif
 			  random_insult[rn2(SIZE(random_insult))]);
 		else if (mtmp->mhp < 5 && !rn2(2))	/* Parthian shot */
 		    verbalize(rn2(2) ?
+#if 0 /*JP*/
 			      "I shall return." :
 			      "I'll be back.");
+#else
+			      "余は必ず帰ってくる．" :
+			      "余は戻ってくる．");
+#endif
 		else
+#if 0 /*JP*/
 		    verbalize("%s %s!",
+#else
+		    verbalize("%s，%s！",
+#endif
 			  random_malediction[rn2(SIZE(random_malediction))],
 			  random_insult[rn2(SIZE(random_insult))]);
 	} else if(is_lminion(mtmp)) {
@@ -633,7 +738,10 @@ register struct monst	*mtmp;
 			      QT_ANGELIC);
 	} else {
 	    if (!rn2(5))
+/*JP
 		pline("%s casts aspersions on your ancestry.", Monnam(mtmp));
+*/
+		pline("%sはあなたの家柄を中傷した．", Monnam(mtmp));
 	    else
 	        com_pager(rn2(QTN_DEMONIC) + QT_DEMONIC);
 	}

@@ -2,6 +2,12 @@
 /* Copyright (c) Stichting Mathematisch Centrum, Amsterdam, 1985. */
 /* NetHack may be freely redistributed.  See license for details. */
 
+/*
+**	Japanese version Copyright (c) Issei Numata 1994-2000
+**	For 3.4, Copyright (c) Kentaro Shirakata, 2002-2003
+**	JNetHack may be freely redistributed.  See license for details. 
+*/
+
 #include "hack.h"
 
 STATIC_DCL void FDECL(m_lose_armor, (struct monst *,struct obj *));
@@ -199,17 +205,31 @@ struct obj *obj;	/* item to make known if effect can be seen */
 
     if (give_msg && (mon->mspeed != oldspeed || petrify) && canseemon(mon)) {
 	/* fast to slow (skipping intermediate state) or vice versa */
+#if 0 /*JP*/
 	const char *howmuch = (mon->mspeed + oldspeed == MFAST + MSLOW) ?
 				"much " : "";
+#else
+	const char *howmuch = (mon->mspeed + oldspeed == MFAST + MSLOW) ?
+				"すごく" : "";
+#endif
 
 	if (petrify) {
 	    /* mimic the player's petrification countdown; "slowing down"
 	       even if fast movement rate retained via worn speed boots */
+/*JP
 	    if (flags.verbose) pline("%s is slowing down.", Monnam(mon));
+*/
+	    if (flags.verbose) pline("%sはのろくなった．", Monnam(mon));
 	} else if (adjust > 0 || mon->mspeed == MFAST)
+/*JP
 	    pline("%s is suddenly moving %sfaster.", Monnam(mon), howmuch);
+*/
+	    pline("%sの動きは突然%sすばやくなった．", Monnam(mon), howmuch);
 	else
+/*JP
 	    pline("%s seems to be moving %sslower.", Monnam(mon), howmuch);
+*/
+	    pline("%sの動きは%sのろくなったように見える．", Monnam(mon), howmuch);
 
 	/* might discover an object if we see the speed change happen, but
 	   avoid making possibly forgotten book known when casting its spell */
@@ -509,11 +529,19 @@ outer_break:
 		char buf[BUFSZ];
 
 		if (old)
+/*JP
 		    Sprintf(buf, " removes %s and", distant_name(old, doname));
+*/
+		    Sprintf(buf, "%sをはずして", distant_name(old, doname));
 		else
 		    buf[0] = '\0';
+#if 0 /*JP*/
 		pline("%s%s puts on %s.", Monnam(mon),
 		      buf, distant_name(best,doname));
+#else
+		pline("%sは%s%sを身につけた．", Monnam(mon),
+		      buf, distant_name(best,doname));
+#endif
 	    } /* can see it */
 	    m_delay += objects[best->otyp].oc_delay;
 	    mon->mfrozen = m_delay;
@@ -527,7 +555,10 @@ outer_break:
 	/* if couldn't see it but now can, or vice versa, */
 	if (!creation && (unseen ^ !canseemon(mon))) {
 		if (mon->minvis && !See_invisible) {
+/*JP
 			pline("Suddenly you cannot see %s.", nambuf);
+*/
+			pline("突然%sが見えなくなった．", nambuf);
 			makeknown(best->otyp);
 		} /* else if (!mon->minvis) pline("%s suddenly appears!", Amonnam(mon)); */
 	}
@@ -621,8 +652,10 @@ boolean polyspot;
 	struct permonst *mdat = mon->data;
 	boolean vis = cansee(mon->mx, mon->my);
 	boolean handless_or_tiny = (nohands(mdat) || verysmall(mdat));
+#if 0 /*JP*/
 	const char *pronoun = mhim(mon),
 			*ppronoun = mhis(mon);
+#endif
 
 	if (breakarm(mdat)) {
 	    if ((otmp = which_armor(mon, W_ARM)) != 0) {
@@ -633,54 +666,97 @@ boolean polyspot;
 			   "the dragon merges with his scaly armor" is odd
 			   and the monster's previous form is already gone */
 		else if (vis)
+/*JP
 		    pline("%s breaks out of %s armor!", Monnam(mon), ppronoun);
+*/
+		    pline("%sは鎧をやぶり出た！", Monnam(mon));
 		else
+/*JP
 		    You_hear("a cracking sound.");
+*/
+		    You_hear("バリバリという音を聞いた．");
 		m_useup(mon, otmp);
 	    }
 	    if ((otmp = which_armor(mon, W_ARMC)) != 0) {
 		if (otmp->oartifact) {
 		    if (vis)
+#if 0 /*JP*/
 			pline("%s %s falls off!", s_suffix(Monnam(mon)),
 				cloak_simple_name(otmp));
+#else
+			pline("%sの%sは落ちた！", Monnam(mon),
+				cloak_simple_name(otmp));
+#endif
 		    if (polyspot) bypass_obj(otmp);
 		    m_lose_armor(mon, otmp);
 		} else {
 		    if (vis)
+#if 0 /*JP*/
 			pline("%s %s tears apart!", s_suffix(Monnam(mon)),
 				cloak_simple_name(otmp));
+#else
+			pline("%sの%sはずたずたになった！", Monnam(mon),
+				cloak_simple_name(otmp));
+#endif
 		    else
+/*JP
 			You_hear("a ripping sound.");
+*/
+			You_hear("ビリッという音を聞いた．");
 		    m_useup(mon, otmp);
 		}
 	    }
 #ifdef TOURIST
 	    if ((otmp = which_armor(mon, W_ARMU)) != 0) {
 		if (vis)
+/*JP
 		    pline("%s shirt rips to shreds!", s_suffix(Monnam(mon)));
+*/
+		    pline("%sのシャツはずたずたになった！", Monnam(mon));
 		else
+/*JP
 		    You_hear("a ripping sound.");
+*/
+		    You_hear("ビリッという音を聞いた．");
 		m_useup(mon, otmp);
 	    }
 #endif
 	} else if (sliparm(mdat)) {
 	    if ((otmp = which_armor(mon, W_ARM)) != 0) {
 		if (vis)
+#if 0 /*JP*/
 		    pline("%s armor falls around %s!",
 				 s_suffix(Monnam(mon)), pronoun);
+#else
+		    pline("%sの鎧が回りに落ちた！", 
+			         Monnam(mon));
+#endif
 		else
+/*JP
 		    You_hear("a thud.");
+*/
+		    You_hear("ドシンという音を聞いた．");
 		if (polyspot) bypass_obj(otmp);
 		m_lose_armor(mon, otmp);
 	    }
 	    if ((otmp = which_armor(mon, W_ARMC)) != 0) {
 		if (vis) {
 		    if (is_whirly(mon->data))
+#if 0 /*JP*/
 			pline("%s %s falls, unsupported!",
 				     s_suffix(Monnam(mon)), cloak_simple_name(otmp));
+#else
+			pline("%sの%sは支えきれずに落ちた！", 
+				     Monnam(mon), cloak_simple_name(otmp));
+#endif
 		    else
+#if 0 /*JP*/
 			pline("%s shrinks out of %s %s!", Monnam(mon),
 						ppronoun, cloak_simple_name(otmp));
+#else
+			pline("%sは%sより縮んだ！", Monnam(mon),
+						cloak_simple_name(otmp));
+#endif
 		}
 		if (polyspot) bypass_obj(otmp);
 		m_lose_armor(mon, otmp);
@@ -689,11 +765,21 @@ boolean polyspot;
 	    if ((otmp = which_armor(mon, W_ARMU)) != 0) {
 		if (vis) {
 		    if (sliparm(mon->data))
+#if 0 /*JP*/
 			pline("%s seeps right through %s shirt!",
 					Monnam(mon), ppronoun);
+#else
+			pline("%sは自分のシャツにしみ込んだ！",
+					Monnam(mon));
+#endif
 		    else
+#if 0 /*JP*/
 			pline("%s becomes much too small for %s shirt!",
 					Monnam(mon), ppronoun);
+#else
+			pline("%sは自分のシャツよりずっと小さくなった！",
+					Monnam(mon));
+#endif
 		}
 		if (polyspot) bypass_obj(otmp);
 		m_lose_armor(mon, otmp);
@@ -704,17 +790,29 @@ boolean polyspot;
 	    /* [caller needs to handle weapon checks] */
 	    if ((otmp = which_armor(mon, W_ARMG)) != 0) {
 		if (vis)
+#if 0 /*JP*/
 		    pline("%s drops %s gloves%s!", Monnam(mon), ppronoun,
 					MON_WEP(mon) ? " and weapon" : "");
+#else
+		    pline("%sは小手%sを落した！", Monnam(mon), 
+					MON_WEP(mon) ? "と武器" : "");
+#endif
 		if (polyspot) bypass_obj(otmp);
 		m_lose_armor(mon, otmp);
 	    }
 	    if ((otmp = which_armor(mon, W_ARMS)) != 0) {
 		if (vis)
+#if 0 /*JP*/
 		    pline("%s can no longer hold %s shield!", Monnam(mon),
 								ppronoun);
+#else
+		    pline("%sはもはや盾を持つことができない！", Monnam(mon));
+#endif
 		else
+/*JP
 		    You_hear("a clank.");
+*/
+		    You_hear("ガチャンという音を聞いた．");
 		if (polyspot) bypass_obj(otmp);
 		m_lose_armor(mon, otmp);
 	    }
@@ -724,10 +822,18 @@ boolean polyspot;
 		    /* flimsy test for horns matches polyself handling */
 		    (handless_or_tiny || !is_flimsy(otmp))) {
 		if (vis)
+#if 0 /*JP*/
 		    pline("%s helmet falls to the %s!",
 			  s_suffix(Monnam(mon)), surface(mon->mx, mon->my));
+#else
+		    pline("%sの兜は%sへ落ちた！", 
+			  Monnam(mon), surface(mon->mx, mon->my));
+#endif
 		else
+/*JP
 		    You_hear("a clank.");
+*/
+		    You_hear("ガチャンという音を聞いた．");
 		if (polyspot) bypass_obj(otmp);
 		m_lose_armor(mon, otmp);
 	    }
@@ -736,11 +842,20 @@ boolean polyspot;
 	    if ((otmp = which_armor(mon, W_ARMF)) != 0) {
 		if (vis) {
 		    if (is_whirly(mon->data))
+/*JP
 			pline("%s boots fall away!",
+*/
+			pline("%sの靴はぬげ落ちた！", 
 				       s_suffix(Monnam(mon)));
+#if 0 /*JP*/
 		    else pline("%s boots %s off %s feet!",
 			s_suffix(Monnam(mon)),
 			verysmall(mdat) ? "slide" : "are pushed", ppronoun);
+#else
+		    else pline("%sの靴は足から%s！", 
+			Monnam(mon),
+			verysmall(mdat) ? "滑り落ちた" : "引っぱられた");
+#endif
 		}
 		if (polyspot) bypass_obj(otmp);
 		m_lose_armor(mon, otmp);
@@ -752,20 +867,34 @@ boolean polyspot;
 		if (polyspot) bypass_obj(otmp);
 		m_lose_armor(mon, otmp);
 		if (vis)
+/*JP
 		    pline("%s saddle falls off.", s_suffix(Monnam(mon)));
+*/
+		    pline("%sから鞍が落ちた．", Monnam(mon));
 	    }
 	    if (mon == u.usteed)
 		goto noride;
 	} else if (mon == u.usteed && !can_ride(mon)) {
 	noride:
+/*JP
 	    You("can no longer ride %s.", mon_nam(mon));
+*/
+	    You("もう%sに乗っていられない．", mon_nam(mon));
 	    if (touch_petrifies(u.usteed->data) &&
 			!Stone_resistance && rnl(3)) {
 		char buf[BUFSZ];
 
+/*JP
 		You("touch %s.", mon_nam(u.usteed));
+*/
+		You("%sに触った．", mon_nam(u.usteed));
+#if 0 /*JP*/
 		Sprintf(buf, "falling off %s",
 				an(u.usteed->data->mname));
+#else
+		Sprintf(buf, "%sから落ちて",
+				a_monnam(u.usteed));
+#endif
 		instapetrify(buf);
 	    }
 	    dismount_steed(DISMOUNT_FELL);

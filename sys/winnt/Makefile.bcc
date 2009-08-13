@@ -120,6 +120,7 @@ NTSYS = ..\sys\winnt # NT Win32 specific files
 TTY   = ..\win\tty   # window port files (tty)
 WIN32 = ..\win\win32 # window port files (Win32)
 WSHR  = ..\win\share # Tile support files 
+JP    = ..\japanese
 
 #
 #  Object directory.
@@ -370,6 +371,8 @@ O  = $(OBJ)^\
 
 U  = $(UTIL)^\
 
+J  = $(JP)^\
+
 #
 # Utility Objects.
 #
@@ -453,7 +456,9 @@ TILOBJ = $(WINPORT)
 
 VVOBJ  = $(O)version.o
 
-ALLOBJ  = $(TILOBJ) $(SOBJ) $(DLBOBJ)  $(TTYOBJ) $(WOBJ) $(OBJS) $(VVOBJ)
+JOBJ   = $(O)jconj.o $(O)jlib.o $(O)jtrns.o
+
+ALLOBJ  = $(TILOBJ) $(SOBJ) $(DLBOBJ)  $(TTYOBJ) $(WOBJ) $(OBJS) $(VVOBJ) $(JOBJ)
 
 
 !IF "$(GRAPHICAL)" == "Y"
@@ -496,7 +501,7 @@ TILE_H      = ..\win\share\tile.h
 # Miscellaneous
 #==========================================
 
-DATABASE = $(DAT)\data.base
+DATABASE = $(DAT)\jdata.base
 
 #
 #  The name of the game.
@@ -910,6 +915,8 @@ $(U)dgn_$(LEX).c: $(U)dgn_comp.l
 
 $(INCL)\win32api.h: $(NTSYS)\win32api.h
 	copy $(NTSYS)\win32api.h $@
+$(INCL)\jdata.h: $(U)makedefs.exe $(DAT)\jtrnsobj.dat $(DAT)\jtrnsmon.dat
+	$(U)makedefs -j
 
 
 #==========================================
@@ -935,19 +942,19 @@ nhdat:	$(U)dlb_main.exe $(DAT)\data $(DAT)\oracles $(OPTIONS_FILE) \
 	$(DAT)\license $(O)sp_lev.tag
 	cd $(DAT)
 	echo data >dlb.lst
-	echo oracles >>dlb.lst
+	echo joracles >>dlb.lst
 	if exist options echo options >>dlb.lst
 	if exist ttyoptions echo ttyoptions >>dlb.lst
 	if exist guioptions echo guioptions >>dlb.lst
 	if exist porthelp echo porthelp >>dlb.lst
 	echo quest.dat >>dlb.lst
-	echo rumors >>dlb.lst
-	echo help >>dlb.lst
-	echo hh >>dlb.lst
-	echo cmdhelp >>dlb.lst
-	echo history >>dlb.lst
-	echo opthelp >>dlb.lst
-	echo wizhelp >>dlb.lst
+	echo jrumors >>dlb.lst
+	echo jhelp >>dlb.lst
+	echo jhh >>dlb.lst
+	echo jcmdhelp >>dlb.lst
+	echo jhistory >>dlb.lst
+	echo jopthelp >>dlb.lst
+	echo jwizhelp >>dlb.lst
 	echo dungeon >>dlb.lst
 	echo license >>dlb.lst
 	for %N in (*.lev) do echo %N >>dlb.lst
@@ -1102,7 +1109,7 @@ $(DAT)\data: $(O)utility.tag    $(DATABASE)
 $(DAT)\rumors: $(O)utility.tag    $(DAT)\rumors.tru   $(DAT)\rumors.fal
 	$(U)makedefs -r
 
-$(DAT)\quest.dat: $(O)utility.tag  $(DAT)\quest.txt
+$(DAT)\quest.dat: $(O)utility.tag  $(DAT)\jquest.txt
 	$(U)makedefs -q
 
 $(DAT)\oracles: $(O)utility.tag    $(DAT)\oracles.txt
@@ -1373,6 +1380,10 @@ $(O)worm.o: worm.c $(HACK_H) $(INCL)\lev.h
 $(O)worn.o: worn.c $(HACK_H)
 $(O)write.o: write.c $(HACK_H)
 $(O)zap.o: zap.c $(HACK_H)
+#JNH
+$(O)jlib.o: $(JP)\jlib.c $(HACK_H)
+$(O)jconj.o: $(JP)\jconj.c $(HACK_H)
+$(O)jtrns.o: $(JP)\jtrns.c $(HACK_H) $(INCL)\jdata.h
 
 # end of file
 

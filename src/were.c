@@ -2,6 +2,13 @@
 /* Copyright (c) Stichting Mathematisch Centrum, Amsterdam, 1985. */
 /* NetHack may be freely redistributed.  See license for details. */
 
+/*
+**	Japanese version Copyright
+**	(c) Issei Numata, Naoki Hamada, Shigehiro Miyashita, 1994-2000
+**	For 3.4, Copyright (c) Kentaro Shirakata, 2002-2003
+**	JNetHack may be freely redistributed.  See license for details. 
+*/
+
 #include "hack.h"
 
 #ifdef OVL0
@@ -22,12 +29,20 @@ register struct monst *mon;
 		    const char *howler;
 
 		    switch (monsndx(mon->data)) {
+#if 0 /*JP*/
 		    case PM_WEREWOLF:	howler = "wolf";    break;
 		    case PM_WEREJACKAL: howler = "jackal";  break;
+#else
+		    case PM_WEREWOLF:	howler = "狼";      break;
+		    case PM_WEREJACKAL: howler = "ジャッカル";break;
+#endif
 		    default:		howler = (char *)0; break;
 		    }
 		    if (howler)
+/*JP
 			You_hear("a %s howling at the moon.", howler);
+*/
+			You_hear("月夜に%sが吠える声を聞いた．", howler);
 		}
 	    }
 	} else if (!rn2(30) || Protection_from_shape_changers) {
@@ -68,9 +83,15 @@ register struct monst *mon;
 	}
 
 	if(canseemon(mon) && !Hallucination)
+#if 0 /*JP*/
 	    pline("%s changes into a %s.", Monnam(mon),
 			is_human(&mons[pm]) ? "human" :
 			mons[pm].mname+4);
+#else
+	    pline("%sは%sの姿になった．", Monnam(mon),
+			is_human(&mons[pm]) ? "人間" :
+			jtrns_mon(mons[pm].mname + 4));
+#endif
 
 	set_mon_data(mon, &mons[pm], 0);
 	if (mon->msleeping || !mon->mcanmove) {
@@ -140,8 +161,13 @@ you_were()
 	if (Unchanging || (u.umonnum == u.ulycn)) return;
 	if (Polymorph_control) {
 	    /* `+4' => skip "were" prefix to get name of beast */
+#if 0 /*JP*/
 	    Sprintf(qbuf, "Do you want to change into %s? ",
 		    an(mons[u.ulycn].mname+4));
+#else
+	    Sprintf(qbuf,"%sに変化しますか？",
+		    jtrns_mon(mons[u.ulycn].mname + 4));
+#endif
 	    if(yn(qbuf) == 'n') return;
 	}
 	(void) polymon(u.ulycn);
@@ -152,11 +178,18 @@ you_unwere(purify)
 boolean purify;
 {
 	if (purify) {
+/*JP
 	    You_feel("purified.");
+*/
+	    You("浄められたような気がした．");
 	    u.ulycn = NON_PM;	/* cure lycanthropy */
 	}
 	if (!Unchanging && is_were(youmonst.data) &&
+#if 0 /*JP*/
 		(!Polymorph_control || yn("Remain in beast form?") == 'n'))
+#else
+		(!Polymorph_control || yn("獣の姿のままでいる？") == 'n'))
+#endif
 	    rehumanize();
 }
 

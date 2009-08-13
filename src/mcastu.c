@@ -2,6 +2,13 @@
 /* Copyright (c) Stichting Mathematisch Centrum, Amsterdam, 1985. */
 /* NetHack may be freely redistributed.  See license for details. */
 
+/*
+**	Japanese version Copyright
+**	(c) Issei Numata, Naoki Hamada, Shigehiro Miyashita, 1994-2000
+**	For 3.4, Copyright (c) Kentaro Shirakata, 2002-2003
+**	JNetHack may be freely redistributed.  See license for details. 
+*/
+
 #include "hack.h"
 
 /* monster mage spells */
@@ -53,21 +60,39 @@ boolean undirected;
 	    const char *point_msg;  /* spellcasting monsters are impolite */
 
 	    if (undirected)
+/*JP
 		point_msg = "all around, then curses";
+*/
+		point_msg = "あたり一面を";
 	    else if ((Invis && !perceives(mtmp->data) &&
 			(mtmp->mux != u.ux || mtmp->muy != u.uy)) ||
 		    (youmonst.m_ap_type == M_AP_OBJECT &&
 			youmonst.mappearance == STRANGE_OBJECT) ||
 		    u.uundetected)
+/*JP
 		point_msg = "and curses in your general direction";
+*/
+		point_msg = "あなたのいるあたりを";
 	    else if (Displaced && (mtmp->mux != u.ux || mtmp->muy != u.uy))
+/*JP
 		point_msg = "and curses at your displaced image";
+*/
+		point_msg = "あなたの幻影を";
 	    else
+/*JP
 		point_msg = "at you, then curses";
+*/
+		point_msg = "あなたを";
 
+/*JP
 	    pline("%s points %s.", Monnam(mtmp), point_msg);
+*/
+	    pline("%sは%s指差し，呪いをかけた．", Monnam(mtmp), point_msg);
 	} else if ((!(moves % 4) || !rn2(4))) {
+/*JP
 	    if (flags.soundok) Norep("You hear a mumbled curse.");
+*/
+	    if (flags.soundok) Norep("呪いの言葉をつぶやく声を聞いた．");
 	}
 }
 
@@ -221,20 +246,31 @@ castmu(mtmp, mattk, thinks_it_foundyou, foundyou)
 	   penalizing mspec_used. */
 	if (!foundyou && thinks_it_foundyou &&
 		!is_undirected_spell(mattk->adtyp, spellnum)) {
+#if 0 /*JP*/
 	    pline("%s casts a spell at %s!",
 		canseemon(mtmp) ? Monnam(mtmp) : "Something",
 		levl[mtmp->mux][mtmp->muy].typ == WATER
 		    ? "empty water" : "thin air");
+#else
+	    pline("%sは何もない%sに魔法をかけた！",
+		canseemon(mtmp) ? Monnam(mtmp) : "何者か",
+		levl[mtmp->mux][mtmp->muy].typ == WATER
+		    ? "水中" : "空間");
+#endif
 	    return(0);
 	}
 
 	nomul(0);
 	if(rn2(ml*10) < (mtmp->mconf ? 100 : 20)) {	/* fumbled attack */
 	    if (canseemon(mtmp) && flags.soundok)
+/*JP
 		pline_The("air crackles around %s.", mon_nam(mtmp));
+*/
+		pline("%sの回りの空気がパチパチ音をたてている．", mon_nam(mtmp));
 	    return(0);
 	}
 	if (canspotmon(mtmp) || !is_undirected_spell(mattk->adtyp, spellnum)) {
+#if 0 /*JP*/
 	    pline("%s casts a spell%s!",
 		  canspotmon(mtmp) ? Monnam(mtmp) : "Something",
 		  is_undirected_spell(mattk->adtyp, spellnum) ? "" :
@@ -244,6 +280,21 @@ castmu(mtmp, mattk, thinks_it_foundyou, foundyou)
 		  (Displaced && (mtmp->mux != u.ux || mtmp->muy != u.uy)) ?
 		  " at your displaced image" :
 		  " at you");
+#else
+	    char *who = (canspotmon(mtmp) ? Monnam(mtmp) : "何者か");
+		if(is_undirected_spell(mattk->adtyp, spellnum)){
+		    pline("%sは呪文を唱えた！", who);
+		} else {
+		    pline("%sはあなた%sに魔法をかけた！",
+			  who,
+			  (Invisible && !perceives(mtmp->data) && 
+			   (mtmp->mux != u.ux || mtmp->muy != u.uy)) ?
+			  "のすぐそば" :
+			  (Displaced && (mtmp->mux != u.ux || mtmp->muy != u.uy)) ?
+			  "の幻影" :
+			  "");
+		}
+#endif
 	}
 
 /*
@@ -268,27 +319,45 @@ castmu(mtmp, mattk, thinks_it_foundyou, foundyou)
 	switch (mattk->adtyp) {
 
 	    case AD_FIRE:
+/*JP
 		pline("You're enveloped in flames.");
+*/
+		You("炎につつまれた．");
 		if(Fire_resistance) {
 			shieldeff(u.ux, u.uy);
+/*JP
 			pline("But you resist the effects.");
+*/
+			pline("しかし，あなたは影響を受けない．");
 			dmg = 0;
 		}
 		burn_away_slime();
 		break;
 	    case AD_COLD:
+/*JP
 		pline("You're covered in frost.");
+*/
+		You("氷に覆われた．");
 		if(Cold_resistance) {
 			shieldeff(u.ux, u.uy);
+/*JP
 			pline("But you resist the effects.");
+*/
+			pline("しかし，あなたは影響を受けない．");
 			dmg = 0;
 		}
 		break;
 	    case AD_MAGM:
+/*JP
 		You("are hit by a shower of missiles!");
+*/
+		You("魔法の矢をくらった！");
 		if(Antimagic) {
 			shieldeff(u.ux, u.uy);
+/*JP
 			pline_The("missiles bounce off!");
+*/
+			pline("魔法の矢は反射した！");
 			dmg = 0;
 		} else dmg = d((int)mtmp->m_lev/2 + 1,6);
 		break;
@@ -330,26 +399,44 @@ int spellnum;
 
     switch (spellnum) {
     case MGC_DEATH_TOUCH:
+/*JP
 	pline("Oh no, %s's using the touch of death!", mhe(mtmp));
+*/
+	pline("なんてこったい，%sは死の宣告を使っている！", mhe(mtmp));
 	if (nonliving(youmonst.data) || is_demon(youmonst.data)) {
+/*JP
 	    You("seem no deader than before.");
+*/
+	    You("これ以上死ねないようだ．");
 	} else if (!Antimagic && rn2(mtmp->m_lev) > 12) {
 	    if (Hallucination) {
+/*JP
 		You("have an out of body experience.");
+*/
+		You("幽体離脱を体験した．");
 	    } else {
 		killer_format = KILLED_BY_AN;
+/*JP
 		killer = "touch of death";
+*/
+		killer = "死の宣告で";
 		done(DIED);
 	    }
 	} else {
 	    if (Antimagic) shieldeff(u.ux, u.uy);
+/*JP
 	    pline("Lucky for you, it didn't work!");
+*/
+	    pline("運のよいことになんともなかった！");
 	}
 	dmg = 0;
 	break;
     case MGC_CLONE_WIZ:
 	if (mtmp->iswiz && flags.no_of_wizards == 1) {
+/*JP
 	    pline("Double Trouble...");
+*/
+	    pline("二重苦だ．．．");
 	    clonewiz();
 	    dmg = 0;
 	} else
@@ -361,49 +448,83 @@ int spellnum;
 
 	count = nasty(mtmp);	/* summon something nasty */
 	if (mtmp->iswiz)
+/*JP
 	    verbalize("Destroy the thief, my pet%s!", plur(count));
+*/
+	    verbalize("盗賊を殺せ！我が下僕よ！");
 	else {
+#if 0 /*JP*/
 	    const char *mappear =
 		(count == 1) ? "A monster appears" : "Monsters appear";
+#else
+	    const char *mappear = "怪物が%s現れた！";
+#endif
 
 	    /* messages not quite right if plural monsters created but
 	       only a single monster is seen */
 	    if (Invisible && !perceives(mtmp->data) &&
 				    (mtmp->mux != u.ux || mtmp->muy != u.uy))
+/*JP
 		pline("%s around a spot near you!", mappear);
+*/
+		pline(mappear, "あなたのすぐそばに");
 	    else if (Displaced && (mtmp->mux != u.ux || mtmp->muy != u.uy))
+/*JP
 		pline("%s around your displaced image!", mappear);
+*/
+		pline(mappear, "あなたの幻影のすぐそばに");
 	    else
+/*JP
 		pline("%s from nowhere!", mappear);
+*/
+		pline(mappear, "どこからともなく");
 	}
 	dmg = 0;
 	break;
     }
     case MGC_AGGRAVATION:
+/*JP
 	You_feel("that monsters are aware of your presence.");
+*/
+	You_feel("怪物たちがあなたの存在に気付いたような気がした．");
 	aggravate();
 	dmg = 0;
 	break;
     case MGC_CURSE_ITEMS:
+/*JP
 	You_feel("as if you need some help.");
+*/
+	You_feel("助けが必要な気がした．");
 	rndcurse();
 	dmg = 0;
 	break;
     case MGC_DESTRY_ARMR:
 	if (Antimagic) {
 	    shieldeff(u.ux, u.uy);
+/*JP
 	    pline("A field of force surrounds you!");
+*/
+	    pline("不思議な力があなたをとりまいた！");
 	} else if (!destroy_arm(some_armor(&youmonst))) {
+/*JP
 	    Your("skin itches.");
+*/
+	    You("ムズムズした．");
 	}
 	dmg = 0;
 	break;
     case MGC_WEAKEN_YOU:		/* drain strength */
 	if (Antimagic) {
 	    shieldeff(u.ux, u.uy);
+/*JP
 	    You_feel("momentarily weakened.");
+*/
+	    You_feel("一瞬弱くなったような気がした．");
 	} else {
+/*JP
 	    You("suddenly feel weaker!");
+*/
+	    You("突然弱くなったような気がした．");
 	    dmg = mtmp->m_lev - 6;
 	    if (Half_spell_damage) dmg = (dmg + 1) / 2;
 	    losestr(rnd(dmg));
@@ -415,8 +536,13 @@ int spellnum;
     case MGC_DISAPPEAR:		/* makes self invisible */
 	if (!mtmp->minvis && !mtmp->invis_blkd) {
 	    if (canseemon(mtmp))
+#if 0 /*JP*/
 		pline("%s suddenly %s!", Monnam(mtmp),
 		      !See_invisible ? "disappears" : "becomes transparent");
+#else
+		pline("%sは突然%s！", Monnam(mtmp),
+		      !See_invisible ? "消えた" : "透明になった");
+#endif
 	    mon_set_minvis(mtmp);
 	    dmg = 0;
 	} else
@@ -426,10 +552,16 @@ int spellnum;
 	if (Antimagic || Free_action) {
 	    shieldeff(u.ux, u.uy);
 	    if (!Stunned)
+/*JP
 		You_feel("momentarily disoriented.");
+*/
+		You("一瞬方向感覚を失った．");
 	    make_stunned(1L, FALSE);
 	} else {
+/*JP
 	    You(Stunned ? "struggle to keep your balance." : "reel...");
+*/
+	    You(Stunned ? "バランスを取ろうともがいた．" : "よろめいた．．．");
 	    dmg = d(ACURR(A_DEX) < 12 ? 6 : 4, 4);
 	    if (Half_spell_damage) dmg = (dmg + 1) / 2;
 	    make_stunned(HStun + dmg, FALSE);
@@ -443,7 +575,10 @@ int spellnum;
     case MGC_CURE_SELF:
 	if (mtmp->mhp < mtmp->mhpmax) {
 	    if (canseemon(mtmp))
+/*JP
 		pline("%s looks better.", Monnam(mtmp));
+*/
+		pline("%sは気分がよくなったようだ．", Monnam(mtmp));
 	    /* note: player healing does 6d4; this used to do 1d8 */
 	    if ((mtmp->mhp += d(3,6)) > mtmp->mhpmax)
 		mtmp->mhp = mtmp->mhpmax;
@@ -463,13 +598,25 @@ int spellnum;
 	    return;
 	}
 	if (dmg <= 5)
+/*JP
 	    You("get a slight %sache.", body_part(HEAD));
+*/
+	    You("ちょっと%s痛がした．",body_part(HEAD));
 	else if (dmg <= 10)
+/*JP
 	    Your("brain is on fire!");
+*/
+	    You("怒りにつつまれた！");
 	else if (dmg <= 20)
+/*JP
 	    Your("%s suddenly aches painfully!", body_part(HEAD));
+*/
+	    You("突然%s痛におそわれた！", body_part(HEAD));
 	else
+/*JP
 	    Your("%s suddenly aches very painfully!", body_part(HEAD));
+*/
+	    You("突然激しい%s痛におそわれた！", body_part(HEAD));
 	break;
     default:
 	impossible("mcastu: invalid magic spell (%d)", spellnum);
@@ -495,12 +642,18 @@ int spellnum;
     switch (spellnum) {
     case CLC_GEYSER:
 	/* this is physical damage, not magical damage */
+/*JP
 	pline("A sudden geyser slams into you from nowhere!");
+*/
+	pline("濁流がどこからともなく現れてあなたを打ちつけた！");
 	dmg = d(8, 6);
 	if (Half_physical_damage) dmg = (dmg + 1) / 2;
 	break;
     case CLC_FIRE_PILLAR:
+/*JP
 	pline("A pillar of fire strikes all around you!");
+*/
+	pline("あなたの周りに火柱が立った！");
 	if (Fire_resistance) {
 	    shieldeff(u.ux, u.uy);
 	    dmg = 0;
@@ -518,8 +671,14 @@ int spellnum;
     {
 	boolean reflects;
 
+/*JP
 	pline("A bolt of lightning strikes down at you from above!");
+*/
+	pline("あなたの真上から稲妻が降り注いだ！");
+/*JP
 	reflects = ureflects("It bounces off your %s%s.", "");
+*/
+	reflects = ureflects("それはあなたの%s%sで跳ね返った．", "");
 	if (reflects || Shock_resistance) {
 	    shieldeff(u.ux, u.uy);
 	    dmg = 0;
@@ -533,7 +692,10 @@ int spellnum;
 	break;
     }
     case CLC_CURSE_ITEMS:
+/*JP
 	You_feel("as if you need some help.");
+*/
+	You_feel("助けが必要な気がした．");
 	rndcurse();
 	dmg = 0;
 	break;
@@ -570,30 +732,54 @@ int spellnum;
          * -- message assumes plural monsters seen
          */
 	if (!success)
+#if 0 /*JP*/
 	    pline("%s casts at a clump of sticks, but nothing happens.",
+#else
+	    pline("%sは棒切れに魔法をかけたが，なにもおこらなかった．",
+#endif
 		Monnam(mtmp));
 	else if (let == S_SNAKE)
+#if 0 /*JP*/
 	    pline("%s transforms a clump of sticks into snakes!",
+#else
+	    pline("%sは棒切れをヘビに変えた！",
+#endif
 		Monnam(mtmp));
 	else if (Invisible && !perceives(mtmp->data) &&
 				(mtmp->mux != u.ux || mtmp->muy != u.uy))
+#if 0 /*JP*/
 	    pline("%s summons insects around a spot near you!",
+#else
+	    pline("%sは虫をあなたのすぐそばに召喚した！",
+#endif
 		Monnam(mtmp));
 	else if (Displaced && (mtmp->mux != u.ux || mtmp->muy != u.uy))
+#if 0 /*JP*/
 	    pline("%s summons insects around your displaced image!",
+#else
+	    pline("%sは虫をあなたの幻影の周りに召喚した！",
+#endif
 		Monnam(mtmp));
 	else
+#if 0 /*JP*/
 	    pline("%s summons insects!", Monnam(mtmp));
+#else
+	    pline("%sは虫を召喚した！", Monnam(mtmp));
+#endif
 	dmg = 0;
 	break;
       }
     case CLC_BLIND_YOU:
 	/* note: resists_blnd() doesn't apply here */
 	if (!Blinded) {
+#if 0 /*JP*/
 	    int num_eyes = eyecount(youmonst.data);
 	    pline("Scales cover your %s!",
 		  (num_eyes == 1) ?
 		  body_part(EYE) : makeplural(body_part(EYE)));
+#else
+	    pline("鱗があなたの%sを覆った！", body_part(EYE));
+#endif
 	    make_blinded(Half_spell_damage ? 100L : 200L, FALSE);
 	    if (!Blind) Your(vision_clears);
 	    dmg = 0;
@@ -604,11 +790,17 @@ int spellnum;
 	if (Antimagic || Free_action) {
 	    shieldeff(u.ux, u.uy);
 	    if (multi >= 0)
+/*JP
 		You("stiffen briefly.");
+*/
+		You("一瞬硬直した．");
 	    nomul(-1);
 	} else {
 	    if (multi >= 0)
+/*JP
 		You("are frozen in place!");
+*/
+		You("その場で動けなくなった！");
 	    dmg = 4 + (int)mtmp->m_lev;
 	    if (Half_spell_damage) dmg = (dmg + 1) / 2;
 	    nomul(-dmg);
@@ -618,7 +810,10 @@ int spellnum;
     case CLC_CONFUSE_YOU:
 	if (Antimagic) {
 	    shieldeff(u.ux, u.uy);
+/*JP
 	    You_feel("momentarily dizzy.");
+*/
+	    You("一瞬めまいがした．");
 	} else {
 	    boolean oldprop = !!Confusion;
 
@@ -626,16 +821,28 @@ int spellnum;
 	    if (Half_spell_damage) dmg = (dmg + 1) / 2;
 	    make_confused(HConfusion + dmg, TRUE);
 	    if (Hallucination)
+#if 0 /*JP*/
 		You_feel("%s!", oldprop ? "trippier" : "trippy");
+#else
+		You("%sへろへろになった！", oldprop ? "もっと" : "");
+#endif
 	    else
+#if 0 /*JP*/
 		You_feel("%sconfused!", oldprop ? "more " : "");
+#else
+		You("%s混乱した！", oldprop ? "もっと" : "");
+#endif
 	}
 	dmg = 0;
 	break;
     case CLC_CURE_SELF:
 	if (mtmp->mhp < mtmp->mhpmax) {
 	    if (canseemon(mtmp))
+#if 0 /*JP*/
 		pline("%s looks better.", Monnam(mtmp));
+#else
+		pline("%sは気分がよくなったようだ．", Monnam(mtmp));
+#endif
 	    /* note: player healing does 6d4; this used to do 1d8 */
 	    if ((mtmp->mhp += d(3,6)) > mtmp->mhpmax)
 		mtmp->mhp = mtmp->mhpmax;
@@ -648,13 +855,25 @@ int spellnum;
 	    dmg = (dmg + 1) / 2;
 	}
 	if (dmg <= 5)
+/*JP
 	    Your("skin itches badly for a moment.");
+*/
+	    Your("皮膚は一瞬，ムズムズっとした．");
 	else if (dmg <= 10)
+/*JP
 	    pline("Wounds appear on your body!");
+*/
+	    pline("傷があなたの体に出来た！");
 	else if (dmg <= 20)
+/*JP
 	    pline("Severe wounds appear on your body!");
+*/
+	    pline("ひどい傷があなたの体に出来た！");
 	else
+/*JP
 	    Your("body is covered with painful wounds!");
+*/
+	    pline("体が傷だらけになった！");
 	break;
     default:
 	impossible("mcastu: invalid clerical spell (%d)", spellnum);
@@ -779,7 +998,10 @@ buzzmu(mtmp, mattk)		/* monster uses spell (ranged) */
 	    nomul(0);
 	    if(mattk->adtyp && (mattk->adtyp < 11)) { /* no cf unsigned >0 */
 		if(canseemon(mtmp))
+/*JP
 		    pline("%s zaps you with a %s!", Monnam(mtmp),
+*/
+		    pline("%sは%sをあなたに向けて放った．", Monnam(mtmp),
 			  flash_types[ad_to_typ(mattk->adtyp)]);
 		buzz(-ad_to_typ(mattk->adtyp), (int)mattk->damn,
 		     mtmp->mx, mtmp->my, sgn(tbx), sgn(tby));

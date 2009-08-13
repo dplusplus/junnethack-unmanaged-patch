@@ -2,6 +2,13 @@
 /* Copyright (c) Stichting Mathematisch Centrum, Amsterdam, 1985. */
 /* NetHack may be freely redistributed.  See license for details. */
 
+/*
+**	Japanese version Copyright
+**	(c) Issei Numata, Naoki Hamada, Shigehiro Miyashita, 1994-2000
+**	For 3.4, Copyright (c) Kentaro Shirakata, 2002-2003
+**	JNetHack may be freely redistributed.  See license for details. 
+*/
+
 /* various code that was replicated in *main.c */
 
 #include "hack.h"
@@ -28,14 +35,23 @@ moveloop()
 
     flags.moonphase = phase_of_the_moon();
     if(flags.moonphase == FULL_MOON) {
+/*JP
 	You("are lucky!  Full moon tonight.");
+*/
+	        pline("ラッキー！今晩は満月だ．");
 	change_luck(1);
     } else if(flags.moonphase == NEW_MOON) {
+/*JP
 	pline("Be careful!  New moon tonight.");
+*/
+	        pline("注意しろ！今晩は新月だ．");
     }
     flags.friday13 = friday_13th();
     if (flags.friday13) {
+/*JP
 	pline("Watch out!  Bad things can happen on Friday the 13th.");
+*/
+	        pline("用心しろ！１３日の金曜日にはよくないことがある．") ;
 	change_luck(-1);
     }
 
@@ -202,7 +218,10 @@ moveloop()
 			    } else if (!Upolyd && u.uhp > 1) {
 				u.uhp--;
 			    } else {
+/*JP
 				You("pass out from exertion!");
+*/
+				pline("疲労で意識を失った！");
 				exercise(A_CON, FALSE);
 				fall_asleep(-10, FALSE);
 			    }
@@ -376,11 +395,20 @@ moveloop()
 		u.utrap -= 1<<8;
 		if(u.utrap < 1<<8) {
 		    killer_format = KILLED_BY;
+/*JP
 		    killer = "molten lava";
+*/
+			    killer = "どろどろの溶岩で";
+/*JP
 		    You("sink below the surface and die.");
+*/
+			    You("溶岩に深く沈み，溶けた．");
 		    done(DISSOLVED);
 		} else if(didmove && !u.umoved) {
+/*JP
 		    Norep("You sink deeper into the lava.");
+*/
+			    Norep("溶岩に深く沈んだ．");
 		    u.utrap += rnd(4);
 		}
 	    }
@@ -444,7 +472,10 @@ stop_occupation()
 {
 	if(occupation) {
 		if (!maybe_finished_meal(TRUE))
+/*JP
 		    You("stop %s.", occtxt);
+*/
+		    You("%sのを中断した．", occtxt);
 		occupation = 0;
 		flags.botl = 1; /* in case u.uhs changed */
 /* fainting stops your occupation, there's no reason to sync.
@@ -586,16 +617,35 @@ boolean new_game;	/* false => restoring an old game */
      */
     *buf = '\0';
     if (new_game || u.ualignbase[A_ORIGINAL] != u.ualignbase[A_CURRENT])
+/*JP
 	Sprintf(eos(buf), " %s", align_str(u.ualignbase[A_ORIGINAL]));
+*/
+	Sprintf(eos(buf), "%s", align_str(u.ualignbase[A_ORIGINAL]));
     if (!urole.name.f &&
 	    (new_game ? (urole.allow & ROLE_GENDMASK) == (ROLE_MALE|ROLE_FEMALE) :
 	     currentgend != flags.initgend))
+/*JP
 	Sprintf(eos(buf), " %s", genders[currentgend].adj);
+*/
+	Sprintf(eos(buf), "の%s", genders[currentgend].j);
 
+#if 0 /*JP*/
     pline(new_game ? "%s %s, welcome to UnNetHack!  You are a%s %s %s."
 		   : "%s %s, the%s %s %s, welcome back to UnNetHack!",
 	  Hello((struct monst *) 0), plname, buf, urace.adj,
 	  (currentgend && urole.name.f) ? urole.name.f : urole.name.m);
+#else
+    if(new_game){
+	pline("%s，UnNetHackの世界へ！このゲームではあなたは%sの%s(%s)だ．",
+	      Hello((struct monst *) 0, TRUE), urace.j,
+	      (currentgend && urole.jname.f) ? urole.jname.f : urole.jname.m,
+	      buf);
+    } else {
+	pline("%s，UnNetHackの世界へ！あなたは%sの%sだ！",
+	      Hello((struct monst *) 0, TRUE), urace.j,
+	      (currentgend && urole.jname.f) ? urole.jname.f : urole.jname.m);
+    }
+#endif
 #ifdef LIVELOGFILE
     /* Start live reporting */
 	  livelog_start();

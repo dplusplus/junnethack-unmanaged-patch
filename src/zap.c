@@ -2,6 +2,13 @@
 /* Copyright (c) Stichting Mathematisch Centrum, Amsterdam, 1985. */
 /* NetHack may be freely redistributed.  See license for details. */
 
+/*
+**	Japanese version Copyright
+**	(c) Issei Numata, Naoki Hamada, Shigehiro Miyashita, 1994-2000
+**	For 3.4, Copyright (c) Kentaro Shirakata, 2002-2003
+**	JNetHack may be freely redistributed.  See license for details. 
+*/
+
 #include "hack.h"
 
 /* Disintegration rays have special treatment; corpses are never left.
@@ -60,9 +67,13 @@ STATIC_DCL int FDECL(spell_hit_bonus, (int));
 STATIC_VAR const char are_blinded_by_the_flash[];
 extern const char * const flash_types[];
 #else
+/*JP
 STATIC_VAR const char are_blinded_by_the_flash[] = "are blinded by the flash!";
+*/
+STATIC_VAR const char are_blinded_by_the_flash[] = "まばゆい光で目が見えなくなった！";
 
 const char * const flash_types[] = {	/* also used in buzzmu(mcastu.c) */
+#if 0 /*JP*/
 	"magic missile",	/* Wands must be 0-9 */
 	"bolt of fire",
 	"bolt of cold",
@@ -95,6 +106,40 @@ const char * const flash_types[] = {	/* also used in buzzmu(mcastu.c) */
 	"blast of acid",
 	"",
 	""
+#else
+	"魔法の矢",	/* Wands must be 0-9 */
+	"火の閃光",
+	"氷の閃光",
+	"眠り光線",
+	"死の光線",
+	"稲妻の閃光",
+	"",
+	"",
+	"",
+	"",
+
+	"魔法の矢",	/* Spell equivalents must be 10-19 */
+	"火の玉",
+	"冷気",
+	"眠り光線",
+	"死の指",
+	"稲妻の閃光",	/* There is no spell, used for retribution */
+	"",
+	"",
+	"",
+	"",
+
+	"魔法の矢の息",	/* Dragon breath equivalents 20-29*/
+	"火の息",
+	"氷の息",
+	"睡眠ガスの息",
+	"分解の息",
+	"稲妻の息",
+	"毒ガスの息",
+	"酸の息",
+	"",
+	""
+#endif
 };
 
 /* Routines for IMMEDIATE wands and spells. */
@@ -108,7 +153,10 @@ struct obj *otmp;
 	boolean reveal_invis = FALSE;
 	boolean dbldam = Role_if(PM_KNIGHT) && u.uhave.questart;
 	int dmg, otyp = otmp->otyp;
+/*JP
 	const char *zap_type_text = "spell";
+*/
+	const char *zap_type_text = "魔法";
 	struct obj *obj;
 	boolean disguised_mimic = (mtmp->data->mlet == S_MIMIC &&
 				   mtmp->m_ap_type != M_AP_NOTHING);
@@ -118,7 +166,10 @@ struct obj *otmp;
 
 	switch(otyp) {
 	case WAN_STRIKING:
+/*JP
 		zap_type_text = "wand";
+*/
+		zap_type_text = "杖";
 		/* fall through */
 	case SPE_FORCE_BOLT:
 		reveal_invis = TRUE;
@@ -142,8 +193,14 @@ struct obj *otmp;
 			m_dowear(mtmp, FALSE); /* might want speed boots */
 			if (u.uswallow && (mtmp == u.ustuck) &&
 			    is_whirly(mtmp->data)) {
+/*JP
 				You("disrupt %s!", mon_nam(mtmp));
+*/
+				You("%sをバラバラにした！", mon_nam(mtmp));
+/*JP
 				pline("A huge hole opens up...");
+*/
+				pline("脱出できそうな穴が開いた．．．");
 				expels(mtmp, mtmp->data, TRUE);
 			}
 		}
@@ -184,7 +241,10 @@ struct obj *otmp;
 		       with their metabolism...) */
 		    if (mtmp->cham == CHAM_ORDINARY && !rn2(25)) {
 			if (canseemon(mtmp)) {
+/*JP
 			    pline("%s shudders!", Monnam(mtmp));
+*/
+			    pline("%sは身震いした！", Monnam(mtmp));
 			    makeknown(otyp);
 			}
 			/* dropped inventory shouldn't be hit by this zap */
@@ -217,7 +277,10 @@ struct obj *otmp;
 		Strcpy(nambuf, Monnam(mtmp));
 		mon_set_minvis(mtmp);
 		if (!oldinvis && knowninvisible(mtmp)) {
+/*JP
 		    pline("%s turns transparent!", nambuf);
+*/
+		    pline("%sは透明になった！", nambuf);
 		    makeknown(otyp);
 		}
 		break;
@@ -238,8 +301,14 @@ struct obj *otmp;
 		wake = FALSE;	/* don't want immediate counterattack */
 		if (u.uswallow && mtmp == u.ustuck) {
 			if (is_animal(mtmp->data)) {
+/*JP
 				if (Blind) You_feel("a sudden rush of air!");
+*/
+				if (Blind) You("突然空気の激流を感じた！");
+/*JP
 				else pline("%s opens its mouth!", Monnam(mtmp));
+*/
+				else pline("%sは口を開いた！", Monnam(mtmp));
 			}
 			expels(mtmp, mtmp->data, TRUE);
 #ifdef STEED
@@ -275,8 +344,13 @@ struct obj *otmp;
 			    newsym(mtmp->mx, mtmp->my);
 			} else
 			    mimic_hit_msg(mtmp, otyp);
+#if 0 /*JP*/
 		    } else pline("%s looks%s better.", Monnam(mtmp),
 				 otyp == SPE_EXTRA_HEALING ? " much" : "" );
+#else
+		    } else pline("%sが%s元気になったように見えた．", Monnam(mtmp),
+			  otyp == SPE_EXTRA_HEALING ? "とても" : "" );
+#endif
 		}
 		if (mtmp->mtame || mtmp->mpeaceful) {
 		    adjalign(Role_if(PM_HEALER) ? 1 : sgn(u.ualign.type));
@@ -307,10 +381,16 @@ struct obj *otmp;
 		    /* turn into flesh golem */
 		    if (newcham(mtmp, &mons[PM_FLESH_GOLEM], FALSE, FALSE)) {
 			if (canseemon(mtmp))
+/*JP
 			    pline("%s turns to flesh!", name);
+*/
+			    pline("%sの石化が解けた！", name);
 		    } else {
 			if (canseemon(mtmp))
+/*JP
 			    pline("%s looks rather fleshy for a moment.",
+*/
+			    pline("%sは一瞬石化が解けた．",
 				  name);
 		    }
 		} else
@@ -332,7 +412,10 @@ struct obj *otmp;
 		    else {
 			mtmp->m_lev--;
 			if (canseemon(mtmp))
+/*JP
 			    pline("%s suddenly seems weaker!", Monnam(mtmp));
+*/
+		    	    pline("%sはとつぜん弱くなったような気がした！", Monnam(mtmp));
 		    }
 		}
 		break;
@@ -378,7 +461,10 @@ struct monst *mtmp;
 		otmp->dknown = 1;	/* treat as "seen" */
 	    (void) display_minventory(mtmp, MINV_ALL, (char *)0);
 	} else {
+/*JP
 	    pline("%s is not carrying anything.", noit_Monnam(mtmp));
+*/
+	    pline("%sは何も持っていない．", Monnam(mtmp));
 	}
 }
 
@@ -655,7 +741,11 @@ register struct obj *obj;
 		    		    if (ghost->mtame)
 		    		    	savetame = ghost->mtame;
 		    		    if (canseemon(ghost))
+#if 0 /*JP*/
 		    		  	pline("%s is suddenly drawn into its former body!",
+#else
+		    		  	pline("%sは突然もとの体に引き込まれた！",
+#endif
 						Monnam(ghost));
 				    mondead(ghost);
 				    recorporealization = TRUE;
@@ -758,12 +848,24 @@ struct monst *mon;
 	    if ((mtmp2 = revive(otmp)) != 0) {
 		++res;
 		if (youseeit) {
+#if 0 /*JP*/
 		    if (!once++) Strcpy(owner,
 					(mon == &youmonst) ? "Your" :
 					s_suffix(Monnam(mon)));
+#else
+		    if (!once++) Strcpy(owner,
+					(mon == &youmonst) ? "あなた" :
+					Monnam(mon));
+#endif
+/*JP
 		    pline("%s %s suddenly comes alive!", owner, corpse);
+*/
+		    pline("%sの%sは突然生命を帯びた！", owner, corpse);
 		} else if (canseemon(mtmp2))
+/*JP
 		    pline("%s suddenly appears!", Amonnam(mtmp2));
+*/
+		    pline("%sが突然現われた！", Amonnam(mtmp2));
 	    }
 	}
 	return res;
@@ -787,7 +889,10 @@ register struct obj *obj;
 		if (obj->unpaid) {
 		    shkp = shop_keeper(*u.ushops);
 		    if (!shkp) return;
+/*JP
 		    Norep("You cancel an unpaid object, you pay for it!");
+*/
+		    Norep("あなたは未払のものを無力化してしまった．支払いをしなきゃ！");
 		    bill_dummy_object(obj);
 		}
 		break;
@@ -796,7 +901,10 @@ register struct obj *obj;
 		shkp = shop_keeper(objroom);
 		if (!shkp || !inhishop(shkp)) return;
 		if (costly_spot(u.ux, u.uy) && objroom == *u.ushops) {
+/*JP
 		    Norep("You cancel it, you pay for it!");
+*/
+		    Norep("あなたは無効化してしまった．支払いをしなきゃ！");
 		    bill_dummy_object(obj);
 		} else
 		    (void) stolen_value(obj, obj->ox, obj->oy, FALSE, FALSE);
@@ -1100,7 +1208,10 @@ create_polymon(obj, okind)
 	case METAL:
 	case MITHRIL:
 	    pm_index = PM_IRON_GOLEM;
+/*JP
 	    material = "metal ";
+*/
+	    material = "金属";
 	    break;
 	case COPPER:
 	case SILVER:
@@ -1108,46 +1219,77 @@ create_polymon(obj, okind)
 	case GEMSTONE:
 	case MINERAL:
 	    pm_index = rn2(2) ? PM_STONE_GOLEM : PM_CLAY_GOLEM;
+/*JP
 	    material = "lithic ";
+*/
+	    material = "鉱物";
 	    break;
 	case 0:
 	case FLESH:
 	    /* there is no flesh type, but all food is type 0, so we use it */
 	    pm_index = PM_FLESH_GOLEM;
+/*JP
 	    material = "organic ";
+*/
+	    material = "有機物";
 	    break;
 	case WOOD:
 	    pm_index = PM_WOOD_GOLEM;
+/*JP
 	    material = "wood ";
+*/
+	    material = "木材";
 	    break;
 	case LEATHER:
 	    pm_index = PM_LEATHER_GOLEM;
+/*JP
 	    material = "leather ";
+*/
+	    material = "革";
 	    break;
 	case CLOTH:
 	    pm_index = PM_ROPE_GOLEM;
+/*JP
 	    material = "cloth ";
+*/
+	    material = "布";
 	    break;
 	case BONE:
 	    pm_index = PM_SKELETON;     /* nearest thing to "bone golem" */
+/*JP
 	    material = "bony ";
+*/
+	    material = "骨";
 	    break;
 	case GOLD:
 	    pm_index = PM_GOLD_GOLEM;
+/*JP
 	    material = "gold ";
+*/
+	    material = "金";
 	    break;
 	case GLASS:
 	    pm_index = PM_GLASS_GOLEM;
+/*JP
 	    material = "glassy ";
+*/
+	    material = "ガラス";
 	    break;
 	case PAPER:
 	    pm_index = PM_PAPER_GOLEM;
+/*JP
 	    material = "paper ";
+*/
+	    material = "紙";
 	    break;
 	default:
 	    /* if all else fails... */
 	    pm_index = PM_STRAW_GOLEM;
+#if 0 /*JP*/
 	    material = "";
+#else
+	    material = "物体";
+#endif
 	    break;
 	}
 
@@ -1158,7 +1300,10 @@ create_polymon(obj, okind)
 	polyuse(obj, okind, (int)mons[pm_index].cwt);
 
 	if(mtmp && cansee(mtmp->mx, mtmp->my)) {
+/*JP
 	    pline("Some %sobjects meld, and %s arises from the pile!",
+*/
+	    pline("いくつかの%sが溶け，その山から%sが現われた！",
 		  material, a_monnam(mtmp));
 	}
 }
@@ -1445,10 +1590,16 @@ no_unwear:
 			    !costly_spot(u.ux, u.uy))
 			make_angry_shk(shkp, ox, oy);
 		    else {
+/*JP
 			pline("%s gets angry!", Monnam(shkp));
+*/
+			pline("%sは激怒した！", Monnam(shkp));
 			hot_pursuit(shkp);
 		    }
+/*JP
 		} else Norep("%s is furious!", Monnam(shkp));
+*/
+		} else Norep("%sは怒った！", Monnam(shkp));
 	    }
 	}
 	delobj(obj);
@@ -1545,7 +1696,10 @@ struct obj *obj, *otmp;
 		obj->dknown = 1;
 		if (Is_container(obj) || obj->otyp == STATUE) {
 		    if (!obj->cobj)
+/*JP
 			pline("%s empty.", Tobjnam(obj, "are"));
+*/
+			pline("%sは空っぽだ．", xname(obj));
 		    else {
 			struct obj *o;
 			/* view contents (not recursively) */
@@ -1687,7 +1841,10 @@ makecorpse:			if (mons[obj->corpsenm].geno &
 			if (mon) {
 			    delobj(obj);
 			    if (cansee(mon->mx, mon->my))
+/*JP
 				pline_The("figurine animates!");
+*/
+				pline("人形は動きだした！");
 			    break;
 			}
 			goto makecorpse;
@@ -1705,9 +1862,15 @@ smell:
 			if (herbivorous(youmonst.data) &&
 			    (!carnivorous(youmonst.data) ||
 			     Role_if(PM_MONK) || !u.uconduct.unvegetarian))
+/*JP
 			    Norep("You smell the odor of meat.");
+*/
+			    Norep("肉の悪臭が漂った．");
 			else
+/*JP
 			    Norep("You smell a delicious smell.");
+*/
+			    Norep("すばらしい香りだ！");
 			break;
 		    case WEAPON_CLASS:	/* crysknife */
 		    	/* fall through */
@@ -1773,7 +1936,10 @@ register struct obj *wand;
 	if(wand->spe < 0 || (wand->spe == 0 && rn2(121)))
 		return 0;
 	if(wand->spe == 0)
+/*JP
 		You("wrest one last charge from the worn-out wand.");
+*/
+		You("使いきった杖から最後の力をしぼりとった．");
 	wand->spe--;
 	return 1;
 }
@@ -1806,17 +1972,26 @@ register struct obj *obj;
 		case WAN_WISHING:
 			known = TRUE;
 			if(Luck + rn2(5) < 0) {
+/*JP
 				pline("Unfortunately, nothing happens.");
+*/
+				pline("残念ながら，何も起きなかった．");
 				break;
 			}
 			makewish(TRUE);
 			break;
 		case WAN_ENLIGHTENMENT:
 			known = TRUE;
+/*JP
 			You_feel("self-knowledgeable...");
+*/
+			You("自分自身が判るような気がした．．．");
 			display_nhwindow(WIN_MESSAGE, FALSE);
 			enlightenment(FALSE);
+/*JP
 			pline_The("feeling subsides.");
+*/
+			pline("その感じはなくなった．");
 			exercise(A_WIS, TRUE);
 			break;
 	}
@@ -1833,8 +2008,14 @@ backfire(otmp)
 struct obj *otmp;
 {
 	otmp->in_use = TRUE;	/* in case losehp() is fatal */
+/*JP
 	pline("%s suddenly explodes!", The(xname(otmp)));
+*/
+	pline("%sは突然爆発した！", The(xname(otmp)));
+/*JP
 	losehp(d(otmp->spe+2,6), "exploding wand", KILLED_BY_AN);
+*/
+	losehp(d(otmp->spe+2,6), "杖の爆発で", KILLED_BY_AN);
 	useup(otmp);
 }
 
@@ -1861,13 +2042,21 @@ dozap()
 		return(1);
 	} else if(!(objects[obj->otyp].oc_dir == NODIR) && !getdir((char *)0)) {
 		if (!Blind)
+/*JP
 		    pline("%s glows and fades.", The(xname(obj)));
+*/
+		    pline("%sは一瞬輝いた．", The(xname(obj)));
 		/* make him pay for knowing !NODIR */
 	} else if(!u.dx && !u.dy && !u.dz && !(objects[obj->otyp].oc_dir == NODIR)) {
 	    if ((damage = zapyourself(obj, TRUE)) != 0) {
+#if 0 /*JP:T*/
 		char buf[BUFSZ];
 		Sprintf(buf, "zapped %sself with a wand", uhim());
 		losehp(damage, buf, NO_KILLER_PREFIX);
+#else
+		losehp(damage, "自分自身の杖の力を浴びて",
+			KILLED_BY);
+#endif
 	    }
 	} else {
 
@@ -1883,7 +2072,10 @@ dozap()
 		current_wand = 0;
 	}
 	if (obj && obj->spe < 0) {
+/*JP
 	    pline("%s to dust.", Tobjnam(obj, "turn"));
+*/
+	    pline("%sはちりとなった．", xname(obj));
 	    useup(obj);
 	}
 	update_inventory();	/* maybe used a charge */
@@ -1904,10 +2096,16 @@ boolean ordinary;
 		case SPE_FORCE_BOLT:
 		    if(Antimagic) {
 			shieldeff(u.ux, u.uy);
+/*JP
 			pline("Boing!");
+*/
+			pline("ボイン！");
 		    } else {
 			if (ordinary) {
+/*JP
 			    You("bash yourself!");
+*/
+			    You("自分自身を打ちつけた！");
 			    damage = d(2,12);
 			} else
 			    damage = d(1 + obj->spe,6);
@@ -1918,12 +2116,19 @@ boolean ordinary;
 		case WAN_LIGHTNING:
 		    makeknown(WAN_LIGHTNING);
 		    if (!Shock_resistance) {
+/*JP
 			You("shock yourself!");
+*/
+			You("電撃をうけた！");
 			damage = d(12,6);
 			exercise(A_CON, FALSE);
 		    } else {
 			shieldeff(u.ux, u.uy);
+/*JP
 			You("zap yourself, but seem unharmed.");
+*/
+			You("自分に杖をふりかざしたが，怪我はしなかったようだ．");
+
 			ugolemeffects(AD_ELEC, d(12,6));
 		    }
 		    destroy_item(WAND_CLASS, AD_ELEC);
@@ -1936,7 +2141,10 @@ boolean ordinary;
 		    break;
 
 		case SPE_FIREBALL:
+/*JP
 		    You("explode a fireball on top of yourself!");
+*/
+		    Your("頭上で火の玉が爆発した！");
 		    explode(u.ux, u.uy, 11, d(6,6), WAND_CLASS, EXPL_FIERY);
 		    break;
 		case WAN_FIRE:
@@ -1944,10 +2152,16 @@ boolean ordinary;
 		case FIRE_HORN:
 		    if (Fire_resistance) {
 			shieldeff(u.ux, u.uy);
+/*JP
 			You_feel("rather warm.");
+*/
+			You("ちょっと暖かく感じた．");
 			ugolemeffects(AD_FIRE, d(12,6));
 		    } else {
+/*JP
 			pline("You've set yourself afire!");
+*/
+			You("炎につつまれた！");
 			damage = d(12,6);
 		    }
 		    burn_away_slime();
@@ -1963,10 +2177,16 @@ boolean ordinary;
 		case FROST_HORN:
 		    if (Cold_resistance) {
 			shieldeff(u.ux, u.uy);
+/*JP
 			You_feel("a little chill.");
+*/
+			You("ちょっと冷たく感じた．");
 			ugolemeffects(AD_COLD, d(12,6));
 		    } else {
+/*JP
 			You("imitate a popsicle!");
+*/
+			You("アイスキャンデーのようになった！");
 			damage = d(12,6);
 		    }
 		    destroy_item(POTION_CLASS, AD_COLD);
@@ -1977,10 +2197,16 @@ boolean ordinary;
 		case SPE_MAGIC_MISSILE:
 		    if(Antimagic) {
 			shieldeff(u.ux, u.uy);
+/*JP
 			pline_The("missiles bounce!");
+*/
+			pline("魔法の矢ははねかえった！");
 		    } else {
 			damage = d(4,6);
+/*JP
 			pline("Idiot!  You've shot yourself!");
+*/
+			pline("何やってんだ！あなたは自分自身を撃った！");
 		    }
 		    break;
 
@@ -1999,7 +2225,10 @@ boolean ordinary;
 
 		case SPE_DRAIN_LIFE:
 			if (!Drain_resistance) {
+/*JP
 				losexp("life drainage");
+*/
+				losexp("生命力を吸収されて");
 				makeknown(obj->otyp);
 			}
 			damage = 0;	/* No additional damage */
@@ -2013,7 +2242,10 @@ boolean ordinary;
 
 		    if (BInvis && uarmc->otyp == MUMMY_WRAPPING) {
 			/* A mummy wrapping absorbs it and protects you */
+/*JP
 		        You_feel("rather itchy under your %s.", xname(uarmc));
+*/
+		        You("%sの下がムズムズした．", xname(uarmc));
 		        break;
 		    }
 		    if (ordinary || !rn2(10)) {	/* permanent */
@@ -2032,9 +2264,15 @@ boolean ordinary;
 		case WAN_SPEED_MONSTER:
 		    if (!(HFast & INTRINSIC)) {
 			if (!Fast)
+/*JP
 			    You("speed up.");
+*/
+			    You("動きが速くなった．");
 			else
+/*JP
 			    Your("quickness feels more natural.");
+*/
+			    You("速さに慣れてきた．");
 			makeknown(WAN_SPEED_MONSTER);
 			exercise(A_DEX, TRUE);
 		    }
@@ -2046,9 +2284,15 @@ boolean ordinary;
 		case SPE_SLEEP:
 		    if(Sleep_resistance) {
 			shieldeff(u.ux, u.uy);
+/*JP
 			You("don't feel sleepy!");
+*/
+			You("眠くならない！");
 		    } else {
+/*JP
 			pline_The("sleep ray hits you!");
+*/
+			pline("眠り光線があなたに命中した！");
 			fall_asleep(-rnd(50), TRUE);
 		    }
 		    break;
@@ -2070,15 +2314,33 @@ boolean ordinary;
 		case SPE_FINGER_OF_DEATH:
 		    if (nonliving(youmonst.data) || is_demon(youmonst.data)) {
 			pline((obj->otyp == WAN_DEATH) ?
+#if 0 /*JP*/
 			  "The wand shoots an apparently harmless beam at you."
 			  : "You seem no deader than before.");
+#else
+			  "杖の光線はどうやらあなたに影響を与えないもののようだ．"
+			  : "あなたはこれ以上死ねないようだ．");
+#endif
 			break;
 		    }
+/*JP
 		    Sprintf(buf, "shot %sself with a death ray", uhim());
+*/
+		    Strcpy(buf, "自分が撃った死の光線によって");
 		    killer = buf;
+#if 0 /*JP*/
 		    killer_format = NO_KILLER_PREFIX;
+#else
+		    killer_format = KILLED_BY;
+#endif
+/*JP
 		    You("irradiate yourself with pure energy!");
+*/
+		    You("エネルギーを自分自身に照射した．");
+/*JP
 		    You("die.");
+*/
+		    pline("あなたは死にました．");
 		    makeknown(obj->otyp);
 			/* They might survive with an amulet of life saving */
 		    done(DIED);
@@ -2088,18 +2350,31 @@ boolean ordinary;
 		case SPE_TURN_UNDEAD:
 		    (void) unturn_dead(&youmonst);
 		    if (is_undead(youmonst.data)) {
+#if 0 /*JP:T*/
 			You_feel("frightened and %sstunned.",
 			     Stunned ? "even more " : "");
+#else
+			You("恐怖し%sくらくらした．",
+			     Stunned ? "さらに" : "");
+#endif
 			make_stunned(HStun + rnd(30), FALSE);
 		    } else
+/*JP
 			You("shudder in dread.");
+*/
+			You("恐怖で震えた．");
 		    break;
 		case SPE_HEALING:
 		case SPE_EXTRA_HEALING:
 		    healup(d(6, obj->otyp == SPE_EXTRA_HEALING ? 8 : 4),
 			   0, FALSE, (obj->otyp == SPE_EXTRA_HEALING));
+#if 0 /*JP:T*/
 		    You_feel("%sbetter.",
 			obj->otyp == SPE_EXTRA_HEALING ? "much " : "");
+#else
+		    You("%s気分がよくなった．",
+			obj->otyp == SPE_EXTRA_HEALING ? "とても" : "");
+#endif
 		    break;
 		case WAN_LIGHT:	/* (broken wand) */
 		 /* assert( !ordinary ); */
@@ -2119,7 +2394,10 @@ boolean ordinary;
 		case WAN_OPENING:
 		    if (Punished) makeknown(WAN_OPENING);
 		case SPE_KNOCK:
+/*JP
 		    if (Punished) Your("chain quivers for a moment.");
+*/
+		    if (Punished) Your("鎖は一瞬震えた．");
 		    break;
 		case WAN_DIGGING:
 		case SPE_DIG:
@@ -2249,8 +2527,15 @@ boolean			youattack, allow_cancel_kill, self_cancel;
 {
 	boolean	youdefend = (mdef == &youmonst);
 	static const char writing_vanishes[] =
+/*JP
 				"Some writing vanishes from %s head!";
+*/
+				"何かの文字が%sの頭から消えた！";
+#if 0 /*JP:T*/
 	static const char your[] = "your";	/* should be extern */
+#else
+	static const char your[] = "あなた";	/* should be extern */
+#endif
 
 	if (youdefend ? (!youattack && Antimagic)
 		      : resist(mdef, obj->oclass, 0, NOTELL))
@@ -2275,7 +2560,10 @@ boolean			youattack, allow_cancel_kill, self_cancel;
 		    pline(writing_vanishes, your);
 
 		if (Unchanging)
+/*JP
 		    Your("amulet grows hot for a moment, then cools.");
+*/
+		    Your("魔除けはしばらく熱くなり，やがて元に戻った．");
 		else
 		    rehumanize();
 	    }
@@ -2322,13 +2610,22 @@ struct obj *obj;	/* wand or spell */
 	case WAN_PROBING:
 	    ptmp = 0;
 	    if (u.dz < 0) {
+/*JP
 		You("probe towards the %s.", ceiling(x,y));
+*/
+		You("上方の%sを調べた．", ceiling(x,y));
 	    } else {
 		ptmp += bhitpile(obj, bhito, x, y);
+/*JP
 		You("probe beneath the %s.", surface(x,y));
+*/
+		You("下方の%sを調べた．", surface(x,y));
 		ptmp += display_binventory(x, y, TRUE);
 	    }
+/*JP
 	    if (!ptmp) Your("probe reveals nothing.");
+*/
+	    if (!ptmp) pline("調査の結果何もないことがわかった．");
 	    return TRUE;	/* we've done our own bhitpile */
 	case WAN_OPENING:
 	case SPE_KNOCK:
@@ -2340,7 +2637,10 @@ struct obj *obj;	/* wand or spell */
 			/* can't use the stairs down to quest level 2 until
 			   leader "unlocks" them; give feedback if you try */
 			on_level(&u.uz, &qstart_level) && !ok_to_quest()) {
+/*JP
 		pline_The("stairs seem to ripple momentarily.");
+*/
+		pline("階段が一瞬揺れたように見えた．");
 		disclose = TRUE;
 	    }
 	    break;
@@ -2363,10 +2663,16 @@ struct obj *obj;	/* wand or spell */
 			!Is_airlevel(&u.uz) && !Is_waterlevel(&u.uz) &&
 			!Underwater && !Is_qstart(&u.uz)) {
 		/* similar to zap_dig() */
+/*JP
 		pline("A rock is dislodged from the %s and falls on your %s.",
+*/
+		pline("%sから岩が落ちてあなたの%sに命中した．",
 		      ceiling(x, y), body_part(HEAD));
 		losehp(rnd((uarmh && is_metallic(uarmh)) ? 2 : 6),
+/*JP
 		       "falling rock", KILLED_BY_AN);
+*/
+		       "落岩で", KILLED_BY_AN);
 		if ((otmp = mksobj_at(ROCK, x, y, FALSE, FALSE)) != 0) {
 		    (void)xname(otmp);	/* set dknown, maybe bknown */
 		    stackobj(otmp);
@@ -2375,14 +2681,25 @@ struct obj *obj;	/* wand or spell */
 	    } else if (!striking && ttmp && ttmp->ttyp == TRAPDOOR && u.dz > 0) {
 		if (!Blind) {
 			if (ttmp->tseen) {
+/*JP
 				pline("A trap door beneath you closes up then vanishes.");
+*/
+				pline("あなたの下にある落し扉が閉じて消えた．");
 				disclose = TRUE;
 			} else {
+#if 0 /*JP:T*/
 				You("see a swirl of %s beneath you.",
 					is_ice(x,y) ? "frost" : "dust");
+#else
+				pline("あなたの下で%sのうずが見えた．",
+					is_ice(x,y) ? "霜" : "ほこり");
+#endif
 			}
 		} else {
+/*JP
 			You_hear("a twang followed by a thud.");
+*/
+			You_hear("ゴツン，ビーンという音を聞いた．");
 		}
 		deltrap(ttmp);
 		ttmp = (struct trap *)0;
@@ -2394,7 +2711,10 @@ struct obj *obj;	/* wand or spell */
 		     Underwater || (Is_qstart(&u.uz) && u.dz < 0)) {
 		pline(nothing_happens);
 	    } else if (u.dz < 0) {	/* we should do more... */
+/*JP
 		pline("Blood drips on your %s.", body_part(FACE));
+*/
+		pline("血があなたの%sへしたたり落ちてきた．", body_part(FACE));
 	    } else if (u.dz > 0 && !OBJ_AT(u.ux, u.uy)) {
 		/*
 		Print this message only if there wasn't an engraving
@@ -2405,10 +2725,18 @@ struct obj *obj;	/* wand or spell */
 		    if (is_pool(u.ux, u.uy) || is_ice(u.ux, u.uy))
 			pline(nothing_happens);
 		    else
+#if 0 /*JP:T*/
 			pline("Blood %ss %s your %s.",
 			      is_lava(u.ux, u.uy) ? "boil" : "pool",
 			      Levitation ? "beneath" : "at",
 			      makeplural(body_part(FOOT)));
+#else
+ 			pline("%s%s%s．",
+ 			      makeplural(body_part(FOOT)),
+			      Levitation ? "の下" : "元",
+			      is_lava(u.ux, u.uy) ?
+			      "で血が沸騰した" : "に血だまりが出来た");
+#endif
 		}
 	    }
 	    break;
@@ -2440,9 +2768,15 @@ struct obj *obj;	/* wand or spell */
 		case SPE_STONE_TO_FLESH:
 		    if (e->engr_type == ENGRAVE) {
 			/* only affects things in stone */
+#if 0 /*JP:T*/
 			pline_The(Hallucination ?
 			    "floor runs like butter!" :
 			    "edges on the floor get smoother.");
+#else
+			pline(Hallucination ?
+			    "床がバターのように走っていった！" :
+			    "床の縁がなめらかになった．");
+#endif
 			wipe_engr_at(x, y, d(2,4));
 			}
 		    break;
@@ -2490,7 +2824,10 @@ register struct	obj	*obj;
 	    }
 	    /* give a clue if obj_zapped */
 	    if (obj_zapped)
+/*JP
 		You_feel("shuddering vibrations.");
+*/
+		You("ぞっとする振動を感じた．"); 
 
 	} else if (objects[otyp].oc_dir == NODIR) {
 	    zapnodir(obj);
@@ -2585,7 +2922,10 @@ register int force;
 	/* force == 0 occurs e.g. with sleep ray */
 	/* note that large force is usual with wands so that !! would
 		require information about hand/weapon/wand */
+/*JP
 	return (const char *)((force < 0) ? "?" : (force <= 4) ? "." : "!");
+*/
+	return (const char *)((force < 0) ? "？" : (force <= 4) ? "．" : "！");
 }
 
 void
@@ -2594,11 +2934,21 @@ register const char *str;
 register struct monst *mtmp;
 register const char *force;		/* usually either "." or "!" */
 {
+#if 1 /*JP*/
+	if(*force == '.') force = "．";
+	if(*force == '!') force = "！";
+#endif
 	if((!cansee(bhitpos.x,bhitpos.y) && !canspotmon(mtmp) &&
 	     !(u.uswallow && mtmp == u.ustuck))
 	   || !flags.verbose)
+/*JP
 	    pline("%s %s it.", The(str), vtense(str, "hit"));
+*/
+	    pline("%sは何かに命中した．", The(str));
+/*JP
 	else pline("%s %s %s%s", The(str), vtense(str, "hit"),
+*/
+	else pline("%sは%sに命中した%s", The(str),
 		   mon_nam(mtmp), force);
 }
 
@@ -2607,10 +2957,17 @@ miss(str,mtmp)
 register const char *str;
 register struct monst *mtmp;
 {
+#if 0 /*JP:T*/
 	pline("%s %s %s.", The(str), vtense(str, "miss"),
 	      ((cansee(bhitpos.x,bhitpos.y) || canspotmon(mtmp))
 	       && flags.verbose) ?
 	      mon_nam(mtmp) : "it");
+#else
+	pline("%sの%sへの攻撃ははずれた．", The(str),
+	      ((cansee(bhitpos.x,bhitpos.y) || canspotmon(mtmp))
+	       && flags.verbose) ?
+	      mon_nam(mtmp) : "何者か");
+#endif
 }
 #endif /*OVL0*/
 #ifdef OVL1
@@ -2832,15 +3189,25 @@ boolean *obj_destroyed;			/**< has object been deallocated? Pointer to boolean, 
 		struct trap *t;
 		if ((bobj = sobj_at(BOULDER, x, y)) != 0) {
 		    if (cansee(x,y))
+#if 0 /*JP:T*/
 			pline("%s hits %s.",
 			      The(distant_name(obj, xname)), an(xname(bobj)));
+#else
+			pline("%sは%sに命中した．",
+			      The(distant_name(obj, xname)), an(xname(bobj)));
+#endif
 		    range = 0;
 		} else if (obj == uball) {
 		    if (!test_move(x - ddx, y - ddy, ddx, ddy, TEST_MOVE)) {
 			/* nb: it didn't hit anything directly */
 			if (cansee(x,y))
+#if 0 /*JP:T*/
 			    pline("%s jerks to an abrupt halt.",
 				  The(distant_name(obj, xname))); /* lame */
+#else
+			    pline("%sはとつぜんガクンと止まった．",
+				  The(distant_name(obj, xname))); /* lame */
+#endif
 			range = 0;
 		    } else if (In_sokoban(&u.uz) && (t = t_at(x, y)) != 0 &&
 			       (t->ttyp == PIT || t->ttyp == SPIKED_PIT ||
@@ -2858,7 +3225,10 @@ boolean *obj_destroyed;			/**< has object been deallocated? Pointer to boolean, 
 	if (weapon != ZAPPED_WAND && weapon != INVIS_BEAM) tmp_at(DISP_END, 0);
 
 	if(shopdoor)
+/*JP
 	    pay_for_damage("destroy", FALSE);
+*/
+	    pay_for_damage("破壊する", FALSE);
 
 	return (struct monst *)0;
 }
@@ -2900,11 +3270,17 @@ int dx, dy;
 			if(Fumbling || rn2(20) >= ACURR(A_DEX)) {
 				/* we hit ourselves */
 				(void) thitu(10, rnd(10), (struct obj *)0,
+/*JP
 					"boomerang");
+*/
+					"ブーメラン");
 				break;
 			} else {	/* we catch it */
 				tmp_at(DISP_END, 0);
+/*JP
 				You("skillfully catch the boomerang.");
+*/
+				You("上手にブーメランを掴まえた．");
 				return(&youmonst);
 			}
 		}
@@ -3097,12 +3473,21 @@ const char *fltxt;
 xchar sx, sy;
 {
 	int dam = 0;
+#if 1 /*JP*/
+	char buf[BUFSZ];
+
+	Sprintf(buf, "%sによって", fltxt);
+	fltxt = buf;
+#endif
 
 	switch (abs(type) % 10) {
 	case ZT_MAGIC_MISSILE:
 	    if (Antimagic) {
 		shieldeff(sx, sy);
+/*JP
 		pline_The("missiles bounce off!");
+*/
+		pline("魔法の矢は反射した！");
 	    } else {
 		dam = d(nd,6);
 		exercise(A_STR, FALSE);
@@ -3111,7 +3496,10 @@ xchar sx, sy;
 	case ZT_FIRE:
 	    if (Fire_resistance) {
 		shieldeff(sx, sy);
+/*JP
 		You("don't feel hot!");
+*/
+		You("熱さを感じない！");
 		ugolemeffects(AD_FIRE, d(nd, 6));
 	    } else {
 		dam = d(nd, 6);
@@ -3126,7 +3514,10 @@ xchar sx, sy;
 	case ZT_COLD:
 	    if (Cold_resistance) {
 		shieldeff(sx, sy);
+/*JP
 		You("don't feel cold.");
+*/
+		You("冷たさを感じない．");
 		ugolemeffects(AD_COLD, d(nd, 6));
 	    } else {
 		dam = d(nd, 6);
@@ -3136,7 +3527,10 @@ xchar sx, sy;
 	case ZT_SLEEP:
 	    if (Sleep_resistance) {
 		shieldeff(u.ux, u.uy);
+/*JP
 		You("don't feel sleepy.");
+*/
+		You("眠くならない．");
 	    } else {
 		fall_asleep(-d(nd,25), TRUE); /* sleep ray */
 	    }
@@ -3144,7 +3538,10 @@ xchar sx, sy;
 	case ZT_DEATH:
 	    if (abs(type) == ZT_BREATH(ZT_DEATH)) {
 		if (Disint_resistance) {
+/*JP
 		    You("are not disintegrated.");
+*/
+		    You("粉砕されない．");
 		    break;
 		} else if (uarms) {
 		    /* destroy shield; other possessions are safe */
@@ -3164,11 +3561,17 @@ xchar sx, sy;
 #endif
 	    } else if (nonliving(youmonst.data) || is_demon(youmonst.data)) {
 		shieldeff(sx, sy);
+/*JP
 		You("seem unaffected.");
+*/
+		You("影響を受けないようだ．");
 		break;
 	    } else if (Antimagic) {
 		shieldeff(sx, sy);
+/*JP
 		You("aren't affected.");
+*/
+		You("影響を受けない．");
 		break;
 	    }
 	    killer_format = KILLED_BY_AN;
@@ -3184,7 +3587,10 @@ xchar sx, sy;
 	case ZT_LIGHTNING:
 	    if (Shock_resistance) {
 		shieldeff(sx, sy);
+/*JP
 		You("aren't affected.");
+*/
+		You("影響を受けない．");
 		ugolemeffects(AD_ELEC, d(nd, 6));
 	    } else {
 		dam = d(nd, 6);
@@ -3194,13 +3600,19 @@ xchar sx, sy;
 	    if (!rn2(3)) destroy_item(RING_CLASS, AD_ELEC);
 	    break;
 	case ZT_POISON_GAS:
+/*JP
 	    poisoned("blast", A_DEX, "poisoned blast", 15);
+*/
+	    poisoned("息", A_DEX, "毒の息", 15);
 	    break;
 	case ZT_ACID:
 	    if (Acid_resistance) {
 		dam = 0;
 	    } else {
+/*JP
 		pline_The("acid burns!");
+*/
+		pline("酸で焼けた！");
 		dam = d(nd,6);
 		exercise(A_STR, FALSE);
 	    }
@@ -3264,9 +3676,19 @@ boolean u_caused;
 		    cnt += delquan;
 		    if (give_feedback) {
 			if (delquan > 1)
+#if 0 /*JP*/
 			    pline("%ld %s burn.", delquan, buf2);
+#else
+			    pline("%ld%sの%sが燃えた．", 
+				  delquan, 
+				  obj->oclass == SCROLL_CLASS ? "枚" : "冊",
+				  buf2);
+#endif
 			else
+/*JP
 			    pline("%s burns.", An(buf1));
+*/
+			    pline("%sは燃えた．", buf1);
 		    }
 		}
 	    }
@@ -3325,7 +3747,10 @@ register int dx,dy;
 	if(type < 0) return;
 	tmp = zhitm(u.ustuck, type, nd, &otmp);
 	if(!u.ustuck)	u.uswallow = 0;
+/*JP
 	else	pline("%s rips into %s%s",
+*/
+	else	pline("%sは%sをひきさいた%s",
 		      The(fltxt), mon_nam(u.ustuck), exclam(tmp));
 	/* Using disintegration from the inside only makes a hole... */
 	if (tmp == MAGIC_COOKIE)
@@ -3377,7 +3802,10 @@ register int dx,dy;
 		    if(cansee(mon->mx,mon->my)) {
 			hit(fltxt, mon, exclam(0));
 			shieldeff(mon->mx, mon->my);
+/*JP
 			(void) mon_reflects(mon, "But it reflects from %s %s!");
+*/
+			(void) mon_reflects(mon, "しかしそれは%sの%sで反射した！");
 		    }
 		    dx = -dx;
 		    dy = -dy;
@@ -3388,12 +3816,23 @@ register int dx,dy;
 		    if (is_rider(mon->data) && abs(type) == ZT_BREATH(ZT_DEATH)) {
 			if (canseemon(mon)) {
 			    hit(fltxt, mon, ".");
+/*JP
 			    pline("%s disintegrates.", Monnam(mon));
+*/
+			    pline("%sはこなごなになった．", Monnam(mon));
+#if 0 /*JP:T*/
 			    pline("%s body reintegrates before your %s!",
 				  s_suffix(Monnam(mon)),
 				  (eyecount(youmonst.data) == 1) ?
 				  	body_part(EYE) : makeplural(body_part(EYE)));
+#else
+			    pline("%sの体はあなたの目の前で再結合した！",
+				  s_suffix(Monnam(mon)));
+#endif
+/*JP
 			    pline("%s resurrects!", Monnam(mon));
+*/
+		            pline("%sは蘇った！", Monnam(mon));
 			}
 			mon->mhp = mon->mhpmax;
 			break; /* Out of while loop */
@@ -3401,10 +3840,19 @@ register int dx,dy;
 		    if (mon->data == &mons[PM_DEATH] && abstype == ZT_DEATH) {
 			if (canseemon(mon)) {
 			    hit(fltxt, mon, ".");
+#if 0 /*JP:T*/
 			    pline("%s absorbs the deadly %s!", Monnam(mon),
 				  type == ZT_BREATH(ZT_DEATH) ?
 					"blast" : "ray");
+#else
+			    pline("%sは死の%sを吸収した！", Monnam(mon),
+				  type == ZT_BREATH(ZT_DEATH) ?
+					"息" : "光線");
+#endif
+/*JP
 			    pline("It seems even stronger than before.");
+*/
+			    pline("さらに強くなったような気さえする．");
 			}
 			break; /* Out of while loop */
 		    }
@@ -3414,7 +3862,10 @@ register int dx,dy;
 
 			if (canseemon(mon)) {
 			    if (!m_amulet)
+/*JP
 				pline("%s is disintegrated!", Monnam(mon));
+*/
+				pline("%sはこなごなになった！", Monnam(mon));
 			    else
 				hit(fltxt, mon, "!");
 			}
@@ -3457,7 +3908,10 @@ register int dx,dy;
 			} else {
 			    /* some armor was destroyed; no damage done */
 			    if (canseemon(mon))
+/*JP
 				pline("%s %s is disintegrated!",
+*/
+				pline("%sの%sはこなごなになった！",
 				      s_suffix(Monnam(mon)),
 				      distant_name(otmp, xname));
 			    m_useup(mon, otmp);
@@ -3480,12 +3934,21 @@ register int dx,dy;
 #endif
 	    if (zap_hit((int) u.uac, 0)) {
 		range -= 2;
+/*JP
 		pline("%s hits you!", The(fltxt));
+*/
+		pline("%sはあなたに命中した！", The(fltxt));
 		if (Reflecting) {
 		    if (!Blind) {
+/*JP
 		    	(void) ureflects("But %s reflects from your %s!", "it");
+*/
+			(void) ureflects("しかし，%sはあなたの%sによって反射した．", "それ");
 		    } else
+/*JP
 			pline("For some reason you are not affected.");
+*/
+			pline("なぜかあなたは影響を受けなかった．");
 		    dx = -dx;
 		    dy = -dy;
 		    shieldeff(sx, sy);
@@ -3493,7 +3956,10 @@ register int dx,dy;
 		    zhitu(type, nd, fltxt, sx, sy);
 		}
 	    } else {
+/*JP
 		pline("%s whizzes by you!", The(fltxt));
+*/
+	        pline("%sはあなたのそばをかすめた！", The(fltxt));
 	    }
 	    if (abstype == ZT_LIGHTNING && !resists_blnd(&youmonst)) {
 		You(are_blinded_by_the_flash);
@@ -3517,7 +3983,10 @@ register int dx,dy;
 	    bounce = 0;
 	    range--;
 	    if(range && isok(lsx, lsy) && cansee(lsx,lsy))
+/*JP
 		pline("%s bounces!", The(fltxt));
+*/
+		pline("%sは反射した！", The(fltxt));
 	    if(!dx || !dy || !rn2(20)) {
 		dx = -dx;
 		dy = -dy;
@@ -3547,9 +4016,15 @@ register int dx,dy;
     if (type == ZT_SPELL(ZT_FIRE))
 	explode(sx, sy, type, d(12,6), 0, EXPL_FIERY);
     if (shopdamage)
+#if 0 /*JP*/
 	pay_for_damage(abstype == ZT_FIRE ?  "burn away" :
 		       abstype == ZT_COLD ?  "shatter" :
 		       abstype == ZT_DEATH ? "disintegrate" : "destroy", FALSE);
+#else
+	pay_for_damage(abstype == ZT_FIRE ?  "燃やす" :
+		       abstype == ZT_COLD ?  "粉々にする" :
+		       abstype == ZT_DEATH ? "粉砕する" : "破壊する", FALSE);
+#endif
     bhitpos = save_bhitpos;
 }
 #endif /*OVLB*/
@@ -3577,9 +4052,15 @@ xchar x, y;
 	unearth_objs(x, y);
 	if (Underwater) vision_recalc(1);
 	newsym(x,y);
+/*JP
 	if (cansee(x,y)) Norep("The ice crackles and melts.");
+*/
+	if (cansee(x,y)) Norep("氷はピキピキ鳴り，溶けた．");
 	if ((otmp = sobj_at(BOULDER, x, y)) != 0) {
+/*JP
 	    if (cansee(x,y)) pline("%s settles...", An(xname(otmp)));
+*/
+	    if (cansee(x,y)) pline("%sははまった．．．", An(xname(otmp)));
 	    do {
 		obj_extract_self(otmp);	/* boulder isn't being pushed */
 		if (!boulder_hits_pool(otmp, x, y, FALSE))
@@ -3613,16 +4094,25 @@ boolean *shopdamage;
 
 	    if (t && t->ttyp == WEB) {
 		/* a burning web is too flimsy to notice if you can't see it */
+/*JP
 		if (cansee(x,y)) Norep("A web bursts into flames!");
+*/
+		if (cansee(x,y)) Norep("くもの巣は炎に包まれた！");
 		(void) delfloortrap(t);
 		if (cansee(x,y)) newsym(x,y);
 	    }
 	    if(is_ice(x, y)) {
 		melt_ice(x, y);
 	    } else if(is_pool(x,y)) {
+/*JP
 		const char *msgtxt = "You hear hissing gas.";
+*/
+		const char *msgtxt = "しゅーっというガスの音を聞いた．";
 		if(lev->typ != POOL) {	/* MOAT or DRAWBRIDGE_UP */
+/*JP
 		    if (cansee(x,y)) msgtxt = "Some water evaporates.";
+*/
+		    if (cansee(x,y)) msgtxt = "すこし水が蒸発した．";
 		} else {
 		    register struct trap *ttmp;
 
@@ -3630,13 +4120,19 @@ boolean *shopdamage;
 		    lev->typ = ROOM;
 		    ttmp = maketrap(x, y, PIT);
 		    if (ttmp) ttmp->tseen = 1;
+/*JP
 		    if (cansee(x,y)) msgtxt = "The water evaporates.";
+*/
+		    if (cansee(x,y)) msgtxt = "水が蒸発した．";
 		}
 		Norep(msgtxt);
 		if (lev->typ == ROOM) newsym(x,y);
 	    } else if(IS_FOUNTAIN(lev->typ)) {
 		    if (cansee(x,y))
+/*JP
 			pline("Steam billows from the fountain.");
+*/
+			pline("蒸気が泉から立ちのぼった．");
 		    rangemod -= 1;
 		    dryup(x, y, type > 0);
 	    }
@@ -3651,9 +4147,15 @@ boolean *shopdamage;
 		if (lev->typ == WATER) {
 		    /* For now, don't let WATER freeze. */
 		    if (cansee(x,y))
+/*JP
 			pline_The("water freezes for a moment.");
+*/
+			pline("水は一瞬凍った．");
 		    else
+/*JP
 			You_hear("a soft crackling.");
+*/
+			You_hear("ピキ！という音を聞いた．");
 		    rangemod -= 1000;	/* stop */
 		} else {
 		    rangemod -= 3;
@@ -3669,14 +4171,26 @@ boolean *shopdamage;
 		    bury_objs(x,y);
 		    if(cansee(x,y)) {
 			if(moat)
+/*JP
 				Norep("The moat is bridged with ice!");
+*/
+				Norep("堀に氷の橋がかけられた！");
 			else if(lava)
+/*JP
 				Norep("The lava cools and solidifies.");
+*/
+				Norep("溶岩は冷え固まった．");
 			else
+/*JP
 				Norep("The water freezes.");
+*/
+				Norep("水は凍った．");
 			newsym(x,y);
 		    } else if(flags.soundok && !lava)
+/*JP
 			You_hear("a crackling sound.");
+*/
+			You_hear("ピキピキッという音を聞いた．");
 
 		    if (x == u.ux && y == u.uy) {
 			if (u.uinwater) {   /* not just `if (Underwater)' */
@@ -3687,11 +4201,17 @@ boolean *shopdamage;
 			    vision_full_recalc = 1;
 			} else if (u.utrap && u.utraptype == TT_LAVA) {
 			    if (Passes_walls) {
+/*JP
 				You("pass through the now-solid rock.");
+*/
+			        You("いま固くなったばかりの石の中をすり抜けた．");
 			    } else {
 				u.utrap = rn1(50,20);
 				u.utraptype = TT_INFLOOR;
+/*JP
 				You("are firmly stuck in the cooling rock.");
+*/
+			        You("冷えた岩のなかにしっかりと埋まった．");
 			    }
 			}
 		    } else if ((mon = m_at(x,y)) != 0) {
@@ -3713,36 +4233,69 @@ boolean *shopdamage;
 		switch(abstype) {
 		case ZT_FIRE:
 		    new_doormask = D_NODOOR;
+/*JP
 		    see_txt = "The door is consumed in flames!";
+*/
+		    see_txt = "扉は炎で焼きつくされた！";
+/*JP
 		    sense_txt = "smell smoke.";
+*/
+		    sense_txt = "煙の匂いがした．";
 		    break;
 		case ZT_COLD:
 		    new_doormask = D_NODOOR;
+/*JP
 		    see_txt = "The door freezes and shatters!";
+*/
+		    see_txt = "扉は凍り，こなごなになった！";
+/*JP
 		    sense_txt = "feel cold.";
+*/
+		    sense_txt = "あなたは冷気を感じた．";
 		    break;
 		case ZT_DEATH:
 		    /* death spells/wands don't disintegrate */
 		    if(abs(type) != ZT_BREATH(ZT_DEATH))
 			goto def_case;
 		    new_doormask = D_NODOOR;
+/*JP
 		    see_txt = "The door disintegrates!";
+*/
+		    see_txt = "扉は粉砕された！";
+/*JP
 		    hear_txt = "crashing wood.";
+*/
+		    hear_txt = "木の壊れる音を聞いた．";
 		    break;
 		case ZT_LIGHTNING:
 		    new_doormask = D_BROKEN;
+/*JP
 		    see_txt = "The door splinters!";
+*/
+		    see_txt = "扉はずたずたになった！";
+/*JP
 		    hear_txt = "crackling.";
+*/
+		    hear_txt = "ピキピキという音を聞いた．";
 		    break;
 		default:
 		def_case:
 		    if(cansee(x,y)) {
+#if 0 /*JP*/
 			pline_The("door absorbs %s %s!",
 			      (type < 0) ? "the" : "your",
 			      abs(type) < ZT_SPELL(0) ? "bolt" :
 			      abs(type) < ZT_BREATH(0) ? "spell" :
 			      "blast");
 		    } else You_feel("vibrations.");
+#else
+			pline("扉は%s%sを吸収した！",
+			      (type < 0) ? "" : "あなたが放った",
+			      abs(type) < ZT_SPELL(0) ? "光線" :
+			      abs(type) < ZT_BREATH(0) ? "魔法" :
+			      "息");
+		    } else You("振動を感じた．");
+#endif
 		    break;
 		}
 		if (new_doormask >= 0) {	/* door gets broken */
@@ -3759,7 +4312,11 @@ boolean *shopdamage;
 			pline(see_txt);
 			newsym(x, y);
 		    } else if (sense_txt) {
+#if 0 /*JP*/
 			You(sense_txt);
+#else
+			pline(sense_txt);
+#endif
 		    } else if (hear_txt) {
 			if (flags.soundok) You_hear(hear_txt);
 		    }
@@ -3773,8 +4330,13 @@ boolean *shopdamage;
 	if(OBJ_AT(x, y) && abstype == ZT_FIRE)
 		if (burn_floor_paper(x, y, FALSE, type > 0) && couldsee(x, y)) {
 		    newsym(x,y);
+#if 0 /*JP:T*/
 		    You("%s of smoke.",
 			!Blind ? "see a puff" : "smell a whiff");
+#else
+		    pline("%s．",
+			!Blind ? "ぽわっと煙があがった" : "煙のプンという匂いがした");
+#endif
 		}
 	if ((mon = m_at(x,y)) != 0) {
 		/* Cannot use wakeup() which also angers the monster */
@@ -3838,7 +4400,10 @@ register struct obj *obj;
 	    place_object(item, obj->ox, obj->oy);
 	}
 	if (Role_if(PM_ARCHEOLOGIST) && !flags.mon_moving && (obj->spe & STATUE_HISTORIC)) {
+/*JP
 	    You_feel("guilty about damaging such a historic statue.");
+*/
+	    You_feel("このような歴史的な彫像に傷をつけるのは罪深いことだと思った．");
 	    adjalign(-1);
 	}
 	obj->spe = 0;
@@ -3847,12 +4412,21 @@ register struct obj *obj;
 }
 
 const char * const destroy_strings[] = {	/* also used in trap.c */
+#if 0 /*JP*/
 	"freezes and shatters", "freeze and shatter", "shattered potion",
 	"boils and explodes", "boil and explode", "boiling potion",
 	"catches fire and burns", "catch fire and burn", "burning scroll",
 	"catches fire and burns", "catch fire and burn", "burning book",
 	"turns to dust and vanishes", "turn to dust and vanish", "",
 	"breaks apart and explodes", "break apart and explode", "exploding wand"
+#else
+	"凍結して砕けた", "凍結して砕けた", "砕けた薬瓶で",
+	"沸騰して爆発した", "沸騰して爆発した", "沸騰した薬で",
+	"火がついて燃えた", "火がついて燃えた", "燃えた巻物で",
+	"火がついて燃えた", "火がついて燃えた", "燃えた魔法書で",
+	"塵になって消えた", "塵になって消えた", "",
+	"ばらばらに壊れて爆発した", "ばらばらに壊れて爆発した", "杖の爆発で"
+#endif
 };
 
 void
@@ -3891,8 +4465,14 @@ register int osym, dmgtyp;
 		    if (obj->otyp == SPE_BOOK_OF_THE_DEAD) {
 			skip++;
 			if (!Blind)
+#if 0 /*JP:T*/
 			    pline("%s glows a strange %s, but remains intact.",
 				The(xname(obj)), hcolor("dark red"));
+#else
+			    pline("%sは奇妙に%s輝いたが何も変化しなかった．",
+				xname(obj), jconj_adj(hcolor("暗褐色の")));
+#endif
+
 		    }
 		    quan = obj->quan;
 		    switch(osym) {
@@ -3946,9 +4526,18 @@ register int osym, dmgtyp;
 		    if(!rn2(3)) cnt++;
 
 		if(!cnt) continue;
+/*JP
 		if(cnt == quan)	mult = "Your";
+*/
+		if(cnt == quan)	mult = "";
+/*JP
 		else	mult = (cnt == 1L) ? "One of your" : "Some of your";
+*/
+		else	mult = (cnt == 1L) ? "のひとつ" : "のいくつか";
+/*JP
 		pline("%s %s %s!", mult, xname(obj),
+*/
+		pline("あなたの%s%sは%s！", xname(obj), mult, 
 			(cnt > 1L) ? destroy_strings[dindx*3 + 1]
 				  : destroy_strings[dindx*3]);
 		if(osym == POTION_CLASS && dmgtyp != AD_COLD) {
@@ -3965,7 +4554,10 @@ register int osym, dmgtyp;
 		for (i = 0; i < cnt; i++)
 		    useup(obj);
 		if(dmg) {
+/*JP
 		    if(xresist)	You("aren't hurt!");
+*/
+		    if(xresist)	You("傷つかない！");
 		    else {
 			const char *how = destroy_strings[dindx * 3 + 2];
 			boolean one = (cnt == 1L);
@@ -4018,9 +4610,15 @@ int osym, dmgtyp;
 		    if (obj->otyp == SPE_BOOK_OF_THE_DEAD) {
 			skip++;
 			if (vis)
+#if 0 /*JP:T*/
 			    pline("%s glows a strange %s, but remains intact.",
 				The(distant_name(obj, xname)),
 				hcolor("dark red"));
+#else
+			    pline("%sは奇妙に%s輝いたが何も変化しなかった．",
+				The(distant_name(obj, xname)),
+				jconj_adj(hcolor("暗褐色の")));
+#endif
 		    }
 		    quan = obj->quan;
 		    switch(osym) {
@@ -4068,7 +4666,10 @@ int osym, dmgtyp;
 		    if(!rn2(3)) cnt++;
 
 		if(!cnt) continue;
+/*JP
 		if (vis) pline("%s %s %s!",
+*/
+		if (vis) pline("%sの%sは%s！",
 			s_suffix(Monnam(mtmp)), xname(obj),
 			(cnt > 1L) ? destroy_strings[dindx*3 + 1]
 				  : destroy_strings[dindx*3]);
@@ -4109,7 +4710,10 @@ int damage, tell;
 	if (resisted) {
 	    if (tell) {
 		shieldeff(mtmp->mx, mtmp->my);
+/*JP
 		pline("%s resists!", Monnam(mtmp));
+*/
+		    pline("%sは防いだ！", Monnam(mtmp));
 	    }
 	    damage = (damage + 1) / 2;
 	}
@@ -4140,10 +4744,16 @@ boolean magical; /**< if wishing for magical items is allowed */
 	int tries = 0;
 
 	nothing = zeroobj;  /* lint suppression; only its address matters */
+/*JP
 	if (flags.verbose) You("may wish for an object.");
+*/
+	if (flags.verbose) You("望みのものを手に入れられる！");
 retry:
 	do {
+/*JP
 		getlin("For what do you wish?", buf);
+*/
+		getlin("何をお望み？", buf);
 	} while (buf[0] == '\033'); /* prevent accidental cancelling of a wish */
 #ifdef LIVELOGFILE
 	Strcpy(rawbuf, buf);
@@ -4165,7 +4775,10 @@ retry:
 	 */
 	otmp = readobjnam(buf, &nothing, TRUE);
 	if (!otmp) {
+/*JP
 	    pline("Nothing fitting that description exists in the game.");
+*/
+	    pline("うーん．そんなものは存在しないようだ．");
 	    if (++tries < 5) goto retry;
 	    pline(thats_enough_tries);
 	    otmp = readobjnam((char *)0, (struct obj *)0, TRUE);
@@ -4198,6 +4811,7 @@ retry:
 
 	if (otmp != &zeroobj) {
 	    /* The(aobjnam()) is safe since otmp is unidentified -dlc */
+#if 0 /*JP*/
 	    (void) hold_another_object(otmp, u.uswallow ?
 				       "Oops!  %s out of your reach!" :
 				       (Is_airlevel(&u.uz) ||
@@ -4210,6 +4824,17 @@ retry:
 					     Is_airlevel(&u.uz) || u.uinwater ?
 						   "slip" : "drop")),
 				       (const char *)0);
+#else
+		Sprintf(buf, "%sが%s", xname(otmp),
+			Is_airlevel(&u.uz)||u.uinwater ? "滑り落ちた" : "落ちた");
+		(void) hold_another_object(otmp, u.uswallow ?
+				       "おっと，届かないところに%s！" :
+				       Is_airlevel(&u.uz) || u.uinwater ?
+				       "おっと，手から%s！" :
+				       "おっと，床に%s！",
+				       buf,
+				       (const char *)0);
+#endif
 	    u.ublesscnt += rn1(100,50);  /* the gods take notice */
 	}
 }

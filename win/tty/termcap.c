@@ -2,6 +2,12 @@
 /* Copyright (c) Stichting Mathematisch Centrum, Amsterdam, 1985. */
 /* NetHack may be freely redistributed.  See license for details. */
 
+/*
+**	Japanese version Copyright
+**	For 3.4, Copyright (c) Kentaro Shirakata, 2002-2003
+**	JNetHack may be freely redistributed.  See license for details. 
+*/
+
 #include "hack.h"
 
 #if defined (TTY_GRAPHICS) && !defined(NO_TERMS)
@@ -61,12 +67,14 @@ STATIC_DCL char PC;
 STATIC_VAR char tbuf[512];
 #endif
 
+#ifdef OVLB
 #ifdef TEXTCOLOR
 # ifdef TOS
 const char *hilites[CLR_MAX];	/* terminal escapes for the various colors */
 # else
 char NEARDATA *hilites[CLR_MAX]; /* terminal escapes for the various colors */
 # endif
+#endif
 #endif
 
 #ifdef OVLB
@@ -684,7 +692,11 @@ int c;
 char c;
 #endif
 {
+#if 0 /*JP*/
 	(void) putchar(c);
+#else
+	(void) cputchar(c);
+#endif
 }
 
 void
@@ -692,6 +704,9 @@ xputs(s)
 const char *s;
 {
 # ifndef TERMLIB
+#if 1 /*JP*/
+	(void) jputchar('\0');
+#endif
 	(void) fputs(s, stdout);
 # else
 #  if defined(NHSTDC) || defined(ULTRIX_PROTO)
@@ -809,7 +824,11 @@ void
 tty_nhbell()
 {
 	if (flags.silent) return;
+#if 0 /*JP*/
 	(void) putchar('\007');		/* curx does not change */
+#else
+	(void) cputchar('\007');		/* curx does not change */
+#endif
 	(void) fflush(stdout);
 }
 
@@ -860,10 +879,17 @@ tty_delay_output()
 #endif
 #if defined(MICRO)
 	/* simulate the delay with "cursor here" */
+#if 1 /*JP*/
+	{
+	register int i;
+#endif
 	for (i = 0; i < 3; i++) {
 		cmov(ttyDisplay->curx, ttyDisplay->cury);
 		(void) fflush(stdout);
 	}
+#if 1 /*JP*/
+	}
+#endif
 #else /* MICRO */
 	/* BUG: if the padding character is visible, as it is on the 5620
 	   then this looks terrible. */

@@ -405,7 +405,7 @@ $(O)install.tag: 	$(DAT)\data	$(DAT)\rumors	 $(DAT)\dungeon \
 	copy $(SSHR)\NetHack.cnf  $(GAMEDIR)\defaults.nh
 	copy $(MSYS)\NHAccess.nh  $(GAMEDIR)
 	copy $(U)recover.exe          $(GAMEDIR)
-	if exist $(DOC)\guideb*.txt copy $(DOC)\guideb*.txt $(GAMEDIR)
+	if exist $(DOC)\jguide*.txt copy $(DOC)\jguide*.txt $(GAMEDIR)
 	if exist $(DOC)\recover.txt copy $(DOC)\recover.txt $(GAMEDIR)
 	if exist $(DOC)\nethack.txt copy $(DOC)\nethack.txt $(GAMEDIR)
 	echo install done > $@
@@ -891,10 +891,10 @@ panic.o:   $(CONFIG_H)	  $(UTIL)\panic.c
 
 
 #
-# make data.base an 8.3 filename to prevent an nmake warning
+# make jdata.base an 8.3 filename to prevent an nmake warning
 #
 
-DATABASE = $(DAT)\data.bas
+DATABASE = $(DAT)\jdata.bas
 
 $(DAT)\data:	 $(O)utility.tag	$(DATABASE)
 	$(U)makedefs -d
@@ -902,7 +902,7 @@ $(DAT)\data:	 $(O)utility.tag	$(DATABASE)
 $(DAT)\rumors:	     $(O)utility.tag    $(DAT)\rumors.tru	$(DAT)\rumors.fal
 	$(U)makedefs -r
 
-$(DAT)\quest.dat: $(O)utility.tag  $(DAT)\quest.txt
+$(DAT)\quest.dat: $(O)utility.tag  $(DAT)\jquest.txt
 	$(U)makedefs -q
 
 $(DAT)\oracles:	     $(O)utility.tag    $(DAT)\oracles.txt

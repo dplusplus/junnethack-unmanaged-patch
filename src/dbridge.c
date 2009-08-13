@@ -10,6 +10,14 @@
  * deal with players as well. - 11/89
  */
 
+/*
+**	Japanese version Copyright
+**	(c) Issei Numata, Naoki Hamada, Shigehiro Miyashita, 1994-2000
+**	changing point is marked `JP' (94/6/7)
+**	For 3.4, Copyright (c) Kentaro Shirakata, 2002-2003
+**	JNetHack may be freely redistributed.  See license for details. 
+*/
+
 #include "hack.h"
 
 #ifdef OVLB
@@ -309,7 +317,10 @@ STATIC_OVL const char *
 e_nam(etmp)
 struct entity *etmp;
 {
+/*JP
 	return(is_u(etmp)? "you" : mon_nam(etmp->emon));
+*/
+	return(is_u(etmp)? "あなた" : mon_nam(etmp->emon));
 }
 
 #ifdef D_DEBUG
@@ -321,7 +332,10 @@ static const char *
 Enam(etmp)
 struct entity *etmp;
 {
+/*JP
 	return(is_u(etmp)? "You" : Monnam(etmp->emon));
+*/
+	return(is_u(etmp)? "あなた" : Monnam(etmp->emon));
 }
 #endif /* D_DEBUG */
 
@@ -337,6 +351,10 @@ const char *verb;
 {
 	static char wholebuf[80];
 
+#if 1 /*JP*/
+	Strcpy(wholebuf, is_u(etmp) ? "あなた" : Monnam(etmp->emon));
+	return wholebuf;
+#else
 	Strcpy(wholebuf, is_u(etmp) ? "You" : Monnam(etmp->emon));
 	if (!*verb) return(wholebuf);
 	Strcat(wholebuf, " ");
@@ -345,6 +363,7 @@ const char *verb;
 	else
 	    Strcat(wholebuf, vtense((char *)0, verb));
 	return(wholebuf);
+#endif
 }
 
 /*
@@ -392,14 +411,22 @@ int dest, how;
 			/* use more specific killer if specified */
 			if (!killer) {
 			    killer_format = KILLED_BY_AN;
+/*JP
 			    killer = "falling drawbridge";
+*/
+			killer = "降りてきた跳ね橋で";
 			}
 			done(how);
 			/* So, you didn't die */
 			if (!e_survives_at(etmp, etmp->ex, etmp->ey)) {
 			    if (enexto(&xy, etmp->ex, etmp->ey, etmp->edata)) {
+#if 0 /*JP*/
 				pline("A %s force teleports you away...",
 				      Hallucination ? "normal" : "strange");
+#else
+				pline("%s力があなたを遠くに運んだ．．．",
+				      Hallucination ? "普通の" : "奇妙な");
+#endif
 				teleds(xy.x, xy.y, FALSE);
 			    }
 			    /* otherwise on top of the drawbridge is the
@@ -537,15 +564,24 @@ struct entity *etmp;
 
 	if (automiss(etmp) && e_survives_at(etmp, oldx, oldy)) {
 		if (e_inview && (at_portcullis || IS_DRAWBRIDGE(crm->typ)))
+#if 0 /*JP*/
 			pline_The("%s passes through %s!",
 			      at_portcullis ? "portcullis" : "drawbridge",
 			      e_nam(etmp));
+#else
+			pline_The("%sは%sを通り抜けた！",
+			      at_portcullis ? "落し格子" : "跳ね橋",
+			      e_nam(etmp));
+#endif
 		if (is_u(etmp)) spoteffects(FALSE);
 		return;
 	}
 	if (e_missed(etmp, FALSE)) {
 		if (at_portcullis)
+/*JP
 			pline_The("portcullis misses %s!",
+*/
+			pline("落し格子は%sに命中しなかった！",
 			      e_nam(etmp));
 #ifdef D_DEBUG
 		else
@@ -565,7 +601,10 @@ struct entity *etmp;
 		}
 	} else {
 		if (crm->typ == DRAWBRIDGE_DOWN) {
+/*JP
 			pline("%s crushed underneath the drawbridge.",
+*/
+			pline("%sは跳ね橋の下敷になった．",
 			      E_phrase(etmp, "are"));		  /* no jump */
 			e_died(etmp, e_inview? 3 : 2, CRUSHING);/* no corpse */
 			return;   /* Note: Beyond this point, we know we're  */
@@ -581,10 +620,16 @@ struct entity *etmp;
 #endif
 		} else {
 		    if (e_inview)
+/*JP
 			pline("%s crushed by the falling portcullis!",
+*/
+			pline("%sは落ちてきた落し格子に潰された！",
 			      E_phrase(etmp, "are"));
 		    else if (flags.soundok)
+/*JP
 			You_hear("a crushing sound.");
+*/
+			You_hear("何かが潰れる音を聞いた．");
 		    e_died(etmp, e_inview? 3 : 2, CRUSHING);
 		    /* no corpse */
 		    return;
@@ -681,18 +726,33 @@ struct entity *etmp;
 #endif
 		if (e_inview) {
 			if (is_u(etmp)) {
+/*JP
 				You("tumble towards the closed portcullis!");
+*/
+				You("閉まりかけの落し格子をころぶようにすりぬけた！");
 				if (automiss(etmp))
+/*JP
 					You("pass through it!");
+*/
+					You("通りぬけた！");
 				else
+/*JP
 					pline_The("drawbridge closes in...");
+*/
+					pline_The("跳ね橋は閉じた．．．");
 			} else
+/*JP
 				pline("%s behind the drawbridge.",
+*/
+				pline("%sは跳ね橋の裏に移動した．",
 				      E_phrase(etmp, "disappear"));
 		}
 		if (!e_survives_at(etmp, etmp->ex, etmp->ey)) {
 			killer_format = KILLED_BY_AN;
+/*JP
 			killer = "closing drawbridge";
+*/
+			killer = "閉じていく跳ね橋に狭まれて";
 			e_died(etmp, 0, CRUSHING);	       /* no message */
 			return;
 		}
@@ -705,11 +765,17 @@ struct entity *etmp;
 #endif
 		if (is_pool(etmp->ex, etmp->ey) && !e_inview)
 			if (flags.soundok)
+/*JP
 				You_hear("a splash.");
+*/
+				You_hear("パシャパシャという音を聞いた．");
 		if (e_survives_at(etmp, etmp->ex, etmp->ey)) {
 			if (e_inview && !is_flyer(etmp->edata) &&
 			    !is_floater(etmp->edata))
+/*JP
 				pline("%s from the bridge.",
+*/
+				pline("%sは橋から落ちた．",
 				      E_phrase(etmp, "fall"));
 			return;
 		}
@@ -722,16 +788,33 @@ struct entity *etmp;
 			boolean lava = is_lava(etmp->ex, etmp->ey);
 
 			if (Hallucination)
+#if 0 /*JP*/
 			    pline("%s the %s and disappears.",
 				  E_phrase(etmp, "drink"),
 				  lava ? "lava" : "moat");
+#else
+			    pline("%sは%sを飲み，消えた．",
+				  E_phrase(etmp, "drink"),
+				  lava ? "溶岩" : "堀");
+#endif
 			else
+#if 0 /*JP*/
 			    pline("%s into the %s.",
 				  E_phrase(etmp, "fall"),
 				  lava ? "lava" : "moat");
+#else
+			    pline("%sは%sの中に落ちた．",
+				  E_phrase(etmp, "fall"),
+				  lava ? "溶岩" : "堀");
+#endif
 		    }
+#if 0 /*JP:T*/
 		killer_format = NO_KILLER_PREFIX;
 		killer = "fell from a drawbridge";
+#else
+		killer_format = KILLED_BY;
+		killer = "跳ね橋から落ちて";
+#endif
 		e_died(etmp, e_inview ? 3 : 2,      /* CRUSHING is arbitrary */
 		       (is_pool(etmp->ex, etmp->ey)) ? DROWNING :
 		       (is_lava(etmp->ex, etmp->ey)) ? BURNING :
@@ -756,19 +839,25 @@ int x,y;
 	if (lev1->typ != DRAWBRIDGE_DOWN) return FALSE;
 	/* Huge monster block the drawbridge */
 	if (m_at(x,y) && hugemonst(m_at(x,y)->data)) {
+		/* TODO:翻訳 */
 		pline("A monster blocks the drawbridge with its weight.");
 		return FALSE;
 	}
 	if (rn2(5)==0) {
+		/* TODO:翻訳 */
 		pline("The mechanism seems to have something stuck in it and won't close.");
 		return FALSE;
 	}
 	x2 = x; y2 = y;
 	get_wall_for_db(&x2,&y2);
 	if (cansee(x,y) || cansee(x2,y2))
+#if 0 /*JP*/
 		You("see a drawbridge %s up!",
 		    (((u.ux == x || u.uy == y) && !Underwater) ||
 		     distu(x2,y2) < distu(x,y)) ? "coming" : "going");
+#else
+		pline("跳ね橋が閉じていくのが見えた！");
+#endif
 	lev1->typ = DRAWBRIDGE_UP;
 	lev2 = &levl[x2][y2];
 	lev2->typ = DBWALL;
@@ -789,7 +878,10 @@ int x,y;
 	set_entity(x2, y2, &(occupants[1]));	/* do_entity for worm tail */
 	do_entity(&(occupants[1]));
 	if(OBJ_AT(x,y) && flags.soundok)
+/*JP
 	    You_hear("smashing and crushing.");
+*/
+	    You_hear("ガシャン，ガランという音を聞いた．");
 	(void) revive_nasty(x,y,(char *)0);
 	(void) revive_nasty(x2,y2,(char *)0);
 	delallobj(x, y);
@@ -819,8 +911,12 @@ int x,y;
 	x2 = x; y2 = y;
 	get_wall_for_db(&x2,&y2);
 	if (cansee(x,y) || cansee(x2,y2))
+#if 0 /*JP*/
 		You("see a drawbridge %s down!",
 		    (distu(x2,y2) < distu(x,y)) ? "going" : "coming");
+#else
+		pline("跳ね橋が開くのが見えた！");
+#endif
 	lev1->typ = DRAWBRIDGE_DOWN;
 	lev2 = &levl[x2][y2];
 	lev2->typ = DOOR;
@@ -866,28 +962,55 @@ int x,y;
 		boolean lava = (lev1->drawbridgemask & DB_UNDER) == DB_LAVA;
 		if (lev1->typ == DRAWBRIDGE_UP) {
 			if (cansee(x2,y2))
+#if 0 /*JP*/
 			    pline_The("portcullis of the drawbridge falls into the %s!",
 				  lava ? "lava" : "moat");
+#else
+			    pline("跳ね橋の落し格子が%sに落ちた！",
+				  lava ? "溶岩" : "堀");
+#endif
 			else if (flags.soundok)
+#if 0 /*JP*/
 				You_hear("a loud *SPLASH*!");
+#else
+				You_hear("大きなバッシャーンという音を聞いた！");
+#endif
 		} else {
 			if (cansee(x,y))
+#if 0 /*JP*/
 			    pline_The("drawbridge collapses into the %s!",
 				  lava ? "lava" : "moat");
+#else
+			    pline("跳ね橋は%sにくずれ落ちた！",
+				  lava ? "溶岩" : "堀");
+#endif
 			else if (flags.soundok)
+#if 0 /*JP*/
 				You_hear("a loud *SPLASH*!");
+#else
+				You_hear("大きなバッシャーンという音を聞いた！");
+#endif
 		}
 		lev1->typ = lava ? LAVAPOOL : MOAT;
 		lev1->drawbridgemask = 0;
 		if ((otmp = sobj_at(BOULDER,x,y)) != 0) {
 		    obj_extract_self(otmp);
+/*JP
 		    (void) flooreffects(otmp,x,y,"fall");
+*/
+		    (void) flooreffects(otmp,x,y,"落ちる");
 		}
 	} else {
 		if (cansee(x,y))
+/*JP
 			pline_The("drawbridge disintegrates!");
+*/
+			pline("跳ね橋はこなごなになった！");
 		else
+/*JP
 			You_hear("a loud *CRASH*!");
+*/
+			You_hear("大きなガシャーンという音を聞いた！");
 		lev1->typ =
 			((lev1->drawbridgemask & DB_ICE) ? ICE : ROOM);
 		lev1->icedpool =
@@ -908,10 +1031,16 @@ int x,y;
 		e_inview = e_canseemon(etmp2);
 		if (!automiss(etmp2)) {
 			if (e_inview)
+/*JP
 				pline("%s blown apart by flying debris.",
+*/
+				pline("%sは飛び散った瓦礫の破片を浴びた．",
 				      E_phrase(etmp2, "are"));
 			killer_format = KILLED_BY_AN;
+/*JP
 			killer = "exploding drawbridge";
+*/
+			killer = "跳ね橋の爆発で";
 			e_died(etmp2, e_inview? 3 : 2, CRUSHING); /*no corpse*/
 		}	     /* nothing which is vulnerable can survive this */
 	}
@@ -925,14 +1054,23 @@ int x,y;
 		} else {
 			if (e_inview) {
 			    if (!is_u(etmp1) && Hallucination)
+/*JP
 				pline("%s into some heavy metal!",
+*/
+				pline("%sは重金属に埋もれた！",
 				      E_phrase(etmp1, "get"));
 			    else
+/*JP
 				pline("%s hit by a huge chunk of metal!",
+*/
+				pline("大きな鉄の塊が%sに命中した！",
 				      E_phrase(etmp1, "are"));
 			} else {
 			    if (flags.soundok && !is_u(etmp1) && !is_pool(x,y))
+/*JP
 				You_hear("a crushing sound.");
+*/
+				You_hear("ガランという音を聞いた．");
 #ifdef D_DEBUG
 			    else
 				pline("%s from shrapnel",
@@ -940,7 +1078,10 @@ int x,y;
 #endif
 			}
 			killer_format = KILLED_BY_AN;
+/*JP
 			killer = "collapsing drawbridge";
+*/
+			killer = "バラバラになった跳ね橋で";
 			e_died(etmp1, e_inview? 3 : 2, CRUSHING); /*no corpse*/
 			if(lev1->typ == MOAT) do_entity(etmp1);
 		}

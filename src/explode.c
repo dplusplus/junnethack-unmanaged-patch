@@ -2,6 +2,13 @@
 /*	Copyright (C) 1990 by Ken Arromdee */
 /* NetHack may be freely redistributed.  See license for details. */
 
+/*
+**	Japanese version Copyright
+**	(c) Issei Numata, Naoki Hamada, Shigehiro Miyashita, 1994-2000
+**	For 3.4, Copyright (c) Kentaro Shirakata, 2002-2003
+**	JNetHack may be freely redistributed.  See license for details. 
+*/
+
 #include "hack.h"
 
 #ifdef OVL0
@@ -41,6 +48,9 @@ int expltype;
 		/* 0=normal explosion, 1=do shieldeff, 2=do nothing */
 	boolean shopdamage = FALSE;
 	boolean generic = FALSE;
+#if 1 /*JP*/
+	char jbuf[BUFSZ];
+#endif
 
 	if (olet == WAND_CLASS)		/* retributive strike */
 		switch (Role_switch) {
@@ -55,33 +65,72 @@ int expltype;
 		}
 
 	if (olet == MON_EXPLODE) {
+#if 0 /*JP*/
 	    str = killer;
+#else
+/*JP	こういう日本語化のときに面倒なコーディングはやめてくれぃ */
+	    strcpy(jbuf, killer);
+	    str = killer;
+	    {
+/*JP	苦肉の策 */
+		int len = strlen(str);
+		if(len > 2 && str[len - 2] == "で"[0] && str[len - 1] == "で"[1]){
+		    ((char *)str)[len - 2] = '\0';
+		}
+	    }
 	    killer = 0;		/* set again later as needed */
+#endif
 	    adtyp = AD_PHYS;
 	} else
 	switch (abs(type) % 10) {
+/*JP
 		case 0: str = "magical blast";
+*/
+		case 0: str = "魔法の風";
 			adtyp = AD_MAGM;
 			break;
+#if 0 /*JP*/
 		case 1: str =   olet == BURNING_OIL ?	"burning oil" :
 				olet == SCROLL_CLASS ?	"tower of flame" :
 							"fireball";
+#else
+		case 1: str =   olet == BURNING_OIL ?	"燃えている油" :
+				olet == SCROLL_CLASS ?	"火柱" :
+							"火の玉";
+#endif
 			adtyp = AD_FIRE;
 			break;
+/*JP
 		case 2: str = "ball of cold";
+*/
+		case 2: str = "氷の玉";
 			adtyp = AD_COLD;
 			break;
+#if 0 /*JP*/
 		case 4: str =  (olet == WAND_CLASS) ? "death field" :
 							"disintegration field";
+#else
+		case 4: str = (olet == WAND_CLASS) ? "死の風" :
+							"分解の風";
+#endif
 			adtyp = AD_DISN;
 			break;
+/*JP
 		case 5: str = "ball of lightning";
+*/
+		case 5: str = "雷玉";
 			adtyp = AD_ELEC;
 			break;
+/*JP
 		case 6: str = "poison gas cloud";
+*/
+		case 6: str = "毒の雲";
 			adtyp = AD_DRST;
 			break;
+/*JP
 		case 7: str = "splash of acid";
+*/
+		case 7: str = "酸のしぶき";
 			adtyp = AD_ACID;
 			break;
 		default: impossible("explosion base type %d?", type); return;
@@ -219,10 +268,16 @@ int expltype;
 		tmp_at(DISP_END, 0); /* clear the explosion */
 	} else {
 	    if (olet == MON_EXPLODE) {
+/*JP
 		str = "explosion";
+*/
+		str = "爆発";
 		generic = TRUE;
 	    }
+/*JP
 	    if (flags.soundok) You_hear("a blast.");
+*/
+	    if (flags.soundok) You_hear("爆発音を聞いた．");
 	}
 
     if (dam)
@@ -243,6 +298,7 @@ int expltype;
 		if (!mtmp) continue;
 		if (u.uswallow && mtmp == u.ustuck) {
 			if (is_animal(u.ustuck->data))
+#if 0 /*JP*/
 				pline("%s gets %s!",
 				      Monnam(u.ustuck),
 				      (adtyp == AD_FIRE) ? "heartburn" :
@@ -253,7 +309,20 @@ int expltype;
 				      (adtyp == AD_DRST) ? "poisoned" :
 				      (adtyp == AD_ACID) ? "an upset stomach" :
 				       "fried");
+#else
+				pline("%sは%s！",
+				      Monnam(u.ustuck),
+				      (adtyp == AD_FIRE) ? "燃えた" :
+				      (adtyp == AD_COLD) ? "凍らされた" :
+				      (adtyp == AD_DISN) ? ((olet == WAND_CLASS) ?
+				       "浄化の力を浴びた" : "穴をあけられた") :
+				      (adtyp == AD_ELEC) ? "電撃をくらった" :
+				      (adtyp == AD_DRST) ? "毒をくらった" :
+				      (adtyp == AD_ACID) ? "酸をくらった" :
+				       "パリパリになった");
+#endif
 			else
+#if 0 /*JP*/
 				pline("%s gets slightly %s!",
 				      Monnam(u.ustuck),
 				      (adtyp == AD_FIRE) ? "toasted" :
@@ -264,9 +333,24 @@ int expltype;
 				      (adtyp == AD_DRST) ? "intoxicated" :
 				      (adtyp == AD_ACID) ? "burned" :
 				       "fried");
+#else
+				pline("%sは少しだけ%s！",
+				      Monnam(u.ustuck),
+				      (adtyp == AD_FIRE) ? "焦げた" :
+				      (adtyp == AD_COLD) ? "凍った" :
+				      (adtyp == AD_DISN) ? ((olet == WAND_CLASS) ?
+				       "浄化の力を浴びた" : "穴をあけられた") :
+				      (adtyp == AD_ELEC) ? "電撃をくらった" :
+				      (adtyp == AD_DRST) ? "毒をくらった" :
+				      (adtyp == AD_ACID) ? "酸をくらった" :
+				       "パリパリになった");
+#endif
 		} else if (cansee(i+x-1, j+y-1)) {
 		    if(mtmp->m_ap_type) seemimic(mtmp);
+/*JP
 		    pline("%s is caught in the %s!", Monnam(mtmp), str);
+*/
+		    pline("%sは%sにつつまれた！", Monnam(mtmp), str);
 		}
 
 		idamres += destroy_mitem(mtmp, SCROLL_CLASS, (int) adtyp);
@@ -287,7 +371,10 @@ int expltype;
 
 			if (resist(mtmp, olet, 0, FALSE)) {
 			    if (cansee(i+x-1,j+y-1))
+/*JP
 				pline("%s resists the %s!", Monnam(mtmp), str);
+*/
+				pline("%sは%sに抵抗した！", Monnam(mtmp), str);
 			    mdam = dam/2;
 			}
 			if (mtmp == u.ustuck)
@@ -310,12 +397,18 @@ int expltype;
 	if (uhurt) {
 		if ((type >= 0 || adtyp == AD_PHYS) &&	/* gas spores */
 				flags.verbose && olet != SCROLL_CLASS)
+/*JP
 			You("are caught in the %s!", str);
+*/
+			You("%sにつつまれた！", str);
 		/* do property damage first, in case we end up leaving bones */
 		if (adtyp == AD_FIRE) burn_away_slime();
 		if (Invulnerable) {
 		    damu = 0;
+/*JP
 		    You("are unharmed!");
+*/
+		    You("傷つかない！");
 		} else if (Half_physical_damage && adtyp == AD_PHYS)
 		    damu = (damu+1) / 2;
 		if (adtyp == AD_FIRE) (void) burnarmor(&youmonst);
@@ -343,17 +436,31 @@ int expltype;
 			    if (str != killer_buf && !generic)
 				Strcpy(killer_buf, str);
 			    killer_format = KILLED_BY_AN;
+#if 1 /*JP*/
+			    Strcat(killer_buf, "で");
+#endif
 			} else if (type >= 0 && olet != SCROLL_CLASS) {
+#if 0 /*JP*/
 			    killer_format = NO_KILLER_PREFIX;
 			    Sprintf(killer_buf, "caught %sself in %s own %s",
 				    uhim(), uhis(), str);
+#else
+			    killer_format = KILLED_BY;
+			    Sprintf(killer_buf, "自分自身の%sにつつまれて",
+				    str);
+#endif
+#if 0 /*JP*//* an をつけるかどうかは関係ない */
 			} else if (!strncmpi(str,"tower of flame", 8) ||
 				   !strncmpi(str,"fireball", 8)) {
 			    killer_format = KILLED_BY_AN;
 			    Strcpy(killer_buf, str);
+#endif
 			} else {
 			    killer_format = KILLED_BY;
 			    Strcpy(killer_buf, str);
+#if 1 /*JP*/
+			    Strcat(killer_buf, "で");
+#endif
 			}
 			killer = killer_buf;
 			/* Known BUG: BURNING suppresses corpse in bones data,
@@ -365,10 +472,17 @@ int expltype;
 	}
 
 	if (shopdamage) {
+#if 0 /*JP*/
 		pay_for_damage(adtyp == AD_FIRE ? "burn away" :
 			       adtyp == AD_COLD ? "shatter" :
 			       adtyp == AD_DISN ? "disintegrate" : "destroy",
 			       FALSE);
+#else
+		pay_for_damage(adtyp == AD_FIRE ? "燃やす" :
+			       adtyp == AD_COLD ? "粉々にする" :
+			       adtyp == AD_DISN ? "粉砕する" : "破壊する",
+			       FALSE);
+#endif
 	}
 
 	/* explosions are noisy */
@@ -437,7 +551,10 @@ struct obj *obj;			/* only scatter this obj        */
 			&& ((otmp->otyp == BOULDER) || (otmp->otyp == STATUE))
 			&& rn2(10)) {
 		if (otmp->otyp == BOULDER) {
+/*JP
 		    pline("%s apart.", Tobjnam(otmp, "break"));
+*/
+		    pline("%sは一部分が砕けた．",xname(otmp));
 		    fracture_rock(otmp);
 		    place_object(otmp, sx, sy);
 		    if ((otmp = sobj_at(BOULDER, sx, sy)) != 0) {
@@ -450,9 +567,14 @@ struct obj *obj;			/* only scatter this obj        */
 
 		    if ((trap = t_at(sx,sy)) && trap->ttyp == STATUE_TRAP)
 			    deltrap(trap);
+/*JP
 		    pline("%s.", Tobjnam(otmp, "crumble"));
+*/
+		    pline("%sはこなごなになった．",xname(otmp));
 		    (void) break_statue(otmp);
+#ifndef FIX_BUG_C340_2
 		    place_object(otmp, sx, sy);	/* put fragments on floor */
+#endif
 		}
 		used_up = TRUE;
 

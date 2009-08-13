@@ -76,6 +76,7 @@ struct u_conduct {		/* number of times... */
 struct Role {
 	/*** Strings that name various things ***/
 	struct RoleName name;	/* the role's name (from u_init.c) */
+	struct RoleName jname;	/* the role's name (from u_init.c) */
 	struct RoleName rank[9]; /* names for experience levels (from botl.c) */
 	const char *lgod, *ngod, *cgod; /* god names (from pray.c) */
 	const char *filecode;	/* abbreviation for use in file names */
@@ -152,6 +153,7 @@ extern struct Role urole;
 struct Race {
 	/*** Strings that name various things ***/
 	const char *noun;	/* noun ("human", "elf") */
+/*JP*/	const char *j;		/* japanese */
 	const char *adj;	/* adjective ("human", "elven") */
 	const char *coll;	/* collective ("humanity", "elvenkind") */
 	const char *filecode;	/* code for filenames */
@@ -197,6 +199,7 @@ extern struct Race urace;
 /*** Unified structure specifying gender information ***/
 struct Gender {
 	const char *adj;	/* male/female/neuter */
+/*JP*/	const char *j;		/* japanese */
 	const char *he;		/* he/she/it */
 	const char *him;	/* him/her/it */
 	const char *his;	/* his/her/its */
@@ -218,6 +221,7 @@ extern const struct Gender genders[];	/* table of available genders */
 /*** Unified structure specifying alignment information ***/
 struct Align {
 	const char *noun;	/* law/balance/chaos */
+/*JP*/	const char *j;		/* japanese */
 	const char *adj;	/* lawful/neutral/chaotic */
 	const char *filecode;	/* file code */
 	short allow;		/* equivalent ROLE_ mask */

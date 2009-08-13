@@ -184,7 +184,10 @@ void mswin_render_text(PNHTextBuffer pb, HWND edit_control)
 
 				/* check if it fits */
 				SetRect( &rt_text, 0, 0, size_text.cx, size_text.cy );
+/*JP
 				DrawText(hdcEdit, NH_A2W(buf, tbuf, p_buf_cur-buf), p_buf_cur-buf, &rt_text, DT_CALCRECT | DT_LEFT | DT_SINGLELINE | DT_NOCLIP);
+*/
+				DrawText(hdcEdit, NH_A2W(buf, tbuf, p_buf_cur-buf), -1, &rt_text, DT_CALCRECT | DT_LEFT | DT_SINGLELINE | DT_NOCLIP);
 				if( (rt_text.right - rt_text.left)>=size_text.cx ) {
 					/* Backtrack. 
 					   Only backtrack if the last word caused the overflow -

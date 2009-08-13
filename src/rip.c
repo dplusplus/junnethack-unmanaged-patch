@@ -2,6 +2,13 @@
 /* Copyright (c) Stichting Mathematisch Centrum, Amsterdam, 1985. */
 /* NetHack may be freely redistributed.  See license for details. */
 
+/*
+**	Japanese version Copyright
+**	(c) Issei Numata, Naoki Hamada, Shigehiro Miyashita, 1994-2000
+**	For 3.4, Copyright (c) Kentaro Shirakata, 2002-2003
+**	JNetHack may be freely redistributed.  See license for details. 
+*/
+
 #include "hack.h"
 
 STATIC_DCL void FDECL(center, (int, char *));
@@ -120,28 +127,78 @@ int how;
 	switch (killer_format) {
 		default: impossible("bad killer format?");
 		case KILLED_BY_AN:
+#if 0 /*JP*/
 			Strcpy(buf, killed_by_prefix[how]);
 			Strcat(buf, an(killer));
+#else
+			Strcpy(buf, an(killer));
+			Strcat(buf, killed_by_prefix[how]);
+#endif
 			break;
 		case KILLED_BY:
+#if 0 /*JP*/
 			Strcpy(buf, killed_by_prefix[how]);
 			Strcat(buf, killer);
+#else
+			Strcpy(buf, killer);
+			Strcat(buf, killed_by_prefix[how]);
+#endif
 			break;
 		case NO_KILLER_PREFIX:
 			Strcpy(buf, killer);
 			break;
+#if 1 /*JP*/
+		case KILLED_SUFFIX:
+			Strcpy(buf, killer);
+			Strcat(buf, "‚ÉŽE‚³‚ê‚½");
+#endif
 	}
 
 	/* Put death type on stone */
 	for (line=DEATH_LINE, dpx = buf; line<YEAR_LINE; line++) {
 		register int i,i0;
 		char tmpchar;
+#if 1 /*JP*/
+		unsigned char *uc;
+		int jstone_line;
 
+		if ((i0=strlen(dpx))<= STONE_LINE_LEN)
+		  jstone_line = STONE_LINE_LEN;
+		else if (i0/2 <= STONE_LINE_LEN )
+		  jstone_line = ((i0+3)/4)*2;
+		else if (i0/3 <= STONE_LINE_LEN )
+		  jstone_line = ((i0+5)/6)*2;
+		else
+		  jstone_line = ((i0+7)/8)*2;
+#endif
+
+#if 0 /*JP*/
 		if ( (i0=strlen(dpx)) > STONE_LINE_LEN) {
 				for(i = STONE_LINE_LEN;
 				    ((i0 > STONE_LINE_LEN) && i); i--)
+#else
+		if ( i0 > jstone_line) {
+				for(i = jstone_line;
+				    ((i0 > jstone_line) && i); i--)
+#endif
 					if(dpx[i] == ' ') i0 = i;
+#if 0 /*JP*/
 				if(!i) i0 = STONE_LINE_LEN;
+#else
+				if(!i){
+				  i0=0;
+/*
+				  while(i0<STONE_LINE_LEN){
+*/
+				  while(i0<jstone_line){
+				    uc = (unsigned char *)(dpx+i0);
+				    if(*uc <128)
+				      ++i0;
+				    else
+				      i0+=2;
+				  }
+				}
+#endif
 		}
 		tmpchar = dpx[i0];
 		dpx[i0] = 0;

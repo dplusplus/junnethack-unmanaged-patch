@@ -2,6 +2,13 @@
 /* Copyright (c) Stichting Mathematisch Centrum, Amsterdam, 1985. */
 /* NetHack may be freely redistributed.  See license for details. */
 
+/*
+**	Japanese version Copyright
+**	(c) Issei Numata, Naoki Hamada, Shigehiro Miyashita, 1994-2000
+**	For 3.4, Copyright (c) Kentaro Shirakata, 2002-2003
+**	JNetHack may be freely redistributed.  See license for details. 
+*/
+
 #include "hack.h"
 
 STATIC_DCL boolean FDECL(tele_jump_ok, (int,int,int,int));
@@ -599,7 +606,10 @@ boolean force_it;
 		yelp(mtmp);
 		return FALSE;
 	    } else {
+/*JP
 		Your("leash goes slack.");
+*/
+		Your("紐はたるんだ．");
  release_it:
 		m_unleash(mtmp, FALSE);
 		return TRUE;
@@ -618,7 +628,10 @@ tele()
 #ifdef WIZARD
 		if (!wizard) {
 #endif
+/*JP
 		    pline("A mysterious force prevents you from teleporting!");
+*/
+		    pline("奇妙な力が瞬間移動を防いだ！");
 		    return;
 #ifdef WIZARD
 		}
@@ -641,7 +654,10 @@ tele()
 	 && (!wizard) )
 #endif
 	{
+/*JP
 		You_feel("disoriented for a moment.");
+*/
+		You("一瞬方向感覚を失ったような気がした．");
 		return;
 	}
 	if ((Teleport_control && !Stunned)
@@ -650,8 +666,12 @@ tele()
 #endif
 					) {
 	    if (unconscious()) {
+/*JP
 		pline("Being unconscious, you cannot control your teleport.");
+*/
+		pline("意識がないので，あなたは瞬間移動を制御できない．");
 	    } else {
+#if 0 /*JP*/
 #ifdef STEED
 		    char buf[BUFSZ];
 		    if (u.usteed) Sprintf(buf," and %s", mon_nam(u.usteed));
@@ -661,9 +681,15 @@ tele()
 				u.usteed ? buf :
 #endif
 			   "");
+#else /*JP*/
+		    pline("どの位置に瞬間移動しますか？");
+#endif /*JP*/
 		    cc.x = u.ux;
 		    cc.y = u.uy;
+/*JP
 		    if (getpos(&cc, TRUE, "the desired position") < 0)
+*/
+		    if (getpos(&cc, TRUE, "移動したい場所") < 0)
 			return;	/* abort */
 		    /* possible extensions: introduce a small error if
 		       magic power is low; allow transfer to solid rock */
@@ -671,7 +697,10 @@ tele()
 			teleds(cc.x, cc.y, FALSE);
 			return;
 		    }
+/*JP
 		    pline("Sorry...");
+*/
+		    pline("おっと．．．");
 		}
 	}
 
@@ -689,8 +718,14 @@ dotele()
 
 	if (trap) {
 		if (trap->once) {
+/*JP
 			pline("This is a vault teleport, usable once only.");
+*/
+			pline("一度かぎりの倉庫への瞬間移動の罠だ．");
+/*JP
 			if (yn("Jump in?") == 'n')
+*/
+			if (yn("飛び込む？") == 'n')
 				trap = 0;
 			else {
 				deltrap(trap);
@@ -698,8 +733,12 @@ dotele()
 			}
 		}
 		if (trap)
+#if 0 /*JP*/
 			You("%s onto the teleportation trap.",
 			    locomotion(youmonst.data, "jump"));
+#else
+			You("瞬間移動の罠に飛びこんだ．");
+#endif
 	}
 	if (!trap) {
 	    boolean castit = FALSE;
@@ -719,8 +758,14 @@ dotele()
 #endif
 		    if (!castit) {
 			if (!Teleportation)
+/*JP
 			    You("don't know that spell.");
+*/
+			    You("そんな魔法は知らない．");
+/*JP
 			else You("are not able to teleport at will.");
+*/
+			else You("自分の意思で瞬間移動できない．");
 			return(0);
 		    }
 #ifdef WIZARD
@@ -732,8 +777,13 @@ dotele()
 #ifdef WIZARD
 		if (!wizard) {
 #endif
+#if 0 /*JP*/
 			You("lack the strength %s.",
 			    castit ? "for a teleport spell" : "to teleport");
+#else
+			You("%sだけの力がない．",
+			    castit ? "瞬間移動の魔法を唱える" : "瞬間移動する");
+#endif
 			return 1;
 #ifdef WIZARD
 		}
@@ -748,14 +798,22 @@ dotele()
 		else
 #endif
 		{
+#if 0 /*JP*/
 			You("lack the energy %s.",
 			    castit ? "for a teleport spell" : "to teleport");
+#else
+			You("%sだけのエネルギーがない．",
+			    castit ? "瞬間移動の魔法を唱える" : "瞬間移動する");
+#endif
 			return 1;
 		}
 	    }
 
 	    if (check_capacity(
+/*JP
 			"Your concentration falters from carrying so much."))
+*/
+			"沢山ものを持ちすぎて集中できない．"))
 		return 1;
 
 	    if (castit) {
@@ -800,7 +858,10 @@ level_tele()
 						&& !wizard
 #endif
 							) {
+/*JP
 	    You_feel("very disoriented for a moment.");
+*/
+	    You("一瞬方向感覚を大きく失ったような気がした．");
 	    return;
 	}
 	if ((Teleport_control && !Stunned)
@@ -811,26 +872,38 @@ level_tele()
 	    char qbuf[BUFSZ];
 	    int trycnt = 0;
 
+/*JP
 	    Strcpy(qbuf, "To what level do you want to teleport?");
+*/
+	    Strcpy(qbuf, "何階に移動しますか？");
 	    do {
 		if (++trycnt == 2) {
 #ifdef WIZARD
 			if (wizard) Strcat(qbuf, " [type a number or ? for a menu]");
 			else
 #endif
+/*JP
 			Strcat(qbuf, " [type a number]");
+*/
+			Strcat(qbuf, " [数字をいれてね]");
 		}
 		getlin(qbuf, buf);
 		if (!strcmp(buf,"\033")) {	/* cancelled */
 		    if (Confusion && rnl(5)) {
+/*JP
 			pline("Oops...");
+*/
+			pline("おっと．．．");
 			goto random_levtport;
 		    }
 		    return;
 		} else if (!strcmp(buf,"*")) {
 		    goto random_levtport;
 		} else if (Confusion && rnl(5)) {
+/*JP
 		    pline("Oops...");
+*/
+		    pline("おっと．．．");
 		    goto random_levtport;
 		}
 #ifdef WIZARD
@@ -877,19 +950,48 @@ level_tele()
 	    if (newlev == 0) {
 		if (trycnt >= 10)
 		    goto random_levtport;
+/*JP
 		if (ynq("Go to Nowhere.  Are you sure?") != 'y') return;
+*/
+		if(ynq("どことも知れぬ場所に行きます？よろしいですか？") != 'y') return;
+#if 0 /*JP*/
 		You("%s in agony as your body begins to warp...",
 		    is_silent(youmonst.data) ? "writhe" : "scream");
+#else
+	        You("体が移動しはじめると，苦しみ%s．．．",
+		    is_silent(youmonst.data) ? "で身もだえした" : "のあえぎ声を出した");
+#endif
 		display_nhwindow(WIN_MESSAGE, FALSE);
+/*JP
 		You("cease to exist.");
+*/
+		Your("存在は消滅した．");
+#if 0 /*JP:T*/
 		if (invent) Your("possessions land on the %s with a thud.",
 				surface(u.ux, u.uy));
+#else
+		if (invent) Your("持ちものはドサッと%sに落ちた．",
+				surface(u.ux, u.uy));
+#endif
+#if 0 /*JP*/
 		killer_format = NO_KILLER_PREFIX;
 		killer = "committed suicide";
+#else
+		killer_format = KILLED_BY;
+		killer = "自殺行為で";
+#endif
 		done(DIED);
+/*JP
 		pline("An energized cloud of dust begins to coalesce.");
+*/
+		pline("エネルギーをもったほこりの渦が結合しはじめた．");
+#if 0 /*JP:T*/
 		Your("body rematerializes%s.", invent ?
 			", and you gather up all your possessions" : "");
+#else
+		Your("体は再び実体化した．%s", invent ?
+			"そして全ての持ち物を拾い上げた．" : "");
+#endif
 		return;
 	    }
 
@@ -932,7 +1034,10 @@ level_tele()
 	    int llimit = dunlevs_in_dungeon(&u.uz);
 
 	    if (newlev >= 0 || newlev <= -llimit) {
+/*JP
 		You_cant("get there from here.");
+*/
+		You("そこには行けない．");
 		return;
 	    }
 	    newlevel.dnum = u.uz.dnum;
@@ -954,31 +1059,68 @@ level_tele()
 		    in_mklev = FALSE;
 		}
 		if (newlev <= -10) {
+/*JP
 			You("arrive in heaven.");
+*/
+			You("天国に辿りついた．");
+/*JP
 			verbalize("Thou art early, but we'll admit thee.");
+*/
+			verbalize("汝，死ぬには早すぎるがそれもよかろう．");
+#if 0 /*JP*/
 			killer_format = NO_KILLER_PREFIX;
 			killer = "went to heaven prematurely";
+#else
+			killer_format = KILLED_BY;
+			killer = "若くして天国に行き";
+#endif
 		} else if (newlev == -9) {
+/*JP
 			You_feel("deliriously happy. ");
+*/
+			You("狂ったような幸せを感じた．");
+/*JP
 			pline("(In fact, you're on Cloud 9!) ");
+*/
+			pline("(本当に苦を乗り越えた場所にいる！) ");
 			display_nhwindow(WIN_MESSAGE, FALSE);
 		} else
+/*JP
 			You("are now high above the clouds...");
+*/
+			You("雲の遥か上にいる．．．");
 
 		if (killer) {
 		    ;		/* arrival in heaven is pending */
 		} else if (Levitation) {
+/*JP
 		    escape_by_flying = "float gently down to earth";
+*/
+		    escape_by_flying = "ゆっくり地面に降りた．";
 		} else if (Flying) {
+/*JP
 		    escape_by_flying = "fly down to the ground";
+*/
+		    escape_by_flying = "ゆっくり地面に降りた．";
 		} else {
+/*JP
 		    pline("Unfortunately, you don't know how to fly.");
+*/
+		    pline("不幸にも，あなたは飛びかたを知らない．");
+/*JP
 		    You("plummet a few thousand feet to your death.");
+*/
+		    pline("数千フィートの死のダイビングだ！");
+#if 0 /*JP:T*/
 		    Sprintf(buf,
 			  "teleported out of the dungeon and fell to %s death",
 			    uhis());
 		    killer = buf;
 		    killer_format = NO_KILLER_PREFIX;
+#else
+		    killer = "迷宮を飛びだしダイビングして";
+		    killer_format = KILLED_BY;
+#endif
 		}
 	}
 
@@ -992,13 +1134,19 @@ level_tele()
 	    done(DIED);
 	    /* can only get here via life-saving (or declining to die in
 	       explore|debug mode); the hero has now left the dungeon... */
+/*JP
 	    escape_by_flying = "find yourself back on the surface";
+*/
+	    escape_by_flying = "気がついたら地上に戻っていた";
 	    u.uz = lsav;	/* restore u.uz so escape code works */
 	}
 
 	/* calls done(ESCAPED) if newlevel==0 */
 	if (escape_by_flying) {
+/*JP
 	    You("%s.", escape_by_flying);
+*/
+	    You("%s．", escape_by_flying);
 	    newlevel.dnum = 0;		/* specify main dungeon */
 	    newlevel.dlevel = 0;	/* escape the dungeon */
 	    /* [dlevel used to be set to 1, but it doesn't make sense to
@@ -1023,7 +1171,10 @@ level_tele()
 					dunlevs_in_dungeon(&u.uz) - 1)) {
 		newlev = dungeons[u.uz.dnum].depth_start +
 					dunlevs_in_dungeon(&u.uz) - 2;
+/*JP
 		pline("Sorry...");
+*/
+		pline("おっと．．．");
 	    }
 	    /* no teleporting out of quest dungeon */
 	    if (In_quest(&u.uz) && newlev < depth(&qstart_level))
@@ -1058,20 +1209,29 @@ register struct trap *ttmp;
 	/* problem: level teleport landing escapes the check */
 	if (!on_level(&u.uz, &u.uz0)) return;
 
+/*JP
 	You("activated a magic portal!");
+*/
+	pline("魔法の入口が作動した！");
 
 	/* prevent the poor shnook, whose amulet was stolen while in
 	 * the endgame, from accidently triggering the portal to the
 	 * next level, and thus losing the game
 	 */
 	if (In_endgame(&u.uz) && !u.uhave.amulet) {
+/*JP
 	    You_feel("dizzy for a moment, but nothing happens...");
+*/
+	    You("一瞬めまいを感じた，しかし何も起きなかった．．．");
 	    return;
 	}
 
 	target_level = ttmp->dst;
 	schedule_goto(&target_level, FALSE, FALSE, 1,
+/*JP
 		      "You feel dizzy for a moment, but the sensation passes.",
+*/
+		      "一瞬めまいを感じた，しかしその感覚は消えた．",
 		      (char *)0);
 }
 
@@ -1082,7 +1242,10 @@ struct trap *trap;
 	if (In_endgame(&u.uz) || Antimagic) {
 		if (Antimagic)
 			shieldeff(u.ux, u.uy);
+/*JP
 		You_feel("a wrenching sensation.");
+*/
+		You("ねじられたような感覚を感じた．");
 	} else if (!next_to_u()) {
 		You(shudder_for_moment);
 	} else if (trap->once) {
@@ -1097,20 +1260,35 @@ void
 level_tele_trap(trap)
 struct trap *trap;
 {
+#if 0 /*JP*/
 	You("%s onto a level teleport trap!",
 		      Levitation ? (const char *)"float" :
 				  locomotion(youmonst.data, "step"));
+#else
+	You("別の階への瞬間移動の罠を%s！",
+	    Levitation ? (const char *)"見下ろした" :
+	    jpast(locomotion(youmonst.data, "踏む")));
+#endif
 	if (Antimagic) {
 	    shieldeff(u.ux, u.uy);
 	}
 	if (Antimagic || In_endgame(&u.uz)) {
+/*JP
 	    You_feel("a wrenching sensation.");
+*/
+	    You("ねじられたような感覚を感じた．");
 	    return;
 	}
 	if (!Blind)
+/*JP
 	    You("are momentarily blinded by a flash of light.");
+*/
+	    You("まばゆい光で一瞬目がくらんだ．");
 	else
+/*JP
 	    You("are momentarily disoriented.");
+*/
+	    You("一瞬方向感覚を失った．");
 	deltrap(trap);
 	newsym(u.ux,u.uy);	/* get rid of trap symbol */
 	level_tele();
@@ -1288,8 +1466,13 @@ struct monst *mon;
 {
 	if (level.flags.noteleport) {
 		if (canseemon(mon))
+#if 0 /*JP*/
 		    pline("A mysterious force prevents %s from teleporting!",
 			mon_nam(mon));
+#else
+		    pline("奇妙な力が%sの瞬間移動を防いだ！",
+			mon_nam(mon));
+#endif
 		return TRUE;
 	}
 	return FALSE;
@@ -1317,9 +1500,15 @@ int in_sight;
 
 	    if (in_sight) {
 		if (canseemon(mtmp))
+/*JP
 		    pline("%s seems disoriented.", monname);
+*/
+		    pline("%sは一瞬方向感覚を失ったようだ．", monname);
 		else
+/*JP
 		    pline("%s suddenly disappears!", monname);
+*/
+		    pline("%sは突然消えた！", monname);
 		seetrap(trap);
 	    }
 	}
@@ -1347,8 +1536,13 @@ int in_sight;
 		    assign_level(&tolevel, &valley_level);
 		} else if (Is_botlevel(&u.uz)) {
 		    if (in_sight && trap->tseen)
+#if 0 /*JP*/
 			pline("%s avoids the %s.", Monnam(mtmp),
 			(tt == HOLE) ? "hole" : "trap");
+#else
+			pline("%sは%sを回避した．", Monnam(mtmp),
+			(tt == HOLE) ? "穴" : "罠");
+#endif
 		    return 0;
 		} else {
 		    get_level(&tolevel, depth(&u.uz) + 1);
@@ -1357,7 +1551,10 @@ int in_sight;
 		if (In_endgame(&u.uz) &&
 		    (mon_has_amulet(mtmp) || is_home_elemental(mptr))) {
 		    if (in_sight && mptr->mlet != S_ELEMENTAL) {
+/*JP
 			pline("%s seems to shimmer for a moment.",
+*/
+		        pline("%sが一瞬輝いたように見えた．",
 							Monnam(mtmp));
 			seetrap(trap);
 		    }
@@ -1381,21 +1578,30 @@ int in_sight;
 
 		if (mon_has_amulet(mtmp) || In_endgame(&u.uz)) {
 		    if (in_sight)
+/*JP
 			pline("%s seems very disoriented for a moment.",
+*/
+			pline("%sは一瞬方向感覚を大きく失ったようだ．",
 				Monnam(mtmp));
 		    return 0;
 		}
 		nlev = random_teleport_level();
 		if (nlev == depth(&u.uz)) {
 		    if (in_sight)
+/*JP
 			pline("%s shudders for a moment.", Monnam(mtmp));
+*/
+			pline("%sは一瞬震えた．", Monnam(mtmp));
 		    return 0;
 		}
 		get_level(&tolevel, nlev);
 	    }
 
 	    if (in_sight) {
+/*JP
 		pline("Suddenly, %s disappears out of sight.", mon_nam(mtmp));
+*/
+		pline("突然%sが視界から消えた．", mon_nam(mtmp));
 		seetrap(trap);
 	    }
 	    migrate_to_level(mtmp, ledger_no(&tolevel),
@@ -1435,7 +1641,10 @@ register struct obj *obj;
 		    within_bounded_area(tx, ty, dndest.nlx, dndest.nly,
 						dndest.nhx, dndest.nhy)))));
 
+/*JP
 	if (flooreffects(obj, tx, ty, "fall")) {
+*/
+	if (flooreffects(obj, tx, ty, "落ちる")) {
 	    return;
 	} else if (otx == 0 && oty == 0) {
 	    ;	/* fell through a trap door; no update of old loc needed */
@@ -1525,11 +1734,17 @@ boolean give_feedback;
 
 	if (mtmp->ispriest && *in_rooms(mtmp->mx, mtmp->my, TEMPLE)) {
 	    if (give_feedback)
+/*JP
 		pline("%s resists your magic!", Monnam(mtmp));
+*/
+		pline("%sは魔法を防いだ！", Monnam(mtmp));
 	    return FALSE;
 	} else if (level.flags.noteleport && u.uswallow && mtmp == u.ustuck) {
 	    if (give_feedback)
+/*JP
 		You("are no longer inside %s!", mon_nam(mtmp));
+*/
+		You("%sの内部から脱出した！", mon_nam(mtmp));
 	    unstuck(mtmp);
 	    (void) rloc(mtmp, FALSE);
 	} else if (is_rider(mtmp->data) && rn2(13) &&

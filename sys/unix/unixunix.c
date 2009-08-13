@@ -2,6 +2,12 @@
 /* Copyright (c) Stichting Mathematisch Centrum, Amsterdam, 1985. */
 /* NetHack may be freely redistributed.  See license for details. */
 
+/*
+**	Japanese version Copyright
+**	For 3.4, Copyright (c) Kentaro Shirakata, 2002-2003
+**	JNetHack may be freely redistributed.  See license for details. 
+*/
+
 /* This file collects some Unix dependencies */
 
 #include "hack.h"	/* mainly for index() which depends on BSD */
@@ -150,10 +156,18 @@ getlock()
 		(void) close(fd);
 
 		if(iflags.window_inited) {
+/*JP
 		    c = yn("There is already a game in progress under your name.  Destroy old game?");
+*/
+		    c = yn("あなたの名前で不正終了したゲームが残っています．破棄しますか？");
 		} else {
+#if 0 /*JP*/
 		    (void) printf("\nThere is already a game in progress under your name.");
 		    (void) printf("  Destroy old game? [yn] ");
+#else
+		    (void) printf("\nあなたの名前で不正終了したゲームが残っています．");
+		    (void) printf("破棄しますか？[yn] ");
+#endif
 		    (void) fflush(stdout);
 		    c = getchar();
 		    (void) putchar(c);
@@ -193,10 +207,28 @@ void
 regularize(s)	/* normalize file name - we don't like .'s, /'s, spaces */
 register char *s;
 {
+#if 0 /*JP*/
 	register char *lp;
+#else
+	register unsigned char *lp;
+#endif
 
+#ifdef SJIS_FILESYSTEM
+	lp = (unsigned char *)ic2str( s );
+	strcpy(s, lp);
+	for (lp = s; *lp; lp++){
+	    if(is_kanji(*lp)){
+		lp++;
+		continue;
+	    }
+	    if(*lp == '.' || *lp == '/' || *lp == ' '){
+		*lp = '_';
+	    }
+	}
+#else
 	while((lp=index(s, '.')) || (lp=index(s, '/')) || (lp=index(s,' ')))
 		*lp = '_';
+#endif
 #if defined(SYSV) && !defined(AIX_31) && !defined(SVR4) && !defined(LINUX) && !defined(__APPLE__)
 	/* avoid problems with 14 character file name limit */
 # ifdef COMPRESS

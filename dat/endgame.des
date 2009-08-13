@@ -125,8 +125,11 @@ MAZE:"air",' '
 FLAGS: noteleport,hardfloor,shortsighted
 # The following messages are somewhat obtuse, to make then
 # equally meaningful if the player can see or not.
-MESSAGE: "What a strange feeling!"
-MESSAGE: "You notice that there is no gravity here."
+#JP
+#MESSAGE: "What a strange feeling!"
+#MESSAGE: "You notice that there is no gravity here."
+MESSAGE: "なんと奇妙な気持だ！"
+MESSAGE: "あなたはここには重力がないことに気がついた．"
 GEOMETRY:center,center
 # The player lands, upon arrival, in the
 # lower-left area.  The location of the
@@ -380,7 +383,8 @@ OBJECT:'`',"boulder",random
 
 MAZE:"water",' '
 FLAGS: noteleport,hardfloor,shortsighted
-MESSAGE: "You find yourself suspended in an air bubble surrounded by water."
+#MESSAGE: "You find yourself suspended in an air bubble surrounded by water."
+MESSAGE: "あなたは水中の空気の泡のなかに浮遊している．"
 GEOMETRY:center,center
 # The player lands upon arrival to an air bubble
 # within the leftmost third of the level.  The
@@ -477,9 +481,12 @@ MONSTER:'E',"water elemental",random,hostile
 
 MAZE:"astral",' '
 FLAGS: noteleport,hardfloor,nommap,shortsighted
-MESSAGE: "You arrive on the Astral Plane!"
-MESSAGE: "Here the High Temples of the aligned gods are located."
-MESSAGE: "You sense alarm, hostility, and excitement in the air!"
+#MESSAGE: "You arrive on the Astral Plane!"
+#MESSAGE: "Here the High Temples of the aligned gods are located."
+#MESSAGE: "You sense alarm, hostility, and excitement in the air!"
+MESSAGE: "あなたは精霊界に到着した！"
+MESSAGE: "ここにはあなたの神の大神殿がある．"
+MESSAGE: "あなたは危険を感じ，興奮した．"
 GEOMETRY:center,center
 MAP
                               ---------------                              

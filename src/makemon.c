@@ -2,6 +2,13 @@
 /* Copyright (c) Stichting Mathematisch Centrum, Amsterdam, 1985. */
 /* NetHack may be freely redistributed.  See license for details. */
 
+/*
+**	Japanese version Copyright
+**	(c) Issei Numata, Naoki Hamada, Shigehiro Miyashita, 1994-2000
+**	For 3.4, Copyright (c) Kentaro Shirakata, 2002-2003
+**	JNetHack may be freely redistributed.  See license for details. 
+*/
+
 #include "hack.h"
 #include "epri.h"
 #include "emin.h"
@@ -1466,9 +1473,15 @@ struct monst *mtmp, *victim;
 	    ptr = &mons[newtype];
 	    if (mvitals[newtype].mvflags & G_GENOD) {	/* allow G_EXTINCT */
 		if (sensemon(mtmp))
+#if 0 /*JP*/
 		    pline("As %s grows up into %s, %s %s!", mon_nam(mtmp),
 			an(ptr->mname), mhe(mtmp),
 			nonliving(ptr) ? "expires" : "dies");
+#else
+		    pline("%s‚ª¬’·‚µ‚Ä%s‚É‚È‚é‚Æ%s‚µ‚Ü‚Á‚½I", mon_nam(mtmp),
+			jtrns_mon_gen(ptr->mname, mtmp->female),
+			nonliving(ptr) ? "Á‚¦‚Ä" : "€‚ñ‚Å");
+#endif
 		set_mon_data(mtmp, ptr, -1);	/* keep mvitals[] accurate */
 		mondied(mtmp);
 		return (struct permonst *)0;

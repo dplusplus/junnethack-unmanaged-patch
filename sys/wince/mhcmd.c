@@ -653,7 +653,10 @@ void onPaint(HWND hWnd)
 				SelectObject(hDC, data->font[ -p_cell_data->image ]);
 				DrawText(hDC, 
 						NH_A2W(p_cell_data->text, wbuf, BUFSZ), 
+/*JP
 						strlen(p_cell_data->text),
+*/
+						-1,
 						&cell_rt,
 						DT_CENTER | DT_VCENTER | DT_SINGLELINE | DT_NOPREFIX
 						);
@@ -796,7 +799,10 @@ void LayoutCmdWindow(HWND hWnd)
 	lgfnt.lfItalic			=	FALSE;			     // italic attribute option
 	lgfnt.lfUnderline		=	FALSE;				// underline attribute option
 	lgfnt.lfStrikeOut		=	FALSE;				// strikeout attribute option
+/*JP
 	lgfnt.lfCharSet			=	ANSI_CHARSET;     // character set identifier
+*/
+	lgfnt.lfCharSet			=	SHIFTJIS_CHARSET;     // character set identifier
 	lgfnt.lfOutPrecision	=	OUT_DEFAULT_PRECIS;  // output precision
 	lgfnt.lfClipPrecision	=	CLIP_CHARACTER_PRECIS; // clipping precision
 	lgfnt.lfQuality			=	DEFAULT_QUALITY;     // output quality

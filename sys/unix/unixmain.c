@@ -2,6 +2,12 @@
 /* Copyright (c) Stichting Mathematisch Centrum, Amsterdam, 1985. */
 /* NetHack may be freely redistributed.  See license for details. */
 
+/*
+**	Japanese version Copyright (C) Issei Numata, 1994-1999
+**	For 3.4, Copyright (c) Kentaro Shirakata, 2002-2003
+**	JNetHack may be freely redistributed.  See license for details. 
+*/
+
 /* main.c - Unix NetHack */
 
 #include "hack.h"
@@ -12,6 +18,10 @@
 #include <pwd.h>
 #ifndef O_RDONLY
 #include <fcntl.h>
+#endif
+
+#ifdef XI18N
+#include <X11/Xlocale.h>
 #endif
 
 #if !defined(_BULL_SOURCE) && !defined(__sgi) && !defined(_M_UNIX)
@@ -56,6 +66,9 @@ char *argv[];
 	boolean exact_username;
 #ifdef SIMPLE_MAIL
 	char* e_simple = NULL;
+#endif
+#ifdef XI18N
+	setlocale(LC_ALL, "");
 #endif
 #if defined(__APPLE__)
 	/* special hack to change working directory to a resource fork when
@@ -138,10 +151,19 @@ char *argv[];
 #ifdef CHDIR
 		chdirx(dir,0);
 #endif
+#if 1 /*JP*/
+		setkcode('I');
+		initoptions();
+		init_jtrns();
 		prscore(argc, argv);
+		jputchar('\0'); /* reset */
+#else
+		prscore(argc, argv);
+#endif
 		exit(EXIT_SUCCESS);
 	    }
 	}
+
 
 	/*
 	 * Change directories before we initialize the window system so
@@ -156,6 +178,13 @@ char *argv[];
 #endif
 #ifdef __linux__
 	check_linux_console();
+#endif
+#if 1 /*JP*/
+	/* Line like "OPTIONS=name:foo-@" may exist in config file.
+	 * In this case, need to select random class,
+	 * so must call setrandom() before initoptions().
+	 */
+	setrandom();
 #endif
 	initoptions();
 	init_nhwindows(&argc,argv);
@@ -261,7 +290,10 @@ char *argv[];
 		    iflags.news = FALSE; /* in case dorecover() fails */
 		}
 #endif
+/*JP
 		pline("Restoring save file...");
+*/
+		pline("セーブファイルを復元中．．．");
 		mark_synch();	/* flush output */
 		if(!dorecover(fd))
 			goto not_recovered;
@@ -272,7 +304,10 @@ char *argv[];
 		wd_message();
 
 		if (discover || wizard) {
+/*JP
 			if(yn("Do you want to keep the save file?") == 'n')
+*/
+			if(yn("セーブファイルを残しておきますか？") == 'n')
 			    (void) delete_savefile();
 			else {
 			    (void) chmod(fq_save,FCMASK); /* back to readable */
@@ -513,17 +548,26 @@ wd_message()
 {
 #ifdef WIZARD
 	if (wiz_error_flag) {
+/*JP
 		pline("Only user \"%s\" may access debug (wizard) mode.",
+*/
+		pline("「%s」のみがデバッグ(wizard)モードを使用できる．",
 # ifndef KR1ED
 			WIZARD);
 # else
 			WIZARD_NAME);
 # endif
+/*JP
 		pline("Entering discovery mode instead.");
+*/
+		pline("かわりに発見モードへ移行する．");
 	} else
 #endif
 	if (discover)
+/*JP
 		You("are in non-scoring discovery mode.");
+*/
+		You("スコアの載らない発見モードで起動した．");
 }
 
 /*

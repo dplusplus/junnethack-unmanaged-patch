@@ -25,6 +25,20 @@
 #define COPYRIGHT_BANNER_C \
 "         Centrum and M. Stephenson.  See license for details."
 
+#if 1 /*JP*/
+#define JA_COPYRIGHT_BANNER_A \
+"JUnNetHack, Copyright 2009"
+
+#define JA_COPYRIGHT_BANNER_B \
+"    Base on NetHack[“ú–{Œê”Å], Copyright 1993-1996 By I. Numata,"
+
+#define JA_COPYRIGHT_BANNER_C \
+"         S. Miyashita and N. Hamada."
+
+#define JA_COPYRIGHT_BANNER_D \
+"         for 3.4,  Copyright 2002 - 2008 By K.Shirakata."
+#endif
+
 /*
  * If two or more successive releases have compatible data files, define
  * this with the version number of the oldest such release so that the

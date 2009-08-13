@@ -25,23 +25,23 @@ echo Directories OK.
 if not exist ..\..\binary\* mkdir ..\..\binary
 if NOT exist ..\..\binary\license copy ..\..\dat\license ..\..\binary\license >nul
 
-if exist ..\..\dat\data.bas goto long1ok
-if exist ..\..\dat\data.base goto long1a
-if exist ..\..\dat\data~1.bas goto long1b
+if exist ..\..\dat\jdata.bas goto long1ok
+if exist ..\..\dat\jdata.base goto long1a
+if exist ..\..\dat\jdata~1.bas goto long1b
 goto err_long
 :long1a
 echo Changing some long-named distribution file names:
-echo "Copying ..\..\dat\data.base -> ..\..\dat\data.bas"
-copy ..\..\dat\data.base ..\..\dat\data.bas
+echo "Copying ..\..\dat\jdata.base -> ..\..\dat\jdata.bas"
+copy ..\..\dat\jdata.base ..\..\dat\jdata.bas
 if exist ..\..\dat\data.old del /Q ..\..\dat\data.old
-ren ..\..\dat\data.base data.old
+ren ..\..\dat\jdata.base data.old
 goto long1ok
 :long1b
 echo Changing some long-named distribution file names:
-echo "Copying ..\..\dat\data~1.bas -> ..\..\dat\data.bas"
-copy ..\..\dat\data~1.bas ..\..\dat\data.bas
+echo "Copying ..\..\dat\jdata~1.bas -> ..\..\dat\jdata.bas"
+copy ..\..\dat\jdata~1.bas ..\..\dat\jdata.bas
 if exist ..\..\dat\data.old del /Q ..\..\dat\data.old
-ren ..\..\dat\data~1.bas data.old
+ren ..\..\dat\jdata~1.bas data.old
 :long1ok
 
 if exist ..\..\include\patchlev.h goto long2ok
@@ -53,30 +53,36 @@ echo "Copying ..\..\include\patchlevel.h -> ..\..\include\patchlev.h"
 copy ..\..\include\patchlevel.h ..\..\include\patchlev.h
 if exist ..\..\include\patchlev.old del /Q ..\..\include\patchlev.old
 ren ..\..\include\patchlevel.h patchlev.old
+copy ..\..\japanese\jpatchlevel.h ..\..\japanese\jpatchle.h
+if exist ..\..\japanese\jpatchle.old del /Q ..\..\japanese\jpatchle.old
+ren ..\..\japanese\jpatchlevel.h jpatchle.old
 goto long2ok
 :long2b
 echo "Copying ..\..\include\patchl~1.h -> ..\..\include\patchlev.h"
 copy ..\..\include\patchl~1.h ..\..\include\patchlev.h
 if exist ..\..\include\patchlev.old del /Q ..\..\include\patchlev.old
 ren ..\..\include\patchl~1.h patchlev.old
+copy ..\..\japanese\jpatch~1.h ..\..\japanese\jpatchle.h
+if exist ..\..\japanese\jpatchle.old del /Q ..\..\japanese\jpatchle.old
+ren ..\..\japanese\jpatch~1.h jpatchlevold
 :long2ok
 
 REM Missing guidebook is not fatal to the build process
-if exist ..\..\doc\guideboo.txt goto long3ok
-if exist ..\..\doc\guidebook.txt goto long3a
-if exist ..\..\doc\guideb~1.txt goto long3b
+if exist ..\..\doc\jguidebo.txt goto long3ok
+if exist ..\..\doc\jguidebook.txt goto long3a
+if exist ..\..\doc\jguide~1.txt goto long3b
 goto warn3long
 :long3a
 echo "Copying ..\..\doc\guidebook.txt -> ..\..\doc\guideboo.txt"
-copy ..\..\doc\guidebook.txt ..\..\doc\guideboo.txt
-if exist ..\..\doc\guideboo.old del /Q ..\..\doc\guideboo.old
-ren ..\..\doc\guidebook.txt guideboo.old
+copy ..\..\doc\jguidebook.txt ..\..\doc\jguidebo.txt
+if exist ..\..\doc\jguidebo.old del /Q ..\..\doc\jguidebo.old
+ren ..\..\doc\jguidebook.txt jguidebo.old
 goto long3ok
 :long3b
 echo "Copying ..\..\doc\guideb~1.txt -> ..\..\doc\guideboo.txt"
-copy ..\..\doc\guideb~1.txt ..\..\doc\guideboo.txt
-if exist ..\..\doc\guideboo.old del /Q ..\..\doc\guideboo.old
-ren ..\..\doc\guideb~1.txt guideboo.old
+copy ..\..\doc\jguide~1.txt ..\..\doc\jguidebo.txt
+if exist ..\..\doc\jguidebo.old del /Q ..\..\doc\jguidebo.old
+ren ..\..\doc\jguide~1.txt jguidebo.old
 goto long3ok
 :warn3long
 echo "Warning - There is no NetHack Guidebook (..\..\doc\guideboo.txt)"
@@ -125,7 +131,7 @@ echo distribution.
 echo The following files need to exist under the names on the
 echo right in order to build NetHack:
 echo.
-echo  ..\..\dat\data.base        needs to be copied to ..\..\dat\data.bas
+echo  ..\..\dat\jdata.base        needs to be copied to ..\..\dat\jdata.bas
 echo  ..\..\include\patchlevel.h needs to be copied to ..\..\include\patchlev.h
 echo.
 echo setup.bat was unable to perform the necessary changes because at least
