@@ -3548,7 +3548,7 @@ esac
 
 
 if test $host_os = mingw32; then
-    CFLAGS="$CFLAGS -mno-cygwin -isystem /usr/include/mingw"
+    CFLAGS="$CFLAGS -mno-cygwin -isystem /usr/include/mingw -finput-charset=CP932 -fexec-charset=CP932"
     LFLAGS="$LDFLAGS -mno-cygwin -L/usr/lib/mingw"
 
     { $as_echo "$as_me:$LINENO: checking for how to build UnNetHack key dynamic libraries" >&5

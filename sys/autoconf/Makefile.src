@@ -28,7 +28,7 @@ SYSSRC=@SYSSRC@
 SYSOBJ=@SYSOBJ@
  
 #JP by issei(93/11/10)
-JSRC = ../japanese/jconj.c ../japanese/jtrns.c ../japanese/jlib.c
+JSRC = $(srcdir)/../japanese/jconj.c $(srcdir)/../japanese/jtrns.c $(srcdir)/../japanese/jlib.c
 JOBJ = jconj.o jtrns.o jlib.o
 
 CC = @CC@ -DAUTOCONF
@@ -36,10 +36,6 @@ WINDRES = @WINDRES@
 
 CFLAGS = -Wall -g -I../include -I$(srcdir)/../include @CFLAGS@ #-fbounds-check #-fprofile-arcs -ftest-coverage
 LFLAGS = @LFLAGS@ #-fbounds-check
-
-#JP GCC for MinGW 3.4
-CFLAGS += -finput-charset=CP932 -fexec-charset=CP932
-WINDRESSFLAGS = --language=0411
 
 # Only used for the Gnome interface.
 GNOMEINC=`gnome-config gnome --cflags` -I$(srcdir)/../win/gnome
@@ -250,7 +246,7 @@ HOBJ = $(FIRSTOBJ) allmain.o apply.o artifact.o attrib.o ball.o \
 	steal.o steed.o teleport.o timeout.o topten.o track.o trap.o u_init.o \
 	uhitm.o vault.o vision.o vis_tab.o weapon.o were.o wield.o windows.o \
 	wizard.o worm.o worn.o write.o zap.o \
-	$(RANDOBJ) $(JSRC) $(SYSOBJ) $(WINOBJ) version.o \
+	$(RANDOBJ) $(JOBJ) $(SYSOBJ) $(WINOBJ) version.o \
 	livelog.o
 # the .o files from the HACKCSRC, SYSSRC, and WINSRC lists
 
@@ -671,12 +667,12 @@ mhrip.o: $(srcdir)/../win/win32/mhrip.c ../win/win32/winMS.h \
 		../win/win32/mhmsg.h ../win/win32/mhfont.h
 	$(CC) $(CFLAGS) $(WINMSCFLAGS) -c $(srcdir)/../win/win32/mhrip.c
 tile.o: tile.c $(HACK_H)
-jconj.o: ../japanese/jconj.c  ../include/hack.h
-	$(CC) $(CFLAGS) -c ../japanese/jconj.c
-jtrns.o: ../japanese/jtrns.c  ../include/hack.h ../include/jdata.h
-	$(CC) $(CFLAGS) -c ../japanese/jtrns.c
-jlib.o: ../japanese/jlib.c  ../include/hack.h
-	$(CC) $(CFLAGS) -c ../japanese/jlib.c
+jconj.o: $(srcdir)/../japanese/jconj.c  $(srcdir)/../include/hack.h
+	$(CC) $(CFLAGS) -c $(srcdir)/../japanese/jconj.c
+jtrns.o: $(srcdir)/../japanese/jtrns.c $(srcdir)/../include/hack.h $(srcdir)/../include/jdata.h
+	$(CC) $(CFLAGS) -c $(srcdir)/../japanese/jtrns.c
+jlib.o: $(srcdir)/../japanese/jlib.c  $(srcdir)/../include/hack.h
+	$(CC) $(CFLAGS) -c $(srcdir)/../japanese/jlib.c
 qt_win.o: $(srcdir)/../win/Qt/qt_win.cpp $(HACK_H) ../include/func_tab.h \
 		../include/dlb.h ../include/date.h ../include/patchlevel.h \
 		../include/tile2x11.h ../include/qt_win.h \

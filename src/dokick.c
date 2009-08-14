@@ -314,7 +314,10 @@ register struct obj *gold;
 # endif
 	) {
 		if(cansee(mtmp->mx, mtmp->my))
+/*JP
 			pline_The("%s %s!", xname(gold), vtense(xname(gold),"disintegrate"));
+*/
+			pline_The("%s‚Í•²Ó‚³‚ê‚½I", xname(gold));
 		dealloc_obj(gold);
 		return TRUE;
 	}

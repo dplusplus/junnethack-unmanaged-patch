@@ -277,6 +277,7 @@ static struct Comp_Opt
 						PL_PSIZ, DISP_IN_GAME },
 #endif
 #endif /*JP*/
+#if 0 /*JP*/
 	{ "disclose", "the kinds of information to disclose at end of game",
 						sizeof(flags.end_disclose) * 2,
 						SET_IN_GAME },
@@ -4060,10 +4061,8 @@ dotogglepickup()
 	flags.pickup = !flags.pickup;
 	if (flags.pickup) {
 	    oc_to_str(flags.pickup_types, ocl);
-/*JP
+#if 0 /*JP*/
 	    Sprintf(buf, "ON, for %s objects%s", ocl[0] ? ocl : "all",
-*/
-	    Sprintf(buf, "%sアイテムについてオン", ocl[0] ? ocl : "全ての",
 #ifdef AUTOPICKUP_EXCEPTIONS
 			(iflags.autopickup_exceptions[AP_LEAVE] ||
 			 iflags.autopickup_exceptions[AP_GRAB]) ?
@@ -4071,6 +4070,16 @@ dotogglepickup()
 			    ", with one exception" : ", with some exceptions") :
 #endif
 			"");
+#else /*JP*/
+	    Sprintf(buf, "%s%sアイテムについてオン",
+#ifdef AUTOPICKUP_EXCEPTIONS
+			(iflags.autopickup_exceptions[AP_LEAVE] ||
+			 iflags.autopickup_exceptions[AP_GRAB]) ?
+			 ((count_ape_maps((int *)0, (int *)0) == 1) ?
+			    "一つの例外を除いて" : "幾つかの例外を除いて") :
+#endif
+			"", ocl[0] ? ocl : "全ての");
+#endif /*JP*/
 	} else {
 /*JP
 	    Strcpy(buf, "OFF");

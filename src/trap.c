@@ -2338,11 +2338,21 @@ register struct monst *mtmp;
 #ifdef WEBB_DISINT
 				if (can_disint){
 					if (in_sight)
+#if 0 /*JP*/
 						pline("%s beartrap disintegrates on %s leg!",
 								A_Your[trap->madeby_u], s_suffix(mon_nam(mtmp)));
+#else
+						pline("%såFÇÃ„©ÇÕ%sÇÃë´Ç≈ï≤ç”Ç≥ÇÍÇΩÅI",
+								set_you[trap->madeby_u], mon_nam(mtmp));
+#endif
 					else if (trap_visible)
+#if 0 /*JP*/
 						pline("%s beartrap disintegrates!",
 								A_Your[trap->madeby_u]);
+#else
+						pline("%såFÇÃ„©ÇÕï≤ç”Ç≥ÇÍÇΩÅI",
+								set_you[trap->madeby_u]);
+#endif
 					deltrap(trap);
 					newsym(mtmp->mx,mtmp->my);
 					mtmp->mhp -= rnd(2); /* beartrap weighs 200 */
@@ -2368,11 +2378,11 @@ register struct monst *mtmp;
 /*JP
 				    You_hear("the roaring of an angry bear!");
 */
-				    You_hear("ì{ÇËÇÃôÙöKÇï∑Ç¢ÇΩÅI");
+				    You_hear("ì{ÇËã∂Ç§åFÇÃôÙöKÇï∑Ç¢ÇΩÅI");
 			    }
 			}
-			break;
 		   }
+			break;
 
 		case SLP_GAS_TRAP:
 		    if (!resists_sleep(mtmp) && !breathless(mptr) &&
@@ -2666,11 +2676,21 @@ glovecheck:		    target = which_armor(mtmp, W_ARMG);
 #ifdef WEBB_DISINT
 			if (can_disint) {
 				if (in_sight) {
+#if 0 /*JP*/
 					pline("%s dissolves %s spider web!", Monnam(mtmp),
 							a_your[trap->madeby_u]);
+#else
+					pline("%sÇÕ%sÇ≠Ç‡ÇÃëÉÇÇ±Ç»Ç≤Ç»Ç…ÇµÇΩÅI", Monnam(mtmp),
+							web_you[trap->madeby_u]);
+#endif
 				} else if (trap_visible) {
+#if 0 /*JP*/
 					pline("%s spider web disintegrates in a green twinkling!", 
 							A_Your[trap->madeby_u]);
+#else
+					pline("%sÇ≠Ç‡ÇÃëÉÇÕóŒêFÇÃãPÇ´Ç∆Ç∆Ç‡Ç…ï≤ç”Ç≥ÇÍÇΩÅI", 
+							web_you[trap->madeby_u]);
+#endif
 				}
 				deltrap(trap);
 				newsym(mtmp->mx, mtmp->my);
@@ -5321,7 +5341,10 @@ boolean nocorpse;
 			dam = obj->owt;
 			weight_dmg(dam);
 			if (cansee(mon->mx, mon->my))
+/*JP
 				pline("It disintegrates!");
+*/
+				pline("ÇªÇÍÇÕï≤ç”Ç≥ÇÍÇΩÅI");
 			dealloc_obj(obj);
 			obj = 0;
 		}

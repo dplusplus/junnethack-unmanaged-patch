@@ -3132,10 +3132,15 @@ floorfood(verb,corpsecheck)	/* get food from floor or pack */
 	if (sacrificing) {
 		for (otmp = level.objects[u.ux][u.uy]; otmp; otmp = otmp->nexthere) {
 			if(otmp->otyp == AMULET_OF_YENDOR || otmp->otyp == FAKE_AMULET_OF_YENDOR) {
+#if 0 /*JP*/
 				Sprintf(qbuf, "There %s %s here; %s %s?",
 					otense(otmp, "are"),
 					doname(otmp), verb,
 					 "it");
+#else
+			Sprintf(qbuf, "Ç±Ç±Ç…ÇÕ%sÇ™Ç†ÇÈÅD%sÇ©ÅH",
+				doname(otmp), jpolite(jverb));
+#endif
 				if((c = yn_function(qbuf,ynqchars,'n')) == 'y')
 					return(otmp);
 				else if(c == 'q')

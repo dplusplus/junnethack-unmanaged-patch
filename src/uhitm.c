@@ -654,14 +654,34 @@ int thrown;
 		if (touch_disintegrates(mdat) && !mon->mcan && (mon->mhp>6)) {
 			int dis_dmg;
 			valid_weapon_attack =0;
+#if 0 /*JP*/
 			Sprintf(unconventional,"barehandedly striking %s",
 			        an(mdat->mname));
+#else
+			Sprintf(yourbuf,"%sへ素手で攻撃して",
+			        jtrns_mon_gen(mdat->mname, mon->female));
+#endif
+/*JP
 			if (!flags.verbose) You("hit it.");
+*/
+			if (!flags.verbose) pline("攻撃は命中した．");
+#if 0 /*JP*/
 			else You("%s %s%s", Role_if(PM_BARBARIAN) ? "smite" : "hit",
 					mon_nam(mon), canseemon(mon) ? exclam(tmp) : ".");
+#else
+			else You("%sへの%sは命中した%s", mon_nam(mon),
+					Role_if(PM_BARBARIAN) ? "強打" : "攻撃",
+					canseemon(mon) ? exclam(tmp) : "．");
+#endif
+/*JP
 			dis_dmg = instadisintegrate(unconventional);
+*/
+			dis_dmg = instadisintegrate(yourbuf);
 			tmp = min( dis_dmg, tmp);
+/*JP
 			unconventional[0] = '\0';
+*/
+			yourbuf[0] = '\0';
 			disint_obj = TRUE;
 			hittxt = TRUE;
 		}
@@ -670,9 +690,18 @@ int thrown;
 			    !oresist_disintegration(uarmg)){
 			    int dis_dmg = uarmg->owt;
 			    weight_dmg(dis_dmg);
+/*JP
 			    if (!flags.verbose) You("hit it.");
+*/
+			    if (!flags.verbose) pline("攻撃は命中した．");
+#if 0 /*JP*/
 			    else You("%s %s%s", Role_if(PM_BARBARIAN) ? "smite" : "hit",
 			             mon_nam(mon), canseemon(mon) ? exclam(tmp) : ".");
+#else
+			else You("%sへの%sは命中した%s", mon_nam(mon),
+					Role_if(PM_BARBARIAN) ? "強打" : "攻撃",
+					canseemon(mon) ? exclam(tmp) : "．");
+#endif
 			    hittxt = TRUE;
 			    destroy_arm(uarmg);
 			    tmp = min( dis_dmg, tmp);
@@ -1185,17 +1214,33 @@ int thrown;
 		if (obj->oclass == POTION_CLASS || obj->oclass == VENOM_CLASS ||
 				obj->otyp == EGG || obj->otyp == CREAM_PIE) {
 			if (cansee(mon->mx, mon->my))
+#if 0 /*JP*/
 				pline_The("%s %s in a %s of green light!",
 				          xname(obj), vtense(xname(obj),"vanish"),
 				          (obj->oclass == VENOM_CLASS)?"twinkle":"flash");
+#else
+				pline_The("%sは緑色の%sとともに消え去った！", xname(obj),
+				          (obj->oclass == VENOM_CLASS)?"きらめき":"閃光");
+#endif
 			else
+/*JP
 				pline("Vip!");
+*/
+				pline("バシュッ！");
 			hittxt=TRUE;
 		} else if (u.usteed && !thrown && tmp > 0 &&
 				weapon_type(obj) == P_LANCE && mon != u.ustuck && joust(mon,obj)) {
+#if 0 /*JP*/
 			You("joust %s%s",
 					mon_nam(mon), canseemon(mon) ? exclam(tmp) : ".");
+#else
+			You("%sに突撃した%s",
+					mon_nam(mon), canseemon(mon) ? exclam(tmp) : "．");
+#endif
+/*JP
 			Your("%s vanishes on impact!", xname(obj));
+*/
+			Your("%sは衝撃で壊れた！", xname(obj));
 			hittxt = TRUE;
 		}
 	} else
@@ -1296,8 +1341,9 @@ int thrown;
 		else You("%s %s%s", Role_if(PM_BARBARIAN) ? "smite" : "hit",
 			 mon_nam(mon), canseemon(mon) ? exclam(tmp) : ".");
 #else
-		else Your("%sへの攻撃は命中した%s", mon_nam(mon), canseemon(mon)
-			? exclam(tmp) : "．");
+		else Your("%sへの%sは命中した%s", mon_nam(mon),
+			 Role_if(PM_BARBARIAN) ? "強打" : "攻撃",
+			 canseemon(mon) ? exclam(tmp) : "．");
 #endif
 	}
 
@@ -1305,11 +1351,21 @@ int thrown;
 	if (disint_obj && obj) {
 		if (!hittxt) {
 			if (cansee(mon->mx, mon->my)) {
+#if 0 /*JP*/
 				pline_The("%s %s!", mshot_xname(obj),
 				          (obj->oartifact) ? "dissolves" : "disintegrates");
+#else
+				pline_The("%sは%sされた！", mshot_xname(obj),
+				          (obj->oartifact) ? "こなごなに" : "粉砕");
+#endif
 			} else {
+#if 0 /*JP*/
 				pline("Vip!%s",
 				      (!thrown)? "  Your weapon vanishes from your grip!":"");
+#else
+				pline("バシュッ！%s",
+				      (!thrown)? " あなたの武器は持ち手から消滅した！":"");
+#endif
 			}
 		}
 		if (!thrown) {

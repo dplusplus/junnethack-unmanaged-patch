@@ -99,10 +99,6 @@ CC = @CC@ -DAUTOCONF
 CFLAGS = -O -I../include -I$(srcdir)/../include @CFLAGS@
 LFLAGS = @LFLAGS@
 
-#JP GCC for MinGW 3.4
-CFLAGS += -finput-charset=CP932 -fexec-charset=CP932
-WINDRESSFLAGS = --language=0411
-
 LIBS =
  
 # If you are cross-compiling, you must use this:

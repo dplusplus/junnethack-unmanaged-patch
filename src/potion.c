@@ -1375,7 +1375,7 @@ boolean your_fault;
 #endif
 #else /*JP*/
 #ifdef WEBB_DISINT
-		if (!cansee(mon->mx,mon->my)) pline(disint?"パン！":"ガシャン！");
+		if (!cansee(mon->mx,mon->my)) pline(disint?"バシュッ！":"ガシャン！");
 #else
 		if (!cansee(mon->mx,mon->my)) pline("ガシャン！");
 #endif
