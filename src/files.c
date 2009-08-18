@@ -219,6 +219,13 @@ int bufsz;
 			*op++ = *sp;
 			*op = '\0';
 			cnt++;
+#if 1 /*JP*/
+		} else if (is_kanji1(s, sp-s)) {
+			*op++ = *sp++;
+			*op++ = *sp;
+			*op = '\0';
+			cnt+=2;
+#endif
 		} else {
 			(void)sprintf(op,"%c%02X", quotechar, *sp);
 			op += 3;
@@ -1625,6 +1632,12 @@ const char *filename;
 # else	/* should be only UNIX left */
 	envp = nh_getenv("HOME");
 #if 1 /*JP*/
+	if (!envp)
+		Strcpy(tmp_config, ".junnethackrc");
+	else
+		Sprintf(tmp_config, "%s/%s", envp, ".junnethackrc");
+	if ((fp = fopenp(tmp_config, "r")) != (FILE *)0)
+		return(fp);
 /* Kazuhiro Fujieda <fujieda@jaist.ac.jp> 94/6/22 */
 	if (!envp)
 		Strcpy(tmp_config, ".jnethackrc");
