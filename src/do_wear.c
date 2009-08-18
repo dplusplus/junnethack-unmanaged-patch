@@ -681,7 +681,7 @@ Armor_on()
 /*JP
 			pline("%s to glow.",Tobjnam(uarm,"begin"));
 */
-			pline("%s‚Í‹P‚«‚¾‚µ‚½D",xname(uarm));
+			pline("%s‚Í‹P‚«‚Í‚¶‚ß‚½D",xname(uarm));
 	}
     return 0;
 }
@@ -695,7 +695,7 @@ Armor_off()
 /*JP
 			pline("%s glowing.",Tobjnam(uarm,"stop"));
 */
-			pline("%s‚Í‹P‚«‚ğ~‚ß‚½D",xname(uarm));
+			pline("%s‚Ì‹P‚«‚Í‚È‚­‚È‚Á‚½D",xname(uarm));
 	}
     takeoff_mask &= ~W_ARM;
     setworn((struct obj *)0, W_ARM);

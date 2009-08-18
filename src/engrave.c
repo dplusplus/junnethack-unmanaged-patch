@@ -131,42 +131,42 @@ static const char *random_mesg[] = {
 	"UY WUZ HERE", /* :] */
 	"また戻る！", /* Terminator */
 	"久遠に臥したるもの死する事なく．", /* HPL */
-	/* From NAO */
-	"Arooo!  Werewolves of Yendor!", /* gang tag */
-	"Dig for Victory here", /* pun, duh */
-	"Don't go this way",
-	"Gaius Julius Primigenius was here.  Why are you late?", /* pompeii */
-	"Go left --->", "<--- Go right",
-	"Haermund Hardaxe carved these runes", /* viking graffiti */
-	"Here be dragons",
-	"Need a light?  Come visit the Minetown branch of Izchak's Lighting Store!",
-	"Save now, and do your homework!",
-	"Snakes on the Astral Plane - Soon in a dungeon near you!",
-	"There was a hole here.  It's gone now.",
-	"The Vibrating Square",
-	"This is a pit!",
-	"This is not the dungeon you are looking for.",
-	"This square deliberately left blank.",
-	"Warning, Exploding runes!",
-	"Watch out, there's a gnome with a wand of death behind that door!",
-	"X marks the spot",
-	"X <--- You are here.",
-	"You are the one millionth visitor to this place!  Please wait 200 turns for your wand of wishing.",
+	/* From NAO (netHack.alt.org) */
+	"ウオーーーン！  イェンダーの狼人間！", /* gang tag */
+	"勝つためにここを掘れ！", /* pun, duh */
+	"こっちに来るな",
+	"ガイウス・ユリウス・プリーミゲニウス参上． 君は今頃来たのか？", /* pompeii */
+	"左へ行け →", "← 右へ行け",
+	"Haermund Hardaxeとルーンで刻まれている", /* viking graffiti */
+	"ここで竜になれ",
+	"灯りが欲しい？ 鉱山の街のIzchakの照明店へどうぞ！",
+	"ここで保存して，宿題をしておけ！",
+	"精霊界の上の蛇が― すぐに迷宮に入ってあなたのそばに！",
+	"ここに穴があった． 今はもうない．",
+	"振動する場所",
+	"ここに落し穴がある！",
+	"ここはあなたがお探しの迷宮ではありません．",
+	"ここにはわざと何も置いていない．",
+	"警告！ 爆発のルーン！",
+	"注意しろ，その扉の後ろに死の杖を持ったノームがいるぞ！",
+	"×印地点",
+	"× ← 現在位置．",
+	"あなたはこの場所に訪れた百万人目です！ 200ターン後に願いの杖をプレゼント．",
 	/* From UnNetHack */
-	"She's watching you!", /* Portal */
-	"The cake is a lie!", /* Portal */
-	"What's the sitch?", /* Kim Possible */
-	"So not the drama.", /* Kim Possible */
-	"Sudden decompression sucks!", /* Space Quest 3 death message */
-	"Thanks for playing UnNetHack.  As usual, you've been a real pantload!" /* Space Quest 4 death message, paraphrased */
-	"Colorless green ideas sleep furiously.", /* Noam Chomsky */
-	"Time flies like an arrow.", /* linguistic humor */
+	"彼女はあなたを見ています！", /* Portal */
+	"そのケーキは偽者です！", /* Portal */
+	"sitchって何だ？", /* Kim Possible */
+	"ドラマじゃないから大丈夫！", /* Kim Possible */
+	"突然，減圧により吸い込まれた！", /* Space Quest 3 death message */
+	"UnNetHackをプレイしてくれてありがとう． 例によって，あなたは窒息した！" /* Space Quest 4 death message, paraphrased */
+	"無色で緑色のアイデアは荒れ狂うように眠った．", /* Noam Chomsky 意味をなさない文でも人は文法的な適切さを判断できる例*/
+	"Time flies like an arrow.", /* linguistic humor 「光陰矢のごとし」機械翻訳「時間蝿は矢を好む」 */
 	"All Your Base Are Belong To Us!", /* Zero Wing */
-	"Numa Numa", /* Internet Meme */
-	"I want to believe!", /* X-Files */
-	"Trust No One", /* X-Files */
-	"The Truth is Out There", /* X-Files */
-	"Look behind you, a Three-Headed Monkey!", /* Monkey Island */
+	"マイアヒ", /* Internet Meme */
+	"真実を求めて！", /* X-Files */
+	"誰も信じるな", /* X-Files */
+	"真実はそこにある", /* X-Files */
+	"後ろを見ろ，三つ首の猿が！", /* Monkey Island */
 #endif /*JP*/
 };
 

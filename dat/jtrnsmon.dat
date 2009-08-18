@@ -302,6 +302,7 @@ stalker:		ストーカー:
 #	Jabberwock 
 #
 jabberwock:		ジャバウォック:
+vorpal jabberwock:	ボーパルジャバウォック:	#Slash
 #
 #	Kops
 #
@@ -467,7 +468,7 @@ Wizard of Yendor:	イェンダーの魔法使い:
 Croesus:		クロイソス:
 Charon:			カロン:
 mugger:			抱きつき強盗:	#Slash
-black marketeer:	闇の店の店主:	#Slash
+black marketeer:	闇市の主:	#Slash
 #
 #	Ghosts	
 #
@@ -750,7 +751,7 @@ wiggle:		ぴくぴく虫:
 white rabbit:	白うさぎ:
 snark:		スナーク:
 #
-#	Dr. Doolittle
+#	Dr. Dolittle
 #
 pushmi-pullyu:	オシツオサレツ:
 #
@@ -842,3 +843,124 @@ Vorlon:			ヴォーロン:
 questing beast:		探求のけもの:
 Predator:		プレデター:
 mother-in-law:		姑:
+one-winged dewinged stab-bat:	片翼の突き刺しコウモリ:	#SporkHack #Kingdom of Loathing
+praying mantis:				オオカマキリ:				#SporkHack
+arch-pedant:				衒学趣味者:					#SporkHack
+beluga whale:				シロイルカ:					#SporkHack
+bluebird of happiness:		幸せの青い鳥:				#SporkHack
+bouncing eye:				跳ねる眼球:					#SporkHack
+floating nose:				さまよう鼻:					#SporkHack
+buffer overflow:			バッファ・オーバーフロー:	#SporkHack
+dangling pointer:			ダングリング・ポインタ:		#SporkHack
+walking disk drive:			お散歩ディスクドライブ:		#NetHack: the Next Generation
+cacodemon:					カコデーモン:				#SporkHack
+scrag:						やせっぽち:					#SporkHack
+cardboard golem:			段ボールのゴーレム:			#SporkHack
+duct tape golem:			ダクトテープのゴーレム:		#SporkHack
+chess pawn:					チェスの兵士:				#SporkHack
+chicken:					ニワトリ:					#Slash'sm
+chocolate pudding:			チョコレートプリン:			#SporkHack
+coelacanth:					シーラカンス:				#SporkHack
+corpulent porpoise:			太ったネズミイルカ:			#SporkHack
+#Crow T. Robot:				Crow T. Robot:				#SporkHack #Mystery Science Theater 3000
+diagonally moving grid bug:	斜めに動くグリッドバグ:		#SporkHack
+dropbear:					肉食コアラ:					#SporkHack
+Dudley:						ダッドリー:					#SporkHack
+El Pollo Diablo:			鶏の悪魔:					#SporkHack
+evil overlord:				魔王:						#SporkHack
+existential angst:			実存的不安:					#SporkHack
+figment of your imagination:絵空事:						#SporkHack
+flash of insight:			ひらめき:					#SporkHack
+flying pig:					空飛ぶ豚:					#SporkHack
+gazebo:						展望台:						#SporkHack
+gonzo journalist:			気違いジャーナリスト:		#SporkHack
+gray goo:					グレイ・グー:				#SporkHack
+magnetic monopole:			磁気単極子:					#SporkHack
+heisenbug:					ハイゼンバグ:				#SporkHack
+lag monster:				遅延の怪物:					#SporkHack
+loan shark:					高利貸し:					#SporkHack
+Lord British:				ロード・ブリティッシュ:		#SporkHack
+newsgroup troll:			ニュースグループ・トロル:	#SporkHack
+ninja pirate zombie robot:	忍者海賊ゾンビロボット:		#SporkHack
+octarine dragon:			八岐大蛇:					#SporkHack #よくわからない。意訳#
+particle man:				微粒子男:					#SporkHack #They Might Be Giants
+possessed waffle iron:		ワッフル焼き器の悪霊:		#SporkHack
+poultrygeist:				鶏肉霊魂:					#SporkHack #そういう映画があるらしい#
+raging nerd:				逆上したうすのろ:			#SporkHack
+roomba:						自動掃除機ルンバ:			#SporkHack
+sea cucumber:				海鼠:						#SporkHack
+spelling bee:				スペリング競争:				#SporkHack
+Strong Bad:					ストロング・バッド			#SporkHack
+stuffed raccoon puppet:		アライグマのぬいぐるみ:		#SporkHack
+tapeworm:					紙テープの怪物:				#SporkHack
+liger:						ライガー:					#SporkHack
+velociraptor:				ヴェロキラプトル:			#SporkHack
+vermicious knid:			害獣クニッド:				#SporkHack #Charlie and the Great Glass Elevator
+viking:						ヴァイキング:				#SporkHack
+voluptuous ampersand:		色っぽい『＆』:				#SporkHack
+wee green blobbie:			ちっちゃな緑ブロッブ:		#SporkHack #starflight?
+wereplatypus:				カモノハシ人間:				#SporkHack
+zergling:					ザーグリング:				#SporkHack #star craft?
+#hag of bolding:	#大胆な抱擁 ・・・ 軽量化の鞄のもじり
+
+#
+#UnNetHack
+#
+
+#
+# internet memes
+#
+apostroph golem:			アポストロフィ・ゴーレム:
+Bob the angry flower:		怒りの花『ボブ』:
+bonsai-kitten:				盆栽子猫:					# 瓶詰め子猫の売買というデマ
+#Boxxy:						Boxxy:						# Youtube上で話題になった少女
+lonelygirl15:				ロンリーガールフィフティーン:	# Youtube上の架空少女ブリーのビデオブログ
+looooooooooooong cat:		胴の長ーい猫:				# 長い胴の白猫のコラージュ
+#
+# Bugs
+#
+bohrbug:					ボーアバグ:
+mandelbug:					マンデルバグ:
+schroedinbug:				シュレーディンガーバグ:
+#
+# Monty Python killer rabbit
+#
+Gerbenok:					ガーベノック:
+
+#
+# Erkan & Stefan
+#
+doenertier:					ドネルティアー:				# ドネルケバブを元にしたブタのキャラクタ
+#
+# deities
+#
+Invisible Pink Unicorn:		見えざるピンクのユニコーン:
+Flying Spaghetti Monster:	空飛ぶスパゲッティモンスター:
+#
+# The Thirteen and a Half Lives of Captain Bluebear
+#
+Bluebear:					ブルーベア:
+Professor Abdullah Nightingale:	アブドゥル・ナイチンゲール教授:
+#Qwerty Uiop:				Qwerty Uiop:				# キーボードの2段目
+troglotroll:				トログロトロル:
+#
+# european cryptids
+#
+wolpertinger:				ヴォルペルティンガー:		# ドイツバイエルン地方の角と皮翼を持つウサギ
+elwedritsche:				エルヴェドリッチェ:			# ドイツの平角を持つ鶏
+skvader:					スクヴェイダー:				# スウェーデンの羽根を持つウサギ
+Nessie:						ネッシー:					# イギリスのネス湖の首長竜
+tatzelwurm:					タッツェルヴルム:			# オーストリアの竜
+dahu:						ダウ:						# フランスの山岳に住む左手足の短い四足獣
+#
+# Monkey Island
+#
+three-headed monkey:		三つ首の猿:
+#
+# modern folklore
+#
+little green man:			緑の小人:
+#
+# Portal
+#
+weighted Companion Cube:	コンパニオンキューブ:

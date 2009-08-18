@@ -1044,6 +1044,11 @@ str2align(str)
 	    /* Does it match the adjective? */
 	    if (!strncmpi(str, aligns[i].adj, len))
 		return i;
+#if 1 /*JP*/
+	    if (!strncmpi(str, aligns[i].j, len))
+		return i;
+#endif
+
 	    /* Or the filecode? */
 	    if (!strcmpi(str, aligns[i].filecode))
 		return i;

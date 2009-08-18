@@ -923,7 +923,10 @@ genericptr_t p2;
 	cthulhu = makemon(&mons[PM_CTHULHU], cx, cy, 
 				MM_NOCOUNTBIRTH | NO_MINVENT);
 	if (cthulhu && canseemon(cthulhu))
+/*JP
 	    pline("%s reforms!", Monnam(cthulhu));
+*/
+	    pline("%s‚Í•œŠˆ‚µ‚½I", Monnam(cthulhu));
     }
     return ret;
 }

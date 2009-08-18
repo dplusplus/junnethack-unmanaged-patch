@@ -280,7 +280,10 @@ const struct shclass shtypes[] = {
 	    {{32, -WAX_CANDLE}, {50, -TALLOW_CANDLE},
 	     {5, -BRASS_LANTERN}, {10, -OIL_LAMP}, {3, -MAGIC_LAMP}}, shklight},
 #ifdef BLACKMARKET
+/*JP
 	{"black market", RANDOM_CLASS, 0, D_SHOP,
+*/
+	{"ˆÅŽs", RANDOM_CLASS, 0, D_SHOP,
 	   {{100, RANDOM_CLASS}, {0, 0}, {0, 0}}, shkblack},
 #endif /* BLACKMARKET */
 	{(char *)0, 0, 0, 0, {{0, 0}, {0, 0}, {0, 0}}, 0}

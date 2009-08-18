@@ -177,7 +177,7 @@ register int otyp;
 		if(nn)
 		  Strcat(buf,jtrns_obj('+',actualn));
 		else if(un)
-		  Strcat(buf, "魔法書");
+		  Strcat(buf, "呪文書");
 		type = '+';
 #endif
 		break;
@@ -791,7 +791,7 @@ register struct obj *obj;
 /*JP
 			Strcpy(buf, "spellbook");
 */
-			Strcat(buf, "魔法書");
+			Strcat(buf, "呪文書");
 		} else if (nn) {
 #if 0 /*JP*/
 			if (typ != SPE_BOOK_OF_THE_DEAD)
@@ -804,7 +804,7 @@ register struct obj *obj;
 /*JP
 			Sprintf(buf, "spellbook called %s", un);
 */
-			Sprintf(eos(buf), "%sと呼ばれる魔法書", un);
+			Sprintf(eos(buf), "%sと呼ばれる呪文書", un);
 		} else
 /*JP
 			Sprintf(buf, "%s spellbook", dn);
@@ -2596,7 +2596,7 @@ boolean from_user;
 	  Strcpy(pfx, "scroll of ");
 	else if(strlen(buf)>6 && !strcmp(buf + strlen(buf) - 6, "巻き物"))
 	  Strcpy(pfx, "scroll of ");
-	else if(strlen(buf)>6 && !strcmp(buf + strlen(buf) - 6, "魔法書"))
+	else if(strlen(buf)>6 && !strcmp(buf + strlen(buf) - 6, "呪文書"))
 	  Strcpy(pfx, "spellbook of ");
 	else if(strlen(buf)>2 && !strcmp(buf + strlen(buf) - 2, "杖"))
 	  Strcpy(pfx, "wand of ");

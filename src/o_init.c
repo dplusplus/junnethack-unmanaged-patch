@@ -232,6 +232,7 @@ shuffle_all()
 	shuffle(SPEED_BOOTS, LEVITATION_BOOTS, FALSE);
 
 	/* shuffle dragon scales / scale mails */
+    {
 	int j, pos;
 	int num_scales = YELLOW_DRAGON_SCALES - GRAY_DRAGON_SCALES;
 	for (j = num_scales; j >= 0; j--) {
@@ -239,6 +240,7 @@ shuffle_all()
 		swap_armor(j, pos, GRAY_DRAGON_SCALES);
 		swap_armor(j, pos, GRAY_DRAGON_SCALE_MAIL);
 	}
+    }
 }
 
 /**
@@ -488,16 +490,16 @@ void
 dragons_init()
 {
 	/* Number of existing dragons. Assumes order of dragons */
-	int ndragons = YELLOW_DRAGON_SCALES - GRAY_DRAGON_SCALES + 1;
-	struct permonst tmp[ndragons];
+#define NDRAGONS (YELLOW_DRAGON_SCALES - GRAY_DRAGON_SCALES + 1)
+	struct permonst tmp[NDRAGONS];
 	int i,j;
 	/* record standard order */
-	for (i=0; i < ndragons; i++) {
+	for (i=0; i < NDRAGONS; i++) {
 		tmp[i].mname  = mons[i+PM_GRAY_DRAGON].mname;
 		tmp[i].mcolor = mons[i+PM_GRAY_DRAGON].mcolor;
 	}
 	/* copy name and color to new positions */
-	for (i=0; i < ndragons; i++) {
+	for (i=0; i < NDRAGONS; i++) {
 		j = objects[i+GRAY_DRAGON_SCALES].oc_name_idx-GRAY_DRAGON_SCALES;
 		mons[i+PM_GRAY_DRAGON].mname  = tmp[j].mname;
 		mons[i+PM_GRAY_DRAGON].mcolor = tmp[j].mcolor;

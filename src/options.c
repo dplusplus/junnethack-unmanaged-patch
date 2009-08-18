@@ -395,7 +395,7 @@ static struct Comp_Opt
 # endif
 #else /*JP*/
 	{ "map_mode", "ウィンドウ表示時のマップの表示モード", 20, DISP_IN_GAME },	/*WC*/
-        { "menucolor", "メニューの色設定", PL_PSIZ, SET_IN_FILE },
+	{ "menucolor", "メニューの色設定", PL_PSIZ, SET_IN_FILE },
 	{ "menustyle", "オブジェクトを選択するときのユーザーインタフェース",
 						MENUTYPELEN, SET_IN_GAME },
 	{ "menu_deselect_all", "全てのアイテムを非選択", 4, SET_IN_FILE },
@@ -414,7 +414,11 @@ static struct Comp_Opt
 	{ "menu_select_all", "全てのアイテムを選択", 4, SET_IN_FILE },
 	{ "menu_select_page", "現在表示されている全てのアイテムを選択",
 						4, SET_IN_FILE },
-	{ "monsters", "モンスターに使用されるシンボル文字",
+#ifdef EXOTIC_PETS
+	{ "monkeyname", "冒険を供にする(最初の)猿の名前 (例 monkeyname:ボンゾー)",
+						PL_PSIZ, DISP_IN_GAME },
+#endif
+	{ "monsters", "怪物に使用されるシンボル文字",
 						MAXMCLASSES, SET_IN_FILE },
 	{ "msghistory", "先頭行に表示されたメッセージ履歴の保存数",
 						5, DISP_IN_GAME },
@@ -519,6 +523,7 @@ static struct Comp_Opt
 #ifdef MSDOS
 	{ "soundcard", "使用しているサウンドカードの種類", 20, SET_IN_FILE },
 #endif
+	{ "statuscolor", "状態色を設定する", PL_PSIZ, SET_IN_FILE },
 	{ "suppress_alert", "バージョン間の違いに関する警告メッセージの無効化",
 						8, SET_IN_GAME },
 #endif /*JP*/
@@ -561,8 +566,10 @@ static struct Comp_Opt
 #ifdef VIDEOSHADES
 	{ "videocolors", "内蔵スクリーンルーチン用のカラーマップを用いる",
 						40, DISP_IN_GAME },
+#ifdef MSDOS
 	{ "videoshades", "表示にグレイスケールを用いる",
 						32, DISP_IN_GAME },
+#endif
 #endif
 #ifdef WIN32CON
 	{"subkeyvalue", "キーマッピングを変更する", 7, SET_IN_FILE},
@@ -1133,11 +1140,20 @@ const char *optn;
 		flags.suppress_alert = fnv;
 	if (rejectver) {
 		if (!initial)
+/*JP
 			You_cant("disable new feature alerts for future versions.");
+*/
+			You_cant("未来のバージョンの警告は無効化できません．");
 		else {
+#if 0 /*JP*/
 			Sprintf(buf,
 				"\n%s=%s Invalid reference to a future version ignored",
 				optn, op);
+#else
+			Sprintf(buf,
+				"\n%s=%s 無視した未来のバージョンは不当な参照をしています",
+				optn, op);
+#endif
 			badoption(buf);
 		}
 		return 0;
@@ -1145,7 +1161,10 @@ const char *optn;
 	if (!initial) {
 		Sprintf(buf, "%lu.%lu.%lu", FEATURE_NOTICE_VER_MAJ,
 			FEATURE_NOTICE_VER_MIN, FEATURE_NOTICE_VER_PATCH);
+/*JP
 		pline("Feature change alerts disabled for UnNetHack %s features and prior.",
+*/
+		pline("UnNetHack %s前後で変更された機能の警告を無効化しました．",
 			buf);
 	}
 	return 1;
@@ -3743,7 +3762,10 @@ char *buf;
 				   defopt);
 #endif
 	else if (!strcmp(optname,"align"))
+/*JP
 		Sprintf(buf, "%s", rolestring(flags.initalign, aligns, adj));
+*/
+		Sprintf(buf, "%s", rolestring(flags.initalign, aligns, j));
 #ifdef WIN32CON
 	else if (!strcmp(optname,"altkeyhandler"))
 #if 0 /*JP*/

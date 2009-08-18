@@ -140,6 +140,7 @@
 ]conical hat:		円錐形の帽子:
 ]dunce cap:		低能帽:
 ]dented pot:		くぼんだ鍋:
+]tinfoil hat:		アルミ箔の帽子:	#SporkHack
 ]helmet:		兜:
 ]plumed helmet:		羽兜:
 ]helm of brilliance:	知性の兜:
@@ -604,6 +605,7 @@
 ?ELAM EBOW:		『ELAM EBOW』と書かれた巻物:
 ?DUAM XNAHT:		『DUAM XNAHT』と書かれた巻物:
 ?ANDOVA BEGARIN:	『ANDOVA BEGARIN』と書かれた巻物:
+?KIRJE:			『KIRJE』と書かれた巻物:
 ?VE FORBRYDERNE:	『VE FORBRYDERNE』と書かれた巻物:
 ?HACKEM MUCHE:		『HACKEM MUCHE』と書かれた巻物:
 ?VELOX NEB:		『VELOX NEB』と書かれた巻物:
@@ -611,24 +613,23 @@
 ?TEMOV:			『TEMOV』と書かれた巻物:
 ?GARVEN DEH:		『GARVEN DEH』と書かれた巻物:
 ?READ ME:		『READ ME』と書かれた巻物:
-?KIRJE:			『KIRJE』と書かれた巻物:
-?ETAOINSHRDLU:		『ETAOINSHRDLU』と書かれた巻物:
-?LOREMIPSUM:		『LOREMIPSUM』と書かれた巻物:
-?FNORD:			『FNORD』と書かれた巻物:
-?KOBATE:		『KOBATE』と書かれた巻物:
-?ACHATSHTAYIMSHALOSH:	『ACHATSHTAYIMSHALOSH』と書かれた巻物:
-?ABRAKADABRA:		『ABRAKADABRA』と書かれた巻物:
-?ASHPD:			『ASHPD』と書かれた巻物:
-?SODALG:		『SODALG』と書かれた巻物:
-?ZLORFIK:		『ZLORFIK』と書かれた巻物:
-?GNIKSISIVLE:		『GNIKSISIVLE』と書かれた巻物:
-?HAPAXLEGOMENON:	『HAPAXLEGOMENON』と書かれた巻物:
-?HZLRCKSTSBDMPFNG:	『HZLRCKSTSBDMPFNG』と書かれた巻物:
-?EIRISSAZUNIDISI:	『EIRISSAZUNIDISI』と書かれた巻物:
-?PHOLENDEWODAN:		『PHOLENDEWODAN』と書かれた巻物:
-?GHOTI:			『GHOTI』と書かれた巻物:
-?MAPIROMAHAMADIROMAT:	『MAPIROMAHAMADIROMAT』と書かれた巻物:
-?VASCORPBETMANI:	『VASCORPBETMANI』と書かれた巻物:
+?ETAOIN SHRDLU:		『ETAOIN SHRDLU』と書かれた巻物:	#UnNetHack
+?LOREM IPSUM:		『LOREM IPSUM』と書かれた巻物:		#UnNetHack
+?FNORD:			『FNORD』と書かれた巻物:		#UnNetHack
+?KO BATE:		『KO BATE』と書かれた巻物:		#UnNetHack
+?ACHAT SHTAYIM SHALOSH:	『ACHAT SHTAYIM SHALOSH』と書かれた巻物:#UnNetHack
+?ABRA KA DABRA:		『ABRA KA DABRA』と書かれた巻物:	#UnNetHack
+?ASHPD:			『ASHPD』と書かれた巻物:		#UnNetHack
+?SODALG:		『SODALG』と書かれた巻物:		#UnNetHack
+?ZLORFIK:		『ZLORFIK』と書かれた巻物:		#UnNetHack
+?GNIK SISI VLE:		『GNIK SISI VLE』と書かれた巻物:	#UnNetHack
+?HAPAX LEGOMENON:	『HAPAX LEGOMENON』と書かれた巻物:	#UnNetHack
+?HZLRC KSTSBD MPFNG:	『HZLRC KSTSBD MPFNG』と書かれた巻物:	#UnNetHack
+?EIRIS SAZUN IDISI:	『EIRIS SAZUN IDISI』と書かれた巻物:	#UnNetHack
+?PHOL ENDE WODAN:	『PHOL ENDE WODAN』と書かれた巻物:	#UnNetHack
+?GHOTI:			『GHOTI』と書かれた巻物:		#UnNetHack
+?MAPIRO MAHAMA DIROMAT:	『MAPIRO MAHAMA DIROMAT』と書かれた巻物:#UnNetHack
+?VAS CORP BET MAN:	『VAS CORP BET MAN』と書かれた巻物:	#UnNetHack
 ?stamped:		消印の押された巻物:
 ?unlabeled:		ラベルのない巻物:
 #
@@ -799,25 +800,25 @@
 /forked:	二叉の杖:
 /spiked:	くさびの打ちつけられた杖:
 /jeweled:	宝石が埋められた杖:
-/black:		黒い杖:		#Slash
-/ceramic:	陶器製の杖:	#Slash'em
-/porcelain:	磁器製の杖:	#UnNetHack
-/quartz:	石英の杖:	#UnNetHack
-/bronze:	青銅の杖:	#Slash
+/black:		黒い杖:			#Slash
+/ceramic:	陶器製の杖:		#Slash'em
+/porcelain:	磁器製の杖:		#UnNetHack
+/quartz:	石英の杖:		#UnNetHack
+/bronze:	青銅の杖:		#Slash
 /rusty:		さびついた杖:	#Slash
-/octagonal:	八角形の杖:	#Slash
-/bamboo:	竹の杖:		#Slash
-/walnut:	クルミの杖:	#UnNetHack
+/octagonal:	八角形の杖:		#Slash
+/bamboo:	竹の杖:			#Slash
+/walnut:	クルミの杖:		#UnNetHack
 /mahogany:	マホガニーの杖:	#UnNetHack
 /cedar:		西洋スギの杖:	#UnNetHack
-/chrome:	クロムの杖:	#UnNetHack
-/titanium:	チタンの杖:	#UnNetHack
+/chrome:	クロムの杖:		#UnNetHack
+/titanium:	チタンの杖:		#UnNetHack
 /nickel:	ニッケルの杖:	#UnNetHack
 /mithril:	ミスリルの杖:	#UnNetHack
-/grooved:	溝のある杖:	#UnNetHack
-/bent:		曲げ木の杖:	#UnNetHack
-/plastic:	樹脂製の杖:	#UnNetHack
-/bone:		骨の杖:		#NetHack brass
+/grooved:	溝のある杖:		#UnNetHack
+/bent:		曲げ木の杖:		#UnNetHack
+/plastic:	樹脂製の杖:		#UnNetHack
+/bone:		骨の杖:			#NetHack brass
 /alabaster:	雪花石膏の杖:	#UnNetHack
 /orichalcum:	オリハルコンの杖:	#UnNetHack
 /electrum:	琥珀金の杖:	#UnNetHack

@@ -156,7 +156,7 @@ struct obj *otmp;
 /*JP
 	const char *zap_type_text = "spell";
 */
-	const char *zap_type_text = "–‚–@";
+	const char *zap_type_text = "ô•¶";
 	struct obj *obj;
 	boolean disguised_mimic = (mtmp->data->mlet == S_MIMIC &&
 				   mtmp->m_ap_type != M_AP_NOTHING);
@@ -4292,7 +4292,7 @@ boolean *shopdamage;
 			pline("”à‚Í%s%s‚ğ‹zû‚µ‚½I",
 			      (type < 0) ? "" : "‚ ‚È‚½‚ª•ú‚Á‚½",
 			      abs(type) < ZT_SPELL(0) ? "Œõü" :
-			      abs(type) < ZT_BREATH(0) ? "–‚–@" :
+			      abs(type) < ZT_BREATH(0) ? "ô•¶" :
 			      "‘§");
 		    } else You("U“®‚ğŠ´‚¶‚½D");
 #endif
@@ -4423,7 +4423,7 @@ const char * const destroy_strings[] = {	/* also used in trap.c */
 	"“€Œ‹‚µ‚ÄÓ‚¯‚½", "“€Œ‹‚µ‚ÄÓ‚¯‚½", "Ó‚¯‚½–ò•r‚Å",
 	"•¦“«‚µ‚Ä”š”­‚µ‚½", "•¦“«‚µ‚Ä”š”­‚µ‚½", "•¦“«‚µ‚½–ò‚Å",
 	"‰Î‚ª‚Â‚¢‚Ä”R‚¦‚½", "‰Î‚ª‚Â‚¢‚Ä”R‚¦‚½", "”R‚¦‚½Šª•¨‚Å",
-	"‰Î‚ª‚Â‚¢‚Ä”R‚¦‚½", "‰Î‚ª‚Â‚¢‚Ä”R‚¦‚½", "”R‚¦‚½–‚–@‘‚Å",
+	"‰Î‚ª‚Â‚¢‚Ä”R‚¦‚½", "‰Î‚ª‚Â‚¢‚Ä”R‚¦‚½", "”R‚¦‚½ô•¶‘‚Å",
 	"o‚É‚È‚Á‚ÄÁ‚¦‚½", "o‚É‚È‚Á‚ÄÁ‚¦‚½", "",
 	"‚Î‚ç‚Î‚ç‚É‰ó‚ê‚Ä”š”­‚µ‚½", "‚Î‚ç‚Î‚ç‚É‰ó‚ê‚Ä”š”­‚µ‚½", "ñ‚Ì”š”­‚Å"
 #endif
@@ -4794,7 +4794,10 @@ retry:
 	/* check if wishing for magical objects is allowed */
 	if (!magical && otmp &&
 	    (otmp->oartifact || objects[otmp->otyp].oc_magic)) {
+/*JP
 		verbalize("I'm sorry but I'm not able to provide you with magical items.");
+*/
+		verbalize("c”O‚È‚ª‚ç„‚Í–‚–@‚Ì•i‚ğŒN‚É‚ ‚°‚é‚±‚Æ‚Í‚Å‚«‚È‚¢‚ñ‚¾D");
 		if (otmp->oartifact) artifact_exists(otmp, ONAME(otmp), FALSE);
 		obfree(otmp, (struct obj *) 0);
 		otmp = &zeroobj;

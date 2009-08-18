@@ -658,7 +658,7 @@ long timeout;
 			You("see %s %s out of your pack!",
 			    monnambuf, locomotion(mon->data, "drop"));
 #else
-		        pline("%s‚ª‚ ‚È‚½‚Ì”w•‰‚¢‘Ü‚©‚ç%sD",
+		        pline("%s‚ª‚ ‚È‚½‚Ì”w•‰‚¢‘Ü‚©‚ç%s‚Ì‚ðŒ©‚½D",
 			    monnambuf,
 			    jpast(locomotion(mon->data, "—Ž‚¿‚é")));
 #endif

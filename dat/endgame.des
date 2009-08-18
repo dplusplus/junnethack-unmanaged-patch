@@ -128,7 +128,7 @@ FLAGS: noteleport,hardfloor,shortsighted
 #JP
 #MESSAGE: "What a strange feeling!"
 #MESSAGE: "You notice that there is no gravity here."
-MESSAGE: "なんと奇妙な気持だ！"
+MESSAGE: "なにか奇妙な感じがする！"
 MESSAGE: "あなたはここには重力がないことに気がついた．"
 GEOMETRY:center,center
 # The player lands, upon arrival, in the
@@ -486,7 +486,7 @@ FLAGS: noteleport,hardfloor,nommap,shortsighted
 #MESSAGE: "You sense alarm, hostility, and excitement in the air!"
 MESSAGE: "あなたは精霊界に到着した！"
 MESSAGE: "ここにはあなたの神の大神殿がある．"
-MESSAGE: "あなたは危険を感じ，興奮した．"
+MESSAGE: "あなたは大気に混じる恐怖と憎悪と興奮を感じとった！"
 GEOMETRY:center,center
 MAP
                               ---------------                              

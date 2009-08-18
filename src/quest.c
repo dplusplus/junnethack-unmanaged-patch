@@ -141,12 +141,12 @@ boolean talk;
 /*JP
 	    You("are currently %d and require %d.",
 */
-	    Your("属性値は現在%dで%d必要だ．",
+	    Your("属性値は現在%dで，あと%d必要だ．",
 		u.ualign.record, MIN_QUEST_ALIGN);
 /*JP
 	    if (yn_function("adjust?", (char *)0, 'y') == 'y')
 */
-	    if (yn_function("直す？", (char *)0, 'y') == 'y')
+	    if (yn_function("ちょうどにする？", (char *)0, 'y') == 'y')
 		u.ualign.record = MIN_QUEST_ALIGN;
 	}
     }

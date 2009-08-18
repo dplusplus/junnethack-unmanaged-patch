@@ -559,7 +559,10 @@ bot2()
 */
 			add_colored_text("êHì≈", newbot2);
 #else
+/*JP
 			Strcat(nb = eos(nb), " FoodPois");
+*/
+			Strcat(nb = eos(nb), " êHì≈");
 #endif
 		if (u.usick_type & SICK_NONVOMITABLE)
 #if defined(STATUS_COLORS) && defined(TEXTCOLOR)
@@ -634,8 +637,8 @@ STATIC_OVL void
 bot2()
 {
 	char newbot2[MAXCO];
-	bot2str(newbot2);
 	int save_botlx = flags.botlx;
+	bot2str(newbot2);
 #endif
 	curs(WIN_STATUS, 1, 1);
 	putstr(WIN_STATUS, 0, newbot2);

@@ -162,8 +162,14 @@ dump_init ()
 
       dump_fp = fopen(new_dump_fn, "w");
       if (!dump_fp) {
+/*JP
 	pline("Can't open %s for output.", new_dump_fn);
+*/
+	pline("%sを出力用に開けない．", new_dump_fn);
+/*JP
 	pline("Dump file not created.");
+*/
+	pline("ダンプファイルを作成できなかった．");
       }
       free(new_dump_fn);
       
@@ -171,8 +177,14 @@ dump_init ()
       dump_fp = fopen (dump_fn, "w");
 
       if (!dump_fp) {
+/*JP
 	pline("Can't open %s for output.", dump_fn);
+*/
+	pline("%sを出力用に開けない．", dump_fn);
+/*JP
 	pline("Dump file not created.");
+*/
+	pline("ダンプファイルを作成できなかった．");
       }
     }
   }
@@ -912,16 +924,28 @@ die:
 	/* D: Grab screen dump right here */
 	if (dump_fn[0]) {
 	  dump_init();
+#if 0 /*JP*/
 	  Sprintf(pbuf, "%s, %s %s %s %s", plname,
 		  aligns[1 - u.ualign.type].adj,
 		  genders[flags.female].adj,
 		  urace.adj,
 		  (flags.female && urole.name.f)?
 		   urole.name.f : urole.name.m);
+#else
+	  Sprintf(pbuf, "%s, %s %s %s %s", plname,
+		  aligns[1 - u.ualign.type].j,
+		  genders[flags.female].j,
+		  urace.j,
+		  (flags.female && urole.jname.f)?
+		   urole.jname.f : urole.jname.m);
+#endif
 	  dump("", pbuf);
 # ifdef DUMPMSGS
 	  if (lastmsg >= 0) {
+/*JP
 		dump ("", "Latest messages");
+*/
+		dump ("", "直前のメッセージ");
 		for (i = lastmsg + 1; i < DUMPMSGS; i++) {
 		  if (msgs[i] && strcmp(msgs[i], "") )
 		    dump ("  ", msgs[i]);
@@ -1227,7 +1251,7 @@ die:
 #endif
 			u.urscore, plur(u.urscore));
 #else /*JP*/
-		Sprintf(eos(pbuf), "%ldポイントマークし%s．",
+		Sprintf(eos(pbuf), "%ldポイントマークし%s．", u.urscore,
 			how==ASCENDED ? "昇天した" :
 #ifdef ASTRAL_ESCAPE
 					(how==DEFIED ?

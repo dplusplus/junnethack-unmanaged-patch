@@ -344,7 +344,10 @@ register boolean nearshop;
 	register boolean nokops;
 	char kopname[20];
 
+/*JP
 	Strcpy(kopname, "Keystone Kops");
+*/
+	Strcpy(kopname, "Œx”õˆõ’B");
 
 	if(!shkp) return;
 
@@ -366,7 +369,10 @@ register boolean nearshop;
 		  (mvitals[PM_LIEUTENANT].mvflags & G_GONE) &&
 		  (mvitals[PM_CAPTAIN].mvflags & G_GONE));
  
+/*JP
 	Strcpy(kopname, "guards");
+*/
+	Strcpy(kopname, "Œì‰q‚Ì•ºŽm’B");
       }
 #endif /* defined(BLACKMARKET) */
  

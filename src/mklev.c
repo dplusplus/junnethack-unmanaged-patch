@@ -470,6 +470,7 @@ static NEARDATA const char *trap_engravings[TRAPNUM] = {
 			(char *)0,
 };
 
+/*TODO:ñ|ñÛÅH*/
 /* Quotes from or about the Illuminati */
 static const char * const illuminati_engravings[] = {
 	"Ewige Blumenkraft!", /* the Illuminatus' motto */
@@ -481,6 +482,7 @@ static const char * const illuminati_engravings[] = {
 	"Novus Ordo Seclorum",
 	"Think for yourself, schmuck",
 };
+/*TODO:ñ|ñÛÅH*/
 /* Quotes from or about the Hitchhikers Guide to the Galaxy */
 static const char * const hhgtg_engravings[] = {
 	"Beeblebrox for President!",

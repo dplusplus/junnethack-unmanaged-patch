@@ -682,7 +682,10 @@ wiz_level_change()
     int newlevel;
     int ret;
 
+/*JP
     getlin("To what experience level do you want to be set?", buf);
+*/
+    getlin("経験レベルをいくつに設定しますか？", buf);
     (void)mungspaces(buf);
     if (buf[0] == '\033' || buf[0] == '\0') ret = 0;
     else ret = sscanf(buf, "%d", &newlevel);
@@ -692,18 +695,30 @@ wiz_level_change()
 	return 0;
     }
     if (newlevel == u.ulevel) {
+/*JP
 	You("are already that experienced.");
+*/
+	You("すでにその経験レベルだ．");
     } else if (newlevel < u.ulevel) {
 	if (u.ulevel == 1) {
+/*JP
 	    You("are already as inexperienced as you can get.");
+*/
+	    You("すでに最低の経験レベルだ．");
 	    return 0;
 	}
 	if (newlevel < 1) newlevel = 1;
 	while (u.ulevel > newlevel)
+/*JP
 	    losexp("#levelchange");
+*/
+	    losexp("#levelchangeコマンドで");
     } else {
 	if (u.ulevel >= MAXULEV) {
+/*JP
 	    You("are already as experienced as you can get.");
+*/
+	    You("すでに最大の経験レベルだ．");
 	    return 0;
 	}
 	if (newlevel > MAXULEV) newlevel = MAXULEV;
@@ -718,7 +733,10 @@ wiz_level_change()
 STATIC_PTR int
 wiz_panic()
 {
+/*JP
 	if (yn("Do you want to call panic() and end your game?") == 'y')
+*/
+	if (yn("panic()関数を呼び出してゲームを終了させますか？") == 'y')
 		panic("crash test.");
         return 0;
 }
@@ -1409,7 +1427,8 @@ int final;	/* 0 => still in progress; 1 => over, survived; 2 => dead */
 	    else Sprintf(buf, "polymorphed into %s", an(youmonst.data->mname));
 #else
 	    if (u.ulycn >= LOW_PM) Strcpy(buf, "獣の姿を");
-	    else Sprintf(buf, "%sに変化", a_monnam(&youmonst));
+	    else Sprintf(buf, "%sに変化",
+		jtrns_mon_gen(youmonst.data->mname, youmonst.female));
 #endif
 #ifdef WIZARD
 	    if (wizard) Sprintf(eos(buf), " (%d)", u.mtimedone);
@@ -2680,7 +2699,6 @@ int final;
 }
 
 #ifdef DUMP_LOG
-/* TODO:翻訳 */
 void
 dump_conduct(final)
 int final;
@@ -2688,85 +2706,168 @@ int final;
 	char buf[BUFSZ];
 	int ngenocided;
 
+/*JP
 	dump("", "Voluntary challenges");
+*/
+	dump("", "自発的挑戦");
 
 	if (!u.uconduct.food)
+/*JP
 	    dump("", "  You went without food");
+*/
+	    dump("", "  あなたは食事をしなかった");
 	    /* But beverages are okay */
 	else if (!u.uconduct.unvegan)
+/*JP
 	    dump("", "  You followed a strict vegan diet");
+*/
+	    dump("", "  あなたは厳格な菜食主義者であった");
 	else if (!u.uconduct.unvegetarian)
+/*JP
 	    dump("", "  You were a vegetarian");
+*/
+	    dump("", "  あなたは菜食主義者であった");
 	else if (Role_if(PM_MONK) && u.uconduct.unvegetarian < 10) {
+#if 0 /*JP*/
 	    sprintf(buf, "  You ate non-vegetarian food %ld time%s.", 
 		u.uconduct.unvegetarian, plur(u.uconduct.unvegetarian));
+#else
+	    sprintf(buf, "  あなたは植物性以外の食事を%ld回した．", 
+		u.uconduct.unvegetarian);
+#endif
 	    dump("", buf);
 	}
 
 	if (!u.uconduct.gnostic)
+/*JP
 	    dump("", "  You were an atheist");
+*/
+	    dump("", "  あなたは無神論者であった");
 
 	if (!u.uconduct.weaphit)
+/*JP
 	    dump("", "  You never hit with a wielded weapon");
+*/
+	    dump("", "  あなたは装備している武器で攻撃しなかった");
 	else if (Role_if(PM_MONK) && u.uconduct.weaphit < 10) {
+#if 0 /*JP*/
 	    Sprintf(buf, "  You hit with a wielded weapon %ld time%s",
 		    u.uconduct.weaphit, plur(u.uconduct.weaphit));
+#else
+	    Sprintf(buf, "  あなたは%ld回装備した武器を使用した",
+		    u.uconduct.weaphit);
+#endif
 	    dump("", buf);
 	}
 #ifdef WIZARD
 	else if (wizard) {
+#if 0 /*JP*/
 	    Sprintf(buf, "hit with a wielded weapon %ld time%s",
 		    u.uconduct.weaphit, plur(u.uconduct.weaphit));
 	    dump("  You ", buf);
+#else
+	    Sprintf(buf, "%ld回装備した武器を使用した",
+		    u.uconduct.weaphit);
+	    dump("  あなたは", buf);
+#endif
 	}
 #endif
 	if (!u.uconduct.killer)
+/*JP
 	    dump("", "  You were a pacifist");
+*/
+	    dump("", "  あなたは平和主義者であった");
 
 	if (!u.uconduct.literate)
+/*JP
 	    dump("", "  You were illiterate");
+*/
+	    dump("", "  あなたは読み書きしなかった");
 #ifdef WIZARD
 	else if (wizard) {
+#if 0 /*JP*/
 	    Sprintf(buf, "read items or engraved %ld time%s",
 		    u.uconduct.literate, plur(u.uconduct.literate));
 	    dump("  You ", buf);
+#else
+	    Sprintf(buf, "%ld回読んだり書いたりした",
+		    u.uconduct.literate);
+	    dump("  あなたは", buf);
+#endif
 	}
 #endif
 
 	ngenocided = num_genocides();
 	if (ngenocided == 0) {
+/*JP
 	    dump("", "  You never genocided any monsters");
+*/
+	    dump("", "  あなたは怪物を虐殺しなかった");
 	} else {
+#if 0 /*JP*/
 	    Sprintf(buf, "genocided %d type%s of monster%s",
 		    ngenocided, plur(ngenocided), plur(ngenocided));
 	    dump("  You ", buf);
+#else
+	    Sprintf(buf, "%d種の怪物を虐殺した", ngenocided);
+	    dump("  あなたは", buf);
+#endif
 	}
 
 	if (!u.uconduct.polypiles)
+/*JP
 	    dump("", "  You never polymorphed an object");
+*/
+	    dump("", "  あなたは物体を変化させなかった");
 	else {
+#if 0 /*JP*/
 	    Sprintf(buf, "polymorphed %ld item%s",
 		    u.uconduct.polypiles, plur(u.uconduct.polypiles));
 	    dump("  You ", buf);
+#else
+	    Sprintf(buf, "%ld個の道具を変化させた",
+		    u.uconduct.polypiles);
+	    dump("  あなたは", buf);
+#endif
 	}
 
 	if (!u.uconduct.polyselfs)
+/*JP
+	    dump("", "  You never changed form");
+*/
 	    dump("", "  You never changed form");
 	else {
+#if 0 /*JP*/
 	    Sprintf(buf, "changed form %ld time%s",
 		    u.uconduct.polyselfs, plur(u.uconduct.polyselfs));
 	    dump("  You ", buf);
+#else
+	    Sprintf(buf, "%ld回姿を変えた",
+		    u.uconduct.polyselfs);
+	    dump("  あなたは", buf);
+#endif
 	}
 
 	if (!u.uconduct.wishes)
+/*JP
 	    dump("", "  You used no wishes");
+*/
+	    dump("", "  あなたは願い事をしなかった");
 	else {
+#if 0 /*JP*/
 	    Sprintf(buf, "used %ld wish%s",
 		    u.uconduct.wishes, (u.uconduct.wishes > 1L) ? "es" : "");
 	    dump("  You ", buf);
+#else
+	    Sprintf(buf, "%ld回願い事をした", u.uconduct.wishes);
+	    dump("  あなたは", buf);
+#endif
 
 	    if (!u.uconduct.wisharti)
+/*JP
 		dump("", "  You did not wish for any artifacts");
+*/
+		dump("", "  あなたは聖器を願わなかった");
 	}
 
 	dump("", "");
@@ -2979,7 +3080,7 @@ struct ext_func_tab extcmdlist[] = {
 		doextversion, TRUE},
 	{"wipe", "顔を拭う", dowipe, FALSE},
 	{"?", "この拡張コマンド一覧を表示する", doextlist, TRUE},
-#endif
+#endif /*JP*/
 #if defined(WIZARD)
 	/*
 	 * There must be a blank entry here for every entry in the table
@@ -3036,27 +3137,27 @@ static const struct ext_func_tab debug_extcmdlist[] = {
 	{"wmode", "show wall modes", wiz_show_wmodes, TRUE},
 #else /*JP*/
 	{"levelchange", "経験レベルを変える", wiz_level_change, TRUE},
-	{"light sources", "移動光源を見る", wiz_light_sources, TRUE},
+	{"light sources", "移動光源を表示する", wiz_light_sources, TRUE},
 	{"mazewalkmap", "MAZEWALK経路を表示", wiz_mazewalkmap, TRUE},
 #ifdef DEBUG_MIGRATING_MONS
 	{"migratemons", "ランダムな怪物を移住させる", wiz_migrate_mons, TRUE},
 #endif
-	{"monpoly_control", "怪物への変化を制御する", wiz_mon_polycontrol, TRUE},
+	{"monpoly_control", "怪物の変化を制御する", wiz_mon_polycontrol, TRUE},
 	{"panic", "パニックルーチンをテストする(致命的)", wiz_panic, TRUE},
-	{"poly", "変化する", wiz_polyself, TRUE},
+	{"polyself", "変身する", wiz_polyself, TRUE},
 #ifdef PORT_DEBUG
-	{"portdebug", "wizard port debug command", wiz_port_debug, TRUE},
+	{"portdebug", "ウィザードポートデバッグコマンド", wiz_port_debug, TRUE},
 #endif
-	{"seenv", "視線ベクトルを見る", wiz_show_seenv, TRUE},
+	{"seenv", "視線ベクトルを表示する", wiz_show_seenv, TRUE},
 	{"showkills", "怪物の殺害数一覧を表示する", wiz_showkills, TRUE},
-	{"stats", "メモリ状態を見る", wiz_show_stats, TRUE},
-	{"timeout", "時間切れキューを見る", wiz_timeout_queue, TRUE},
-	{"vision", "視界配列を見る", wiz_show_vision, TRUE},
+	{"stats", "メモリ状態を表示する", wiz_show_stats, TRUE},
+	{"timeout", "タイムアウトキューを見る", wiz_timeout_queue, TRUE},
+	{"vision", "視界配列を表示する", wiz_show_vision, TRUE},
 #ifdef DEBUG
 	{"wizdebug", "ウィザードデバッグモード", wiz_debug_cmd, TRUE},
 #endif
-	{"wmode", "壁モードを見る", wiz_show_wmodes, TRUE},
-#endif
+	{"wmode", "壁モードを表示する", wiz_show_wmodes, TRUE},
+#endif /*JP*/
 	{(char *)0, (char *)0, donull, TRUE}
 };
 
@@ -3650,7 +3751,7 @@ const char *s;
 #if 0 /*JP*/
 					    "Invalid direction key!");
 #else
-					    "無効な方向指定です．");
+					    "そっちの方向は無理だよ！");
 #endif
 		    }
 /*JP
@@ -3690,16 +3791,30 @@ const char *msg;
 		    || wizard
 #endif
 	                     )) {
+#if 0 /*JP*/
 		Sprintf(buf, "Are you trying to use ^%c%s?", sym,
 			index(wiz_only_list, sym) ? "" :
 			" as specified in the Guidebook");
+#else
+		Sprintf(buf, "^%cを%s使ってみる？", sym,
+			index(wiz_only_list, sym) ? "" :
+			"ガイドブックの記述どおりに");
+#endif
 		putstr(win, 0, buf);
 		putstr(win, 0, "");
 		putstr(win, 0, expl);
 		putstr(win, 0, "");
+/*JP
 		putstr(win, 0, "To use that command, you press");
+*/
+		putstr(win, 0, "コマンドを使用するには，<Ctrl>キーと");
+#if 0 /*JP*/
 		Sprintf(buf,
 			"the <Ctrl> key, and the <%c> key at the same time.", sym);
+#else
+		Sprintf(buf,
+			"<%c>キーを同時に押してください．", sym);
+#endif
 		putstr(win, 0, buf);
 		putstr(win, 0, "");
 	    }
@@ -3750,9 +3865,15 @@ const char *msg;
 	    putstr(win, 0, "          b  j  n");
 	};
 	putstr(win, 0, "");
+#if 0 /*JP*/
 	putstr(win, 0, "          <  up");
 	putstr(win, 0, "          >  down");
 	putstr(win, 0, "          .  direct at yourself");
+#else
+	putstr(win, 0, "          <  上");
+	putstr(win, 0, "          >  下");
+	putstr(win, 0, "          .  自分自身に直接");
+#endif
 	putstr(win, 0, "");
 #if 0 /*JP*/
 	putstr(win, 0, "(Suppress this message with !cmdassist in config file.)");

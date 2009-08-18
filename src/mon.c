@@ -1776,10 +1776,16 @@ struct monst *mon; /**< Cthulhu's struct */
 	if (mon->mhp <= 0) {
 		/* Cthulhu Deliquesces... */
 		if (cansee(mon->mx, mon->my)) {
+/*JP
 			pline("%s body deliquesces into a cloud of noxious gas!",
+*/
+			pline("%sの身体は有毒ガスと化して溶けてしまった！",
 					s_suffix(Monnam(mon)));
 		} else {
+/*JP
 			You_hear("hissing and bubbling!");
+*/
+			You_hear("シューシュー，ごぼごぼという音を聞いた！");
 		}
 		/* ...into a stinking cloud... */
 		(void) create_cthulhu_death_cloud(mon->mx, mon->my, 3, 8);
@@ -2180,9 +2186,11 @@ cleanup:
 	}
 
 	/* give experience points */
+    {
 	int nr_killed = (int)mvitals[mndx].died;
 	tmp = experience(mtmp, nr_killed);
 	more_experienced(tmp, max(tmp/nr_killed,1), 0);
+    }
 	newexplevel();		/* will decide if you go up */
 
 	/* adjust alignment points */

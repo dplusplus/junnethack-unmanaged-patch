@@ -10,16 +10,19 @@
 ^W  ==  望みをかなえる．
 ^X  ==  属性を見る．
 
-TODO:翻訳
-#levelchange == change experience level
-#lightsources == show mobile light sources
-#monpolycontrol == control monster polymorphs
-#panic == panic test
-#polyself == polymorph self
-#seenv == show seen vectors
-#showkills == show numbers of monsters killed
-#stats == show memory statistics
-#timeout == look at timeout queue
-#vision == show vision array
-#wmode == show wall modes
+#levelchange == 経験レベルを変える
+#lightsources == 移動光源を表示
+#mazewalkmap == MAZEWALK経路を表示
+#migratemons == ランダムな怪物を移住させる
+#monpolycontrol == 怪物変化の制御
+#panic == パニックテスト
+#polyself == 変身する
+#portdebug == ウィザードポートデバッグコマンド
+#seenv == 視線ベクトルを表示
+#showkills == 怪物の殺害数一覧を表示
+#stats == メモリ状態を表示
+#timeout == タイムアウトキューを表示
+#vision == 視界配列を表示
+#wizdebug == ウィザードデバッグモード
+#wmode == 壁モードを表示
 

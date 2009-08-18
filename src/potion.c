@@ -2046,7 +2046,7 @@ register struct obj *obj;
 				    pline_The("spellbook%s %s.",
 					oq1 ? "" : "s", otense(obj, "fade"));
 #else
-				    pline("魔法書の文字は薄れた．");
+				    pline("呪文書の文字は薄れた．");
 #endif
 			    }
 			    if(obj->unpaid && costly_spot(u.ux, u.uy)) {
@@ -2676,7 +2676,7 @@ register struct obj *obj;
 /*JP
 	case 1 : verbalize("Thank you for freeing me!");
 */
-	case 1 : verbalize("私を助けてくれたことを感謝する！");
+	case 1 : verbalize("私を解放してくれたことを感謝する！");
 		(void) tamedog(mtmp, (struct obj *)0);
 		break;
 /*JP

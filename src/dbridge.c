@@ -839,13 +839,17 @@ int x,y;
 	if (lev1->typ != DRAWBRIDGE_DOWN) return FALSE;
 	/* Huge monster block the drawbridge */
 	if (m_at(x,y) && hugemonst(m_at(x,y)->data)) {
-		/* TODO:翻訳 */
+/*JP
 		pline("A monster blocks the drawbridge with its weight.");
+*/
+		pline("上に乗っている怪物の重さで跳ね橋が閉じない．");
 		return FALSE;
 	}
 	if (rn2(5)==0) {
-		/* TODO:翻訳 */
+/*JP
 		pline("The mechanism seems to have something stuck in it and won't close.");
+*/
+		pline("仕組みは何らかの原因で停止し，閉じないようだ．");
 		return FALSE;
 	}
 	x2 = x; y2 = y;

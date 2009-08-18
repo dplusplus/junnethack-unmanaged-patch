@@ -509,7 +509,10 @@ register struct monst *mtmp;
 #ifdef WIZARD
 	if (wizard &&
 	    mtmp->isshk && ESHK(mtmp)->cheapskate) {
+/*JP
 		Strcat(info, ", cheapskate");
+*/
+		Strcat(info, ", ÉPÉ`Ç≈Ç†ÇÈ");
 	}
 #endif
 

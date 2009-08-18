@@ -129,10 +129,22 @@ dosounds()
     }
     if (level.flags.has_garden && !rn2(200)) {
 	static const char *garden_msg[4] = {
+/*JP
 		"crickets chirping!",
+*/
+		"コオロギ達の鳴き声を聞いた！",
+/*JP
 		"birds singing!",
+*/
+		"鳥達の歌を聞いた！",
+/*JP
 		"grass growing!",
+*/
+		"草の成長する音を聞いた！",
+/*JP
 		"wind in the willows!",
+*/
+		"柳の木々を通り抜ける風の音を聞いた！",
 	};
 	You_hear(garden_msg[rn2(2) + 2 * hallu]);
 	return;
@@ -261,34 +273,61 @@ dosounds()
 		if (hallu) {
 		    switch (rn2(3)) {
 		        case 0:
+/*JP
 			    You_hear("screams of lust!");
+*/
+			    You_hear("好色な嬌声を聞いた！");
 			    break;
 		        case 1:
+/*JP
 			    You_hear("the crack of your mistress's whip!");
+*/
+			    You_hear("自分の愛人の振るう鞭の音を聞いた！");
 			    break;
 		        case 2:
+/*JP
 			    You_hear("a weeping willow!");
+*/
+			    You_hear("しだれ柳の音を聞いた！");
 			    break;
 		    }	
 		} else {
 		    switch (rn2(6)) {
 		        case 0:
+/*JP
 			    You_hear("the crack of a barbed whip!");
+*/
+			    You_hear("トゲ付きの鞭を振るう音を聞いた！");
 			    break;
 		        case 1:
+/*JP
 			    You_hear("the screams of tortured souls!");
+*/
+			    You_hear("拷問される魂の絶叫を聞いた！");
 			    break;
 		        case 2:
+/*JP
 			    You_hear("a wail of eternal anguish!");
+*/
+			    You_hear("永遠の激痛を泣き叫ぶ声を聞いた！");
 			    break;
 		        case 3:
+/*JP
 			    You_hear("diabolical laughter!");
+*/
+			    You_hear("悪魔のごとき笑い声を聞いた！");
 			    break;
 		        case 4:
+/*JP
 			    You_hear("cries of repentance!");
+*/
+			    You_hear("悔悟の叫びを聞いた！");
 			    break;
 		        case 5:
+/*JP
 			    You_hear("futile pleas for mercy!");
+*/
+			    You_hear("虚しく慈悲を乞う声を聞いた！");
 			    break;
 		    }
 		}
@@ -436,9 +475,15 @@ dosounds()
     if (!Is_blackmarket(&u.uz) && at_dgn_entrance("One-eyed Sam's Market") &&
         !rn2(200)) {
       static const char *blkmar_msg[3] = {
+#if 0 /*JP*/
         "You hear someone complaining about the prices.",
         "Somebody whispers: \"Food rations? Only 900 zorkmids.\"",
         "You feel like searching for more gold.",
+#else
+        "あなたは誰かが値段について愚痴を言っているのを聞いた．",
+        "誰かのささやきが聞こえた：「食糧はたったの900ゴールドだ．」",
+        "あなたは更に多くの金貨を嗅ぎつけたような気がした．",
+#endif
       };
       pline(blkmar_msg[rn2(2)+hallu]);
     }
@@ -1182,7 +1227,7 @@ register struct monst *mtmp;
 /*JP
 		pline_msg = "talks about spellcraft.";
 */
-		pline_msg = "魔力について話した．";
+		pline_msg = "呪文技術について話した．";
 	    else if (ptr->mlet == S_CENTAUR)
 /*JP
 		pline_msg = "discusses hunting.";

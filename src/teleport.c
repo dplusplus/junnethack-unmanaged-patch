@@ -761,7 +761,7 @@ dotele()
 /*JP
 			    You("don't know that spell.");
 */
-			    You("‚»‚ñ‚È–‚–@‚Í’m‚ç‚È‚¢D");
+			    You("‚»‚ñ‚Èô•¶‚Í’m‚ç‚È‚¢D");
 /*JP
 			else You("are not able to teleport at will.");
 */
@@ -782,7 +782,7 @@ dotele()
 			    castit ? "for a teleport spell" : "to teleport");
 #else
 			You("%s‚¾‚¯‚Ì—Í‚ª‚È‚¢D",
-			    castit ? "uŠÔˆÚ“®‚Ì–‚–@‚ğ¥‚¦‚é" : "uŠÔˆÚ“®‚·‚é");
+			    castit ? "uŠÔˆÚ“®‚Ìô•¶‚ğ¥‚¦‚é" : "uŠÔˆÚ“®‚·‚é");
 #endif
 			return 1;
 #ifdef WIZARD
@@ -803,7 +803,7 @@ dotele()
 			    castit ? "for a teleport spell" : "to teleport");
 #else
 			You("%s‚¾‚¯‚ÌƒGƒlƒ‹ƒM[‚ª‚È‚¢D",
-			    castit ? "uŠÔˆÚ“®‚Ì–‚–@‚ğ¥‚¦‚é" : "uŠÔˆÚ“®‚·‚é");
+			    castit ? "uŠÔˆÚ“®‚Ìô•¶‚ğ¥‚¦‚é" : "uŠÔˆÚ“®‚·‚é");
 #endif
 			return 1;
 		}
@@ -915,27 +915,44 @@ level_tele()
 			newlevel.dnum = destdnum;
 			newlevel.dlevel = destlev;
 			if (In_endgame(&newlevel) && !In_endgame(&u.uz)) {
+#if 0 /*JP*/
 				Sprintf(buf,
 #ifdef RANDOMIZED_PLANES
 				    "Destination is first elemental plane");
 #else
 				    "Destination is earth level");
 #endif
+#else /*JP*/
+		        Strcpy(buf, "");
+#endif /*JP*/
 				if (!u.uhave.amulet) {
 					struct obj *obj;
 					obj = mksobj(AMULET_OF_YENDOR,
 							TRUE, FALSE);
 					if (obj) {
 						obj = addinv(obj);
+/*JP
 						Strcat(buf, " with the amulet");
+*/
+						Strcat(buf, "–‚œ‚¯‚ğ‚Á‚½ó‘Ô‚Å‚Ì");
 					}
 				}
+#if 1 /*JP*/
+#ifdef RANDOMIZED_PLANES
+				Strcat(buf, "Å‰‚Ì¸—ìŠE");
+#else
+				Strcat(buf, "’n‚Ì¸—ìŠE");
+#endif
+#endif /*JP*/
 #ifdef RANDOMIZED_PLANES
 				assign_level(&newlevel, get_first_elemental_plane());
 #else
 				assign_level(&newlevel, &earth_level);
 #endif
+/*JP
 				pline("%s.", buf);
+*/
+				pline("–Ú“I’n‚Í%s‚É‚È‚è‚Ü‚·.", buf);
 			}
 			force_dest = TRUE;
 		    } else return;
@@ -1554,7 +1571,7 @@ int in_sight;
 /*JP
 			pline("%s seems to shimmer for a moment.",
 */
-		        pline("%s‚ªˆêu‹P‚¢‚½‚æ‚¤‚ÉŒ©‚¦‚½D",
+			pline("%s‚ªˆêu‹P‚¢‚½‚æ‚¤‚ÉŒ©‚¦‚½D",
 							Monnam(mtmp));
 			seetrap(trap);
 		    }
@@ -1563,7 +1580,10 @@ int in_sight;
 	      	} else if (mtmp->mtame &&
 			(Is_blackmarket(&trap->dst) || Is_blackmarket(&u.uz))) {
 	          if (in_sight) {
+/*JP
 		     pline("%s seems to shimmer for a moment.",
+*/
+		     pline("%s‚ªˆêu‹P‚¢‚½‚æ‚¤‚ÉŒ©‚¦‚½D",
 		     Monnam(mtmp));
 		     seetrap(trap);
 	          }

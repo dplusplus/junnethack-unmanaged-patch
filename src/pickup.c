@@ -2893,13 +2893,19 @@ del_sokoprize()
 			y = otmp->oy;
 			obj_extract_self(otmp);
 			if (cansee(x, y)) {
+/*JP
 				You("see %s vanishing.", an(xname(otmp)));
+*/
+				You("%s‚ªÁ‚¦‚é‚Ì‚ðŒ©‚½D", an(xname(otmp)));
 				newsym(x, y);
 			} else cnt++;
 			obfree(otmp, (struct obj *)0);
 		}
 	}
+/*JP
 	if (cnt && flags.soundok) You_hear("something popping.");
+*/
+	if (cnt && flags.soundok) You_hear("‰½‚©‚ª‚Í‚¶‚¯‚é‰¹‚ð•·‚¢‚½D");
 	/* check buried objs... do we need this? */
 	for (otmp = level.buriedobjlist; otmp; otmp = onext) {
 		onext = otmp->nobj; /* otmp may be destroyed */

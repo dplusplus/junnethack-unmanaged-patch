@@ -111,7 +111,7 @@ int skill;
 		skill <= P_LAST_WEAPON ?
 			"武器の" :
 		skill <= P_LAST_SPELL ?
-			"魔法の" :
+			"呪文詠唱の" :
 		"戦いの");
 #endif
 }
@@ -921,8 +921,7 @@ int skill;
 	P_SKILL(skill) >= P_MAX_SKILL(skill) ? "most" : "more",
 	P_NAME(skill));
 #else
-    Your("%sのスキルを%s高めた．", 
-	jtrns_obj(')', P_NAME(skill)),
+    Your("%sのスキルを%s高めた．", P_NAME(skill),
 	P_SKILL(skill) >= P_MAX_SKILL(skill) ? "最高に" : "さらに");
 #endif
 }
@@ -987,7 +986,10 @@ int enhance_skill(boolean want_dump)
 #ifdef DUMP_LOG
 	if (!want_dump)
 #endif
+/*JP
 	if (wizard && yn("Advance skills without practice?") == 'y')
+*/
+	if (wizard && yn("修練なしにスキルを上昇させますか？") == 'y')
 	    speedy = TRUE;
 #endif
 
@@ -1005,7 +1007,10 @@ int enhance_skill(boolean want_dump)
 
 #ifdef DUMP_LOG
 	    if (want_dump)
+/*JP
 		dump("","Your skills at the end");
+*/
+		dump("","あなたの持っていたスキル一覧");
 	    else {
 #endif
 	    win = create_nhwindow(NHW_MENU);
@@ -1078,7 +1083,10 @@ int enhance_skill(boolean want_dump)
 			dump("    ",buf2);
 			logged=TRUE;
 		    } else if (i == skill_ranges[pass].last && !logged) {
+/*JP
 			dump("    ","(none)");
+*/
+			dump("    ","(なし)");
 		    }
                } else {
 #endif

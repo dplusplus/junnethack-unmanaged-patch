@@ -427,7 +427,7 @@ Figure 1
 .\"O .lp Intelligence
 .lp 知力(Intelligence)
 .\"O Intelligence affects your ability to cast spells and read spellbooks.
-知力は呪文を唱える能力や魔法書を読む能力に影響を与える。
+知力は呪文を唱える能力や呪文書を読む能力に影響を与える。
 .\"O .lp Wisdom
 .lp 賢さ(Wisdom)
 .\"O Wisdom comes from your practical experience (especially when dealing with
@@ -582,7 +582,7 @@ Figure 1
 下り階段:下の階への通路。
 .lp +
 .\"O A closed door, or a spellbook containing a spell you may be able to learn.
-閉じた扉、または学習できるかもしれない呪文の書かれた魔法書。
+閉じた扉、または学習できるかもしれない呪文の書かれた呪文書。
 .lp @
 .\"O Your character or a human.
 あなたのキャラクター、または人間。
@@ -999,7 +999,7 @@ I$ - お金を数える。
 その機能は`#quit'に移動した)
 .lp r
 .\"O Read a scroll or spellbook.
-巻物や魔法書を読む。
+巻物や呪文書を読む。
 .lp R
 .\"O Remove an accessory (ring, amulet, etc).
 装飾品（指輪、魔除けなど）をはずす。
@@ -2365,17 +2365,17 @@ NetHack のメール配達機能はシステムのメールボックスに電子メールが
 `R'(remove: 指輪をはずす) である。
 .hn 2
 .\"O Spellbooks (`+')
-魔法書 (`+')
+呪文書 (`+')
 .pg
 .\"O Spellbooks are tomes of mighty magic.  When studied with the `r' (read)
 .\"O command, they transfer to the reader the knowledge of a spell (and
 .\"O therefore eventually become unreadable) \(em unless the attempt backfires.
-魔法書は強力な魔法を記した大きな本である。`r'(read: 読む) コマンドで
+呪文書は強力な魔法を記した大きな本である。`r'(read: 読む) コマンドで
 学ぶと呪文の知識が読み手に転送される(したがって最後には読めなくなる)か、
 さもなくばその試みは不測の結果に終る。
 .\"O Reading a cursed spellbook or one with mystic runes beyond
 .\"O your ken can be harmful to your health!
-呪いがかけられた魔法書や知識の及ばない神秘の古代文字で記された魔法書を
+呪いがかけられた呪文書や知識の及ばない神秘の古代文字で記された呪文書を
 読むと健康状態に害が及ぶ可能性がある！
 .pg
 .\"O A spell (even when learned) can also backfire when you cast it.  If you
@@ -2434,7 +2434,7 @@ NetHack のメール配達機能はシステムのメールボックスに電子メールが
 .\"O (read).  The `+' command lists your current spells, their levels,
 .\"O categories, and chances for failure.  
 .\"O The `Z' (cast) command casts a spell.
-魔法書を読むためのコマンドは巻物を読むときと同じく `r'(read: 読む) である。
+呪文書を読むためのコマンドは巻物を読むときと同じく `r'(read: 読む) である。
 `+' コマンドにより、知っている呪文とそのレベル，分野，成功率が一覧表示される。
 `Z'(cast: 呪文を唱える) コマンドにより呪文を唱える。
 .hn 2
@@ -2702,11 +2702,11 @@ NetHack において、平和主義者は他の怪物を殺してはならない(言い換えると、
 .\"O learned from your teachers prior to the start of the game and isn't
 .\"O counted.
 文盲者は読み書きができない。これには以下の行為が含まれる。
-巻き物を読む、魔法書を読む、占いクッキーのメッセージを読む、Tシャツの文字を読む、
+巻き物を読む、呪文書を読む、占いクッキーのメッセージを読む、Tシャツの文字を読む、
 巻き物を書く、``x''一文字(文盲者の伝統的なサイン)以外の文字を刻む。
 刻んである文字を読むことと、ゲームに勝利するために絶対に必要なアイテムを
 読むことは制限には反しないものとする。
-ゲーム開始時に持っている巻き物と魔法書の内容を知っていることおよび
+ゲーム開始時に持っている巻き物と呪文書の内容を知っていることおよび
 呪文の知識は、ゲーム開始以前に教師から教わったものとみなし、
 制限には反しないものとする。
 .pg
@@ -3533,7 +3533,7 @@ NetHack のニュースファイルがあればそれを読む(標準設定はオン)。
 .\"O iron ball, chain, and venom.
 シンボルの順番は
 （見たこともないような）おかしな物体、武器、防具、指輪、魔除け、工具、
-食料、水薬、巻物、魔法書、杖、金貨、宝石または石、巨石または彫像、
+食料、水薬、巻物、呪文書、杖、金貨、宝石または石、巨石または彫像、
 鉄球、鎖、毒液。
 .\"O Cannot be set with the `O' command.
 `O' コマンドで設定することはできない。

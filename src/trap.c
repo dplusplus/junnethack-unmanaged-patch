@@ -1633,7 +1633,10 @@ glovecheck:		(void) rust_dmg(uarmg, "¬è", 1, TRUE, &youmonst);
 #if defined(BLACKMARKET) && defined(STEED)
 		if (u.usteed &&
 			(Is_blackmarket(&trap->dst) || Is_blackmarket(&u.uz)))
+/*JP
 		    pline("%s seems to shimmer for a moment.",
+*/
+		     pline("%s‚ªˆêu‹P‚¢‚½‚æ‚¤‚ÉŒ©‚¦‚½D",
 			  Monnam(u.usteed));
 		else
 #endif
@@ -2501,7 +2504,10 @@ glovecheck:		    target = which_armor(mtmp, W_ARMG);
 					trapkilled = TRUE;
 #ifdef WEBB_DISINT
 			} else if (can_disint) {
+/*JP
 				pline("The water vanishes in a green twinkling.");
+*/
+				pline("%s‹P‚«‚Æ‚Æ‚à‚É…‚ªÁ‚¦‚½D", hcolor("—ÎF‚Ì"));
 #endif
 			} else if (mptr == &mons[PM_GREMLIN] && rn2(3)) {
 				(void)split_mon(mtmp, (struct monst *)0);
@@ -2688,8 +2694,8 @@ glovecheck:		    target = which_armor(mtmp, W_ARMG);
 					pline("%s spider web disintegrates in a green twinkling!", 
 							A_Your[trap->madeby_u]);
 #else
-					pline("%s‚­‚à‚Ì‘ƒ‚Í—ÎF‚Ì‹P‚«‚Æ‚Æ‚à‚É•²Ó‚³‚ê‚½I", 
-							web_you[trap->madeby_u]);
+					pline("%s‚­‚à‚Ì‘ƒ‚Í%s‹P‚«‚Æ‚Æ‚à‚É•²Ó‚³‚ê‚½I", 
+							web_you[trap->madeby_u], hcolor("—ÎF‚Ì"));
 #endif
 				}
 				deltrap(trap);

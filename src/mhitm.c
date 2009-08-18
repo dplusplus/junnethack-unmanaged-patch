@@ -717,8 +717,13 @@ defdisintagr(magr, mdef, mattk)
 				if (otch = which_armor(magr, W_ARMG)) {
 					if (!oresist_disintegration(otch)) {
 						if (canseemon(magr))
+#if 0 /*JP*/
 							pline("%s %s disintegrates!",
 							      s_suffix(Monnam(magr)), distant_name(otch, xname));
+#else
+							pline("%sの%sは粉砕された！",
+							      Monnam(magr), distant_name(otch, xname));
+#endif
 						mass += otch->owt;
 						m_useup(magr,otch);
 						otch = 0;
@@ -728,8 +733,13 @@ defdisintagr(magr, mdef, mattk)
 				if (otch = which_armor(magr, W_ARMC)) {
 					if (!oresist_disintegration(otch)) {
 						if (canseemon(magr))
+#if 0 /*JP*/
 							pline("%s %s disintegrates!",
 							      s_suffix(Monnam(magr)), distant_name(otch, xname));
+#else
+							pline("%sの%sは粉砕された！",
+							      Monnam(magr), distant_name(otch, xname));
+#endif
 						mass += otch->owt;
 						m_useup(magr,otch);
 						touched = 1;
@@ -739,8 +749,13 @@ defdisintagr(magr, mdef, mattk)
 						(otch = which_armor(magr,W_ARM)) &&
 						(!oresist_disintegration(otch))) {
 					if (canseemon(magr))
+#if 0 /*JP*/
 						pline("%s %s disintegrates!",
 						      s_suffix(Monnam(magr)), distant_name(otch, xname));
+#else
+						pline("%sの%sは粉砕された！",
+						      Monnam(magr), distant_name(otch, xname));
+#endif
 					mass += otch->owt;
 					m_useup(magr,otch);
 				} 
@@ -749,8 +764,13 @@ defdisintagr(magr, mdef, mattk)
 						(otch = which_armor(magr,W_ARMU)) &&
 						(!oresist_disintegration(otch))) {
 					if (canseemon(magr))
+#if 0 /*JP*/
 						pline("%s %s disintegrates!",
 						      s_suffix(Monnam(magr)), distant_name(otch, xname));
+#else
+						pline("%sの%sは粉砕された！",
+						      Monnam(magr), distant_name(otch, xname));
+#endif
 					mass += otch->owt;
 					m_useup(magr,otch);
 				}
@@ -760,8 +780,13 @@ defdisintagr(magr, mdef, mattk)
 				if (otmp) {
 					if (!oresist_disintegration(otmp)) {
 						if (canseemon(magr))
+#if 0 /*JP*/
 							pline("%s %s disintegrates!",
 							      s_suffix(Monnam(magr)), distant_name(otmp, xname));
+#else
+							pline("%sの%sは粉砕された！",
+							      Monnam(magr), distant_name(otch, xname));
+#endif
 						mass += otmp->owt;
 						m_useup(magr,otmp);
 						tmp = 0;
@@ -769,8 +794,13 @@ defdisintagr(magr, mdef, mattk)
 				} else if (otch = which_armor(magr,W_ARMG)) {
 					if (!oresist_disintegration(otch)) {
 						if (canseemon(magr))
+#if 0 /*JP*/
 							pline("%s %s disintegrates!",
 									s_suffix(Monnam(magr)), distant_name(otch, xname));
+#else
+							pline("%sの%sは粉砕された！",
+							      Monnam(magr), distant_name(otch, xname));
+#endif
 						mass += otch->owt;
 						m_useup(magr,otch);
 						touched = 1;
@@ -781,8 +811,13 @@ defdisintagr(magr, mdef, mattk)
 				if (otch = which_armor(magr,W_ARMH)) {
 					if (!oresist_disintegration(otch)) {
 						if (canseemon(magr))
+#if 0 /*JP*/
 							pline("%s %s disintegrates!",
 									s_suffix(Monnam(magr)), distant_name(otch, xname));
+#else
+							pline("%sの%sは粉砕された！",
+							      Monnam(magr), distant_name(otch, xname));
+#endif
 						mass += otch->owt;
 						m_useup(magr,otch);
 						touched = 1;
@@ -793,8 +828,13 @@ defdisintagr(magr, mdef, mattk)
 				if (otch = which_armor(magr,W_ARMF)) {
 					if (!oresist_disintegration(otch)) {
 						if (canseemon(magr))
+#if 0 /*JP*/
 							pline("%s %s disintegrates!",
 							      s_suffix(Monnam(magr)), distant_name(otch, xname));
+#else
+							pline("%sの%sは粉砕された！",
+							      Monnam(magr), distant_name(otch, xname));
+#endif
 						mass += otch->owt;
 						m_useup(magr,otch);
 						touched = 1;
@@ -817,11 +857,17 @@ defdisintagr(magr, mdef, mattk)
 			weight_dmg(mass);
 			if (mass)
 				mdef->mhp -= mass ;
+/*JP
 			if (vis) pline("%s disintegrates!", Monnam(magr));
+*/
+			if (vis) pline("%sは粉砕された！", Monnam(magr));
 			mondead_helper(magr,mattk->adtyp);
 			if (magr->mhp > 0) return -1;
 			else if (magr->mtame && !vis)
+/*JP
 				You(brief_feeling, "peculiarly sad");
+*/
+				You(brief_feeling, "もの悲しい");
 			return -MM_AGR_DIED;
 		}
 	}
@@ -974,18 +1020,33 @@ mdamagem(magr, mdef, mattk)
 		if ((!rn2(40) || mdef->data->mlet == S_JABBERWOCK) && !magr->mcan) {
 			Strcpy(buf, Monnam(magr));
 			if (!has_head(mdef->data)) {
+#if 0 /*JP*/
 				pline("Somehow, %s misses %s wildly.", buf, mon_nam(mdef));
+#else
+				pline("なぜか，%sの%sへの攻撃は大きくはずれた．",
+				    buf, mon_nam(mdef));
+#endif
 				tmp = 0;
 				break;
 			}
 			if (noncorporeal(mdef->data) || amorphous(mdef->data)) {
+#if 0 /*JP*/
 				pline("%s slices through %s %s.",
 						buf, s_suffix(mon_nam(mdef)),
 						mbodypart(mdef,NECK));
+#else
+				pline("%sは%sの%sを切り落した．", buf, mon_nam(mdef),
+						mbodypart(mdef,NECK));
+#endif
 				goto physical;
 			}
+#if 0 /*JP*/
 			pline("%s %ss %s!", buf,
 					rn2(2) ? "behead" : "decapitate", mon_nam(mdef));
+#else
+			pline("%sは%sの首を%s！", buf, mon_nam(mdef),
+					rn2(2) ? "切った" : "切り落した");
+#endif
 			mondied(mdef);
 			if (mdef->mhp > 0) return 0;
 			return (MM_DEF_DIED | (grow_up(magr,mdef) ?
@@ -1598,8 +1659,13 @@ mdamagem(magr, mdef, mattk)
 				recip_dam = otch->owt;
 				weight_dmg(recip_dam);
 				if(canseemon(mdef))
+#if 0 /*JP*/
 					pline("%s %s disintegrates!", 
 					      s_suffix(Monnam(mdef)), distant_name(otch, xname));
+#else
+					pline("%sの%sは粉砕された！", 
+					      Monnam(mdef), distant_name(otch, xname));
+#endif
 				m_useup(mdef,otch);
 				tmp = 0;
 			}

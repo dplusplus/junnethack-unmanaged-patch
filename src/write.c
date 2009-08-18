@@ -115,7 +115,7 @@ register struct obj *pen;
 /*JP
 	typeword = (paper->oclass == SPBOOK_CLASS) ? "spellbook" : "scroll";
 */
-	typeword = (paper->oclass == SPBOOK_CLASS) ? "魔法書" : "巻物";
+	typeword = (paper->oclass == SPBOOK_CLASS) ? "呪文書" : "巻物";
 	if(Blind && !paper->dknown) {
 /*JP
 		You("don't know if that %s is blank or not!", typeword);
@@ -246,7 +246,7 @@ found:
 /*JP
 		       "spellbook is left unfinished and your writing fades.");
 */
-			"魔法書には書ききれなかった．そして書いた文字は消えてしまった．");
+			"呪文書には書ききれなかった．そして書いた文字は消えてしまった．");
 			update_inventory();	/* pen charges */
 		} else {
 /*JP
@@ -307,7 +307,7 @@ found:
 		pline_The("spellbook warps strangely, then turns %s.",
 		      OBJ_DESCR(objects[new_obj->otyp]));
 #else
-		pline("魔法書は妙に反りかえり，そして%sになった．",
+		pline("呪文書は妙に反りかえり，そして%sになった．",
 		      jtrns_obj('+', OBJ_DESCR(objects[new_obj->otyp])));
 #endif
 	}

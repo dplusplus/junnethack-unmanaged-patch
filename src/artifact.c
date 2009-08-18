@@ -1051,7 +1051,7 @@ int dieroll; /* needed for Magicbane and vorpal blades */
 			"vaporizes part of" : "burns",
 			hittee, !spec_dbon_applies ? '.' : '!');
 #else
-		pline_The("–Ò‰Î‚ª%s%s",
+		pline_The("ŽÜ”M‚Ìn‚ª%s%s",
 			hittee,
 			!spec_dbon_applies ? "‚É–½’†‚µ‚½D" :
 			(mdef->data == &mons[PM_WATER_ELEMENTAL]) ?
@@ -1070,7 +1070,7 @@ int dieroll; /* needed for Magicbane and vorpal blades */
 			!spec_dbon_applies ? "hits" : "freezes",
 			hittee, !spec_dbon_applies ? '.' : '!');
 #else
-		pline_The("–Òá‚ª%s%s",
+		pline_The("•XŒ‹‚Ìn‚ª%s%s",
 			hittee,
 			!spec_dbon_applies ? "‚É–½’†‚µ‚½D" : "‚ðP‚Á‚½I");
 #endif
@@ -1099,7 +1099,7 @@ int dieroll; /* needed for Magicbane and vorpal blades */
 				"!  A hail of magic missiles strikes",
 			  hittee, !spec_dbon_applies ? '.' : '!');
 #else
-		pline("ŽÀ‘Ì‚ðŽ‚½‚È‚¢•¨‘Ì‚ª%s‚ðUŒ‚‚µ‚½%s",
+		pline("ŠT”O‚Ì•¨‘Ì‚ª%s‚ðUŒ‚‚µ‚½%s",
 			  hittee,
 			  !spec_dbon_applies ? "D" :
 				"I–‚–@‚Ì–î‚ª‰J‚ ‚ç‚ê‚Æ–½’†‚µ‚½I");
@@ -1343,10 +1343,17 @@ int dieroll; /* needed for Magicbane and vorpal blades */
 	    otmp->oartifact == ART_OGRESMASHER) {
 		if (!mdef->mcan && dieroll < 4) {
 		    if (realizes_damage) {
-			/* TODO:–|–ó */
+#if 0 /*JP*/
 			pline("%s %s!", The(distant_name(otmp, xname)), Blind ?
 				"roars deafeningly" : "shines brilliantly");
+#else
+			pline("%s‚Í%sI", distant_name(otmp, xname), Blind ?
+				"Ž¨‚ð˜W‚¹‚ñ‚Î‚©‚è‚Ì™ôšK‚ð‚ ‚°‚½" : "á¿‚µ‚¢‚Ü‚Å‚ÉŒõ‚è‹P‚¢‚½");
+#endif
+/*JP
 			pline("It strikes %s!", hittee);
+*/
+			pline("%s‚É–½’†‚µ‚½I", hittee);
 		    }
 		    cancel_monst(mdef, otmp, youattack, TRUE, magr == mdef);
 		    return TRUE;
@@ -1488,8 +1495,10 @@ arti_invoke(obj)
 	    any.a_void = 0;	/* set all bits to zero */
  #ifdef BLACKMARKET           
 	    if (Is_blackmarket(&u.uz) && *u.ushops) {
-		/* TODO:–|–ó */
+/*JP
 		You("feel very disoriented for a moment.");
+*/
+		You("ˆêu•ûŒüŠ´Šo‚ðŽ¸‚Á‚½D");
 		break;
 	    }
  #endif

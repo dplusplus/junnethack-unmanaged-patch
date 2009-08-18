@@ -536,7 +536,10 @@ ckmailstatus()
 	laststattime = moves;
 	if(stat(mailbox, &nmstat)){
 #  ifdef PERMANENT_MAILBOX
+/*JP
 		pline("Cannot get status of MAIL=\"%s\" anymore.", mailbox);
+*/
+		pline("MAIL=\"%s\"の状態をこれ以上取得できない．", mailbox);
 		mailbox = 0;
 #  else
 		nmstat.st_mtime = 0;
@@ -599,8 +602,13 @@ struct obj *otmp;
 		  fl.l_type = F_UNLCK;
 		  fcntl (fileno(mb), F_UNLCK, &fl);
 		  
+#if 0 /*JP*/
 		  pline("There is a%s message on this scroll.",
 		      seen_one_already ? "nother" : "");
+#else
+		  pline("この巻物には%sメッセージが書かれている．",
+		      seen_one_already ? "前とは異なる" : "");
+#endif
 		  
 		  msg = strchr(curline, ':');
 		  
@@ -610,10 +618,16 @@ struct obj *otmp;
 		  *msg = '\0';
 		  msg++;
 		  
+/*JP
 		  pline ("This message is from '%s'.", curline);
+*/
+		  pline ("このメッセージは'%s'からのものだ．", curline);
 
 		  msg[strlen(msg) - 1] = '\0'; /* kill newline */
+/*JP
 		  pline ("It reads: \"%s\".", msg);
+*/
+		  pline ("読んだ： \"%s\".", msg);
 
 		  seen_one_already = TRUE;
 		  errno = 0;
@@ -652,7 +666,10 @@ struct obj *otmp;
 
 #ifdef SIMPLE_MAIL
 bail:
+/*JP
 	pline("It appears to be all gibberish."); /* bail out _professionally_ */
+*/
+	pline("全てがわけのわからない言葉で書かれているようだ．"); /* bail out _professionally_ */
 #endif
 }
 

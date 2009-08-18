@@ -962,7 +962,10 @@ boolean so;
 */
 			arg = "’n‚Ì¸—ìŠE"; break;
 		default:
+/*JP
 			arg = "Void";	break;
+*/
+			arg = "‹•‹ó";	break;
 		}
 /*JP
 		Sprintf(eos(linebuf), fmt, arg);

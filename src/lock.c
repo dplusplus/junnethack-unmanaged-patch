@@ -680,7 +680,10 @@ doforce()		/* try to force a chest with your weapon */
 	for(otmp = level.objects[u.ux][u.uy]; otmp; otmp = otmp->nexthere)
 	    if(Is_box(otmp)) {
 			 if (otmp->otyp == IRON_SAFE) {
+/*JP
 				 You("would need dynamite to force %s.", the(xname(otmp)));
+*/
+				 pline("あなたが%sをこじあけるにはダイナマイトが必要だろう．", the(xname(otmp)));
 				 continue;
 			 }
 		if (otmp->obroken || !otmp->olocked) {

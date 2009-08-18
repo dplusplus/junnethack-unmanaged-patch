@@ -244,6 +244,7 @@ d_level *lev;
 		return (s_level *)0;
 	}
 
+    {
 	s_level *curr = find_level("astral"),
 	        *plane = (s_level *)0;
 	for (curr = sp_levchn; curr; curr = curr->next) {
@@ -253,6 +254,7 @@ d_level *lev;
 	    plane = curr;
 	}
 	return (s_level *)0;
+    }
 }
 
 /**
@@ -980,9 +982,20 @@ shuffle_planes() /* randomizes order of elemental planes */
 		*fire   = find_level("fire"),
 		*water  = find_level("water"),
 		*astral = find_level("astral");
+#if defined(_MSC_VER) || defined(__BORLANDC__)
+	s_level *array[4];
+#else
 	s_level *array[] = { water, fire, air, earth };
+#endif
 	int j, pos;
 	s_level *tmp;
+
+#if defined(_MSC_VER) || defined(__BORLANDC__)
+	array[0] = water;
+	array[1] = fire;
+	array[2] = air;
+	array[3] = earth;
+#endif
 
 	/* Fisher-Yates shuffle aka Knuth shuffle */
 	for(j = 3; j > 0; j--) { 

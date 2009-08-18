@@ -252,7 +252,7 @@ castmu(mtmp, mattk, thinks_it_foundyou, foundyou)
 		levl[mtmp->mux][mtmp->muy].typ == WATER
 		    ? "empty water" : "thin air");
 #else
-	    pline("%sは何もない%sに魔法をかけた！",
+	    pline("%sは何もない%sに向かって呪文を唱えた！",
 		canseemon(mtmp) ? Monnam(mtmp) : "何者か",
 		levl[mtmp->mux][mtmp->muy].typ == WATER
 		    ? "水中" : "空間");
@@ -285,7 +285,7 @@ castmu(mtmp, mattk, thinks_it_foundyou, foundyou)
 		if(is_undirected_spell(mattk->adtyp, spellnum)){
 		    pline("%sは呪文を唱えた！", who);
 		} else {
-		    pline("%sはあなた%sに魔法をかけた！",
+		    pline("%sはあなた%sに向かって呪文を唱えた！",
 			  who,
 			  (Invisible && !perceives(mtmp->data) && 
 			   (mtmp->mux != u.ux || mtmp->muy != u.uy)) ?
@@ -593,8 +593,13 @@ int spellnum;
 	    dmg = (dmg + 1) / 2;
 	}
 	if (uarmh && uarmh->otyp == TINFOIL_HAT) {
+#if 0 /*JP*/
 	    pline_The("spell is blocked by %s%s", yname(uarmh),
 		dmg > 5 ? "!" : ".");
+#else
+	    pline("呪文は%sに妨げられた%s", yname(uarmh),
+		dmg > 5 ? "！" : "．");
+#endif
 	    return;
 	}
 	if (dmg <= 5)

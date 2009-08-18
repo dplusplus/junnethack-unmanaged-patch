@@ -66,7 +66,10 @@ void livelog_write_string(char* buffer) {
 	FILE* livelogfile;
 	if(lock_file(LIVELOGFILE, SCOREPREFIX, 10)) {
 		if(!(livelogfile = fopen_datafile(LIVELOGFILE, "a", SCOREPREFIX))) {
+/*JP
 			pline("Cannot open live log file!");
+*/
+			pline("リアルタイムログファイルが開けない！");
 		} else {
 			fprintf(livelogfile, buffer);
 			(void) fclose(livelogfile);
@@ -123,10 +126,16 @@ doshout()
 	char buf[BUFSZ], qbuf[QBUFSZ];
 	char* p;
 	
+/*JP
 	Sprintf(qbuf,"Shout what?");
+*/
+	Sprintf(qbuf,"何を叫ぶ？");
 	getlin(qbuf, buf);
 	
+/*JP
 	You("shout into the void: %s", buf);
+*/
+	You("虚空に向かって叫んだ： %s", buf);
 
 	/* filter livelog delimiter */
 	for (p = buf; *p != 0; p++)

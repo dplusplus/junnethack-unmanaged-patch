@@ -330,9 +330,15 @@ register struct monst *mtmp;
 			if (!rn2(3)) {
 				/* there's no 'right way' to swing a cockatrice corpse... */
 				if (uwep->oclass != WEAPON_CLASS && !is_weptool(uwep)) {
+/*JP
 					You("are having a tough time swinging the %s.",aobjnam(uwep, (char*)0));
+*/
+					You("%sを振るのに一苦労だ．",aobjnam(uwep, (char*)0));
 				} else {
+/*JP
 					You("aren't sure you're doing this the right way...");
+*/
+					pline("この持ちかたでいいのか判断できない．．．");
 				}
 			}
 		}
@@ -1219,7 +1225,8 @@ int thrown;
 				          xname(obj), vtense(xname(obj),"vanish"),
 				          (obj->oclass == VENOM_CLASS)?"twinkle":"flash");
 #else
-				pline_The("%sは緑色の%sとともに消え去った！", xname(obj),
+				pline_The("%sは%s%sとともに消え去った！", xname(obj),
+				          hcolor("緑色の"),
 				          (obj->oclass == VENOM_CLASS)?"きらめき":"閃光");
 #endif
 			else
@@ -1804,18 +1811,29 @@ register struct attack *mattk;
 	    case AD_HEAD:
 		if (!rn2(40) || mdef->data->mlet == S_JABBERWOCK) {
 			if (!has_head(mdef->data)) {
+/*JP
 				pline("Somehow, you miss %s wildly.", mon_nam(mdef));
+*/
+				pline("なぜか，%sへの攻撃は大きくはずれた．", mon_nam(mdef));
 				tmp = 0;
 				break;
 			}
 			if (noncorporeal(mdef->data) || amorphous(mdef->data)) {
+/*JP
 				pline("You slice through %s %s.",
+*/
+				You("%sの%sを切り落とした．",
 						s_suffix(mon_nam(mdef)),
 						mbodypart(mdef,NECK));
 				goto physical;
 			}
+#if 0 /*JP*/
 			pline("You %s %s!",
 					rn2(2) ? "behead" : "decapitate", mon_nam(mdef));
+#else
+			You("%sの首を%s！", mon_nam(mdef),
+					rn2(2) ? "切った" : "切り落した");
+#endif
 			xkilled(mdef,0);
 			tmp = 0;
 			break;

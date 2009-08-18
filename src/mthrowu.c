@@ -242,11 +242,10 @@ boolean verbose;  /* give message(s) even when you can't see what happened */
 		    damage = otmp->owt;
 		    weight_dmg(damage);
 		    mtmp->mhp-=damage;
-#if 0 /*JP*/
 		    if(vis)
+#if 0 /*JP*/
 			pline("It disintegrates!"); 
 #else
-		    if(vis)
 			pline("%s‚Í•²Ó‚³‚ê‚½I", Monnam(mtmp));
 #endif
 		    obfree(otmp, (struct obj*) 0);

@@ -1582,17 +1582,28 @@ dopois:
 	    case AD_HEAD:
 		if ((!rn2(40) || youmonst.data->mlet == S_JABBERWOCK) && !mtmp->mcan) {
 			if (!has_head(youmonst.data)) {
+/*JP
 				pline("Somehow, %s misses you wildly.", mon_nam(mtmp));
+*/
+				pline("なぜか，%sのあなたへの攻撃は大きくはずれた．", mon_nam(mtmp));
 				dmg = 0;
 				break;
 			}
 			if (noncorporeal(youmonst.data) || amorphous(youmonst.data)) {
+/*JP
 				pline("%s slices through your %s.",
+*/
+				pline("%sはあなたの%sを切り落した．",
 						Monnam(mtmp), body_part(NECK));
 				break;
 			} 
+#if 0 /*JP*/
 			pline("%s %ss you!", Monnam(mtmp),
 					rn2(2) ? "behead" : "decapitate");
+#else
+			pline("%sはあなたの首を%s！", Monnam(mtmp),
+					rn2(2) ? "切った" : "切り落した");
+#endif
 			if (Upolyd) rehumanize();
 			else done_in_by(mtmp);
 			dmg = 0;
@@ -2493,7 +2504,10 @@ gulpmu(mtmp, mattk)	/* monster swallows you, or damage if u.uswallow */
 			tmp = 0;
 			if (Disint_resistance) {
 				shieldeff(u.ux, u.uy);
+/*JP
 				You_feel("mildly tickled.");
+*/
+				You("軽くくすぐられた気がした．");
 				tmp = 0;
 				break;
 			} else if (uarms) {
@@ -2512,7 +2526,10 @@ gulpmu(mtmp, mattk)	/* monster swallows you, or damage if u.uswallow */
 #ifdef TOURIST
 			if (uarmu) (void) destroy_arm(uarmu);
 #endif
+/*JP
 			You("are disintegrated!");
+*/
+			You("は粉砕された！");
 			tmp = u.uhp;
 			if (Half_physical_damage) tmp *= 2; /* sorry */
 		    } else {

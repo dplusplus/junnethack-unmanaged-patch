@@ -1158,6 +1158,7 @@ boolean twoweap; /* used to restore twoweapon mode if wielded weapon returns */
 
 		if (Underwater) range = 1;
 
+	    {
 		boolean obj_destroyed = FALSE;
 		mon = bhit(u.dx, u.dy, range, THROWN_WEAPON,
 			   (int FDECL((*),(MONST_P,OBJ_P)))0,
@@ -1169,6 +1170,7 @@ boolean twoweap; /* used to restore twoweapon mode if wielded weapon returns */
 		    hurtle(-u.dx, -u.dy, urange, TRUE);
 
 		if (obj_destroyed) return; /* fixes C343-100 */
+	    }
 	}
 
 	if (mon) {

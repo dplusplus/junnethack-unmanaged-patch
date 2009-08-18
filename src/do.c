@@ -609,7 +609,7 @@ giveback:
 /*JP
 		    pline_The("water flow momentarily vanishes.");
 */
-		    pline("…‚Ì—¬‚ê‚ªˆêuÁ‚¦¸‚¹‚½D");
+		    pline("…‚Ì—¬‚ê‚ª‚Ğ‚ÆÁ‚¦¸‚¹‚½D");
 		    break;
 		case RIN_FREE_ACTION:
 /*JP
@@ -927,9 +927,13 @@ register struct obj *obj;
 	} else if (obj->otyp==AMULET_OF_YENDOR &&
 	           (obj->cursed ? rnf(1,2) :
 		    obj->blessed ? rnf(1,16) : rnf(1,4))) {
-		/* TODO:–|–ó */
+#if 0 /*JP*/
 		if (!Blind) pline("Right before touching the %s the amulet teleports away!",
 		                  surface(u.ux, u.uy));
+#else
+		if (!Blind) pline("–‚œ‚¯‚Í%s‚ÉG‚ê‚é‚Ü‚³‚É’¼‘O‚ÉuŠÔˆÚ“®‚µ‚ÄÁ‚¦‚½I",
+		                  surface(u.ux, u.uy));
+#endif
 		rloco(obj);
 	} else {
 	    place_object(obj, u.ux, u.uy);

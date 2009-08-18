@@ -258,7 +258,10 @@ boolean on, silently;
 		else
 			end_burn(obj,FALSE);
 		if (!unseen && !silently)
+/*JP
 			if (on) pline("%s begins to glow.", The(xname(obj)));
+*/
+			if (on) pline("%s‚Í‹P‚«‚Í‚¶‚ß‚½D", The(xname(obj)));
 	}
 		
     if (!which) goto maybe_blocks;

@@ -5,7 +5,7 @@
 # IMPORTANT NOTE: This Makefile has not been tested for 3.4.3.
 #
 #
-#   NetHack 3.4.x Makefile for Borland C++ V5.5.1 and above and Borland's MAKE
+#   JUnNetHack 3.5.x Makefile for Borland C++ V5.5.1 and above and Borland's MAKE
 #  
 #   Win32 Compilers Tested:
 #                              - Borland C++ 5.5.1 for Win32
@@ -17,11 +17,11 @@
 #   root, but this can be changed by modifying the bccroot and related
 #   variables.
 #
-#   This is used for building two versions of NetHack:
+#   This is used for building two versions of JUnNetHack:
 #   A tty port utilizing the Win32 Console I/O subsystem, Console
-#       NetHack;
-#   A Win32 native port built on the Windows API, Graphical NetHack or
-#       NetHackW.
+#       JUnNetHack;
+#   A Win32 native port built on the Windows API, Graphical JUnNetHack or
+#       JUnNetHackW.
 #
 #   In addition to your C compiler,
 #
@@ -100,9 +100,9 @@ libsmt  = $(bcclib)\cw32mt.lib $(bcclib)\import32.lib
 #  It must be present prior to compilation.
 
 !IF "$(GRAPHICAL)" == "Y"
-GAME    = NetHackW                # Game Name
+GAME    = JUnNetHackW                # Game Name
 !ELSE
-GAME    = NetHack                 # Game Name
+GAME    = JUnNetHack                 # Game Name
 !ENDIF
 GAMEDIR = ..\binary               # Game directory
 
@@ -140,8 +140,8 @@ OBJ     = o
 # and flex), uncomment the upper two macros.
 #
 
-#DO_YACC  = YACC_ACT
-#DO_LEX   = LEX_ACT
+DO_YACC  = YACC_ACT
+DO_LEX   = LEX_ACT
 
 !IFNDEF DO_YACC
 DO_YACC = YACC_MSG
@@ -182,10 +182,10 @@ LEX	= flex
 FLEXSKEL =
 #FLEXSKEL = -S../tools/flex.ske
 
-#YTABC   = y.tab.c
-#YTABH   = y.tab.h
-YTABC   = y_tab.c
-YTABH   = y_tab.h
+YTABC   = y.tab.c
+YTABH   = y.tab.h
+#YTABC   = y_tab.c
+#YTABH   = y_tab.h
 LEXYYC  = lex.yy.c
 
 #
@@ -220,12 +220,12 @@ WINPHDR	= $(WIN32)\mhaskyn.h $(WIN32)\mhdlg.h $(WIN32)\mhfont.h \
 	$(WIN32)\mhinput.h $(WIN32)\mhmain.h $(WIN32)\mhmap.h $(WIN32)\mhmenu.h \
 	$(WIN32)\mhmsg.h $(WIN32)\mhmsgwnd.h $(WIN32)\mhrip.h $(WIN32)\mhstatus.h \
 	$(WIN32)\mhtext.h $(WIN32)\resource.h $(WIN32)\winMS.h
-WINDLLS	=
-WINPFLAG= -DTILES -DMSWIN_GRAPHICS
+WINDLLS	= $(GAMEDIR)\nhdefkey.dll $(GAMEDIR)\nh340key.dll $(GAMEDIR)\nhraykey.dll
+WINPFLAG= -DTILES -DMSWIN_GRAPHICS -DWIN32CON
 NHRES	= $(O)winhack.res
 WINPINC	= -I$(WIN32)
 !ELSE
-WINPORT	= $(O)nttty.o    
+WINPORT	=
 WINPHDR	=
 WINDLLS	= $(GAMEDIR)\nhdefkey.dll $(GAMEDIR)\nh340key.dll $(GAMEDIR)\nhraykey.dll
 WINPFLAG= -DWIN32CON
@@ -436,13 +436,13 @@ VOBJ23 = $(O)teleport.o $(O)timeout.o  $(O)topten.o   $(O)track.o
 VOBJ24 = $(O)trap.o     $(O)u_init.o   $(O)uhitm.o    $(O)vault.o   
 VOBJ25 = $(O)vis_tab.o  $(O)vision.o   $(O)weapon.o   $(O)were.o    
 VOBJ26 = $(O)wield.o    $(O)windows.o  $(O)wizard.o   $(O)worm.o    
-VOBJ27 = $(O)worn.o     $(O)write.o    $(O)zap.o     
+VOBJ27 = $(O)worn.o     $(O)write.o    $(O)zap.o      $(O)livelog.o
 
 DLBOBJ = $(O)dlb.o
 
-TTYOBJ = $(O)topl.o     $(O)getline.o  $(O)wintty.o
+TTYOBJ = $(O)topl.o     $(O)getline.o  $(O)wintty.o   $(O)termcap.o
 
-SOBJ   = $(O)winnt.o    $(O)pcsys.o      $(O)pcunix.o  \
+SOBJ   = $(O)winnt.o    $(O)pcsys.o    $(O)pcunix.o   $(O)nttty.o \
 	   $(SOUND) $(O)pcmain.o	$(O)mapimail.o $(O)nhlan.o
 
 OBJS   = $(VOBJ01) $(VOBJ02) $(VOBJ03) $(VOBJ04) $(VOBJ05) \
@@ -534,19 +534,19 @@ all :	install
 install: graphicschk $(GAME) $(O)install.tag
 	 @echo Done.
 
-$(O)install.tag: 	$(DAT)\data	$(DAT)\rumors	 $(DAT)\dungeon \
-	 	$(DAT)\oracles	$(DAT)\quest.dat $(O)sp_lev.tag $(DLB)
+$(O)install.tag: 	$(DAT)\data	$(DAT)\jrumors	 $(DAT)\dungeon \
+	 	$(DAT)\joracles	$(DAT)\quest.dat $(O)sp_lev.tag $(DLB)
 ! IF ("$(USE_DLB)"=="Y")
 	copy nhdat                $(GAMEDIR)
 	copy $(DAT)\license       $(GAMEDIR)
-	copy $(DAT)\opthelp       $(GAMEDIR)
+	copy $(DAT)\jopthelp       $(GAMEDIR)
 ! ELSE
 	copy $(DAT)\*.            $(GAMEDIR)
 	copy $(DAT)\*.dat         $(GAMEDIR)
 	copy $(DAT)\*.lev         $(GAMEDIR)
 	if exist $(GAMEDIR)\makefile del $(GAMEDIR)\makefile
 ! ENDIF
-	if exist $(DOC)\guidebook.txt copy $(DOC)\guidebook.txt $(GAMEDIR)\Guidebook.txt
+	if exist $(DOC)\jguidebook.txt copy $(DOC)\jguidebook.txt $(GAMEDIR)\jGuidebook.txt
 	if exist $(DOC)\nethack.txt copy $(DOC)\nethack.txt $(GAMEDIR)\NetHack.txt
 	@if exist $(SRC)\$(GAME).PDB copy $(SRC)\$(GAME).pdb $(GAMEDIR)\$(GAME).pdb
 	@if exist $(GAMEDIR)\$(GAME).PDB echo NOTE: You may want to remove $(GAMEDIR)\$(GAME).pdb to conserve space
@@ -566,7 +566,9 @@ $(O)sp_lev.tag: $(O)utility.tag $(DAT)\bigroom.des  $(DAT)\castle.des \
 	$(DAT)\caveman.des $(DAT)\healer.des   $(DAT)\knight.des \
 	$(DAT)\monk.des    $(DAT)\priest.des   $(DAT)\ranger.des \
 	$(DAT)\rogue.des   $(DAT)\samurai.des  $(DAT)\sokoban.des \
-	$(DAT)\tourist.des $(DAT)\valkyrie.des $(DAT)\wizard.des
+	$(DAT)\tourist.des $(DAT)\valkyrie.des $(DAT)\wizard.des \
+	$(DAT)\blkmar.des  $(DAT)\heck.des     $(DAT)\nymph.des \
+	$(DAT)\town-1.des  $(DAT)\town-2.des
 	cd $(DAT)
 	$(U)lev_comp bigroom.des
 	$(U)lev_comp castle.des
@@ -592,6 +594,11 @@ $(O)sp_lev.tag: $(O)utility.tag $(DAT)\bigroom.des  $(DAT)\castle.des \
 	$(U)lev_comp tourist.des
 	$(U)lev_comp valkyrie.des
 	$(U)lev_comp wizard.des
+	$(U)lev_comp blkmar.des
+	$(U)lev_comp heck.des
+	$(U)lev_comp nymph.des
+	$(U)lev_comp town-1.des
+	$(U)lev_comp town-2.des
 	cd $(SRC)
 	echo sp_levs done > $(O)sp_lev.tag
 
@@ -794,7 +801,7 @@ $(WIN32)\splash.bmp: $(U)uudecode.exe $(WIN32)\splash.uu
 # Level Compiler Stuff
 #==========================================
 
-LEVCFLAGS=$(cflags) -DWIN32 -D_WIN32 -D_MT -I..\include $(cdebug) -DDLB
+LEVCFLAGS=$(cflags) -DWIN32 -D_WIN32 -D_MT -I..\include $(cdebug) -DDLB -DDLB -DYY_NO_UNISTD_H
 
 $(U)lev_comp.exe: $(SPLEVOBJS) $(SRC)\uuid.lib
 	@echo Linking $@...
@@ -933,12 +940,12 @@ $(O)dlb.o:	$(O)dlb_main.o $(O)alloc.o $(O)panic.o $(INCL)\dlb.h
 $(O)dlb_main.o: $(UTIL)\dlb_main.c $(INCL)\config.h $(INCL)\dlb.h
 	@$(cc) $(CFLAGS) -o$@ $(UTIL)\dlb_main.c
 
-$(DAT)\porthelp: $(NTSYS)\porthelp
-	@copy $(NTSYS)\porthelp $@ >nul
+$(DAT)\jporthelp: $(NTSYS)\jporthelp
+	@copy $(NTSYS)\jporthelp $@ >nul
 
-nhdat:	$(U)dlb_main.exe $(DAT)\data $(DAT)\oracles $(OPTIONS_FILE) \
-	$(DAT)\quest.dat $(DAT)\rumors $(DAT)\help $(DAT)\hh $(DAT)\cmdhelp \
-	$(DAT)\history $(DAT)\opthelp $(DAT)\wizhelp $(DAT)\dungeon $(DAT)\porthelp \
+nhdat:	$(U)dlb_main.exe $(DAT)\data $(DAT)\joracles $(OPTIONS_FILE) \
+	$(DAT)\quest.dat $(DAT)\jrumors $(DAT)\jhelp $(DAT)\jhh $(DAT)\jcmdhelp \
+	$(DAT)\jhistory $(DAT)\jopthelp $(DAT)\jwizhelp $(DAT)\dungeon $(DAT)\porthelp \
 	$(DAT)\license $(O)sp_lev.tag
 	cd $(DAT)
 	echo data >dlb.lst
@@ -946,7 +953,7 @@ nhdat:	$(U)dlb_main.exe $(DAT)\data $(DAT)\oracles $(OPTIONS_FILE) \
 	if exist options echo options >>dlb.lst
 	if exist ttyoptions echo ttyoptions >>dlb.lst
 	if exist guioptions echo guioptions >>dlb.lst
-	if exist porthelp echo porthelp >>dlb.lst
+	if exist jporthelp echo jporthelp >>dlb.lst
 	echo quest.dat >>dlb.lst
 	echo jrumors >>dlb.lst
 	echo jhelp >>dlb.lst
@@ -1039,10 +1046,24 @@ spotless: clean
 	if exist $(INCL)\onames.h  del $(INCL)\onames.h
 	if exist $(INCL)\pm.h      del $(INCL)\pm.h
 	if exist $(INCL)\vis_tab.h del $(INCL)\vis_tab.h
+	if exist $(INCL)\jdata.h    del $(INCL)\jdata.h
+	if exist $(INCL)\dgn_comp.h del $(INCL)\dgn_comp.h
+	if exist $(INCL)\lev_comp.h del $(INCL)\lev_comp.h
 	if exist $(SRC)\vis_tab.c  del $(SRC)\vis_tab.c
 	if exist $(SRC)\tile.c     del $(SRC)\tile.c
+	if exist $(SRC)\monstr.c        del $(SRC)\monstr.c
+	if exist $(SRC)\graphicschk	del $(SRC)\graphicschk
+	if exist $(SRC)\uuid.lib	del $(SRC)\uuid.lib
+	if exist $(SRC)\*.def		del $(SRC)\*.def
 	if exist $(U)*.lnk         del $(U)*.lnk
+	if exist $(U)*.ilc         del $(U)*.ilc
+	if exist $(U)*.ild         del $(U)*.ild
+	if exist $(U)*.ilf         del $(U)*.ilf
+	if exist $(U)*.ils         del $(U)*.ils
+	if exist $(U)*.tds         del $(U)*.tds
 	if exist $(U)*.map         del $(U)*.map
+	if exist $(U)*_yacc.c      del $(U)*_yacc.c
+	if exist $(U)*_flex.c      del $(U)*_flex.c
 	if exist $(DAT)\data       del $(DAT)\data
 	if exist $(DAT)\rumors     del $(DAT)\rumors
 	if exist $(DAT)\???-fil?.lev	del $(DAT)\???-fil?.lev
@@ -1070,8 +1091,10 @@ spotless: clean
 	if exist $(DAT)\guioptions	del $(DAT)\guioptions
 	if exist $(DAT)\oracle.lev	del $(DAT)\oracle.lev
 	if exist $(DAT)\oracles		del $(DAT)\oracles
+	if exist $(DAT)\joracles	del $(DAT)\joracles
 	if exist $(DAT)\orcus.lev	del $(DAT)\orcus.lev
 	if exist $(DAT)\rumors		del $(DAT)\rumors
+	if exist $(DAT)\jrumors		del $(DAT)\jrumors
 	if exist $(DAT)\quest.dat	del $(DAT)\quest.dat
 	if exist $(DAT)\sanctum.lev	del $(DAT)\sanctum.lev
 	if exist $(DAT)\soko?-?.lev	del $(DAT)\soko?-?.lev
@@ -1080,10 +1103,9 @@ spotless: clean
 	if exist $(DAT)\water.lev	del $(DAT)\water.lev
 	if exist $(DAT)\wizard?.lev	del $(DAT)\wizard?.lev
 	if exist $(O)sp_lev.tag	        del $(O)sp_lev.tag
-	if exist $(SRC)\monstr.c        del $(SRC)\monstr.c
-	if exist $(SRC)\vis_tab.c       del $(SRC)\vis_tab.c
 	if exist $(U)recover.exe        del $(U)recover.exe
 	if exist nhdat.			del nhdat.
+	
 
 clean:
 	if exist $(O)*.o del $(O)*.o
@@ -1091,6 +1113,9 @@ clean:
 	if exist $(U)makedefs.exe  del $(U)makedefs.exe
 	if exist $(U)lev_comp.exe  del $(U)lev_comp.exe
 	if exist $(U)dgn_comp.exe  del $(U)dgn_comp.exe
+	if exist $(U)dlb_main.exe  del $(U)dlb_main.exe
+	if exist $(U)tile2bmp.exe  del $(U)tile2bmp.exe
+	if exist $(U)uudecode.exe  del $(U)uudecode.exe
 	if exist $(SRC)\*.lnk      del $(SRC)\*.lnk
 	if exist $(SRC)\*.map      del $(SRC)\*.map
 	if exist $(TILEBMP16)        del $(TILEBMP16)
@@ -1106,13 +1131,13 @@ clean:
 $(DAT)\data: $(O)utility.tag    $(DATABASE)
 	$(U)makedefs -d
 
-$(DAT)\rumors: $(O)utility.tag    $(DAT)\rumors.tru   $(DAT)\rumors.fal
+$(DAT)\jrumors: $(O)utility.tag    $(DAT)\jrumors.tru   $(DAT)\jrumors.fal
 	$(U)makedefs -r
 
 $(DAT)\quest.dat: $(O)utility.tag  $(DAT)\jquest.txt
 	$(U)makedefs -q
 
-$(DAT)\oracles: $(O)utility.tag    $(DAT)\oracles.txt
+$(DAT)\joracles: $(O)utility.tag    $(DAT)\joracles.txt
 	$(U)makedefs -h
 
 $(DAT)\dungeon: $(O)utility.tag  $(DAT)\dungeon.def
@@ -1303,6 +1328,7 @@ $(O)hack.o: hack.c $(HACK_H)
 $(O)hacklib.o: hacklib.c $(HACK_H)
 $(O)invent.o: invent.c $(HACK_H) $(INCL)\artifact.h
 $(O)light.o: light.c $(HACK_H) $(INCL)\lev.h
+$(O)livelog.o: livelog.c $(HACK_H)
 $(O)lock.o: lock.c $(HACK_H)
 $(O)mail.o: mail.c $(HACK_H) $(INCL)\mail.h
 $(O)makemon.o: makemon.c $(HACK_H) $(INCL)\epri.h $(INCL)\emin.h \

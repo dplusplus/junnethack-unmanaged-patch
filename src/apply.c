@@ -1359,7 +1359,7 @@ struct obj **optr;
 			      (obj->quan > 1L) ? "them" : "it",
 			      (obj->quan > 1L) ? "them" : "it");
 #else
-		    verbalize("火をつけたなら，買ってもらおう！");
+		    verbalize("灯をつけたなら，買ってもらおう！");
 #endif
 		if (obj->quan < 7L && otmp->spe == 7)
 #if 0 /*JP*/
@@ -2051,10 +2051,16 @@ struct obj *obj;
 int attr_point; /* number of attribute points per attribute we might fix */
 {
 #define PROP_COUNT 6		/* number of properties we're dealing with */
+#if !(defined(_MSC_VER) || defined(__BORLANDC__))
 	int attr_count = A_MAX*attr_point;	
+#endif
 	int idx, val, val_limit,
 	    trouble_count, unfixable_trbl, did_prop, did_attr;
+#if defined(_MSC_VER) || defined(__BORLANDC__)
+	int trouble_list[PROP_COUNT + A_MAX];
+#else
 	int trouble_list[PROP_COUNT + attr_count];
+#endif
 
 	if (obj && obj->cursed) {
 	    long lcount = (long) rnd(100);
@@ -2252,7 +2258,7 @@ long timeout;
 			You_feel("%s %s from your pack!", something,
 			    locomotion(mtmp->data,"drop"));
 #else
-			You_feel("%sがあなたの鞄から%s！", something,
+			You_feel("%sがあなたの背負い袋から%sような気がした！", something,
 				 jpast(locomotion(mtmp->data,"落ちる")));
 #endif
 		    else
@@ -2261,7 +2267,7 @@ long timeout;
 			    monnambuf,
 			    locomotion(mtmp->data,"drop"));
 #else
-			You("%sがあなたの鞄から%s！",
+			You("%sがあなたの背負い袋から%sのを見た！",
 			    monnambuf,
 			    jpast(locomotion(mtmp->data,"落ちる")));
 #endif

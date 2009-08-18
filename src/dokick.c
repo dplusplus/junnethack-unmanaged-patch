@@ -176,8 +176,13 @@ register xchar x, y;
 			} else {
 				char kbuf[BUFSZ];
 				int dis_dmg;
+#if 0 /*JP*/
 				Sprintf(kbuf, "barefootedly kicking %s",
 				        an(mon->data->mname));
+#else
+				Sprintf(kbuf, "‘f‘«‚Å%s‚ðR‚Á‚Ä",
+				        jtrns_mon_gen(mon->data->mname, mon->female));
+#endif
 				dis_dmg = instadisintegrate(kbuf);
 				break;
 			}
@@ -1404,9 +1409,9 @@ ouch:
 	if(maploc->doormask == D_ISOPEN ||
 	   maploc->doormask == D_BROKEN ||
 	   maploc->doormask == D_NODOOR) {
+		int moved = 0;
 dumb:
 		exercise(A_DEX, FALSE);
-		int moved = 0;
 		if (martial() || ACURR(A_DEX) >= 16 || rn2(3)) {
 /*JP
 			You("kick at empty space.");

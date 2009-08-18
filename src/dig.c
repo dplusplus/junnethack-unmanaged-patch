@@ -1934,7 +1934,7 @@ escape_tomb()
 /*JP
 		You("attempt a teleport spell.");
 */
-		You("uŠÔˆÚ“®‚ğ‚İ‚½D");
+		You("uŠÔˆÚ“®‚Ìô•¶‚ğ‚İ‚½D");
 		(void) dotele();	/* calls unearth_you() */
 	} else if(u.uburied) { /* still buried after 'port attempt */
 		boolean good;

@@ -2058,7 +2058,10 @@ long* out_cnt;
 
 #ifdef DUMP_LOG
 	}
+/*JP
 	if (want_dump)   dump("", "Your inventory");
+*/
+	if (want_dump)   dump("", "所持品");
 #endif
 
 	/*
@@ -2091,9 +2094,15 @@ long* out_cnt;
 	  }
 	  if (want_dump) {
 #ifdef GOLDOBJ
+/*JP
 	    dump("  ", "Not carrying anything");
+*/
+	    dump("  ", "何も持っていない");
 #else
+/*JP
 	    dump("  Not carrying anything", u.ugold ? " except gold." : ".");
+*/
+	    dump(u.ugold ? "  お金以外" : "  ", "何も持っていない．");
 #endif
 	  }
 #endif
@@ -3155,7 +3164,7 @@ STATIC_VAR NEARDATA const char *names[] = { 0,
 	"Chains", "Venoms"
 #else
 	"妙な物体", "武器", "鎧", "指輪", "魔除け",
-	"道具", "食料", "薬", "巻物", "魔法書",
+	"道具", "食料", "薬", "巻物", "呪文書",
         "杖", "金貨", "宝石", "岩または彫像", "鉄球",
         "鎖", "毒"
 #endif

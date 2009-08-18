@@ -196,7 +196,7 @@ cursed_book(bp)
 /*JP
 		       "contact-poisoned spellbook", KILLED_BY_AN);
 */
-		       "接触毒の魔法書で", KILLED_BY_AN);
+		       "接触毒の呪文書で", KILLED_BY_AN);
 		bp->in_use = TRUE;
 		break;
 	case 6:
@@ -245,7 +245,7 @@ struct obj *spellbook;
 /*JP
 			    You("accidentally tear the spellbook to pieces.");
 */
-			    You("うっかり，魔法書を引きさいてしまった．");
+			    You("うっかり，呪文書を引きさいてしまった．");
 	    if (!objects[spellbook->otyp].oc_name_known &&
 		!objects[spellbook->otyp].oc_uname)
 		docall(spellbook);
@@ -455,7 +455,7 @@ learn()
 /*JP
 			    pline("This spellbook is too faint to be read any more.");
 */
-			    pline("この魔法書の文字は薄すぎてこれ以上読めない．");
+			    pline("この呪文書の文字は薄すぎてこれ以上読めない．");
 			    book->otyp = booktype = SPE_BLANK_PAPER;
 			} else if (spellknow(i) <= 1000) {
 /*JP
@@ -520,14 +520,14 @@ register struct obj *spellbook;
 /*JP
 		You("continue your efforts to memorize the spell.");
 */
-		You("魔法の学習を再開した．");
+		You("呪文の学習を再開した．");
 	} else {
 		/* KMH -- Simplified this code */
 		if (booktype == SPE_BLANK_PAPER) {
 /*JP
 			pline("This spellbook is all blank.");
 */
-			pline("この魔法書は真っ白だ．");
+			pline("この呪文書は真っ白だ．");
 			makeknown(booktype);
 			return(1);
 		}
@@ -575,7 +575,7 @@ register struct obj *spellbook;
 		      "This spellbook is %sdifficult to comprehend. Continue?",
 				    (read_ability < 12 ? "very " : ""));
 #else
-		      "この魔法書を理解するのは%s困難だ．続けますか？",
+		      "この呪文書を理解するのは%s困難だ．続けますか？",
 					(read_ability < 12 ? "とても" : ""));
 #endif
 			    if (yn(qbuf) != 'y') {
@@ -599,7 +599,7 @@ register struct obj *spellbook;
 /*JP
 			if (!gone) pline_The("spellbook crumbles to dust!");
 */
-			if (!gone) pline("魔法書は塵となった！");
+			if (!gone) pline("呪文書は塵となった！");
 			if (!objects[spellbook->otyp].oc_name_known &&
 				!objects[spellbook->otyp].oc_uname)
 			    docall(spellbook);
@@ -687,7 +687,7 @@ getspell(spell_no)
 /*JP
 	    You("don't know any spells right now.");
 */
-	    You("今のところ何の魔法も知らない．");
+	    You("今のところ何の呪文も知らない．");
 	    return FALSE;
 	}
 	if (flags.menu_style == MENU_TRADITIONAL) {
@@ -705,7 +705,7 @@ getspell(spell_no)
 /*JP
 		Sprintf(qbuf, "Cast which spell? [%s ?]", lets);
 */
-		Sprintf(qbuf, "どの魔法を唱える？[%s ?]", lets);
+		Sprintf(qbuf, "どの呪文を唱える？[%s ?]", lets);
 		if ((ilet = yn_function(qbuf, (char *)0, '\0')) == '?')
 		    break;
 
@@ -720,14 +720,14 @@ getspell(spell_no)
 /*JP
 		    You("don't know that spell.");
 */
-		    You("そんな魔法は知らない．");
+		    You("そんな呪文は知らない．");
 	    }
 	}
 #if 0 /*JP*/
 	return dospellmenu("Choose which spell to cast",
 			   SPELLMENU_CAST, spell_no);
 #else
-	return dospellmenu("どの魔法を唱える？",
+	return dospellmenu("どの呪文を唱える？",
 			   SPELLMENU_CAST, spell_no);
 #endif
 }
@@ -916,7 +916,7 @@ boolean atme;
 /*JP
 	    Your("knowledge of this spell is twisted.");
 */
-	    Your("この魔法に関する知識はよじれた．");
+	    Your("この呪文に関する知識はよじれた．");
 /*JP
 	    pline("It invokes nightmarish images in your mind...");
 */
@@ -927,12 +927,12 @@ boolean atme;
 /*JP
 	    You("strain to recall the spell.");
 */
-	    You("魔法を思いだそうとした．");
+	    You("呪文を思いだそうとした．");
 	} else if (spellknow(spell) <= 1000) {
 /*JP
 	    Your("knowledge of this spell is growing faint.");
 */
-	    Your("この魔法に関する知識が消えてゆく．");
+	    Your("この呪文に関する知識が消えてゆく．");
 	}
 	energy = (spellev(spell) * 5);    /* 5 <= energy <= 35 */
 
@@ -940,13 +940,13 @@ boolean atme;
 /*JP
 		You("are too hungry to cast that spell.");
 */
-	        pline("腹が減りすぎて魔法を唱えられない．");
+	        pline("腹が減りすぎて呪文を唱えられない．");
 		return(0);
 	} else if (ACURR(A_STR) < 4)  {
 /*JP
 		You("lack the strength to cast spells.");
 */
-		pline("強さが少なすぎて魔法を唱えられない．");
+		pline("強さが少なすぎて呪文を唱えられない．");
 		return(0);
 	} else if(check_capacity(
 /*JP
@@ -958,7 +958,7 @@ boolean atme;
 /*JP
 		Your("arms are not free to cast!");
 */
-		pline("魔法を唱えようにも腕の自由が効かない！");
+		pline("呪文を唱えようにも腕の自由が効かない！");
 		return (0);
 	}
 
@@ -973,7 +973,7 @@ boolean atme;
 /*JP
 		You("don't have enough energy to cast that spell.");
 */
-		pline("魔法を唱えるだけの十分なエネルギーを持っていない．");
+		pline("呪文を唱えるだけの十分なエネルギーを持っていない．");
 		return(0);
 	} else {
 		if (spellid(spell) != SPE_DETECT_FOOD) {
@@ -1018,7 +1018,7 @@ boolean atme;
 /*JP
 		You("fail to cast the spell correctly.");
 */
-		You("魔法を正しく唱えることができなかった．");
+		You("呪文を正しく唱えることができなかった．");
 		u.uen -= energy / 2;
 		flags.botl = 1;
 		return(1);
@@ -1229,7 +1229,7 @@ throwspell()
 /*JP
 	pline("Where do you want to cast the spell?");
 */
-	pline("どこに向かって魔法を唱える？");
+	pline("どこに向かって呪文を唱える？");
 	cc.x = u.ux;
 	cc.y = u.uy;
 /*JP
@@ -1242,7 +1242,7 @@ throwspell()
 /*JP
 	    pline_The("spell dissipates over the distance!");
 */
-	    pline("遠すぎる！");
+	    pline("呪文の射程範囲外だ！");
 	    return 0;
 	} else if (u.uswallow) {
 /*JP
@@ -1297,16 +1297,16 @@ dovspell()
 /*JP
 	    You("don't know any spells right now.");
 */
-	    You("魔法を知らない．");
+	    You("呪文を知らない．");
 	else {
 #if 0 /*JP*/
 	    while (dospellmenu("Currently known spells",
 			       SPELLMENU_VIEW, &splnum)) {
 		Sprintf(qbuf, "Reordering spells; swap '%c' with",
 #else
-	    while (dospellmenu("現在知っている魔法一覧",
+	    while (dospellmenu("現在知っている呪文一覧",
 			       SPELLMENU_VIEW, &splnum)) {
-		Sprintf(qbuf, "'%c'と並び変える魔法は？",
+		Sprintf(qbuf, "'%c'と並び変える呪文は？",
 #endif
 			spellet(splnum));
 		if (!dospellmenu(qbuf, splnum, &othnum)) break;
@@ -1410,20 +1410,36 @@ dump_spells()
 	char buf[BUFSZ];
 
 	if (spellid(0) == NO_SPELL) {
+/*JP
 	    dump("", "You didn't know any spells.");
+*/
+	    dump("", "あなたは呪文を知らない．");
 	    dump("", "");
 	    return;
 	}
+/*JP
 	dump("", "Spells known in the end");
+*/
+	dump("", "知っていた呪文一覧");
 
+/*JP
 	Sprintf(buf, "%-20s   Level    %-12s Fail", "    Name", "Category");
+*/
+	Sprintf(buf, "%-20s   Level    %-12s 成功率", "    Name", "分類");
 	dump("  ",buf);
 	for (i = 0; i < MAXSPELL && spellid(i) != NO_SPELL; i++) {
 		Sprintf(buf, "%c - %-20s  %2d%s   %-12s %3d%%",
+#if 0 /*JP*/
 			spellet(i), spellname(i), spellev(i),
 			spellknow(i) ? " " : "*",
 			spelltypemnemonic(spell_skilltype(spellid(i))),
 			100 - percent_success(i));
+#else
+			spellet(i), jtrns_obj('+', spellname(i)), spellev(i),
+			spellknow(i) ? " " : "*",
+			spelltypemnemonic(spell_skilltype(spellid(i))),
+			percent_success(i));
+#endif
 		dump("  ", buf);
 	}
 	dump("","");

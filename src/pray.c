@@ -507,7 +507,7 @@ decurse:
 /*JP
 		    pline ("Looks like you are back in Kansas.");
 */
-		    pline ("見て！カンサスに戻ってきたんだわ．");
+		    pline ("見て！カンザスに戻ってきたんだわ．");
 		    (void) make_hallucinated(0L,FALSE,0L);
 		    break;
 #ifdef STEED
@@ -874,7 +874,7 @@ gcrownu()
 /*JP
 	at_your_feet("A spellbook");
 */
-	at_your_feet("魔法書");
+	at_your_feet("呪文書");
 	dropy(obj);
 	u.ugifts++;
 	/* when getting a new book for known spell, enhance
@@ -1762,7 +1762,7 @@ verbalize("In return for thy service, I grant thee the gift of Immortality!");
 /*JP
 		You_hear("a nearby thunderclap.");
 */
-		You("近くに雷が落ちた音を聞いた．");
+		You_hear("近くに雷が落ちた音を聞いた．");
 	    if (!otmp->known) {
 #if 0 /*JP*/
 		You("realize you have made a %s.",
@@ -2518,51 +2518,93 @@ invoke_amulet(otmp)
 	}
 
 	/* Since this is a potentially terminal effect on the game, confirm action */
+/*JP
 	if (yn("Are you sure you want to defy the Gods by invoking the Amulet?") == 'n')
+*/
+	if (yn("かの魔除けを発動することは神を侮辱することですが続行しますか？") == 'n')
 		return 0;
 
 	if (otmp->otyp == AMULET_OF_YENDOR) {
 		if (!Is_astralevel(&u.uz)) {
 			if (Hallucination)
+/*JP
 				You_feel("homesick.");
+*/
+				You("故郷が恋しくなった．");
 			else
+/*JP
 				You_feel("an urge to return to the surface.");
+*/
+				You("地上に帰りたい気持に駆り立てられた．");
 			/* trying to #invoke whilst not on Astral plane still annoys your god */
 			if (flags.soundok)
+/*JP
 			You_hear("a nearby thunderclap.");
+*/
+			You_hear("近くに雷が落ちた音を聞いた．");
 			change_luck(-1);
 			adjalign(-10);
 			gods_upset(u.ualign.type);
 			return 1;
 		} else {
 			/* The final Test.	Did you win? */
+/*JP
 			You("invoke %s.", the(xname(otmp)));
+*/
+			You("%sを発動させた．", the(xname(otmp)));
 			adjalign(-99);
+		    
+/*JP
 			pline("%s is enraged, but the power of %s protects you!",
+*/
+			pline("%sは激怒したが，%sの力があなたを護った！",
 			u_gname(), the(xname(otmp)));
+#if 0 /*JP*/
 			if(!Blind) You("are surrounded by a shimmering %s sphere!",
 					hcolor((const char *)"golden"));
+#else
+			if(!Blind) You("チカチカ光る%s球体に覆われた！",
+					hcolor("金色の"));
+#endif
+/*JP
 			else You_feel("weightless for a moment.");
+*/
+			else You_feel("一瞬，無重力感を感じた！");
 			/* No uevent.ascended, as we have spurned ascension */
 			if (u.ualign.type != altaralign) {
 				if (uamul == otmp) Amulet_off();
 				if (carried(otmp)) freeinv(otmp);
 				if (Blind)
+/*JP
 					You_feel("%s fall from your pack!", the(xname(otmp)));
+*/
+					You_feel("%sがあなたの背負い袋から落ちたような気がした！", xname(otmp));
 				else
+/*JP
 					You("see %s fall out of your pack!", the(xname(otmp)));
+*/
+					You("%sがあなたの背負い袋から落ちたのを見た！", the(xname(otmp)));
+/*JP
 				pline("But you can't retrieve it.");
+*/
+				pline("だが，あなたはそれを取り戻すことができない．");
 				if (Hallucination) {
+/*JP
 					You("feel like Dorothy travelling back to Kansas!");
+*/
+					You("はカンザスへと帰るドロシーのような気分がした！");
 				} else {
-					You("return home...");
+					You("故郷に帰った．．．");
 				}
 				done(ESCAPED);
 			} else {
 				/* stick the proverbial two fingers up at the Gods,
 				* and go home */
 				display_nhwindow(WIN_MESSAGE, FALSE);
+/*JP
 				You("return home with %s...",
+*/
+				You("%sを持って故郷に帰った．．．",
 				the(xname(otmp)));
 				done(DEFIED);
 			}
@@ -2570,9 +2612,15 @@ invoke_amulet(otmp)
 	} /* real Amulet */
 	if (otmp->otyp == FAKE_AMULET_OF_YENDOR) {
 		if (flags.soundok)
+/*JP
 			You_hear("a nearby thunderclap.");
+*/
+			You_hear("近くに雷が落ちた音を聞いた．");
 		if (!otmp->known) {
+/*JP
 			You("realize your gambit has failed.");
+*/
+			You("作戦が失敗したことを悟った．");
 			makeknown(otmp->otyp);
 			otmp->known = TRUE;
 			/* since we are willingly defying the Gods, this should cause extreme anger */
@@ -2581,7 +2629,10 @@ invoke_amulet(otmp)
 			gods_upset(u.ualign.type);
 		} else {
 			/* not very wise, to defy the Gods with a *known* fake */
+/*JP
 			You_feel("foolish!");
+*/
+			You_feel("間抜けのような気がした！");
 			(void) adjattrib(A_WIS, -1, TRUE);
 			exercise(A_WIS, FALSE);
 			change_luck(-3);

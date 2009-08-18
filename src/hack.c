@@ -165,11 +165,19 @@ boolean showmsg, update;
 		     if (showmsg && flags.verbose) {
 			const char *what;
 			if (herb == CLOVE_OF_GARLIC)
+/*JP
 			  what = "some garlic";
+*/
+			  what = "ニンニク";
 			else
 			  what = an(xname(otmp));
+#if 0 /*JP*/
 			Norep("Suddenly you notice %s growing on the %s.",
 			      what, surface(pos.x,pos.y));
+#else
+			Norep("突然，あなたは%sが%sの上で成長していることに気づいた．",
+			      what, surface(pos.x,pos.y));
+#endif
 		     }
 		  }
 		  return TRUE;
@@ -206,11 +214,20 @@ boolean showmsg, update;
 	 if (otmp->owt <= waterforce) {
 	    if (showmsg && Underwater &&
 		(cansee(pos.x,pos.y) || cansee(x,y))) {
+#if 0 /*JP*/
 	       Norep("%s floats%s in%s the murky water.",
 		     An(xname(otmp)),
 		     (cansee(x,y) && cansee(pos.x,pos.y)) ? "" :
 		     (cansee(x,y) ? " away from you" : " towards you"),
 		     flags.verbose ? " the currents of" : "");
+#else
+	       Norep("%sは暗い水%s%s．",
+		     An(xname(otmp)),
+		     flags.verbose ? "の流れにのって" : "に浮いて",
+		     (cansee(x,y) && cansee(pos.x,pos.y)) ? "いる" :
+		     (cansee(x,y) ? "あなたから遠ざかっていく" : "あなたに近づいてくる")
+	       );
+#endif
 	    }
 	    obj_extract_self(otmp);
 	    place_object(otmp, pos.x,pos.y);
@@ -255,17 +272,31 @@ boolean showmsg, update;
 	       obj_extract_self(otmp);
 	       if (showmsg) {
 		  if ((cansee(pos.x,pos.y) || cansee(x,y))) {
+#if 0 /*JP*/
 		     Norep("%s falls from %s%s.",
 			   cansee(pos.x,pos.y) ? An(xname(otmp)) : Something,
 			   cansee(x,y) ? "the tree" : "somewhere",
 			   (cansee(x,y) && IS_POOL(lev->typ)) ?
 			   " into the water" : "");
+#else
+		     Norep("%sが%s%s落ちてきた．",
+			   cansee(pos.x,pos.y) ? An(xname(otmp)) : "何か",
+			   cansee(x,y) ? "木から" : "どこかから",
+			   (cansee(x,y) && IS_POOL(lev->typ)) ? 
+			   "水の中に" : "");
+#endif
 		  } else if (distu(pos.x,pos.y) < 9 &&
 			     otmp->otyp != EUCALYPTUS_LEAF) {
 		     /* a leaf is too light to cause any sound */
+#if 0 /*JP*/
 		     You_hear("a %s!",
 			      (IS_POOL(lev->typ) || IS_FOUNTAIN(lev->typ)) ?
 			      "plop" : "splut"); /* rainforesty sounds */
+#else
+		     You_hear("%sという音を聞いた！",
+			      (IS_POOL(lev->typ) || IS_FOUNTAIN(lev->typ)) ? 
+			      "ドプン" : "コトン"); /* 熱帯雨林の音 */
+#endif
 		  }
 	       }
 	       place_object(otmp, pos.x,pos.y);
