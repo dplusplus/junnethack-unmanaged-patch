@@ -6,6 +6,7 @@
 **	Japanese version Copyright
 **	(c) Issei Numata, Naoki Hamada, Shigehiro Miyashita, 1996-2000
 **	changing point is marked `JP' (94/7/16)
+**	For UnNetHack 3.5 Copyright (c) Masaki Miyaso, 2009
 **	For 3.4, Copyright (c) Kentaro Shirakata, 2002-2003
 **	JNetHack may be freely redistributed.  See license for details. 
 */

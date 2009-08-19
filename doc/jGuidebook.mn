@@ -6,6 +6,7 @@
 .\"   for JNetHack 1.0.5     by Issei Numata
 .\"   for NetHack 3.3.0      by Kentaro Shirakata
 .\"   for (J)NetHack 3.4     by Kentaro Shirakata <argrath@ub32.org>
+.\"   for UnNetHack 3.5      by Masaki Miyaso
 .\"
 .\" Usage:
 .\"   tbl tmac.n jGuideBook.mn | nroff -Tnippon
