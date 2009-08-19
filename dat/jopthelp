@@ -106,10 +106,10 @@ win_edge       メニューおよびテキストウィンドウを右の替りに左寄せ      [FALSE]
 
 boulder        巨岩の文字を他のものに変える [`]
 disclose       ゲーム終了時に見る情報の種類 [all]
-fruit          好物の果物の名前 [slime mold]
-               (基本的にNetHackが気まぐれで使ってきた)
 dumpfile       ゲーム終了時の公開情報をダンプするときのファイル名
                （パッチしてコンパイルしたときのみ） [none]
+fruit          好物の果物の名前 [slime mold]
+               (基本的にNetHackが気まぐれで使ってきた)
 menustyle      複数オブジェクトを選択するときのユーザーインタフェース
                Traditional -- 1 つのアイテムを迅速に選択
                Combination -- 対象とするクラスを迅速に選択しメニュー表示
@@ -201,8 +201,7 @@ menu_*     メニューコマンドで使用する一文字のキャラクタ。以下にあるのは
            menu_search        メニューの検索 [:](gxa)
            menu_select_all    全てのアイテムを選択 [.](gxta)
            menu_select_page   現在表示されている全てのアイテムを選択 [,](gta)
-monsters
-           dungeon同様、怪物のためのシンボル。
+monsters   dungeon同様、怪物のためのシンボル。
            デフォルト:  abcdefghijklmnopqrstuvwxyz
                         ABCDEFGHIJKLMNOPQRSTUVWXYZ@\ \\&;:~]
 msghistory 先頭行に表示されたメッセージ履歴の保存数 [20]
@@ -217,8 +216,7 @@ role       ゲーム開始時の職業 (例 race:Barbarian, role: Valk)
            職業を選ぶだけである。完全に識別可能な文字を記述すること
            をお薦めする。名前の後に職業を指定することも可能であるが、
            (例 Vic-V)roleオプションが優先する。
-traps
-           dungeon同様、罠のためのシンボル。
+traps      dungeon同様、罠のためのシンボル。
            arrow_trap dart_trap falling_rock_trap squeaky_board
            bear_trap land_mine rolling_boulder_trap sleeping_gas_trap
            rust_trap fire_trap pit spiked_pit hole trap_door

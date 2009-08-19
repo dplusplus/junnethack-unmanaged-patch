@@ -1,16 +1,17 @@
+NetHack History file for release 3.4
 
 見よ、死すべきものよ、NetHackの起源を．．．
 
-Jay Fenlasonが最初のHackを Kenny Woodland, Mike Thome および Jon Payne
+Jay Fenlasonが最初のHackを Kenny Woodland、Mike Thome および Jon Payne
 の助けのもと書いた。
 
 Andries Brouwerはこれを大きく書き直し、Hackをまったく違うゲームに仕立て、
-UNIX(tm)で動く(少なくとも)3つのバージョン(1.0.1, 1.0.2 および 1.0.3)を
+UNIX(tm)で動く(少なくとも)3つのバージョン(1.0.1、1.0.2 および 1.0.3)を
 Usenetで公開した。
 
 Don G. Knellerは Hack 1.0.3を Microsoft(tm) C および MS-DOS(tm)へ移植し、
 PC HACK 1.01eを制作した。加えて DEC Rainbowグラフィックを 1.03gでサ
-ポートし、少なくとも4つ以上のバージョンを制作した。(3.0, 3.2, 3.51
+ポートし、少なくとも4つ以上のバージョンを制作した。(3.0、3.2、3.51
 および 3.6)。
 
 P. Blackは PC HACK 3.51を Lattice(tm) Cおよび、Atari 520/1040STへ移植し、
@@ -18,41 +19,42 @@ ST Hack 1.03を開発した。
 
 Mike Stephensonはこれら色々なバージョンを一緒に統合し、新な機能を加え、
 Nethackバージョン1.4を制作した。彼はその後1000にも及ぶ、NetHack 1.4の
-改良やデバッグを重ね整え、NetHackバージョン 2.2および 2.3をリリースした。
+改良やデバッグを重ねて調整を行い、NetHackバージョン 2.2および 2.3をリ
+リースした。
  
-その後、Mikeはゲームを大幅に書き換え、調整し、Ken Arromdee,
-Jean-Christophe Collet, Steve Creps, Eric Hendrickson, Izchak Miller,
-Eric S. Raymond, John Rupley, Mike Threepoint および Janet Walzを含む
-チームの先頭に立ち、NetHack 3.0cを制作した。同じグループがその後10のリ
-ビジョンパッチをリリースし、3.0をアプデートした。
+その後、Mikeはゲームを大幅に書き換え、調整し、Ken Arromdee、
+Jean-Christophe Collet、Steve Creps、Eric Hendrickson、Izchak Miller、
+Eric S. Raymond、John Rupley、Mike Threepoint および Janet Walzを含む
+チームの先頭に立ち、NetHack 3.0cを制作した。同グループはその後10のリ
+ビジョンパッチをリリースし、3.0をアップデートしていった。
 
 NetHack 3.0は Eric R. Smithによって Atariに移植され、Timo Hakulinenによって
 OS/2に移植され、 Dabvid Gentzelによって VMSに移植された。彼ら3人および、
 Kevi Darcyは後に 3.0のリビジョンを制作したメイン開発チームに合流した。
 
-Olaf Seibertは NetHack 2.3および 3.0を Amigaに移植した。 Norm Meluch,
+Olaf Seibertは NetHack 2.3および 3.0を Amigaに移植した。 Norm Meluch、
 Stephen Spackman および Pierre Martineauは PC NetHack 3.0のオーバレイ
-コードをデザインした。Johnny Leeは NetHack 3.0を Macintoshに移植した。
-沢山の他のダンジョナーにより、彼らは、PC, Macintosh および Amigaに
+コードを設計した。Johnny Leeは NetHack 3.0を Macintoshに移植した。
+彼らは沢山の他のダンジョンナー達と共に、PC、Macintosh および Amigaに
 3.0後のリビジョンを移植した。
  
 Mike Stephensonを先頭に、Izchak Millerおよび Janet Walzが調整し、
-今や Ken Arromdee, David Cohrs, Jean-Christophe Collet, Kevin Darcy, 
-Matt Day, Timo Hakulinen, Steve Linhart, Dean Luick, Pat Rankin, 
+今や Ken Arromdee、David Cohrs、Jean-Christophe Collet、Kevin Darcy、
+Matt Day、Timo Hakulinen、Steve Linhart、Dean Luick、Pat Rankin、
 Eric Raymond および、 Eric Smithを含む開発チームは3.0の抜本的なリビジョン
-に着手した。彼らはゲームをデザインしなおし、コードの大きな改良を行なった。
-彼らはマルチプルダンジョン、新しいディスプレイ、キャラクター毎のクエスト、
+に着手した。彼らはゲームをデザインしなおし、コードの大部分を書き直した。
+彼らは複合化したダンジョン、新しい表示形式、キャラクター毎のクエスト、
 新しい最終試練および沢山の新しい機能を加え、NetHack 3.1を制作した。
 
-Ken Lorber, Gregg Wonderlyおよび Grag Olsonは Richard Addison,
+Ken Lorber、Gregg Wonderlyおよび Grag Olsonは Richard Addison、
 Mike Passaretti および Olaf Seibertの手を借り Amigaの NetHack 3.1を開発
 した。
 
-Norm Meluch および Kevin Smolkowskiは Carl Schelin, Stephen Spackman
+Norm Meluch および Kevin Smolkowskiは Carl Schelin、Stephen Spackman
 Steve VanDevenderおよび Paul Winnerの手を借り NetHack 3.1をPCに移植した。
 
-Jon W{tte および Hao-yang Wangは Ross Brown, Mike Engber, David Hairston,
-Micheal Hamel, Jonathan Handler, Johnny Lee, Tim Lennan, Rob Menke
+Jon W{tte および Hao-yang Wangは Ross Brown、Mike Engber、David Hairston、
+Micheal Hamel、Jonathan Handler、Johnny Lee、Tim Lennan、Rob Menke
 および Andy Swansonの手を借り Macintoshの Nethack 3.1を開発し、MPW用に
 移植した。それの開発の際、Barton Houseは Think Cに移植した。
 
@@ -62,13 +64,99 @@ Timo Hakulinenは NetHack 3.1を OS/2に移植した。 Eric Smithは NetHack 3.1
 移植した。
 
 Dean Luickは David Cohrsの手を借り、X11のNetHack 3.1を開発した。
+Warwick Allison は "タイル"バージョンのゲームをAtari用に書いた。
+彼は後に開発チームにタイルを寄付し、そして他のプラットフォームでの
+タイルのサポートを追加した。
+
+3.2開発チームが Michael Allison、Ken Arromdee、David Cohrs、Jessie Collet、
+Steve Creps、Kevin Darcy、Timo Hakulinen、Steve Linhart、Dean Luick、
+Pat Rankin、Eric Smith、Mike Stephenson、Janet Walz、そして Paul Winner
+によって結成され、1996年4月にバージョン3.2がリリースされた。
+
+バージョン3.2は開発チームが結成されてから10周年記念となるものだった。
+彼らのゲームへの専念の証拠として、オリジナルの開発チームのすべての13人の
+メンバーがチームにそのリリースが開始されるまで留まっていた。
+3.1.3と3.2のリリースの間の期間に、開発チームの創始者の一人である
+Izchakミラー博士が亡くなった。 そして開発および移植チームによって
+このリリースは彼に捧げられた。
+
+バージョン 3.2 はそれまでのバージョン中でもっとも安定していた。多くのバグ
+が修正され、許されざるべき行為は駆逐され、よりよいゲームプレイのために各
+機能が調整された。
+
+NetHack 3.1 と 3.2の一生とも思える間、数々のゲーム狂が彼ら独自の変更をゲー
+ムに加え、これら「バリアント」を一般に公開しました：
+
+Tom Proudfoot と Yuval は Nethack++ (それはすぐに Nethack-- へと改名されま
+した) を作り出した。 独自に活動していた Stephen White は NetHack Plusを書
+いた。 Tom Proudfoot は後にNetHack Plusと彼が作った NetHack--を混ぜて
+SLASHをプロデュースした。 Larry Stewart-Zerba と Warwick Allison は呪文詠
+唱システムを改良して Wizard Patch とした。 また、Warwick Allison は Qt イ
+ンタフェースを NetHack にポートした。
+
+Warren Cheung は Wizard Patch を SLASH に結合させて Slashe'emをプロデュー
+スし、また Kevin Hugo の手助けとともに多くの特徴を追加した。 Kevin は後に
+開発チームと合流し、これらのアイデアのうち最良のものを NetHack 3.3 に組み
+込んだ。
+
+3.2の最終更新はバグ修正版である3.2.3であった。それは1999年12月に、2000年問
+題に間に合うように3.3.0と同時にリリースされた。
+
+3.3開発チーム（Michael Allison、Ken Arromdee、David Cohrs、Jessie Collet、
+Steve Creps、Kevin Darcy、Timo Hakulinen、Kevin Hugo、Steve Linhart、
+Ken Lorber、Dean Luick、Pat Rankin、Eric Smith、Mike Stephenson、Janet
+Walz そして Paul Winnerからなる）は1999年12月に 3.3.0 をリリースし、2000年
+8月に 3.3.1 をリリースした。
+
+バージョン 3.3 は多くの「初めて」を提供した。 それは種族と職業を分離した最
+初のバージョンだった。 職業エルフの代わりにエルフ種族が追加され、ドワーフ、
+ノーム、そしてオークが人間種族と同等の種族として初じめて登場した。 武闘家
+とレンジャーが職業として、考古学者、野蛮人、洞窟人、薬師、騎士、僧侶、盗賊、
+侍、観光客、ワルキューレ、そしてもちろん魔法使いとの仲間入りを果たした。そ
+してまた、騎乗できるようになった最初のバージョンであり、発見されたすべての
+バグの一覧を掲載する公的なウェブサイトを持つ最初のバージョンであった。 そ
+してその絶えず増加し続けたバグの一覧にもかかわらず、3.3 は 1年半以上続くほ
+ど安定していた。
+
+3.4 開発チーム（初期は Michael Allison、Ken Arromdee、David Cohrs、Jessie
+Collet、Kevin Hugo、Ken Lorber、Dean Luick、Pat Rankin、Mike Stephenson、
+Janet Walz、および Paul Winner からなり、リリース直前に
+Warwick Allison が参加した）は NetHack 3.4.0 を 2002年3月にリリースした。
+
+バージョン 3.3と同様に、様々な人々によってゲームへの貢献が行われた。
+たとえば、NetHack が異なる環境で動作させる等：
+
+Pat Rankin は VMS 版の 3.4をメンテナンスした。
+
+Michael Allison は MS-DOS 環境用の NetHack 3.4 をメンテナンスした。
+Paul Winner と Yitzhak Sapir はそれを促進した。
+
+Dean Luick、Mark Modrall、および Kevin Hugo は Macintosh版の 3.4 のメンテ
+ナンスと拡張を行った。
+
+Michael Allison、David Cohrs、Alex Kompel、Dion Nicolaas、および Yitzhak
+Sapir によってMicrosoft Windows環境用の 3.4 のメンテナンスと拡張が行われた。
+Alex Kompel は Windows 版のための新しいグラフィカルインターフェースに貢献
+した．また、Alex Kompel は 3.4.1 用の Windows CE 版に対しても貢献した。
+
+Ron Van Iwaarden は OS/2 用の 3.4 をメンテナンスを行った。
+
+Janne Salmijarvi が Amiga 版を3.3.1用に復活させた後、Janne Salmijarvi と
+Teemu Suikki は 3.4 の Amiga 版のメンテナンスと拡張を行った。
+
+Christian `Marvin' Bressler は Atari版 3.3.1 を 3.4用に復活させてメンテ
+ナンスした。
+
+Ken Lorberによって作成されたNetHackウェブサイトは http://www.nethack.org/
+にある。
+
 
                            - - - - - - - - - -
  
 時々、堕落した人物が彼らのネットランドからゲームの手助けとなるような興
 味をそそる改良案を送ってくる。ダンジョンの神はこれら堕ちるところまで堕
 ちた人間たちの名前をきまぐれでひかえている。そのダンジョンナーたちは以
-下である:
+下のとおりである:
 
     Adam Aronow               Izchak Miller             Mike Stephenson
     Alex Kompel               J. Ali Harlow             Norm Meluch
