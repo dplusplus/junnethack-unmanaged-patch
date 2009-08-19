@@ -1,0 +1,808 @@
+最初に
+
+このファイルはNetHackを様々なウィンドウシステムをサポートについて記述した
+ものである。 サポートは標準的なインターフェイスであり、ウィンドウシステム
+の固有コードから主要なNetHackのコードを分離する。 実装は同一バイナリにおい
+て複数のウィンドウ・システムをサポート可能とする。 例えウィンドウポートを
+1つだけサポートするポートであっても、コンパイル可能なバイナリを得るために
+は、セクションIXの手順に従う必要がある。
+
+
+内容：
+	I.    ウィンドウタイプと専門用語
+	II.   インターフェース仕様
+	III.  大域変数
+	IV.   WINCAPリファレンスサポート
+	V.    新しい、もしくは再定義された共通の高レベルルーチン
+	VI.   補助ルーチン
+	VII.  ゲームの起動
+	VIII. 規約
+	IX.   複数のウィンドウポートのサポートと実装
+
+I.  ウィンドウタイプと専門用語
+
+5つの基本的なウィンドウタイプがあり、create_nhwindow()を呼ぶことで使用する：
+
+	NHW_MESSAGE	(最上行)
+	NHW_STATUS	(最下数行)
+	NHW_MAP		(主迷宮)
+	NHW_MENU	(所持品一覧またはその他のサブウィンドウ)
+	NHW_TEXT	(ヘルプ/テキスト, 全画面表示ウィンドウ)
+
+ttyウィンドウポートではさらにNHW_BASE (基本表示)を内部的に使用する。
+
+NHW_MENUウィンドウはメニューまたは文書を表示するために使用される。
+これらの基本的な機能はttyポート用であり、そのウィンドウが充分に小さいなら
+画面全体を上書きせずにtty表示の一角に表示する。 ウィンドウへの情報指定の最
+初の呼出が、メニューもしくは文書表示のどちらに使用するかを決定する。
+start_menu()が呼ばれれば、それはメニューに使用される。 もしputstr()が呼ば
+れれば、それは文書表示に使用される。 いったん使用方法が決まったら元に戻す
+ことはできない。 ttyポートのために、データが一画面よりも多い場合はデータを
+ページ単位に分けて(--more--と共に)表示する。 NHW_MENUタイプウィンドウはメ
+ニューのためにのみ使用される。
+
+NHW_TEXTウィンドウは大量の文書データを表示するために使用される。
+これは例えば、ヘルプファイルなどを表示するために使用されるタイプのウィンド
+ウである。 ttyのウィンドウポートでは、DEF_PAGERが定義されていればNHW_TEXT
+タイプのウィンドウにおいてDEF_PAGERに定義されているページャーを使用するこ
+とができる。 テキストウィンドウ用のフォントは等幅であることが前提になって
+いる。 ヘルプファイルは全てそれに従った体裁になっている。
+
+"ウィンドウ"には常にwinid型である。 これは現状では整数として実装されて
+いるが、 そうでなければならないわけではない。 コード全域に渡って使用されて
+いる固定ウィンドウ名がいくつかある。
+
+	WIN_MESSAGE	(最上行)
+	WIN_STATUS	(最下数行)
+	WIN_MAP		(主迷宮)
+	WIN_INVEN	(所持品一覧)
+
+他のウィンドウは必要に応じて生成されたり破棄されたりする。
+
+この文書における「ポート」とはCPU/OS/ハードウェアプラットフォーム（UNIX、
+MSDOS、TOSなど）である。 「ウィンドウポート」はウィンドウプラットフォーム
+である。 この2つは直交する。（例えば、UNIXはttyウィンドウポートまたは
+X11ウィンドウポートを使うことができる。）
+
+
+II.  インターフェース仕様
+
+以下の全ての関数は特に指定のない限りvoid型とする。
+
+
+A. 低レベルルーチン：
+
+raw_print(str)	-- 画面に直接表示するか、それ以外の手段でユーザがstrを見れ
+		   ることを保証する。 raw_print()はstrに改行を追加する。
+		   これはASCII制御文字を認識する必要はない。 これは起動中
+		   （ウィンドウシステムの初期化前～つまりこれは起動エラー
+		   のメッセージがrawであることを意味する）にエラーメッセー
+		   ジとして使用され、それ以外には"msg"が使う。 例えば、
+		   MICRO用のステータスの更新など（例："保存中"）。
+raw_print_bold(str)
+		-- raw_print()と似ているが、(可能なら)ボールド体で出力する。
+curs(window, x, y)
+		-- ウィンドウへの次の出力は(x,y)から開始する、もしくは表示
+		   されているカーソルを(x,y)に移動させる。 後方互換性のた
+		   め、 colsとrowsをウィンドウサイズとして 1 <= x < cols、
+		   0 <= y < rowsとする。
+		-- ステータスウィンドウのような可変サイズのウィンドウにお
+		   いて、curs()をウィンドウ外を指定して呼んだ場合の振る舞
+		   いは不定である。 macポートでは2行80列からなるステータス
+		   ウィンドウでは0に折り返される。
+		-- ステータスを更新したり、識別や瞬間移動で画面位置が変わ
+		   ったときcurs_on_u()が使われる。
+		-- ttyウィンドウポートのNHW_MESSAGE、NHW_MENUおよび
+		   NHW_TEXTウィンドウは現時点ではcursをサポートしていない。
+putstr(window, attr, str)
+		-- 指定ウィンドウに指定した属性でstrを出力する。 印刷可能
+		   ASCII文字(040-0126)のみをサポートする。（訳注：日本語版
+		   では日本語も基本的にサポートする。）属性は次のどれか。
+			ATR_NONE (or 0)
+			ATR_ULINE
+			ATR_BOLD
+			ATR_BLINK
+			ATR_INVERSE
+		   ウィンドウポートがこれらの全てをサポートするわけではな
+		   い場合、サポートしていない属性をサポートする属性に対応
+		   させる必要がある。（例：全てをATR_INVERSEに対応させる。）
+		   putstr()は表示しきれない場合はstrの間隔を圧縮したり、
+		   strを改行したり、切り詰めたりしてもよい。 putstr()が改行
+		   したら行末をクリアする。
+		-- 2つのputstr()が連続的に実行された場合でも、ユーザが1番
+		   目と2番目を視認できるように実装すべきである。 ttyポート
+		   では、pline()はmore()を呼ぶか、同じ行に両方表示すること
+		   で達成している。
+get_nh_event()	-- ウィンドウイベントプロセスを実行する（例：露出イベント）。
+		   ttyとXウィンドウポートでは何もしない。
+int nhgetch()	-- ユーザからの入力を一文字返却する。
+		-- ttyウィンドウポートでは、nhgetch()は、文字を読むためにOS
+		   が提供するルーチンであるtgetch()を使用する。
+		   返却文字は0以外であるべきで、メタ0(メタビットの設定され
+		   た0)以外でもあるべきである。（訳注：メタ0は8ビット目のみ
+		   立った文字コードのこと。）
+int nh_poskey(int *x, int *y, int *mod)
+		-- ユーザからの入力を一文字返却するか、ポインティングデバ
+		   イスイベント（多分マウスから）を返却する。 返却値が0以
+		   外ならば文字入力とし、そうでないならMAPウィンドウの位置
+		   がx, yおよびmodとして返却されているとみなす。
+		   modは次のどれか
+
+			CLICK_1		/* mouse click type 1 */
+			CLICK_2		/* mouse click type 2 */
+
+		   クリックタイプはそれぞれハードウェアがサポートするもの
+		   に対応できる。 マウスがサポート対象外の場合、このルーチ
+		   ンは常に0以外を返却する。
+
+
+B.  高レベルルーチン：
+
+print_glyph(window, x, y, glyph)
+		-- 指定されたウィンドウの(x, y)の位置にglyphを出力する。
+		   glyphはインターフェースはint型で、ウィンドウポートの
+		   望むものに対応する（シンボル、フォント、色、属性、…
+		   それらが1対1でglyphと地図上のものに対応する）。
+char yn_function(const char *ques, const char *choices, char default)
+		-- ques、choices、defaultで構成されたプロンプトを出力する。
+		   choicesまたはdefaultに含まれる一文字によるレスポンスを
+		   読む。 もし選択肢がNULLであった場合、全種の入力文字を
+		   受け付けて返却する。 これは他の全てを優先する。 
+		   choicesは小文字であることが推奨される。 ESCを入力すると
+		   choicesに含まれているならば'q'または'n'の優先順にマッ
+		   プされ、含まれていない場合はdefaultになる。 他の終了文
+		   字（SPACE、RETURN、NEWLINE）が入力された場合はdefault
+		   になる。
+		-- choicesにESCを含む場合、ESC以降の文字も受け付けるが、
+		   プロンプトにはESC以降に続く文字を表示しない。
+		-- choicesに'#'を含む場合、数字を受け付ける。 入力値はグ
+		   ローバル変数のyn_numberに設定して'#'を返却すること。
+		-- ttyウィンドウポートでは最上段を使うが、他のポートでは
+		   ポップアップを使う場合もありうる。
+		-- choicesがNULLである場合、全ての入力を受け付けて(大文字
+		   小文字も変換せずに)返却する。  これはもし呼び出した側
+		   が正確な比較をする必要がある場合、ユーザ入力を自分で正
+		   確に処理しなければならないことを意味する。
+getlin(const char *ques, char *input)
+		-- quesによるプロンプトを出力した上で改行した行で一行の文
+		   字列を読み込む。 返却される文字列は改行を含まない。
+		   ESCでキャンセルされた場合、文字列として"\033\000"が返却
+		   される。
+		-- getlin()は何かする前にflush_screen(1)を呼ぶべきである。
+		-- ttyウィンドウポートでは最上段を使うが、他のポートでは
+		   ポップアップを使う場合もありうる。
+		-- getlin()はBUFSZバイトまで入力可能とし、それ以上はnull
+		   文字が入ることを前提に切り詰めるべきである。 
+int get_ext_cmd(void)
+		-- ウィンドウポートのやり方で拡張コマンドを取得すること。
+		   選択に成功した場合はextcmdlist[]の添字を返却し、それ以
+		   外は-1を返却する。
+player_selection()
+		-- ウィンドウポートのやり方でプレイヤータイプを選択するこ
+		   と。 player_selection()で中止オプションを提供する場合、
+		   プロセスのクリアと終了を責任持って行うこと。
+		   pl_character[0]を全て設定する必要がある。
+display_file(str, boolean complain)
+		-- strという名称のファイルを表示すること。 complainがTRUE
+		   の場合はファイルが存在しなければそれを表示すること。
+update_inventory()
+		-- ウィンドウポートに対して所持品が変更されたことを知らせ
+		   る。
+		-- Merely calls display_inventory() for window-ports that
+		   leave the window up, otherwise empty.
+		-- 所持品ウィンドウを常時表示するウィンドウポートは単に
+		   display_inventory()を呼ぶようにする。そうでない場合は何
+		   もしなくてよい。
+doprev_message()
+		-- 直前のメッセージを表示すること。 ^Pコマンドが使用された。
+		-- ttyポートではWIN_MESSAGEを一行前にスクロールする。
+
+update_positionbar(char *features)
+		-- これはオプションで、POSITIONBARが定義されている必要があ
+		   る。 水平位置を表すスクロールバー（部分表示では最も有効）
+		   を使用するにはいくつかの追加情報が要求される。
+		   featuresはcharのペアが複数連続する形式になっている。
+		   ペアのうち、最初のcharはシンボルで、もう一つのcharはそ
+		   れの現在の列位置になっている。 '<'は昇り階段を表すため
+		   に使われ、'>'は下り階段になり、'@'は現在のプレイヤーの
+		   位置を指す。 '\0'がリストの終わりを表す。
+
+
+C.  ウィンドウユーティリティルーチン
+
+init_nhwindows(int* argcp, char** argv)
+		-- NetHackに使われるウィンドウの初期化。 これによって基本
+		   ウィンドウを全て生成することも可能であるし、それらを
+		   表示しなくてもよい。
+		-- ウィンドウポートに関係するコマンドライン引数を解析すべ
+		   きであるし、*argcpと*argvからそれらの引数を除外する
+		   変更をすべきである。
+		-- メッセージウィンドウが生成されるには、
+		   iflags.window_inited変数をTRUEに設定しておく必要がある。
+		   そうでなければ、全てのpline()関連はraw_print()を使用
+		   することになる。
+		** init_nhwindows()に基本ウィンドウの全てを生成させない理
+		** 由はないかも？ またはWIN_INFOを除いた全てではどうか？ -dean
+exit_nhwindows(str)
+		-- ウィンドウシステムの終了。 raw_printの出力先になってい
+		   る「ウィンドウ」を除いた全てのウィンドウを解放するべき
+		   である。 strは可能ならば出力すること。
+window = create_nhwindow(type)
+		-- 指定されたタイプのウィンドウを生成する。
+clear_nhwindow(window)
+		-- 許される限り、指定されたウィンドウをクリアする。
+display_nhwindow(window, boolean blocking)
+		-- 画面にウィンドウを表示すること。 もしウィンドウ出力用の
+		   データが未決定であるならば、それは送られるべきである。
+		   blockingがTRUEである場合、display_nhwindow()はデータを
+		   画面に表示し、ユーザが認めるまで戻らない。
+		-- ttyウィンドウポートでは全呼びだしがブロッキングである。
+		-- ttyウィンドウポートでは、display_nhwindow(WIN_MESSAGE,???)
+		   を呼ぶと必要に応じて--more--を表示する。
+destroy_nhwindow(window)
+		-- 指定したウィンドウがまだ解放されていない場合は解放して
+		   破壊する。
+start_menu(window)
+		-- ウィンドウのメニューとしての使用を開始する。 add_menu()
+		   の前にstart_menu()を呼ばなければならない。 start_menu()
+		   を呼んだ後で同じウィンドウに対してputstr()を呼んではな
+		   らない。 NHW_MENUウィンドウだけがメニューに使用できる。
+add_menu(windid window, int glyph, const anything identifier,
+				char accelerator, char groupacc,
+				int attr, char *str, boolean preselected)
+		-- strを一行テキストとしてメニューウィンドウに追加する。
+		   identifierが0の場合、選ばれない行（タイトルなど）になる。
+		   それ以外では行が選択されたときの返却値となる。
+		   acceleratorは行を選択するときに使用できるキーボードの
+		   キーになる。 選択可能な行のacceleratorが0の場合、ウィン
+		   ドウシステムは自由に短縮キーを選んでよい。  短縮キーを
+		   ユーザに見せるの（例えば"a - "をstrの前につけるとか）は
+		   ウィンドウシステムの役割になっている。 attrの値は
+		   putstr()と同様である。 glyphはオプション的に行に伴う
+		   gryphを指定する。 ウィンドウポートが表示できないか、
+		   したくない場合はそうしてよい。 適用可能なglyphがない場
+		   合、この値はNO_GLYPHとなる。
+		-- 全短縮キーは[A-Za-z]の範囲であるべきであるが、'*'を扱う
+		   ttyプレイヤーなどの少々の例外はある。
+		-- 呼び出し側が短縮キーの選択を混ぜないことが期待されてい
+		   る。 全ての選択可能な選択肢が短縮キーを持つか、それら
+		   全てにウィンドウシステムが設定するかのどちらかである。
+		   両方同時には行わないこと。
+		-- groupaccはグループの短縮キーである。 それは標準短縮キー
+		   （上記参照）以外の文字かもしれないし、数値かもしれない。
+		   0の場合、この選択肢は他のグループ短縮キーの影響を受けな
+		   い。 もしこの短縮キーがメニューコマンド（またはユーザ定
+		   義の別キー）と競合した場合、それは失効する。 メニューコ
+		   マンドおよび別キーは、デフォルトのアイテム種別のシンボ
+		   ルと重複しないように注意する必要がある。
+		-- メニュー表示時にこの選択肢を選択状態にしておきたい場合、
+		   preselectedをTRUEにする。
+
+end_menu(window, prompt)
+		-- メニューへの項目の追加をやめて画面にウィンドウを表示す
+		   る（前に持ってくる？）。 promptはユーザにプロンプトとし
+		   て表示する。promptがNULLの場合、プロンプトの表示は行わ
+		   ない。
+		** ここでは恐らくウィンドウを表示するべきではない（そうする
+		** つもりなら）。 それはselect_menuがやるべきだ。     -dean
+int select_menu(windid window, int how, menu_item **selected)
+		   選択された項目の数を返却すること。 もし選択されなければ
+		   0を返し、明示的にキャンセルしされた場合は-1を返すこと。
+		   項目が選択された場合、selectedにmenu_item構造体の配列と
+		   してメモリを割り当てて選択された項目を設定する。 これは
+		   一つだけ選択されても同様である。 呼び出し側はこの配列を
+		   使用した後に解放しなければならない。selectedの"count"は
+		   ユーザーが指定した件数になる（訳注：例えば、Dコマンドで
+		   アイテムを一度に置くときにアイテム一覧で10個中3個置く指
+		   定などに使われる）。ユーザが数を指定しなかった場合、
+		   countには-1（全部という意味）が設定される。 countが0の
+		   場合とは選択されていないということになるので、リストに
+		   は含まれていない。 項目が選択されなかった場合、selected
+		   はNULLになる。 howはメニューのモードを指定する。 3つの
+		   値 PICK_NONE、PICK_ONE、PICK_ANYを指定でき、意味は次の
+		   とおり：選択不可、一つだけ選択可、複数選択可。 howが
+		   PICK_NONEの場合、この関数は決して0か-1以外は返さない。
+		-- start_menu()またはdestroy_nhwindow()がウィンドウに対して
+		   呼ばれるまでメニューが保存されるので、そのウィンドウで
+		   select_menu()を複数回呼んでもさしつかえない。
+		-- NHW_MENUウィンドウはそれのためにselect_menu()を呼ぶ必要
+		   がないことに注意。 これはそのウィンドウのために
+		   create_nhwindow()されるときにselect_menu()が呼ばれるか
+		   どうかを知るすべがないためである。
+char message_menu(char let, int how, const char *mesg)
+		-- 一行の文脈依存ヘルプを複数行によるヘルプメニューと互換
+		   性を持たせて動かすtty特有のハック。
+		-- プロンプトが有効であるときのみこれが呼ばれるべきである
+		   ：msgの内容がメッセージウィンドウに送られる。 ttyのため、
+		   それは強制的に--more--プロンプトにして、オリジナルのプ
+		   ロンプトがメッセージ行のヘルプメニューから答えられるよ
+		   うにletをプロンプトを解除するキーに割り当てる。
+		-- 返却値はletもしくは'\0'（選択されなかったとき）、'\033'
+		   （キャンセルされたとき）のいずれか。
+		-- 一般的に、プロンプトとメッセージのウィンドウを分離するイ
+		   ンタフェースにはこの機能が必要ない。 その場合は
+		   genl_message_menu（windows.c）に代用できる。
+
+
+D.  その他ルーチン
+
+make_sound(???) -- 後で書く。 これは現在未実装。
+nhbell()	-- ビープ音を鳴らす。[サウンドがウィンドウに起因しなくなっ
+		   て久しいが、少なくともサウンドについて作り直されるまで
+		   これは存在するだろう。]
+mark_synch()	-- 全チャンネルがここに追いつくまで、どのチャンネルのI/Oで
+		   もこのポイントを超えないこと。 さしあたって空の呼出であ
+		   るかもしれない。
+wait_synch()	-- 全ペンディング出力が完了するまで待つ。 (ストリーム用の
+		   flush()はここで動作する。)
+		-- エクスプロージャイベントなどを扱うことができる。
+		   wait_sync()から戻ったとき表示してよい。
+delay_output()	-- 出力において50msの表示上の遅延を発生させる。
+		   概念的に、これはnap(50ms)継続したwait_synch()と同様では
+		   あるが、非同期動作を許す点が異なる。
+askname()	-- ユーザにプレイヤー名を聞く。
+cliparound(x, y)-- ゲーム上のエリアが画面よりも広いとき、ユーザがスクリーン
+		   の大体中央に配置されるようにする。
+		-- この関数はCLIPPINGが定義されている場合のみ定義される。
+number_pad(state)
+		-- 指定したstateでテンキー(number pad)を初期化する。
+suspend_nhwindows(str)
+		-- ウィンドウ中断の準備を行う。
+resume_nhwindows()
+		-- 中断したウィンドウを復帰させる。
+
+start_screen()	-- Unixのttyポートでのみ使用できるが、完全性のために宣言す
+		   る必要がある。 全画面グラフィックモードで動作するために
+		   ttyをセットアップする。 例はwin/tty/termcap.cを参照のこ
+		   と。 ウィンドウポートがこの機能を必要としない場合、空の
+		   関数を定義しておくこと。
+end_screen()	-- Unixのttyポートでのみ使用できるが、完全性のために宣言す
+		   る必要がある。 start_screen()の補助。
+
+outrip(winid, int)
+		-- 墓石のコード。 伝統的なコードを使いたい場合はgenl_outrip
+		   を値に指定してrip.cの#ifを確認すること。
+
+preference_update(preference)
+		-- プレイヤーがwincap設定のひとつを変更すると、NetHackコアが
+		   ウィンドウポートにその変更を通知する。 ウィンドウポートが
+		   ダイナミックに変更に対応できるならば、そうするべきである。
+		   通知してほしいものに対応するwincapマスクのビットを有効に
+		   することで、ウィンドウポートに変更の通知が行われる。
+
+III.  大域変数
+
+次の大域変数はdecl.cに定義されており、ウィンドウインターフェースから
+NetHackのそれ以外の部分によって使用される。
+
+
+char toplines[BUFSZ]	WIN_MESSAGEウィンドウに出力する最新メッセージを含む。
+			Norep()によって使用される。
+winid WIN_MESSAGE, WIN_MAP, WIN_STATUS, WIN_INVEN
+			四つの基本的なウィンドウ。
+char *AE, *AS;		DEC_GRAPHICSスイッチを使う場合、options.を確認すること。
+			VMSおよびUNIXが#ifdefによって有効の場合のみ。
+int LI, CO;		sys/unix/ioctl.cにおいて設定される。
+
+次のはUnix特有のものである。 ttyのウィンドウポートを使用するそれ以外の
+ポートではsys/*.cファイル内でこの変数を宣言する必要がある。
+
+
+short ospeed;		sys/unix/unixtty.cにて設定および定義されている
+			(その他sysyファイルは不明）。
+
+次の大域変数はoptions.cで定義される。 それはwincapオプション名とそれに付随
+するビットマスク（4章のWINCAPリファレンスサポートを参照）の組み合わせのリ
+ストである。 この配列は0で終了する。
+
+struct wc_Opt wc_options[];
+			有効なWINCAPオプションを要素とする。 それぞれの要素は
+			wc_nameフィールドとwc_bitフィールドを持つ。
+
+
+IV. WINCAPリファレンスサポート
+
+NetHack 3.4.0以降でサポートされたウィンドウインターフェースで、これは
+いくつかの設定のために設定ファイルおよびコマンドラインから設定される
+ウィンドウポートのユーザ設定の強化された共通化手段である。
+
+このwincap設定はすべてiflagsフィールドに値を保持する。 wincapに関連する
+フィールドの名称はすべてwc_またはwc2_で始まっていて、それらを特定するのを
+容易にしてある。 ウィンドウポートはそのフィールドに直接アクセスすることが
+可能である。
+
+ウィンドウポートがどんなオプションに反応し、サポートするかをwindow_procsの
+wincapマスクおよびwincap2マスクでビット単位で設定する。
+wincapマスクの詳細は9章を参照すること。
+
+ゲーム中の'O'コマンドオプションメニューにて設定を表示するかどうかは、以下
+の2つの事項が制御する：
+ 1. window_procsのwincapまたはwincap2マスクにおけるビットの設定を
+    そのオプションの有効無効に対応させること。
+ 2. そのオプションをゲーム中に設定したいならばoptflagにSET_IN_GAMEを設定し、
+    オプションの設定を表示したいだけならばDISP_IN_GAMEを設定する必要がある。
+NetHackからオプションを見たり設定したりするには両方とも有効にしなければな
+らない。
+
+全オプションのoptflagフィールドの初期値はoptions.cのoptionにハードコーディ
+ングされている。 wc_オプションの初期値は次のように呼ぶことで代替可能である。
+	set_wc_option_mod_status(optmask, status)
+wc2_オプションの初期値は次のように呼ぶことで代替可能である。
+	set_wc2_option_mod_status(optmask, status)
+オプションごとに、statusにはSET_IN_FILE、DISP_IN_GAME、SET_IN_GAMEのいずれ
+かを設定すること。
+
+どんなwincapまたはwincap2オプションの設定もNetHackのコアオプション処理コー
+ドによって扱われる。 ウィンドウポートにて解析コードを記述する必要はなく、
+iflags.wc_*およびiflags.wc2_*のフィールドに直接設定するコードを書く必要も
+ない。 ポートのコードは、コアによって設定ファイルまたは'O'コマンドでオプ
+ションを処理した結果の値をありがたく使用するべきである。
+
+ユーザが設定ファイルで設定していないオプションのiflags.wc_*および
+iflags.wc2_*フィールドの値がウィンドウポートにおいて見つかるのを
+不思議に思うかもしれない。 別の言い方をすると、オプションが
+設定されていないときにポートのコードはどう振舞うべきだろうか？
+次において、それについて説明しよう。
+
+もしコアがオプションを設定しなくても、それには初期値が設定されている。
+iflags.wc_*およびiflags.wc2_*のフィールドのこれらの初期値は次のとおり：
+
+ o 全てのbooleanフィールドの開始値はoptions.cのboolopt配列によって
+   指定される。 ウィンドウポートはそれに従わないほうがよい理由がと
+   くにない限りそれを尊重するべきである。
+ o 全てのintフィールドは0に初期化される。 0が有効な設定ではないint
+   オプションが、ポートコードにおいて0だった場合、ユーザによって
+   設定されなかったと仮定できる。 その場合、ウィンドウポートの
+   コードにおいて許されるデフォルト値を使用すべきであり、
+   iflags.wc_*フィールドにデフォルト設定を書き込むべきである。
+   ウィンドウポートがこれらのフィールドを更新するのはこの場合のみ
+   とするべきである。
+ o 全てのchar *フィールドはnullポインタになる。 このようなポイン
+   タをウィンドウポートのコードで使用する場合は事前にチェックを
+   行う必要がある。 さもないと異常終了の引き金になるだろう。
+
+ここにポートが選択可能なサポートされているwincapおよびwincap2設定を羅列す
+る：
+
+  wincap
+  +--------------------+--------------------+--------------------+--------+
+  | プレイヤー         | wincapマスクによる | 値を設定する       | データ |
+  | オプション         | ビット             | iflagsフィールド   | 型     |
+  |--------------------+--------------------+--------------------+--------+
+  |  align_message     | WC_ALIGN_MESSAGE   | wc_align_message   |int     |
+  |  align_status      | WC_ALIGN_STATUS    | wc_align_status    |int     |
+  |  ascii_map         | WC_ASCII_MAP       | wc_ascii_map       |boolean |
+  |  color             | WC_COLOR           | wc_color           |boolean |
+  |  eight_bit_tty     | WC_EIGHT_BIT_IN    | wc_eight_bit_input |boolean |
+  |  font_map          | WC_FONT_MAP        | wc_font_map        |char *  |
+  |  font_menu         | WC_FONT_MENU       | wc_font_menu       |char *  |
+  |  font_message      | WC_FONT_MESSAGE    | wc_font_message    |char *  |
+  |  font_status       | WC_FONT_STATUS     | wc_font_status     |char *  |
+  |  font_text         | WC_FONT_TEXT       | wc_font_text       |char *  |
+  |  font_size_map     | WC_FONTSIZ_MAP     | wc_fontsiz_map     |int     |
+  |  font_size_menu    | WC_FONTSIZ_MENU    | wc_fontsiz_menu    |int     |
+  |  font_size_message | WC_FONTSIZ_MESSAGE | wc_fontsiz_message |int     |
+  |  font_size_status  | WC_FONTSIZ_STATUS  | wc_fontsiz_status  |int     |
+  |  font_size_text    | WC_FONTSIZ_TEXT    | wc_fontsiz_text    |int     |
+  |  hilite_pet        | WC_HILITE_PET      | wc_hilite_pet      |boolean |
+  |  map_mode          | WC_MAP_MODE        | wc_map_mode        |int     |
+  |  player_selection  | WC_PLAYER_SELECTION| wc_player_selection|int     |
+  |  popup_dialog      | WC_POPUP_DIALOG    | wc_popup_dialog    |boolean |
+  |  preload_tiles     | WC_PRELOAD_TILES   | wc_preload_tiles   |boolean |
+  |  scroll_amount     | WC_SCROLL_AMOUNT   | wc_scroll_amount   |int     |
+  |  scroll_margin     | WC_SCROLL_MARGIN   | wc_scroll_margin   |int     |
+  |  splash_screen     | WC_SPLASH_SCREEN   | wc_splash_screen   |boolean |
+  |  tiled_map         | WC_TILED_MAP       | wc_tiled_map       |boolean |
+  |  tile_width        | WC_TILE_WIDTH      | wc_tile_width      |int     |
+  |  tile_height       | WC_TILE_HEIGHT     | wc_tile_height     |int     |
+  |  tile_file         | WC_TILE_FILE       | wc_tile_file       |char *  |
+  |  use_inverse       | WC_INVERSE         | wc_inverse         |boolean |
+  |  vary_msgcount     | WC_VARY_MSGCOUNT   | wc_vary_msgcount   |int     |
+  |  windowcolors      | WC_WINDOWCOLORS    | wc_foregrnd_menu   |char *  |
+  |                    |                    | wc_backgrnd_menu   |char *  |
+  |                    |                    | wc_foregrnd_message|char *  |
+  |                    |                    | wc_backgrnd_message|char *  |
+  |                    |                    | wc_foregrnd_status |char *  |
+  |                    |                    | wc_backgrnd_status |char *  |
+  |                    |                    | wc_foregrnd_text   |char *  |
+  |                    |                    | wc_backgrnd_text   |char *  |
+  |  mouse             | WC_MOUSE_SUPPORT   | wc_mouse_support   |boolean |
+  +--------------------+--------------------+--------------------+--------+
+
+  wincap2
+  +--------------------+--------------------+--------------------+--------+
+  | プレイヤー         | wincapマスクによる | 値を設定する       | データ |
+  | オプション         | ビット             | iflagsフィールド   | 型     |
+  |--------------------+--------------------+--------------------+--------+
+  |  fullscreen        | WC2_FULLSCREEN     | wc2_fullscreen     |boolean |
+  |  softkeyboard      | WC2_SOFTKEYBOARD   | wc2_softkeyboard   |boolean |
+  |  wraptext          | WC2_WRAPTEXT       | wc2_wraptext       |boolean |
+  +--------------------+--------------------+--------------------+--------+
+
+align_message	-- メッセージウィンドウの配置位置 (top, bottom, left, right)。
+align_status	-- ステータスウィンドウの配置位置 (top, bottom, left, right)。
+ascii_map	-- 可能なら、ASCIIマップで表示する。
+color		-- 可能なら、カラーで表示する。
+eight_bit_tty	-- 8ビット入力を許可する。
+font_map	-- マップウィンドウで使用されるフォントの名称。
+font_menu	-- メニューウィンドウで使用されるフォントの名称。
+font_message	-- メッセージウィンドウで使用されるフォントの名称。
+font_size_map	-- マップウィンドウで使用されるフォントのサイズ。
+font_size_menu	-- メニューウィンドウで使用されるフォントのサイズ。
+font_size_message 
+		-- メッセージウィンドウで使用されるフォントのサイズ。
+font_size_status-- ステータスウィンドウで使用されるフォントのサイズ。
+font_size_text	-- テキストウィンドウで使用されるフォントのサイズ。
+font_status	-- ステータスウィンドウで使用されるフォントの名称。
+font_text	-- テキストウィンドウで使用されるフォントの名称。
+fullscreen      -- スクリーン全体表示を試みる。
+hilite_pet	-- マップ上でペットを特別に表示する。
+map_mode	-- マップを指定した方法で表示する。
+player_selection
+		-- プレイヤー選択用のダイアログやプロンプト。
+popup_dialog	-- 入力用にダイアログをポップアップする。
+preload_tiles	-- メモリーにタイルをあらかじめ読み込む。
+scroll_amount   -- scroll_marginに到達したらスクロールする量。
+scroll_margin	-- 表示をスクロールするときの、主人公やカーソルのウィンド
+		   ウ端からのマス数。
+softkeyboard    -- 可能なら、ハンドヘルドにおいてスクリーンキーボードを表
+		   示する。
+splash_screen   -- 起動時のスプラッシュ画面を表示しない。
+tiled_map	-- 可能なら、マップをタイル表示する。
+tile_width	-- 可能なら、タイルの幅をこれで指定した幅で表示する。
+tile_height	-- 可能なら、タイルの高さをこれで指定した幅で表示する。
+tile_file	-- 標準以外のタイルファイルを開く。 ファイル名はウィンドウ
+		   ポートまたはプラットフォーム特有である傾向がある。
+use_inverse	-- NetHackにて反転表示指定になっているものを反転表示する。
+vary_msgcount	-- メッセージウィンドウに一度に表示するメッセージ数。
+windowcolors
+		-- 各ウィンドウのforeground/backgroundに使用する色を指定する。
+		   文法：
+		     menu fore/back message fore/back status fore/back text fore/back
+wraptext	-- ウィンドウの表示領域をはみ出すテキストを折り返して表示
+		   するかを指定する。
+mouse_support	-- 可能なら、マウスサポートを有効にする。
+
+これらの設定が変更されるときは常に、ポートのpreference_update()ルーチを呼
+ぶことで設定が変更されたことがポートに対して通知される。 
+ポートのwincapマスクのオプションビットをサポートするもののみ立てて
+おくことでサポートするもののみの通知を得ることができる。 ポートは
+受け取ったオプション変更通知に対応するか無視するかを選択できるが、
+前者のほうが推奨される。 なぜならユーザによる初期設定変更に対処したく
+ない場合、ポートはset_wc_option_mod_status(mask, SET_IN_FILE)を呼んで
+オプションをユーザに見せないだろうから。
+
+ウィンドウポートが使用可能な関数：
+
+set_wc_option_mod_status(optmask, status)
+		-- ポートが'O'コマンドのオプションメニューに表示したいオプ
+		   ションに対応するwincapオプションをoptmaskに|で結合して
+		   指定する。 第2パラメータstatusにはSET_IN_FILE、
+		   DISP_IN_GAME、SET_IN_GAMEのいずれかを指定する。
+		   （SET_IN_FILEを指定すると指定したオプションをゲーム中では
+		   完全に隠す。）
+
+set_wc2_option_mod_status(optmask, status)
+		-- ポートが'O'コマンドのオプションメニューに表示したいオプ
+		   ションに対応するwincap2オプションをoptmaskに|で結合して
+		   指定する。 第2パラメータstatusにはSET_IN_FILE、
+		   DISP_IN_GAME、SET_IN_GAMEのいずれかを指定する。
+		   （SET_IN_FILEを指定すると指定したオプションをゲーム中では
+		   完全に隠す。）
+
+set_option_mod_status(optnam, status)
+		-- wincapひとそろいのに含まれていないコアオプションの1つを
+		   optnamに指定する。 ポートが options.cで指定されているデ
+		   フォルト初期設定を上書きするのに使用可能である。 
+		   名前によるオプションの指定であり、オプションを組み合わせ
+		   て一度に指定できるset_wc_option_mod_status()とは異なった
+		   呼び出し方なのに注意すること。
+
+
+新しいwincapオプションの追加：
+
+新しいwincapオプションを指定するには、次の手順を踏むこと：
+	1. 上記のwincap設定テーブルにオプションを追加する。 wincapは
+	   いっぱいなので、対象はwincap2フィールドになるだろう。
+	2. 説明文をテーブルの下に追加する。
+	3. WC_またはWC2_で始まる定数をinclude/winprocs.hのビット一覧に追加
+	   する。 (wincapに空きがない場合はwincap2を使う。)
+	4. wc_またはwc2_で始まるフィールドをflag.hのiflags構造体に追加する。
+	5. options.cのwc_options[]またはwc2_options[]に名前と値を追加する。
+	6. options.cのparseoptions()に解析コードを追加する。
+	7. options.cのget_compopt_value()に現在の値を表示するコードを追加
+	   する。
+	8. doc配下のGuidebook.mn、Guidebook.tex、Guidebook.txt、
+	   jGuidebook.mn、jGuidebook.txt、dat配下のopthelp、jopthelpにオプ
+	   ション説明を記述する。場合によってはsys配下やwin配下のヘルプも。
+	9. ポートがオプションをサポート場合、ウィンドウポートのwindow_procs
+	   構造体のwincapまたはwincap2フィールドにOR結合したビット名を追加
+	   する。
+
+V.  新しい、もしくは再定義された共通の高レベルルーチン
+
+これらはインタフェースの一部ではないが、ここで言及しておこう。
+
+char display_inventory(lets, want_reply)
+		-- start_menu() / add_menu() / select_menu()を続けて呼ぶ。
+		   選択されたアイテムを返却、選択されなかった場合は'\0'を
+		   返却する。 メニューにてキャンセルされた場合は'\033'を返
+		   却する。
+raw_printf(str, ...)
+		-- raw_print()と似ているが、printf()のような引数を受け付け
+		   る。 このルーチンは引数を処理してraw_print()を呼び出す。
+		-- マックバージョンでは#defines error raw_printfとなってい
+		   る。 便利だからほかのポートでもやるべきだと思う。
+		   （訳注：現在のマックバージョンではエラー表示をポップアッ
+		   プするerror関数に置き換えられている。）
+pline(str, ...)
+		-- printf()インターフェースを使ってWIN_MESSAGEに文字列を出
+		   力する。 これのバリエーションとして同じようなメカニズム
+		   を使われたYou()、Your()、Norep()などがpline.cに定義され
+		   ている。 pline()は変数"char toplines[]"が定義されている
+		   ことを前提にする。 Norep()やpline()から呼ばれた
+		   WIN_MESSAGEを対象とするの全てのputstr()はstrをtoplines[]
+		   にコピーする必要がある。 ウィンドウシステムが
+		   (!iflags.window_inited)を有効にしない場合、pline()は
+		   raw_print()を使用することになる。
+
+
+VI.  補助ルーチン
+
+これはインタフェースの一部ではない。 これらは、個々のウィンドウポートに
+必要なコードを複製する代わりに、要求された仕事を実行するために、ウィンド
+ウポートのルーチンから呼ばれることがある。
+
+mapglyph(int glyph, int *ochar, int *ocolor, unsigned *special, int x, int y)
+		-- x,yの位置にあるglyphのNetHackにおけるアスキー文字と色を
+		   取得する。 もし対象がペットなどの特殊な何かならば、その
+		   情報をspecialにビット形式で返却する。 通常はウィンドウ
+		   ポートのprint_glyph()ルーチンから呼ばれる。
+
+
+VII.  ゲームの起動
+
+以下はウィンドウシステム関連としてmain()から呼ばれる一般命令である。
+実際のコードとは異なる可能性はあるが、呼び出し方は同じはずである。
+
+choose_windows(DEFAULT_WINDOW_SYS) /* デフォルトのウィンドウシステムを選択する */
+initoptions()			   /* リソースファイルを読む */
+init_nhwindows()		   /* ウィンドウシステムを初期化する */
+process_options(argc, argv)	   /* コマンドラインオプションまたは同等文字列を解析する */
+if(セーブファイルが存在) {
+  display_gamewindows()		   /* ゲームウィンドウの生成と表示 */
+  dorestore()			   /* 古いゲームの復元； pline()は使用可能 */
+} else {
+  player_selection()		   /* ウィンドウによるプレイヤータイプの選択 */
+  display_gamewindows()		   /* ゲームウィンドウの生成と表示 */
+}
+pline("Hello, welcome...");
+
+choose_windows()は共通ルーチンであり、raw_print()の呼び出しに失敗しないた
+めにmain()内で呼ばれて関数ポインターテーブルを何かで初期化する必要がある。
+choose_windows()はmain()に入ってできるだけすぐに呼ぶようにするべきである。
+例としてunixmain.cを参照のこと。
+
+display_gamewindows()は3つの基本ゲームウィンドウ（WIN_MESSAGE、WIN_MAPおよ
+びWIN_STATUS）を表示する共通ルーチンである。 通常は"Hello, welcome"の直前
+に呼べばよい。
+
+process_options()は現時点ではまだポートごとに固有になっている。 将来的には
+これをウィンドウポート単位で交換する必要があるかもしれない。
+
+
+VIII.  規約
+
+init_nhwindows()はコピーライトメッセージを含んだ、派手なバナーウィンドウの
+表示を想定している。 その場合、patchlevel.hでマクロ定義されている
+COPYRIGHT_BANNER_A、COPYRIGHT_BANNER_B、COPYRIGHT_BANNER_Cを使用してコピー
+ライトメッセージを構築することが推奨されている。 COPYRIGHT_BANNER_Aは
+NetHackコピーライトの宣言の文字列を引用してあり、 COPYRIGHT_BANNER_Bはコ
+ピーライトが誰のものであるかを引用してあり、COPYRIGHT_BANNER_Cは単に
+"See License for details."となっている。 これらのマクロを定義するために必
+ず#include "patchlevel.h"とすること。
+マクロを使用することで、リリースごとにそれぞれのウィンドウポートでのコピー
+ライト情報の更新し忘れを防げると思われる。
+（訳注：日本語版では更にJA_COPYRIGHT_BANNER_A、JA_COPYRIGHT_BANNER_B、
+JA_COPYRIGHT_BANNER_C、JA_COPYRIGHT_BANNER_Dが定義されている。
+JSALSH'EMではさらにJA_COPYRIGHT_BANNER_E、JA_COPYRIGHT_BANNER_Fも
+定義されている。 こちらは画面表示上の都合で文字列が分割されているのでこの
+順番での表示を推奨する。）
+
+ポート（MSDOS、TOS、MACなど）はそのポート専用のファイルでウィンドウポート
+の特殊ルーチンを*おそらく*使うだろうが、それは*自己責任でお願い*する。
+"ポート"と"ウィンドウポート"は直交しているので、"ウィンドウポート"の特殊
+ルーチンを使うことは"ポート"のコードの可搬性を下げることになる。 
+ポート特有のより適した何か（例：MSDOSのmsmsg()など）がない限り、ウィンドウ
+ポートルーチンを使う努力を最大限すべきである。
+
+ttyウィンドウポートはwin/ttyに含まれ、X window portはwin/X11に含まれる。
+これらのディレクトリ内のファイルはウィンドウポートのコードのみを含んでいる
+ため、それ以外のウィンドウポートと置き換えることも可能であろう。
+
+
+IX.  複数のウィンドウポートのサポートと実装
+
+NetHack3.2以上では、同じバイナリで複数のウィンドウシステムをサポートする。
+新しいウィンドウポートを記述する場合、以下のガイドラインに従う必要がある：
+
+1) ウィンドウポートを特定するユニークな略称を選択すること。 例えば、tty
+   ウィンドウポートは"tty"を、X11ウィンドウポートは"X11"を使用している。
+2) インタフェース関数を宣言するときは、ユニークな略称の関数名の接頭語と
+   すること。 例：
+
+	void tty_init_nhwindows()
+	{
+		/* ttyポートにおけるウィンドウの初期化コード */
+	}
+
+   ポートコードからウィンドウ機能を呼び出すとき、不要なオーバーヘッドを
+   避けるために前のバージョン接頭語付きバージョンを呼ぶことを提案する。
+   しかしながら、#include "hack.h"さえしておけば、接頭語のないバージョン
+   (例：tty_putstr()に対応するputstr())を安全に呼ぶことも可能である。
+   もしhack.hをインクルードすることなしに接頭語のない関数を用いれば、
+   コンパイル時もしくはリンク時にエラーになるだろう。
+
+   また、全関数とポート特有のデータにこの接頭語を付けて宣言することで他の
+   ウィンドウポートとの予期せぬオーバーラップを回避することを提案する。
+   ttyとX11ポートでは、現状ではこの提案を体現していないが、データと内部関
+   数に分離したオーバーラップしない命名規約を使用している。
+
+3) 構造体宣言は"struct window_procs prefix_procs"（prefixはウィンドウ
+   ポートごとの接頭語にすること）とし、設定するインターフェース関数の全て
+   に名前をつけること。 この構造体の最初の項目はウィンドウポートの名前とし、
+   それを接頭語にする。 次の項目はウィンドウポートが認識、再設定、サポート
+   可能なwincapマスクになる。（訳注：次の項目はwincap2マスクの設定になる。）
+   それ以外の項目は関数のアドレスである。
+
+   (2)で述べた規約に賛同する場合、既存のウィンドウポートから構造体定義を安
+   全にコピーして接頭語を変更することができる。 それによって初期化処理の命
+   令が正しいことが保障されるだろう。（ただし、全てのコンパイラが外部への
+   関数ポインタの宣言を許容するわけではない。）
+
+4) config.hの"Windowing systems"節にウィンドウポートを特定する識別子の
+   #defineを追加する。 ウィンドウポート用の"接頭語_GRAPHICS"規約に倣う。
+
+5) "Known window systems are"コメントにある有効な接頭語リストに接頭語を追
+   加する。
+
+6) makedefs.cを開いてwindow_optsに#ifdef 接頭語_GRAPHICSで囲ったウィンドウ
+   システムの文字列を追加する。
+
+7) windows.cを開いて#ifdef 接頭語_GRAPHICSで囲った外部参照「接頭語_procs」
+   を追加する。 また、win_choices構造体にウィンドウポート用に次の形式で項
+   目を追加する：
+
+    #ifdef 接頭語_GRAPHICS
+	{ &接頭語_procs, 接頭語_init関数 },
+    #endif
+
+   init関数はいくつかのコンパイラおよびシステムでの強制リンクするのに必要
+   である。 対象システムがそのような操作を必要としない場合、ここにnullポイ
+   ンタを指定すればよい。
+
+   win*.hファイルにて接頭語_procsと接頭語_init関数のextern文を定義し、
+   window.cの最初にそのファイルを#ifdef 接頭語_GRAPHICSで囲った状態で
+   #includeする必要がある。 いくつかのwin*.hファイルはややデリケートで、
+   win*.hをインクルードする代わりに接頭語_procsと接頭語_init関数を複製する
+   必要があるかもしれない。 ttyポートはwintty.hをインクルードし、X11ポート
+   は定義の複製を行っている。
+
+8) ポートでMakefile.srcを使用する場合、"WINSRC"と"WINOBJ"セクションに.cと
+   .oファイルとポート特定のコメントを追加すること。 使用スタイルのために
+   Makefile.srcを参照すること。 Makefile.srcを使用しない場合は、
+   対象システムにおけるmakeと同等の類似規約を使うことを提案する。 また、
+   新しいソースとバイナリをWINSRCとWINOBJに追加すること。（それらを含んだ
+   NetHackバイナリを求める場合はそうすること。）
+
+9) 対象ポートのportmain.c（main()を含むファイル）を参照し、全ての呼び出しが
+   VII章で設計した要件にマッチしていることを確認すること。
+
+それから、通常通りコンパイルとインストールを続行すること。 Makefile.src
+（または同等品）およびconfig.hを開いて望むバイナリおよび使用するデフォル
+トウィンドウポートおよびゲームをビルドするのに必要な.oをセットするのを忘
+れないこと。
+
+1つ注意。残念ながら、DEFAULT_WINDOW_SYSを間違って指定してしまうと、NetHack
+はいかなるメッセージも出力せずにコアダンプ（もしくは強制終了）してしまう。
+なぜならばウィンドウポートの初期設定なしにraw_print()は機能しないためだ。
