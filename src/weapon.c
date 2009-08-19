@@ -106,7 +106,7 @@ int skill;
 			"spell casting " :
 		"fighting ");
 #else
-	You("%sスキルを高める自信が湧いてきた．",
+	You("%sスキルを高める自信が湧いてきた。",
 		skill == P_NONE ?
 			"" :
 		skill <= P_LAST_WEAPON ?
@@ -581,7 +581,7 @@ boolean polyspot;
 /*JP
 			pline("%s drops %s.", Monnam(mon),
 */
-			pline("%sは%sを置いた．", Monnam(mon),
+			pline("%sは%sを置いた。", Monnam(mon),
 			  distant_name(obj, doname));
 		    newsym(mon->mx, mon->my);
 		}
@@ -690,14 +690,14 @@ register struct monst *mon;
 				  s_suffix(mon_nam(mon)),
 				  plur(mw_tmp->quan), welded_buf);
 #else
-			    pline("%sは武器を手にしようとしたが，",
+			    pline("%sは武器を手にしようとしたが、",
 				  mon_nam(mon));
 #endif
 #if 0 /*JP*/
 			    pline("%s cannot wield that %s.",
 				mon_nam(mon), xname(obj));
 #else
-			    pline("%sは%sを装備できなかった．",
+			    pline("%sは%sを装備できなかった。",
 				mon_nam(mon), xname(obj));
 #endif
 			} else {
@@ -705,7 +705,7 @@ register struct monst *mon;
 			    pline("%s tries to wield %s.", Monnam(mon),
 				doname(obj));
 #else
-			    pline("%sは%sを装備しようとした．", Monnam(mon),
+			    pline("%sは%sを装備しようとした。", Monnam(mon),
 				doname(obj));
 #endif
 #if 0 /*JP*/
@@ -922,7 +922,7 @@ int skill;
 	P_SKILL(skill) >= P_MAX_SKILL(skill) ? "most" : "more",
 	P_NAME(skill));
 #else
-    Your("%sのスキルを%s高めた．", P_NAME(skill),
+    Your("%sのスキルを%s高めた。", P_NAME(skill),
 	P_SKILL(skill) >= P_MAX_SKILL(skill) ? "最高に" : "さらに");
 #endif
 }
@@ -1031,7 +1031,7 @@ int enhance_skill(boolean want_dump)
 				"if skill slots become available");
 #else
 		    Sprintf(buf,
-			    "(\"*\"がついているスキルは%s高められる．)",
+			    "(\"*\"がついているスキルは%s高められる。)",
 			    (u.ulevel < MAXULEV) ?
 				"もっと経験をつめば" :
 				"スキルスロットが使えるようになれば");
@@ -1046,7 +1046,7 @@ int enhance_skill(boolean want_dump)
 			    plur(maxxed_cnt));
 #else
 		    Sprintf(buf,
-		  "(\"#\"がついているスキルはこれ以上高められない．)");
+		  "(\"#\"がついているスキルはこれ以上高められない。)");
 #endif
 		    add_menu(win, NO_GLYPH, &any, 0, 0, ATR_NONE,
 			     buf, MENU_UNSELECTED);
@@ -1505,7 +1505,7 @@ register struct obj *obj;
 		  s_suffix(mon_nam(mon)), mbodypart(mon,HAND),
 		  otense(obj, "stop"));
 #else
-	    pline("%sが持つ%sの輝きが消えた．",
+	    pline("%sが持つ%sの輝きが消えた。",
 		  mon_nam(mon), xname(obj));
 #endif
     }

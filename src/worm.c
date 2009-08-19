@@ -324,12 +324,12 @@ cutoff(worm, tail)
 /*JP
 	    pline("Part of the tail of %s is cut off.", mon_nam(worm));
 */
-	    pline("%sの尾の一部が切り落とされた．", mon_nam(worm));
+	    pline("%sの尾の一部が切り落とされた。", mon_nam(worm));
 	else
 /*JP
 	    You("cut part of the tail off of %s.", mon_nam(worm));
 */
-	    You("%sの尾の一部を切り落とした．", mon_nam(worm));
+	    You("%sの尾の一部を切り落とした。", mon_nam(worm));
 	toss_wsegs(tail, TRUE);
 	if (worm->mhp > 1) worm->mhp /= 2;
 }
@@ -437,7 +437,7 @@ cutworm(worm, x, y, weap)
 /*JP
     You("cut %s in half.", mon_nam(worm));
 */
-    You("%sを真っぷたつにした．", mon_nam(worm));
+    You("%sを真っぷたつにした。", mon_nam(worm));
 }
 
 

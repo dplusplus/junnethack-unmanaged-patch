@@ -382,7 +382,7 @@ register boolean nearshop;
 /*JP
 		pline("But no one seems to respond to it.");
 */
-		pline("しかし誰も応答しなかった．");
+		pline("しかし誰も応答しなかった。");
 	    return;
 	}
 
@@ -527,8 +527,8 @@ boolean newlev;
 		      "%s!  Please pay before leaving." :
 		      "%s!  Don't you leave without paying!",
 #else
-		      "%sさん！帰る前に，お金を払っていただけませんか．" :
-		      "%s！帰る前に，金を払え！",
+		      "%sさん！帰る前に、お金を払っていただけませんか。" :
+		      "%s！帰る前に、金を払え！",
 #endif
 		      plname);
 	    return;
@@ -597,7 +597,7 @@ struct monst *shkp;
 #if 0 /*JP*/
 	    Your("credit of %ld %s is used to cover your shopping bill.",
 #else
-	    Your("預け金から%ld%sが勘定の支払いに使われた．",
+	    Your("預け金から%ld%sが勘定の支払いに使われた。",
 #endif
 		 eshkp->credit, currency(eshkp->credit));
 	    total = 0L;		/* credit gets cleared by setpaid() */
@@ -616,7 +616,7 @@ struct monst *shkp;
 #if 0 /*JP*/
 	You("stole %ld %s worth of merchandise.",
 #else
-	You("雑貨を%ld%s分盗んだ．",
+	You("雑貨を%ld%s分盗んだ。",
 #endif
 	    total, currency(total));
 	if (!Role_if(PM_ROGUE))	/* stealing is unlawful */
@@ -637,7 +637,7 @@ register char *enterstring;
 /*JP
 	static const char no_shk[] = "This shop appears to be deserted.";
 */
-	static const char no_shk[] = "店は廃虚と化している．";
+	static const char no_shk[] = "店は廃虚と化している。";
 	static char empty_shops[5];
 
 	if(!*enterstring)
@@ -683,7 +683,7 @@ register char *enterstring;
 /*JP
 	    pline("%s senses your presence.", shkname(shkp));
 */
-	    pline("%sはあなたの存在に気がついた．", shkname(shkp));
+	    pline("%sはあなたの存在に気がついた。", shkname(shkp));
 #ifdef BLACKMARKET            
 	    if (!Is_blackmarket(&u.uz)) {
 /*JP
@@ -726,7 +726,7 @@ register char *enterstring;
 /*JP
 	    pline("%s mutters imprecations against shoplifters.", shkname(shkp));
 */
-	    pline("%sは万引き犯への悪態を呟いている．", shkname(shkp));
+	    pline("%sは万引き犯への悪態を呟いている。", shkname(shkp));
 	} else {
 #if 0 /*JP*/
 	    verbalize("%s, %s!  Welcome%s to %s %s!",
@@ -872,7 +872,7 @@ shopper_financial_report()
 /*JP
 	    You("have no credit or debt in here.");
 */
-	    You("預け金も借金もない．");
+	    You("預け金も借金もない。");
 	    this_shkp = 0;	/* skip first pass */
 	}
 
@@ -887,7 +887,7 @@ shopper_financial_report()
 #if 0 /*JP*/
 		    You("have %ld %s credit at %s %s.",
 #else
-		    You("%ld%sの預け金が%sの%sにある．",
+		    You("%ld%sの預け金が%sの%sにある。",
 #endif
 			amt, currency(amt), s_suffix(shkname(shkp)),
 			shtypes[eshkp->shoptype - SHOPBASE].name);
@@ -895,19 +895,19 @@ shopper_financial_report()
 /*JP
 		    You("have no credit in here.");
 */
-		    You("預け金はない．");
+		    You("預け金はない。");
 		if ((amt = shop_debt(eshkp)) != 0)
 #if 0 /*JP*/
 		    You("owe %s %ld %s.",
 #else
-		    You("%sに%ld%sの借りがある．",
+		    You("%sに%ld%sの借りがある。",
 #endif
 			shkname(shkp), amt, currency(amt));
 		else if (shkp == this_shkp)
 /*JP
 		    You("don't owe any money here.");
 */
-		    pline("この店に借りはない．");
+		    pline("この店に借りはない。");
 	    }
 }
 
@@ -1071,14 +1071,14 @@ register struct monst *shkp;
 /*JP
 		pline_The("price is deducted from your credit.");
 */
-		pline("代金は預け金から差し引かれた．");
+		pline("代金は預け金から差し引かれた。");
 		ESHK(shkp)->credit -=tmp;
 		tmp = 0L;
 	} else {
 /*JP
 		pline_The("price is partially covered by your credit.");
 */
-		pline("代金の一部はあなたの預け金で補われた．");
+		pline("代金の一部はあなたの預け金で補われた。");
 		ESHK(shkp)->credit = 0L;
 		tmp -= credit;
 	}
@@ -1127,7 +1127,7 @@ register boolean killkops;
 /*JP
 		You_feel("vaguely apprehensive.");
 */
-		You("なんとなく不安に思った．");
+		You("なんとなく不安に思った。");
 #endif
 		pacify_guards();
 	}
@@ -1196,7 +1196,7 @@ boolean verbosely;
 		pline("%s %s.", Monnam(shkp),
 		      shkp->msleeping ? "wakes up" : "can move again");
 #else
-		pline("%sは%s．", Monnam(shkp),
+		pline("%sは%s。", Monnam(shkp),
 		      shkp->msleeping ? "目が覚めた" : "ふたたび動けるようになった");
 #endif
 	    shkp->msleeping = 0;
@@ -1241,12 +1241,12 @@ register boolean silentkops;
 /*JP
 		    pline("Satisfied, %s suddenly disappears!", shk_nam);
 */
-		    pline("%sは満足すると，突然消えた！", shk_nam);
+		    pline("%sは満足すると、突然消えた！", shk_nam);
 	} else if(wasmad)
 /*JP
 		pline("%s calms down.", Monnam(shkp));
 */
-		pline("%sは落着いた．", Monnam(shkp));
+		pline("%sは落着いた。", Monnam(shkp));
 
 	if(!angry_shk_exists()) {
 #ifdef KOPS
@@ -1310,13 +1310,13 @@ register xchar ox,oy;
 /*JP
 STATIC_VAR const char no_money[] = "Moreover, you%s have no money.";
 */
-STATIC_VAR const char no_money[] = "しかしあなたはお金がない%s．";
+STATIC_VAR const char no_money[] = "しかしあなたはお金がない%s。";
 #if 0 /*JP:T*/
 STATIC_VAR const char not_enough_money[] =
 			    "Besides, you don't have enough to interest %s.";
 #else
 STATIC_VAR const char not_enough_money[] =
-		"しかも，あなたは%sが興味を持つほどお金を持っていない！";
+		"しかも、あなたは%sが興味を持つほどお金を持っていない！";
 #endif
 
 #else
@@ -1380,7 +1380,7 @@ dopay()
 /*JP
       There("appears to be no shopkeeper here to receive your payment.");
 */
-      pline("支払いを受けとる店主はここにはいないようだ．");
+      pline("支払いを受けとる店主はここにはいないようだ。");
 		return(0);
 	}
 
@@ -1407,7 +1407,7 @@ dopay()
 /*JP
 		    pline("%s is not near enough to receive your payment.",
 */
-		    pline("%sは遠くにいるので支払えない．",
+		    pline("%sは遠くにいるので支払えない。",
 					     Monnam(shkp));
 		    return(0);
 		}
@@ -1448,14 +1448,14 @@ dopay()
 /*JP
 		     There("is no one there to receive your payment.");
 */
-		     pline("支払いを受けとれる相手はいない．");
+		     pline("支払いを受けとれる相手はいない。");
 		     return(0);
 		}
 		if(!mtmp->isshk) {
 /*JP
 		     pline("%s is not interested in your payment.",
 */
-		     pline("%sは支払いに興味を示さない．",
+		     pline("%sは支払いに興味を示さない。",
 				    Monnam(mtmp));
 		     return(0);
 		}
@@ -1463,7 +1463,7 @@ dopay()
 /*JP
 		     pline("%s is too far to receive your payment.",
 */
-		     pline("%sは支払いを受けとるには遠すぎる．",
+		     pline("%sは支払いを受けとるには遠すぎる。",
 				    Monnam(mtmp));
 		     return(0);
 		}
@@ -1489,7 +1489,7 @@ proceed:
 		pline("%s %s.", Monnam(shkp),
 		      rn2(2) ? "seems to be napping" : "doesn't respond");
 #else
-		pline("%sは%s．", Monnam(shkp),
+		pline("%sは%s。", Monnam(shkp),
 		      rn2(2) ? "居眠りをしているようだ" : "反応がない");
 #endif
 		return 0;
@@ -1503,7 +1503,7 @@ proceed:
 /*JP
 		    You("do not owe %s anything.", mon_nam(shkp));
 */
-		    You("%sに借りはない．", mon_nam(shkp));
+		    You("%sに借りはない。", mon_nam(shkp));
 #ifndef GOLDOBJ
 		else if(!u.ugold) {
 #else
@@ -1512,12 +1512,12 @@ proceed:
 /*JP
 		    You("%shave no money.", stashed_gold ? "seem to " : "");
 */
-		    You("お金がない%s．", stashed_gold ? "ようだ" : "");
+		    You("お金がない%s。", stashed_gold ? "ようだ" : "");
 		    if(stashed_gold)
 /*JP
 			pline("But you have some gold stashed away.");
 */
-			pline("しかし，あなたにはちょっっとしたヘソクリがある．");
+			pline("しかし、あなたにはちょっっとしたヘソクリがある。");
 		} else {
 #ifndef GOLDOBJ
 		    long ugold = u.ugold;
@@ -1529,7 +1529,7 @@ proceed:
 			You("give %s the %ld gold piece%s %s asked for.",
 			    mon_nam(shkp), ltmp, plur(ltmp), mhe(shkp));
 #else
-			You("%sに望み通り%ld枚の金貨を与えた．",
+			You("%sに望み通り%ld枚の金貨を与えた。",
 			    mon_nam(shkp), ltmp);
 #endif
 			pay(ltmp, shkp);
@@ -1538,7 +1538,7 @@ proceed:
 			You("give %s all your%s gold.", mon_nam(shkp),
 					stashed_gold ? " openly kept" : "");
 #else
-			You("%sに%sお金全部を与えた．", mon_nam(shkp),
+			You("%sに%sお金全部を与えた。", mon_nam(shkp),
 					stashed_gold ? "手持ちの" : "");
 #endif
 #ifndef GOLDOBJ
@@ -1549,7 +1549,7 @@ proceed:
 /*JP
 			if (stashed_gold) pline("But you have hidden gold!");
 */
-			if (stashed_gold) pline("しかし，あなたはヘソクリがある！");
+			if (stashed_gold) pline("しかし、あなたはヘソクリがある！");
 		    }
 #ifndef GOLDOBJ
 		    if((ugold < ltmp/2L) || (ugold < ltmp && stashed_gold))
@@ -1559,7 +1559,7 @@ proceed:
 /*JP
 			pline("Unfortunately, %s doesn't look satisfied.",
 */
-			pline("残念ながら，%sは満足してないようだ．",
+			pline("残念ながら、%sは満足してないようだ。",
 			      mhe(shkp));
 		    else
 			make_happy_shk(shkp, FALSE);
@@ -1576,7 +1576,7 @@ proceed:
 /*JP
 		    You("do not owe %s anything.", mon_nam(shkp));
 */
-		    You("%sに借りはない．", mon_nam(shkp));
+		    You("%sに借りはない。", mon_nam(shkp));
 #ifndef GOLDOBJ
 		    if (!u.ugold)
 #else
@@ -1590,7 +1590,7 @@ proceed:
 /*JP
 		    pline("%s is after blood, not money!", Monnam(shkp));
 */
-		    pline("%sは血まみれだ．お金どころじゃない！", Monnam(shkp));
+		    pline("%sは血まみれだ。お金どころじゃない！", Monnam(shkp));
 #ifndef GOLDOBJ
 		    if(u.ugold < ltmp/2L ||
 				(u.ugold < ltmp && stashed_gold)) {
@@ -1610,12 +1610,12 @@ proceed:
 /*JP
 		    pline("But since %s shop has been robbed recently,",
 */
-		    pline("しかし，%s店は最近盗みにあったので，",
+		    pline("しかし、%s店は最近盗みにあったので、",
 			  mhis(shkp));
 #if 0 /*JP*/
 		    pline("you %scompensate %s for %s losses.",
 #else
-		    You("%sの損失%sを補填した．", mon_nam(shkp),
+		    You("%sの損失%sを補填した。", mon_nam(shkp),
 #endif
 #ifndef GOLDOBJ
 			  (u.ugold < ltmp) ? 
@@ -1647,7 +1647,7 @@ proceed:
 /*JP
 		    pline("%s is after your hide, not your money!",
 */
-		    pline("%sはあなたの命を狙っている，お金どころじゃない！",
+		    pline("%sはあなたの命を狙っている、お金どころじゃない！",
 			  Monnam(shkp));
 #ifndef GOLDOBJ
 		    if(u.ugold < peace_offering) {
@@ -1671,7 +1671,7 @@ proceed:
 		    You("try to appease %s by giving %s %d gold pieces.",
 			x_monnam(shkp, ARTICLE_THE, "angry", 0, FALSE),
 			mhim(shkp), peace_offering);
-		    You("金貨%d枚を%sに手渡してなだめようとした．",
+		    You("金貨%d枚を%sに手渡してなだめようとした。",
 			peace_offering,
 			x_monnam(shkp, ARTICLE_THE, "怒った", 0, FALSE));
 #endif
@@ -1682,7 +1682,7 @@ proceed:
 /*JP
 			pline("But %s is as angry as ever.", mon_nam(shkp));
 */
-			pline("しかし%sはまだ怒っている．", mon_nam(shkp));
+			pline("しかし%sはまだ怒っている。", mon_nam(shkp));
 		}
 		return(1);
 	}
@@ -1708,19 +1708,19 @@ proceed:
 /*JP
 			Strcat(sbuf, "you picked up in the store.");
 */
-			Strcpy(sbuf, "店の中で拾ったものに対して，");
+			Strcpy(sbuf, "店の中で拾ったものに対して、");
 #if 0 /*JP*/
 		    else Strcat(sbuf,
 			   "for gold picked up and the use of merchandise.");
 #else
-		    else Strcpy(sbuf,"拾ったお金や使った雑貨に対して，");
+		    else Strcpy(sbuf,"拾ったお金や使った雑貨に対して、");
 #endif
 /*JP
 		} else Strcat(sbuf, "for the use of merchandise.");
 */
-		} else Strcpy(sbuf, "使った雑貨に対して，");
+		} else Strcpy(sbuf, "使った雑貨に対して、");
 #if 1 /*JP*/
-		Sprintf(eos(sbuf), "%sに%ld%sの借りがある．",
+		Sprintf(eos(sbuf), "%sに%ld%sの借りがある。",
 			shkname(shkp), dtmp, currency(dtmp));
 #endif
 		pline(sbuf);
@@ -1734,7 +1734,7 @@ proceed:
 			stashed_gold ? " seem to" : "",
 			eshkp->credit ? " or credit" : "");
 #else
-		    pline("しかし，お金%s足りない%s．",
+		    pline("しかし、お金%s足りない%s。",
 			eshkp->credit ? "も預け金も" : "が",
 			stashed_gold ? "ようだ" : "");
 #endif
@@ -1747,7 +1747,7 @@ proceed:
 /*JP
 			Your("debt is covered by your credit.");
 */
-			Your("借金は預け金で補われた．");
+			Your("借金は預け金で補われた。");
 		    } else if (!eshkp->credit) {
 #ifndef GOLDOBJ
 			u.ugold -= dtmp;
@@ -1760,7 +1760,7 @@ proceed:
 /*JP
 			You("pay that debt.");
 */
-			You("借金を払った．");
+			You("借金を払った。");
 			flags.botl = 1;
 		    } else {
 			dtmp -= eshkp->credit;
@@ -1776,11 +1776,11 @@ proceed:
 /*JP
 			pline("That debt is partially offset by your credit.");
 */
-			pline("その借金は一部預け金で相殺された．");
+			pline("その借金は一部預け金で相殺された。");
 /*JP
 			You("pay the remainder.");
 */
-			You("残りを払った．");
+			You("残りを払った。");
 			flags.botl = 1;
 		    }
 		    paid = TRUE;
@@ -1800,7 +1800,7 @@ proceed:
 				    stashed_gold ? "seem to " : "",
 				    paid ? " left" : "");
 #else
-		You("%sお金も預け金も持ってない%s．",
+		You("%sお金も預け金も持ってない%s。",
 				    paid ? "もう" : "",
 				    stashed_gold ? "ようだ" : "");
 #endif
@@ -1815,7 +1815,7 @@ proceed:
 		You("don't have enough money to buy%s the item%s you picked.",
 		    eshkp->billct > 1 ? " any of" : "", plur(eshkp->billct));
 #else
-		pline("拾った品物を買うにはお金が足りない．");
+		pline("拾った品物を買うにはお金が足りない。");
 #endif
 		if(stashed_gold)
 /*JP
@@ -1929,7 +1929,7 @@ boolean itemize;
 		You("%shave no money or credit left.",
 			     stashed_gold ? "seem to " : "");
 #else
-		You("もうお金も預け金もない%s．",
+		You("もうお金も預け金もない%s。",
 			     stashed_gold ? "ようだ" : "");
 #endif
 		return PAY_BROKE;
@@ -1956,7 +1956,7 @@ boolean itemize;
 #if 0 /*JP*/
 	    Sprintf(qbuf,"%s for %ld %s.  Pay?", quan == 1L ?
 #else
-	    Sprintf(qbuf,"%sは%ld%sです．買いますか？", quan == 1L ?
+	    Sprintf(qbuf,"%sは%ld%sです。買いますか？", quan == 1L ?
 #endif
 		    Doname2(obj) : doname(obj), ltmp, currency(ltmp));
 	    if (yn(qbuf) == 'n') {
@@ -1970,7 +1970,7 @@ boolean itemize;
 #else
 		verbalize("それを買うまえに他の%sを%s",
 			  xname(obj),
-			  ANGRY(shkp) ? "払え！" : "払ってください．");
+			  ANGRY(shkp) ? "払え！" : "払ってください。");
 #endif
 		buy = PAY_SKIP;		/* shk won't sell */
 	    }
@@ -1986,7 +1986,7 @@ boolean itemize;
 		(ESHK(shkp)->credit > 0L) ? " or credit" : "",
 		doname(obj));
 #else
-	    You("%sの代金を支払うだけのお金%s持ってない%s．",
+	    You("%sの代金を支払うだけのお金%s持ってない%s。",
 		doname(obj),
 		(ESHK(shkp)->credit > 0L) ? "も預け金も" : "を",
 		stashed_gold ? "ようだ" : "");
@@ -2008,8 +2008,8 @@ boolean itemize;
 			"bought %s for %ld gold piece%s.%s", ltmp, "");
 #else
 	shk_names_obj(shkp, obj, consumed ?
-			"%sに金貨%ld枚%sを支払った．%s" :
-			"%sを金貨%ld枚%sで買った．%s", ltmp, "");
+			"%sに金貨%ld枚%sを支払った。%s" :
+			"%sを金貨%ld枚%sで買った。%s", ltmp, "");
 #endif
 	obj->quan = save_quan;		/* restore original count */
 	/* quan => amount just bought, save_quan => remaining unpaid count */
@@ -2102,10 +2102,10 @@ int croaked;
 			   ", shakes his head,") : "",
 		      !inhishop(shkp) ? "disappears" : "sighs");
 #else
-		pline("%sは%sあなたの死体を見て%s%s．",
+		pline("%sは%sあなたの死体を見て%s%s。",
 		      Monnam(shkp),
 		      (!shkp->mcanmove || shkp->msleeping) ? "目をさますと" : "",
-		      !rn2(2) ? "首を振り，" : "",
+		      !rn2(2) ? "首を振り、" : "",
 		      !inhishop(shkp) ? "姿を消した" : "溜息をついた");
 #endif
 	    rouse_shk(shkp, FALSE);	/* wake shk for bones */    
@@ -2122,7 +2122,7 @@ int croaked;
 /*JP
 			pline("%s gratefully inherits all your possessions.",
 */
-			pline("%sはあなたの持ち物をありがたく受けとった．",
+			pline("%sはあなたの持ち物をありがたく受けとった。",
 				shkname(shkp));
 		set_repo_loc(eshkp);
 		goto clear;
@@ -2147,12 +2147,12 @@ int croaked;
 /*JP
 			Strcat(takes, "wakes up and ");
 */
-			Strcat(takes, "目がさめると，");
+			Strcat(takes, "目がさめると、");
 		if (distu(shkp->mx, shkp->my) > 2)
 /*JP
 			Strcat(takes, "comes and ");
 */
-			Strcat(takes, "近づき，");
+			Strcat(takes, "近づき、");
 #if 0 /*JP*/
 		Strcat(takes, "takes");
 #endif
@@ -2173,7 +2173,7 @@ int croaked;
 /*JP
 			pline("%s %s all your possessions.",
 */
-			pline("%sは%sあなたの持ち物すべてをもらった．",
+			pline("%sは%sあなたの持ち物すべてをもらった。",
 			      shkname(shkp), takes);
 			taken = TRUE;
 			/* where to put player's invent (after disclosure) */
@@ -2194,7 +2194,7 @@ int croaked;
 					"" : "you ",
 			      shkp->female ? "her" : "him");
 #else
-			pline("%sは%s%s借りている%ld%sを受けとった．",
+			pline("%sは%s%s借りている%ld%sを受けとった。",
 			      Monnam(shkp), takes,
 			      strncmp(eshkp->customer, plname, PL_NSIZ) ?
 					"" : "あなたが",
@@ -2775,7 +2775,7 @@ speak:
 /*JP
 		pline("%s has no interest in %s.", Monnam(shkp),
 */
-		pline("%sは%sに興味を示さない．", Monnam(shkp),
+		pline("%sは%sに興味を示さない。", Monnam(shkp),
 					     the(xname(obj)));
 		return;
 	    }
@@ -2792,8 +2792,8 @@ speak:
 		  "good", "honored", "most gracious", "esteemed",
 		  "most renowned and sacred"
 #else
-		    "やぁ", "やぁ，名誉ある", "やぁ，上品な", "やぁ，尊敬する",
-		    "やぁ，高名で神聖な"
+		    "やぁ", "やぁ、名誉ある", "やぁ、上品な", "やぁ、尊敬する",
+		    "やぁ、高名で神聖な"
 #endif
 		};
 		Strcat(buf, honored[rn2(4) + u.uevent.udemigod]);
@@ -2814,7 +2814,7 @@ speak:
 		pline("%s; only %ld %s %s.\"", buf, ltmp,
 			(quan > 1L) ? "per" : "for this", xname(obj));
 #else
-		pline("%s．%sは%sたったの金貨%ld枚だ．」", buf, xname(obj),
+		pline("%s。%sは%sたったの金貨%ld枚だ。」", buf, xname(obj),
 			(quan > 1L) ? "1つ" : "", ltmp);
 #endif
 		obj->quan = quan;
@@ -2835,10 +2835,10 @@ speak:
 				   (obj->quan > 1L) ? " each" : "");
 	    else pline("%s does not notice.", Monnam(shkp));
 #else
-	    if(ltmp) pline("%sの値段は%s%ld%sだ．",
+	    if(ltmp) pline("%sの値段は%s%ld%sだ。",
 				   the(xname(obj)), 
 				   (obj->quan > 1L) ? "それぞれ" : "", ltmp, currency(ltmp));
-	    else pline("%sは気がついていない．", Monnam(shkp));
+	    else pline("%sは気がついていない。", Monnam(shkp));
 #endif
 	}
 }
@@ -3035,7 +3035,7 @@ register boolean peaceful, silent;
 #if 0 /*JP*/
 			You("have %ld %s credit remaining.",
 #else
-			You("%ld%sの預け金が残っている．",
+			You("%ld%sの預け金が残っている。",
 #endif
 				 ESHK(shkp)->credit, currency(ESHK(shkp)->credit));
 			return value;
@@ -3043,7 +3043,7 @@ register boolean peaceful, silent;
 /*JP
 			You("have no credit remaining.");
 */
-			pline("預け金はなくなった．");
+			pline("預け金はなくなった。");
 			return 0;
 		    }
 #if 0 /*JP*/
@@ -3078,13 +3078,13 @@ register boolean peaceful, silent;
 		    Norep("%s booms: \"%s, you are a thief!\"",
 				Monnam(shkp), plname);
 #else
-		    Norep("%sは叫んだ：「%s，待て！このどろぼうめ！」",
+		    Norep("%sは叫んだ：「%s、待て！このどろぼうめ！」",
 				Monnam(shkp), plname);
 #endif
 /*JP
 		} else  Norep("You hear a scream, \"Thief!\"");
 */
-		} else  Norep("金切り声を聞いた，「待て！このどろぼうめ！」");
+		} else  Norep("金切り声を聞いた、「待て！このどろぼうめ！」");
 	    }
 	    hot_pursuit(shkp);
 	    (void) angry_guards(FALSE);
@@ -3167,7 +3167,7 @@ xchar x, y;
 /*JP
 		    pline("%s seems uninterested.", Monnam(shkp));
 */
-		    pline("%sは興味がないようだ．", Monnam(shkp));
+		    pline("%sは興味がないようだ。", Monnam(shkp));
 		return;
 	}
 
@@ -3179,7 +3179,7 @@ xchar x, y;
 /*JP
 		pline("Thank you, scum!");
 */
-		pline("ありがとよ，このクソったれ！");
+		pline("ありがとよ、このクソったれ！");
 		subfrombill(obj, shkp);
 		return;
 	}
@@ -3193,7 +3193,7 @@ xchar x, y;
 /*JP
   "Thank you for your contribution to restock this recently plundered shop.");
 */
-  "寄贈をどうもありがとう．最近盗みにあって参ってたんだ．");
+  "寄贈をどうもありがとう。最近盗みにあって参ってたんだ。");
 		subfrombill(obj, shkp);
 		return;
 	}
@@ -3211,7 +3211,7 @@ xchar x, y;
 /*JP
 		    Your("debt is %spaid off.",
 */
-		    Your("借金は%s支払われた．",
+		    Your("借金は%s支払われた。",
 /*JP
 				eshkp->debit ? "partially " : "");
 */
@@ -3226,13 +3226,13 @@ xchar x, y;
 /*JP
 			Your("debt is paid off.");
 */
-			Your("借金は支払われた．");
+			Your("借金は支払われた。");
 		    }
 #if 0 /*JP*/
 		    pline("%ld %s %s added to your credit.",
 				delta, currency(delta), delta > 1L ? "are" : "is");
 #else
-		    pline("%ld%sを預けた．",
+		    pline("%ld%sを預けた。",
 				delta, currency(delta));
 #endif
 		}
@@ -3259,7 +3259,7 @@ move_on:
 		pline("%s seems uninterested%s.", Monnam(shkp),
 			cgold ? " in the rest" : "");
 #else
-		pline("%sは%s興味がないようだ．", Monnam(shkp),
+		pline("%sは%s興味がないようだ。", Monnam(shkp),
 			cgold ? "残り物には" : "");
 #endif
 		if (container)
@@ -3282,7 +3282,7 @@ move_on:
 /*JP
 		    pline("%s cannot pay you at present.", Monnam(shkp));
 */
-		    pline("%sは今のところは支払えない．", Monnam(shkp));
+		    pline("%sは今のところは支払えない。", Monnam(shkp));
 		    Sprintf(qbuf,
 #if 0 /*JP*/
 			    "Will you accept %ld %s in credit for %s?",
@@ -3311,8 +3311,8 @@ move_on:
 			    (eshkp->credit > 0L) ? "additional " : "");
 #else
 		    shk_names_obj(shkp, obj, (sell_how != SELL_NORMAL) ?
-			  "%sを金貨%ld枚分の預け金で受けとった%s．" :
-			  "%sを渡し，金貨%ld枚分の預け金を得た%s．",
+			  "%sを金貨%ld枚分の預け金で受けとった%s。" :
+			  "%sを渡し、金貨%ld枚分の預け金を得た%s。",
 				  tmpcr, "");
 #endif
 		    eshkp->credit += tmpcr;
@@ -3351,7 +3351,7 @@ move_on:
 			    "it" : "them");
 #else
 		    Sprintf(qbuf,
-			    "%sはあなたの%s%sに%ldの値%s．売りますか？",
+			    "%sはあなたの%s%sに%ldの値%s。売りますか？",
 			    Monnam(shkp), cxname(obj),
 			    (!ltmp && cltmp) ? "の中身" : "",
 			    offer, 
@@ -3379,9 +3379,9 @@ move_on:
 				    "sold %s for %ld gold piece%s.%s" :
 	       "relinquish %s and receive %ld gold piece%s in compensation.%s",
 #else
-			    	    "%sの中身を金貨%ld枚で売った%s．%s" :
-				    "%sを金貨%ld枚で売った%s．%s" :
-	       "%sを渡し，金貨%ld枚の代償を受けとった%s．%s",
+			    	    "%sの中身を金貨%ld枚で売った%s。%s" :
+				    "%sを金貨%ld枚で売った%s。%s" :
+	       "%sを渡し、金貨%ld枚の代償を受けとった%s。%s",
 #endif
 				    offer, "");
 			    break;
@@ -3547,7 +3547,7 @@ register xchar x, y;
 /*JP
 		    verbalize("Out of my way, scum!");
 */
-		    verbalize("どけ，クソったれ！");
+		    verbalize("どけ、クソったれ！");
 		if (cansee(x, y)) {
 #if 0 /*JP*/
 		    pline("%s nimbly%s catches %s.",
@@ -3555,7 +3555,7 @@ register xchar x, y;
 			  (x == shkp->mx && y == shkp->my) ? "" : " reaches over and",
 			  the(xname(obj)));
 #else
-		    pline("%sはすばやく%s%sをつかまえた．",
+		    pline("%sはすばやく%s%sをつかまえた。",
 			  Monnam(shkp),
 			  (x == shkp->mx && y == shkp->my) ? "" : "近づいて",
 			  the(xname(obj)));
@@ -3693,7 +3693,7 @@ register boolean croaked;
 						  "some" : "several",
 		  (saw_walls == 1) ? "" : "s", (saw_walls == 1) ? "s" : "");
 #else
-	    pline("突然，壁が%s閉まった！",
+	    pline("突然、壁が%s閉まった！",
 		  (saw_walls == 1) ? "一箇所" : (saw_walls <= 3) ?
 						  "何箇所か" : "あちこちで");
 #endif
@@ -3712,12 +3712,12 @@ register boolean croaked;
 /*JP
 		pline("Suddenly, the shop door reappears!");
 */
-		pline("突然，店の扉がまた現われた！");
+		pline("突然、店の扉がまた現われた！");
 	    else if (saw_floor)
 /*JP
 		pline("Suddenly, the floor damage is gone!");
 */
-		pline("突然，床の傷がなくなった！");
+		pline("突然、床の傷がなくなった！");
 	    else if (saw_untrap)
 /*JP
 	        pline("Suddenly, the trap is removed from the floor!");
@@ -3727,12 +3727,12 @@ register boolean croaked;
 /*JP
 		You_feel("more claustrophobic than before.");
 */
-		You("前より閉所恐怖症気味になった．");
+		You("前より閉所恐怖症気味になった。");
 	    else if (flags.soundok && !rn2(10))
 /*JP
 		Norep("The dungeon acoustics noticeably change.");
 */
-		Norep("迷宮の音響はいちじるしく変った．");
+		Norep("迷宮の音響はいちじるしく変った。");
 	}
 	if (stop_picking)
 		stop_occupation();
@@ -3913,7 +3913,7 @@ register struct monst *shkp;
 			    verbalize("%s, %s!  I was looking for %s.",
 				    Hello(shkp), plname, eshkp->customer);
 #else
-			    verbalize("%s！わたしは%sを探しています．",
+			    verbalize("%s！わたしは%sを探しています。",
 				    Hello(shkp, TRUE), eshkp->customer);
 #endif
 				    eshkp->following = 0;
@@ -3932,7 +3932,7 @@ register struct monst *shkp;
 /*JP
 			      pline("%s doesn't like customers who don't pay.",
 */
-			      pline ("%sは金を払わない客が嫌いみたいだ．",
+			      pline ("%sは金を払わない客が嫌いみたいだ。",
 				    Monnam(shkp));
 				rile_shk(shkp);
 			    }
@@ -4068,7 +4068,7 @@ register int fall;
 /*JP
 	    You_feel("like a common thief.");
 */
-	    You("泥棒同然な気がした．");
+	    You("泥棒同然な気がした。");
 	    adjalign(-sgn(u.ualign.type));
 	}
 	return;
@@ -4082,7 +4082,7 @@ register int fall;
 			"Be careful, %s, or you might fall through the floor.",
 			flags.female ? "madam" : "sir");
 #else
-	    verbalize("注意してください%s，床から落ちますよ．",
+	    verbalize("注意してください%s、床から落ちますよ。",
 		flags.female ? "お嬢さん" : "お客さん");
 #endif
 	    else
@@ -4090,7 +4090,7 @@ register int fall;
 		verbalize("%s, do not damage the floor here!",
 			flags.female ? "Madam" : "Sir");
 #else
-	    verbalize("%s，床に傷をつけないでください！",
+	    verbalize("%s、床に傷をつけないでください！",
 			flags.female ? "お嬢さん" : "お客さん");
 #endif
 	}
@@ -4098,7 +4098,7 @@ register int fall;
 #if 0 /*JP*/
 	    You_feel("like a common thief.");
 #else
-	    You("泥棒同然な気がした．");
+	    You("泥棒同然な気がした。");
 #endif
 	    adjalign(-sgn(u.ualign.type));
 	}
@@ -4140,7 +4140,7 @@ register int fall;
 			  shkname(shkp),
 			  makeplural(locomotion(shkp->data,"leap")), grabs);
 #else
-		    pline("%sは飛びついて，あなたの背負い袋を%s！",
+		    pline("%sは飛びついて、あなたの背負い袋を%s！",
 					shkname(shkp), grabs);
 #endif
 	    } else
@@ -4398,7 +4398,7 @@ getcad:
 /*JP
 		pline("Mollified, %s accepts your restitution.",
 */
-		pline("%sは，感情をやわらげ賠償金を受けとった．",
+		pline("%sは、感情をやわらげ賠償金を受けとった。",
 			shkname(shkp));
 		/* move shk back to his home loc */
 		home_shk(shkp, FALSE);
@@ -4407,7 +4407,7 @@ getcad:
 /*JP
 		verbalize("Oh, yes!  You'll pay!");
 */
-		verbalize("さあ，払うんだ！");
+		verbalize("さあ、払うんだ！");
 		hot_pursuit(shkp);
 		adjalign(-sgn(u.ualign.type));
 	}
@@ -4494,7 +4494,7 @@ register struct obj *first_obj;
 #if 0 /*JP*/
 	Sprintf(buf, "%s, %s", doname(otmp), price);
 #else
-	Sprintf(buf, "%s，%s", doname(otmp), price);
+	Sprintf(buf, "%s、%s", doname(otmp), price);
 #endif
 	putstr(tmpwin, 0, buf),  cnt++;
     }
@@ -4517,7 +4517,7 @@ register struct obj *first_obj;
 		cost, currency(cost), first_obj->quan > 1L ? " each" : "",
 		shk_embellish(first_obj, cost));
 #else
-	    pline("%s%sは%s%ld%sだ．", 
+	    pline("%s%sは%s%ld%sだ。", 
 		  shk_embellish(first_obj, cost),
 		  doname(first_obj),
 		  first_obj->quan > 1L ? "それぞれ" : "",
@@ -4596,15 +4596,15 @@ const char *Izchak_speaks[]={
     "%s says: 'You may well need something from this shop in the future.'",
     "%s comments about the Valley of the Dead as being a gateway."
 #else
-    "%s曰く『これらショッピング街は頭痛のタネだ．』",
-    "%s曰く『落ち着いて，明晰に考えよ．』",
-    "%s曰く『一度に一個ずつ取る必要がある．』",
-    "%s曰く『ホモっぽいコーヒは好きじゃない．．．コロンビアン・スプレモをたのむ．』",
-    "開発チームに何らかの協定を求めることは困難だと%sは述べた．",
-    "%sは神に仕えるやつは金を儲けていると述べた．",
-    "%s曰く『私から盗もうなんて思わないことだ．上の方に知り合いがいるんだから．』",
+    "%s曰く『これらショッピング街は頭痛のタネだ。』",
+    "%s曰く『落ち着いて、明晰に考えよ。』",
+    "%s曰く『一度に一個ずつ取る必要がある。』",
+    "%s曰く『ホモっぽいコーヒは好きじゃない．．．コロンビアン・スプレモをたのむ。』",
+    "開発チームに何らかの協定を求めることは困難だと%sは述べた。",
+    "%sは神に仕えるやつは金を儲けていると述べた。",
+    "%s曰く『私から盗もうなんて思わないことだ。上の方に知り合いがいるんだから。』",
     "%s曰く『将来この店の何かが必要となるだろう』",
-    "%sは死の谷はゲートウェイだろうとコメントを述べた．"
+    "%sは死の谷はゲートウェイだろうとコメントを述べた。"
 #endif
 };
 
@@ -4643,7 +4643,7 @@ struct monst *shkp;
 #if 0 /*JP*/
 		pline("%s asks whether you've seen any untended shops recently.",
 #else
-		pline("%sは最近どこかに店員のいない店はないかとたずねた．",
+		pline("%sは最近どこかに店員のいない店はないかとたずねた。",
 #endif
 		      Monnam(shkp));
 		/* [Perhaps we ought to check whether this conversation
@@ -4659,7 +4659,7 @@ struct monst *shkp;
 			shkname(shkp), mhe(shkp),
 			eshk->robbed ? "non-paying" : "rude");
 #else
-		pline("%sは%s客は大嫌いだと言った．",
+		pline("%sは%s客は大嫌いだと言った。",
 			shkname(shkp), 
 			eshk->robbed ? "金を支払わない" : "無礼な");
 #endif
@@ -4669,7 +4669,7 @@ struct monst *shkp;
 		    verbalize("%s %s!  I was looking for %s.",
 			    Hello(shkp), plname, eshk->customer);
 #else
-		    verbalize("%s！私は%sを探しています．",
+		    verbalize("%s！私は%sを探しています。",
 			    Hello(shkp, TRUE), eshk->customer);
 #endif
 		    eshk->following = 0;
@@ -4687,7 +4687,7 @@ struct monst *shkp;
 #if 0 /*JP*/
 		pline("%s says that your bill comes to %ld %s.",
 #else
-		pline("%sは勘定が%ld%sになると言った．",
+		pline("%sは勘定が%ld%sになると言った。",
 #endif
 		      shkname(shkp), total, currency(total));
 	} else if (eshk->debit)
@@ -4696,13 +4696,13 @@ struct monst *shkp;
 		      shkname(shkp), mhim(shkp),
 		      eshk->debit, currency(eshk->debit));
 #else
-		pline("あなたは%sに%ld%sの借りがあることを思いだした．",
+		pline("あなたは%sに%ld%sの借りがあることを思いだした。",
 		      shkname(shkp),
 		      eshk->debit, currency(eshk->debit));
 #endif
 	else if (eshk->credit)
 #if 0 /*JP*/
-		pline("%sはクレジットで%ld%s使うよう勧めた．",
+		pline("%sはクレジットで%ld%s使うよう勧めた。",
 #else
 		pline("%s encourages you to use your %ld %s of credit.",
 #endif
@@ -4711,7 +4711,7 @@ struct monst *shkp;
 #if 0 /*JP*/
 		pline("%s complains about a recent robbery.", shkname(shkp));
 #else
-		pline("%sは最近の強盗について愚痴をこぼした．", shkname(shkp));
+		pline("%sは最近の強盗について愚痴をこぼした。", shkname(shkp));
 #endif
 #ifndef GOLDOBJ
 	else if (shkp->mgold < 50)
@@ -4721,7 +4721,7 @@ struct monst *shkp;
 /*JP
 		pline("%s complains that business is bad.", shkname(shkp));
 */
-		pline("%sは商売が旨くいってないと愚痴をこぼした．", shkname(shkp));
+		pline("%sは商売が旨くいってないと愚痴をこぼした。", shkname(shkp));
 #ifndef GOLDOBJ
 	else if (shkp->mgold > 4000)
 #else
@@ -4730,7 +4730,7 @@ struct monst *shkp;
 /*JP
 		pline("%s says that business is good.", shkname(shkp));
 */
-		pline("%sは商売が旨くいっていると言った．", shkname(shkp));
+		pline("%sは商売が旨くいっていると言った。", shkname(shkp));
 	else if (strcmp(shkname(shkp), "Izchak") == 0)
 		pline(Izchak_speaks[rn2(SIZE(Izchak_speaks))],shkname(shkp));
 	else if (Role_if(PM_ARCHEOLOGIST) &&
@@ -4739,13 +4739,13 @@ struct monst *shkp;
 /*JP
 		pline("%s says that he's selling these fine leather jackets.",
 */
-		pline("%sは素晴らしい革ジャケットを販売中だと言った．",
+		pline("%sは素晴らしい革ジャケットを販売中だと言った。",
 		       shkname(shkp));
 	else
 /*JP
 		pline("%s talks about the problem of shoplifters.",shkname(shkp));
 */
-		pline("%sは万引の問題について話した．", shkname(shkp));
+		pline("%sは万引の問題について話した。", shkname(shkp));
 }
 
 #ifdef KOPS
@@ -4768,7 +4768,7 @@ register boolean silent;
 	    pline_The("Kop%s (disappointed) vanish%s into thin air.",
 		      plur(cnt), cnt == 1 ? "es" : "");
 #else
-	    pline("がっかりした警官は空気にとけて消えた．");
+	    pline("がっかりした警官は空気にとけて消えた。");
 #endif
 }
 #endif	/* KOPS */
@@ -4858,7 +4858,7 @@ boolean altusage;
 /*JP
 	    fmt = "%sYou owe%s %ld %s.";
 */
-	    fmt = "%s%s%ld%sの借りだ．";
+	    fmt = "%s%s%ld%sの借りだ。";
 #if 0 /*JP*/
 	    arg1 = rn2(2) ? "This is no free library, cad!  " : "";
 	    arg2 = ESHK(shkp)->debit > 0L ? " an additional" : "";
@@ -4870,18 +4870,18 @@ boolean altusage;
 /*JP
 	    fmt = "%s%sThat will cost you %ld %s (Yendorian Fuel Tax).";
 */
-	    fmt = "%s%s値段は%ld%s(イェンダー燃料税)だ．";
+	    fmt = "%s%s値段は%ld%s(イェンダー燃料税)だ。";
 	} else {
 /*JP
 	    fmt = "%s%sUsage fee, %ld %s.";
 */
-	    fmt = "%s%s使用料は，%ld%sだ．";
+	    fmt = "%s%s使用料は、%ld%sだ。";
 #if 0 /*JP*/
 	    if (!rn2(3)) arg1 = "Hey!  ";
 	    if (!rn2(3)) arg2 = "Ahem.  ";
 #else
 	    if (!rn2(3)) arg1 = "おい！";
-	    if (!rn2(3)) arg2 = "ゴホン．";
+	    if (!rn2(3)) arg2 = "ゴホン。";
 #endif
 	}
 
@@ -4918,13 +4918,13 @@ register long amount;
 #if 0 /*JP*/
 		Your("credit is reduced by %ld %s.",
 #else
-		Your("預け金は%ld%s減った．",
+		Your("預け金は%ld%s減った。",
 #endif
 					amount, currency(amount));
 #if 0 /*JP*/
 	    else Your("credit is erased.");
 #else
-	    else Your("預け金は帳消しになった．");
+	    else Your("預け金は帳消しになった。");
 #endif
 	    eshkp->credit -= amount;
 	} else {
@@ -4933,18 +4933,18 @@ register long amount;
 /*JP
 		Your("credit is erased.");
 */
-		Your("預け金は帳消しになった．");
+		Your("預け金は帳消しになった。");
 	    if(eshkp->debit)
 #if 0 /*JP*/
 		Your("debt increases by %ld %s.",
 #else
-		Your("借金は%ld%s増えた．",
+		Your("借金は%ld%s増えた。",
 #endif
 					delta, currency(delta));
 #if 0 /*JP*/
 	    else You("owe %s %ld %s.",
 #else
-	    else You("%sに%ld%sの借りをつくった．",
+	    else You("%sに%ld%sの借りをつくった。",
 #endif
 				shkname(shkp), delta, currency(delta));
 	    eshkp->debit += delta;
@@ -4983,7 +4983,7 @@ register xchar x, y;
 				Invis ? " senses your motion and" : "");
 #else
 		pline("%sは%sあなたの前に立ちふさがった！", shkname(shkp),
-				Invis ? "動きを感じとり，" : "");
+				Invis ? "動きを感じとり、" : "");
 #endif
 		return(TRUE);
 	}
@@ -5027,7 +5027,7 @@ register xchar x, y;
 				Invis ? " senses your motion and" : "");
 #else
 		pline("%s%sあなたの前に立ちふさがった！", shkname(shkp),
-				Invis ? "動きを感じとり，" : "");
+				Invis ? "動きを感じとり、" : "");
 #endif
 		return(TRUE);
 	}

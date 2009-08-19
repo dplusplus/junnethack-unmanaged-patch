@@ -512,7 +512,7 @@ char errbuf[];
 		    lock, lev, errno);
 #else
 	    Sprintf(errbuf,
-		    "地下%d階のファイル\"%s\"を開けない(errno %d)．",
+		    "地下%d階のファイル\"%s\"を開けない(errno %d)。",
 		    lev, lock, errno);
 #endif
 

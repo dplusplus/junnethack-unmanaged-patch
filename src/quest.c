@@ -133,7 +133,7 @@ boolean talk;
 	    You("are currently %s instead of %s.",
 		align_str(u.ualign.type), align_str(original_alignment));
 #else
-	    You("%sではなく%sの属性である．",
+	    You("%sではなく%sの属性である。",
 		align_str(original_alignment), align_str(u.ualign.type));
 #endif
 	//} else if (u.ualignbase[A_CURRENT] != original_alignment) {
@@ -142,7 +142,7 @@ boolean talk;
 /*JP
 	    You("are currently %d and require %d.",
 */
-	    Your("属性値は現在%dで，あと%d必要だ．",
+	    Your("属性値は現在%dで、あと%d必要だ。",
 		u.ualign.record, MIN_QUEST_ALIGN);
 /*JP
 	    if (yn_function("adjust?", (char *)0, 'y') == 'y')

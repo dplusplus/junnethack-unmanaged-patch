@@ -86,7 +86,7 @@ register struct monst *mtmp;
 /*JP
 	    Your("purse feels lighter.");
 */
-	    Your("財布は軽くなった．");
+	    Your("財布は軽くなった。");
 	    mtmp->mgold += tmp;
 	if (!tele_restrict(mtmp)) (void) rloc(mtmp, FALSE);
 	    mtmp->mavenge = 1;
@@ -165,7 +165,7 @@ register struct monst *mtmp;
 /*JP
 	    Your("purse feels lighter.");
 */
-	    Your("財布は軽くなった．");
+	    Your("財布は軽くなった。");
 	    if (!tele_restrict(mtmp)) (void) rloc(mtmp, FALSE);
 	    monflee(mtmp, 0, FALSE, FALSE);
 	    flags.botl = 1;
@@ -292,12 +292,12 @@ nothing_to_steal:
 /*JP
 	      pline("Somebody tries to rob you, but finds nothing to steal.");
 */
-	      pline("誰かがあなたから盗もうとしたが，盗むものがないことに気がついた．");
+	      pline("誰かがあなたから盗もうとしたが、盗むものがないことに気がついた。");
 	    else
 /*JP
 	      pline("%s tries to rob you, but there is nothing to steal!",
 */
-	      pline("%sはあなたから盗もうとしたが，盗むものがないことに気がついた！",
+	      pline("%sはあなたから盗もうとしたが、盗むものがないことに気がついた！",
 		Monnam(mtmp));
 	    return(1);	/* let her flee */
 	}
@@ -374,7 +374,7 @@ gotobj:
 		       cxname(otmp));
 #else
  cant_take:
-		pline("%sは%sを盗もうとしたが諦めた．",
+		pline("%sは%sを盗もうとしたが諦めた。",
 		      Monnam(mtmp),
 		      (otmp->owornmask & W_ARMOR) ? equipname(otmp) :
 		       cxname(otmp));
@@ -431,7 +431,7 @@ gotobj:
 				  slowly ? "start removing" : "hand over",
 				  equipname(otmp));
 #else
-			    pline("%sはあなたを魅了した．あなたはよろこんで%sを%s%s．",
+			    pline("%sはあなたを魅了した。あなたはよろこんで%sを%s%s。",
 				  !seen ? "彼女" : Monnam(mtmp),
 				  equipname(otmp),
 				  slowly ? "はずし始め" : "はずして",
@@ -446,12 +446,12 @@ gotobj:
 				  equipname(otmp));
 #else
 			    if(curssv){
-				pline("%sはあなたを誘惑して，あなたが%sをはずすのを%s．",
+				pline("%sはあなたを誘惑して、あなたが%sをはずすのを%s。",
 				  !seen ? "何者か" : Adjmonnam(mtmp, "美しい"),
 				  equipname(otmp),
 				  slowly ? "手伝い始めた" : "手伝った");
 			    } else {
-				pline("%sはあなたを誘惑した．あなたは%sを%s．",
+				pline("%sはあなたを誘惑した。あなたは%sを%s。",
 				  !seen ? "何者か" : Adjmonnam(mtmp, "美しい"),
 				  equipname(otmp),
 				  slowly ? "はずし始めた" : "はずした");
@@ -494,7 +494,7 @@ gotobj:
 /*JP
 	pline("%s stole %s.", named ? "She" : Monnam(mtmp), doname(otmp));
 */
-	pline("%sは%sを盗んだ．", named ? "彼女" : Monnam(mtmp), doname(otmp));
+	pline("%sは%sを盗んだ。", named ? "彼女" : Monnam(mtmp), doname(otmp));
 	could_petrify = (otmp->otyp == CORPSE &&
 			 touch_petrifies(&mons[otmp->corpsenm]));
 	(void) mpickobj(mtmp,otmp);	/* may free otmp */
@@ -535,7 +535,7 @@ register struct obj *otmp;
 /*JP
 	    pline("%s out.", Tobjnam(otmp, "go"));
 */
-	    pline("%sは飛びだした．", xname(otmp));
+	    pline("%sは飛びだした。", xname(otmp));
 	snuff_otmp = TRUE;
     }
     /* Must do carrying effects on object prior to add_to_minv() */
@@ -633,7 +633,7 @@ boolean verbosely;
 /*JP
 	pline("%s drops %s.", Monnam(mon), distant_name(obj, doname));
 */
-	pline("%sは%sを置いた．", Monnam(mon), distant_name(obj, doname));
+	pline("%sは%sを置いた。", Monnam(mon), distant_name(obj, doname));
 /*JP
     if (!flooreffects(obj, omx, omy, "fall")) {
 */
@@ -716,7 +716,7 @@ boolean is_pet;		/* If true, pet should keep wielded/worn items */
 			pline("%s drops %ld gold piece%s.", Monnam(mtmp),
 				g, plur(g));
 #else
-			pline("%sは%ld枚の金貨を置いた．", Monnam(mtmp), g);
+			pline("%sは%ld枚の金貨を置いた。", Monnam(mtmp), g);
 #endif
 		mtmp->mgold = 0L;
 	}

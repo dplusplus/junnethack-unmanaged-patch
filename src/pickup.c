@@ -69,9 +69,9 @@ static const char moderateloadmsg[] = "You have a little trouble lifting";
 static const char nearloadmsg[] = "You have much trouble lifting";
 static const char overloadmsg[] = "You have extreme difficulty lifting";
 #else
-static const char moderateloadmsg[] = "を持ったら少しふらついた．";
-static const char nearloadmsg[] = "はずっしりと肩にのしかかった．";
-static const char overloadmsg[] = "を持ちあげるのはとてもつらい．";
+static const char moderateloadmsg[] = "を持ったら少しふらついた。";
+static const char nearloadmsg[] = "はずっしりと肩にのしかかった。";
+static const char overloadmsg[] = "を持ちあげるのはとてもつらい。";
 #endif
 
 /* BUG: this lets you look at cockatrice corpses while blind without
@@ -264,12 +264,12 @@ ask_again:
 /*JP
 				There("are no %c's %s.", sym, where);
 */
-				pline("%cは%sにない．", sym, where);
+				pline("%cは%sにない。", sym, where);
 			    else
 /*JP
 				You("have no %c's.", sym);
 */
-				You("%cは持っていない．", sym);
+				You("%cは持っていない。", sym);
 			    not_everything = TRUE;
 			}
 		    }
@@ -473,7 +473,7 @@ int what;		/* should be a long */
 /*JP
 			You("are physically incapable of picking anything up.");
 */
-			You("物理的に拾いあげることができない．");
+			You("物理的に拾いあげることができない。");
 		    else
 			check_here(FALSE);
 		    return (0);
@@ -569,7 +569,7 @@ menu_pickup:
 		There("are %s objects here.",
 		      (ct <= 10) ? "several" : "many");
 #else
-		pline("ここには%sものがある．",
+		pline("ここには%sものがある。",
 		      (ct <= 10) ? "いくつか" : "沢山の");
 #endif
 		if (!query_classes(oclasses, &selective, &all_of_a_type,
@@ -1221,7 +1221,7 @@ int *wt_before, *wt_after;
 	    You("can only %s %s of the %s %s.",
 		verb, (qq == 1L) ? "one" : "some", obj_nambuf, where);
 #else
-	    You("%s%sのうちの%sしか%s．",
+	    You("%s%sのうちの%sしか%s。",
 		where, obj_nambuf, (qq == 1L) ? "１つ" : "いくつか", verb);
 #endif
 	*wt_after = wt;
@@ -1259,7 +1259,7 @@ int *wt_before, *wt_after;
 	  otense(obj, "are"), obj_nambuf, where,
 	  prefx1, prefx2, verb, suffx);
 #else
-    pline("%s%sがある，しかし%s．",
+    pline("%s%sがある、しかし%s。",
 	  where, obj_nambuf, verb);
 #endif
 
@@ -1282,7 +1282,7 @@ boolean telekinesis;
 	You("cannot get your %s around this %s.",
 			body_part(HAND), xname(obj));
 #else
-	You("%sを%sで持ちあげることができない．",
+	You("%sを%sで持ちあげることができない。",
 			xname(obj), body_part(HAND));
 #endif
 	return -1;
@@ -1303,7 +1303,7 @@ boolean telekinesis;
 /*JP
 	Your("knapsack cannot accommodate any more items.");
 */
-	Your("ナップザックはこれ以上アイテムを詰め込めない．");
+	Your("ナップザックはこれ以上アイテムを詰め込めない。");
 	result = -1;	/* nothing lifted */
     } else {
 	result = 1;
@@ -1334,8 +1334,8 @@ boolean telekinesis;
 		msg = (next_encumbr > HVY_ENCUMBER) ? overloadmsg :
 			(next_encumbr > MOD_ENCUMBER) ? nearloadmsg :
 			moderateloadmsg;
-		Sprintf(qbuf, "%s%s．続けますか？", 
-			safe_qbuf(qbuf, strlen(msg) + sizeof("．続けますか？"),
+		Sprintf(qbuf, "%s%s。続けますか？", 
+			safe_qbuf(qbuf, strlen(msg) + sizeof("。続けますか？"),
 				doname(obj), simple_typename(obj->otyp), "これ"),
 			msg);
 #endif
@@ -1432,7 +1432,7 @@ boolean telekinesis;	/* not picking it up directly by hand */
 		      otense(obj, "are"),
 		      obj->quan, plur(obj->quan), where);
 #else
-		"%sには%ld枚の金貨がある，しかしこれ以上持てない．",
+		"%sには%ld枚の金貨がある、しかしこれ以上持てない。",
 		      where, obj->quan);
 #endif
 		return 0;
@@ -1442,7 +1442,7 @@ boolean telekinesis;	/* not picking it up directly by hand */
 		    telekinesis ? "acquire" : "carry",
 		    gold_capacity == 1L ? "one" : "some", obj->quan, where);
 #else
-		You("%sにある%ld枚の金貨の%sしか%s．",
+		You("%sにある%ld枚の金貨の%sしか%s。",
 		    where,
 		    obj->quan, gold_capacity == 1L ? "ひとつ" : "一部",
 		    telekinesis ? "獲得できない" : "運べない");
@@ -1451,7 +1451,7 @@ boolean telekinesis;	/* not picking it up directly by hand */
 		pline("%s %ld gold piece%s.",
 		    nearloadmsg, gold_capacity, plur(gold_capacity));
 #else
-		pline("%ld枚の金貨%s．", 
+		pline("%ld枚の金貨%s。", 
 		      gold_capacity, nearloadmsg);
 #endif
 		u.ugold += gold_capacity;
@@ -1496,7 +1496,7 @@ boolean telekinesis;	/* not picking it up directly by hand */
 			pline("Touching %s is a fatal mistake.", kbuf);
 #else
 			char *p = corpse_xname(obj, TRUE);
-			pline("%sに触れるのは致命的な間違いだ．", p);
+			pline("%sに触れるのは致命的な間違いだ。", p);
 			Sprintf(kbuf, "%sに触れて", p);
 #endif
 			instapetrify(kbuf);
@@ -1524,7 +1524,7 @@ boolean telekinesis;	/* not picking it up directly by hand */
 			telekinesis ? "raise" : "pick",
 			(obj->quan == 1L) ? "it" : "them");
 #else
-		pline("%s巻物はあなたが拾い上げると塵となってしまった．",
+		pline("%s巻物はあなたが拾い上げると塵となってしまった。",
 			(obj->quan == 1L) ? "その" : "それらの");
 #endif
 		if (!(objects[SCR_SCARE_MONSTER].oc_name_known) &&
@@ -1622,13 +1622,13 @@ encumber_msg()
 	default: You("%s move a handspan with this load!",
 		     newcap == 4 ? "can barely" : "can't even");
 #else
-	case 1: Your("動きは荷物のために少し遅くなった．");
+	case 1: Your("動きは荷物のために少し遅くなった。");
 		break;
-	case 2: You("荷物の釣合をとり直したが，動きにくい．");
+	case 2: You("荷物の釣合をとり直したが、動きにくい。");
 		break;
-	case 3: You("荷物の重みでのたうちまわった．動くのが非常にきつい．");
+	case 3: You("荷物の重みでのたうちまわった。動くのが非常にきつい。");
 		break;
-	case 4: You("かろうじて，動くことができる．");
+	case 4: You("かろうじて、動くことができる。");
 		break;
 	default: You("この重さでは少しも動けない！");
 #endif
@@ -1648,13 +1648,13 @@ encumber_msg()
 		    stagger(youmonst.data, "stagger"));
 		break;
 #else
-	case 0: Your("動きは楽になった．");
+	case 0: Your("動きは楽になった。");
 		break;
-	case 1: You("ちょっと動きやすくなった．");
+	case 1: You("ちょっと動きやすくなった。");
 		break;
-	case 2: You("荷物の釣合をとり直した．だがまだ動くのはきつい．");
+	case 2: You("荷物の釣合をとり直した。だがまだ動くのはきつい。");
 		break;
-	case 3: You("荷物の重みがずっしりと肩にくる．まだ動くのが非常にきつい．");
+	case 3: You("荷物の重みがずっしりと肩にくる。まだ動くのが非常にきつい。");
 		break;
 #endif
 	}
@@ -1697,7 +1697,7 @@ int x, y;
 /*JP
 			You("cannot reach the %s.", surface(x, y));
 */
-			You("%sに届かない．", surface(x, y));
+			You("%sに届かない。", surface(x, y));
 		return FALSE;
 	} else if (is_pool(x, y) || is_lava(x, y)) {
 		/* at present, can't loot in water even when Underwater */
@@ -1705,7 +1705,7 @@ int x, y;
 		You("cannot loot things that are deep in the %s.",
 		    is_lava(x, y) ? "lava" : "water");
 #else
-		You("%sに深くに沈んだものを開けることできない．",
+		You("%sに深くに沈んだものを開けることできない。",
 		    is_lava(u.ux, u.uy) ? "溶岩" : "水");
 #endif
 		return FALSE;
@@ -1713,13 +1713,13 @@ int x, y;
 /*JP
 		pline("Without limbs, you cannot loot anything.");
 */
-		pline("手足がないので，開けることはできない．");
+		pline("手足がないので、開けることはできない。");
 		return FALSE;
 	} else if (!freehand()) {
 /*JP
 		pline("Without a free %s, you cannot loot anything.",
 */
-		pline("自由になる%sがないので，開けることはできない．",
+		pline("自由になる%sがないので、開けることはできない。",
 			body_part(HAND));
 		return FALSE;
 	}
@@ -1787,8 +1787,8 @@ lootcont:
 			     doname(cobj), an(simple_typename(cobj->otyp)),
 			     "a container"));
 #else
-		Sprintf(qbuf, "ここには%sがある．開けますか？",
-			safe_qbuf("", sizeof("ここにはがある．開けますか？"),
+		Sprintf(qbuf, "ここには%sがある。開けますか？",
+			safe_qbuf("", sizeof("ここにはがある。開けますか？"),
 			     doname(cobj), an(simple_typename(cobj->otyp)),
 			     "入れ物"));
 #endif
@@ -1801,7 +1801,7 @@ lootcont:
 /*JP
 		    pline("Hmmm, it seems to be locked.");
 */
-		    pline("むーん，鍵がかかっているようだ．");
+		    pline("むーん、鍵がかかっているようだ。");
 		    continue;
 		}
 		if (cobj->otyp == BAG_OF_TRICKS) {
@@ -1813,7 +1813,7 @@ lootcont:
 /*JP
 		    pline("It develops a huge set of teeth and bites you!");
 */
-		    pline("鞄から大きな歯が生えてきて，あなたを噛んだ！");
+		    pline("鞄から大きな歯が生えてきて、あなたを噛んだ！");
 		    tmp = rnd(10);
 		    if (Half_physical_damage) tmp = (tmp+1) / 2;
 /*JP
@@ -1864,7 +1864,7 @@ gotit:
 /*JP
 	    verbalize("Thank you for your contribution to reduce the debt.");
 */
-	    verbalize("赤字国債返済のための寄付に感謝します．");
+	    verbalize("赤字国債返済のための寄付に感謝します。");
 		    (void) add_to_container(coffers, goldob);
 		    coffers->owt = weight(coffers);
 		} else {
@@ -1877,7 +1877,7 @@ gotit:
 /*JP
 			pline("The exchequer accepts your contribution.");
 */
-			pline("財務省はあなたの寄付を受けとった．");
+			pline("財務省はあなたの寄付を受けとった。");
 		    } else {
 			dropx(goldob);
 		    }
@@ -1889,7 +1889,7 @@ gotit:
 /*JP
 			pline("The exchequer accepts your contribution.");
 */
-			pline("財務省はあなたの寄付を受けとった．");
+			pline("財務省はあなたの寄付を受けとった。");
 		    } else {
 			dropy(goldob);
 		    }
@@ -1900,7 +1900,7 @@ gotit:
 /*JP
 		pline("Ok, now there is loot here.");
 */
-		pline("オーケー，ここに賄賂を置いておこう．");
+		pline("オーケー、ここに賄賂を置いておこう。");
 	    }
 	}
     } else if (IS_GRAVE(levl[cc.x][cc.y].typ)) {
@@ -1931,7 +1931,7 @@ gotit:
 	    You("%s to loot on the %s.", dont_find_anything,
 		ceiling(cc.x, cc.y));
 #else
-	    You("%sを調べたが何もみつからなかった．",
+	    You("%sを調べたが何もみつからなかった。",
 		ceiling(cc.x, cc.y));
 #endif
 	    timepassed = 1;
@@ -1951,7 +1951,7 @@ gotit:
 		    You_cant("loot anything %sthere with %s in the way.",
 			    prev_inquiry ? "else " : "", mon_nam(mtmp));
 #else
-		    pline("%sがいるので%s箱を開けられない．",
+		    pline("%sがいるので%s箱を開けられない。",
 			    mon_nam(mtmp), prev_inquiry ? "ほかの" : "");
 #endif
 		    return timepassed;
@@ -1959,7 +1959,7 @@ gotit:
 #if 0 /*JP*/
 		    You("have to be at a container to loot it.");
 #else
-		    You("は箱を開けるためには同じ位置にいなければならない．");
+		    You("は箱を開けるためには同じ位置にいなければならない。");
 #endif
 		}
 	    } else {
@@ -1967,7 +1967,7 @@ gotit:
 		You("%s %sthere to loot.", dont_find_anything,
 			(prev_inquiry || prev_loot) ? "else " : "");
 #else
-		pline("ここには%s開けられるものはない．",
+		pline("ここには%s開けられるものはない。",
 			(prev_inquiry || prev_loot) ? "ほかに" : "");
 #endif
 		return timepassed;
@@ -1978,7 +1978,7 @@ gotit:
 	You("%s %s to loot.", dont_find_anything,
 		    underfoot ? "here" : "there");
 #else
-	pline("%sには開けられるものはない．",
+	pline("%sには開けられるものはない。",
 		    underfoot ? "ここ" : "そこ");
 #endif
     }
@@ -2015,7 +2015,7 @@ boolean *prev_loot;
 #if 0 /*JP*/
 		    You_cant("do that without limbs."); /* not body_part(HAND) */
 #else
-		    You_cant("手がないとできない．");
+		    You_cant("手がないとできない。");
 #endif
 		    return (0);
 		}
@@ -2023,7 +2023,7 @@ boolean *prev_loot;
 /*JP
 		    You("can't. The saddle seems to be stuck to %s.",
 */
-		    pline("鞍は%sにくっついているようだ．",
+		    pline("鞍は%sにくっついているようだ。",
 			x_monnam(mtmp, ARTICLE_THE, (char *)0,
 				SUPPRESS_SADDLE, FALSE));
 			    
@@ -2104,20 +2104,20 @@ register struct obj *obj;
 /*JP
 		You("must be kidding.");
 */
-		pline("ご冗談を．");
+		pline("ご冗談を。");
 		return 0;
 	} else if (obj == current_container) {
 /*JP
 		pline("That would be an interesting topological exercise.");
 */
-		pline("それは興味をそそられるトポロジーの問題だ．");
+		pline("それは興味をそそられるトポロジーの問題だ。");
 		return 0;
 	} else if (obj->owornmask & (W_ARMOR | W_RING | W_AMUL | W_TOOL)) {
 #if 0 /*JP*/
 		Norep("You cannot %s %s you are wearing.",
 			Icebox ? "refrigerate" : "stash", something);
 #else
-		Norep("身につけているものを%sことはできない．", 
+		Norep("身につけているものを%sことはできない。", 
 			Icebox ? "冷凍する" : "しまう");
 #endif
 		return 0;
@@ -2126,7 +2126,7 @@ register struct obj *obj;
 /*JP
 	      pline_The("stone%s won't leave your person.", plur(obj->quan));
 */
-		pline("どういうわけかその石をしまうことはできない．");
+		pline("どういうわけかその石をしまうことはできない。");
 		return 0;
 	} else if (obj->otyp == AMULET_OF_YENDOR ||
 		   obj->otyp == CANDELABRUM_OF_INVOCATION ||
@@ -2139,13 +2139,13 @@ register struct obj *obj;
 /*JP
 	    pline("%s cannot be confined in such trappings.", The(xname(obj)));
 */
-	    pline("%sは詰めることはできない．", The(xname(obj)));
+	    pline("%sは詰めることはできない。", The(xname(obj)));
 	    return 0;
 	} else if (obj->otyp == LEASH && obj->leashmon != 0) {
 /*JP
 		pline("%s attached to your pet.", Tobjnam(obj, "are"));
 */
-		pline("%sはペットに付けられている．", xname(obj));
+		pline("%sはペットに付けられている。", xname(obj));
 		return 0;
 	} else if (obj == uwep) {
 		if (welded(obj)) {
@@ -2175,7 +2175,7 @@ register struct obj *obj;
 		    pline("Touching %s is a fatal mistake.", kbuf);
 #else
 		    char *p = corpse_xname(obj, TRUE);
-		    pline("%sに触れるのは致命的な間違いだ．", p);
+		    pline("%sに触れるのは致命的な間違いだ。", p);
 		    Sprintf(kbuf, "%sに触れて", p);
 #endif
 		    instapetrify(kbuf);
@@ -2197,7 +2197,7 @@ register struct obj *obj;
 /*JP
 		You("cannot fit %s into %s.", buf,
 */
-		pline("%sを%sに詰め込むことはできない．", buf,
+		pline("%sを%sに詰め込むことはできない。", buf,
 		    the(xname(current_container)));
 		return 0;
 	}
@@ -2237,7 +2237,7 @@ register struct obj *obj;
 		      doname(obj));
 #else
 		pline(
-	      "%sを中に入れると，あなたは魔法の爆発を浴びた！",
+	      "%sを中に入れると、あなたは魔法の爆発を浴びた！",
 		      doname(obj));
 #endif
 		/* did not actually insert obj yet */
@@ -2263,7 +2263,7 @@ register struct obj *obj;
 /*JP
 	    You("put %s into %s.", doname(obj), buf);
 */
-	You("%sを%sの中にしまった．", doname(obj), buf);
+	You("%sを%sの中にしまった。", doname(obj), buf);
 
 	    /* gold in container always needs to be added to credit */
 	    if (floor_container && obj->oclass == COIN_CLASS)
@@ -2319,7 +2319,7 @@ register struct obj *obj;
 		    pline("Touching %s is a fatal mistake.", kbuf);
 #else
 		    char *p = corpse_xname(obj, TRUE);
-		    pline("%sに触れるのは致命的な間違いだ．", p);
+		    pline("%sに触れるのは致命的な間違いだ。", p);
 		    Sprintf(kbuf, "%sに触れて", p);
 #endif
 		    instapetrify(kbuf);
@@ -2366,8 +2366,8 @@ register struct obj *obj;
 	       "You have a little trouble removing" :
 	       "You have much trouble removing") : (char *)0,
 #else
-	       "を運ぶのは少々困難だ．" :
-	       "を運ぶのはかなり困難だ．") : (char *)0,
+	       "を運ぶのは少々困難だ。" :
+	       "を運ぶのはかなり困難だ。") : (char *)0,
 #endif
 	      otmp, count);
 
@@ -2398,7 +2398,7 @@ struct obj *item;
 #if 0 /*JP*/
 	You("%s %s disappear!", Blind ? "notice" : "see", doname(item));
 #else
-	You("%sが見えなくなるの%s．",
+	You("%sが見えなくなるの%s。",
 		doname(item), Blind ? "に気づいた" : "を見た");
 #endif
 
@@ -2440,7 +2440,7 @@ struct obj *box;
 /*JP
 	    You("think %s brushed your %s.", something, body_part(FOOT));
 */
-	    You("%sがあなたの%sをくすぐった．", something, body_part(FOOT));
+	    You("%sがあなたの%sをくすぐった。", something, body_part(FOOT));
 	else
 /*JP
 	    pline("%s inside the box is still alive!", Monnam(livecat));
@@ -2497,18 +2497,18 @@ register int held;
 /*JP
 		You("have no free %s.", body_part(HAND));
 */
-		You("%sの自由が効かない．", body_part(HAND));
+		You("%sの自由が効かない。", body_part(HAND));
 		return 0;
 	}
 	if (obj->olocked) {
 /*JP
 	    pline("%s to be locked.", Tobjnam(obj, "seem"));
 */
-	    pline("%sは鍵がかかっているようだ．", xname(obj));
+	    pline("%sは鍵がかかっているようだ。", xname(obj));
 /*JP
 	    if (held) You("must put it down to unlock.");
 */
-	    if (held) pline("下に置かないことには鍵をはずせない．");
+	    if (held) pline("下に置かないことには鍵をはずせない。");
 	    return 0;
 	} else if (obj->otrapped) {
 /*JP
@@ -2547,7 +2547,7 @@ register int held;
 /*JP
 	    You("owe %ld %s for lost merchandise.", loss, currency(loss));
 */
-	    You("失った商品のために%ld%sの負債を負った．", loss, currency(loss));
+	    You("失った商品のために%ld%sの負債を負った。", loss, currency(loss));
 	obj->owt = weight(obj);	/* in case any items were lost */
 
 	if (!cnt)
@@ -2555,7 +2555,7 @@ register int held;
 	    Sprintf(emptymsg, "%s is %sempty.", Yname2(obj),
 		    quantum_cat ? "now " : "");
 #else
-	    Sprintf(emptymsg, "%sは%s空っぽだ．", Yname2(obj),
+	    Sprintf(emptymsg, "%sは%s空っぽだ。", Yname2(obj),
 		    quantum_cat ? "今は" : "");
 #endif
 
@@ -2583,7 +2583,7 @@ register int held;
 /*JP
 			You("don't have anything to put in.");
 */
-			You("入れるものが何もない．");
+			You("入れるものが何もない。");
 			return used;
 		    }
 		    menuprompt[0] = '\0';
@@ -2660,7 +2660,7 @@ ask_again2:
 /*JP
 	    You("don't have anything to put in.");
 */
-	    You("中に入れるものを何も持っていない．");
+	    You("中に入れるものを何も持っていない。");
 	    return used;
 	}
 	if (flags.menu_style != MENU_FULL) {
@@ -2897,7 +2897,7 @@ del_sokoprize()
 /*JP
 				You("see %s vanishing.", an(xname(otmp)));
 */
-				You("%sが消えるのを見た．", an(xname(otmp)));
+				You("%sが消えるのを見た。", an(xname(otmp)));
 				newsym(x, y);
 			} else cnt++;
 			obfree(otmp, (struct obj *)0);
@@ -2906,7 +2906,7 @@ del_sokoprize()
 /*JP
 	if (cnt && flags.soundok) You_hear("something popping.");
 */
-	if (cnt && flags.soundok) You_hear("何かがはじける音を聞いた．");
+	if (cnt && flags.soundok) You_hear("何かがはじける音を聞いた。");
 	/* check buried objs... do we need this? */
 	for (otmp = level.buriedobjlist; otmp; otmp = onext) {
 		onext = otmp->nobj; /* otmp may be destroyed */

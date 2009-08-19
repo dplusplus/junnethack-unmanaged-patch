@@ -102,7 +102,7 @@ register struct obj *pen;
 	    pline("%s from your %s.",
 		  Tobjnam(pen, "slip"), makeplural(body_part(FINGER)));
 #else
-	    pline("%sが%sから滑りおちた．", xname(pen),
+	    pline("%sが%sから滑りおちた。", xname(pen),
 			body_part(FINGER));
 #endif
 	    dropx(pen);
@@ -196,7 +196,7 @@ found:
 /*JP
 		pline("No mere dungeon adventurer could write that.");
 */
-		pline("一介の迷宮冒険家にはそれは書けない．");
+		pline("一介の迷宮冒険家にはそれは書けない。");
 		return 1;
 	} else if (by_descr && paper->oclass == SPBOOK_CLASS &&
 		    !objects[i].oc_name_known) {
@@ -205,7 +205,7 @@ found:
 /*JP
 		  "Unfortunately you don't have enough information to go on.");
 */
-		  "残念ながらそれを書くだけの十分な知識がない．");
+		  "残念ながらそれを書くだけの十分な知識がない。");
 		return 1;
 	}
 
@@ -247,7 +247,7 @@ found:
 /*JP
 		       "spellbook is left unfinished and your writing fades.");
 */
-			"呪文書には書ききれなかった．そして書いた文字は消えてしまった．");
+			"呪文書には書ききれなかった。そして書いた文字は消えてしまった。");
 			update_inventory();	/* pen charges */
 		} else {
 /*JP
@@ -277,7 +277,7 @@ found:
 /*JP
        "write in your best handwriting:  \"My Diary\", but it quickly fades.");
 */
-       "丁寧に書いた：「我が日記」．しかしあっと言う間に消えてしまった．");
+       "丁寧に書いた：「我が日記」。しかしあっと言う間に消えてしまった。");
 			update_inventory();	/* pen charges */
 		} else {
 			if (by_descr) {
@@ -291,7 +291,7 @@ found:
 /*JP
 			You("write \"%s\" and the scroll disappears.", namebuf);
 */
-			You("「%s」と書いた．すると巻物は消えてしまった．", namebuf);
+			You("「%s」と書いた。すると巻物は消えてしまった。", namebuf);
 			useup(paper);
 		}
 		obfree(new_obj, (struct obj *) 0);
@@ -308,7 +308,7 @@ found:
 		pline_The("spellbook warps strangely, then turns %s.",
 		      OBJ_DESCR(objects[new_obj->otyp]));
 #else
-		pline("呪文書は妙に反りかえり，そして%sになった．",
+		pline("呪文書は妙に反りかえり、そして%sになった。",
 		      jtrns_obj('+', OBJ_DESCR(objects[new_obj->otyp])));
 #endif
 	}

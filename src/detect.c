@@ -234,12 +234,12 @@ register struct obj *sobj;
 /*JP
 				"You feel worried about your future financial situation.");
 */
-				"あなたは将来の経済状況が心配になった．");
+				"あなたは将来の経済状況が心配になった。");
 		else
 /*JP
 			Strcpy(buf, "You feel materially poor.");
 */
-			Strcpy(buf, "あなたはひもじさを感じた．");
+			Strcpy(buf, "あなたはひもじさを感じた。");
 		strange_feeling(sobj, buf);
         }
 	return(1);
@@ -249,7 +249,7 @@ register struct obj *sobj;
 /*JP
     You("notice some gold between your %s.", makeplural(body_part(FOOT)));
 */
-    You("%sの間に金貨が落ちていることに気がついた．", body_part(FOOT));
+    You("%sの間に金貨が落ちていることに気がついた。", body_part(FOOT));
     return(0);
 
 outgoldmap:
@@ -303,7 +303,7 @@ outgoldmap:
 /*JP
     You_feel("very greedy, and sense gold!");
 */
-    You("どん欲になったような気がした，そして金貨の位置を感知した！");
+    You("どん欲になったような気がした、そして金貨の位置を感知した！");
     exercise(A_WIS, TRUE);
     display_nhwindow(WIN_MAP, TRUE);
     docrt();
@@ -353,12 +353,12 @@ register struct obj	*sobj;
 /*JP
 	    You("sense a lack of %s nearby.", what);
 */
-	    You("%sが減っているのに気がついた．",what);
+	    You("%sが減っているのに気がついた。",what);
 	    if (sobj && sobj->blessed) {
 /*JP
 		if (!u.uedibility) Your("%s starts to tingle.", body_part(NOSE));
 */
-		if (!u.uedibility) Your("%sがぴくっと動いた．", body_part(NOSE));
+		if (!u.uedibility) Your("%sがぴくっと動いた。", body_part(NOSE));
 		u.uedibility = 1;
 	    }
 	} else if (sobj) {
@@ -367,8 +367,8 @@ register struct obj	*sobj;
 	    Sprintf(buf, "Your %s twitches%s.", body_part(NOSE),
 			(sobj->blessed && !u.uedibility) ? " then starts to tingle" : "");
 #else
-	    Sprintf(buf, "あなたの%sがひくひくと動い%s．", body_part(NOSE),
-			(sobj->blessed && !u.uedibility) ? "て，うずうずしだした" : "た");
+	    Sprintf(buf, "あなたの%sがひくひくと動い%s。", body_part(NOSE),
+			(sobj->blessed && !u.uedibility) ? "て、うずうずしだした" : "た");
 #endif
 	    if (sobj->blessed && !u.uedibility) {
 		boolean savebeginner = flags.beginner;	/* prevent non-delivery of */
@@ -385,12 +385,12 @@ register struct obj	*sobj;
 /*JP
 	You("%s %s nearby.", sobj ? "smell" : "sense", what);
 */
-	You("近くの%sを%s．", what, sobj ? "嗅ぎつけた" : "感知した");
+	You("近くの%sを%s。", what, sobj ? "嗅ぎつけた" : "感知した");
 	if (sobj && sobj->blessed) {
 /*JP
 		if (!u.uedibility) pline("Your %s starts to tingle.", body_part(NOSE));
 */
-		if (!u.uedibility) pline("あなたの%sはうずうずしだした．", body_part(NOSE));
+		if (!u.uedibility) pline("あなたの%sはうずうずしだした。", body_part(NOSE));
 		u.uedibility = 1;
 	}
     } else {
@@ -422,7 +422,7 @@ register struct obj	*sobj;
 	    	Your("%s %s to tingle and you smell %s.", body_part(NOSE),
 	    		u.uedibility ? "continues" : "starts", what);
 #else
-	    	Your("%sはうずうずし%s，%sの匂いを嗅ぎとった．", body_part(NOSE),
+	    	Your("%sはうずうずし%s、%sの匂いを嗅ぎとった。", body_part(NOSE),
 	    		u.uedibility ? "続け" : "始め", what);
 #endif
 		u.uedibility = 1;
@@ -430,12 +430,12 @@ register struct obj	*sobj;
 /*JP
 		Your("%s tingles and you smell %s.", body_part(NOSE), what);
 */
-		Your("%sはうずうずし，%sの匂いを嗅ぎとった．", body_part(NOSE), what);
+		Your("%sはうずうずし、%sの匂いを嗅ぎとった。", body_part(NOSE), what);
 	}
 /*JP
 	else You("sense %s.", what);
 */
-	else You("%sを感知した．", what);
+	else You("%sを感知した。", what);
 	display_nhwindow(WIN_MAP, TRUE);
 	exercise(A_WIS, TRUE);
 	docrt();
@@ -538,14 +538,14 @@ int		class;		/* an object class, 0 for all */
 /*JP
 		strange_feeling(detector, "You feel a lack of something.");
 */
-		strange_feeling(detector, "あなたは何かが欠乏しているような気がした．");
+		strange_feeling(detector, "あなたは何かが欠乏しているような気がした。");
 	    return 1;
 	}
 
 /*JP
 	You("sense %s nearby.", stuff);
 */
-	You("近くの%sを感知した．", stuff);
+	You("近くの%sを感知した。", stuff);
 	return 0;
     }
 
@@ -630,7 +630,7 @@ int		class;		/* an object class, 0 for all */
 /*JP
     You("detect the %s of %s.", ct ? "presence" : "absence", stuff);
 */
-    You("%s%s．", stuff, ct ? "を発見した" : "は何もないことがわかった" );
+    You("%s%s。", stuff, ct ? "を発見した" : "は何もないことがわかった" );
     display_nhwindow(WIN_MAP, TRUE);
     /*
      * What are we going to do when the hero does an object detect while blind
@@ -677,8 +677,8 @@ int mclass;			/* monster class, 0 for all */
 			    "You get the heebie jeebies." :
 			    "You feel threatened.");
 #else
-			    "あなたは金鳥の夏でキンチョーした．" :
-			    "あなたは恐怖でぞくぞくした．");
+			    "あなたは金鳥の夏でキンチョーした。" :
+			    "あなたは恐怖でぞくぞくした。");
 #endif
 	return 1;
     } else {
@@ -709,12 +709,12 @@ int mclass;			/* monster class, 0 for all */
 /*JP
 	You("sense the presence of monsters.");
 */
-	You("怪物の存在を嗅ぎつけた．");
+	You("怪物の存在を嗅ぎつけた。");
 	if (woken)
 /*JP
 	    pline("Monsters sense the presence of you.");
 */
-	    pline("怪物はあなたの存在を嗅ぎつけた．");
+	    pline("怪物はあなたの存在を嗅ぎつけた。");
 	display_nhwindow(WIN_MAP, TRUE);
 	docrt();
 	if (Underwater) under_water(2);
@@ -796,7 +796,7 @@ register struct obj *sobj;
 /*JP
 	Sprintf(buf, "Your %s stop itching.", makeplural(body_part(TOE)));
 */
-	Sprintf(buf, "あなたの%sのむずむずはおさまった．", makeplural(body_part(TOE)));
+	Sprintf(buf, "あなたの%sのむずむずはおさまった。", makeplural(body_part(TOE)));
 	strange_feeling(sobj,buf);
 	return(1);
     }
@@ -804,7 +804,7 @@ register struct obj *sobj;
 /*JP
     Your("%s itch.", makeplural(body_part(TOE)));
 */
-    Your("%sはむずむずした．", makeplural(body_part(TOE)));
+    Your("%sはむずむずした。", makeplural(body_part(TOE)));
     return(0);
 outtrapmap:
     cls();
@@ -828,7 +828,7 @@ outtrapmap:
 /*JP
     You_feel("%s.", sobj && sobj->cursed ? "very greedy" : "entrapped");
 */
-    You("%s気持になった．", sobj && sobj->cursed ? "とてもどん欲な" : "だまされているような");
+    You("%s気持になった。", sobj && sobj->cursed ? "とてもどん欲な" : "だまされているような");
     display_nhwindow(WIN_MAP, TRUE);
     docrt();
     u.uinwater = uw;
@@ -944,7 +944,7 @@ struct obj *obj;
 /*JP
 	pline("Too bad you can't see %s.", the(xname(obj)));
 */
-	pline("なんてことだ．%sを見ることができない．", the(xname(obj)));
+	pline("なんてことだ。%sを見ることができない。", the(xname(obj)));
 	return;
     }
     oops = (rnd(obj->blessed ? 10 : 20) > ACURR(A_INT) || obj->cursed);
@@ -965,18 +965,18 @@ struct obj *obj;
 /*JP
 		pline("%s your vision!", Tobjnam(obj, "damage"));
 */
-		pline("%sがあなたの視界に迫ってきた．", xname(obj));
+		pline("%sがあなたの視界に迫ってきた。", xname(obj));
 		make_blinded(Blinded + rnd(100),FALSE);
 		if (!Blind) Your(vision_clears);
 	    } else {
 /*JP
 		pline("%s your vision.", Tobjnam(obj, "assault"));
 */
-		pline("%sがあなたの視界に迫ってきた．", xname(obj));
+		pline("%sがあなたの視界に迫ってきた。", xname(obj));
 /*JP
 		You("are unaffected!");
 */
-		pline("しかし，あなたは影響を受けなかった！");
+		pline("しかし、あなたは影響を受けなかった！");
 	    }
 	    break;
 /*JP
@@ -1006,13 +1006,13 @@ struct obj *obj;
 /*JP
 	    pline("All you see is funky %s haze.", hcolor((char *)0));
 */
-	    pline("おお！ファンキーモンキーな%sもやが見える．", hcolor((char *)0));
+	    pline("おお！ファンキーモンキーな%sもやが見える。", hcolor((char *)0));
 	} else {
 	    switch(rnd(6)) {
 /*JP
 	    case 1 : You("grok some groovy globs of incandescent lava.");
 */
-	    case 1 : You("水門の鍵をもった水戸黄門が壁の影に隠れているのが見えた．");
+	    case 1 : You("水門の鍵をもった水戸黄門が壁の影に隠れているのが見えた。");
 		break;
 /*JP
 	    case 2 : pline("Whoa!  Psychedelic colors, %s!",
@@ -1032,17 +1032,17 @@ struct obj *obj;
 /*JP
 	    case 4 : You("see goldfish swimming above fluorescent rocks.");
 */
-	    case 4 : You("蛍光岩の上を金魚が泳いでいるのが見えた．");
+	    case 4 : You("蛍光岩の上を金魚が泳いでいるのが見えた。");
 		break;
 /*JP
 	    case 5 : You("see tiny snowflakes spinning around a miniature farmhouse.");
 */
-	    case 5 : You("小さい雪片がミニチュアの農家の家のまわりを舞ってるのが見えた．");
+	    case 5 : You("小さい雪片がミニチュアの農家の家のまわりを舞ってるのが見えた。");
 		break;
 /*JP
 	    default: pline("Oh wow... like a kaleidoscope!");
 */
-	    default: pline("ワーオ．万華鏡のようだ！");
+	    default: pline("ワーオ。万華鏡のようだ！");
 		break;
 	    }
 	    consume_obj_charge(obj, TRUE);
@@ -1054,7 +1054,7 @@ struct obj *obj;
 /*JP
     if (flags.verbose) You("may look for an object or monster symbol.");
 */
-    if (flags.verbose) You("物体や怪物の記号を探せる．");
+    if (flags.verbose) You("物体や怪物の記号を探せる。");
 /*JP
     ch = yn_function("What do you look for?", (char *)0, '\0');
 */
@@ -1074,7 +1074,7 @@ struct obj *obj;
 /*JP
 	pline_The("vision is unclear.");
 */
-	pline("映像は不鮮明だった．");
+	pline("映像は不鮮明だった。");
     else {
 	int class;
 	int ret = 0;
@@ -1103,7 +1103,7 @@ struct obj *obj;
 /*JP
 		    You("see %s, %s.",
 */
-		    You("%sを%s見た．",
+		    You("%sを%s見た。",
 			level_detects[i].what,
 			level_distance(level_detects[i].where));
 		    }
@@ -1116,11 +1116,11 @@ struct obj *obj;
 /*JP
 		You("see the Wizard of Yendor gazing out at you.");
 */
-		You("イェンダーの魔法使いがあなたをにらんでいるのが見えた．");
+		You("イェンダーの魔法使いがあなたをにらんでいるのが見えた。");
 /*JP
 	    else pline_The("vision is unclear.");
 */
-	    else pline("映像は不鮮明になった．");
+	    else pline("映像は不鮮明になった。");
 	}
     }
     return;
@@ -1385,7 +1385,7 @@ struct trap *trap;
 /*JP
     You("find %s.", an(defsyms[trap_to_defsym(tt)].explanation));
 */
-    You("%sを見つけた．", jtrns_obj('^', defsyms[trap_to_defsym(tt)].explanation));
+    You("%sを見つけた。", jtrns_obj('^', defsyms[trap_to_defsym(tt)].explanation));
 
     if (cleared) {
 	display_nhwindow(WIN_MAP, TRUE);	/* wait */
@@ -1471,7 +1471,7 @@ register int aflag;
 /*JP
 				    You("find %s.", a_monnam(mtmp));
 */
-				    You("%sを見つけた．", a_monnam(mtmp));
+				    You("%sを見つけた。", a_monnam(mtmp));
 				return(1);
 			    }
 			    if(!canspotmon(mtmp)) {

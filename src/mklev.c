@@ -1503,7 +1503,7 @@ mkinvokearea()
 /*JP
     pline_The("walls around you begin to bend and crumble!");
 */
-    pline("そしてまわりの壁がねじれ，砕けた！");
+    pline("そしてまわりの壁がねじれ、砕けた！");
     display_nhwindow(WIN_MESSAGE, TRUE);
 
     mkinvpos(xmin, ymin, 0);		/* middle, before placing stairs */

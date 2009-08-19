@@ -605,7 +605,7 @@ struct entity *etmp;
 /*JP
 			pline("%s crushed underneath the drawbridge.",
 */
-			pline("%sは跳ね橋の下敷になった．",
+			pline("%sは跳ね橋の下敷になった。",
 			      E_phrase(etmp, "are"));		  /* no jump */
 			e_died(etmp, e_inview? 3 : 2, CRUSHING);/* no corpse */
 			return;   /* Note: Beyond this point, we know we're  */
@@ -630,7 +630,7 @@ struct entity *etmp;
 /*JP
 			You_hear("a crushing sound.");
 */
-			You_hear("何かが潰れる音を聞いた．");
+			You_hear("何かが潰れる音を聞いた。");
 		    e_died(etmp, e_inview? 3 : 2, CRUSHING);
 		    /* no corpse */
 		    return;
@@ -745,7 +745,7 @@ struct entity *etmp;
 /*JP
 				pline("%s behind the drawbridge.",
 */
-				pline("%sは跳ね橋の裏に移動した．",
+				pline("%sは跳ね橋の裏に移動した。",
 				      E_phrase(etmp, "disappear"));
 		}
 		if (!e_survives_at(etmp, etmp->ex, etmp->ey)) {
@@ -769,14 +769,14 @@ struct entity *etmp;
 /*JP
 				You_hear("a splash.");
 */
-				You_hear("パシャパシャという音を聞いた．");
+				You_hear("パシャパシャという音を聞いた。");
 		if (e_survives_at(etmp, etmp->ex, etmp->ey)) {
 			if (e_inview && !is_flyer(etmp->edata) &&
 			    !is_floater(etmp->edata))
 /*JP
 				pline("%s from the bridge.",
 */
-				pline("%sは橋から落ちた．",
+				pline("%sは橋から落ちた。",
 				      E_phrase(etmp, "fall"));
 			return;
 		}
@@ -794,7 +794,7 @@ struct entity *etmp;
 				  E_phrase(etmp, "drink"),
 				  lava ? "lava" : "moat");
 #else
-			    pline("%sは%sを飲み，消えた．",
+			    pline("%sは%sを飲み、消えた。",
 				  E_phrase(etmp, "drink"),
 				  lava ? "溶岩" : "堀");
 #endif
@@ -804,7 +804,7 @@ struct entity *etmp;
 				  E_phrase(etmp, "fall"),
 				  lava ? "lava" : "moat");
 #else
-			    pline("%sは%sの中に落ちた．",
+			    pline("%sは%sの中に落ちた。",
 				  E_phrase(etmp, "fall"),
 				  lava ? "溶岩" : "堀");
 #endif
@@ -843,14 +843,14 @@ int x,y;
 /*JP
 		pline("A monster blocks the drawbridge with its weight.");
 */
-		pline("上に乗っている怪物の重さで跳ね橋が閉じない．");
+		pline("上に乗っている怪物の重さで跳ね橋が閉じない。");
 		return FALSE;
 	}
 	if (rn2(5)==0) {
 /*JP
 		pline("The mechanism seems to have something stuck in it and won't close.");
 */
-		pline("仕組みは何らかの原因で停止し，閉じないようだ．");
+		pline("仕組みは何らかの原因で停止し、閉じないようだ。");
 		return FALSE;
 	}
 	x2 = x; y2 = y;
@@ -886,7 +886,7 @@ int x,y;
 /*JP
 	    You_hear("smashing and crushing.");
 */
-	    You_hear("ガシャン，ガランという音を聞いた．");
+	    You_hear("ガシャン、ガランという音を聞いた。");
 	(void) revive_nasty(x,y,(char *)0);
 	(void) revive_nasty(x2,y2,(char *)0);
 	delallobj(x, y);
@@ -1039,7 +1039,7 @@ int x,y;
 /*JP
 				pline("%s blown apart by flying debris.",
 */
-				pline("%sは飛び散った瓦礫の破片を浴びた．",
+				pline("%sは飛び散った瓦礫の破片を浴びた。",
 				      E_phrase(etmp2, "are"));
 			killer_format = KILLED_BY_AN;
 /*JP
@@ -1075,7 +1075,7 @@ int x,y;
 /*JP
 				You_hear("a crushing sound.");
 */
-				You_hear("ガランという音を聞いた．");
+				You_hear("ガランという音を聞いた。");
 #ifdef D_DEBUG
 			    else
 				pline("%s from shrapnel",

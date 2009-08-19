@@ -342,7 +342,7 @@ md_rush(md,tx,ty)
 /*JP
 	    verbalize("Excuse me.");
 */
-	    verbalize("ちょっとしつれい．");
+	    verbalize("ちょっとしつれい。");
 
 	place_monster(md,fx,fy);	/* put md down */
 	newsym(fx,fy);			/* see it */
@@ -370,7 +370,7 @@ md_rush(md,tx,ty)
 /*JP
 	verbalize("This place's too crowded.  I'm outta here.");
 */
-	verbalize("ここは混みすぎ．ここで待ってるよ．");
+	verbalize("ここは混みすぎ。ここで待ってるよ。");
 
 	if ((mon->mx != fx) || (mon->my != fy))	/* put mon back */
 	    place_worm_seg(mon, fx, fy);
@@ -411,7 +411,7 @@ struct mail_info *info;
 /*JP
     verbalize("%s, %s!  %s.", Hello(md), plname, info->display_txt);
 */
-    verbalize("%s，%s．", Hello(md, TRUE), info->display_txt);
+    verbalize("%s、%s。", Hello(md, TRUE), info->display_txt);
 
     if (info->message_typ) {
 	struct obj *obj = mksobj(SCR_MAIL, FALSE, FALSE);
@@ -449,7 +449,7 @@ give_up:
 /*JP
 	pline("Hark!  \"%s.\"", info->display_txt);
 */
-	pline("「%s．」と言うことだ！", info->display_txt);
+	pline("「%s。」と言うことだ！", info->display_txt);
 }
 
 # if !defined(UNIX) && !defined(VMS) && !defined(LAN_MAIL)
@@ -485,7 +485,7 @@ struct obj *otmp;
     "Please disregard previous letter.",
     "Welcome to UnNetHack.",
 #else
-    "前のメールは忘れてください．",
+    "前のメールは忘れてください。",
     "NetHackへようこそ！",
 #endif
 #ifdef AMIGA
@@ -496,7 +496,7 @@ struct obj *otmp;
     "Report bugs to <bhaak@gmx.net>.",
     "Invitation: Visit the NetHack web site at http://www.nethack.org!"
 #else
-    "バグレポートは http://sourceforge.jp/projects/junnethack/ へ．",
+    "バグレポートは http://sourceforge.jp/projects/junnethack/ へ。",
     "ご招待: NetHackサイトにどうぞ http://www.nethack.org ！"
 #endif
     };
@@ -505,7 +505,7 @@ struct obj *otmp;
 #if 0 /*JP*/
 	pline("Unfortunately you cannot see what it says.");
 #else
-	pline("不幸にも何と書いてあるのか見ることができない．");
+	pline("不幸にも何と書いてあるのか見ることができない。");
 #endif
     } else
 #if 0 /*JP*/
@@ -540,7 +540,7 @@ ckmailstatus()
 /*JP
 		pline("Cannot get status of MAIL=\"%s\" anymore.", mailbox);
 */
-		pline("MAIL=\"%s\"の状態をこれ以上取得できない．", mailbox);
+		pline("MAIL=\"%s\"の状態をこれ以上取得できない。", mailbox);
 		mailbox = 0;
 #  else
 		nmstat.st_mtime = 0;
@@ -607,7 +607,7 @@ struct obj *otmp;
 		  pline("There is a%s message on this scroll.",
 		      seen_one_already ? "nother" : "");
 #else
-		  pline("この巻物には%sメッセージが書かれている．",
+		  pline("この巻物には%sメッセージが書かれている。",
 		      seen_one_already ? "前とは異なる" : "");
 #endif
 		  
@@ -622,7 +622,7 @@ struct obj *otmp;
 /*JP
 		  pline ("This message is from '%s'.", curline);
 */
-		  pline ("このメッセージは'%s'からのものだ．", curline);
+		  pline ("このメッセージは'%s'からのものだ。", curline);
 
 		  msg[strlen(msg) - 1] = '\0'; /* kill newline */
 /*JP
@@ -670,7 +670,7 @@ bail:
 /*JP
 	pline("It appears to be all gibberish."); /* bail out _professionally_ */
 */
-	pline("全てがわけのわからない言葉で書かれているようだ．"); /* bail out _professionally_ */
+	pline("全てがわけのわからない言葉で書かれているようだ。"); /* bail out _professionally_ */
 #endif
 }
 

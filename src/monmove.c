@@ -36,12 +36,12 @@ register struct monst *mtmp;
 /*JP
 		pline("KABOOM!!  You see a door explode.");
 */
-		pline("ちゅどーん！ドアが爆発するのを見た．");
+		pline("ちゅどーん！ドアが爆発するのを見た。");
 	    else if (flags.soundok)
 /*JP
 		You_hear("a distant explosion.");
 */
-		You_hear("遠方で爆発する音を聞いた．");
+		You_hear("遠方で爆発する音を聞いた。");
 	}
 	wake_nearto(mtmp->mx, mtmp->my, 7*7);
 	mtmp->mstun = 1;
@@ -87,7 +87,7 @@ register struct monst *mtmp;
 /*JP
 			verbalize("Hey, stop picking that lock!");
 */
-			verbalize("おい，鍵を勝手に開けるんじゃない！");
+			verbalize("おい、鍵を勝手に開けるんじゃない！");
 			levl[x][y].looted |=  D_WARNED;
 		  }
 		  stop_occupation();
@@ -421,7 +421,7 @@ register struct monst *mtmp;
 			pline("%s whispers at thin air.",
 			    cansee(mtmp->mux, mtmp->muy) ? Monnam(mtmp) : "It");
 #else
-			pline("%sがささやいた．",
+			pline("%sがささやいた。",
 			    cansee(mtmp->mux, mtmp->muy) ? Monnam(mtmp) : "何か");
 #endif
 
@@ -454,21 +454,21 @@ register struct monst *mtmp;
 /*JP
 			pline("%s concentrates.", Monnam(mtmp));
 */
-			pline("%sは精神を集中している．", Monnam(mtmp));
+			pline("%sは精神を集中している。", Monnam(mtmp));
 
 		if (BTelepat) {
 		    if (uarmh)
 /*JP
 			You("sense something being blocked by %s.", yname(uarmh));
 */
-			You("%sに妨げられつつも何かを感じ取った．", yname(uarmh));
+			You("%sに妨げられつつも何かを感じ取った。", yname(uarmh));
 		    goto toofar;
 		}
 		if (distu(mtmp->mx, mtmp->my) > BOLT_LIM * BOLT_LIM) {
 /*JP
 			You("sense a faint wave of psychic energy.");
 */
-			You("サイコエネルギーの波動を感じた．");
+			You("サイコエネルギーの波動を感じた。");
 			goto toofar;
 		}
 /*JP
@@ -480,7 +480,7 @@ register struct monst *mtmp;
 /*JP
 			pline("It feels quite soothing.");
 */
-			pline("心がなごんだ．");
+			pline("心がなごんだ。");
 		else {
 			register boolean m_sen = sensemon(mtmp);
 
@@ -522,7 +522,7 @@ toofar:
 /*JP
 				    pline("It locks on to %s.", mon_nam(m2));
 */
-				    pline("%sを直撃した．", mon_nam(m2));
+				    pline("%sを直撃した。", mon_nam(m2));
 				m2->mhp -= rnd(15);
 				if (m2->mhp <= 0)
 				    monkilled(m2, "", AD_DRIN);
@@ -1172,7 +1172,7 @@ postmov:
 				   ptr == &mons[PM_YELLOW_LIGHT])
 				  ? "flows" : "oozes");
 #else
-			    pline("%sは扉の下から%s．", Monnam(mtmp),
+			    pline("%sは扉の下から%s。", Monnam(mtmp),
 				  (ptr == &mons[PM_FOG_CLOUD] ||
 				   ptr == &mons[PM_YELLOW_LIGHT])
 				  ? "流れでた" : "にじみでた");
@@ -1189,12 +1189,12 @@ postmov:
 /*JP
 				   You("see a door unlock and open.");
 */
-				   You("扉の鍵がはずれ，開くのが見えた．");
+				   You("扉の鍵がはずれ、開くのが見えた。");
 				else if (flags.soundok)
 /*JP
 				   You_hear("a door unlock and open.");
 */
-				   You_hear("扉の鍵がはずれ，開く音を聞いた．");
+				   You_hear("扉の鍵がはずれ、開く音を聞いた。");
 			    }
 			    here->doormask = D_ISOPEN;
 			    /* newsym(mtmp->mx, mtmp->my); */
@@ -1212,12 +1212,12 @@ postmov:
 /*JP
 				     You("see a door open.");
 */
-				     You("扉が開くのが見えた．");
+				     You("扉が開くのが見えた。");
 				else if (flags.soundok)
 /*JP
 				     You_hear("a door open.");
 */
-				     You_hear("扉が開く音を聞いた．");
+				     You_hear("扉が開く音を聞いた。");
 			    }
 			    here->doormask = D_ISOPEN;
 			    /* newsym(mtmp->mx, mtmp->my); */  /* done below */
@@ -1236,12 +1236,12 @@ postmov:
 /*JP
 				    You("see a door crash open.");
 */
-				    You("扉が破壊されるのを見た．");
+				    You("扉が破壊されるのを見た。");
 				else if (flags.soundok)
 /*JP
 				    You_hear("a door crash open.");
 */
-				    You_hear("扉が破壊される音を聞いた．");
+				    You_hear("扉が破壊される音を聞いた。");
 			    }
 			    if (here->doormask & D_LOCKED && !rn2(2))
 				    here->doormask = D_NODOOR;
@@ -1261,7 +1261,7 @@ postmov:
 				  makeplural(locomotion(ptr, "pass")),
 				  passes_walls(ptr) ? "through" : "between");
 #else
-			    Norep("%sは鉄の棒%sをすり抜けた．", Monnam(mtmp),
+			    Norep("%sは鉄の棒%sをすり抜けた。", Monnam(mtmp),
 				  passes_walls(ptr) ? "" : "の間");
 #endif
 		}

@@ -221,7 +221,7 @@ register struct monst *mtmp;
 /*JP
 			   pline("%s recently regrown horn crumbles to dust.",
 */
-			   pline("最近再生した%sの角は粉々になった．",
+			   pline("最近再生した%sの角は粉々になった。",
 				s_suffix(Monnam(mtmp)));
 		} else
 			(void) mksobj_at(UNICORN_HORN, x, y, TRUE, FALSE);
@@ -416,7 +416,7 @@ warn_effects()
 		You_feel("apprehensive as you sense a %s flash.",
 		    warnings[warnlevel]);
 #else
-		You("%s光を感じ，とても不安に思った．",
+		You("%s光を感じ、とても不安に思った。",
 		    warnings[warnlevel]);
 #endif
 	}
@@ -462,7 +462,7 @@ register struct monst *mtmp;
 /*JP
 	    pline("%s rusts.", Monnam(mtmp));
 */
-	    pline("%sは錆びた．", Monnam(mtmp));
+	    pline("%sは錆びた。", Monnam(mtmp));
 	mtmp->mhp -= dam;
 	if (mtmp->mhpmax > dam) mtmp->mhpmax -= dam;
 	if (mtmp->mhp < 1) {
@@ -487,7 +487,7 @@ register struct monst *mtmp;
 			  mtmp->data == &mons[PM_WATER_ELEMENTAL] ?
 			  "boils away" : "burns to a crisp");
 #else
-		    pline("%sは%sた．", Monnam(mtmp),
+		    pline("%sは%sた。", Monnam(mtmp),
 			  mtmp->data == &mons[PM_WATER_ELEMENTAL] ?
 			  "沸騰し" : "燃えてパリパリになっ");
 #endif
@@ -499,14 +499,14 @@ register struct monst *mtmp;
 /*JP
 			pline("%s surrenders to the fire.", Monnam(mtmp));
 */
-			pline("%sは炎に呑まれた．", Monnam(mtmp));
+			pline("%sは炎に呑まれた。", Monnam(mtmp));
 		    mondead(mtmp);
 		}
 		else if (cansee(mtmp->mx,mtmp->my))
 /*JP
 		    pline("%s burns slightly.", Monnam(mtmp));
 */
-		    pline("%sはちょっと焦げた．", Monnam(mtmp));
+		    pline("%sはちょっと焦げた。", Monnam(mtmp));
 	    }
 	    if (mtmp->mhp > 0) {
 		(void) fire_damage(mtmp->minvent, FALSE, FALSE,
@@ -527,7 +527,7 @@ register struct monst *mtmp;
 /*JP
 		    pline("%s drowns.", Monnam(mtmp));
 */
-		    pline("%sは溺れた．", Monnam(mtmp));
+		    pline("%sは溺れた。", Monnam(mtmp));
 	    }
 	    if (u.ustuck && u.uswallow && u.ustuck == mtmp) {
 	    /* This can happen after a purple worm plucks you off a
@@ -536,7 +536,7 @@ register struct monst *mtmp;
 		pline("%s sinks as water rushes in and flushes you out.",
 			Monnam(mtmp));
 #else
-		pline("%sは水流に沈み．あなたを吐き出した．",
+		pline("%sは水流に沈み。あなたを吐き出した。",
 			Monnam(mtmp));
 #endif
 	    }
@@ -788,7 +788,7 @@ meatmetal(mtmp)
 /*JP
 			You_hear("a crunching sound.");
 */
-			You_hear("バリバリと食べる音を聞いた．");
+			You_hear("バリバリと食べる音を聞いた。");
 		    mtmp->meating = otmp->owt/2 + 1;
 		    /* Heal up to the object's weight in hp */
 		    if (mtmp->mhp < mtmp->mhpmax) {
@@ -879,7 +879,7 @@ meatobj(mtmp)		/* for gelatinous cubes */
 /*JP
 		    You_hear("a slurping sound.");
 */
-		    You_hear("ごくんと飲み込む音を聞いた．");
+		    You_hear("ごくんと飲み込む音を聞いた。");
 		/* Heal up to the object's weight in hp */
 		if (mtmp->mhp < mtmp->mhpmax) {
 		    mtmp->mhp += objects[otmp->otyp].oc_weight;
@@ -922,13 +922,13 @@ meatobj(mtmp)		/* for gelatinous cubes */
 /*JP
 			Sprintf(buf, "%s engulfs %s.", Monnam(mtmp),
 */
-			Sprintf(buf, "%sは%sを飲み込んだ．", Monnam(mtmp),
+			Sprintf(buf, "%sは%sを飲み込んだ。", Monnam(mtmp),
 			    distant_name(otmp,doname));
 		} else if (ecount == 2)
 /*JP
 			Sprintf(buf, "%s engulfs several objects.", Monnam(mtmp));
 */
-			Sprintf(buf, "%sはいくつかの物を飲み込んだ．", Monnam(mtmp));
+			Sprintf(buf, "%sはいくつかの物を飲み込んだ。", Monnam(mtmp));
 		obj_extract_self(otmp);
 		(void) mpickobj(mtmp, otmp);	/* slurp */
 	    }
@@ -944,7 +944,7 @@ meatobj(mtmp)		/* for gelatinous cubes */
 			ecount == 1 ? "a" : "several",
 			ecount == 1 ? "" : "s");
 #else
-	    	You_hear("ズルズルという音を聞いた．");
+	    	You_hear("ズルズルという音を聞いた。");
 #endif
 	}
 	return ((count > 0) || (ecount > 0)) ? 1 : 0;
@@ -972,7 +972,7 @@ mpickgold(mtmp)
 		pline("%s picks up some %s.", Monnam(mtmp),
 			mat_idx == GOLD ? "gold" : "money");
 #else
-		pline("%sはお金を拾った．", Monnam(mtmp));
+		pline("%sはお金を拾った。", Monnam(mtmp));
 #endif
 	    newsym(mtmp->mx, mtmp->my);
 	}
@@ -1012,7 +1012,7 @@ mpickstuff(mtmp, str)
 /*JP
 			pline("%s picks up %s.", Monnam(mtmp),
 */
-			pline("%sは%sを拾った．", Monnam(mtmp),
+			pline("%sは%sを拾った。", Monnam(mtmp),
 			      (distu(mtmp->mx, mtmp->my) <= 5) ?
 				doname(otmp) : distant_name(otmp, doname));
 		obj_extract_self(otmp);
@@ -1688,7 +1688,7 @@ boolean was_swallowed;			/* digestion */
 /*JP
 		pline("%s body crumbles into dust.", s_suffix(Monnam(mon)));
 */
-		pline("%sの体は粉々になった．", Monnam(mon));
+		pline("%sの体は粉々になった。", Monnam(mon));
 	    return FALSE;
 	}
 
@@ -1721,7 +1721,7 @@ boolean was_swallowed;			/* digestion */
 /*JP
 			if (flags.soundok) You_hear("an explosion.");
 */
-			if (flags.soundok) You_hear("爆発音を聞いた．");
+			if (flags.soundok) You_hear("爆発音を聞いた。");
 			magr->mhp -= tmp;
 			if (magr->mhp < 1) mondied(magr);
 			if (magr->mhp < 1) { /* maybe lifesaved */
@@ -1734,7 +1734,7 @@ boolean was_swallowed;			/* digestion */
 /*JP
 			    pline("%s seems to have indigestion.",
 */
-			    pline("%sは消化不良のようだ．",
+			    pline("%sは消化不良のようだ。",
 				  Monnam(magr));
 		    }
 
@@ -1786,7 +1786,7 @@ struct monst *mon; /**< Cthulhu's struct */
 /*JP
 			You_hear("hissing and bubbling!");
 */
-			You_hear("シューシュー，ごぼごぼという音を聞いた！");
+			You_hear("シューシュー、ごぼごぼという音を聞いた！");
 		}
 		/* ...into a stinking cloud... */
 		(void) create_cthulhu_death_cloud(mon->mx, mon->my, 3, 8);
@@ -1921,7 +1921,7 @@ register struct monst *mdef;
 				locomotion(youmonst.data, "jump"),
 				xname(otmp));
 #else
-			You("新しくできた%sから%s．",
+			You("新しくできた%sから%s。",
 				xname(otmp),
 				jumpedthrough(youmonst.data, "飛び出た"));
 #endif
@@ -1984,7 +1984,7 @@ int how;
 			verbalize("Oh my god, they killed Kenny!");
 			verbalize("You bastards!");
 #else
-			verbalize("なんてこった，ケニーが殺されちまった！");
+			verbalize("なんてこった、ケニーが殺されちまった！");
 			verbalize("この野郎！");
 #endif
 		} else {
@@ -1992,7 +1992,7 @@ int how;
 			You("have a %s feeling for a moment, then it passes.",
 			    (Hallucination ? "plaid" : "sad"));
 #else
-			You("%s気持におそわれたが，すぐに過ぎさった．",
+			You("%s気持におそわれたが、すぐに過ぎさった。",
 			    (Hallucination ? "格子縞な" : "悲しい"));
 #endif
 		}
@@ -2100,7 +2100,7 @@ xkilled(mtmp, dest)
 /*JP
 		if (!cansee(x,y)) pline("Maybe not...");
 */
-		if (!cansee(x,y)) pline("いや，違うかも．．．");
+		if (!cansee(x,y)) pline("いや、違うかも．．．");
 		return;
 	}
 
@@ -2256,13 +2256,13 @@ mon_to_stone(mtmp)
 /*JP
 		pline("Now it's %s.", an(mtmp->data->mname));
 */
-		pline("なんと%sになってしまった．", a_monnam(mtmp));
+		pline("なんと%sになってしまった。", a_monnam(mtmp));
 	} else {
 	    if(canseemon(mtmp))
 /*JP
 		pline("... and returns to normal.");
 */
-		pline("．．．そして普通に戻った．");
+		pline("．．．そして普通に戻った。");
 	}
     } else
 	impossible("Can't polystone %s!", a_monnam(mtmp));
@@ -2359,7 +2359,7 @@ poisontell(typ)
 /*JP
 	pline("You%s.", poiseff[typ]);
 */
-	You("%s．", poiseff[typ]);
+	You("%s。", poiseff[typ]);
 }
 
 void
@@ -2404,7 +2404,7 @@ int  typ, fatal;
 /*JP
 		pline_The("poison doesn't seem to affect you.");
 */
-		pline("毒は効かなかったようだ．");
+		pline("毒は効かなかったようだ。");
 		return;
 	}
 #if 0 /*JP*//*日本語では不要*/
@@ -2470,7 +2470,7 @@ register struct monst *mtmp;
 /*JP
 	    pline("%s shrieks.", Monnam(mtmp));
 */
-	    pline("%sは金切り声をあげた．", Monnam(mtmp));
+	    pline("%sは金切り声をあげた。", Monnam(mtmp));
 	    stop_occupation();
 	}
 	if (!rn2(10)) {
@@ -2981,7 +2981,7 @@ boolean msg;		/* "The oldmon turns into a newmon!" */
 /*JP
 	    mselftouch(mtmp, "No longer petrify-resistant, ",
 */
-	    mselftouch(mtmp, "石化への抵抗力がなくなって，",
+	    mselftouch(mtmp, "石化への抵抗力がなくなって、",
 			!flags.mon_moving);
 	m_dowear(mtmp, FALSE);
 
@@ -3198,7 +3198,7 @@ int damtype, dam;
 /*JP
 		pline("%s seems healthier.", Monnam(mon));
 */
-		pline("%sは元気になったように見える．", Monnam(mon));
+		pline("%sは元気になったように見える。", Monnam(mon));
 	}
     }
 }
@@ -3253,7 +3253,7 @@ register boolean silent;
 /*JP
 			You_hear("the shrill sound of a guard's whistle.");
 */
-			You_hear("番兵の笛がけたたましく鳴るのを聞いた．");
+			You_hear("番兵の笛がけたたましく鳴るのを聞いた。");
 	    }
 	    return(TRUE);
 	}
@@ -3292,7 +3292,7 @@ short otyp;
 				The(simple_typename(ap)),
 				c_obj_colors[objects[ap].oc_color]);
 #else
-		    pline("%sは以前よりより鮮やかな%sになったようだ．",
+		    pline("%sは以前よりより鮮やかな%sになったようだ。",
 				The(simple_typename(ap)),
 				c_obj_colors[objects[ap].oc_color]);
 #endif

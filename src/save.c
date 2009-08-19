@@ -173,7 +173,7 @@ dosave0()
 /*JP
 		There("seems to be an old save file.");
 */
-		pline("前にセーブしたファイルがあります．");
+		pline("前にセーブしたファイルがあります。");
 /*JP
 		if (yn("Overwrite the old file?") == 'n') {
 */

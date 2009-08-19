@@ -43,7 +43,7 @@ register struct monst *mon;
 /*JP
 			You_hear("a %s howling at the moon.", howler);
 */
-			You_hear("月夜に%sが吠える声を聞いた．", howler);
+			You_hear("月夜に%sが吠える声を聞いた。", howler);
 		}
 	    }
 	} else if (!rn2(30) || Protection_from_shape_changers) {
@@ -89,7 +89,7 @@ register struct monst *mon;
 			is_human(&mons[pm]) ? "human" :
 			mons[pm].mname+4);
 #else
-	    pline("%sは%sの姿になった．", Monnam(mon),
+	    pline("%sは%sの姿になった。", Monnam(mon),
 			is_human(&mons[pm]) ? "人間" :
 			jtrns_mon(mons[pm].mname + 4));
 #endif
@@ -182,7 +182,7 @@ boolean purify;
 /*JP
 	    You_feel("purified.");
 */
-	    You("浄められたような気がした．");
+	    You("浄められたような気がした。");
 	    u.ulycn = NON_PM;	/* cure lycanthropy */
 	}
 	if (!Unchanging && is_were(youmonst.data) &&

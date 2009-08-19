@@ -166,11 +166,11 @@ dump_init ()
 /*JP
 	pline("Can't open %s for output.", new_dump_fn);
 */
-	pline("%sを出力用に開けない．", new_dump_fn);
+	pline("%sを出力用に開けない。", new_dump_fn);
 /*JP
 	pline("Dump file not created.");
 */
-	pline("ダンプファイルを作成できなかった．");
+	pline("ダンプファイルを作成できなかった。");
       }
       free(new_dump_fn);
       
@@ -181,11 +181,11 @@ dump_init ()
 /*JP
 	pline("Can't open %s for output.", dump_fn);
 */
-	pline("%sを出力用に開けない．", dump_fn);
+	pline("%sを出力用に開けない。", dump_fn);
 /*JP
 	pline("Dump file not created.");
 */
-	pline("ダンプファイルを作成できなかった．");
+	pline("ダンプファイルを作成できなかった。");
       }
     }
   }
@@ -444,10 +444,10 @@ panic VA_DECL(const char *, str)
 		  "Suddenly, the dungeon collapses.");
 #else
 	raw_print(program_state.gameover ?
-		  "ゲーム終了時の処理が崩壊した．" :
+		  "ゲーム終了時の処理が崩壊した。" :
 		  !program_state.something_worth_saving ?
-		  "プログラムの初期化に失敗した．" :
-		  "突然迷宮が崩れた．");
+		  "プログラムの初期化に失敗した。" :
+		  "突然迷宮が崩れた。");
 #endif
 #if defined(WIZARD) && !defined(MICRO)
 # if defined(NOTIFY_NETHACK_BUGS)
@@ -461,7 +461,7 @@ panic VA_DECL(const char *, str)
 /*JP
 	    raw_printf("Report error to \"%s\"%s.",
 */
-	    raw_printf("%sにエラーを報告してください．%s",
+	    raw_printf("%sにエラーを報告してください。%s",
 #  ifdef WIZARD_NAME	/*(KR1ED)*/
 			WIZARD_NAME,
 #  else
@@ -471,7 +471,7 @@ panic VA_DECL(const char *, str)
 /*JP
 			" and it may be possible to rebuild.");
 */
-			"エラー発生．再実行不可能．");
+			"エラー発生。再実行不可能。");
 # endif
 	if (program_state.something_worth_saving) {
 	    set_error_savefile();
@@ -663,7 +663,7 @@ int how;
 /*JP
 	nomovemsg = "You survived that attempt on your life.";
 */
-	nomovemsg = "あなたは生きながらえた．";
+	nomovemsg = "あなたは生きながらえた。";
 	flags.move = 0;
 	if(multi > 0) multi = 0; else multi = -1;
 	if(u.utrap && u.utraptype == TT_LAVA) u.utrap = 0;
@@ -766,7 +766,7 @@ winid endwin;
 				OBJ_NAME(objects[otmp->otyp]),
 			value, currency(value), points);
 #else
-		Sprintf(pbuf, "%s(%ld%s，%ldポイントの価値)，",
+		Sprintf(pbuf, "%s(%ld%s、%ldポイントの価値)、",
 			otmp->oartifact ? xname(otmp) :
 			jtrns_obj(' ', OBJ_NAME(objects[otmp->otyp])),
 			value, currency(value), points);
@@ -807,7 +807,7 @@ int how;
 /*JP
 		You("are a very tricky wizard, it seems.");
 */
-		You("とても扱いにくいwizardのようだ．");
+		You("とても扱いにくいwizardのようだ。");
 		return;
 	    }
 #endif
@@ -884,7 +884,7 @@ int how;
 /*JP
 				pline("Unfortunately you are still genocided...");
 */
-				pline("残念ながら，あなたはもう虐殺されている．．．");
+				pline("残念ながら、あなたはもう虐殺されている．．．");
 			else {
 				killer = 0;
 				killer_format = 0;
@@ -903,7 +903,7 @@ int how;
 			(how == CHOKING) ? "choke" : (how == DISINTEGRATED) ? "disintegrate" : "die");
 #else
 		if(yn("死んでみる？") == 'y') goto die;
-		pline("わかったよ． では，あなたは%sなかった．",
+		pline("わかったよ。 では、あなたは%sなかった。",
 			(how == CHOKING) ? "窒息し" : (how == DISINTEGRATED) ? "粉砕され" : "死な");
 #endif
 		if(u.uhpmax <= 0) u.uhpmax = u.ulevel * 8;	/* arbitrary */
@@ -983,7 +983,7 @@ die:
 /*JP
 	    pline("Do not pass go.  Do not collect 200 %s.", currency(200L));
 */
-	    pline("注意一秒，怪我一生，死亡一歩．");
+	    pline("注意一秒、怪我一生、死亡一歩。");
 
 	if (have_windows) wait_synch();	/* flush screen output */
 #ifndef NO_SIGNAL
@@ -1252,7 +1252,7 @@ die:
 #endif
 			u.urscore, plur(u.urscore));
 #else /*JP*/
-		Sprintf(eos(pbuf), "%ldポイントマークし%s．", u.urscore,
+		Sprintf(eos(pbuf), "%ldポイントマークし%s。", u.urscore,
 			how==ASCENDED ? "昇天した" :
 #ifdef ASTRAL_ESCAPE
 					(how==DEFIED ?
@@ -1293,7 +1293,7 @@ die:
 #if 0 /*JP*/
 			Sprintf(pbuf, "%8ld %s (worth %ld %s),",
 #else
-			Sprintf(pbuf, "%ld個の%s(%ld%sの価値)，",
+			Sprintf(pbuf, "%ld個の%s(%ld%sの価値)、",
 #endif
 				count, xname(otmp),
 				count * (long)objects[typ].oc_cost, currency(2L));
@@ -1304,7 +1304,7 @@ die:
 				"%8ld worthless piece%s of colored glass,",
 				count, plur(count));
 #else
-				"%ld個の価値のない色つきガラス，",
+				"%ld個の価値のない色つきガラス、",
 				count);
 #endif
 		    }
@@ -1324,7 +1324,7 @@ die:
 		Sprintf(pbuf, "You %s beyond the confines of the dungeon",
 			(u.uz.dlevel < 0) ? "passed away" : ends[how]);
 #else
-		Sprintf(pbuf, "迷宮の領域を越え%s．",
+		Sprintf(pbuf, "迷宮の領域を越え%s。",
 			(u.uz.dlevel < 0) ? "消えさった" : ends[how]);
 #endif
 	    } else {
@@ -1351,7 +1351,7 @@ die:
 	    Sprintf(eos(pbuf), " with %ld point%s,",
 		    u.urscore, plur(u.urscore));
 #else
-	    Sprintf(eos(pbuf), " %ldポイントをマークし，",
+	    Sprintf(eos(pbuf), " %ldポイントをマークし、",
 		    u.urexp);
 #endif
 	    if (!done_stopprint) putstr(endwin, 0, pbuf);
@@ -1364,7 +1364,7 @@ die:
 	    Sprintf(pbuf, "and %ld piece%s of gold, after %ld move%s.",
 		    umoney, plur(umoney), moves, plur(moves));
 #else
-	    Sprintf(pbuf, "%ld枚の金貨を持って，%ld歩動いた．",
+	    Sprintf(pbuf, "%ld枚の金貨を持って、%ld歩動いた。",
 		    u.ugold, moves);
 #endif
 	if (!done_stopprint)  putstr(endwin, 0, pbuf);
@@ -1384,7 +1384,7 @@ die:
 		    u.ulevel, u.uhpmax, plur(u.uhpmax), ends[how]);
 #else
 	    Sprintf(pbuf,
-	     "%sとき，あなたはレベル%uで，最大体力は%dであった．",
+	     "%sとき、あなたはレベル%uで、最大体力は%dであった。",
 		    ends[how],u.ulevel, u.uhpmax);
 #endif
 	if (!done_stopprint) {
@@ -1495,7 +1495,7 @@ boolean identified, all_containers, want_dump, want_disp;
 /*JP
 		    pline("%s empty.", Tobjnam(box, "are"));
 */
-		    pline("%sは空っぽだ．", xname(box));
+		    pline("%sは空っぽだ。", xname(box));
 		    display_nhwindow(WIN_MESSAGE, FALSE);
 #ifdef DUMP_LOG
 		    }
@@ -1503,7 +1503,7 @@ boolean identified, all_containers, want_dump, want_disp;
 /*JP
 		      dump(The(xname(box)), " is empty.");
 */
-		      dump(The(xname(box)), "は空っぽだ．");
+		      dump(The(xname(box)), "は空っぽだ。");
 		      dump("", "");
 		    }
 #endif
@@ -1674,7 +1674,7 @@ boolean want_dump;
 /*JP
 		Sprintf(buf, "%ld creatures vanquished.", total_killed);
 */
-		Sprintf(buf, "%ld匹の敵を倒した．", total_killed);
+		Sprintf(buf, "%ld匹の敵を倒した。", total_killed);
 		if (c == 'y') putstr(klwin, 0, buf);
 #ifdef DUMP_LOG
 		if (want_dump)  dump("  ", buf);
@@ -1824,7 +1824,7 @@ boolean ask;
 /*JP
 	    Sprintf(buf, "%d species genocided.", ngenocided);
 */
-	    Sprintf(buf, "%d種類の種を虐殺した．", ngenocided);
+	    Sprintf(buf, "%d種類の種を虐殺した。", ngenocided);
 	    putstr(klwin, 0, buf);
 #ifdef DUMP_LOG
 	    if (want_dump)  dump("  ", buf);
@@ -1835,7 +1835,7 @@ boolean ask;
 /*JP
 	      Sprintf(buf, "%d species extinct.", nextincted);
 */
-	      Sprintf(buf, "%d種類の種を絶滅させた．", nextincted);
+	      Sprintf(buf, "%d種類の種を絶滅させた。", nextincted);
 	      putstr(klwin, 0, buf);
 #ifdef DUMP_LOG
 	      if (want_dump) dump(" ", buf);

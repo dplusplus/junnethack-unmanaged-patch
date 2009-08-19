@@ -940,7 +940,7 @@ char *hittee;			/* target's name: "you" or mon_nam(mdef) */
 /*JP
 	    pline_The("%s is insightful.", verb);
 */
-	    pline("識別できた．");
+	    pline("識別できた。");
 	    /* pre-damage status */
 	    probe_monster(mdef);
 	}
@@ -989,7 +989,7 @@ char *hittee;			/* target's name: "you" or mon_nam(mdef) */
 	    else if (do_stun) Strcat(buf, "よろめいた");
 	    if (do_confuse) Strcat(buf, "混乱した");
 	    pline("%sは%s%s", hittee,
-		  buf, (do_stun && do_confuse) ? "！" : "．");
+		  buf, (do_stun && do_confuse) ? "！" : "。");
 #endif
 	}
     }
@@ -1054,7 +1054,7 @@ int dieroll; /* needed for Magicbane and vorpal blades */
 #else
 		pline_The("灼熱の刃が%s%s",
 			hittee,
-			!spec_dbon_applies ? "に命中した．" :
+			!spec_dbon_applies ? "に命中した。" :
 			(mdef->data == &mons[PM_WATER_ELEMENTAL]) ?
 			"の一部を消滅させた！" : "を焼いた！");
 #endif
@@ -1073,7 +1073,7 @@ int dieroll; /* needed for Magicbane and vorpal blades */
 #else
 		pline_The("氷結の刃が%s%s",
 			hittee,
-			!spec_dbon_applies ? "に命中した．" : "を襲った！");
+			!spec_dbon_applies ? "に命中した。" : "を襲った！");
 #endif
 	    if (!rn2(4)) (void) destroy_mitem(mdef, POTION_CLASS, AD_COLD);
 	    return realizes_damage;
@@ -1086,7 +1086,7 @@ int dieroll; /* needed for Magicbane and vorpal blades */
 			  hittee, !spec_dbon_applies ? '.' : '!');
 #else
 		    pline("巨大なハンマーは%sに命中した%s", hittee,
-			  !spec_dbon_applies ? "．" : "！電撃が襲った！");
+			  !spec_dbon_applies ? "。" : "！電撃が襲った！");
 #endif
 	    if (!rn2(5)) (void) destroy_mitem(mdef, RING_CLASS, AD_ELEC);
 	    if (!rn2(5)) (void) destroy_mitem(mdef, WAND_CLASS, AD_ELEC);
@@ -1102,7 +1102,7 @@ int dieroll; /* needed for Magicbane and vorpal blades */
 #else
 		pline("概念の物体が%sを攻撃した%s",
 			  hittee,
-			  !spec_dbon_applies ? "．" :
+			  !spec_dbon_applies ? "。" :
 				"！魔法の矢が雨あられと命中した！");
 #endif
 	    return realizes_damage;
@@ -1212,13 +1212,13 @@ int dieroll; /* needed for Magicbane and vorpal blades */
 /*JP
 					pline("Somehow, you miss %s wildly.",
 */
-					pline("なぜか，%sへの攻撃は大きくはずれた．",
+					pline("なぜか、%sへの攻撃は大きくはずれた。",
 						mon_nam(mdef));
 				else if (vis)
 /*JP
 					pline("Somehow, %s misses wildly.",
 */
-					pline("なぜか，%sの攻撃は大きくはずれた．",
+					pline("なぜか、%sの攻撃は大きくはずれた。",
 						mon_nam(magr));
 				*dmgptr = 0;
 				return ((boolean)(youattack || vis));
@@ -1227,7 +1227,7 @@ int dieroll; /* needed for Magicbane and vorpal blades */
 /*JP
 				pline("%s slices through %s %s.", wepdesc,
 */
-				pline("%sは%sの%sを切り落した．", wepdesc,
+				pline("%sは%sの%sを切り落した。", wepdesc,
 				      s_suffix(mon_nam(mdef)),
 				      mbodypart(mdef,NECK));
 				return TRUE;
@@ -1242,7 +1242,7 @@ int dieroll; /* needed for Magicbane and vorpal blades */
 /*JP
 				pline("Somehow, %s misses you wildly.",
 */
-				pline("なぜか，%sの攻撃は大きくはずれた．",
+				pline("なぜか、%sの攻撃は大きくはずれた。",
 				      magr ? mon_nam(magr) : wepdesc);
 				*dmgptr = 0;
 				return TRUE;
@@ -1251,7 +1251,7 @@ int dieroll; /* needed for Magicbane and vorpal blades */
 /*JP
 				pline("%s slices through your %s.",
 */
-				pline("%sはあなたの%sを切り落した．",
+				pline("%sはあなたの%sを切り落した。",
 				      wepdesc, body_part(NECK));
 				return TRUE;
 			}
@@ -1408,7 +1408,7 @@ arti_invoke(obj)
 	    You_feel("that %s %s ignoring you.",
 		     the(xname(obj)), otense(obj, "are"));
 #else
-	    You_feel("%sが無視しているように感じた．", xname(obj));
+	    You_feel("%sが無視しているように感じた。", xname(obj));
 #endif
 	    /* and just got more so; patience is essential... */
 	    obj->age += (long) d(3,10);
@@ -1434,7 +1434,7 @@ arti_invoke(obj)
 /*JP
 		You_feel("better.");
 */
-		You_feel("気分がよくなった．");
+		You_feel("気分がよくなった。");
 	    else
 		goto nothing_special;
 	    if (healamt > 0) {
@@ -1455,7 +1455,7 @@ arti_invoke(obj)
 /*JP
 		You_feel("re-energized.");
 */
-		You("エネルギーが満たされた．");
+		You("エネルギーが満たされた。");
 		u.uen += epboost;
 		flags.botl = 1;
 	    } else
@@ -1499,7 +1499,7 @@ arti_invoke(obj)
 /*JP
 		You("feel very disoriented for a moment.");
 */
-		You("一瞬方向感覚を失った．");
+		You("一瞬方向感覚を失った。");
 		break;
 	    }
  #endif
@@ -1552,7 +1552,7 @@ arti_invoke(obj)
 /*JP
 		You_feel("very disoriented for a moment.");
 */
-		You("一瞬方向感覚を失った．");
+		You("一瞬方向感覚を失った。");
 	    } else {
 /*JP
 		if(!Blind) You("are surrounded by a shimmering sphere!");
@@ -1561,7 +1561,7 @@ arti_invoke(obj)
 /*JP
 		else You_feel("weightless for a moment.");
 */
-		else You_feel("一瞬，無重力感を感じた！");
+		else You_feel("一瞬、無重力感を感じた！");
 		goto_level(&newlev, FALSE, FALSE, FALSE);
 	    }
 	    break;
@@ -1588,7 +1588,7 @@ arti_invoke(obj)
 	    otmp = hold_another_object(otmp, "Suddenly %s out.",
 				       aobjnam(otmp, "fall"), (const char *)0);
 #else
-	    otmp = hold_another_object(otmp, "突然%sが落ちた．",
+	    otmp = hold_another_object(otmp, "突然%sが落ちた。",
 				       xname(otmp), 0);
 #endif
 	    break;
@@ -1606,7 +1606,7 @@ arti_invoke(obj)
 	    You_feel("that %s %s ignoring you.",
 		     the(xname(obj)), otense(obj, "are"));
 #else
-	    You_feel("%sが無視しているように感じた．", xname(obj));
+	    You_feel("%sが無視しているように感じた。", xname(obj));
 #endif
 	    /* can't just keep repeatedly trying */
 	    obj->age += (long) d(3,10);
@@ -1624,7 +1624,7 @@ nothing_special:
 /*JP
 		You_feel("a surge of power, but nothing seems to happen.");
 */
-		You("力が渦巻いたような気がした，しかし何も起きなかった．");
+		You("力が渦巻いたような気がした、しかし何も起きなかった。");
 	    return 1;
 	}
 	switch(oart->inv_prop) {
@@ -1632,11 +1632,11 @@ nothing_special:
 /*JP
 	    if(on) You_feel("like a rabble-rouser.");
 */
-	    if(on) You("民衆扇動家のような気がした．");
+	    if(on) You("民衆扇動家のような気がした。");
 /*JP
 	    else You_feel("the tension decrease around you.");
 */
-	    else pline("まわりの緊張感がなくなったような気がした．");
+	    else pline("まわりの緊張感がなくなったような気がした。");
 	    break;
 	case LEVITATION:
 	    if(on) {
@@ -1652,7 +1652,7 @@ nothing_special:
 		Your("body takes on a %s transparency...",
 		     Hallucination ? "normal" : "strange");
 #else
-		pline("%s，体は透過性をもった．．．",
+		pline("%s、体は透過性をもった．．．",
 		      Hallucination ? "あたりまえのことだが" : "奇妙なことに");
 #endif
 	    else
@@ -1695,7 +1695,7 @@ arti_speak(obj)
 /*JP
 		line = "UnNetHack rumors file closed for renovation.";
 */
-		line = "噂の真相は新装のため一時閉店．";
+		line = "噂の真相は新装のため一時閉店。";
 /*JP
 	pline("%s:", Tobjnam(obj, "whisper"));
 */

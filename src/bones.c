@@ -222,12 +222,12 @@ struct obj *corpse;
 /*JP
 		    if (yn("Bones file already exists.  Replace it?") == 'y') {
 */
-		    if (yn("骨ファイルは既に存在している．  置き換える？") == 'y') {
+		    if (yn("骨ファイルは既に存在している。  置き換える？") == 'y') {
 			if (delete_bonesfile(&u.uz)) goto make_bones;
 /*JP
 			else pline("Cannot unlink old bones.");
 */
-			else pline("古い骨を削除できない．");
+			else pline("古い骨を削除できない。");
 		    }
 		}
 #endif
@@ -379,7 +379,7 @@ struct obj *corpse;
 /*JP
 			pline("Insufficient space to create bones file.");
 */
-			pline("骨ファイルを生成するための充分な領域がない．");
+			pline("骨ファイルを生成するための充分な領域がない。");
 # endif
 		(void) close(fd);
 		cancel_bonesfile();
@@ -427,7 +427,7 @@ getbones()
 /*JP
 		pline("Discarding unuseable bones; no need to panic...");
 */
-		pline("使えない骨を捨てた．慌てる必要はない．．．");
+		pline("使えない骨を捨てた。慌てる必要はない．．．");
 	} else {
 #ifdef WIZARD
 		if(wizard)  {
@@ -450,7 +450,7 @@ getbones()
 			Sprintf(errbuf, "This is bones level '%s', not '%s'!",
 				oldbonesid, bonesid);
 #else
-			Sprintf(errbuf, "この骨のレベルは'%s'であって，'%s'ではない！",
+			Sprintf(errbuf, "この骨のレベルは'%s'であって、'%s'ではない！",
 				oldbonesid, bonesid);
 #endif
 #ifdef WIZARD

@@ -164,7 +164,7 @@ int mechanism;
 /*JP
 		"This cookie has a scrap of paper inside.";
 */
-		"このクッキーには紙切が入っている．";
+		"このクッキーには紙切が入っている。";
 	const char *line;
 	char buf[BUFSZ];
 	boolean reading = (mechanism == BY_COOKIE ||
@@ -189,7 +189,7 @@ int mechanism;
 /*JP
 		line = "UnNetHack rumors file closed for renovation.";
 */
-		line = "噂の真相は刷新のため休刊している．";
+		line = "噂の真相は刷新のため休刊している。";
 	switch (mechanism) {
 	    case BY_ORACLE:
 	 	/* Oracle delivers the rumor */
@@ -198,7 +198,7 @@ int mechanism;
 		  (!rn2(4) ? "offhandedly " : (!rn2(3) ? "casually " :
 		  (rn2(2) ? "nonchalantly " : ""))));
 #else
-		pline("言葉どおりに，賢者は%s述べた:",
+		pline("言葉どおりに、賢者は%s述べた:",
 		(!rn2(4) ? "無造作に" : (!rn2(3) ? "何気なく" :
 		(rn2(2) ? "無頓着に" : ""))));
 #endif
@@ -307,8 +307,8 @@ boolean delphi;
 		          "The Oracle scornfully takes all your money and says:" :
 		          "The Oracle meditates for a moment and then intones:");
 #else
-		      "賢者は軽蔑したようにあなたの全てのお金を受けとり，述べた：" :
-		      "賢者はしばらく冥想し，詠唱した：");
+		      "賢者は軽蔑したようにあなたの全てのお金を受けとり、述べた：" :
+		      "賢者はしばらく冥想し、詠唱した：");
 #endif
 		else
 /*JP
@@ -350,13 +350,13 @@ register struct monst *oracl;
 /*JP
 		There("is no one here to consult.");
 */
-		pline("ここには神託を述べる人はいない．");
+		pline("ここには神託を述べる人はいない。");
 		return 0;
 	} else if (!oracl->mpeaceful) {
 /*JP
 		pline("%s is in no mood for consultations.", Monnam(oracl));
 */
-		pline("賢者は神託を告げてくれる雰囲気ではない．");
+		pline("賢者は神託を告げてくれる雰囲気ではない。");
 		return 0;
 #ifndef GOLDOBJ
 	} else if (!u.ugold) {
@@ -366,7 +366,7 @@ register struct monst *oracl;
 /*JP
 		You("have no money.");
 */
-		You("お金がない．");
+		You("お金がない。");
 		return 0;
 	}
 
@@ -374,7 +374,7 @@ register struct monst *oracl;
 /*JP
 		"\"Wilt thou settle for a minor consultation?\" (%d %s)",
 */
-		"「汝，低位の神託を受けるか？」(%d%s)",
+		"「汝、低位の神託を受けるか？」(%d%s)",
 		minor_cost, currency((long)minor_cost));
 	switch (ynq(qbuf)) {
 	    default:
@@ -405,7 +405,7 @@ register struct monst *oracl;
 /*JP
 			"\"Then dost thou desire a major one?\" (%d %s)",
 */
-			"「ならば汝，高位の神託を受けるか？」(%d%s)",
+			"「ならば汝、高位の神託を受けるか？」(%d%s)",
 			major_cost, currency((long)major_cost));
 		if (yn(qbuf) != 'y') return 0;
 #ifndef GOLDOBJ

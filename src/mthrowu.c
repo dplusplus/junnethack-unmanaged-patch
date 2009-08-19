@@ -93,7 +93,7 @@ const char *name;	/* if null, then format `obj' */
 /*JP
 		if(Blind || !flags.verbose) pline("It misses.");
 */
-		if(Blind || !flags.verbose) pline("それははずれた．");
+		if(Blind || !flags.verbose) pline("それははずれた。");
 /*JP
 		else You("are almost hit by %s.", onm);
 */
@@ -122,7 +122,7 @@ const char *name;	/* if null, then format `obj' */
 /*JP
 			pline("It doesn't seem to hurt you.");
 */
-			pline("あなたは傷つかなかった．");
+			pline("あなたは傷つかなかった。");
 		else {
 /*JP
 			if (is_acid) pline("It burns!");
@@ -213,7 +213,7 @@ boolean verbose;  /* give message(s) even when you can't see what happened */
 /*JP
 		else if (verbose) pline("It is missed.");
 */
-		else if (verbose) pline("何者かへの攻撃ははずれた．");
+		else if (verbose) pline("何者かへの攻撃ははずれた。");
 	    }
 	    if (!range) { /* Last position; object drops */
 		(void) drop_throw(otmp, 0, mtmp->mx, mtmp->my);
@@ -259,7 +259,7 @@ boolean verbose;  /* give message(s) even when you can't see what happened */
 		    if (vis) pline_The("poison doesn't seem to affect %s.",
 				   mon_nam(mtmp));
 #else
-		    if (vis) pline("%sは毒の影響を受けない．",
+		    if (vis) pline("%sは毒の影響を受けない。",
 				   mon_nam(mtmp));
 #endif
 		} else {
@@ -292,7 +292,7 @@ boolean verbose;  /* give message(s) even when you can't see what happened */
 /*JP
 			pline("%s is unaffected.", Monnam(mtmp));
 */
-			pline("%sは影響を受けない．", Monnam(mtmp));
+			pline("%sは影響を受けない。", Monnam(mtmp));
 		    damage = 0;
 		} else {
 /*JP
@@ -331,7 +331,7 @@ boolean verbose;  /* give message(s) even when you can't see what happened */
 /*JP
 		    pline("%s is blinded by %s.", Monnam(mtmp), the(xname(otmp)));
 */
-		    pline("%sは%sによって目が見えなくなった．", Monnam(mtmp), the(xname(otmp)));
+		    pline("%sは%sによって目が見えなくなった。", Monnam(mtmp), the(xname(otmp)));
 		mtmp->mcansee = 0;
 		tmp = (int)mtmp->mblinded + rnd(25) + 20;
 		if (tmp > 127) tmp = 127;
@@ -448,11 +448,11 @@ m_throw(mon, x, y, dx, dy, range, obj)
 /*JP
 			    You("catch the %s.", xname(singleobj));
 */
-			    You("%sをつかまえた．", xname(singleobj));
+			    You("%sをつかまえた。", xname(singleobj));
 /*JP
 			    You("are not interested in %s junk.",
 */
-			    You("%sのガラクタに興味はない．",
+			    You("%sのガラクタに興味はない。",
 				s_suffix(mon_nam(mon)));
 			    makeknown(singleobj->otyp);
 			    dropy(singleobj);
@@ -460,15 +460,15 @@ m_throw(mon, x, y, dx, dy, range, obj)
 /*JP
 			    You("accept %s gift in the spirit in which it was intended.",
 */
-			    You("これが欲しかったんだと思いながら%sの贈り物を受けとった．",
+			    You("これが欲しかったんだと思いながら%sの贈り物を受けとった。",
 				s_suffix(mon_nam(mon)));
 			    (void)hold_another_object(singleobj,
 #if 0 /*JP*/
 				"You catch, but drop, %s.", xname(singleobj),
 				"You catch:");
 #else
-				"あなたは%sをつかまえたが，落した．", xname(singleobj),
-				"をつかまえた．");
+				"あなたは%sをつかまえたが、落した。", xname(singleobj),
+				"をつかまえた。");
 #endif
 			}
 			break;
@@ -526,13 +526,13 @@ m_throw(mon, x, y, dx, dy, range, obj)
 /*JP
 			    if(!Blind) pline("Yecch!  You've been creamed.");
 */
-			    if(!Blind) pline("ウェー．クリームをかぶった．");
+			    if(!Blind) pline("ウェー。クリームをかぶった。");
 #if 0 /*JP*/
 			    else pline("There's %s sticky all over your %s.",
 				       something,
 				       body_part(FACE));
 #else
-			    else pline("あなたは%sにべとつくものを感じた．",
+			    else pline("あなたは%sにべとつくものを感じた。",
 					      body_part(FACE));
 #endif
 			} else if(singleobj->otyp == BLINDING_VENOM) {
@@ -545,8 +545,8 @@ m_throw(mon, x, y, dx, dy, range, obj)
 						makeplural(body_part(EYE)),
 				      (num_eyes == 1) ? "s" : "");
 #else
-			    if(!Blind) pline("毒で目が見えなくなった．");
-			    else Your("%sはちくちくした．", makeplural(body_part(EYE)));
+			    if(!Blind) pline("毒で目が見えなくなった。");
+			    else Your("%sはちくちくした。", makeplural(body_part(EYE)));
 #endif
 			}
 		    }
@@ -657,7 +657,7 @@ struct monst *mtmp;
 		pline("%s thrusts %s.", Monnam(mtmp),
 		      obj_is_pname(otmp) ? the(onm) : an(onm));
 #else
-		pline("%sは%sを突き刺した．", Monnam(mtmp), onm);
+		pline("%sは%sを突き刺した。", Monnam(mtmp), onm);
 #endif
 	    }
 
@@ -781,7 +781,7 @@ register struct attack *mattk;
 /*JP
 		pline("A dry rattle comes from %s throat.",
 */
-		pline("%sの喉がガラガラと鳴った．",
+		pline("%sの喉がガラガラと鳴った。",
 		                      s_suffix(mon_nam(mtmp)));
 	    return 0;
 	}
@@ -832,12 +832,12 @@ breamu(mtmp, mattk)			/* monster breathes at you (ranged) */
 /*JP
 			pline("%s coughs.", Monnam(mtmp));
 */
-			pline("%sはせきをした．", Monnam(mtmp));
+			pline("%sはせきをした。", Monnam(mtmp));
 		    else
 /*JP
 			You_hear("a cough.");
 */
-			You_hear("せきの音を聞いた．");
+			You_hear("せきの音を聞いた。");
 		}
 		return(0);
 	    }

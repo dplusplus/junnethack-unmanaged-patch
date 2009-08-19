@@ -129,7 +129,7 @@ FLAGS: noteleport,hardfloor,shortsighted
 #MESSAGE: "What a strange feeling!"
 #MESSAGE: "You notice that there is no gravity here."
 MESSAGE: "なにか奇妙な感じがする！"
-MESSAGE: "あなたはここには重力がないことに気がついた．"
+MESSAGE: "あなたはここには重力がないことに気がついた。"
 GEOMETRY:center,center
 # The player lands, upon arrival, in the
 # lower-left area.  The location of the
@@ -384,7 +384,7 @@ OBJECT:'`',"boulder",random
 MAZE:"water",' '
 FLAGS: noteleport,hardfloor,shortsighted
 #MESSAGE: "You find yourself suspended in an air bubble surrounded by water."
-MESSAGE: "あなたは水中の空気の泡のなかに浮遊している．"
+MESSAGE: "あなたは水中の空気の泡のなかに浮遊している。"
 GEOMETRY:center,center
 # The player lands upon arrival to an air bubble
 # within the leftmost third of the level.  The
@@ -485,7 +485,7 @@ FLAGS: noteleport,hardfloor,nommap,shortsighted
 #MESSAGE: "Here the High Temples of the aligned gods are located."
 #MESSAGE: "You sense alarm, hostility, and excitement in the air!"
 MESSAGE: "あなたは精霊界に到着した！"
-MESSAGE: "ここにはあなたの神の大神殿がある．"
+MESSAGE: "ここにはあなたの神の大神殿がある。"
 MESSAGE: "あなたは大気に混じる恐怖と憎悪と興奮を感じとった！"
 GEOMETRY:center,center
 MAP

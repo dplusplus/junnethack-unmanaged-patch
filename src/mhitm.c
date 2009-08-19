@@ -26,7 +26,7 @@ static const char brief_feeling[] =
 /*JP
 	"have a %s feeling for a moment, then it passes.";
 */
-	"%s気持におそわれたが，すぐに過ぎさった．";
+	"%s気持におそわれたが、すぐに過ぎさった。";
 
 STATIC_DCL char *FDECL(mon_nam_too, (char *,struct monst *,struct monst *));
 STATIC_DCL void FDECL(mrustm, (struct monst *, struct monst *, struct obj *));
@@ -85,7 +85,7 @@ noises(magr, mattk)
 			(mattk->aatyp == AT_EXPL) ? "an explosion" : "some noises",
 			farq ? " in the distance" : "");
 #else
-		You_hear("%s%sを聞いた．",
+		You_hear("%s%sを聞いた。",
 		        farq ? "遠くで" : "",
 			(mattk->aatyp == AT_EXPL) ? "爆発音" : "何かが戦う音"
 			);
@@ -113,7 +113,7 @@ missmm(magr, mdef, mattk)
 /*JP
 			"%s pretends to be friendly to" : "%s misses";
 */
-			"%sは%%sに友好的なふりをした．" : "%sの%%sへの攻撃は外れた．";
+			"%sは%%sに友好的なふりをした。" : "%sの%%sへの攻撃は外れた。";
 		Sprintf(buf, fmt, Monnam(magr));
 /*JP
 		pline("%s %s.", buf, mon_nam_too(mdef_name, mdef, magr));
@@ -264,12 +264,12 @@ mattackm(magr, mdef)
 				(mdef->data->geno & G_UNIQ) ?
 				a_monnam(mdef) : makeplural(m_monnam(mdef)));
 #else
-	    if (u.usleep) You("%sの夢を見た．", a_monnam(mdef));
+	    if (u.usleep) You("%sの夢を見た。", a_monnam(mdef));
 #endif
 /*JP
 	    else pline("Suddenly, you notice %s.", a_monnam(mdef));
 */
-	    else pline("突然，あなたは%sに気がついた．", a_monnam(mdef));
+	    else pline("突然、あなたは%sに気がついた。", a_monnam(mdef));
 	}
     }
 
@@ -449,7 +449,7 @@ hitmm(magr, mdef, mattk)
 				compat == 2 ?
 					"engagingly" : "seductively");
 #else
-			Sprintf(buf, "%sは%%sに%%s%s．", Monnam(magr),
+			Sprintf(buf, "%sは%%sに%%s%s。", Monnam(magr),
 				mdef->mcansee ? "微笑みかけた" : "話しかけた");
 			pline(buf, mon_nam(mdef),
 				compat == 2 ?
@@ -464,31 +464,31 @@ hitmm(magr, mdef, mattk)
 /*JP
 				Sprintf(buf,"%s bites", magr_name);
 */
-				Sprintf(buf,"%sは%%sに噛みついた．", magr_name);
+				Sprintf(buf,"%sは%%sに噛みついた。", magr_name);
 				break;
 			case AT_STNG:
 /*JP
 				Sprintf(buf,"%s stings", magr_name);
 */
-				Sprintf(buf,"%sは%%sを突きさした．", magr_name);
+				Sprintf(buf,"%sは%%sを突きさした。", magr_name);
 				break;
 			case AT_BUTT:
 /*JP
 				Sprintf(buf,"%s butts", magr_name);
 */
-				Sprintf(buf,"%sは%%sに頭突きをくらわした．", magr_name);
+				Sprintf(buf,"%sは%%sに頭突きをくらわした。", magr_name);
 				break;
 			case AT_TUCH:
 /*JP
 				Sprintf(buf,"%s touches", magr_name);
 */
-				Sprintf(buf,"%sは%%sに触れた．", magr_name);
+				Sprintf(buf,"%sは%%sに触れた。", magr_name);
 				break;
 			case AT_TENT:
 /*JP
 				Sprintf(buf, "%s tentacles suck",
 */
-				Sprintf(buf, "%sの触手が%%sの体液を吸いとった．",
+				Sprintf(buf, "%sの触手が%%sの体液を吸いとった。",
 					s_suffix(magr_name));
 				break;
 			case AT_HUGS:
@@ -496,14 +496,14 @@ hitmm(magr, mdef, mattk)
 /*JP
 				    Sprintf(buf,"%s squeezes", magr_name);
 */
-				    Sprintf(buf,"%sは%%sを絞めた．", magr_name);
+				    Sprintf(buf,"%sは%%sを絞めた。", magr_name);
 				    break;
 				}
 			default:
 /*JP
 				Sprintf(buf,"%s hits", magr_name);
 */
-				Sprintf(buf,"%sの%%sへの攻撃は命中した．", magr_name);
+				Sprintf(buf,"%sの%%sへの攻撃は命中した。", magr_name);
 		    }
 #if 0 /*JP*/
 		    pline("%s %s.", buf, mon_nam_too(mdef_name, mdef, magr));
@@ -539,7 +539,7 @@ gazemm(magr, mdef, mattk)
 /*JP
 	    if(vis) pline("but nothing happens.");
 */
-	    if(vis) pline("しかし何もおこらなかった．");
+	    if(vis) pline("しかし何もおこらなかった。");
 	    return(MM_MISS);
 	}
 	/* call mon_reflects 2x, first test, then, if visible, print message */
@@ -549,7 +549,7 @@ gazemm(magr, mdef, mattk)
 /*JP
 				    "The gaze is reflected away by %s %s.");
 */
-				    "にらみは%sの%sで反射した．");
+				    "にらみは%sの%sで反射した。");
 	    if (mdef->mcansee) {
 		if (mon_reflects(magr, (char *)0)) {
 		    if (canseemon(magr))
@@ -557,7 +557,7 @@ gazemm(magr, mdef, mattk)
 /*JP
 					"The gaze is reflected away by %s %s.");
 */
-					"にらみは%sの%sで反射した．");
+					"にらみは%sの%sで反射した。");
 		    return (MM_MISS);
 		}
 		if (mdef->minvis && !perceives(magr->data)) {
@@ -566,7 +566,7 @@ gazemm(magr, mdef, mattk)
 			pline("%s doesn't seem to notice that %s gaze was reflected.",
 			      Monnam(magr), mhis(magr));
 #else
-			pline("にらみが反射していることに%sは気付いていないようだ．",
+			pline("にらみが反射していることに%sは気付いていないようだ。",
 			      Monnam(magr));
 #endif
 		    }
@@ -604,7 +604,7 @@ gulpmm(magr, mdef, mattk)
 		Sprintf(buf,"%s swallows", Monnam(magr));
 		pline("%s %s.", buf, mon_nam(mdef));
 #else
-		Sprintf(buf,"%sは%%sをぐっと飲みこんだ．", Monnam(magr));
+		Sprintf(buf,"%sは%%sをぐっと飲みこんだ。", Monnam(magr));
 		pline(buf, mon_nam(mdef));
 #endif
 	}
@@ -953,7 +953,7 @@ mdamagem(magr, mdef, mattk)
 #else
 			pline("%s%s！", Monnam(magr),
 			      mdef->data == &mons[PM_FAMINE] ?
-				"弱々しく吐きもどしたかと思うと，体がしぼみ死んでしまった" :
+				"弱々しく吐きもどしたかと思うと、体がしぼみ死んでしまった" :
 			      mdef->data == &mons[PM_PESTILENCE] ?
 				"痙攣したようにせきこみ倒れた" :
 				"激しく嘔吐し死んだ");
@@ -1007,7 +1007,7 @@ mdamagem(magr, mdef, mattk)
 		    pline("%s %s for a moment.", Monnam(mdef),
 			  makeplural(stagger(mdef->data, "stagger")));
 #else
-		    pline("%sはすこしよろめいた．", Monnam(mdef));
+		    pline("%sはすこしよろめいた。", Monnam(mdef));
 #endif
 		mdef->mstun = 1;
 		goto physical;
@@ -1024,7 +1024,7 @@ mdamagem(magr, mdef, mattk)
 #if 0 /*JP*/
 				pline("Somehow, %s misses %s wildly.", buf, mon_nam(mdef));
 #else
-				pline("なぜか，%sの%sへの攻撃は大きくはずれた．",
+				pline("なぜか、%sの%sへの攻撃は大きくはずれた。",
 				    buf, mon_nam(mdef));
 #endif
 				tmp = 0;
@@ -1036,7 +1036,7 @@ mdamagem(magr, mdef, mattk)
 						buf, s_suffix(mon_nam(mdef)),
 						mbodypart(mdef,NECK));
 #else
-				pline("%sは%sの%sを切り落した．", buf, mon_nam(mdef),
+				pline("%sは%sの%sを切り落した。", buf, mon_nam(mdef),
 						mbodypart(mdef,NECK));
 #endif
 				goto physical;
@@ -1108,7 +1108,7 @@ mdamagem(magr, mdef, mattk)
 /*JP
 			    pline("May %s roast in peace.", mon_nam(mdef));
 */
-			    pline("%sよ，安らかに燃えん事を．", mon_nam(mdef));
+			    pline("%sよ、安らかに燃えん事を。", mon_nam(mdef));
 			return (MM_DEF_DIED | (grow_up(magr,mdef) ?
 							0 : MM_AGR_DIED));
 		}
@@ -1182,7 +1182,7 @@ mdamagem(magr, mdef, mattk)
 /*JP
 			pline("%s is covered in acid, but it seems harmless.",
 */
-			pline("%sは酸につつまれた．しかしなんともないようだ．",
+			pline("%sは酸につつまれた。しかしなんともないようだ。",
 			      Monnam(mdef));
 		    tmp = 0;
 		} else if (vis) {
@@ -1210,7 +1210,7 @@ mdamagem(magr, mdef, mattk)
 /*JP
 			    pline("May %s rust in peace.", mon_nam(mdef));
 */
-			    pline("%sよ，安らかに錆びん事を．", mon_nam(mdef));
+			    pline("%sよ、安らかに錆びん事を。", mon_nam(mdef));
 			return (MM_DEF_DIED | (grow_up(magr,mdef) ?
 							0 : MM_AGR_DIED));
 		}
@@ -1238,7 +1238,7 @@ mdamagem(magr, mdef, mattk)
 /*JP
 			    pline("May %s rot in peace.", mon_nam(mdef));
 */
-			    pline("%sよ，安らかに腐らん事を．", mon_nam(mdef));
+			    pline("%sよ、安らかに腐らん事を。", mon_nam(mdef));
 			return (MM_DEF_DIED | (grow_up(magr,mdef) ?
 							0 : MM_AGR_DIED));
 		}
@@ -1300,7 +1300,7 @@ mdamagem(magr, mdef, mattk)
 /*JP
 			pline("%s is put to sleep by %s.", buf, mon_nam(magr));
 */
-			pline("%sは%sによって眠らされた．", buf, mon_nam(magr));
+			pline("%sは%sによって眠らされた。", buf, mon_nam(magr));
 		    }
 		    mdef->mstrategy &= ~STRAT_WAITFORU;
 		    slept_monst(mdef);
@@ -1313,7 +1313,7 @@ mdamagem(magr, mdef, mattk)
 /*JP
 			pline("%s is frozen by %s.", buf, mon_nam(magr));
 */
-			pline("%sは%sによって動けなくなった．", buf, mon_nam(magr));
+			pline("%sは%sによって動けなくなった。", buf, mon_nam(magr));
 		    }
 		    mdef->mcanmove = 0;
 		    mdef->mfrozen = rnd(10);
@@ -1330,7 +1330,7 @@ mdamagem(magr, mdef, mattk)
 /*JP
 			pline("%s slows down.", Monnam(mdef));
 */
-			pline("%sは動作がのろくなった．", Monnam(mdef));
+			pline("%sは動作がのろくなった。", Monnam(mdef));
 		}
 		break;
 	    case AD_CONF:
@@ -1342,7 +1342,7 @@ mdamagem(magr, mdef, mattk)
 /*JP
 		    if (vis) pline("%s looks confused.", Monnam(mdef));
 */
-		    if (vis) pline("%sは混乱しているように見える．", Monnam(mdef));
+		    if (vis) pline("%sは混乱しているように見える。", Monnam(mdef));
 		    mdef->mconf = 1;
 		    mdef->mstrategy &= ~STRAT_WAITFORU;
 		}
@@ -1355,7 +1355,7 @@ mdamagem(magr, mdef, mattk)
 /*JP
 			pline("%s is blinded.", Monnam(mdef));
 */
-			pline("%sは目が見えなくなった．", Monnam(mdef));
+			pline("%sは目が見えなくなった。", Monnam(mdef));
 		    rnd_tmp = d((int)mattk->damn, (int)mattk->damd);
 		    if ((rnd_tmp += mdef->mblinded) > 127) rnd_tmp = 127;
 		    mdef->mblinded = rnd_tmp;
@@ -1370,7 +1370,7 @@ mdamagem(magr, mdef, mattk)
 		    if (vis) pline("%s looks %sconfused.",
 				    Monnam(mdef), mdef->mconf ? "more " : "");
 #else
-		    if (vis) pline("%sは%s混乱しているように見える．",
+		    if (vis) pline("%sは%s混乱しているように見える。",
 				    Monnam(mdef), mdef->mconf ? "ますます" : "");
 #endif
 		    mdef->mconf = 1;
@@ -1411,11 +1411,11 @@ mdamagem(magr, mdef, mattk)
 /*JP
 			    if (!vis) You_hear("laughter.");
 */
-			    if (!vis) You_hear("笑い声を聞いた．");
+			    if (!vis) You_hear("笑い声を聞いた。");
 /*JP
 			    else pline("%s chuckles.", Monnam(magr));
 */
-			    else pline("%sはくすくす笑った．", Monnam(magr));
+			    else pline("%sはくすくす笑った。", Monnam(magr));
 		    }
 		}
 		break;
@@ -1446,7 +1446,7 @@ mdamagem(magr, mdef, mattk)
 /*JP
 		    pline("%s steals some gold from %s.", buf, mon_nam(mdef));
 */
-		    pline("%sは%sから金を盗んだ．", buf, mon_nam(mdef));
+		    pline("%sは%sから金を盗んだ。", buf, mon_nam(mdef));
 		}
 		if (!tele_restrict(magr)) {
 		    (void) rloc(magr, FALSE);
@@ -1552,7 +1552,7 @@ mdamagem(magr, mdef, mattk)
 /*JP
 			    pline_The("poison doesn't seem to affect %s.",
 */
-			    pline("%sは毒の影響を受けない．",
+			    pline("%sは毒の影響を受けない。",
 				mon_nam(mdef));
 		    } else {
 			if (rn2(10)) tmp += rn1(10,6);
@@ -1571,7 +1571,7 @@ mdamagem(magr, mdef, mattk)
 /*JP
 		    if (vis) pline("%s doesn't seem harmed.", Monnam(mdef));
 */
-		    if (vis) pline("%sは傷ついたようには見えない．", Monnam(mdef));
+		    if (vis) pline("%sは傷ついたようには見えない。", Monnam(mdef));
 		    /* Not clear what to do for green slimes */
 		    tmp = 0;
 		    break;
@@ -1584,7 +1584,7 @@ mdamagem(magr, mdef, mattk)
 				buf, s_suffix(mon_nam(magr)),
 				mhis(mdef));
 #else
-			pline("%sの兜は%sの頭への攻撃を防いだ．",
+			pline("%sの兜は%sの頭への攻撃を防いだ。",
 				buf, mon_nam(magr));
 #endif
 		    }
@@ -1598,7 +1598,7 @@ mdamagem(magr, mdef, mattk)
 /*JP
 		    if (vis) pline("%s doesn't notice.", Monnam(mdef));
 */
-		    if (vis) pline("%sは気づいていない．", Monnam(mdef));
+		    if (vis) pline("%sは気づいていない。", Monnam(mdef));
 		    break;
 		}
 		tmp += rnd(10); /* fakery, since monsters lack INT scores */
@@ -1762,7 +1762,7 @@ struct monst *mon;
 /*JP
 	    pline("%s grip relaxes.", s_suffix(Monnam(mon)));
 */
-	    pline("%sの握る力が弱くなった．", Monnam(mon));
+	    pline("%sの握る力が弱くなった。", Monnam(mon));
 	    unstuck(mon);
 	}
 }
@@ -1794,7 +1794,7 @@ register struct obj *obj;
 /*JP
 			pline("%s weapon is not affected.",
 */
-			pline("%sの武器は影響を受けない．", 
+			pline("%sの武器は影響を受けない。", 
 			                 s_suffix(Monnam(magr)));
 		    if (obj->greased && !rn2(2)) obj->greased = 0;
 		} else {
@@ -1832,8 +1832,8 @@ register struct obj *otemp;
 	      mhis(magr), singular(otemp, xname), buf);
 #else
 	pline((objects[otemp->otyp].oc_dir & PIERCE) ?
-	      "%sは%sで%sを突いた．" :
-	      "%sは%sを振りまわし%sを攻撃した．", Monnam(magr),
+	      "%sは%sで%sを突いた。" :
+	      "%sは%sを振りまわし%sを攻撃した。", Monnam(magr),
 	      xname(otemp), buf);
 #endif
 }
@@ -1881,7 +1881,7 @@ int mdead;
 /*JP
 			    pline("%s is not affected.", Monnam(magr));
 */
-			    pline("%sは影響を受けない．", Monnam(magr));
+			    pline("%sは影響を受けない。", Monnam(magr));
 			tmp = 0;
 		    }
 		} else tmp = 0;
@@ -1908,7 +1908,7 @@ int mdead;
 /*JP
 			Sprintf(buf, "%s gaze is reflected by %%s %%s.",
 */
-			Sprintf(buf, "%sのにらみは%%sによって%%s．",
+			Sprintf(buf, "%sのにらみは%%sによって%%s。",
 				s_suffix(mon_nam(mdef)));
 			if (mon_reflects(magr,
 					 canseemon(magr) ? buf : (char *)0))
@@ -1930,7 +1930,7 @@ int mdead;
 /*JP
 			pline("%s is frozen by %s.", buf, mon_nam(mdef));
 */
-			pline("%sは%sによって動けなくなった．", buf, mon_nam(mdef));
+			pline("%sは%sによって動けなくなった。", buf, mon_nam(mdef));
 		    magr->mcanmove = 0;
 		    magr->mfrozen = tmp;
 		    return (mdead|mhit);
@@ -1942,7 +1942,7 @@ int mdead;
 /*JP
 			pline("%s is mildly chilly.", Monnam(magr));
 */
-			pline("%sは冷えた．", Monnam(magr));
+			pline("%sは冷えた。", Monnam(magr));
 			golemeffects(magr, AD_COLD, tmp);
 		    }
 		    tmp = 0;
@@ -1977,7 +1977,7 @@ int mdead;
 /*JP
 			pline("%s is mildly warmed.", Monnam(magr));
 */
-			pline("%sは暖かくなった．", Monnam(magr));
+			pline("%sは暖かくなった。", Monnam(magr));
 			golemeffects(magr, AD_FIRE, tmp);
 		    }
 		    tmp = 0;
@@ -1995,7 +1995,7 @@ int mdead;
 /*JP
 			pline("%s is mildly tingled.", Monnam(magr));
 */
-		        pline("%sはピリピリしている．", Monnam(magr));
+		        pline("%sはピリピリしている。", Monnam(magr));
 			golemeffects(magr, AD_ELEC, tmp);
 		    }
 		    tmp = 0;

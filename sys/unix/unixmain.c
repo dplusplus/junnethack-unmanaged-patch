@@ -551,7 +551,7 @@ wd_message()
 /*JP
 		pline("Only user \"%s\" may access debug (wizard) mode.",
 */
-		pline("「%s」のみがデバッグ(wizard)モードを使用できる．",
+		pline("「%s」のみがデバッグ(wizard)モードを使用できる。",
 # ifndef KR1ED
 			WIZARD);
 # else
@@ -560,14 +560,14 @@ wd_message()
 /*JP
 		pline("Entering discovery mode instead.");
 */
-		pline("かわりに発見モードへ移行する．");
+		pline("かわりに発見モードへ移行する。");
 	} else
 #endif
 	if (discover)
 /*JP
 		You("are in non-scoring discovery mode.");
 */
-		You("スコアの載らない発見モードで起動した．");
+		You("スコアの載らない発見モードで起動した。");
 }
 
 /*

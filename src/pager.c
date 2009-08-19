@@ -130,7 +130,7 @@ lookat(x, y, buf, monbuf, buf2)
 /*JP
 	    Sprintf(steedbuf, ", mounted on %s", y_monnam(u.usteed));
 */
-	    Sprintf(steedbuf, "，%sに乗っている", y_monnam(u.usteed));
+	    Sprintf(steedbuf, "、%sに乗っている", y_monnam(u.usteed));
 	    /* assert((sizeof buf >= strlen(buf)+strlen(steedbuf)+1); */
 	    Strcat(buf, steedbuf);
 	}
@@ -206,13 +206,13 @@ lookat(x, y, buf, monbuf, buf2)
 			", being held" : ", holding you");
 #else
 		Strcat(buf, (Upolyd && sticks(youmonst.data)) ?
-			"，あなたが掴まえている" : "，あなたを掴まえている");
+			"、あなたが掴まえている" : "、あなたを掴まえている");
 #endif
 	    if (mtmp->mleashed)
 #if 0 /*JP*/
 		Strcat(buf, ", leashed to you");
 #else
-		Strcat(buf, "，紐で結ばれている");
+		Strcat(buf, "、紐で結ばれている");
 #endif
 
 	    if (mtmp->mtrapped && cansee(mtmp->mx, mtmp->my)) {
@@ -270,7 +270,7 @@ lookat(x, y, buf, monbuf, buf2)
 /*JP
 			if (ways_seen-- > 1) Strcat(monbuf, ", ");
 */
-			if (ways_seen-- > 1) Strcat(monbuf, "，");
+			if (ways_seen-- > 1) Strcat(monbuf, "、");
 		    }
 		    if (useemon && mtmp->minvis) {
 /*JP
@@ -280,7 +280,7 @@ lookat(x, y, buf, monbuf, buf2)
 /*JP
 			if (ways_seen-- > 1) Strcat(monbuf, ", ");
 */
-			if (ways_seen-- > 1) Strcat(monbuf, "，");
+			if (ways_seen-- > 1) Strcat(monbuf, "、");
 		    }
 		    if ((!mtmp->minvis || See_invisible) &&
 			    see_with_infrared(mtmp)) {
@@ -291,7 +291,7 @@ lookat(x, y, buf, monbuf, buf2)
 /*JP
 			if (ways_seen-- > 1) Strcat(monbuf, ", ");
 */
-			if (ways_seen-- > 1) Strcat(monbuf, "，");
+			if (ways_seen-- > 1) Strcat(monbuf, "、");
 		    }
 		    if (tp_sensemon(mtmp)) {
 /*JP
@@ -301,7 +301,7 @@ lookat(x, y, buf, monbuf, buf2)
 /*JP
 			if (ways_seen-- > 1) Strcat(monbuf, ", ");
 */
-			if (ways_seen-- > 1) Strcat(monbuf, "，");
+			if (ways_seen-- > 1) Strcat(monbuf, "、");
 		    }
 		    if (useemon && xraydist > 0 &&
 			    distu(mtmp->mx, mtmp->my) <= xraydist) {
@@ -313,7 +313,7 @@ lookat(x, y, buf, monbuf, buf2)
 /*JP
 			if (ways_seen-- > 1) Strcat(monbuf, ", ");
 */
-			if (ways_seen-- > 1) Strcat(monbuf, "，");
+			if (ways_seen-- > 1) Strcat(monbuf, "、");
 		    }
 		    if (Detect_monsters) {
 /*JP
@@ -323,7 +323,7 @@ lookat(x, y, buf, monbuf, buf2)
 /*JP
 			if (ways_seen-- > 1) Strcat(monbuf, ", ");
 */
-			if (ways_seen-- > 1) Strcat(monbuf, "，");
+			if (ways_seen-- > 1) Strcat(monbuf, "、");
 		    }
 		    if (MATCH_WARN_OF_MON(mtmp)) {
 		    	char wbuf[BUFSZ];
@@ -371,28 +371,28 @@ lookat(x, y, buf, monbuf, buf2)
 /*JP
 	    Strcat(buf, " embedded in stone");
 */
-	    Strcat(buf, "，岩に埋めこまれている");
+	    Strcat(buf, "、岩に埋めこまれている");
 	else if (IS_WALL(levl[x][y].typ) || levl[x][y].typ == SDOOR)
 /*JP
 	    Strcat(buf, " embedded in a wall");
 */
-	    Strcat(buf, "，壁に埋めこまれている");
+	    Strcat(buf, "、壁に埋めこまれている");
 	else if (closed_door(x,y))
 /*JP
 	    Strcat(buf, " embedded in a door");
 */
-	    Strcat(buf, "，扉に埋めこまれている");
+	    Strcat(buf, "、扉に埋めこまれている");
 	else if (is_pool(x,y))
 	    /*JP 3.4.3 この部分は物体にしか使われない */
 /*JP
 	    Strcat(buf, " in water");
 */
-	    Strcat(buf, "，水中にある");
+	    Strcat(buf, "、水中にある");
 	else if (is_lava(x,y))
 #if 0 /*JP:T*/
 	    Strcat(buf, " in molten lava");	/* [can this ever happen?] */
 #else
-	    Strcat(buf, "，溶岩の中にある");	/* [can this ever happen?] */
+	    Strcat(buf, "、溶岩の中にある");	/* [can this ever happen?] */
 #endif
     } else if (glyph_is_trap(glyph)) {
 	int tnum = what_trap(glyph_to_trap(glyph));
@@ -628,7 +628,7 @@ bad_data_file:	impossible("'data' file in wrong format");
 /*JP
 	pline("I don't have any information on those things.");
 */
-	pline("そんな名前は聞いたことがない．");
+	pline("そんな名前は聞いたことがない。");
 
     (void) dlb_fclose(fp);
 }
@@ -722,13 +722,13 @@ do_look(quick)
 		pline("Please move the cursor to %s.",
 		       what_is_an_unknown_object);
 #else
-		pline("カーソルを物体に移動してください．");
+		pline("カーソルを物体に移動してください。");
 #endif
 	    else
 /*JP
 		pline("Pick an object.");
 */
-		pline("物体を指定してください．");
+		pline("物体を指定してください。");
 
 	    ans = getpos(&cc, quick, what_is_an_unknown_object);
 	    if (ans < 0 || cc.x < 0) {
@@ -1038,7 +1038,7 @@ do_look(quick)
 /*JP
 	    pline("I've never heard of such things.");
 */
-	    pline("そんな名前は聞いたことがない．");
+	    pline("そんな名前は聞いたことがない。");
 	}
 
     } while (from_screen && !quick && ans != LOOK_ONCE);
@@ -1088,7 +1088,7 @@ doidtrap()
 			  (tt == HOLE || tt == PIT) ? " dug" : " set",
 		      !trap->madeby_u ? "" : " by you");
 #else
-		pline("それは%s%sだ．",
+		pline("それは%s%sだ。",
 		      !trap->madeby_u ? "" : (tt == WEB) ? "あなたが張った" :
 			  (tt == HOLE || tt == PIT) ? "あなたが掘った" : "あなたが仕掛けた",
 		      jtrns_obj('^', defsyms[trap_to_defsym(tt)].explanation));
@@ -1098,7 +1098,7 @@ doidtrap()
 /*JP
 	pline("I can't see a trap there.");
 */
-	pline("そこには罠はみあたらない．");
+	pline("そこには罠はみあたらない。");
 	return 0;
 }
 
@@ -1174,7 +1174,7 @@ dowhatdoes()
 /*JP
 		pline("I've never heard of such commands.");
 */
-		pline("そんなコマンドは知らない．");
+		pline("そんなコマンドは知らない。");
 	return 0;
 }
 
@@ -1201,25 +1201,25 @@ static const char *help_menu_items[] = {
 	"List of wizard-mode commands.",
 #endif
 #else /*JP*/
-/* 0*/	"ゲームおよびコマンドの解説．(長文)",
-/* 1*/	"コマンド一覧．",
-/* 2*/	"NetHackの簡単な歴史．",
-/*	"JNetHackの簡単な歴史．",*/
-/* 3*/	"画面に表示される文字の説明．",
-/* 4*/	"このキーが何を意味するかの説明．",
-/* 5*/	"ゲームのオプション一覧．",
-/* 6*/	"ゲームのオプション一覧．(長文)",
-/* 7*/	"拡張コマンド一覧．",
-/* 8*/	"NetHackのライセンス．",
+/* 0*/	"ゲームおよびコマンドの解説。(長文)",
+/* 1*/	"コマンド一覧。",
+/* 2*/	"NetHackの簡単な歴史。",
+/*	"JNetHackの簡単な歴史。",*/
+/* 3*/	"画面に表示される文字の説明。",
+/* 4*/	"このキーが何を意味するかの説明。",
+/* 5*/	"ゲームのオプション一覧。",
+/* 6*/	"ゲームのオプション一覧。(長文)",
+/* 7*/	"拡張コマンド一覧。",
+/* 8*/	"NetHackのライセンス。",
 #ifdef PORT_HELP
-	"%sに特有のヘルプおよびコマンド．",
+	"%sに特有のヘルプおよびコマンド。",
 #define PORT_HELP_ID 100
 #define WIZHLP_SLOT 10
 #else
 #define WIZHLP_SLOT 9
 #endif
 #ifdef WIZARD
-	"ウィザードモードのコマンド一覧．",
+	"ウィザードモードのコマンド一覧。",
 #endif
 #endif /*JP*/
 	"",

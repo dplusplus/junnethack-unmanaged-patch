@@ -101,14 +101,14 @@ static const char *random_mesg[] = {
 	"Owlbreath", "Galadriel",
 	"キルロイ参上",
 	"A.S. ->", "<- A.S.", /* Journey to the Center of the Earth */
-	"ソレハ　デキマセン．", /* 昔のアドベンチャーゲーム */
-	"ここから入らんとするものは全て希望を捨てよ．", /* 神曲:地獄編, ダンテ */
+	"ソレハ　デキマセン。", /* 昔のアドベンチャーゲーム */
+	"ここから入らんとするものは全て希望を捨てよ。", /* 神曲:地獄編, ダンテ */
 	"よく来たな", /* Prisoner */
-	"ご迷惑をおかけしたことを深くお詫びいたします．", /* So Long... */
+	"ご迷惑をおかけしたことを深くお詫びいたします。", /* So Long... */
 	"早く来い来い木曜日", /* アメリカ横断ウルトラクイズ */
 	"のらくろ",
 	"バイア☆ラ 8?7-5309",
-	"動物にエサを与えないでください．", /* Various zoos around the world */
+	"動物にエサを与えないでください。", /* Various zoos around the world */
 	"私負けましたわ", /* 回文 */
 	"イチ推し！", /* Siskel & Ebert */
 	"Hello, World!", /* The First C Program */
@@ -128,46 +128,46 @@ static const char *random_mesg[] = {
 	"Gazortenplatz", /* Tribute to David Fizz */
 	"John 3:16", /* You see this everywhere; why not here? */
 	"「．．．とくれせんたぼーび」って魔法の呪文か？", /* Final Fantasy I (US) */
-	"様変り．", /* Various people at various times in history */
+	"様変り。", /* Various people at various times in history */
 	"UY WUZ HERE", /* :] */
 	"また戻る！", /* Terminator */
-	"久遠に臥したるもの死する事なく．", /* HPL */
+	"久遠に臥したるもの死する事なく。", /* HPL */
 	/* From NAO (netHack.alt.org) */
 	"ウオーーーン！  イェンダーの狼人間！", /* gang tag */
 	"勝つためにここを掘れ！", /* pun, duh */
 	"こっちに来るな",
-	"ガイウス・ユリウス・プリーミゲニウス参上． 君は今頃来たのか？", /* pompeii */
+	"ガイウス・ユリウス・プリーミゲニウス参上。 君は今頃来たのか？", /* pompeii */
 	"左へ行け →", "← 右へ行け",
 	"Haermund Hardaxeとルーンで刻まれている", /* viking graffiti */
 	"ここで竜になれ",
 	"灯りが欲しい？ 鉱山の街のIzchakの照明店へどうぞ！",
-	"ここで保存して，宿題をしておけ！",
+	"ここで保存して、宿題をしておけ！",
 	"精霊界の上の蛇が― すぐに迷宮に入ってあなたのそばに！",
-	"ここに穴があった． 今はもうない．",
+	"ここに穴があった。 今はもうない。",
 	"振動する場所",
 	"ここに落し穴がある！",
-	"ここはあなたがお探しの迷宮ではありません．",
-	"ここにはわざと何も置いていない．",
+	"ここはあなたがお探しの迷宮ではありません。",
+	"ここにはわざと何も置いていない。",
 	"警告！ 爆発のルーン！",
-	"注意しろ，その扉の後ろに死の杖を持ったノームがいるぞ！",
+	"注意しろ、その扉の後ろに死の杖を持ったノームがいるぞ！",
 	"×印地点",
-	"× ← 現在位置．",
-	"あなたはこの場所に訪れた百万人目です！ 200ターン後に願いの杖をプレゼント．",
+	"× ← 現在位置。",
+	"あなたはこの場所に訪れた百万人目です！ 200ターン後に願いの杖をプレゼント。",
 	/* From UnNetHack */
 	"彼女はあなたを見ています！", /* Portal */
 	"そのケーキは偽者です！", /* Portal */
 	"sitchって何だ？", /* Kim Possible */
 	"ドラマじゃないから大丈夫！", /* Kim Possible */
-	"突然，減圧により吸い込まれた！", /* Space Quest 3 death message */
-	"UnNetHackをプレイしてくれてありがとう． 例によって，あなたは窒息した！" /* Space Quest 4 death message, paraphrased */
-	"無色で緑色のアイデアは荒れ狂うように眠った．", /* Noam Chomsky 意味をなさない文でも人は文法的な適切さを判断できる例*/
+	"突然、減圧により吸い込まれた！", /* Space Quest 3 death message */
+	"UnNetHackをプレイしてくれてありがとう。 例によって、あなたは窒息した！" /* Space Quest 4 death message, paraphrased */
+	"無色で緑色のアイデアは荒れ狂うように眠った。", /* Noam Chomsky 意味をなさない文でも人は文法的な適切さを判断できる例*/
 	"Time flies like an arrow.", /* linguistic humor 「光陰矢のごとし」機械翻訳「時間蝿は矢を好む」 */
 	"All Your Base Are Belong To Us!", /* Zero Wing */
 	"マイアヒ", /* Internet Meme */
 	"真実を求めて！", /* X-Files */
 	"誰も信じるな", /* X-Files */
 	"真実はそこにある", /* X-Files */
-	"後ろを見ろ，三つ首の猿が！", /* Monkey Island */
+	"後ろを見ろ、三つ首の猿が！", /* Monkey Island */
 #endif /*JP*/
 };
 
@@ -503,7 +503,7 @@ register int x,y;
 			pline("%s is written here in the %s.", Something,
 				is_ice(x,y) ? "frost" : "dust");
 #else
-			pline("何かの文字が%sに書いてある．",
+			pline("何かの文字が%sに書いてある。",
 				is_ice(x,y) ? "氷" : "ほこり");
 #endif
 		}
@@ -517,7 +517,7 @@ register int x,y;
 				Something,
 				surface(x,y));
 #else
-			pline("何かの文字が%sに刻まれている．",
+			pline("何かの文字が%sに刻まれている。",
 				surface(x,y));
 #endif
 		}
@@ -530,7 +530,7 @@ register int x,y;
 				is_ice(x,y) ? "melted" : "burned",
 				surface(x,y));
 #else
-			pline("何かの文字が%s%sいる．",
+			pline("何かの文字が%s%sいる。",
 				surface(x,y),
 				is_ice(x,y) ? "に刻まれて" : "で燃えて");
 #endif
@@ -542,7 +542,7 @@ register int x,y;
 /*JP
 			pline("There's some graffiti on the %s here.",
 */
-			pline("%sに落書がある．",
+			pline("%sに落書がある。",
 				surface(x,y));
 		}
 		break;
@@ -556,7 +556,7 @@ register int x,y;
 /*JP
 			You("see a message scrawled in blood here.");
 */
-			You("血文字がなぐり書きされているのを見つけた．");
+			You("血文字がなぐり書きされているのを見つけた。");
 		}
 		break;
 	    default:
@@ -723,7 +723,7 @@ doengrave()
 /*JP
 			You_cant("reach the %s.", surface(u.ux,u.uy));
 */
-			You("%sに届かない．", surface(u.ux,u.uy));
+			You("%sに届かない。", surface(u.ux,u.uy));
 			return(0);
 		} else
 			jello = TRUE;
@@ -781,7 +781,7 @@ doengrave()
 /*JP
 		You("tickle %s with your %s.", mon_nam(u.ustuck), writer);
 */
-		You("%sで%sをくすぐった．", writer, mon_nam(u.ustuck));
+		You("%sで%sをくすぐった。", writer, mon_nam(u.ustuck));
 /*JP
 		Your("message dissolves...");
 */
@@ -799,7 +799,7 @@ doengrave()
 /*JP
 		You("make a motion towards the altar with your %s.", writer);
 */
-		You("%sを使って祭壇に書こうとした．", writer);
+		You("%sを使って祭壇に書こうとした。", writer);
 		altar_wrath(u.ux, u.uy);
 		return(0);
 	}
@@ -809,7 +809,7 @@ doengrave()
 		You("would only make a small smudge on the %s.",
 			surface(u.ux, u.uy));
 #else
-		You("は%sに小さなしみをつけることしかできなかった．",
+		You("は%sに小さなしみをつけることしかできなかった。",
 			surface(u.ux, u.uy));
 #endif
 		return(0);
@@ -869,7 +869,7 @@ doengrave()
 		Your("%s would get %s.", xname(otmp),
 			is_ice(u.ux,u.uy) ? "all frosty" : "too dirty");
 #else
-		Your("%sは%sなった．", xname(otmp),
+		Your("%sは%sなった。", xname(otmp),
 			is_ice(u.ux,u.uy) ? "氷づけに" : "汚なく");
 #endif
 		ptext = FALSE;
@@ -985,7 +985,7 @@ doengrave()
 /*JP
 				"A few ice cubes drop from the wand.");
 */
-				"氷のかけらが杖からこぼれ落ちた．");
+				"氷のかけらが杖からこぼれ落ちた。");
 			if(!oep || (oep->engr_type != BURN))
 			    break;
 		    case WAN_CANCELLATION:
@@ -1037,10 +1037,10 @@ doengrave()
 #else
 			    Strcpy(post_engr_text,
 				IS_GRAVE(levl[u.ux][u.uy].typ) ?
-				"墓石から破片が飛び散った．" :
+				"墓石から破片が飛び散った。" :
 				is_ice(u.ux,u.uy) ?
-				"氷の表面から氷のかけらが飛び散った．" :
-			        "砂利が床から飛び散った．");
+				"氷の表面から氷のかけらが飛び散った。" :
+			        "砂利が床から飛び散った。");
 #endif
 			else
 /*JP
@@ -1067,8 +1067,8 @@ doengrave()
 					"Flames fly from the wand.");
 #else
 			Strcpy(post_engr_text,
-				Blind ? "杖が暖かくなったような気がした．" :
-					"炎が杖から飛び散った．");
+				Blind ? "杖が暖かくなったような気がした。" :
+					"炎が杖から飛び散った。");
 #endif
 			break;
 		    case WAN_LIGHTNING:
@@ -1090,7 +1090,7 @@ doengrave()
 				    "Lightning arcs from the wand.");
 #else
 			    Strcpy(post_engr_text,
-				    "火花が杖から飛び散った．");
+				    "火花が杖から飛び散った。");
 #endif
 			    doblind = TRUE;
 			} else
@@ -1121,7 +1121,7 @@ doengrave()
 /*JP
 			Your("%s too dull for engraving.", aobjnam(otmp,"are"));
 */
-			pline("%sは刃がボロボロで，文字を彫れない．",xname(otmp));
+			pline("%sは刃がボロボロで、文字を彫れない。",xname(otmp));
 		}
 		break;
 
@@ -1131,7 +1131,7 @@ doengrave()
 /*JP
 		"That is a bit difficult to engrave with, don't you think?");
 */
-		"ちょっとそれで彫るのは大変だろう，そう思わない？");
+		"ちょっとそれで彫るのは大変だろう、そう思わない？");
 		    return(0);
 		}
 		switch (otmp->otyp)  {
@@ -1140,7 +1140,7 @@ doengrave()
 /*JP
 			    Your("marker has dried out.");
 */
-			    Your("マーカは乾ききった．");
+			    Your("マーカは乾ききった。");
 			else
 			    type = MARK;
 			break;
@@ -1155,7 +1155,7 @@ doengrave()
 /*JP
 				    You("wipe out the message here.");
 */
-				    You("メッセージを拭きとった．");
+				    You("メッセージを拭きとった。");
 				else
 #if 0 /*JP*/
 				    Your("%s %s %s.", xname(otmp),
@@ -1163,7 +1163,7 @@ doengrave()
 					 is_ice(u.ux,u.uy) ?
 					 "frosty" : "dusty");
 #else
-				    pline("%sは%sなった．", xname(otmp),
+				    pline("%sは%sなった。", xname(otmp),
 					  is_ice(u.ux,u.uy) ?
 					  "氷づけに" : "ほこりまみれに");
 #endif
@@ -1172,14 +1172,14 @@ doengrave()
 /*JP
 				Your("%s can't wipe out this engraving.",
 */
-				pline("この文字は%sでは拭きとれない．",
+				pline("この文字は%sでは拭きとれない。",
 				     xname(otmp));
 			else
 #if 0 /*JP*/
 			    Your("%s %s %s.", xname(otmp), otense(otmp, "get"),
 				  is_ice(u.ux,u.uy) ? "frosty" : "dusty");
 #else
-			    pline("%sは%sなった．", xname(otmp),
+			    pline("%sは%sなった。", xname(otmp),
 				  is_ice(u.ux,u.uy) ? "氷づけに" : "ほこりまみれに");
 #endif
 			break;
@@ -1194,7 +1194,7 @@ doengrave()
 /*JP
 		    pline("Writing a poison pen letter??");
 */
-		    pline("ふむ．これこそ本当の毒舌だ．");
+		    pline("ふむ。これこそ本当の毒舌だ。");
 		    break;
 		}
 #endif
@@ -1239,7 +1239,7 @@ doengrave()
 /*JP
 	    pline_The("engraving now reads: \"%s\".", buf);
 */
-	    pline("刻まれた文字を読んだ：「%s」．", buf);
+	    pline("刻まれた文字を読んだ：「%s」。", buf);
 	    ptext = FALSE;
 	}
 
@@ -1248,15 +1248,15 @@ doengrave()
 	    pline("%s %sturns to dust.",
 		  The(xname(otmp)), Blind ? "" : "glows violently, then ");
 #else
-	    pline("%sは%sちりとなった．",
-		  xname(otmp), Blind ? "" : "激しく輝き，");
+	    pline("%sは%sちりとなった。",
+		  xname(otmp), Blind ? "" : "激しく輝き、");
 #endif
 	    if (!IS_GRAVE(levl[u.ux][u.uy].typ))
 #if 0 /*JP*/
 		You("are not going to get anywhere trying to write in the %s with your dust.",
 		    is_ice(u.ux,u.uy) ? "frost" : "dust");
 #else
-		You("塵で%sに何か書こうとしたが，できなかった．",
+		You("塵で%sに何か書こうとしたが、できなかった。",
 		    is_ice(u.ux,u.uy) ? "氷" : "ほこり");
 #endif
 	    useup(otmp);
@@ -1308,7 +1308,7 @@ doengrave()
 			    ((oep->engr_type == ENGR_BLOOD) ? "scrawled in blood"   :
 							 "written")));
 #else
-			You("%sメッセージを拭きとった．",
+			You("%sメッセージを拭きとった。",
 			    ((oep->engr_type == DUST)  ? "ほこりに書かれている" :
 			    ((oep->engr_type == BLOOD) ? "血文字でなぐり書きされている"   :
 							 "書かれている")));
@@ -1327,7 +1327,7 @@ doengrave()
 			   (is_ice(u.ux,u.uy) ? "melted into" : "burned into") :
 			   "engraved in", surface(u.ux,u.uy));
 #else
-			You("%sメッセージを拭きとれなかった．",
+			You("%sメッセージを拭きとれなかった。",
 			    ((oep->engr_type == DUST)  ? "ほこりに書かれている" :
 			    ((oep->engr_type == BLOOD) ? "血文字でなぐり書きされている"   :
 							 "書かれている")));
@@ -1339,7 +1339,7 @@ doengrave()
 /*JP
 				You("will overwrite the current message.");
 */
-				You("メッセージを上書きしようとした．");
+				You("メッセージを上書きしようとした。");
 			    eow = TRUE;
 			}
 	    }
@@ -1425,13 +1425,13 @@ doengrave()
 /*JP
 	    You("%s the %s with %s.", everb, eloc, doname(otmp));
 */
-	    You("%sで%sに%s．", doname(otmp), eloc, jpast(everb));
+	    You("%sで%sに%s。", doname(otmp), eloc, jpast(everb));
 	else
 #if 0 /*JP*/
 	    You("%s the %s with your %s.", everb, eloc,
 		makeplural(body_part(FINGER)));
 #else
-	    You("%sで%sに%s．", makeplural(body_part(FINGER)),
+	    You("%sで%sに%s。", makeplural(body_part(FINGER)),
 		eloc, jpast(everb));
 #endif
 
@@ -1453,7 +1453,7 @@ doengrave()
 		    pline("%s, then %s.",
 			  Tobjnam(otmp, "glow"), otense(otmp, "fade"));
 #else
-		    pline("%sは輝いたが，すぐに消えた．", xname(otmp));
+		    pline("%sは輝いたが、すぐに消えた。", xname(otmp));
 #endif
 		return(1);
 	    } else {
@@ -1507,14 +1507,14 @@ doengrave()
 /*JP
 		if (multi) nomovemsg = "You finish your weird engraving.";
 */
-		if (multi) nomovemsg = "あなたは奇妙な刻みを終えた．";
+		if (multi) nomovemsg = "あなたは奇妙な刻みを終えた。";
 		break;
 	    case DUST:
 		multi = -(len/10);
 /*JP
 		if (multi) nomovemsg = "You finish writing in the dust.";
 */
-		if (multi) nomovemsg = "あなたはほこりに書き終えた．";
+		if (multi) nomovemsg = "あなたはほこりに書き終えた。";
 		break;
 	    case HEADSTONE:
 	    case ENGRAVE:
@@ -1532,14 +1532,14 @@ doengrave()
 /*JP
 		    Your("%s dull.", aobjnam(otmp, "get"));
 */
-		    Your("%sは刃こぼれした．", xname(otmp));
+		    Your("%sは刃こぼれした。", xname(otmp));
 		    if (otmp->unpaid) {
 			struct monst *shkp = shop_keeper(*u.ushops);
 			if (shkp) {
 /*JP
 			    You("damage it, you pay for it!");
 */
-			    You("未払いのものに傷をつけてしまった．支払いをしなきゃ！");
+			    You("未払いのものに傷をつけてしまった。支払いをしなきゃ！");
 			    bill_dummy_object(otmp);
 			}
 		    }
@@ -1556,7 +1556,7 @@ doengrave()
 /*JP
 		if (multi) nomovemsg = "You finish engraving.";
 */
-		if (multi) nomovemsg = "あなたは刻み終えた．";
+		if (multi) nomovemsg = "あなたは刻み終えた。";
 		break;
 	    case BURN:
 		multi = -(len/10);
@@ -1566,8 +1566,8 @@ doengrave()
 			"You finish melting your message into the ice.":
 			"You finish burning your message into the floor.";
 #else
-			"氷へメッセージを刻み終えた．":
-			"床へメッセージを焼きいれ終えた．";
+			"氷へメッセージを刻み終えた。":
+			"床へメッセージを焼きいれ終えた。";
 #endif
 		break;
 	    case MARK:
@@ -1579,7 +1579,7 @@ doengrave()
 /*JP
 			Your("marker dries out.");
 */
-			Your("マーカは乾ききった．");
+			Your("マーカは乾ききった。");
 			otmp->spe = 0;
 			multi = -(maxelen/10);
 		    } else
@@ -1589,14 +1589,14 @@ doengrave()
 /*JP
 		if (multi) nomovemsg = "You finish defacing the dungeon.";
 */
-		if (multi) nomovemsg = "あなたは迷宮への落書を書き終えた．";
+		if (multi) nomovemsg = "あなたは迷宮への落書を書き終えた。";
 		break;
 	    case ENGR_BLOOD:
 		multi = -(len/10);
 /*JP
 		if (multi) nomovemsg = "You finish scrawling.";
 */
-		if (multi) nomovemsg = "はしり書きを書き終えた．";
+		if (multi) nomovemsg = "はしり書きを書き終えた。";
 		break;
 	}
 
@@ -1616,11 +1616,11 @@ doengrave()
 /*JP
 		if (multi) nomovemsg = "You cannot write any more.";
 */
-		if (multi) nomovemsg = "これ以上何も書けなかった．";
+		if (multi) nomovemsg = "これ以上何も書けなかった。";
 /*JP
 		You("only are able to write \"%s\"", ebuf);
 */
-		You("「%s」とまでしか書けなかった．", ebuf);
+		You("「%s」とまでしか書けなかった。", ebuf);
 	    }
 	}
 
@@ -1766,32 +1766,32 @@ static const char *epitaphs[] = {
 	"Here lies the body of Jonathan Blake. Stepped on the gas instead of the brake.",
 	"Go away!"
 #else
-	"安らかに眠れ．",
-	"注意 --墓の中に価値あるものは＊一つも＊ない．",
-	"1994-1995 今迄でもっとも長生きしたハッカー．",
-	"名もしらぬハッカーの墓．",
-	"ここに眠っているのは誰かは知らない．しかし我々は埋葬した．",
-	"スパーキー -- すばらしい犬だった．",
-	"送電用の第三のレールに気をつけよ．",
+	"安らかに眠れ。",
+	"注意 --墓の中に価値あるものは＊一つも＊ない。",
+	"1994-1995 今迄でもっとも長生きしたハッカー。",
+	"名もしらぬハッカーの墓。",
+	"ここに眠っているのは誰かは知らない。しかし我々は埋葬した。",
+	"スパーキー -- すばらしい犬だった。",
+	"送電用の第三のレールに気をつけよ。",
 	"Made in Taiwan.",
-	"オレトモダチ，オレイイヤツ，オレ死んだ，オレ食料．",
+	"オレトモダチ、オレイイヤツ、オレ死んだ、オレ食料。",
 	"ビートルジュースビートルジュースビートルジュース",
 	"下を見ろ！",
-	"掘らないでください．とても幸せなんです．-- 居住者",
-	"郵便屋さん．電報は下記の住所に転送してください．ゲヘナ市アスモデウス要塞5番町．",
+	"掘らないでください。とても幸せなんです。-- 居住者",
+	"郵便屋さん。電報は下記の住所に転送してください。ゲヘナ市アスモデウス要塞5番町。",
 	"メリーさんの羊/ふわふわ真っ白/困ったときには/最初に逃げた",
-	"気をつけよ！さもなくば同じことが起きる．-- 使用者",
+	"気をつけよ！さもなくば同じことが起きる。-- 使用者",
 	"もうすぐ仲間になれる！！ -- イェンダーの魔法使い",
-	"気をつけよ！この墓は有毒な廃棄物が含まれている．",
+	"気をつけよ！この墓は有毒な廃棄物が含まれている。",
 	"涅槃で待つ",
-	"無神論者ここに眠る．みんな着飾っているが，行く所がない．",
-	"エゼキエルここに眠る．享年102歳．いいやつは早く死ぬ．",
-	"わが妻ここに眠る．ここに眠らせた！妻は安息を得，私も安息を得た．",
-	"ジョニー・イーストここに眠る．眠ったままで失礼します．",
-	"彼はいつも土の上で眠っていたが，とうとう土の中で眠ることになった．",
-	"自ら灰になった．",
-	"早く咲けば，早く散る．早く去る．しかし決して忘れない．",
-	"ジョナサン・ブレイクここに眠る．ブレーキではなくアクセルを踏んだ．",
+	"無神論者ここに眠る。みんな着飾っているが、行く所がない。",
+	"エゼキエルここに眠る。享年102歳。いいやつは早く死ぬ。",
+	"わが妻ここに眠る。ここに眠らせた！妻は安息を得、私も安息を得た。",
+	"ジョニー・イーストここに眠る。眠ったままで失礼します。",
+	"彼はいつも土の上で眠っていたが、とうとう土の中で眠ることになった。",
+	"自ら灰になった。",
+	"早く咲けば、早く散る。早く去る。しかし決して忘れない。",
+	"ジョナサン・ブレイクここに眠る。ブレーキではなくアクセルを踏んだ。",
 	"立ちされ！"
 #endif
 };

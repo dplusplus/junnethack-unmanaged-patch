@@ -1032,7 +1032,7 @@ register struct obj *obj;
 #if 1 /*JP*/
 	/* JP
 	 *「子猫のたまと名づけられた死体」より「たまと名づけられた子猫の死体」
-	 *  のほうが自然である．
+	 *  のほうが自然である。
          */
 	preprefix[0] = '\0';
 	if((tp = strstri(bp, "名づけられた")) != NULL){
@@ -1356,7 +1356,7 @@ ring:
 #if 0 /*JP*/
 		Sprintf(eos(bp), " (unpaid, %ld %s)",
 #else
-		Sprintf(eos(bp), "(未払い，%ld%s)",
+		Sprintf(eos(bp), "(未払い、%ld%s)",
 #endif
 			quotedprice, currency(quotedprice));
 	}
@@ -2813,7 +2813,7 @@ boolean from_user;
 	while(*bp == ' ')
 	  ++bp;
 /*
-天邪鬼のために 1から10まではサポート．
+天邪鬼のために 1から10まではサポート。
 */
 	if(!strncmp(bp, "一", 2)){
 	  spe = 1; bp += 2;
@@ -3666,7 +3666,7 @@ typfnd:
 /*JP
 	    pline("For a moment, you feel %s in your %s, but it disappears!",
 */
-	    pline("一瞬%sが%sの中にあるような感じがしたが，すぐに消えさった！",
+	    pline("一瞬%sが%sの中にあるような感じがしたが、すぐに消えさった！",
 		  something,
 		  makeplural(body_part(HAND)));
 	}
@@ -3818,7 +3818,7 @@ substitute(buf, str1, str2)
 }
 
 /*
-**  文字列 buf の strの前の部分と strの後の部分を交換する．
+**  文字列 buf の strの前の部分と strの後の部分を交換する。
 **
 **  EX) ほえほえ(と名づけられた)犬 -> 犬(と名づけられた)ほえほえ
 */
@@ -3869,7 +3869,7 @@ insert(buf, str)
 #endif
   
 /*
-**  文字列 buf から strを取り除く．
+**  文字列 buf から strを取り除く。
 */
 static
 char *

@@ -33,11 +33,11 @@ static NEARDATA const char * const stoned_texts[] = {
 	"You have turned to stone.",		/* 2 */
 	"You are a statue."			/* 1 */
 #else
-	"あなたはのろくなった．",		/* 5 */
-	"あなたの手足は硬直した．",		/* 4 */
-	"あなたの手足は石化した．",	/* 3 */
-	"あなたは石になった．",		/* 2 */
-	"あなたは彫像になった．"	/* 1 */
+	"あなたはのろくなった。",		/* 5 */
+	"あなたの手足は硬直した。",		/* 4 */
+	"あなたの手足は石化した。",	/* 3 */
+	"あなたは石になった。",		/* 2 */
+	"あなたは彫像になった。"	/* 1 */
 #endif
 };
 
@@ -64,10 +64,10 @@ static NEARDATA const char * const vomiting_texts[] = {
 	"feel incredibly sick.",		/* 5 */
 	"suddenly vomit!"			/* 2 */
 #else
-	"ちょっと吐き気がした．",	/* 14 */
-	"少し混乱した．",		/* 11 */
-	"まともに思考できなくなった．",	/* 8 */
-	"とても気分が悪くなった．",	/* 5 */
+	"ちょっと吐き気がした。",	/* 14 */
+	"少し混乱した。",		/* 11 */
+	"まともに思考できなくなった。",	/* 8 */
+	"とても気分が悪くなった。",	/* 5 */
 	"突然嘔吐した！"		/* 2 */
 #endif
 };
@@ -104,11 +104,11 @@ static NEARDATA const char * const choke_texts[] = {
 	"You're turning %s.",
 	"You suffocate."
 #else
-	"あなたは呼吸が困難になった．",
-	"あなたは苦しくてあえいだ．",
-	"あなたはもう呼吸ができない．",
-	"あなたは%sなった．",
-	"あなたは窒息した．"
+	"あなたは呼吸が困難になった。",
+	"あなたは苦しくてあえいだ。",
+	"あなたはもう呼吸ができない。",
+	"あなたは%sなった。",
+	"あなたは窒息した。"
 #endif
 };
 
@@ -120,11 +120,11 @@ static NEARDATA const char * const choke_texts2[] = {
 	"Your consciousness is fading.",
 	"You suffocate."
 #else
-	"あなたの%sは絞めつけられた．",
-	"血液のめぐりが悪くなった．",
-	"%sの圧力が高くなった．",
-	"意識が遠くなってきた．",
-	"あなたは窒息した．"
+	"あなたの%sは絞めつけられた。",
+	"血液のめぐりが悪くなった。",
+	"%sの圧力が高くなった。",
+	"意識が遠くなってきた。",
+	"あなたは窒息した。"
 #endif
 };
 
@@ -159,11 +159,11 @@ static NEARDATA const char * const slime_texts[] = {
 	"You are turning into %s.",       /* 2 */
 	"You have become %s."             /* 1 */
 #else
-	"少し%sなった．",			/* 5 */
-	"手足が溶けはじめた．",              	/* 4 */
-	"肌がどろどろになってきた．",           /* 3 */
-	"%sになりはじめた．",      	/* 2 */
-	"%sになってしまった．",		/* 1 */
+	"少し%sなった。",			/* 5 */
+	"手足が溶けはじめた。",              	/* 4 */
+	"肌がどろどろになってきた。",           /* 3 */
+	"%sになりはじめた。",      	/* 2 */
+	"%sになってしまった。",		/* 1 */
 #endif
 };
 
@@ -268,7 +268,7 @@ nh_timeout()
 		    Norep("The %s haze around you %s.", hcolor(NH_GOLDEN),
 			  u.uspellprot ? "becomes less dense" : "disappears");
 #else
-		    Norep("あなたの回りの%s霧は%s．", hcolor(NH_GOLDEN),
+		    Norep("あなたの回りの%s霧は%s。", hcolor(NH_GOLDEN),
 			  u.uspellprot ? "消えはじめた" : "消えた");
 #endif
 	    }
@@ -280,7 +280,7 @@ nh_timeout()
 /*JP
 	    	pline("%s stops galloping.", Monnam(u.usteed));
 */
-	    	pline("%sは速駆けをやめた．", Monnam(u.usteed));
+	    	pline("%sは速駆けをやめた。", Monnam(u.usteed));
 	}
 #endif
 
@@ -332,7 +332,7 @@ nh_timeout()
 /*JP
 			You("die from your illness.");
 */
-			You("病気で死んだ．");
+			You("病気で死んだ。");
 #if 0 /*JP*/
 			killer_format = KILLED_BY_AN;
 			killer = u.usick_cause;
@@ -367,7 +367,7 @@ nh_timeout()
 				You_feel("yourself slowing down%s.",
 							Fast ? " a bit" : "");
 #else
-				You("%s遅くなったような気がした．",
+				You("%s遅くなったような気がした。",
 							Fast ? "ちょっと" : "");
 #endif
 			break;
@@ -395,8 +395,8 @@ nh_timeout()
 				    "can no longer see through yourself.");
 #else
 			    You(!See_invisible ?
-				    "もう透明ではない．" :
-				    "透きとおっていない．");
+				    "もう透明ではない。" :
+				    "透きとおっていない。");
 #endif
 			    stop_occupation();
 			}
@@ -430,7 +430,7 @@ nh_timeout()
 /*JP
 				You("fall asleep.");
 */
-				You("眠りに落ちた．");
+				You("眠りに落ちた。");
 				sleeptime = rnd(20);
 				fall_asleep(-sleeptime, TRUE);
 				HSleeping += sleeptime + rnd(100);
@@ -503,7 +503,7 @@ boolean wakeup_msg;
 /*JP
 	nomovemsg = wakeup_msg ? "You wake up." : You_can_move_again;
 */
-	nomovemsg = wakeup_msg ? "目を覚ました．" : You_can_move_again;
+	nomovemsg = wakeup_msg ? "目を覚ました。" : You_can_move_again;
 }
 
 /* Attach an egg hatch timeout to the given egg. */
@@ -651,7 +651,7 @@ long timeout;
 			You_feel("%s %s from your pack!", something,
 			    locomotion(mon->data, "drop"));
 #else
-		        pline("何かがあなたの背負い袋から%sような気がした．",
+		        pline("何かがあなたの背負い袋から%sような気がした。",
 			    jpast(locomotion(mon->data, "落ちる")));
 #endif
 		    else
@@ -659,7 +659,7 @@ long timeout;
 			You("see %s %s out of your pack!",
 			    monnambuf, locomotion(mon->data, "drop"));
 #else
-		        pline("%sがあなたの背負い袋から%sのを見た．",
+		        pline("%sがあなたの背負い袋から%sのを見た。",
 			    monnambuf,
 			    jpast(locomotion(mon->data, "落ちる")));
 #endif
@@ -670,7 +670,7 @@ long timeout;
 			    flags.female ? "mommy" : "daddy",
 			    egg->spe ? "." : "?");
 #else
-			pline("それは『%s%s』と鳴いているようだ．",
+			pline("それは『%s%s』と鳴いているようだ。",
 			    flags.female ? "ママ" : "パパ",
 			    egg->spe ? "" : "？");
 #endif
@@ -689,7 +689,7 @@ long timeout;
 /*JP
 			You("see %s hatch.", monnambuf);
 */
-			You("%sが卵から孵化するのを見た．", monnambuf);
+			You("%sが卵から孵化するのを見た。", monnambuf);
 			redraw = TRUE;	/* update egg's map location */
 		    }
 		    break;
@@ -719,7 +719,7 @@ long timeout;
 			You("see %s %s out of %s!", monnambuf,
 			    locomotion(mon->data, "drop"), carriedby);
 #else
-			You("%sが%s%sのを見た．", monnambuf,
+			You("%sが%s%sのを見た。", monnambuf,
 			    carriedby, 
 			    locomotion(mon->data, "落ちる"));
 #endif
@@ -836,13 +836,13 @@ slip_or_trip()
 /*JP
 		You("trip over %s.", what);
 */
-		You("%sにつまづいた．", what);
+		You("%sにつまづいた。", what);
 	    }
 	} else if (rn2(3) && is_ice(u.ux, u.uy)) {
 /*JP
 	    pline("%s %s%s on the ice.",
 */
-	    pline("%sは氷の上で滑った．",
+	    pline("%sは氷の上で滑った。",
 #ifdef STEED
 		u.usteed ? upstart(x_monnam(u.usteed,
 				u.usteed->mnamelth ? ARTICLE_NONE : ARTICLE_THE,
@@ -860,7 +860,7 @@ slip_or_trip()
 			You("trip over your own %s.", Hallucination ?
 				"elbow" : makeplural(body_part(FOOT)));
 #else
-			You("自分の%sを踏んでつまづいた．", Hallucination ?
+			You("自分の%sを踏んでつまづいた。", Hallucination ?
 				"肘" : makeplural(body_part(FOOT)));
 #endif
 			break;
@@ -869,7 +869,7 @@ slip_or_trip()
 			You("slip %s.", Hallucination ?
 				"on a banana peel" : "and nearly fall");
 #else
-		You("%s．", Hallucination ?
+		You("%s。", Hallucination ?
 			"バナナの皮で滑った" : "滑って転びそうになった");
 #endif
 			break;
@@ -877,13 +877,13 @@ slip_or_trip()
 /*JP
 			You("flounder.");
 */
-			You("じたばたした．");
+			You("じたばたした。");
 			break;
 		  default:
 /*JP
 			You("stumble.");
 */
-			You("よろめいた．");
+			You("よろめいた。");
 			break;
 		}
 	    }
@@ -894,25 +894,25 @@ slip_or_trip()
 /*JP
 			Your("%s slip out of the stirrups.", makeplural(body_part(FOOT)));
 */
-			You("あぶみを踏み外してしまった．");
+			You("あぶみを踏み外してしまった。");
 			break;
 		  case 2:
 /*JP
 			You("let go of the reins.");
 */
-			You("手綱を放してしまった．");
+			You("手綱を放してしまった。");
 			break;
 		  case 3:
 /*JP
 			You("bang into the saddle-horn.");
 */
-			You("サドルホーンにぶつかってしまった．");
+			You("サドルホーンにぶつかってしまった。");
 			break;
 		  default:
 /*JP
 			You("slide to one side of the saddle.");
 */
-			You("鞍の片側に滑ってしまった．");
+			You("鞍の片側に滑ってしまった。");
 			break;
 		}
 		dismount_steed(DISMOUNT_FELL);
@@ -933,13 +933,13 @@ const char *tailer;
 /*JP
 		pline("%s flickers%s.", Yname2(obj), tailer);
 */
-		pline("%sは%s点滅した．", Yname2(obj), tailer);
+		pline("%sは%s点滅した。", Yname2(obj), tailer);
 		break;
 	    case OBJ_FLOOR:
 /*JP
 		You("see %s flicker%s.", an(xname(obj)), tailer);
 */
-		You("%sが%s点滅するのが見えた．", an(xname(obj)), tailer);
+		You("%sが%s点滅するのが見えた。", an(xname(obj)), tailer);
 		break;
 	}
 }
@@ -955,24 +955,24 @@ struct obj *obj;
 /*JP
 		Your("lantern is getting dim.");
 */
-		Your("ランタンは暗くなった．");
+		Your("ランタンは暗くなった。");
 		if (Hallucination)
 /*JP
 		    pline("Batteries have not been invented yet.");
 */
-		    pline("電池はまだ発明されてないんだっけ．");
+		    pline("電池はまだ発明されてないんだっけ。");
 		break;
 	    case OBJ_FLOOR:
 /*JP
 		You("see a lantern getting dim.");
 */
-		pline("ランタンが暗くなったのが見えた．");
+		pline("ランタンが暗くなったのが見えた。");
 		break;
 	    case OBJ_MINVENT:
 /*JP
 		pline("%s lantern is getting dim.",
 */
-		pline("%sのランタンは暗くなった．",
+		pline("%sのランタンは暗くなった。",
 		    s_suffix(Monnam(obj->ocarry)));
 		break;
 	}
@@ -1040,14 +1040,14 @@ long timeout;
 /*JP
 				pline("%s potion of oil has burnt away.",
 */
-				pline("%sオイルは燃えつきた．",
+				pline("%sオイルは燃えつきた。",
 				    whose);
 				break;
 			    case OBJ_FLOOR:
 /*JP
 				You("see a burning potion of oil go out.");
 */
-				You("オイルの火が消えたのが見えた．");
+				You("オイルの火が消えたのが見えた。");
 				need_newsym = TRUE;
 				break;
 			}
@@ -1087,14 +1087,14 @@ long timeout;
 /*JP
 					pline("%s %s seems about to go out.",
 */
-					pline("%s%sは今にも消えそうだ．",
+					pline("%s%sは今にも消えそうだ。",
 					    whose, xname(obj));
 					break;
 				    case OBJ_FLOOR:
 /*JP
 					You("see %s about to go out.",
 */
-					pline("%sが消えかけているのが見えた．",
+					pline("%sが消えかけているのが見えた。",
 					    an(xname(obj)));
 					break;
 				}
@@ -1112,13 +1112,13 @@ long timeout;
 /*JP
 					pline("%s lantern has run out of power.",
 */
-					pline("%sランタンの力を使い切った．",
+					pline("%sランタンの力を使い切った。",
 					    whose);
 				    else
 /*JP
 					pline("%s %s has gone out.",
 */
-					pline("%s%sは消えた．",
+					pline("%s%sは消えた。",
 					    whose, xname(obj));
 				    break;
 				case OBJ_FLOOR:
@@ -1126,12 +1126,12 @@ long timeout;
 /*JP
 					You("see a lantern run out of power.");
 */
-					You("ランタンが消えるのが見えた．");
+					You("ランタンが消えるのが見えた。");
 				    else
 /*JP
 					You("see %s go out.",
 */
-					You("%sが消えるのが見えた．",
+					You("%sが消えるのが見えた。",
 					    an(xname(obj)));
 				    break;
 			    }
@@ -1168,7 +1168,7 @@ long timeout;
 					menorah ? "candelabrum's " : "",
 					many ? "s are" : " is");
 #else
-				    pline("%s%sろうそくは短くなった．",
+				    pline("%s%sろうそくは短くなった。",
 					whose,
 					menorah ? "燭台の" : "");
 #endif
@@ -1180,7 +1180,7 @@ long timeout;
 						many ? "some " : "a ",
 					    many ? "s" : "");
 #else
-				    You("%sろうそくが短くなるのが見えた．",
+				    You("%sろうそくが短くなるのが見えた。",
 					    menorah ? "燭台の" : "");
 #endif
 				    break;
@@ -1201,7 +1201,7 @@ long timeout;
 					    many ? "s" : "",
 					    many ? "" : "s");
 #else
-					"%s%sろうそくの炎は点滅し，暗くなった！",
+					"%s%sろうそくの炎は点滅し、暗くなった！",
 					    whose,
 					    menorah ? "燭台の" : "");
 #endif
@@ -1214,7 +1214,7 @@ long timeout;
 					    many ? "s'" : "'s",
 					    many ? "s" : "");
 #else
-				    You("%sろうそくの炎が点滅し，暗くなるのが見えた！",
+				    You("%sろうそくの炎が点滅し、暗くなるのが見えた！",
 					    menorah ? "燭台の" : "");
 #endif
 				    break;
@@ -1233,7 +1233,7 @@ long timeout;
 					    whose,
 					    many ? "s die" : " dies");
 #else
-					pline("%s燭台の炎は消えた．",
+					pline("%s燭台の炎は消えた。",
 					    whose);
 #endif
 					break;
@@ -1242,7 +1242,7 @@ long timeout;
 					You("see a candelabrum's flame%s die.",
 						many ? "s" : "");
 #else
-					You("燭台の炎が消えるのが見えた．");
+					You("燭台の炎が消えるのが見えた。");
 #endif
 					break;
 				}
@@ -1287,8 +1287,8 @@ long timeout;
 					    (many ? "Their flames die." :
 						    "Its flame dies."));
 #else
-				        "それは震えた．" :
-					"炎は消えた．");
+				        "それは震えた。" :
+					"炎は消えた。");
 #endif
 			    }
 			}
@@ -1548,7 +1548,7 @@ do_storms()
 /*JP
 	You_hear("a rumbling noise.");
 */
-	You_hear("雷の音を聞いた．");
+	You_hear("雷の音を聞いた。");
 }
 #endif /* OVL1 */
 

@@ -27,7 +27,7 @@ const char *what;
 /*JP
     You("are floating high above the %s.", what);
 */
-    You("%sの遥か上方に浮いている．", what);
+    You("%sの遥か上方に浮いている。", what);
 }
 
 STATIC_OVL void
@@ -58,7 +58,7 @@ dowatersnakes() /* Fountain of snakes! */
 /*JP
 	pline_The("fountain bubbles furiously for a moment, then calms.");
 */
-	pline("泉は突然激しく泡だち，やがて静かになった．");
+	pline("泉は突然激しく泡だち、やがて静かになった。");
 }
 
 STATIC_OVL
@@ -86,7 +86,7 @@ dowaterdemon() /* Water demon */
 		pline("Grateful for %s release, %s grants you a wish!",
 		      mhis(mtmp), mhe(mtmp));
 #else
-		pline("%sは解放をとても感謝し，のぞみをかなえてくれるようだ！",
+		pline("%sは解放をとても感謝し、のぞみをかなえてくれるようだ！",
 		      mhe(mtmp));
 #endif
 		makewish(FALSE);
@@ -98,7 +98,7 @@ dowaterdemon() /* Water demon */
 /*JP
 	pline_The("fountain bubbles furiously for a moment, then calms.");
 */
-	pline("泉は突然激しく泡だち，やがて静かになった．");
+	pline("泉は突然激しく泡だち、やがて静かになった。");
 }
 
 STATIC_OVL void
@@ -117,7 +117,7 @@ dowaternymph() /* Water Nymph */
 /*JP
 		   You_hear("a seductive voice.");
 */
-		   You_hear("魅惑的な声を聞いた．");
+		   You_hear("魅惑的な声を聞いた。");
 		mtmp->msleeping = 0;
 		if (t_at(mtmp->mx, mtmp->my))
 		    (void) mintrap(mtmp);
@@ -126,12 +126,12 @@ dowaternymph() /* Water Nymph */
 /*JP
 		   pline("A large bubble rises to the surface and pops.");
 */
-		   pline("大きな泡が沸き出てはじけた．");
+		   pline("大きな泡が沸き出てはじけた。");
 		else
 /*JP
 		   You_hear("a loud pop.");
 */
-		   You_hear("大きなものがはじける音を聞いた．");
+		   You_hear("大きなものがはじける音を聞いた。");
 }
 
 void
@@ -146,12 +146,12 @@ int drinking;
 /*JP
 		Your("thirst is quenched.");
 */
-		Your("渇きは癒された．");
+		Your("渇きは癒された。");
 	    else
 /*JP
 		pline("Water sprays all over you.");
 */
-		pline("水しぶきがあなたにかかった．");
+		pline("水しぶきがあなたにかかった。");
 	}
 }
 
@@ -232,7 +232,7 @@ boolean isyou;
 /*JP
 				verbalize("Hey, stop using that fountain!");
 */
-				verbalize("おい，泉を汚すな！");
+				verbalize("おい、泉を汚すな！");
 				break;
 			    }
 			}
@@ -240,7 +240,7 @@ boolean isyou;
 /*JP
 			if(!mtmp) pline_The("flow reduces to a trickle.");
 */
-			if(!mtmp) pline("流れはちょろちょろになった．");
+			if(!mtmp) pline("流れはちょろちょろになった。");
 			return;
 		}
 #ifdef WIZARD
@@ -318,7 +318,7 @@ drinkfountain()
 /*JP
 		pline_The("cool draught refreshes you.");
 */
-		pline("冷たい一杯でさっぱりした．");
+		pline("冷たい一杯でさっぱりした。");
 		u.uhunger += rnd(10); /* don't choke on water */
 		newuhs(FALSE);
 		if(mgkftn) return;
@@ -337,7 +337,7 @@ drinkfountain()
 /*JP
 			pline_The("feeling subsides.");
 */
-			pline("その感じはなくなった．");
+			pline("その感じはなくなった。");
 			break;
 
 		case 20: /* Foul water */
@@ -345,7 +345,7 @@ drinkfountain()
 /*JP
 			pline_The("water is foul!  You gag and vomit.");
 */
-			pline("水はひどく不快な味がした！あなたは吐き戻した．");
+			pline("水はひどく不快な味がした！あなたは吐き戻した。");
 			morehungry(rn1(20, 11));
 			vomit();
 			break;
@@ -363,7 +363,7 @@ drinkfountain()
 				 fruitname(FALSE));
 #else
 			   pline(
-			      "たぶん，これは近くの%sの農場から流れている．",
+			      "たぶん、これは近くの%sの農場から流れている。",
 				 fruitname(FALSE));
 #endif
 /*JP
@@ -411,26 +411,26 @@ drinkfountain()
 /*JP
 			    You("feel transparent.");
 */
-			    You("透明になった気がする．");
+			    You("透明になった気がする。");
 			    } else {
 /*JP
 			    	You("feel very self-conscious.");
 */
-			    	You("自意識過剰に感じた．");
+			    	You("自意識過剰に感じた。");
 /*JP
 			    	pline("Then it passes.");
 */
-			    	pline("その感じは消えた．");
+			    	pline("その感じは消えた。");
 			    }
 			} else {
 /*JP
 			   You("see an image of someone stalking you.");
 */
-			   You("何かが自分の後をつけている映像を見た．");
+			   You("何かが自分の後をつけている映像を見た。");
 /*JP
 			   pline("But it disappears.");
 */
-			   pline("しかし，それは消えてしまった．");
+			   pline("しかし、それは消えてしまった。");
 			}
 			HSee_invisible |= FROMOUTSIDE;
 			newsym(u.ux,u.uy);
@@ -478,7 +478,7 @@ drinkfountain()
 /*JP
 			pline("This tepid water is tasteless.");
 */
-			pline("このなまぬるい水は味がない．");
+			pline("このなまぬるい水は味がない。");
 			break;
 	    }
 	}
@@ -509,7 +509,7 @@ register struct obj *obj;
 /*JP
 			pline("A freezing mist rises from the water and envelopes the sword.");
 */
-			pline("氷の霧が水から立ち昇り，剣をつつんだ．");
+			pline("氷の霧が水から立ち昇り、剣をつつんだ。");
 /*JP
 			pline_The("fountain disappears!");
 */
@@ -524,11 +524,11 @@ register struct obj *obj;
 /*JP
 	  pline("From the murky depths, a hand reaches up to bless the sword.");
 */
-	  pline("にごった深みから，剣を祝福せんと手が伸びてきた．");
+	  pline("にごった深みから、剣を祝福せんと手が伸びてきた。");
 /*JP
 			pline("As the hand retreats, the fountain disappears!");
 */
-			pline("手が退くと，泉は消えてしまった！");
+			pline("手が退くと、泉は消えてしまった！");
 			obj = oname(obj, artiname(ART_EXCALIBUR));
 			discover_artifact(ART_EXCALIBUR);
 			bless(obj);
@@ -566,13 +566,13 @@ register struct obj *obj;
 /*JP
 				pline_The("water glows for a moment.");
 */
-				pline("水は輝きだした．");
+				pline("水は輝きだした。");
 			    uncurse(obj);
 			} else {
 /*JP
 			    pline("A feeling of loss comes over you.");
 */
-			    pline("奇妙な脱力感があなたをおそった．");
+			    pline("奇妙な脱力感があなたをおそった。");
 			}
 			break;
 		case 21: /* Water Demon */
@@ -596,27 +596,27 @@ register struct obj *obj;
 /*JP
 			pline("A strange tingling runs up your %s.",
 */
-			pline("奇妙なしびれがあなたの%sに走った．",
+			pline("奇妙なしびれがあなたの%sに走った。",
 							body_part(ARM));
 			break;
 		case 27: /* Strange feeling */
 /*JP
 			You_feel("a sudden chill.");
 */
-			You("突然寒けを感じた．");
+			You("突然寒けを感じた。");
 			break;
 		case 28: /* Strange feeling */
 /*JP
 			pline("An urge to take a bath overwhelms you.");
 */
-			pline("風呂に入りたいという欲望にかられた．");
+			pline("風呂に入りたいという欲望にかられた。");
 #ifndef GOLDOBJ
 			if (u.ugold > 10) {
 			    u.ugold -= somegold() / 10;
 /*JP
 			    You("lost some of your gold in the fountain!");
 */
-			    You("金貨を数枚，泉に落としてしまった！");
+			    You("金貨を数枚、泉に落としてしまった！");
 			    CLEAR_FOUNTAIN_LOOTED(u.ux,u.uy);
 			    exercise(A_WIS, FALSE);
 			}
@@ -638,7 +638,7 @@ register struct obj *obj;
 /*JP
 			        You("lost some of your money in the fountain!");
 */
-			        You("金貨を数枚，泉に落としてしまった！");
+			        You("金貨を数枚、泉に落としてしまった！");
 				CLEAR_FOUNTAIN_LOOTED(u.ux,u.uy);
 			        exercise(A_WIS, FALSE);
                             }
@@ -660,7 +660,7 @@ register struct obj *obj;
 /*JP
 		pline("Far below you, you see coins glistening in the water.");
 */
-		You("遥か下の水中に金貨の輝きをみつけた．");
+		You("遥か下の水中に金貨の輝きをみつけた。");
 		    exercise(A_WIS, TRUE);
 		    newsym(u.ux,u.uy);
 		    break;
@@ -703,22 +703,22 @@ drinksink()
 /*JP
 		case 0: You("take a sip of very cold water.");
 */
-		case 0: You("とても冷たい水を一口飲んだ．");
+		case 0: You("とても冷たい水を一口飲んだ。");
 			break;
 /*JP
 		case 1: You("take a sip of very warm water.");
 */
-		case 1: You("とてもぬるい水を一口飲んだ．");
+		case 1: You("とてもぬるい水を一口飲んだ。");
 			break;
 /*JP
 		case 2: You("take a sip of scalding hot water.");
 */
-		case 2: You("とても熱い水を一口飲んだ．");
+		case 2: You("とても熱い水を一口飲んだ。");
 			if (Fire_resistance)
 /*JP
 				pline("It seems quite tasty.");
 */
-				pline("とてもおいしい水だ．");
+				pline("とてもおいしい水だ。");
 /*JP
 			else losehp(rnd(6), "sipping boiling water", KILLED_BY);
 */
@@ -728,7 +728,7 @@ drinksink()
 /*JP
 				pline_The("sink seems quite dirty.");
 */
-				pline("流し台はとても汚ならしい．");
+				pline("流し台はとても汚ならしい。");
 			else {
 				mtmp = makemon(&mons[PM_SEWER_RAT],
 						u.ux, u.uy, NO_MM_FLAGS);
@@ -758,7 +758,7 @@ drinksink()
 			      Blind ? "odd" :
 			      hcolor(OBJ_DESCR(objects[otmp->otyp])));
 #else
-			pline("蛇口から%s液体が流れた．",
+			pline("蛇口から%s液体が流れた。",
 			      Blind ? "奇妙な" :
 			      hcolor(jtrns_obj('!',OBJ_DESCR(objects[otmp->otyp]))));
 #endif
@@ -780,7 +780,7 @@ drinksink()
 /*JP
 			} else pline("Some dirty water backs up in the drain.");
 */
-			} else pline("汚水が排水口から逆流してきた．");
+			} else pline("汚水が排水口から逆流してきた。");
 			break;
 		case 6: breaksink(u.ux,u.uy);
 			break;
@@ -794,19 +794,19 @@ drinksink()
 /*JP
 				pline("But it quiets down.");
 */
-				pline("しかし，静かになった．");
+				pline("しかし、静かになった。");
 			break;
 /*JP
 		case 8: pline("Yuk, this water tastes awful.");
 */
-		case 8: pline("オェ，とてもひどい味がする．");
+		case 8: pline("オェ、とてもひどい味がする。");
 			more_experienced(1,1,0);
 			newexplevel();
 			break;
 /*JP
 		case 9: pline("Gaggg... this tastes like sewage!  You vomit.");
 */
-		case 9: pline("ゲェー．下水のような味がする！あなたは吐き戻した．");
+		case 9: pline("ゲェー。下水のような味がする！あなたは吐き戻した。");
 			morehungry(rn1(30-ACURR(A_CON), 11));
 			vomit();
 			break;
@@ -837,14 +837,14 @@ drinksink()
 /*JP
 		   pline("From the murky drain, a hand reaches up... --oops--");
 */
-		   pline("にごった排水口から，手が伸びてきた．．--おっと--");
+		   pline("にごった排水口から、手が伸びてきた．．．--おっと--");
 				break;
 			}
 #if 0 /*JP*/
 		default: You("take a sip of %s water.",
 			rn2(3) ? (rn2(2) ? "cold" : "warm") : "hot");
 #else
-		default: You("%s水を一口飲んだ．",
+		default: You("%s水を一口飲んだ。",
 			rn2(3) ? (rn2(2) ? "冷い" : "ぬるい") : "熱い");
 #endif
 	}

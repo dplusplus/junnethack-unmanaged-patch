@@ -29,7 +29,7 @@ rider_cant_reach()
 /*JP
      You("aren't skilled enough to reach from %s.", y_monnam(u.usteed));
 */
-     You("まだ十分に技量を積んでいないので，%sから届かない．", y_monnam(u.usteed));
+     You("まだ十分に技量を積んでいないので、%sから届かない。", y_monnam(u.usteed));
 }
 
 /*** Putting the saddle on ***/
@@ -70,7 +70,7 @@ use_saddle(otmp)
 /*JP
 		You("have no free %s.", body_part(HAND));
 */
-		You("%sの自由が効かない．", body_part(HAND));
+		You("%sの自由が効かない。", body_part(HAND));
 		return 0;
 	}
 
@@ -93,7 +93,7 @@ use_saddle(otmp)
 /*JP
 	    pline("I see nobody there.");
 */
-	    pline("そこには誰もいないように見える．");
+	    pline("そこには誰もいないように見える。");
 	    return 1;
 	}
 
@@ -103,7 +103,7 @@ use_saddle(otmp)
 /*JP
 	    pline("%s doesn't need another one.", Monnam(mtmp));
 */
-	    pline("%sはもう鞍が取りつけられている．", Monnam(mtmp));
+	    pline("%sはもう鞍が取りつけられている。", Monnam(mtmp));
 	    return 1;
 	}
 	ptr = mtmp->data;
@@ -113,7 +113,7 @@ use_saddle(otmp)
 /*JP
 	    You("touch %s.", mon_nam(mtmp));
 */
-	    You("%sに触れた．", mon_nam(mtmp));
+	    You("%sに触れた。", mon_nam(mtmp));
  	    if (!(poly_when_stoned(youmonst.data) && polymon(PM_STONE_GOLEM))) {
 /*JP
 		Sprintf(kbuf, "attempting to saddle %s", an(mtmp->data->mname));
@@ -153,14 +153,14 @@ use_saddle(otmp)
 /*JP
 	    pline("I think %s would mind.", mon_nam(mtmp));
 */
-	    pline("%sは嫌がっているようだ．", mon_nam(mtmp));
+	    pline("%sは嫌がっているようだ。", mon_nam(mtmp));
 	    return 1;
 	}
 	if (!can_saddle(mtmp)) {
 /*JP
 		You_cant("saddle such a creature.");
 */
-		You("その生き物に鞍はとりつけられない．");
+		You("その生き物に鞍はとりつけられない。");
 		return 1;
 	}
 
@@ -202,7 +202,7 @@ use_saddle(otmp)
 /*JP
 	    You("put the saddle on %s.", mon_nam(mtmp));
 */
-	    You("鞍を%sに取りつけた．", mon_nam(mtmp));
+	    You("鞍を%sに取りつけた。", mon_nam(mtmp));
 	    if (otmp->owornmask) remove_worn_item(otmp, FALSE);
 	    freeinv(otmp);
 	    /* mpickobj may free otmp it if merges, but we have already
@@ -271,7 +271,7 @@ mount_steed(mtmp, force)
 /*JP
 	    	You("are already riding %s.", mon_nam(u.usteed));
 */
-	    	You("もう%sに乗っている．", mon_nam(u.usteed));
+	    	You("もう%sに乗っている。", mon_nam(u.usteed));
 	    return (FALSE);
 	}
 
@@ -280,7 +280,7 @@ mount_steed(mtmp, force)
 #if 0 /*JP*/
 	    pline("Maybe you should find a designated driver.");
 #else
-	    pline("おそらくあなたは指定ドライバーを探すべきだろう．");
+	    pline("おそらくあなたは指定ドライバーを探すべきだろう。");
 #endif
 	    return (FALSE);
 	}
@@ -298,7 +298,7 @@ mount_steed(mtmp, force)
 #if 0 /*JP*/
 	    Your("%s are in no shape for riding.", makeplural(body_part(LEG)));
 #else
-	    pline("%sを怪我しているので乗れない．", makeplural(body_part(LEG)));
+	    pline("%sを怪我しているので乗れない。", makeplural(body_part(LEG)));
 #endif
 #ifdef WIZARD
 	    if (force && wizard && yn("Heal your legs?") == 'y')
@@ -313,14 +313,14 @@ mount_steed(mtmp, force)
 /*JP
 	    	You("won't fit on a saddle.");
 */
-	    	You("鞍に合わない．");
+	    	You("鞍に合わない。");
 	    return (FALSE);
 	}
 	if(!force && (near_capacity() > SLT_ENCUMBER)) {
 /*JP
 	    You_cant("do that while carrying so much stuff.");
 */
-	    You("沢山物を持ちすぎており出来ない．");
+	    You("沢山物を持ちすぎており出来ない。");
 	    return (FALSE);
 	}
 
@@ -332,7 +332,7 @@ mount_steed(mtmp, force)
 /*JP
 	    	pline("I see nobody there.");
 */
-	    	pline("そこには何も見えない．");
+	    	pline("そこには何も見えない。");
 	    return (FALSE);
 	}
 	if (u.uswallow || u.ustuck || u.utrap || Punished ||
@@ -341,12 +341,12 @@ mount_steed(mtmp, force)
 /*JP
 		You("are unable to swing your %s over.", body_part(LEG)); 
 */
-		You("鞍をまたぐことができない．");
+		You("鞍をまたぐことができない。");
 	    else
 /*JP
         		You("are stuck here for now.");
 */
-        		You("はまっているので出来ない．");
+        		You("はまっているので出来ない。");
 	    return (FALSE);
 	}
 
@@ -356,7 +356,7 @@ mount_steed(mtmp, force)
 /*JP
 	    pline("%s is not saddled.", Monnam(mtmp));
 */
-	    pline("%sには鞍が取りつけられていない．", Monnam(mtmp));
+	    pline("%sには鞍が取りつけられていない。", Monnam(mtmp));
 	    return (FALSE);
 	}
 	ptr = mtmp->data;
@@ -366,7 +366,7 @@ mount_steed(mtmp, force)
 /*JP
 	    You("touch %s.", mon_nam(mtmp));
 */
-	    You("%sに触れた．", mon_nam(mtmp));
+	    You("%sに触れた。", mon_nam(mtmp));
 /*JP
 	    Sprintf(kbuf, "attempting to ride %s", an(mtmp->data->mname));
 */
@@ -377,7 +377,7 @@ mount_steed(mtmp, force)
 /*JP
 	    	pline("I think %s would mind.", mon_nam(mtmp));
 */
-	    	pline("%sは嫌がっているようだ．", mon_nam(mtmp));
+	    	pline("%sは嫌がっているようだ。", mon_nam(mtmp));
 	    return (FALSE);
 	}
 	if (mtmp->mtrapped) {
@@ -388,7 +388,7 @@ mount_steed(mtmp, force)
 		     mon_nam(mtmp), mhe(mtmp),
 		     an(defsyms[trap_to_defsym(t->ttyp)].explanation));
 #else
-	    You("%sに捕まっている%sには乗れない．",
+	    You("%sに捕まっている%sには乗れない。",
 		     jtrns_obj('^', defsyms[trap_to_defsym(t->ttyp)].explanation),
 		     mon_nam(mtmp));
 #endif
@@ -403,7 +403,7 @@ mount_steed(mtmp, force)
 		  mtmp->mleashed ? " and its leash comes off" : "");
 #else
 	    pline("%sは拒否%s！", Monnam(mtmp),
-		  mtmp->mleashed ? "して，紐をはずした" : "した");
+		  mtmp->mleashed ? "して、紐をはずした" : "した");
 #endif
 	    if (mtmp->mleashed) m_unleash(mtmp, FALSE);
 	    return (FALSE);
@@ -412,14 +412,14 @@ mount_steed(mtmp, force)
 /*JP
 	    You_cant("ride that creature while under water.");
 */
-	    You("水中で乗ることはできない．");
+	    You("水中で乗ることはできない。");
 	    return (FALSE);
 	}
 	if (!can_saddle(mtmp) || !can_ride(mtmp)) {
 /*JP
 	    	You_cant("ride such a creature.");
 */
-	    	You("その生き物に乗ることはできない．");
+	    	You("その生き物に乗ることはできない。");
 	    return (0);
 	}
 
@@ -429,7 +429,7 @@ mount_steed(mtmp, force)
 /*JP
 	    You("cannot reach %s.", mon_nam(mtmp));
 */
-	    You("%sに届かない．", mon_nam(mtmp));
+	    You("%sに届かない。", mon_nam(mtmp));
 	    return (FALSE);
 	}
 	if (!force && uarm && is_metallic(uarm) &&
@@ -439,7 +439,7 @@ mount_steed(mtmp, force)
 			uarm->oeroded ? "rusty" : "corroded",
 			mon_nam(mtmp));
 #else
-	    Your("%s鎧はギシギシいっており%sに乗れない．",
+	    Your("%s鎧はギシギシいっており%sに乗れない。",
 			uarm->oeroded ? "錆びた" : "腐食した",
 			mon_nam(mtmp));
 #endif
@@ -451,13 +451,13 @@ mount_steed(mtmp, force)
 /*JP
 		pline("%s slips away from you.", Monnam(mtmp));
 */
-		pline("%sはあなたからはなれていった．", Monnam(mtmp));
+		pline("%sはあなたからはなれていった。", Monnam(mtmp));
 		return FALSE;
 	    }
 /*JP
 	    You("slip while trying to get on %s.", mon_nam(mtmp));
 */
-	    You("%sに乗ろうとしてすべった．", mon_nam(mtmp));
+	    You("%sに乗ろうとしてすべった。", mon_nam(mtmp));
 
 #if 0 /*JP*/
 	    Sprintf(buf, "slipped while mounting %s",
@@ -485,7 +485,7 @@ mount_steed(mtmp, force)
 /*JP
 	    You("mount %s.", mon_nam(mtmp));
 */
-	    You("%sに乗った．", mon_nam(mtmp));
+	    You("%sに乗った。", mon_nam(mtmp));
 	}
 	/* setuwep handles polearms differently when you're mounted */
 	if (uwep && is_pole(uwep)) unweapon = FALSE;
@@ -540,7 +540,7 @@ kick_steed()
 #if 0 /*JP*/
 		    pline("%s stirs.", He);
 #else
-		    pline("%sは動き出した．", He);
+		    pline("%sは動き出した。", He);
 #endif
 		else
 #if 0 /*JP*/
@@ -552,7 +552,7 @@ kick_steed()
 #if 0 /*JP*/
 		pline("%s does not respond.", He);
 #else
-		pline("%sは反応しない．", He);
+		pline("%sは反応しない。", He);
 #endif
 	    return;
 	}
@@ -670,7 +670,7 @@ dismount_steed(reason)
 /*JP
 		You("can no longer ride %s.", mon_nam(u.usteed));
 */
-		You("%sに乗ってられない．", mon_nam(u.usteed));
+		You("%sに乗ってられない。", mon_nam(u.usteed));
 		if (!have_spot) have_spot = landing_spot(&cc,reason,1);
 		break;
 	    case DISMOUNT_ENGULFED:
@@ -689,7 +689,7 @@ dismount_steed(reason)
 		    You("can't.  The saddle %s cursed.",
 			otmp->bknown ? "is" : "seems to be");
 #else
-		    You("降りられない．鞍は呪われている%s．",
+		    You("降りられない。鞍は呪われている%s。",
 			otmp->bknown ? "" : "ようだ");
 #endif
 		    otmp->bknown = TRUE;
@@ -699,7 +699,7 @@ dismount_steed(reason)
 /*JP
 		    You("can't. There isn't anywhere for you to stand.");
 */
-		    pline("あなたの立つ場所がないので降りられない．");
+		    pline("あなたの立つ場所がないので降りられない。");
 		    return;
 		}
 		if (!mtmp->mnamelth) {
@@ -707,19 +707,19 @@ dismount_steed(reason)
 			pline("You've been through the dungeon on %s with no name.",
 				an(mtmp->data->mname));
 #else
-			pline("あなたは名無しの%sと共に迷宮内にいる．",
+			pline("あなたは名無しの%sと共に迷宮内にいる。",
 				jtrns_mon(mtmp->data->mname));
 #endif
 			if (Hallucination)
 /*JP
 				pline("It felt good to get out of the rain.");
 */
-				pline("雨のなかから抜け出るのによいと思った．");
+				pline("雨のなかから抜け出るのによいと思った。");
 		} else
 /*JP
 			You("dismount %s.", mon_nam(mtmp));
 */
-			You("%sから降りた．", mon_nam(mtmp));
+			You("%sから降りた。", mon_nam(mtmp));
 	}
 	/* While riding these refer to the steed's legs
 	 * so after dismounting they refer to the player's

@@ -852,7 +852,7 @@ $gold piece:	金貨:
 *fluorite:	フルオライト:
 *jade:		ひすい:
 #
-# jactinthは出エジプト記28章で黄水晶と訳されているが，
+# jactinthは出エジプト記28章で黄水晶と訳されているが、
 # citrineとかぶるので橙水晶
 #
 *jacinth:	橙水晶:
@@ -979,7 +979,7 @@ Sweapon:				武器:
 Ssuit or piece of armor:		服または鎧のたぐい:
 Sring:					指輪:
 Samulet:				魔除け:
-Suseful item (pick-axe, key, lamp...):	便利な道具(つるはし，鍵，ランプ．．．):
+Suseful item (pick-axe, key, lamp...):	便利な道具(つるはし、鍵、ランプ．．．):
 Spiece of food:				食料:
 Spotion:				薬:
 Sscroll:				巻物:

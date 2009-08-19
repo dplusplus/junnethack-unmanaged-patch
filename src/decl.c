@@ -300,10 +300,10 @@ struct c_common_strings c_common_strings = {
 	"something", "Something", "You can move again.", "Never mind.",
 	"vision quickly clears.", {"the", "your"}
 #else
-	"何も起きなかった．",		"いい加減にしろ！",
-	"%s？そりゃばかげている．",	"一瞬震えた．",
-	"何か", "何か", "また動けるようになった．", "え？",
-	"視界がはっきりした．", {"", ""}
+	"何も起きなかった。",		"いい加減にしろ！",
+	"%s？そりゃばかげている。",	"一瞬震えた。",
+	"何か", "何か", "また動けるようになった。", "え？",
+	"視界がはっきりした。", {"", ""}
 #endif
 };
 

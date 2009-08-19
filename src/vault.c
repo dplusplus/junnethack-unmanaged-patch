@@ -64,11 +64,11 @@ register boolean forceshow;
 /*JP
 	    pline_The("corridor disappears.");
 */
-	    pline("通路は消えた．");
+	    pline("通路は消えた。");
 /*JP
 	    if(IS_ROCK(levl[u.ux][u.uy].typ)) You("are encased in rock.");
 */
-	    if(IS_ROCK(levl[u.ux][u.uy].typ)) You("石につつまれた．");
+	    if(IS_ROCK(levl[u.ux][u.uy].typ)) You("石につつまれた。");
 	}
 	return(TRUE);
 }
@@ -254,13 +254,13 @@ fnd:
 	    pline("Suddenly one of the Vault's %s enters!",
 		  makeplural(g_monnam(guard)));
 #else
-	    pline("突然，倉庫の番兵が入ってきた！");
+	    pline("突然、倉庫の番兵が入ってきた！");
 #endif
 	else
 /*JP
 	    pline("Someone else has entered the Vault.");
 */
-	    pline("誰かが倉庫に入ってきた．");
+	    pline("誰かが倉庫に入ってきた。");
 	newsym(guard->mx,guard->my);
 	if (youmonst.m_ap_type == M_AP_OBJECT || u.uundetected) {
 	    if (youmonst.m_ap_type == M_AP_OBJECT &&
@@ -273,7 +273,7 @@ fnd:
 /*JP
 	    pline("Puzzled, %s turns around and leaves.", mhe(guard));
 */
-	    pline("%sは困惑しながら，向き直って去っていった．", mhe(guard));
+	    pline("%sは困惑しながら、向き直って去っていった。", mhe(guard));
 	    mongone(guard);
 	    return;
 	}
@@ -296,7 +296,7 @@ fnd:
 /*JP
 	    getlin("\"Hello stranger, who are you?\" -", buf);
 */
-	    getlin("「見ない顔だな，おまえは誰だ？」-", buf);
+	    getlin("「見ない顔だな、おまえは誰だ？」-", buf);
 	    (void) mungspaces(buf);
 #if 0 /*JP*/
 	} while (!letter(buf[0]) && --trycount > 0);
@@ -327,7 +327,7 @@ fnd:
 /*JP
 		verbalize("Oh, yes, of course.  Sorry to have disturbed you.");
 */
-		verbalize("いや，こりゃ，えーと，お騒がせした．");
+		verbalize("いや、こりゃ、えーと、お騒がせした。");
 		mongone(guard);
 	    } else {
 		setmangry(guard);
@@ -346,27 +346,27 @@ fnd:
 /*JP
 	verbalize("I don't know you.");
 */
-	verbalize("知らんな．");
+	verbalize("知らんな。");
 #ifndef GOLDOBJ
 	if (!u.ugold && !hidden_gold())
 /*JP
 	    verbalize("Please follow me.");
 */
-	    verbalize("私の後についてきなさい．");
+	    verbalize("私の後についてきなさい。");
 	else {
 	    if (!u.ugold)
 /*JP
 		verbalize("You have hidden gold.");
 */
-		verbalize("まだ金貨を隠してるな．");
+		verbalize("まだ金貨を隠してるな。");
 /*JP
 	    verbalize("Most likely all your gold was stolen from this vault.");
 */
-	    verbalize("倉庫から盗んだ金貨があるだろう．");
+	    verbalize("倉庫から盗んだ金貨があるだろう。");
 /*JP
 	    verbalize("Please drop that gold and follow me.");
 */
-	    verbalize("それをそっくり戻してから，私の後についてきなさい．");
+	    verbalize("それをそっくり戻してから、私の後についてきなさい。");
 	}
 #else
         umoney = money_cnt(invent);
@@ -374,21 +374,21 @@ fnd:
 /*JP
 	    verbalize("Please follow me.");
 */
-	    verbalize("私の後についてきなさい．");
+	    verbalize("私の後についてきなさい。");
 	else {
 	    if (!umoney)
 /*JP
 		verbalize("You have hidden money.");
 */
-		verbalize("まだお金を隠してるな．");
+		verbalize("まだお金を隠してるな。");
 /*JP
 	    verbalize("Most likely all your money was stolen from this vault.");
 */
-	    verbalize("倉庫から盗んだお金があるだろう．");
+	    verbalize("倉庫から盗んだお金があるだろう。");
 /*JP
 	    verbalize("Please drop that money and follow me.");
 */
-	    verbalize("それをそっくり戻してから，私の後についてきなさい．");
+	    verbalize("それをそっくり戻してから、私の後についてきなさい。");
 	}
 #endif
 	EGD(guard)->gdx = gx;
@@ -502,16 +502,16 @@ struct monst *grd;
 /*JP
 		pline_The("%s whispers an incantation.", g_monnam(grd));
 */
-		pline("%sは呪文をささやいた．", g_monnam(grd));
+		pline("%sは呪文をささやいた。", g_monnam(grd));
 /*JP
 	    else You_hear("a distant chant.");
 */
-	    else You_hear("遠方での呪文を聞いた．");
+	    else You_hear("遠方での呪文を聞いた。");
 	    if(movedgold)
 /*JP
 		pline("A mysterious force moves the gold into the vault.");
 */
-		pline("神秘的な力が金貨を倉庫へ運んだ．");
+		pline("神秘的な力が金貨を倉庫へ運んだ。");
 	    if(fixed)
 /*JP
 		pline_The("damaged vault's walls are magically restored!");
@@ -605,7 +605,7 @@ register struct monst *grd;
 /*JP
 			verbalize("You've been warned, knave!");
 */
-			verbalize("警告はしたぞ，悪党め！");
+			verbalize("警告はしたぞ、悪党め！");
 			mnexto(grd);
 			levl[m][n].typ = egrd->fakecorr[0].ftyp;
 			newsym(m,n);
@@ -630,15 +630,15 @@ letknow:
 /*JP
 			You_hear("the shrill sound of a guard's whistle.");
 */
-			You_hear("番兵の鋭い笛の音を聞いた．");
+			You_hear("番兵の鋭い笛の音を聞いた。");
 		    else
 			You(um_dist(grd->mx, grd->my, 2) ?
 #if 0 /*JP*/
 			    "see an angry %s approaching." :
 			    "are confronted by an angry %s.",
 #else
-			    "怒った%sが近づいてくるのを見た．" :
-			    "怒った%sと対峙した．",
+			    "怒った%sが近づいてくるのを見た。" :
+			    "怒った%sと対峙した。",
 #endif
 			    g_monnam(grd));
 		    return(-1);
@@ -646,7 +646,7 @@ letknow:
 /*JP
 		    verbalize("Well, begone.");
 */
-		    verbalize("立ち去れ．");
+		    verbalize("立ち去れ。");
 		    wallify_vault(grd);
 		    egrd->gddone = 1;
 		    goto cleanup;
@@ -662,7 +662,7 @@ letknow:
 /*JP
 		pline_The("%s, confused, disappears.", g_monnam(grd));
 */
-		pline("%sは混乱し，消えた．", g_monnam(grd));
+		pline("%sは混乱し、消えた。", g_monnam(grd));
 		disappear_msg_seen = TRUE;
 		goto cleanup;
 	    }
@@ -679,7 +679,7 @@ letknow:
 /*JP
 			verbalize("Drop all your gold, scoundrel!");
 */
-			verbalize("金を全部置いてゆけ，ならずもの！");
+			verbalize("金を全部置いてゆけ、ならずもの！");
 			return(0);
 		} else {
 /*JP
@@ -719,7 +719,7 @@ letknow:
 /*JP
 			verbalize("Out of my way, scum!");
 */
-			verbalize("目の前から消えろ，クソったれ！");
+			verbalize("目の前から消えろ、クソったれ！");
 			(void) rloc(m_at(m, n), FALSE);
 		    }
 		    remove_monster(grd->mx, grd->my);
@@ -732,7 +732,7 @@ letknow:
 		    pline("%s%s picks up the gold.", Monnam(grd),
 				grd->mpeaceful ? " calms down and" : "");
 #else
-		    pline("%sは%s金貨を拾った．", Monnam(grd),
+		    pline("%sは%s金貨を拾った。", Monnam(grd),
 				grd->mpeaceful ? "怒りを静め" : "");
 #endif
 		if(x != grd->mx || y != grd->my) {
@@ -863,7 +863,7 @@ cleanup:
 /*JP
 			pline("Suddenly, the %s disappears.", g_monnam(grd));
 */
-			pline("突然，%sは消えた．", g_monnam(grd));
+			pline("突然、%sは消えた。", g_monnam(grd));
 		    return(1);
 		}
 		return(-2);
@@ -901,7 +901,7 @@ paygd()
 /*JP
 	    Your("%ld %s goes into the Magic Memory Vault.",
 */
-	    Your("%ld%sは魔法の記念倉庫に入った．",
+	    Your("%ld%sは魔法の記念倉庫に入った。",
 #ifndef GOLDOBJ
 		u.ugold,
 		currency(u.ugold));
@@ -920,7 +920,7 @@ paygd()
 /*JP
 	    pline("%s remits your gold to the vault.", Monnam(grd));
 */
-	    pline("%sはあなたの金貨を倉庫に送った．", Monnam(grd));
+	    pline("%sはあなたの金貨を倉庫に送った。", Monnam(grd));
 	    gx = rooms[EGD(grd)->vroom].lx + rn2(2);
 	    gy = rooms[EGD(grd)->vroom].ly + rn2(2);
 	    Sprintf(buf,
@@ -928,7 +928,7 @@ paygd()
 		"To Croesus: here's the gold recovered from %s the %s.",
 		plname, mons[u.umonster].mname);
 #else
-		"クロイソスへ: ここに%sの%sから取り戻した金貨を送る．",
+		"クロイソスへ: ここに%sの%sから取り戻した金貨を送る。",
 		jtrns_mon(mons[u.umonster].mname), plname );
 #endif
 	    make_grave(gx, gy, buf);

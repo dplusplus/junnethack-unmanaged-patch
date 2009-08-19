@@ -220,17 +220,17 @@ struct obj *obj;	/* item to make known if effect can be seen */
 /*JP
 	    if (flags.verbose) pline("%s is slowing down.", Monnam(mon));
 */
-	    if (flags.verbose) pline("%sはのろくなった．", Monnam(mon));
+	    if (flags.verbose) pline("%sはのろくなった。", Monnam(mon));
 	} else if (adjust > 0 || mon->mspeed == MFAST)
 /*JP
 	    pline("%s is suddenly moving %sfaster.", Monnam(mon), howmuch);
 */
-	    pline("%sの動きは突然%sすばやくなった．", Monnam(mon), howmuch);
+	    pline("%sの動きは突然%sすばやくなった。", Monnam(mon), howmuch);
 	else
 /*JP
 	    pline("%s seems to be moving %sslower.", Monnam(mon), howmuch);
 */
-	    pline("%sの動きは%sのろくなったように見える．", Monnam(mon), howmuch);
+	    pline("%sの動きは%sのろくなったように見える。", Monnam(mon), howmuch);
 
 	/* might discover an object if we see the speed change happen, but
 	   avoid making possibly forgotten book known when casting its spell */
@@ -262,7 +262,7 @@ boolean on, silently;
 /*JP
 			if (on) pline("%s begins to glow.", The(xname(obj)));
 */
-			if (on) pline("%sは輝きはじめた．", The(xname(obj)));
+			if (on) pline("%sは輝きはじめた。", The(xname(obj)));
 	}
 		
     if (!which) goto maybe_blocks;
@@ -543,7 +543,7 @@ outer_break:
 		pline("%s%s puts on %s.", Monnam(mon),
 		      buf, distant_name(best,doname));
 #else
-		pline("%sは%s%sを身につけた．", Monnam(mon),
+		pline("%sは%s%sを身につけた。", Monnam(mon),
 		      buf, distant_name(best,doname));
 #endif
 	    } /* can see it */
@@ -562,7 +562,7 @@ outer_break:
 /*JP
 			pline("Suddenly you cannot see %s.", nambuf);
 */
-			pline("突然%sが見えなくなった．", nambuf);
+			pline("突然%sが見えなくなった。", nambuf);
 			makeknown(best->otyp);
 		} /* else if (!mon->minvis) pline("%s suddenly appears!", Amonnam(mon)); */
 	}
@@ -678,7 +678,7 @@ boolean polyspot;
 /*JP
 		    You_hear("a cracking sound.");
 */
-		    You_hear("バリバリという音を聞いた．");
+		    You_hear("バリバリという音を聞いた。");
 		m_useup(mon, otmp);
 	    }
 	    if ((otmp = which_armor(mon, W_ARMC)) != 0) {
@@ -706,7 +706,7 @@ boolean polyspot;
 /*JP
 			You_hear("a ripping sound.");
 */
-			You_hear("ビリッという音を聞いた．");
+			You_hear("ビリッという音を聞いた。");
 		    m_useup(mon, otmp);
 		}
 	    }
@@ -721,7 +721,7 @@ boolean polyspot;
 /*JP
 		    You_hear("a ripping sound.");
 */
-		    You_hear("ビリッという音を聞いた．");
+		    You_hear("ビリッという音を聞いた。");
 		m_useup(mon, otmp);
 	    }
 #endif
@@ -739,7 +739,7 @@ boolean polyspot;
 /*JP
 		    You_hear("a thud.");
 */
-		    You_hear("ドシンという音を聞いた．");
+		    You_hear("ドシンという音を聞いた。");
 		if (polyspot) bypass_obj(otmp);
 		m_lose_armor(mon, otmp);
 	    }
@@ -816,7 +816,7 @@ boolean polyspot;
 /*JP
 		    You_hear("a clank.");
 */
-		    You_hear("ガチャンという音を聞いた．");
+		    You_hear("ガチャンという音を聞いた。");
 		if (polyspot) bypass_obj(otmp);
 		m_lose_armor(mon, otmp);
 	    }
@@ -837,7 +837,7 @@ boolean polyspot;
 /*JP
 		    You_hear("a clank.");
 */
-		    You_hear("ガチャンという音を聞いた．");
+		    You_hear("ガチャンという音を聞いた。");
 		if (polyspot) bypass_obj(otmp);
 		m_lose_armor(mon, otmp);
 	    }
@@ -874,7 +874,7 @@ boolean polyspot;
 /*JP
 		    pline("%s saddle falls off.", s_suffix(Monnam(mon)));
 */
-		    pline("%sから鞍が落ちた．", Monnam(mon));
+		    pline("%sから鞍が落ちた。", Monnam(mon));
 	    }
 	    if (mon == u.usteed)
 		goto noride;
@@ -883,7 +883,7 @@ boolean polyspot;
 /*JP
 	    You("can no longer ride %s.", mon_nam(mon));
 */
-	    You("もう%sに乗っていられない．", mon_nam(mon));
+	    You("もう%sに乗っていられない。", mon_nam(mon));
 	    if (touch_petrifies(u.usteed->data) &&
 			!Stone_resistance && rnl(3)) {
 		char buf[BUFSZ];
@@ -891,7 +891,7 @@ boolean polyspot;
 /*JP
 		You("touch %s.", mon_nam(u.usteed));
 */
-		You("%sに触った．", mon_nam(u.usteed));
+		You("%sに触った。", mon_nam(u.usteed));
 #if 0 /*JP*/
 		Sprintf(buf, "falling off %s",
 				an(u.usteed->data->mname));

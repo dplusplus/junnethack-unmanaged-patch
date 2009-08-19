@@ -7,7 +7,7 @@
 LEVEL: "town-2"
 #JP
 #MESSAGE: "You reach the surface.  You hear the sounds of civilization."
-MESSAGE: "あなたは地表に辿り着いた． あなたは市場のざわめきを聞いた．"
+MESSAGE: "あなたは地表に辿り着いた。 あなたは市場のざわめきを聞いた。"
 RANDOM_MONSTERS:'@','r'
 ROOM: "ordinary" , lit, random, random, (76,17)
 NAME: "town"

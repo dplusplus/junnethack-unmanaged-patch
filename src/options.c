@@ -403,7 +403,7 @@ static struct Comp_Opt
 						4, SET_IN_FILE },
 	{ "menu_first_page", "メニューの最初のページへ",
 						4, SET_IN_FILE },
-	{ "menu_headings", "強調，反転または下線で種類を表示する", 9, SET_IN_GAME },
+	{ "menu_headings", "強調、反転または下線で種類を表示する", 9, SET_IN_GAME },
 	{ "menu_invert_all", "全てのアイテムを反転", 4, SET_IN_FILE },
 	{ "menu_invert_page", "現在表示されているページのアイテムを反転",
 						4, SET_IN_FILE },
@@ -1143,7 +1143,7 @@ const char *optn;
 /*JP
 			You_cant("disable new feature alerts for future versions.");
 */
-			You_cant("未来のバージョンの警告は無効化できません．");
+			You_cant("未来のバージョンの警告は無効化できません。");
 		else {
 #if 0 /*JP*/
 			Sprintf(buf,
@@ -1164,7 +1164,7 @@ const char *optn;
 /*JP
 		pline("Feature change alerts disabled for UnNetHack %s features and prior.",
 */
-		pline("UnNetHack %s前後で変更された機能の警告を無効化しました．",
+		pline("UnNetHack %s前後で変更された機能の警告を無効化しました。",
 			buf);
 	}
 	return 1;
@@ -1636,7 +1636,7 @@ boolean tinitial, tfrom_file;
 #if 0 /*JP*/
 			    pline("Unrecognized pet type '%s'.", op);
 #else
-			    pline("'%s'はペットの種類として受け付けられません．", op);
+			    pline("'%s'はペットの種類として受け付けられません。", op);
 #endif
 			    break;
 		    }
@@ -1982,7 +1982,7 @@ boolean tinitial, tfrom_file;
 /*JP
 			pline("Doing that so many times isn't very fruitful.");
 */
-			pline("そんなに何回もやってもほとんど意味はない．");
+			pline("そんなに何回もやってもほとんど意味はない。");
 			return;
 		    }
 		}
@@ -3526,7 +3526,7 @@ boolean setinitial,setfromfile;
 /*JP
 		{"0 (off)", "1 (on)", "2 (on, DOS compatible)"};
 */
-		{"0 (無効)", "1 (有効)", "2 (有効，DOS互換)"};
+		{"0 (無効)", "1 (有効)", "2 (有効、DOS互換)"};
 	const char *npletters = "abc";
 	menu_item *mode_pick = (menu_item *)0;
 
@@ -3922,7 +3922,7 @@ char *buf;
 #else
 		Sprintf(buf, "%s",
 			(!iflags.num_pad) ? "0=無効" :
-			(iflags.num_pad_mode) ? "2=有効，DOS互換" : "1=有効");
+			(iflags.num_pad_mode) ? "2=有効、DOS互換" : "1=有効");
 #endif
 	else if (!strcmp(optname, "objects"))
 		Sprintf(buf, "%s", to_be_done);
@@ -4111,7 +4111,7 @@ dotogglepickup()
 /*JP
 	pline("Autopickup: %s.", buf);
 */
-	pline("自動拾い：%s．", buf);
+	pline("自動拾い：%s。", buf);
 	return 0;
 }
 
@@ -4239,12 +4239,12 @@ static const char *opt_intro[] = {
 /*JP
 	"or press \"O\" while playing and use the menu.",
 */
-	"もしくはゲームプレイ中に\"O\"ボタンを押すことで設定可能です．",
+	"もしくはゲームプレイ中に\"O\"ボタンを押すことで設定可能です。",
 	"",
 /*JP
  "Boolean options (which can be negated by prefixing them with '!' or \"no\"):",
 */
- "真偽値オプション (否定の値を指定する場合，'!'もしくは\"no\"を先頭に付加します):",
+ "真偽値オプション (否定の値を指定する場合、'!'もしくは\"no\"を先頭に付加します):",
 	(char *)0
 };
 
@@ -4253,11 +4253,11 @@ static const char *opt_epilog[] = {
 /*JP
  "Some of the options can be set only before the game is started; those",
 */
- "幾つかのオプションはゲーム開始前のみにしか設定できないものがあります．",
+ "幾つかのオプションはゲーム開始前のみにしか設定できないものがあります。",
 /*JP
 	"items will not be selectable in the 'O' command's menu.",
 */
-	"それらは'O'コマンドのメニューでは選択することができません．",
+	"それらは'O'コマンドのメニューでは選択することができません。",
 	(char *)0
 };
 

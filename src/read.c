@@ -60,7 +60,7 @@ doread()
 /*JP
 		You("break up the cookie and throw away the pieces.");
 */
-		You("クッキーを割り，かけらを投げすてた．");
+		You("クッキーを割り、かけらを投げすてた。");
 	    outrumor(bcsign(scroll), BY_COOKIE);
 	    if (!Blind) u.uconduct.literate++;
 	    useup(scroll);
@@ -89,9 +89,9 @@ doread()
     "Furinkan High School Athletic Dept.",	/* Ranma 1/2 */
     "Hel-LOOO, Nurse!",			/* Animaniacs */
 #else
-    "私は運命の迷宮を調査していたが，手に入れたのはきたないＴシャツだけだった！",
+    "私は運命の迷宮を調査していたが、手に入れたのはきたないＴシャツだけだった！",
     "ポケットにミュルニールが入っているの？それとも私に会えてうれしい？",
-    "剣の大きさが問題なのではない．それが如何に#enhanceされているかなのだ．",
+    "剣の大きさが問題なのではない。それが如何に#enhanceされているかなのだ。",
     "マダム・エルバイラのサキュバス館 永久顧客",
     "マダム・エルバイラのサキュバス館 今月の最優秀功労者",
     "ローディオス金庫の番人は小さく暗い部屋の中でやる",
@@ -99,15 +99,15 @@ doread()
     "私はイェンダー軍の新兵訓練所を乗り越えました",
     "ローディオス会計学校 室内ラクロスチーム",
     "Oracle(TM) の泉 第１０回濡れＴシャツコンテスト",
-    "おい，黒ドラゴン！こいつを粉砕しろ！",
+    "おい、黒ドラゴン！こいつを粉砕しろ！",
     "馬鹿と一緒にいます → ",
     "私は悪くない！Izchakに投票したもの！",
     "フロドは永遠に生き続ける！", /* http://en.wikipedia.org/wiki/Frodo_Lives! */
-    "現に，*僕は*量子力学者だ．",
-    "私はソードマスターを倒しました．",			/* Monkey Island */
+    "現に、*僕は*量子力学者だ。",
+    "私はソードマスターを倒しました。",			/* Monkey Island */
     "あ わ て る な",	/* 銀河ヒッチハイクガイド */
     "風林館高校陸上部",	/* Ranma 1/2 */
-    "Ｈｅｌ－ＬＯＯＯ，Ｎｕｒｓｅ！",	/* Animaniacs */
+    "Ｈｅｌ－ＬＯＯＯ、Ｎｕｒｓｅ！",	/* Animaniacs */
 #endif
 	    };
 	    char buf[BUFSZ];
@@ -117,7 +117,7 @@ doread()
 /*JP
 		You_cant("feel any Braille writing.");
 */
-		You("点字はどうも書いてないようだ．");
+		You("点字はどうも書いてないようだ。");
 		return 0;
 	    }
 	    u.uconduct.literate++;
@@ -204,7 +204,7 @@ doread()
 		pline("This %s has no %s.", singular(scroll, xname),
 				(scroll->otyp == CANDY_BAR) ? "wrapper" : "label");
 #else
-		pline("この%sは%sない．", singular(scroll, xname),
+		pline("この%sは%sない。", singular(scroll, xname),
 				(scroll->otyp == CANDY_BAR) ? "包装されて" : "ラベルが付いて");
 #endif
 		return(0);
@@ -213,7 +213,7 @@ doread()
 /*JP
 			You_cant("feel any Braille writing.");
 */
-			You("点字はどうも書いてないようだ．");
+			You("点字はどうも書いてないようだ。");
 			return 0;
 		}
 		if (flags.verbose)
@@ -224,7 +224,7 @@ doread()
 /*JP
 		pline("\"Magic Marker(TM) Red Ink Marker Pen. Water Soluble.\"");
 */
-		pline("\"Magic Marker(TM) 水性マーカー(赤)．\"");
+		pline("\"Magic Marker(TM) 水性マーカー(赤)。\"");
 		u.uconduct.literate++;
 		return 1;
 	} else if (scroll->oclass == COIN_CLASS) {
@@ -265,13 +265,13 @@ doread()
 /*JP
 			You_cant("decipher the arcane runes.");
 */
-			You_cant("神秘のルーン文字を解読できなかった．");
+			You_cant("神秘のルーン文字を解読できなかった。");
 			return 0;
 		} if (!Race_if(PM_ELF) && !Role_if(PM_ARCHEOLOGIST)) {
 /*JP
 			You_cant("decipher the Elvish runes.");
 */
-			You_cant("エルフのルーン文字を解読できなかった．");
+			You_cant("エルフのルーン文字を解読できなかった。");
 			return 0;
 		}
 		u.uconduct.literate++;
@@ -282,7 +282,7 @@ doread()
 */
 				You("刻まれたルーン文字に触れた：");
 			else if (flags.verbose) pline("ルーン文字を読んだ：");
-			pline("\"エルフハイム製．\"");
+			pline("\"エルフハイム製。\"");
 			return 1;
 		} else {
 			/* "Avoid any artifact with Runes on it, even if the Runes
@@ -341,7 +341,7 @@ doread()
 /*JP
 		pline("Being blind, you cannot read the %s.", what);
 */
-		pline("目が見えないので，あなたは%sを読むことができない．", what);
+		pline("目が見えないので、あなたは%sを読むことができない。", what);
 		return(0);
 	    }
 	}
@@ -366,25 +366,25 @@ doread()
 	    pline("As you %s the formula on it, the scroll disappears.",
 			is_silent(youmonst.data) ? "cogitate" : "pronounce");
 #else
-	    pline("呪文を唱えると，巻物は消えた．");
+	    pline("呪文を唱えると、巻物は消えた。");
 #endif
 	  else
 /*JP
 	    pline("As you read the scroll, it disappears.");
 */
-	    pline("巻物を読むと，それは消えた．");
+	    pline("巻物を読むと、それは消えた。");
 	  if(confused) {
 	    if (Hallucination)
 /*JP
 		pline("Being so trippy, you screw up...");
 */
-		pline("とてもへろへろなので，くしゃくしゃにしてしまった．．．");
+		pline("とてもへろへろなので、くしゃくしゃにしてしまった．．．");
 	    else
 #if 0 /*JP*/
 		pline("Being confused, you mis%s the magic words...",
 			is_silent(youmonst.data) ? "understand" : "pronounce");
 #else
-		pline("混乱しているので，呪文を間違ってしまった．．．");
+		pline("混乱しているので、呪文を間違ってしまった．．．");
 #endif
 	  }
 	}
@@ -416,7 +416,7 @@ register struct obj *obj;
 /*JP
 		    Your("%s %s briefly.",xname(obj), otense(obj, "vibrate"));
 */
-		    Your("%sは小刻みに振動した．",xname(obj));
+		    Your("%sは小刻みに振動した。",xname(obj));
 		} else pline(nothing_happens);
 	}
 }
@@ -429,7 +429,7 @@ register struct obj	*otmp;
 	Your("%s %s briefly.", xname(otmp),
 	     otense(otmp, Blind ? "vibrate" : "glow"));
 #else
-	Your("%sは小刻みに%s．", xname(otmp),
+	Your("%sは小刻みに%s。", xname(otmp),
 		Blind ? "振動した" : "輝いた");
 #endif
 }
@@ -446,7 +446,7 @@ register const char *color;
 		Blind ? "" : " ",
 		Blind ? nul : hcolor(color));
 #else
-	Your("%sは一瞬%s%s．",
+	Your("%sは一瞬%s%s。",
 		xname(otmp),
 		Blind ? (const char *)"" : jconj_adj(hcolor(color)),
 		Blind ? "振動した" : "輝いた");
@@ -545,7 +545,7 @@ int curse_bless;
 		Your("%s %s momentarily, then %s!",
 		     xname(obj), otense(obj,"pulsate"), otense(obj,"explode"));
 #else
-		Your("%sは一瞬脈動し，爆発した！",
+		Your("%sは一瞬脈動し、爆発した！",
   		     xname(obj));
 #endif
 		if (is_on) Ring_gone(obj);
@@ -562,7 +562,7 @@ int curse_bless;
 		Your("%s spins %sclockwise for a moment.",
 		     xname(obj), s < 0 ? "counter" : "");
 #else
-		Your("%sは一瞬%s時計回りに回転した．",
+		Your("%sは一瞬%s時計回りに回転した。",
 		     xname(obj), s < 0 ? "反" : "");
 #endif
 		/* cause attributes and/or properties to be updated */
@@ -600,7 +600,7 @@ int curse_bless;
 /*JP
 			Your("marker seems permanently dried out.");
 */
-			Your("マーカは完全に乾ききってしまった．");
+			Your("マーカは完全に乾ききってしまった。");
 		    else
 			pline(nothing_happens);
 		} else if (is_blessed) {
@@ -711,7 +711,7 @@ int curse_bless;
 /*JP
 	    You("have a feeling of loss.");
 */
-	    You("なにか損した気分になった．");
+	    You("なにか損した気分になった。");
 	}
 }
 
@@ -954,7 +954,7 @@ register struct obj	*sobj;
 /*JP
 		    pline("This seems to be junk mail addressed to the finder of the Eye of Larn.");
 */
-		    pline("Eye of Larnのファインダーに宛てられたゴミメイルのようだ．");
+		    pline("Eye of Larnのファインダーに宛てられたゴミメイルのようだ。");
 		/* note to the puzzled: the game Larn actually sends you junk
 		 * mail if you win!
 		 */
@@ -973,11 +973,11 @@ register struct obj	*sobj;
 /*JP
 					!Blind ? "Your skin glows then fades." :
 */
-					!Blind ? "あなたの体は一瞬輝いた．" :
+					!Blind ? "あなたの体は一瞬輝いた。" :
 /*JP
 					"Your skin feels warm for a moment.");
 */
-					"あなたの体は一瞬暖かくなった．");
+					"あなたの体は一瞬暖かくなった。");
 			exercise(A_CON, !sobj->cursed);
 			exercise(A_STR, !sobj->cursed);
 			return(1);
@@ -990,7 +990,7 @@ register struct obj	*sobj;
 			    Your("%s %s warm for a moment.",
 				xname(otmp), otense(otmp, "feel"));
 #else
-			    Your("%sは一瞬暖かくなった．",
+			    Your("%sは一瞬暖かくなった。",
 				xname(otmp));
 #endif
 			} else {
@@ -1051,7 +1051,7 @@ register struct obj	*sobj;
 			hcolor(sobj->cursed ? NH_BLACK : NH_SILVER),
 		     otense(otmp, "evaporate"));
 #else
-		Your("%sはしばらくの間激しく%s%s，蒸発した．",
+		Your("%sはしばらくの間激しく%s%s、蒸発した。",
 			    xname(otmp),
 			    Blind ? nul : jconj_adj(hcolor(sobj->cursed ? NH_BLACK : NH_SILVER)),
 			    Blind ? "振動し" : "輝き");
@@ -1097,7 +1097,7 @@ register struct obj	*sobj;
 			(Blind || same_color) ? nul : hcolor(sobj->cursed ? NH_BLACK : NH_SILVER),
 			  (s*s>1) ? "while" : "moment");
 #else
-		Your("%sは%s%s%s%s．",
+		Your("%sは%s%s%s%s。",
 			xname(otmp),
 			(s*s>1) ? "しばらくの間" : "一瞬",
 		        s == 0 ? "激しく" : nul,
@@ -1121,7 +1121,7 @@ register struct obj	*sobj;
 				xname(otmp), otense(otmp, "vibrate"),
 				Blind ? "again" : "unexpectedly");
 #else
-			Your("%sは突然%s振動した．",
+			Your("%sは突然%s振動した。",
 				xname(otmp),
 				Blind ? "また" : "思いもよらず");
 #endif
@@ -1135,7 +1135,7 @@ register struct obj	*sobj;
 /*JP
 				strange_feeling(sobj,"Your bones itch.");
 */
-				strange_feeling(sobj,"骨がムズムズする．");
+				strange_feeling(sobj,"骨がムズムズする。");
 				exercise(A_STR, FALSE);
 				exercise(A_CON, FALSE);
 				return(1);
@@ -1149,7 +1149,7 @@ register struct obj	*sobj;
 /*JP
 			strange_feeling(sobj,"Your skin itches.");
 */
-			strange_feeling(sobj,"皮膚がムズムズする．");
+			strange_feeling(sobj,"皮膚がムズムズする。");
 			exercise(A_STR, FALSE);
 			exercise(A_CON, FALSE);
 			return(1);
@@ -1159,7 +1159,7 @@ register struct obj	*sobj;
 /*JP
 		    Your("%s %s.", xname(otmp), otense(otmp, "vibrate"));
 */
-		    Your("%sは振動した．", xname(otmp));
+		    Your("%sは振動した。", xname(otmp));
 		    if (otmp->spe >= -6) otmp->spe--;
 		    make_stunned(HStun + rn1(10, 10), TRUE);
 		}
@@ -1171,7 +1171,7 @@ register struct obj	*sobj;
 /*JP
 			if(!HConfusion) You_feel("confused.");
 */
-			if(!HConfusion) You("混乱した．");
+			if(!HConfusion) You("混乱した。");
 			make_confused(HConfusion + rnd(100),FALSE);
 		} else  if(confused) {
 		    if(!sobj->blessed) {
@@ -1181,7 +1181,7 @@ register struct obj	*sobj;
 			    Blind ? "tingle" : "glow ",
 			    Blind ? nul : hcolor(NH_PURPLE));
 #else
-			Your("%sは%s%sはじめた．",
+			Your("%sは%s%sはじめた。",
 			    makeplural(body_part(HAND)),
 			    Blind ? nul : jconj_adj(hcolor(NH_PURPLE)),
 			    Blind ? "ヒリヒリし" : "輝き");
@@ -1194,7 +1194,7 @@ register struct obj	*sobj;
 			    Blind ? "faint buzz" : " glow",
 			    body_part(HEAD));
 #else
-			pline("%s%sがあなたの%sを取り巻いた．",
+			pline("%s%sがあなたの%sを取り巻いた。",
 			    Blind ? nul : jconj_adj(hcolor(NH_RED)),
 			    Blind ? "かすかにブーンと鳴るもの" : "輝くもの",
 			    body_part(HEAD));
@@ -1210,7 +1210,7 @@ register struct obj	*sobj;
 			Blind ? (const char *)"tingle" : hcolor(NH_RED),
 			u.umconf ? " even more" : "");
 #else
-			Your("%sは%s%s%s．",
+			Your("%sは%s%s%s。",
 			makeplural(body_part(HAND)),
 			u.umconf ? "少し" : "",
 			Blind ? (const char *)"ヒリヒリした" : 
@@ -1225,7 +1225,7 @@ register struct obj	*sobj;
 				makeplural(body_part(HAND)),
 				u.umconf ? "even more" : "very");
 #else
-			    Your("%sは%sピリピリする．",
+			    Your("%sは%sピリピリする。",
 				makeplural(body_part(HAND)),
 				u.umconf ? "少し" : "とても");
 #endif
@@ -1236,7 +1236,7 @@ register struct obj	*sobj;
 				u.umconf ? "n even more" : "",
 				hcolor(NH_RED));
 #else
-			    Your("%sは%s%s明るく輝いた．",
+			    Your("%sは%s%s明るく輝いた。",
 				makeplural(body_part(HAND)),
 				u.umconf ? "少し" : "",
 				jconj_adj(hcolor(NH_RED)));
@@ -1272,7 +1272,7 @@ register struct obj	*sobj;
 			       (confused || sobj->cursed) ? "sad wailing" :
 							"maniacal laughter");
 #else
-		      You_hear("遠くで%sを聞いた．",
+		      You_hear("遠くで%sを聞いた。",
 			       (confused || sobj->cursed) ? "悲しく泣き叫ぶ声" :
 							"狂ったように笑う声");
 #endif
@@ -1282,7 +1282,7 @@ register struct obj	*sobj;
 				  (confused || sobj->cursed) ? "sad wailing" :
 						 "maniacal laughter");
 #else
-			You_hear("近くで%sを聞いた．",
+			You_hear("近くで%sを聞いた。",
 				  (confused || sobj->cursed) ? "悲しく泣き叫ぶ声" :
 						 "狂ったように笑う声");
 #endif
@@ -1293,12 +1293,12 @@ register struct obj	*sobj;
 /*JP
 		You("don't remember there being any magic words on this scroll.");
 */
-		You("巻物に呪文が書いてなかったことを思いだした．");
+		You("巻物に呪文が書いてなかったことを思いだした。");
 	    else
 /*JP
 		pline("This scroll seems to be blank.");
 */
-		pline("この巻物には何も書いてないように見える．");
+		pline("この巻物には何も書いてないように見える。");
 	    known = TRUE;
 	    break;
 	case SCR_REMOVE_CURSE:
@@ -1314,24 +1314,24 @@ register struct obj	*sobj;
 /*JP
 			You_feel("like you need some help.");
 */
-			You("自分が助けを必要としているような気がした．");
+			You("自分が助けを必要としているような気がした。");
 		else
 		    if (Hallucination)
 /*JP
 			You_feel("in touch with the Universal Oneness.");
 */
-			You("宇宙原理の調和に触れているような気がした．");
+			You("宇宙原理の調和に触れているような気がした。");
 		    else
 /*JP
 			You_feel("like someone is helping you.");
 */
-			pline("誰かがあなたを助けているような気がした．");
+			pline("誰かがあなたを助けているような気がした。");
 
 		if (sobj->cursed) {
 /*JP
 		    pline_The("scroll disintegrates.");
 */
-		    pline("巻物は粉々になった．");
+		    pline("巻物は粉々になった。");
 		} else {
 		    for (obj = invent; obj; obj = obj->nobj) {
 			long wornmask;
@@ -1395,7 +1395,7 @@ register struct obj	*sobj;
 /*JP
 			    Your("weapon feels warm for a moment.");
 */
-			    pline("武器が一瞬暖かくなったような気がした．");
+			    pline("武器が一瞬暖かくなったような気がした。");
 			} else {
 			    uwep->rknown = TRUE;
 #if 0 /*JP*/
@@ -1497,12 +1497,12 @@ register struct obj	*sobj;
 /*JP
 			You("identify this as an identify scroll.");
 */
-			You("これは識別の巻物だと識別した．");
+			You("これは識別の巻物だと識別した。");
 		else
 /*JP
 			pline("This is an identify scroll.");
 */
-			pline("これは識別の巻物だ．");
+			pline("これは識別の巻物だ。");
 		if (sobj->blessed || (!sobj->cursed && !rn2(5))) {
 			cval = rn2(5);
 			/* Note: if rn2(5)==0, identify all items */
@@ -1553,7 +1553,7 @@ register struct obj	*sobj;
 /*JP
 			Your("%s spins in bewilderment.", body_part(HEAD));
 */
-			You("当惑して目がまわった．");
+			You("当惑して目がまわった。");
 		    make_confused(HConfusion + rnd(30), FALSE);
 		    break;
 		}
@@ -1572,7 +1572,7 @@ register struct obj	*sobj;
 /*JP
 		    Your("%s spins as %s blocks the spell!", body_part(HEAD), something);
 */
-		    You("何かが呪文をさえぎり，目がまわった！");
+		    You("何かが呪文をさえぎり、目がまわった！");
 		    make_confused(HConfusion + rnd(30), FALSE);
 		    break;
 		}
@@ -1588,7 +1588,7 @@ register struct obj	*sobj;
 /*JP
 		    pline("Unfortunately, you can't grasp the details.");
 */
-		    pline("残念ながら，あなたは詳細を得ることができなかった．");
+		    pline("残念ながら、あなたは詳細を得ることができなかった。");
 		}
 		break;
 	case SCR_AMNESIA:
@@ -1599,12 +1599,12 @@ register struct obj	*sobj;
 /*JP
 			Your("mind releases itself from mundane concerns.");
 */
-			Your("心は平凡な利害関係から解放された．");
+			Your("心は平凡な利害関係から解放された。");
 		else if (!strncmpi(plname, "Maud", 4))
 /*JP
 			pline("As your mind turns inward on itself, you forget everything else.");
 */
-			pline("あなたの心は内側に向き，全てを忘れてしまった．");
+			pline("あなたの心は内側に向き、全てを忘れてしまった。");
 		else if (rn2(2))
 /*JP
 			pline("Who was that Maud person anyway?");
@@ -1614,7 +1614,7 @@ register struct obj	*sobj;
 /*JP
 			pline("Thinking of Maud you forget everything else.");
 */
-			pline("Maudを考えること以外，あなたは全てを忘れてしまった．");
+			pline("Maudを考えること以外、あなたは全てを忘れてしまった。");
 		exercise(A_WIS, FALSE);
 		break;
 	case SCR_FIRE:
@@ -1633,19 +1633,19 @@ register struct obj	*sobj;
 /*JP
 			    pline("Oh, look, what a pretty fire in your %s.",
 */
-			    pline("わぁごらん．小さな火が%sにある．",
+			    pline("わぁごらん。小さな火が%sにある。",
 				makeplural(body_part(HAND)));
 /*JP
 			else You_feel("a pleasant warmth in your %s.",
 */
-			else You_feel("%sの中に快適な暖かさを感じた．",
+			else You_feel("%sの中に快適な暖かさを感じた。",
 				makeplural(body_part(HAND)));
 		    } else {
 #if 0 /*JP:T*/
 			pline_The("scroll catches fire and you burn your %s.",
 				makeplural(body_part(HAND)));
 #else
-			pline("巻物に火が燃えうつり，あなたの%sを焼いた．",
+			pline("巻物に火が燃えうつり、あなたの%sを焼いた。",
 				makeplural(body_part(HAND)));
 #endif
 /*JP
@@ -1738,12 +1738,12 @@ register struct obj	*sobj;
 /*JP
 					    pline("Fortunately, %s is wearing a hard helmet.", mon_nam(mtmp));
 */
-					    pline("幸運にも，%sは固い兜を身につけている．", mon_nam(mtmp));
+					    pline("幸運にも、%sは固い兜を身につけている。", mon_nam(mtmp));
 					else if (flags.soundok)
 /*JP
 					    You_hear("a clanging sound.");
 */
-					    You_hear("ガランガランという音を聞いた．");
+					    You_hear("ガランガランという音を聞いた。");
 					if (mdmg > 2) mdmg = 2;
 				    } else {
 					if (canspotmon(mtmp))
@@ -1752,7 +1752,7 @@ register struct obj	*sobj;
 						Monnam(mtmp), xname(helmet),
 						mhim(mtmp));
 #else
-					    pline("%sの%sでは守れない．",
+					    pline("%sの%sでは守れない。",
 						Monnam(mtmp), xname(helmet));
 #endif
 				    }
@@ -1798,14 +1798,14 @@ register struct obj	*sobj;
 /*JP
 				pline("Fortunately, you are wearing a hard helmet.");
 */
-				pline("幸運にも，あなたは固い兜を身につけている．");
+				pline("幸運にも、あなたは固い兜を身につけている。");
 				if (dmg > 2) dmg = 2;
 			    } else if (flags.verbose) {
 #if 0 /*JP*/
 				Your("%s does not protect you.",
 						xname(uarmh));
 #else
-				Your("%sでは守れない．",
+				Your("%sでは守れない。",
 						xname(uarmh));
 #endif
 			    }
@@ -1834,7 +1834,7 @@ register struct obj	*sobj;
 /*JP
 			You_feel("guilty.");
 */
-			You("罪を感じた．");
+			You("罪を感じた。");
 			break;
 		}
 		punish(sobj);
@@ -1864,7 +1864,7 @@ register struct obj	*sobj;
 /*JP
 		    You("smell rotten eggs.");
 */
-		    pline("くさった卵のにおいがした．");
+		    pline("くさった卵のにおいがした。");
 		    return 0;
 		}
 		(void) create_gas_cloud(cc.x, cc.y, 3+bcsign(sobj),
@@ -1885,7 +1885,7 @@ register struct obj *obj;
 /*JP
     Your("%s vibrates violently, and explodes!",xname(obj));
 */
-    Your("%sは激しく振動し，爆発した！",xname(obj));
+    Your("%sは激しく振動し、爆発した！",xname(obj));
     nhbell();
 /*JP
     losehp(rnd(2*(u.uhpmax+1)/3), "exploding wand", KILLED_BY_AN);
@@ -1928,14 +1928,14 @@ struct obj *obj;
 /*JP
 			pline("It seems even darker in here than before.");
 */
-			pline("前より暗くなったように見える．");
+			pline("前より暗くなったように見える。");
 			return;
 		    }
 		    if (uwep && artifact_light(uwep) && uwep->lamplit)
 /*JP
 			pline("Suddenly, the only light left comes from %s!",
 */
-			pline("突然，明かりが%sだけになった！",
+			pline("突然、明かりが%sだけになった！",
 				the(xname(uwep)));
 		    else
 /*JP
@@ -1958,7 +1958,7 @@ struct obj *obj;
 				        s_suffix(Monnam(u.ustuck)),
 					mbodypart(u.ustuck, STOMACH));
 #else
-				pline("%sの%sは明るくなった．",
+				pline("%sの%sは明るくなった。",
 				        Monnam(u.ustuck),
 					mbodypart(u.ustuck, STOMACH));
 #endif
@@ -1967,13 +1967,13 @@ struct obj *obj;
 /*JP
 					pline("%s shines briefly.",
 */
-					pline("%sはちょっと輝いた．",
+					pline("%sはちょっと輝いた。",
 					      Monnam(u.ustuck));
 				else
 /*JP
 					pline("%s glistens.", Monnam(u.ustuck));
 */
-					pline("%sはきらきら輝いた．", Monnam(u.ustuck));
+					pline("%sはきらきら輝いた。", Monnam(u.ustuck));
 			return;
 		}
 /*JP
@@ -2092,13 +2092,13 @@ do_class_genocide()
 /*JP
 	pline("All such monsters are already nonexistent.");
 */
-	pline("その怪物はもういない．");
+	pline("その怪物はもういない。");
 			else if (immunecnt ||
 				(buf[0] == DEF_INVISIBLE && buf[1] == '\0'))
 /*JP
 	You("aren't permitted to genocide such monsters.");
 */
-	You("その怪物を虐殺することはできない．");
+	You("その怪物を虐殺することはできない。");
 			else
 #ifdef WIZARD	/* to aid in topology testing; remove pesky monsters */
 			  if (wizard && buf[0] == '*') {
@@ -2114,14 +2114,14 @@ do_class_genocide()
 /*JP
 	pline("Eliminated %d monster%s.", gonecnt, plur(gonecnt));
 */
-	pline("%dの怪物を除いた．", gonecnt);
+	pline("%dの怪物を除いた。", gonecnt);
 			    return;
 			} else
 #endif
 /*JP
 	pline("That symbol does not represent any monster.");
 */
-	pline("その記号の怪物はいない．");
+	pline("その記号の怪物はいない。");
 			continue;
 		}
 
@@ -2146,7 +2146,7 @@ do_class_genocide()
 /*JP
 			    pline("Wiped out all %s.", nam);
 */
-			    pline("%sを全て排除した．", jtrns_mon(nam));
+			    pline("%sを全て排除した。", jtrns_mon(nam));
 			    if (Upolyd && i == u.umonnum) {
 				u.mh = -1;
 				if (Unchanging) {
@@ -2169,7 +2169,7 @@ do_class_genocide()
 /*JP
 				    if (!feel_dead++) You_feel("dead inside.");
 */
-				    if (!feel_dead++) You("魂が死んだような気がした．");
+				    if (!feel_dead++) You("魂が死んだような気がした。");
 				} else {
 /*JP
 				    if (!feel_dead++) You("die.");
@@ -2183,7 +2183,7 @@ do_class_genocide()
 /*JP
 				pline("All %s are already nonexistent.", nam);
 */
-				pline("%sは既にいない．", jtrns_mon(nam));
+				pline("%sは既にいない。", jtrns_mon(nam));
 			} else if (!gameover) {
 			  /* suppress feedback about quest beings except
 			     for those applicable to our own role */
@@ -2208,7 +2208,7 @@ do_class_genocide()
 				    (uniq && !named) ? "the " : "",
 				    (uniq || named) ? mons[i].mname : nam);
 #else
-				You("%sを虐殺できない．",
+				You("%sを虐殺できない。",
 				    jtrns_mon((uniq || named) ? mons[i].mname : nam));
 #endif
 			    }
@@ -2294,7 +2294,7 @@ boolean only_on_level; /**< if TRUE only genocide monsters on current level,
 			pline("Such creatures %s exist in this world.",
 			      (mndx == NON_PM) ? "do not" : "no longer");
 #else
-			pline("そのような生き物は%sこの世界に存在しない．",
+			pline("そのような生き物は%sこの世界に存在しない。",
 			      (mndx == NON_PM) ? "" : "もはや");
 #endif
 			continue;
@@ -2321,7 +2321,7 @@ boolean only_on_level; /**< if TRUE only genocide monsters on current level,
 /*JP
 			    verbalize("No, mortal!  That will not be done.");
 */
-			    pline("「定命の者よ！その望みはかなうまい．」");
+			    pline("「定命の者よ！その望みはかなうまい。」");
 			}
 			continue;
 		}
@@ -2364,7 +2364,7 @@ boolean only_on_level; /**< if TRUE only genocide monsters on current level,
 		  (*which != 'a') ? buf : makeplural(buf),
 		  on_this_level);
 #else
-	    pline("%sを%s%s一掃した．", jtrns_mon(buf), on_this_level, which);
+	    pline("%sを%s%s一掃した。", jtrns_mon(buf), on_this_level, which);
 #endif
 
 	    if (killplayer) {
@@ -2408,7 +2408,7 @@ boolean only_on_level; /**< if TRUE only genocide monsters on current level,
 /*JP
 			You_feel("dead inside.");
 */
-				    You("魂が死んだような気がした．");
+				    You("魂が死んだような気がした。");
 		} else
 			done(GENOCIDED);
 	    } else if (ptr == youmonst.data) {
@@ -2438,7 +2438,7 @@ boolean only_on_level; /**< if TRUE only genocide monsters on current level,
 /*JP
 		pline("Sent in some %s.", makeplural(buf));
 */
-	        pline("%sが送られてきた．", jtrns_mon(buf));
+	        pline("%sが送られてきた。", jtrns_mon(buf));
 	    else
 		pline(nothing_happens);
 	}
@@ -2457,7 +2457,7 @@ register struct obj	*sobj;
 /*JP
 		Your("iron ball gets heavier.");
 */
-		Your("鉄球はさらに重くなった．");
+		Your("鉄球はさらに重くなった。");
 		uball->owt += 160 * (1 + sobj->cursed);
 		return;
 	}
@@ -2465,7 +2465,7 @@ register struct obj	*sobj;
 /*JP
 		pline("A ball and chain appears, then falls away.");
 */
-		pline("鉄球と鎖が現われたが，するっと抜けた．");
+		pline("鉄球と鎖が現われたが、するっと抜けた。");
 		dropy(mkobj(BALL_CLASS, TRUE));
 		return;
 	}
@@ -2578,7 +2578,7 @@ create_particular()
 /*JP
 	    pline("I've never heard of such monsters.");
 */
-		    pline("そのような怪物は聞いたことがない．");
+		    pline("そのような怪物は聞いたことがない。");
 	} while (++tries < 5);
 
 	if (tries == 5) {

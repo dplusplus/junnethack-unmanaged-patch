@@ -547,7 +547,7 @@ int how;
 	      "Since you were in %s mode, the score list will not be checked.",
 		    wizard ? "wizard" : "discover");
 #else
-	      "%sモードでプレイしたのでスコアリストには載らない．",
+	      "%sモードでプレイしたのでスコアリストには載らない。",
 		    wizard ? "ウィザード" : "発見");
 #endif
 		topten_print(pbuf);
@@ -623,7 +623,7 @@ int how;
 /*JP
 			  "You didn't beat your previous score of %ld points.",
 */
-			  "あなたは以前の%ldポイントのスコアに届かなかった．",
+			  "あなたは以前の%ldポイントのスコアに届かなかった。",
 				    t1->points);
 			    topten_print(pbuf);
 			    topten_print("");
@@ -682,7 +682,7 @@ int how;
 				rank0, ordin(rank0), ENTRYMAX);
 #else
 			Sprintf(pbuf,
-			  "あなたは，トップ%dリストの%d位に載った！",
+			  "あなたは、トップ%dリストの%d位に載った！",
 				ENTRYMAX, rank0 );
 #endif
 			if(!done_stopprint) topten_print(pbuf);
@@ -1004,7 +1004,7 @@ boolean so;
 	    Sprintf(action, "%s", t1->death);
 
 #if 1 /*JP*/
-	Sprintf(eos(linebuf), "%s%s%s．", who, where, action);
+	Sprintf(eos(linebuf), "%s%s%s。", who, where, action);
 #endif
 	lngr = (int)strlen(linebuf);
 	if (t1->hp <= 0) hpbuf[0] = '-', hpbuf[1] = '\0';
@@ -1014,7 +1014,7 @@ boolean so;
 #if 1 /*JP*/
 	while(lngr >= hppos ){
 /*
-**	hpposより前の適当な位置で分割する．
+**	hpposより前の適当な位置で分割する。
 */
 	    car[0] = '\0';
 	    cdr[0] = '\0';

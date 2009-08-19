@@ -7,7 +7,7 @@
 LEVEL: "town-1"
 #JP
 #MESSAGE: "You step into the sunlight. You hear the sounds of civilization."
-MESSAGE: "あなたは陽のあたる場所に踏み込んだ． あなたは市場のざわめきを聞いた．"
+MESSAGE: "あなたは陽のあたる場所に踏み込んだ。 あなたは市場のざわめきを聞いた。"
 RANDOM_MONSTERS:'@','r'
 ROOM: "ordinary" , lit, random, random, (76,17)
 NAME: "town" 

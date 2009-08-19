@@ -1154,7 +1154,7 @@ water_friction()
 /*JP
 	if (eff) pline("Water turbulence affects your movements.");
 */
-	if (eff) pline("…‚Ì—¬‚ê‚ª‚ ‚È‚½‚Ì“®‚«‚É‰e‹¿‚ğ—^‚¦‚½D");
+	if (eff) pline("…‚Ì—¬‚ê‚ª‚ ‚È‚½‚Ì“®‚«‚É‰e‹¿‚ğ—^‚¦‚½B");
 }
 
 void

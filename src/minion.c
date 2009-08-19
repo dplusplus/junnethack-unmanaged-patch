@@ -141,12 +141,12 @@ boolean talk;
 /*JP
 	    verbalize("Thou shalt pay for thy indiscretion!");
 */
-	    verbalize("汝，無分別なる行いの罰を受けるべし！");
+	    verbalize("汝、無分別なる行いの罰を受けるべし！");
 	    if (!Blind)
 /*JP
 		pline("%s appears before you.", Amonnam(mon));
 */
-		pline("%sがあなたの前に現われた．", Amonnam(mon));
+		pline("%sがあなたの前に現われた。", Amonnam(mon));
 	}
 	mon->mpeaceful = FALSE;
 	/* don't call set_malign(); player was naughty */
@@ -165,7 +165,7 @@ register struct monst *mtmp;
 /*JP
 	    pline("%s looks very angry.", Amonnam(mtmp));
 */
-	    pline("%sはとても怒っているように見える．", Amonnam(mtmp));
+	    pline("%sはとても怒っているように見える。", Amonnam(mtmp));
 	    mtmp->mpeaceful = mtmp->mtame = 0;
 	    set_malign(mtmp);
 	    newsym(mtmp->mx, mtmp->my);
@@ -178,7 +178,7 @@ register struct monst *mtmp;
 /*JP
 	    if (!Blind) pline("%s appears before you.", Amonnam(mtmp));
 */
-	    if (!Blind) pline("%sが目の前に現われた．", Amonnam(mtmp));
+	    if (!Blind) pline("%sが目の前に現われた。", Amonnam(mtmp));
 	    newsym(mtmp->mx,mtmp->my);
 	}
 	if (youmonst.data->mlet == S_DEMON) {	/* Won't blackmail their own. */
@@ -186,7 +186,7 @@ register struct monst *mtmp;
 	    pline("%s says, \"Good hunting, %s.\"",
 		  Amonnam(mtmp), flags.female ? "Sister" : "Brother");
 #else
-	    pline("%sは言った「よう兄%s！」．そして消えた．",
+	    pline("%sは言った「よう兄%s！」。そして消えた。",
 		  Amonnam(mtmp), flags.female ? "妹" : "弟");
 #endif
 	    if (!tele_restrict(mtmp)) (void) rloc(mtmp, FALSE);
@@ -230,7 +230,7 @@ register struct monst *mtmp;
 #if 0 /*JP*/
 	    pline("%s demands %ld %s for safe passage.",
 #else
-	    pline("%sは通行料として%ld%s要求した．",
+	    pline("%sは通行料として%ld%s要求した。",
 #endif
 		  Amonnam(mtmp), demand, currency(demand));
 
@@ -238,13 +238,13 @@ register struct monst *mtmp;
 /*JP
 		pline("%s vanishes, laughing about cowardly mortals.",
 */
-		pline("臆病な定命のものを笑いながら，%sは消えた．",
+		pline("臆病な定命のものを笑いながら、%sは消えた。",
 		      Amonnam(mtmp));
 	    } else if (offer > 0L && (long)rnd(40) > (demand - offer)) {
 /*JP
 		    pline("%s scowls at you menacingly, then vanishes.",
 */
-		    pline("%sはあなたを威嚇し，消えた．",
+		    pline("%sはあなたを威嚇し、消えた。",
 		      Amonnam(mtmp));
 	    } else {
 /*JP
@@ -282,27 +282,27 @@ struct monst *mtmp;
 /*JP
 		You("try to shortchange %s, but fumble.",
 */
-		You("%sをだまそうとしたが，失敗した．",
+		You("%sをだまそうとしたが、失敗した。",
 			mon_nam(mtmp));
 		return 0L;
 	} else if (offer == 0L) {
 /*JP
 		You("refuse.");
 */
-		You("拒んだ．");
+		You("拒んだ。");
 		return 0L;
 #ifndef GOLDOBJ
 	} else if (offer >= u.ugold) {
 /*JP
 		You("give %s all your gold.", mon_nam(mtmp));
 */
-		You("%sにお金を全て与えた．", mon_nam(mtmp));
+		You("%sにお金を全て与えた。", mon_nam(mtmp));
 		offer = u.ugold;
 	} else {
 /*JP
 		You("give %s %ld %s.", mon_nam(mtmp), offer, currency(offer));
 */
-		You("%sに%ld%s与えた．", mon_nam(mtmp), offer, currency(offer));
+		You("%sに%ld%s与えた。", mon_nam(mtmp), offer, currency(offer));
 	}
 	u.ugold -= offer;
 	mtmp->mgold += offer;
@@ -311,13 +311,13 @@ struct monst *mtmp;
 /*JP
 		You("give %s all your gold.", mon_nam(mtmp));
 */
-		You("%sにお金を全て与えた．", mon_nam(mtmp));
+		You("%sにお金を全て与えた。", mon_nam(mtmp));
 		offer = umoney;
 	} else {
 /*JP
 		You("give %s %ld %s.", mon_nam(mtmp), offer, currency(offer));
 */
-		You("%sに%ld%s与えた．", mon_nam(mtmp), offer, currency(offer));
+		You("%sに%ld%s与えた。", mon_nam(mtmp), offer, currency(offer));
 	}
 	(void) money2mon(mtmp, offer);
 #endif

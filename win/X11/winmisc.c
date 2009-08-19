@@ -317,7 +317,7 @@ X11_player_selection()
 #if 0 /*JP*/
 	Sprintf(qbuf, "Choose your %s Role", s_suffix(plbuf));
 #else
-	Sprintf(qbuf, "%s職業を選択してください．", s_suffix(plbuf));
+	Sprintf(qbuf, "%s職業を選択してください。", s_suffix(plbuf));
 #endif
 	popup = make_menu("player_selection", qbuf,
 		    player_select_translations,
@@ -390,7 +390,7 @@ X11_player_selection()
 #if 0 /*JP*/
 	    Sprintf(qbuf, "Pick your %s race", s_suffix(plbuf));
 #else
-	    Sprintf(qbuf, "%s種族を選択してください．", s_suffix(plbuf));
+	    Sprintf(qbuf, "%s種族を選択してください。", s_suffix(plbuf));
 #endif
 	    popup = make_menu("race_selection", qbuf,
 			race_select_translations,
@@ -464,7 +464,7 @@ X11_player_selection()
 #if 0 /*JP*/
 	    Sprintf(qbuf, "Your %s gender?", s_suffix(plbuf));
 #else
-	    Sprintf(qbuf, "%s性別を選んでください．", s_suffix(plbuf));
+	    Sprintf(qbuf, "%s性別を選んでください。", s_suffix(plbuf));
 #endif
 	    popup = make_menu("gender_selection", qbuf,
 			gend_select_translations,
@@ -537,7 +537,7 @@ X11_player_selection()
 #if 0 /*JP*/
 	    Sprintf(qbuf, "Your %s alignment?", s_suffix(plbuf));
 #else
-	    Sprintf(qbuf, "%s属性を選択してください．", s_suffix(plbuf));
+	    Sprintf(qbuf, "%s属性を選択してください。", s_suffix(plbuf));
 #endif
 	    popup = make_menu("alignment_selection", qbuf,
 			algn_select_translations,

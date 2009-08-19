@@ -955,7 +955,7 @@ genericptr_t p2;
 /*JP
 	    You("cough and spit blood!");
 */
-	    You("ŠP‚«‚±‚İCŒŒ‚ğ“f‚¢‚½I");
+	    You("ŠP‚«‚±‚İAŒŒ‚ğ“f‚¢‚½I");
 /*JP
 	    losehp(rnd(dam) + 5, "gas cloud", KILLED_BY_AN);
 */

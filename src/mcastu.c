@@ -88,12 +88,12 @@ boolean undirected;
 /*JP
 	    pline("%s points %s.", Monnam(mtmp), point_msg);
 */
-	    pline("%sは%s指差し，呪いをかけた．", Monnam(mtmp), point_msg);
+	    pline("%sは%s指差し、呪いをかけた。", Monnam(mtmp), point_msg);
 	} else if ((!(moves % 4) || !rn2(4))) {
 /*JP
 	    if (flags.soundok) Norep("You hear a mumbled curse.");
 */
-	    if (flags.soundok) Norep("呪いの言葉をつぶやく声を聞いた．");
+	    if (flags.soundok) Norep("呪いの言葉をつぶやく声を聞いた。");
 	}
 }
 
@@ -267,7 +267,7 @@ castmu(mtmp, mattk, thinks_it_foundyou, foundyou)
 /*JP
 		pline_The("air crackles around %s.", mon_nam(mtmp));
 */
-		pline("%sの回りの空気がパチパチ音をたてている．", mon_nam(mtmp));
+		pline("%sの回りの空気がパチパチ音をたてている。", mon_nam(mtmp));
 	    return(0);
 	}
 	if (canspotmon(mtmp) || !is_undirected_spell(mattk->adtyp, spellnum)) {
@@ -323,13 +323,13 @@ castmu(mtmp, mattk, thinks_it_foundyou, foundyou)
 /*JP
 		pline("You're enveloped in flames.");
 */
-		You("炎につつまれた．");
+		You("炎につつまれた。");
 		if(Fire_resistance) {
 			shieldeff(u.ux, u.uy);
 /*JP
 			pline("But you resist the effects.");
 */
-			pline("しかし，あなたは影響を受けない．");
+			pline("しかし、あなたは影響を受けない。");
 			dmg = 0;
 		}
 		burn_away_slime();
@@ -338,13 +338,13 @@ castmu(mtmp, mattk, thinks_it_foundyou, foundyou)
 /*JP
 		pline("You're covered in frost.");
 */
-		You("氷に覆われた．");
+		You("氷に覆われた。");
 		if(Cold_resistance) {
 			shieldeff(u.ux, u.uy);
 /*JP
 			pline("But you resist the effects.");
 */
-			pline("しかし，あなたは影響を受けない．");
+			pline("しかし、あなたは影響を受けない。");
 			dmg = 0;
 		}
 		break;
@@ -403,18 +403,18 @@ int spellnum;
 /*JP
 	pline("Oh no, %s's using the touch of death!", mhe(mtmp));
 */
-	pline("なんてこったい，%sは死の宣告を使っている！", mhe(mtmp));
+	pline("なんてこったい、%sは死の宣告を使っている！", mhe(mtmp));
 	if (nonliving(youmonst.data) || is_demon(youmonst.data)) {
 /*JP
 	    You("seem no deader than before.");
 */
-	    You("これ以上死ねないようだ．");
+	    You("これ以上死ねないようだ。");
 	} else if (!Antimagic && rn2(mtmp->m_lev) > 12) {
 	    if (Hallucination) {
 /*JP
 		You("have an out of body experience.");
 */
-		You("幽体離脱を体験した．");
+		You("幽体離脱を体験した。");
 	    } else {
 		killer_format = KILLED_BY_AN;
 /*JP
@@ -487,7 +487,7 @@ int spellnum;
 /*JP
 	You_feel("that monsters are aware of your presence.");
 */
-	You_feel("怪物たちがあなたの存在に気付いたような気がした．");
+	You_feel("怪物たちがあなたの存在に気付いたような気がした。");
 	aggravate();
 	dmg = 0;
 	break;
@@ -495,7 +495,7 @@ int spellnum;
 /*JP
 	You_feel("as if you need some help.");
 */
-	You_feel("助けが必要な気がした．");
+	You_feel("助けが必要な気がした。");
 	rndcurse();
 	dmg = 0;
 	break;
@@ -510,7 +510,7 @@ int spellnum;
 /*JP
 	    Your("skin itches.");
 */
-	    You("ムズムズした．");
+	    You("ムズムズした。");
 	}
 	dmg = 0;
 	break;
@@ -520,12 +520,12 @@ int spellnum;
 /*JP
 	    You_feel("momentarily weakened.");
 */
-	    You_feel("一瞬弱くなったような気がした．");
+	    You_feel("一瞬弱くなったような気がした。");
 	} else {
 /*JP
 	    You("suddenly feel weaker!");
 */
-	    You("突然弱くなったような気がした．");
+	    You("突然弱くなったような気がした。");
 	    dmg = mtmp->m_lev - 6;
 	    if (Half_spell_damage) dmg = (dmg + 1) / 2;
 	    losestr(rnd(dmg));
@@ -556,13 +556,13 @@ int spellnum;
 /*JP
 		You_feel("momentarily disoriented.");
 */
-		You("一瞬方向感覚を失った．");
+		You("一瞬方向感覚を失った。");
 	    make_stunned(1L, FALSE);
 	} else {
 /*JP
 	    You(Stunned ? "struggle to keep your balance." : "reel...");
 */
-	    You(Stunned ? "バランスを取ろうともがいた．" : "よろめいた．．．");
+	    You(Stunned ? "バランスを取ろうともがいた。" : "よろめいた．．．");
 	    dmg = d(ACURR(A_DEX) < 12 ? 6 : 4, 4);
 	    if (Half_spell_damage) dmg = (dmg + 1) / 2;
 	    make_stunned(HStun + dmg, FALSE);
@@ -579,7 +579,7 @@ int spellnum;
 /*JP
 		pline("%s looks better.", Monnam(mtmp));
 */
-		pline("%sは気分がよくなったようだ．", Monnam(mtmp));
+		pline("%sは気分がよくなったようだ。", Monnam(mtmp));
 	    /* note: player healing does 6d4; this used to do 1d8 */
 	    if ((mtmp->mhp += d(3,6)) > mtmp->mhpmax)
 		mtmp->mhp = mtmp->mhpmax;
@@ -599,7 +599,7 @@ int spellnum;
 		dmg > 5 ? "!" : ".");
 #else
 	    pline("呪文は%sに妨げられた%s", yname(uarmh),
-		dmg > 5 ? "！" : "．");
+		dmg > 5 ? "！" : "。");
 #endif
 	    return;
 	}
@@ -607,7 +607,7 @@ int spellnum;
 /*JP
 	    You("get a slight %sache.", body_part(HEAD));
 */
-	    You("ちょっと%s痛がした．",body_part(HEAD));
+	    You("ちょっと%s痛がした。",body_part(HEAD));
 	else if (dmg <= 10)
 /*JP
 	    Your("brain is on fire!");
@@ -684,7 +684,7 @@ int spellnum;
 /*JP
 	reflects = ureflects("It bounces off your %s%s.", "");
 */
-	reflects = ureflects("それはあなたの%s%sで跳ね返った．", "");
+	reflects = ureflects("それはあなたの%s%sで跳ね返った。", "");
 	if (reflects || Shock_resistance) {
 	    shieldeff(u.ux, u.uy);
 	    dmg = 0;
@@ -701,7 +701,7 @@ int spellnum;
 /*JP
 	You_feel("as if you need some help.");
 */
-	You_feel("助けが必要な気がした．");
+	You_feel("助けが必要な気がした。");
 	rndcurse();
 	dmg = 0;
 	break;
@@ -741,7 +741,7 @@ int spellnum;
 #if 0 /*JP*/
 	    pline("%s casts at a clump of sticks, but nothing happens.",
 #else
-	    pline("%sは棒切れに魔法をかけたが，なにもおこらなかった．",
+	    pline("%sは棒切れに魔法をかけたが、なにもおこらなかった。",
 #endif
 		Monnam(mtmp));
 	else if (let == S_SNAKE)
@@ -799,7 +799,7 @@ int spellnum;
 /*JP
 		You("stiffen briefly.");
 */
-		You("一瞬硬直した．");
+		You("一瞬硬直した。");
 	    nomul(-1);
 	} else {
 	    if (multi >= 0)
@@ -819,7 +819,7 @@ int spellnum;
 /*JP
 	    You_feel("momentarily dizzy.");
 */
-	    You("一瞬めまいがした．");
+	    You("一瞬めまいがした。");
 	} else {
 	    boolean oldprop = !!Confusion;
 
@@ -847,7 +847,7 @@ int spellnum;
 #if 0 /*JP*/
 		pline("%s looks better.", Monnam(mtmp));
 #else
-		pline("%sは気分がよくなったようだ．", Monnam(mtmp));
+		pline("%sは気分がよくなったようだ。", Monnam(mtmp));
 #endif
 	    /* note: player healing does 6d4; this used to do 1d8 */
 	    if ((mtmp->mhp += d(3,6)) > mtmp->mhpmax)
@@ -864,7 +864,7 @@ int spellnum;
 /*JP
 	    Your("skin itches badly for a moment.");
 */
-	    Your("皮膚は一瞬，ムズムズっとした．");
+	    Your("皮膚は一瞬、ムズムズっとした。");
 	else if (dmg <= 10)
 /*JP
 	    pline("Wounds appear on your body!");
@@ -1007,7 +1007,7 @@ buzzmu(mtmp, mattk)		/* monster uses spell (ranged) */
 /*JP
 		    pline("%s zaps you with a %s!", Monnam(mtmp),
 */
-		    pline("%sは%sをあなたに向けて放った．", Monnam(mtmp),
+		    pline("%sは%sをあなたに向けて放った。", Monnam(mtmp),
 			  flash_types[ad_to_typ(mattk->adtyp)]);
 		buzz(-ad_to_typ(mattk->adtyp), (int)mattk->damn,
 		     mtmp->mx, mtmp->my, sgn(tbx), sgn(tby));

@@ -610,7 +610,7 @@ boolean force_it;
 /*JP
 		Your("leash goes slack.");
 */
-		Your("紐はたるんだ．");
+		Your("紐はたるんだ。");
  release_it:
 		m_unleash(mtmp, FALSE);
 		return TRUE;
@@ -658,7 +658,7 @@ tele()
 /*JP
 		You_feel("disoriented for a moment.");
 */
-		You("一瞬方向感覚を失ったような気がした．");
+		You("一瞬方向感覚を失ったような気がした。");
 		return;
 	}
 	if ((Teleport_control && !Stunned)
@@ -670,7 +670,7 @@ tele()
 /*JP
 		pline("Being unconscious, you cannot control your teleport.");
 */
-		pline("意識がないので，あなたは瞬間移動を制御できない．");
+		pline("意識がないので、あなたは瞬間移動を制御できない。");
 	    } else {
 #if 0 /*JP*/
 #ifdef STEED
@@ -722,7 +722,7 @@ dotele()
 /*JP
 			pline("This is a vault teleport, usable once only.");
 */
-			pline("一度かぎりの倉庫への瞬間移動の罠だ．");
+			pline("一度かぎりの倉庫への瞬間移動の罠だ。");
 /*JP
 			if (yn("Jump in?") == 'n')
 */
@@ -738,7 +738,7 @@ dotele()
 			You("%s onto the teleportation trap.",
 			    locomotion(youmonst.data, "jump"));
 #else
-			You("瞬間移動の罠に飛びこんだ．");
+			You("瞬間移動の罠に飛びこんだ。");
 #endif
 	}
 	if (!trap) {
@@ -762,11 +762,11 @@ dotele()
 /*JP
 			    You("don't know that spell.");
 */
-			    You("そんな呪文は知らない．");
+			    You("そんな呪文は知らない。");
 /*JP
 			else You("are not able to teleport at will.");
 */
-			else You("自分の意思で瞬間移動できない．");
+			else You("自分の意思で瞬間移動できない。");
 			return(0);
 		    }
 #ifdef WIZARD
@@ -782,7 +782,7 @@ dotele()
 			You("lack the strength %s.",
 			    castit ? "for a teleport spell" : "to teleport");
 #else
-			You("%sだけの力がない．",
+			You("%sだけの力がない。",
 			    castit ? "瞬間移動の呪文を唱える" : "瞬間移動する");
 #endif
 			return 1;
@@ -803,7 +803,7 @@ dotele()
 			You("lack the energy %s.",
 			    castit ? "for a teleport spell" : "to teleport");
 #else
-			You("%sだけのエネルギーがない．",
+			You("%sだけのエネルギーがない。",
 			    castit ? "瞬間移動の呪文を唱える" : "瞬間移動する");
 #endif
 			return 1;
@@ -814,7 +814,7 @@ dotele()
 /*JP
 			"Your concentration falters from carrying so much."))
 */
-			"沢山ものを持ちすぎて集中できない．"))
+			"沢山ものを持ちすぎて集中できない。"))
 		return 1;
 
 	    if (castit) {
@@ -862,7 +862,7 @@ level_tele()
 /*JP
 	    You_feel("very disoriented for a moment.");
 */
-	    You("一瞬方向感覚を大きく失ったような気がした．");
+	    You("一瞬方向感覚を大きく失ったような気がした。");
 	    return;
 	}
 	if ((Teleport_control && !Stunned)
@@ -976,19 +976,19 @@ level_tele()
 		You("%s in agony as your body begins to warp...",
 		    is_silent(youmonst.data) ? "writhe" : "scream");
 #else
-	        You("体が移動しはじめると，苦しみ%s．．．",
+	        You("体が移動しはじめると、苦しみ%s．．．",
 		    is_silent(youmonst.data) ? "で身もだえした" : "のあえぎ声を出した");
 #endif
 		display_nhwindow(WIN_MESSAGE, FALSE);
 /*JP
 		You("cease to exist.");
 */
-		Your("存在は消滅した．");
+		Your("存在は消滅した。");
 #if 0 /*JP:T*/
 		if (invent) Your("possessions land on the %s with a thud.",
 				surface(u.ux, u.uy));
 #else
-		if (invent) Your("持ちものはドサッと%sに落ちた．",
+		if (invent) Your("持ちものはドサッと%sに落ちた。",
 				surface(u.ux, u.uy));
 #endif
 #if 0 /*JP*/
@@ -1002,13 +1002,13 @@ level_tele()
 /*JP
 		pline("An energized cloud of dust begins to coalesce.");
 */
-		pline("エネルギーをもったほこりの渦が結合しはじめた．");
+		pline("エネルギーをもったほこりの渦が結合しはじめた。");
 #if 0 /*JP:T*/
 		Your("body rematerializes%s.", invent ?
 			", and you gather up all your possessions" : "");
 #else
-		Your("体は再び実体化した．%s", invent ?
-			"そして全ての持ち物を拾い上げた．" : "");
+		Your("体は再び実体化した。%s", invent ?
+			"そして全ての持ち物を拾い上げた。" : "");
 #endif
 		return;
 	    }
@@ -1055,7 +1055,7 @@ level_tele()
 /*JP
 		You_cant("get there from here.");
 */
-		You("そこには行けない．");
+		You("そこには行けない。");
 		return;
 	    }
 	    newlevel.dnum = u.uz.dnum;
@@ -1080,11 +1080,11 @@ level_tele()
 /*JP
 			You("arrive in heaven.");
 */
-			You("天国に辿りついた．");
+			You("天国に辿りついた。");
 /*JP
 			verbalize("Thou art early, but we'll admit thee.");
 */
-			verbalize("汝，死ぬには早すぎるがそれもよかろう．");
+			verbalize("汝、死ぬには早すぎるがそれもよかろう。");
 #if 0 /*JP*/
 			killer_format = NO_KILLER_PREFIX;
 			killer = "went to heaven prematurely";
@@ -1096,7 +1096,7 @@ level_tele()
 /*JP
 			You_feel("deliriously happy. ");
 */
-			You("狂ったような幸せを感じた．");
+			You("狂ったような幸せを感じた。");
 /*JP
 			pline("(In fact, you're on Cloud 9!) ");
 */
@@ -1114,17 +1114,17 @@ level_tele()
 /*JP
 		    escape_by_flying = "float gently down to earth";
 */
-		    escape_by_flying = "ゆっくり地面に降りた．";
+		    escape_by_flying = "ゆっくり地面に降りた。";
 		} else if (Flying) {
 /*JP
 		    escape_by_flying = "fly down to the ground";
 */
-		    escape_by_flying = "ゆっくり地面に降りた．";
+		    escape_by_flying = "ゆっくり地面に降りた。";
 		} else {
 /*JP
 		    pline("Unfortunately, you don't know how to fly.");
 */
-		    pline("不幸にも，あなたは飛びかたを知らない．");
+		    pline("不幸にも、あなたは飛びかたを知らない。");
 /*JP
 		    You("plummet a few thousand feet to your death.");
 */
@@ -1164,7 +1164,7 @@ level_tele()
 /*JP
 	    You("%s.", escape_by_flying);
 */
-	    You("%s．", escape_by_flying);
+	    You("%s。", escape_by_flying);
 	    newlevel.dnum = 0;		/* specify main dungeon */
 	    newlevel.dlevel = 0;	/* escape the dungeon */
 	    /* [dlevel used to be set to 1, but it doesn't make sense to
@@ -1240,7 +1240,7 @@ register struct trap *ttmp;
 /*JP
 	    You_feel("dizzy for a moment, but nothing happens...");
 */
-	    You("一瞬めまいを感じた，しかし何も起きなかった．．．");
+	    You("一瞬めまいを感じた、しかし何も起きなかった．．．");
 	    return;
 	}
 
@@ -1249,7 +1249,7 @@ register struct trap *ttmp;
 /*JP
 		      "You feel dizzy for a moment, but the sensation passes.",
 */
-		      "一瞬めまいを感じた，しかしその感覚は消えた．",
+		      "一瞬めまいを感じた、しかしその感覚は消えた。",
 		      (char *)0);
 }
 
@@ -1263,7 +1263,7 @@ struct trap *trap;
 /*JP
 		You_feel("a wrenching sensation.");
 */
-		You("ねじられたような感覚を感じた．");
+		You("ねじられたような感覚を感じた。");
 	} else if (!next_to_u()) {
 		You(shudder_for_moment);
 	} else if (trap->once) {
@@ -1294,19 +1294,19 @@ struct trap *trap;
 /*JP
 	    You_feel("a wrenching sensation.");
 */
-	    You("ねじられたような感覚を感じた．");
+	    You("ねじられたような感覚を感じた。");
 	    return;
 	}
 	if (!Blind)
 /*JP
 	    You("are momentarily blinded by a flash of light.");
 */
-	    You("まばゆい光で一瞬目がくらんだ．");
+	    You("まばゆい光で一瞬目がくらんだ。");
 	else
 /*JP
 	    You("are momentarily disoriented.");
 */
-	    You("一瞬方向感覚を失った．");
+	    You("一瞬方向感覚を失った。");
 	deltrap(trap);
 	newsym(u.ux,u.uy);	/* get rid of trap symbol */
 	level_tele();
@@ -1521,7 +1521,7 @@ int in_sight;
 /*JP
 		    pline("%s seems disoriented.", monname);
 */
-		    pline("%sは一瞬方向感覚を失ったようだ．", monname);
+		    pline("%sは一瞬方向感覚を失ったようだ。", monname);
 		else
 /*JP
 		    pline("%s suddenly disappears!", monname);
@@ -1558,7 +1558,7 @@ int in_sight;
 			pline("%s avoids the %s.", Monnam(mtmp),
 			(tt == HOLE) ? "hole" : "trap");
 #else
-			pline("%sは%sを回避した．", Monnam(mtmp),
+			pline("%sは%sを回避した。", Monnam(mtmp),
 			(tt == HOLE) ? "穴" : "罠");
 #endif
 		    return 0;
@@ -1572,7 +1572,7 @@ int in_sight;
 /*JP
 			pline("%s seems to shimmer for a moment.",
 */
-			pline("%sが一瞬輝いたように見えた．",
+			pline("%sが一瞬輝いたように見えた。",
 							Monnam(mtmp));
 			seetrap(trap);
 		    }
@@ -1584,7 +1584,7 @@ int in_sight;
 /*JP
 		     pline("%s seems to shimmer for a moment.",
 */
-		     pline("%sが一瞬輝いたように見えた．",
+		     pline("%sが一瞬輝いたように見えた。",
 		     Monnam(mtmp));
 		     seetrap(trap);
 	          }
@@ -1602,7 +1602,7 @@ int in_sight;
 /*JP
 			pline("%s seems very disoriented for a moment.",
 */
-			pline("%sは一瞬方向感覚を大きく失ったようだ．",
+			pline("%sは一瞬方向感覚を大きく失ったようだ。",
 				Monnam(mtmp));
 		    return 0;
 		}
@@ -1612,7 +1612,7 @@ int in_sight;
 /*JP
 			pline("%s shudders for a moment.", Monnam(mtmp));
 */
-			pline("%sは一瞬震えた．", Monnam(mtmp));
+			pline("%sは一瞬震えた。", Monnam(mtmp));
 		    return 0;
 		}
 		get_level(&tolevel, nlev);
@@ -1622,7 +1622,7 @@ int in_sight;
 /*JP
 		pline("Suddenly, %s disappears out of sight.", mon_nam(mtmp));
 */
-		pline("突然%sが視界から消えた．", mon_nam(mtmp));
+		pline("突然%sが視界から消えた。", mon_nam(mtmp));
 		seetrap(trap);
 	    }
 	    migrate_to_level(mtmp, ledger_no(&tolevel),

@@ -406,8 +406,8 @@ Figure 1
 .\"O successfully you perform physical tasks, how much damage you do in
 .\"O combat, and how much loot you can carry.
 あなたのキャラクタの力の強さの値であり、6 つの基本的な属性の 1 
-つである。人間のキャラクターの場合，力の強さは 3 から 18 の間の値をとる。
-その他の場合，この制限を越えることもある
+つである。人間のキャラクターの場合、力の強さは 3 から 18 の間の値をとる。
+その他の場合、この制限を越えることもある
 (時折 18/xx のような特別な力を得ることもあり、魔法の力も普通の制限を越える
 能力を与えることがある)。
 力の強さの値が大きいほど、あなたの力は強い。
@@ -989,7 +989,7 @@ I$ - お金を数える。
 この振る舞いは msg_windows オプションによって変化する。
 .lp q
 .\"O Quaff (drink) something (potion, water, etc).
-何か(水薬，水など)を飲む。
+何か(水薬、水など)を飲む。
 .lp Q
 .\"O Select an object for your quiver.  You can then throw this using
 .\"O the `f' command.  (In versions prior to 3.3 this was the command to quit
@@ -1463,18 +1463,18 @@ NT, OS/2, PC NetHack では 'Alt' キーがこの目的に使われる.
 .\"O charge, and the shopkeeper won't allow you to leave the shop until you
 .\"O have paid any debt you owe.
 時々ドアのそばに店主がいて、床にたくさんの物が置いてある部屋に
-行き当たることがある．物を拾って、`p'コマンドを使うことで
-物を買うことができる．
-物を拾う前に、物の上に立って``#chat''コマンドを使うことで値段を確認できる．
+行き当たることがある。物を拾って、`p'コマンドを使うことで
+物を買うことができる。
+物を拾う前に、物の上に立って``#chat''コマンドを使うことで値段を確認できる。
 支払いをする前に物を使うと借金になり、店主は債務を支払うまでは
-店の外に出してくれなくなる．
+店の外に出してくれなくなる。
 .pg
 .\"O You can sell items to a shopkeeper by dropping them to the floor while
 .\"O inside a shop.  You will either be offered an amount of gold and asked
 .\"O whether you're willing to sell, or you'll be told that the shopkeeper
 .\"O isn't interested (generally, your item needs to be compatible with the
 .\"O type of merchandise carried by the shop).
-店の中にいるときに物を落すことで物を店主に売ることができる．
+店の中にいるときに物を落すことで物を店主に売ることができる。
 売却価格を提示され、売るかどうかを確認されるか、
 単に店主が興味がないことを知らされる(一般的に、
 店で売っている物と同じ種類の物が買い取り対象である)。
@@ -1482,8 +1482,8 @@ NT, OS/2, PC NetHack では 'Alt' キーがこの目的に使われる.
 .\"O If you drop something in a shop by accident, the shopkeeper will usually
 .\"O claim ownership without offering any compensation.  You'll have to buy
 .\"O it back if you want to reclaim it.
-偶然で物を店の中に落してしまうと、店主は普通代償なしに所有権を主張する．
-物を取り戻すためには買い戻す必要がある．
+偶然で物を店の中に落してしまうと、店主は普通代償なしに所有権を主張する。
+物を取り戻すためには買い戻す必要がある。
 .pg
 .\"O Shopkeepers sometimes run out of money.  When that happens, you'll be
 .\"O offered credit instead of gold when you try to sell something.  Credit
@@ -2180,7 +2180,7 @@ no armor(鎧なし)	10
 .\"O spoil, and become unhealthy to eat, if not protected.  Food stored in
 .\"O ice boxes or tins (``cans'') will usually stay fresh, but
 .\"O ice boxes are heavy, and tins take a while to open.
-生きのびるには食料が不可欠である．長い間食料を口にしないままでいると
+生きのびるには食料が不可欠である。長い間食料を口にしないままでいると
 やがて昏倒し、徐々に餓死への道をたどることになる。
 保存の処置を取ってないと傷んでしまい、食べるには不衛生になる食料もある。
 アイスボックスや缶に入っている食料は通常はいつまでも傷まないが、
@@ -2298,7 +2298,7 @@ NetHack のメール配達機能はシステムのメールボックスに電子メールが
 .\"O however, for this is often unwise.  Other wands are nondirectional\(emthey
 .\"O don't require a direction.  The number of charges in a wand is random and
 .\"O decreases by one whenever you use it.
-魔法の杖は通常何回も魔力を発揮する．杖の中には方向性のあるものがあり、
+魔法の杖は通常何回も魔力を発揮する。杖の中には方向性のあるものがあり、
 この場合杖を振る方向を指示しなくてはならない。
 杖を自分に向けて振ることもできる(方向として `.' か `s' を入力する)が、
 これはしばしば愚かな行為となる。
@@ -2436,7 +2436,7 @@ NetHack のメール配達機能はシステムのメールボックスに電子メールが
 .\"O categories, and chances for failure.  
 .\"O The `Z' (cast) command casts a spell.
 呪文書を読むためのコマンドは巻物を読むときと同じく `r'(read: 読む) である。
-`+' コマンドにより、知っている呪文とそのレベル，分野，成功率が一覧表示される。
+`+' コマンドにより、知っている呪文とそのレベル、分野、成功率が一覧表示される。
 `Z'(cast: 呪文を唱える) コマンドにより呪文を唱える。
 .hn 2
 .\"O Tools (`(')
@@ -2671,7 +2671,7 @@ NetHack のメール配達機能はシステムのメールボックスに電子メールが
 イェンダーの魔除けを神に捧げるのはゲームに勝利するために必要なので
 制限には反しないものとする。
 また、怒った神や僧侶やその他の宗教的存在が話す言葉を聞いても制限には反しない。
-真の無神論者は言葉は聞くが，そこになんら特別な意味を見出さない。
+真の無神論者は言葉は聞くが、そこになんら特別な意味を見出さない。
 .pg
 .\"O Most players fight with a wielded weapon (or tool intended to be
 .\"O wielded as a weapon).  Another challenge is to win the game without
@@ -3053,12 +3053,15 @@ n - 確認するが、標準設定はノーにする。
 スタート時の犬の名前(例: dogname:Fang)。
 `O' コマンドで設定することはできない。
 .lp dumpfile
-.\"O TODO:翻訳
-The name of a file where the disclosure information is written when the
-game ends. You may use the macro %n that will be replaced with the name
-of your player character. The game must have write permissions to the
-directory where the file is written. Normally /tmp may be used for unix
-systems.
+.\"O The name of a file where the disclosure information is written when the
+.\"O game ends. You may use the macro %n that will be replaced with the name
+.\"O of your player character. The game must have write permissions to the
+.\"O directory where the file is written. Normally /tmp may be used for unix
+.\"O systems.
+ゲーム終了時の公開情報を書き出すファイル名。 %nマクロを使用することで
+プレイキャラクター名に置き換えることができる。
+このゲームはそのディレクトリにファイルを書き出すため，書き込み権限を要求する。
+通常はUnixシステムにおいて/tmpを指定する。
 .lp dungeon
 .\"O Set the graphics symbols for displaying the dungeon
 .\"O (default \&``\ |--------||.-|++##.##<><>_|\e\e#{}.}..##\ #}'').
@@ -3495,11 +3498,14 @@ r - 全画面。新しいメッセージが先。
 .\"O Cannot be set with the `O' command.
 `O' コマンドで設定することはできない。
 .lp newcolors
-.\"O TODO:翻訳
-Set the color palette for tty ports to more beautiful values
-than the original NetHack palette. If black is not shown as dark gray,
-disable this option (default on).
-Cannot be set with the `O' command.
+.\"O Set the color palette for tty ports to more beautiful values
+.\"O than the original NetHack palette. If black is not shown as dark gray,
+.\"O disable this option (default on).
+ttyポート用のカラーパレットをオリジナルのNetHackパレットよりも
+より美しい値に設定する。 黒が暗い灰色として表示されない場合、
+このオプションを無効化すること(標準設定はオン)。
+.\"O Cannot be set with the `O' command.
+`O' コマンドで設定することはできない。
 .lp "news    "
 .\"O Read the NetHack news file, if present (default on).
 .\"O Since the news is shown at the beginning of the game, there's no point
@@ -3571,12 +3577,17 @@ NetHack のニュースファイルがあればそれを読む(標準設定はオン)。
 以上になると、続行するかどうかを確認する。
 (標準設定は `S').
 .lp pickup_thrown
-.\"O TODO:翻訳
-If this boolean option is true and
+.\"O If this boolean option is true and
+.\"O .op autopickup
+.\"O is on, try to pick up things that you threw, even if they aren't in
+.\"O .op pickup_types .
+.\"O Default is on.
+この真偽オプションと
 .op autopickup
-is on, try to pick up things that you threw, even if they aren't in
-.op pickup_types .
-Default is on.
+が有効である場合、
+.op pickup_types
+に入っていないものであっても、あなたが投げたものを自動的に拾おうと試みる。
+初期値は有効。
 .lp pickup_types
 .\"O Specify the object types to be picked up when
 .\"O .op autopickup
@@ -3674,10 +3685,11 @@ crawl - ``walk'' と同様だが、一歩毎にしばらく停止する。
 (例：``scores:5 top scores/4 around my score/own scores'')。
 それぞれの分野の最初の文字 (`t', `a', `o')のみが必要である。
 .lp showborn
-.\"O TODO:翻訳
-When the game ends, show the number of each monster created
-in the "Vanquished creatures" list, if it differs from the
-number of those monsters killed.
+.\"O When the game ends, show the number of each monster created
+.\"O in the "Vanquished creatures" list, if it differs from the
+.\"O number of those monsters killed.
+ゲーム終了時に「倒した怪物一覧」において生成した怪物数を、
+倒した怪物数と異なる場合のみ一緒に表示する。
 .lp showexp
 .\"O Show your accumulated experience points on bottom line (default off).
 最下行に現在の経験点を表示する(標準設定はオフ)。
@@ -3818,8 +3830,9 @@ polymorph trap(変化の罠)。
 .\"O Cannot be set with the `O' command.
 `O' コマンドで設定することはできない。
 .lp win_edge
-.\"O TODO:翻訳
-Align menus and text windows in tty left instead of right. (default off)
+.\"O Align menus and text windows in tty left instead of right. (default off)
+ttyにおけるメニューおよびテキストウィンドウにおいて、右寄せではなく左寄せで表示する。
+(標準設定はオフ)
 .hn 2
 .\"O Window Port Customization options
 ウインドウシステム版専用カスタマイズオプション
@@ -4067,11 +4080,13 @@ NO_TERMを使用しているPCシステムのカラーパレットをセットする
 .\"O bright.magenta, and bright.cyan.
 シンボルの順番は、赤・緑・茶色・青・マゼンタ・シアン・輝く白・
 輝く赤・輝く緑・黄色・輝く青・輝くマゼンタ・輝くシアン。
-.\"O TODO:翻訳
-Other systems compiled with TTY_GRAPHICS and VIDEOSHADES allow defining 
-three more colors. The order of colors is red, green, brown, blue, 
-magenta, cyan, gray, black, bright.red, bright.green, yellow, 
-bright.blue, bright.magenta, bright.cyan and white.
+.\"O Other systems compiled with TTY_GRAPHICS and VIDEOSHADES allow defining 
+.\"O three more colors. The order of colors is red, green, brown, blue, 
+.\"O magenta, cyan, gray, black, bright.red, bright.green, yellow, 
+.\"O bright.blue, bright.magenta, bright.cyan and white.
+TTY_GRAPHICSとVIDEOSHADESを有効にした状態でコンパイルした他のシステムではもう3色を定義可能。
+シンボルの順番は、赤・緑・茶色・青・マゼンタ・シアン・灰色・黒・
+輝く赤・輝く緑・黄色・輝く青・輝くマゼンタ・輝くシアンそして白。
 .\"O Cannot be set with the `O' command.
 `O' コマンドで設定することはできない。
 .lp videoshades

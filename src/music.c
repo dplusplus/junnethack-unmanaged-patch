@@ -134,7 +134,7 @@ int distance;
 /*JP
 			You("notice %s, swaying with the music.",
 */
-			You("%sが音楽に合わせて揺れているのに気付いた．",
+			You("%sが音楽に合わせて揺れているのに気付いた。",
 			    a_monnam(mtmp));
 		    else
 #if 0 /*JP*/
@@ -142,9 +142,9 @@ int distance;
 			      Monnam(mtmp),
 			      was_peaceful ? "" : ", and now seems quieter");
 #else
-			pline("%sは立ちすくみ，音楽に合わせて揺れ%sた．",
+			pline("%sは立ちすくみ、音楽に合わせて揺れ%sた。",
 			      Monnam(mtmp),
-			      was_peaceful ? "" : "，おとなしくなっ");
+			      was_peaceful ? "" : "、おとなしくなっ");
 #endif
 		}
 	    }
@@ -173,7 +173,7 @@ int distance;
 /*JP
 		     "%s listens cheerfully to the music, then seems quieter.",
 */
-		     "%sは音楽に聞きいり，おとなしくなった．",
+		     "%sは音楽に聞きいり、おとなしくなった。",
 			  Monnam(mtmp));
 	    }
 	    mtmp = mtmp->nmon;
@@ -201,7 +201,7 @@ awaken_soldiers()
 /*JP
 		    Norep("You hear the rattle of battle gear being readied.");
 */
-		    Norep("あなたは戦いの準備が整ったことを示す音を聞いた．");
+		    Norep("あなたは戦いの準備が整ったことを示す音を聞いた。");
 	    }
 	    mtmp = mtmp->nmon;
 	}
@@ -265,18 +265,18 @@ int force;
 /*JP
 			pline("%s is shaken loose from the ceiling!",
 */
-			pline("%sは揺すられ，天井から落ちてきた！",
+			pline("%sは揺すられ、天井から落ちてきた！",
 							    Amonnam(mtmp));
 		    else
 /*JP
 			You_hear("a thumping sound.");
 */
-			You_hear("ドンドンという音を聞いた．");
+			You_hear("ドンドンという音を聞いた。");
 		    if (x==u.ux && y==u.uy)
 /*JP
 			You("easily dodge the falling %s.",
 */
-			You("落ちてきた%sを簡単にかわした．",
+			You("落ちてきた%sを簡単にかわした。",
 							    mon_nam(mtmp));
 		    newsym(x,y);
 		}
@@ -287,7 +287,7 @@ int force;
 /*JP
 				pline_The("fountain falls into a chasm.");
 */
-				pline("泉は地割れに落ちた．");
+				pline("泉は地割れに落ちた。");
 			goto do_pit;
 #ifdef SINKS
 		  case SINK :
@@ -295,7 +295,7 @@ int force;
 /*JP
 				pline_The("kitchen sink falls into a chasm.");
 */
-				pline("流し台は地割れに落ちた．");
+				pline("流し台は地割れに落ちた。");
 			goto do_pit;
 #endif
 		  case ALTAR :
@@ -305,21 +305,21 @@ int force;
 /*JP
 				pline_The("altar falls into a chasm.");
 */
-				pline("祭壇は地割れに落ちた．");
+				pline("祭壇は地割れに落ちた。");
 			goto do_pit;
 		  case GRAVE :
 			if (cansee(x,y))
 /*JP
 				pline_The("headstone topples into a chasm.");
 */
-				pline("墓石は崩れさった．");
+				pline("墓石は崩れさった。");
 			goto do_pit;
 		  case THRONE :
 			if (cansee(x,y))
 /*JP
 				pline_The("throne falls into a chasm.");
 */
-				pline("玉座は地割れに落ちた．");
+				pline("玉座は地割れに落ちた。");
 			/* Falls into next case */
 		  case ROOM :
 		  case CORR : /* Try to make a pit */
@@ -366,7 +366,7 @@ do_pit:		    chasm = maketrap(x,y,PIT);
 /*JP
 			    mselftouch(mtmp, "Falling, ", TRUE);
 */
-			    mselftouch(mtmp, "落下中，", TRUE);
+			    mselftouch(mtmp, "落下中、", TRUE);
 			    if (mtmp->mhp > 0)
 				if ((mtmp->mhp -= rnd(6)) <= 0) {
 				    if(!cansee(x,y))
@@ -417,7 +417,7 @@ do_pit:		    chasm = maketrap(x,y,PIT);
 /*JP
 				    selftouch("Falling, you");
 */
-				    selftouch("落ちながら，あなたは");
+				    selftouch("落ちながら、あなたは");
 			    }
 		    } else newsym(x,y);
 		    break;
@@ -427,7 +427,7 @@ do_pit:		    chasm = maketrap(x,y,PIT);
 /*JP
 			pline_The("door collapses.");
 */
-			pline_The("扉はこなごなになった．");
+			pline_The("扉はこなごなになった。");
 		    if (*in_rooms(x, y, SHOPBASE))
 			add_damage(x, y, 0L);
 		    levl[x][y].doormask = D_NODOOR;
@@ -478,7 +478,7 @@ struct obj *instr;
 /*JP
 	    You("start playing %s.", the(xname(instr)));
 */
-	    You("%sを奏ではじめた．", the(xname(instr)));
+	    You("%sを奏ではじめた。", the(xname(instr)));
 
 	switch (instr->otyp) {
 	case MAGIC_FLUTE:		/* Make monster fall asleep */
@@ -488,7 +488,7 @@ struct obj *instr;
 /*JP
 		You("produce soft music.");
 */
-		You("柔らかい音色を奏でた．");
+		You("柔らかい音色を奏でた。");
 		put_monsters_to_sleep(u.ulevel * 5);
 		exercise(A_DEX, TRUE);
 		break;
@@ -498,7 +498,7 @@ struct obj *instr;
 /*JP
 	    pline("%s.", Tobjnam(instr, do_spec ? "trill" : "toot"));
 */
-	    pline("%sを%sた．", xname(instr), do_spec ? "奏で" : "吹い");
+	    pline("%sを%sた。", xname(instr), do_spec ? "奏で" : "吹い");
 	    if (do_spec) charm_snakes(u.ulevel * 3);
 	    exercise(A_DEX, TRUE);
 	    break;
@@ -511,7 +511,7 @@ struct obj *instr;
 /*JP
 		    pline("%s.", Tobjnam(instr, "vibrate"));
 */
-		    pline("%sは震えた．", xname(instr));
+		    pline("%sは震えた。", xname(instr));
 		    break;
 		} else if (!u.dx && !u.dy && !u.dz) {
 		    if ((damage = zapyourself(instr, TRUE)) != 0) {
@@ -535,7 +535,7 @@ struct obj *instr;
 /*JP
 	    You("produce a frightful, grave sound.");
 */
-	    You("身震いするような死者の音楽を奏でた．");
+	    You("身震いするような死者の音楽を奏でた。");
 	    awaken_monsters(u.ulevel * 30);
 	    exercise(A_WIS, FALSE);
 	    break;
@@ -543,7 +543,7 @@ struct obj *instr;
 /*JP
 	    You("extract a loud noise from %s.", the(xname(instr)));
 */
-	    You("%sから大きな耳障りな音を出した．", the(xname(instr)));
+	    You("%sから大きな耳障りな音を出した。", the(xname(instr)));
 	    awaken_soldiers();
 	    exercise(A_WIS, FALSE);
 	    break;
@@ -554,7 +554,7 @@ struct obj *instr;
 /*JP
 		pline("%s very attractive music.", Tobjnam(instr, "produce"));
 */
-		pline("%sはとても魅力的な音楽を奏でた．", xname(instr));
+		pline("%sはとても魅力的な音楽を奏でた。", xname(instr));
 		charm_monsters((u.ulevel - 1) / 3 + 1);
 		exercise(A_DEX, TRUE);
 		break;
@@ -565,7 +565,7 @@ struct obj *instr;
 	    pline("%s %s.", The(xname(instr)),
 		  do_spec ? "produces a lilting melody" : "twangs");
 #else
-	    You("%s．", 
+	    You("%s。", 
 		  do_spec ? "軽快な音楽を奏でた" : "ポローンという音を出した");
 #endif
 	    if (do_spec) calm_nymphs(u.ulevel * 3);
@@ -744,7 +744,7 @@ struct obj *instr;
 			    You_hear("%d tumbler%s click and %d gear%s turn.",
 				tumblers, plur(tumblers), gears, plur(gears));
 #else
-			    You_hear("%dの金具がカチっとなり，%dの歯車がまわる音を聞いた．",
+			    You_hear("%dの金具がカチっとなり、%dの歯車がまわる音を聞いた。",
 				tumblers, gears);
 #endif
 			else
@@ -752,14 +752,14 @@ struct obj *instr;
 			    You_hear("%d tumbler%s click.",
 				tumblers, plur(tumblers));
 #else
-			    You_hear("%dの金具がカチっとなる音を聞いた．",
+			    You_hear("%dの金具がカチっとなる音を聞いた。",
 				tumblers);
 #endif
 		    else if(gears) {
 /*JP
 			You_hear("%d gear%s turn.", gears, plur(gears));
 */
-			You_hear("%dの歯車が回る音を聞いた．", gears);
+			You_hear("%dの歯車が回る音を聞いた。", gears);
 			/* could only get `gears == 5' by playing five
 			   correct notes followed by excess; otherwise,
 			   tune would have matched above */

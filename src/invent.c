@@ -876,10 +876,10 @@ struct trans_verb
 #endif
  */
 /*JP
-** word には英語で動詞が入る．
+** word には英語で動詞が入る。
 **
-** 日本語では，「どれを書きますか」より「どれに書きますか」の方が自然なので，
-** 最初の一文字に「に」や「の」を指定した場合は助詞を変更する．
+** 日本語では、「どれを書きますか」より「どれに書きますか」の方が自然なので、
+** 最初の一文字に「に」や「の」を指定した場合は助詞を変更する。
 **
 */
 struct obj *
@@ -1115,7 +1115,7 @@ register const char *let,*word;
 		You("don't have anything %sto %s.",
 			foox ? "else " : "", word);
 #else
-		You("%s%sものを持っていない．",
+		You("%s%sものを持っていない。",
 			foox ? "他に" : "", jconj(jword, "れる"));
 #endif
 		return((struct obj *)0);
@@ -1156,7 +1156,7 @@ register const char *let,*word;
 /*JP
 			pline("No count allowed with this command.");
 */
-			pline("このコマンドに数字はつかえない．");
+			pline("このコマンドに数字はつかえない。");
 			continue;
 		}
 		if(index(quitchars,ilet)) {
@@ -1177,7 +1177,7 @@ register const char *let,*word;
 				You("cannot %s gold.", word);
 			    }
 #else
-			    You("金貨%s%sことはできない．", joshi, jword);
+			    You("金貨%s%sことはできない。", joshi, jword);
 #endif
 			    return(struct obj *)0;
 #ifndef GOLDOBJ
@@ -1185,7 +1185,7 @@ register const char *let,*word;
 /*JP
 				You("are not carrying any gold.");
 */
-				You("一銭も持ってない．");
+				You("一銭も持ってない。");
 				return(struct obj *)0;
 #endif
 			} 
@@ -1200,7 +1200,7 @@ register const char *let,*word;
 /*JP
 	pline_The("LRS would be very interested to know you have that much.");
 */
-	pline("その技はとあるゲームのカジノで使えたけど，もはや使えないよ．");
+	pline("その技はとあるゲームのカジノで使えたけど、もはや使えないよ。");
 				return(struct obj *)0;
 			}
 
@@ -1248,7 +1248,7 @@ register const char *let,*word;
 /*JP
 			You("can only throw one item at a time.");
 */
-			You("同時にたくさんのものを投げられない．");
+			You("同時にたくさんのものを投げられない。");
 			continue;
 		    }
 		}
@@ -1264,7 +1264,7 @@ register const char *let,*word;
 /*JP
 			You("don't have that object.");
 */
-			You("そんなものは持っていない．");
+			You("そんなものは持っていない。");
 #ifdef REDO
 			if (in_doagain) return((struct obj *) 0);
 #endif
@@ -1273,7 +1273,7 @@ register const char *let,*word;
 /*JP
 			You("don't have that many!  You have only %ld.",
 */
-			pline("そんなにたくさんは持っていない！せいぜい%ld個ってとこだ．",
+			pline("そんなにたくさんは持っていない！せいぜい%ld個ってとこだ。",
 			    otmp->quan);
 #ifdef REDO
 			if (in_doagain) return((struct obj *) 0);
@@ -1361,7 +1361,7 @@ struct obj *otmp;
 /*JP
 		pline("Use the '%s' command to %s %s%s.", s1, s2, what, s3);
 */
-		pline("それを%sには'%s'コマンドを使うこと．", s2, s1);
+		pline("それを%sには'%s'コマンドを使うこと。", s2, s1);
 	} else {
 	    pline(silly_thing_to, word);
 	}
@@ -1460,7 +1460,7 @@ unsigned *resultflags;
 /*JP
 		You("have nothing to %s.", word);
 */
-		You("%sものは持っていない．", jcan(jword));
+		You("%sものは持っていない。", jcan(jword));
 		return(0);
 	}
 	add_valid_menu_class(0);	/* reset */
@@ -1535,38 +1535,38 @@ unsigned *resultflags;
 /*JP
 		    pline("Not applicable.");
 */
-		    pline("それはできない．");
+		    pline("それはできない。");
 		    return 0;
 		} else if (oc_of_sym == ARMOR_CLASS && !wearing_armor()) {
 /*JP
 		    You("are not wearing any armor.");
 */
-		    You("鎧を着ていない．");
+		    You("鎧を着ていない。");
 		    return 0;
 		} else if (oc_of_sym == WEAPON_CLASS &&
 			!uwep && !uswapwep && !uquiver) {
 /*JP
 		    You("are not wielding anything.");
 */
-		    You("何も装備していない．");
+		    You("何も装備していない。");
 		    return 0;
 		} else if (oc_of_sym == RING_CLASS && !uright && !uleft) {
 /*JP
 		    You("are not wearing rings.");
 */
-		    You("指輪を身につけていない．");
+		    You("指輪を身につけていない。");
 		    return 0;
 		} else if (oc_of_sym == AMULET_CLASS && !uamul) {
 /*JP
 		    You("are not wearing an amulet.");
 */
-		    You("魔除けを身につけていない．");
+		    You("魔除けを身につけていない。");
 		    return 0;
 		} else if (oc_of_sym == TOOL_CLASS && !ublindf) {
 /*JP
 		    You("are not wearing a blindfold.");
 */
-		    You("目隠しをしていない．");
+		    You("目隠しをしていない。");
 		    return 0;
 		}
 	    }
@@ -1579,7 +1579,7 @@ unsigned *resultflags;
 /*JP
 		    You("have no gold.");
 */
-		    You("一銭も持っていない．");
+		    You("一銭も持っていない。");
 		allowgold = 2;
 #else
 		flags.botl = 1;
@@ -1609,7 +1609,7 @@ unsigned *resultflags;
 /*JP
 		You("don't have any %c's.", sym);
 */
-		You("%cに属する物を持っていない．", sym);
+		You("%cに属する物を持っていない。", sym);
 	    } else if (oc_of_sym != VENOM_CLASS) {	/* suppress venom */
 		if (!index(olets, oc_of_sym)) {
 		    add_valid_menu_class(oc_of_sym);
@@ -1751,11 +1751,11 @@ nextclass:
 /*JP
 	if(!takeoff && (dud || cnt)) pline("That was all.");
 */
-	if(!takeoff && (dud || cnt)) pline("これで全部だ．");
+	if(!takeoff && (dud || cnt)) pline("これで全部だ。");
 /*JP
 	else if(!dud && !cnt) pline("No applicable objects.");
 */
-	else if(!dud && !cnt) pline("それはできない．");
+	else if(!dud && !cnt) pline("それはできない。");
 ret:
 	return(cnt);
 }
@@ -1818,7 +1818,7 @@ int id_limit;
 /*JP
 	    if (n < 0) pline("That was all.");
 */
-	    if (n < 0) pline("これで全部だ．");
+	    if (n < 0) pline("これで全部だ。");
 	    id_limit = 0; /* Stop now */
 	}
 	first = 0;
@@ -1842,7 +1842,7 @@ int id_limit;
 /*JP
 	You("have already identified all of your possessions.");
 */
-	You("全ての所有物を識別してしまっている．");
+	You("全ての所有物を識別してしまっている。");
     } else if (!id_limit) {
 	/* identify everything */
 	if (unid_cnt == 1) {
@@ -1954,7 +1954,7 @@ long quan;		/* if non-0, print this quantity, not obj->quan */
 		(dot ? "." : ""));
 #else
 	Sprintf(li, "%ld枚の金貨%s", obj->quan,
-		(dot ? "．" : ""));
+		(dot ? "。" : ""));
 #endif
 #endif
     } else {
@@ -1964,7 +1964,7 @@ long quan;		/* if non-0, print this quantity, not obj->quan */
 /*JP
 		(txt ? txt : doname(obj)), (dot ? "." : ""));
 */
-		(txt ? txt : doname(obj)), (dot ? "．" : ""));
+		(txt ? txt : doname(obj)), (dot ? "。" : ""));
     }
     if (savequan) obj->quan = savequan;
 
@@ -2084,12 +2084,12 @@ long* out_cnt;
 /*JP
 	    pline("Not carrying anything%s.", u.ugold ? " except gold" : "");
 */
-	    pline("%s何も持っていない．", u.ugold ? "お金以外" : "");
+	    pline("%s何も持っていない。", u.ugold ? "お金以外" : "");
 #else
 /*JP
 	    pline("Not carrying anything.");
 */
-	    pline("何も持っていない．");
+	    pline("何も持っていない。");
 #endif
 #ifdef DUMP_LOG
 	  }
@@ -2103,7 +2103,7 @@ long* out_cnt;
 /*JP
 	    dump("  Not carrying anything", u.ugold ? " except gold." : ".");
 */
-	    dump(u.ugold ? "  お金以外" : "  ", "何も持っていない．");
+	    dump(u.ugold ? "  お金以外" : "  ", "何も持っていない。");
 #endif
 	  }
 #endif
@@ -2428,7 +2428,7 @@ dotypeinv()
 /*JP
 	    You("aren't carrying anything.");
 */
-	    You("その種類の物は何も持っていない．");
+	    You("その種類の物は何も持っていない。");
 	    return 0;
 	}
 	unpaid_count = count_unpaid(invent);
@@ -2499,7 +2499,7 @@ dotypeinv()
 /*JP
 		pline("No used-up objects on your shopping bill.");
 */
-		pline("使ってしまった物は商店の請求書にない．");
+		pline("使ってしまった物は商店の請求書にない。");
 	    return 0;
 	}
 	if (c == 'u') {
@@ -2509,7 +2509,7 @@ dotypeinv()
 /*JP
 		You("are not carrying any unpaid objects.");
 */
-		You("未払いのアイテムを持っていない．");
+		You("未払いのアイテムを持っていない。");
 	    return 0;
 	}
 	if (traditional) {
@@ -2520,7 +2520,7 @@ dotypeinv()
 /*JP
 		You("have no such objects.");
 */
-	        You("何も持っていない．");
+	        You("何も持っていない。");
 		return 0;
 	    }
 	    this_type = oclass;
@@ -2650,7 +2650,7 @@ boolean picked_some;
 	    You("%s to %s what is lying in %s.",
 		Blind ? "try" : "look around", verb, &fbuf[12]);
 #else
-	    You("%sの%sに何があるか%s．",
+	    You("%sの%sに何があるか%s。",
 		mon_nam(mtmp), mbodypart(mtmp, STOMACH),
 		Blind ? "さぐった" : "見回した");
 #endif
@@ -2671,8 +2671,8 @@ boolean picked_some;
 #if 0 /*JP*/
 		You("%s no objects here.", verb);
 #else
-		pline(Blind ? "あなたは何もないような気がした．"
-		      : "あなたは何もみつけられなかった．");
+		pline(Blind ? "あなたは何もないような気がした。"
+		      : "あなたは何もみつけられなかった。");
 #endif
 	    }
 	    return(!!Blind);
@@ -2682,7 +2682,7 @@ boolean picked_some;
 		There("is %s here.",
 			an(defsyms[trap_to_defsym(trap->ttyp)].explanation));
 #else
-		pline("ここには%sがある．",
+		pline("ここには%sがある。",
 			jtrns_obj('^', (defsyms[trap_to_defsym(trap->ttyp)].explanation)));
 #endif
 
@@ -2704,14 +2704,14 @@ boolean picked_some;
 /*JP
 		    You("try to feel what is here.");
 */
-		    You("ここに何があるのか調べようとした．");
+		    You("ここに何があるのか調べようとした。");
 		} else {
 #if 0 /*JP*/
 		    You("try to feel what is %s%s.",
 			drift ? "floating here" : "lying here on the ",
 			drift ? ""		: surface(u.ux, u.uy));
 #else
-		    You("何が%s%sのか調べようとした．",
+		    You("何が%s%sのか調べようとした。",
 			drift ?	""	     : surface(u.ux, u.uy),
 			drift ? "浮いている" : "の上にある");
 #endif
@@ -2731,7 +2731,7 @@ boolean picked_some;
 /*JP
 		Sprintf(fbuf, "There is %s here.", an(dfeature));
 */
-		Sprintf(fbuf, "ここには%sがある．", an(dfeature));
+		Sprintf(fbuf, "ここには%sがある。", an(dfeature));
 
 	if (!otmp || is_lava(u.ux,u.uy) || (is_pool(u.ux,u.uy) && !Underwater)) {
 		if (dfeature) pline(fbuf);
@@ -2741,8 +2741,8 @@ boolean picked_some;
 		    You("%s no objects here.", verb);
 #else
 		    pline(Blind ?
-			  "なにもないような気がする．" :
-			  "なにもみつけられなかった．");
+			  "なにもないような気がする。" :
+			  "なにもみつけられなかった。");
 #endif
 		return(!!Blind);
 	}
@@ -2756,7 +2756,7 @@ boolean picked_some;
 		  (obj_cnt <= 10) ? "several" : "many",
 		  picked_some ? " more" : "");
 #else
-	    pline("ここには%sものが%sある．",
+	    pline("ここには%sものが%sある。",
 		  (obj_cnt <= 10) ? "いくつか" : "沢山の",
 		  picked_some ? "さらに" : "");
 #endif
@@ -2775,7 +2775,7 @@ boolean picked_some;
 /*JP
 	    You("%s here %s.", verb, doname(otmp));
 */
-	    pline("%s%s．", doname(otmp), verb);
+	    pline("%s%s。", doname(otmp), verb);
 	    if (otmp->otyp == CORPSE) feel_cockatrice(otmp, FALSE);
 	} else {
 	    display_nhwindow(WIN_MESSAGE, FALSE);
@@ -2841,7 +2841,7 @@ boolean force_touch;
 			You("touched the %s corpse with your bare %s.",
 				mons[otmp->corpsenm].mname, makeplural(body_part(HAND)));
 #else
-			You("%sの死体に素%sで触った．",
+			You("%sの死体に素%sで触った。",
 				jtrns_mon(mons[otmp->corpsenm].mname), body_part(HAND));
 #endif
 	    else
@@ -2962,24 +2962,24 @@ doprgold()
 /*JP
 	    Your("wallet is empty.");
 */
-	    Your("財布は空っぽだ．");
+	    Your("財布は空っぽだ。");
 	else
 /*JP
 	    Your("wallet contains %ld gold piece%s.", u.ugold, plur(u.ugold));
 */
-	    Your("財布には%ld枚の金貨が入っている．", u.ugold);
+	    Your("財布には%ld枚の金貨が入っている。", u.ugold);
 #else
         long umoney = money_cnt(invent);
 	if(!umoney)
 /*JP
 	    Your("wallet is empty.");
 */
-	    Your("財布は空っぽだ．");
+	    Your("財布は空っぽだ。");
 	else
 /*JP
 	    Your("wallet contains %ld %s.", umoney, currency(umoney));
 */
-	    Your("財布には%ld%sが入っている．", umoney, currency(umoney));
+	    Your("財布には%ld%sが入っている。", umoney, currency(umoney));
 #endif
 	shopper_financial_report();
 	return 0;
@@ -2995,7 +2995,7 @@ doprwep()
 /*JP
 	You("are empty %s.", body_part(HANDED));
 */
-	if(!uwep) You("%sに武器をもっていない．", body_part(HAND));
+	if(!uwep) You("%sに武器をもっていない。", body_part(HAND));
     } else {
 	prinv((char *)0, uwep, 0L);
 	if (u.twoweap) prinv((char *)0, uswapwep, 0L);
@@ -3010,7 +3010,7 @@ doprarm()
 /*JP
 		You("are not wearing any armor.");
 */
-		You("鎧を着ていない．");
+		You("鎧を着ていない。");
 	else {
 #ifdef TOURIST
 		char lets[8];
@@ -3041,7 +3041,7 @@ doprring()
 /*JP
 		You("are not wearing any rings.");
 */
-		You("指輪を身につけていない．");
+		You("指輪を身につけていない。");
 	else {
 		char lets[3];
 		register int ct = 0;
@@ -3061,7 +3061,7 @@ dopramulet()
 /*JP
 		You("are not wearing an amulet.");
 */
-		You("魔除けを身につけていない．");
+		You("魔除けを身につけていない。");
 	else
 		prinv((char *)0, uamul, 0L);
 	return 0;
@@ -3095,7 +3095,7 @@ doprtool()
 /*JP
 	if (!ct) You("are not using any tools.");
 */
-	if (!ct) You("使える道具をもっていない．");
+	if (!ct) You("使える道具をもっていない。");
 	else (void) display_inventory(lets, FALSE);
 	return 0;
 }
@@ -3116,7 +3116,7 @@ doprinuse()
 /*JP
 	if (!ct) You("are not wearing or wielding anything.");
 */
-	if (!ct) You("何も着ていないし，装備していない．");
+	if (!ct) You("何も着ていないし、装備していない。");
 	else (void) display_inventory(lets, FALSE);
 	return 0;
 }
@@ -3298,7 +3298,7 @@ doorganize()	/* inventory organizer by Del Lamb */
 /*JP
 			pline("Select an inventory slot letter.");
 */
-			pline("持ち物の文字を選んでください．");
+			pline("持ち物の文字を選んでください。");
 		else
 			break;
 	}
@@ -3307,7 +3307,7 @@ doorganize()	/* inventory organizer by Del Lamb */
 /*JP
 	adj_type = "Moving:";
 */
-	adj_type = "を移動した．";
+	adj_type = "を移動した。";
 
 	/*
 	 * don't use freeinv/addinv to avoid double-touching artifacts,
@@ -3320,7 +3320,7 @@ doorganize()	/* inventory organizer by Del Lamb */
 /*JP
 			adj_type = "Merging:";
 */
-			adj_type = "を合わせた．";
+			adj_type = "を合わせた。";
 			obj = otmp;
 			otmp = otmp->nobj;
 			extract_nobj(obj, &invent);
@@ -3329,7 +3329,7 @@ doorganize()	/* inventory organizer by Del Lamb */
 /*JP
 				adj_type = "Swapping:";
 */
-				adj_type = "を交換した．";
+				adj_type = "を交換した。";
 				otmp->invlet = obj->invlet;
 			}
 			otmp = otmp->nobj;

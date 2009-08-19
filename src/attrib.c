@@ -207,7 +207,7 @@ adjattrib(ndx, incr, msgflg)
 /*JP
 		    Your("cap constricts briefly, then relaxes again.");
 */
-		    Your("帽子がしばらくの間キュっと締めつけ，そしてゆるんだ．");
+		    Your("帽子がしばらくの間キュっと締めつけ、そしてゆるんだ。");
 		return FALSE;
 	}
 
@@ -217,7 +217,7 @@ adjattrib(ndx, incr, msgflg)
 /*JP
 		    pline("You're already as %s as you can get.",
 */
-		    You("もう十分に%s．",
+		    You("もう十分に%s。",
 			  plusattr[ndx]);
 		ABASE(ndx) = AMAX(ndx) = ATTRMAX(ndx); /* just in case */
 		return FALSE;
@@ -237,7 +237,7 @@ adjattrib(ndx, incr, msgflg)
 /*JP
 		    pline("You're already as %s as you can get.",
 */
-		    You("もう十分%s．",
+		    You("もう十分%s。",
 			  minusattr[ndx]);
 		ABASE(ndx) = ATTRMIN(ndx); /* just in case */
 		return FALSE;
@@ -532,8 +532,8 @@ exerchk()
 				    "must have been exercising." :
 				    "must have been abusing your body.");
 #else
-				    "運動したに違いない．" :
-				    "体を酷使したに違いない．");
+				    "運動したに違いない。" :
+				    "体を酷使したに違いない。");
 #endif
 				break;
 		    case A_WIS: You((mod_val >0) ?
@@ -541,8 +541,8 @@ exerchk()
 				    "must have been very observant." :
 				    "haven't been paying attention.");
 #else
-				    "慎重に行動してたに違いない．" :
-				    "注意不足だったに違いない．");
+				    "慎重に行動してたに違いない。" :
+				    "注意不足だったに違いない。");
 #endif
 				break;
 		    case A_DEX: You((mod_val >0) ?
@@ -550,8 +550,8 @@ exerchk()
 				    "must have been working on your reflexes." :
 				    "haven't been working on reflexes lately.");
 #else
-				    "反射神経を使ったに違いない．" :
-				    "最近反射神経を使ってなかったに違いない．");
+				    "反射神経を使ったに違いない。" :
+				    "最近反射神経を使ってなかったに違いない。");
 #endif
 				break;
 		    case A_CON: You((mod_val >0) ?
@@ -559,8 +559,8 @@ exerchk()
 				    "must be leading a healthy life-style." :
 				    "haven't been watching your health.");
 #else
-				    "健康的な生活をしていたに違いない．" :
-				    "健康管理を怠っていたに違いない．");
+				    "健康的な生活をしていたに違いない。" :
+				    "健康管理を怠っていたに違いない。");
 #endif
 				break;
 		    }
@@ -734,7 +734,7 @@ int oldlevel, newlevel;
 */
 				You("%sような気がした！", abil->losestr);
 /*JP 
-**	この条件は満さないはず．
+**	この条件は満さないはず。
 */
 			    else if(*(abil->gainstr))
 				You_feel("less %s!", abil->gainstr);

@@ -443,7 +443,7 @@ char *argv[];
 /*JP
 			You("are in non-scoring discovery mode.");
 */
-			pline("発見モードではスコアはのらないよ．");
+			pline("発見モードではスコアはのらないよ。");
 
 		if (discover || wizard) {
 /*JP
@@ -463,7 +463,7 @@ not_recovered:
 /*JP
 			You("are in non-scoring discovery mode.");
 */
-			pline("発見モードではスコアはのらないよ．");
+			pline("発見モードではスコアはのらないよ。");
 
 		flags.move = 0;
 		set_wear();

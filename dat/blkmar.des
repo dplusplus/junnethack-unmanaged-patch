@@ -36,9 +36,9 @@ DOOR: open, (02,14)
 #ENGRAVING: (01,07), engrave, "Sorry about the mess. Remember, ask if you need help!"
 #ENGRAVING: (01,09), engrave, "Don't even think about stealing anything."
 ENGRAVING: (01,03), engrave, "店内へのペット同伴はご遠慮ください"
-ENGRAVING: (01,05), engrave, "泥棒には死，あるのみ．"
-ENGRAVING: (01,07), engrave, "申し訳ありませんが店内は散らかっております．御用のときはお声をおかけください！"
-ENGRAVING: (01,09), engrave, "万引きしようなどとは思わないことだ．"
+ENGRAVING: (01,05), engrave, "泥棒には死、あるのみ。"
+ENGRAVING: (01,07), engrave, "申し訳ありませんが店内は散らかっております。御用のときはお声をおかけください！"
+ENGRAVING: (01,09), engrave, "万引きしようなどとは思わないことだ。"
 # black marketeer's assistants:
 # from The Hobbit (Tolkien)
 #JP

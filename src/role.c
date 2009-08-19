@@ -1375,7 +1375,7 @@ int num_post_attribs;
 	if (!post_attribs && num_post_attribs > 1) Strcat(buf, conj);
 #else
 	if(num_post_attribs > post_attribs){
-		Strcat(buf, "ÅC");
+		Strcat(buf, "ÅA");
 	}
 	--post_attribs;
 #endif

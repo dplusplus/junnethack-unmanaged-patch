@@ -76,7 +76,7 @@ struct obj *obj;
 /*JP
 	    static const char *empty = "The potion turns out to be empty.";
 */
-	    static const char *empty = "薬は空っぽであることがわかった．";
+	    static const char *empty = "薬は空っぽであることがわかった。";
 	    const char *potion_descr;
 	    struct monst *mtmp;
 #define POTION_OCCUPANT_CHANCE(n) (13 + 2*(n))	/* also in potion.c */
@@ -96,7 +96,7 @@ struct obj *obj;
 /*JP
 			    pline("As %s opens the bottle, an enormous %s emerges!",
 */
-			pline("%sが瓶を開けると，巨大な%sが出てきた！",
+			pline("%sが瓶を開けると、巨大な%sが出てきた！",
 			       mon_nam(mon),
 /*JP
 			       Hallucination ? rndmonnam() : (const char *)"ghost");
@@ -105,7 +105,7 @@ struct obj *obj;
 /*JP
 			    pline("%s is frightened to death, and unable to move.",
 */
-			pline("%sはまっさおになって驚き，動けなくなった．",
+			pline("%sはまっさおになって驚き、動けなくなった。",
 				    Monnam(mon));
 			}
 			mon->mcanmove = 0;
@@ -128,12 +128,12 @@ struct obj *obj;
 /*JP
 			pline("In a cloud of smoke, %s emerges!",
 */
-			pline("煙の中から，%sが現われた！",
+			pline("煙の中から、%sが現われた！",
 							a_monnam(mtmp));
 /*JP
 		    pline("%s speaks.", vis ? Monnam(mtmp) : Something);
 */
-		    pline("%sは話した．", vis ? Monnam(mtmp) : Something);
+		    pline("%sは話した。", vis ? Monnam(mtmp) : Something);
 		/* I suspect few players will be upset that monsters */
 		/* can't wish for wands of death here.... */
 		    if (rn2(2)) {
@@ -151,7 +151,7 @@ struct obj *obj;
 /*JP
 			if (vis) pline("%s vanishes.", Monnam(mtmp));
 */
-			if (vis) pline("%sは消えた．", Monnam(mtmp));
+			if (vis) pline("%sは消えた。", Monnam(mtmp));
 			mongone(mtmp);
 		    }
 		}
@@ -165,12 +165,12 @@ struct obj *obj;
 /*JP
 		if (vis) pline("%s zaps %s, which suddenly explodes!",
 */
-		if (vis) pline("%sは%sをふりかざした，それは突然爆発した！",
+		if (vis) pline("%sは%sをふりかざした、それは突然爆発した！",
 			Monnam(mon), an(xname(obj)));
 /*JP
 		else You_hear("a zap and an explosion in the distance.");
 */
-		else You_hear("遠方の杖の音と爆発音を聞いた．");
+		else You_hear("遠方の杖の音と爆発音を聞いた。");
 	    }
 	    m_useup(mon, obj);
 	    if (mon->mhp <= dam) {
@@ -197,7 +197,7 @@ boolean self;
 					(distu(mtmp->mx,mtmp->my) <= (BOLT_LIM+1)*(BOLT_LIM+1)) ?
 					"nearby" : "distant");
 #else
-			You_hear("%sくで杖の音を聞いた．",
+			You_hear("%sくで杖の音を聞いた。",
 			    (distu(mtmp->mx,mtmp->my) <= (BOLT_LIM+1)*(BOLT_LIM+1)) ?
 			    "近" : "遠");
 #endif
@@ -253,7 +253,7 @@ struct obj *otmp;
 /*JP
 	    You_hear("%s reading %s.",
 */
-	    You_hear("%sが%sを読んでいる声を聞いた．",
+	    You_hear("%sが%sを読んでいる声を聞いた。",
 		x_monnam(mtmp, ARTICLE_A, (char *)0,
 		    (SUPPRESS_IT|SUPPRESS_INVISIBLE|SUPPRESS_SADDLE), FALSE),
 		onambuf);
@@ -262,7 +262,7 @@ struct obj *otmp;
 /*JP
 	    pline("Being confused, %s mispronounces the magic words...",
 */
-	    pline("混乱しているので，%sは呪文を間違って唱えてしまった．．．",
+	    pline("混乱しているので、%sは呪文を間違って唱えてしまった．．．",
 		  vismon ? mon_nam(mtmp) : mhe(mtmp));
 }
 
@@ -282,7 +282,7 @@ struct obj *otmp;
 /*JP
 			You_hear("a chugging sound.");
 */
-			You_hear("ゴクッ！という音を聞いた．");
+			You_hear("ゴクッ！という音を聞いた。");
 }
 
 /* Defines for various types of stuff.  The order in which monsters prefer
@@ -602,7 +602,7 @@ struct monst *mtmp;
 /*JP
 	const char *mcsa = "%s can see again.";
 */
-	const char *mcsa = "%sはまた見えるようになった．";
+	const char *mcsa = "%sはまた見えるようになった。";
 
 	if ((i = precheck(mtmp, otmp)) != 0) return i;
 	vis = cansee(mtmp->mx, mtmp->my);
@@ -639,7 +639,7 @@ struct monst *mtmp;
 /*JP
 			pline("%s seems steadier now.", Monnam(mtmp));
 */
-			pline("%sは平静をとりもどした．", Monnam(mtmp));
+			pline("%sは平静をとりもどした。", Monnam(mtmp));
 		} else impossible("No need for unicorn horn?");
 		return 2;
 	case MUSE_BUGLE:
@@ -680,7 +680,7 @@ mon_tele:
 /*JP
 			pline("%s seems disoriented for a moment.",
 */
-			pline("%sは一瞬方向感覚を失った．",
+			pline("%sは一瞬方向感覚を失った。",
 				Monnam(mtmp));
 		    return 2;
 		}
@@ -716,7 +716,7 @@ mon_tele:
 /*JP
 				pline("%s seems very disoriented for a moment.",
 */
-				pline("%sは一瞬方向感覚を失った．",
+				pline("%sは一瞬方向感覚を失った。",
 					Monnam(mtmp));
 			    return 2;
 			}
@@ -726,7 +726,7 @@ mon_tele:
 /*JP
 				pline("%s shudders for a moment.",
 */
-				pline("%sは一瞬震えた．",
+				pline("%sは一瞬震えた。",
 								Monnam(mtmp));
 			    return 2;
 			}
@@ -752,7 +752,7 @@ mon_tele:
 /*JP
 			pline_The("digging ray is ineffective.");
 */
-			pline("掘削の光は効果がない．");
+			pline("掘削の光は効果がない。");
 			return 2;
 		}
 		if (!Can_dig_down(&u.uz)) {
@@ -760,7 +760,7 @@ mon_tele:
 /*JP
 			pline_The("%s here is too hard to dig in.",
 */
-			pline("ここの%sは固くて掘れない．",
+			pline("ここの%sは固くて掘れない。",
 					surface(mtmp->mx, mtmp->my));
 		    return 2;
 		}
@@ -772,7 +772,7 @@ mon_tele:
 		    pline("%s has made a hole in the %s.", Monnam(mtmp),
 				surface(mtmp->mx, mtmp->my));
 #else
-		    pline("%sは%sに穴を開けた．", Monnam(mtmp),
+		    pline("%sは%sに穴を開けた。", Monnam(mtmp),
 				surface(mtmp->mx, mtmp->my));
 #endif
 #if 0 /*JP*/
@@ -1005,7 +1005,7 @@ mon_tele:
 /*JP
 		if (vismon) pline("%s looks better.", Monnam(mtmp));
 */
-		if (vismon) pline("%sは気分がよくなったようだ．", Monnam(mtmp));
+		if (vismon) pline("%sは気分がよくなったようだ。", Monnam(mtmp));
 		if (oseen) makeknown(POT_HEALING);
 		m_useup(mtmp, otmp);
 		return 2;
@@ -1023,7 +1023,7 @@ mon_tele:
 /*JP
 		if (vismon) pline("%s looks much better.", Monnam(mtmp));
 */
-		if (vismon) pline("%sとても気分がよくなったようだ．", Monnam(mtmp));
+		if (vismon) pline("%sとても気分がよくなったようだ。", Monnam(mtmp));
 		if (oseen) makeknown(POT_EXTRA_HEALING);
 		m_useup(mtmp, otmp);
 		return 2;
@@ -1039,7 +1039,7 @@ mon_tele:
 /*JP
 		if (vismon) pline("%s looks completely healed.", Monnam(mtmp));
 */
-		if (vismon) pline("%sは完全に回復したようだ．", Monnam(mtmp));
+		if (vismon) pline("%sは完全に回復したようだ。", Monnam(mtmp));
 		if (oseen) makeknown(otmp->otyp);
 		m_useup(mtmp, otmp);
 		return 2;
@@ -1290,7 +1290,7 @@ register struct obj *otmp;
 /*JP
 			} else pline_The("wand misses you.");
 */
-			} else pline("杖ははずれた．");
+			} else pline("杖ははずれた。");
 			stop_occupation();
 			nomul(0);
 		} else if (resists_magm(mtmp)) {
@@ -1487,7 +1487,7 @@ struct monst *mtmp;
 /*JP
 			You_hear("a horn being played.");
 */
-			You_hear("ホルンの音を聞いた．");
+			You_hear("ホルンの音を聞いた。");
 		otmp->spe--;
 		m_using = TRUE;
 		buzz(-30 - ((otmp->otyp==FROST_HORN) ? AD_COLD-1 : AD_FIRE-1),
@@ -1520,7 +1520,7 @@ struct monst *mtmp;
 	    			otmp->blessed ? "around" : "above",
 				mon_nam(mtmp));
 #else
-		    pline("%sの%sの%sからゴロゴロと音が聞こえてきた．",
+		    pline("%sの%sの%sからゴロゴロと音が聞こえてきた。",
 			  mon_nam(mtmp),
 			  otmp->blessed ? "まわり" : "真上",
 			  ceiling(mtmp->mx, mtmp->my));
@@ -1530,7 +1530,7 @@ struct monst *mtmp;
 /*JP
 		    pline_The("%s rumbles in the middle of nowhere!",
 */
-		    pline_The("どこかの%sからゴロゴロと音が聞こえてきた．",
+		    pline_The("どこかの%sからゴロゴロと音が聞こえてきた。",
 			ceiling(mtmp->mx, mtmp->my));
 		    if (mtmp->minvis)
 			map_invisible(mtmp->mx, mtmp->my);
@@ -1584,19 +1584,19 @@ struct monst *mtmp;
 /*JP
 					    pline("Fortunately, %s is wearing a hard helmet.", mon_nam(mtmp2));
 */
-					    pline("幸運にも%sは固い兜を身につけている．", mon_nam(mtmp2));
+					    pline("幸運にも%sは固い兜を身につけている。", mon_nam(mtmp2));
 					else if (flags.soundok)
 /*JP
 					    You_hear("a clanging sound.");
 */
-					    You_hear("ガツーンという音を聞いた．");
+					    You_hear("ガツーンという音を聞いた。");
 					if (mdmg > 2) mdmg = 2;
 				    } else {
 					if (canspotmon(mtmp2))
 /*JP
 					    pline("%s's %s does not protect %s.",
 */
-					    pline("%sの%sでは%sを防げない．",
+					    pline("%sの%sでは%sを防げない。",
 						Monnam(mtmp2), xname(helmet),
 						mhim(mtmp2));
 				    }
@@ -1606,7 +1606,7 @@ struct monst *mtmp;
 /*JP
 				    pline("%s is killed.", Monnam(mtmp2));
 */
-				    pline("%sは死んだ．", Monnam(mtmp2));
+				    pline("%sは死んだ。", Monnam(mtmp2));
 	    	    	    	    mondied(mtmp2);
 				}
 	    	    	    }
@@ -1648,14 +1648,14 @@ struct monst *mtmp;
 /*JP
 				pline("Fortunately, you are wearing a hard helmet.");
 */
-				pline("幸運にも，あなたは固い兜を身につけていた．");
+				pline("幸運にも、あなたは固い兜を身につけていた。");
 				if (dmg > 2) dmg = 2;
 			    } else if (flags.verbose) {
 #if 0 /*JP*/
 				Your("%s does not protect you.",
 						xname(uarmh));
 #else
-				Your("%sでは防げない．",
+				Your("%sでは防げない。",
 						xname(uarmh));
 #endif
 			    }
@@ -1690,7 +1690,7 @@ struct monst *mtmp;
 /*JP
 			    pline("Oh, what a pretty fire!");
 */
-			    pline("わぁ，きれいな炎だ！");
+			    pline("わぁ、きれいな炎だ！");
 		} else {
 			struct monst *mtmp2;
 			int num;
@@ -1704,7 +1704,7 @@ struct monst *mtmp;
 /*JP
 			pline("%s is uninjured.", Monnam(mtmp));
 */
-			pline("%sは傷つかなかった．", Monnam(mtmp));
+			pline("%sは傷つかなかった。", Monnam(mtmp));
 			(void) destroy_mitem(mtmp, SCROLL_CLASS, AD_FIRE);
 			(void) destroy_mitem(mtmp, SPBOOK_CLASS, AD_FIRE);
 			(void) destroy_mitem(mtmp, POTION_CLASS, AD_FIRE);
@@ -1713,7 +1713,7 @@ struct monst *mtmp;
 /*JP
 			    You("are not harmed.");
 */
-			    You("傷つかなかった．");
+			    You("傷つかなかった。");
 			burn_away_slime();
 			if (Half_spell_damage) num = (num+1) / 2;
 /*JP
@@ -1989,7 +1989,7 @@ skipmsg:
 /*JP
 			    pline("%s looks uneasy.", Monnam(mtmp));
 */
-			    pline("%sは不安げに見える．", Monnam(mtmp));
+			    pline("%sは不安げに見える。", Monnam(mtmp));
 			    if(!objects[POT_GAIN_LEVEL].oc_name_known
 			      && !objects[POT_GAIN_LEVEL].oc_uname)
 				docall(otmp);
@@ -2001,7 +2001,7 @@ skipmsg:
 /*JP
 		if (vismon) pline("%s seems more experienced.", Monnam(mtmp));
 */
-		if (vismon) pline("%sは経験を積んだように見える．", Monnam(mtmp));
+		if (vismon) pline("%sは経験を積んだように見える。", Monnam(mtmp));
 		if (oseen) makeknown(POT_GAIN_LEVEL);
 		m_useup(mtmp, otmp);
 		if (!grow_up(mtmp,(struct monst *)0)) return 1;
@@ -2024,7 +2024,7 @@ skipmsg:
 			      s_suffix(nambuf),
 			      Hallucination ? "normal" : "strange");
 #else
-		        pline("%s%sの体は透過性をもった．",
+		        pline("%s%sの体は透過性をもった。",
 			      Hallucination ? "あたりまえなことだが" : "奇妙なことに",
 			      nambuf);
 #endif
@@ -2032,7 +2032,7 @@ skipmsg:
 /*JP
 			pline("Suddenly you cannot see %s.", nambuf);
 */
-			pline("%sは突然見えなくなった．", nambuf);
+			pline("%sは突然見えなくなった。", nambuf);
 		    if (oseen) makeknown(otmp->otyp);
 		}
 		if (otmp->otyp == POT_INVISIBILITY) {
@@ -2117,7 +2117,7 @@ skipmsg:
 /*JP
 			pline("%s fails to wrap around %s.",
 */
-			pline("%sは%sにはからみつかなかった．",
+			pline("%sは%sにはからみつかなかった。",
 			      The_whip, the_weapon);
 			return 1;
 		    }
@@ -2132,8 +2132,8 @@ skipmsg:
 			      !is_plural(obj) ? "It is" : "They are",
 			      hand, !obj->bknown ? '!' : '.');
 #else
-			pline("しかし，それはまだあなたの%sの中にある%s",
-			      hand, !obj->bknown ? "！" : "．");
+			pline("しかし、それはまだあなたの%sの中にある%s",
+			      hand, !obj->bknown ? "！" : "。");
 #endif
 			/* obj->bknown = 1; */ /* welded() takes care of this */
 			where_to = 0;
@@ -2142,7 +2142,7 @@ skipmsg:
 #if 0 /*JP*/
 			pline_The("whip slips free.");  /* not `The_whip' */
 #else
-			pline("鞭はほどけた．");  /* not `The_whip' */
+			pline("鞭はほどけた。");  /* not `The_whip' */
 #endif
 			return 1;
 		    } else if (where_to == 3 && hates_silver(mtmp->data) &&
@@ -2197,7 +2197,7 @@ struct monst *mtmp;
 /*JP
 	pline("For some reason, %s presence is known to you.",
 */
-	pline("なぜか，あなたは%sの存在に気がついた．",
+	pline("なぜか、あなたは%sの存在に気がついた。",
 		s_suffix(noit_mon_nam(mtmp)));
 	cls();
 #ifdef CLIPPING
@@ -2208,7 +2208,7 @@ struct monst *mtmp;
 /*JP
 	You_feel("aggravated at %s.", noit_mon_nam(mtmp));
 */
-	You("%sに腹がたった．", mon_nam(mtmp));
+	You("%sに腹がたった。", mon_nam(mtmp));
 	display_nhwindow(WIN_MAP, TRUE);
 	docrt();
 	if (unconscious()) {
@@ -2217,7 +2217,7 @@ struct monst *mtmp;
 /*JP
 		      "Aggravated, you are jolted into full consciousness.";
 */
-		      "腹がたっていて，ピリピリしている．";
+		      "腹がたっていて、ピリピリしている。";
 	}
 	newsym(mtmp->mx,mtmp->my);
 	if (!canspotmon(mtmp))
@@ -2492,7 +2492,7 @@ boolean stoning;
 		    (obj->otyp == POT_ACID) ? "quaff" : "eat",
 		    distant_name(obj,doname));
 #else
-	pline("%sは%sを%s．", Monnam(mon),
+	pline("%sは%sを%s。", Monnam(mon),
 		  distant_name(obj,doname),
 		  (obj->otyp == POT_ACID) ? "飲んだ" : "食べた");
 #endif
@@ -2501,7 +2501,7 @@ boolean stoning;
 /*JP
 	You_hear("%s.", (obj->otyp == POT_ACID) ? "drinking" : "chewing");
 */
-	You_hear("%sという音を聞いた．", (obj->otyp == POT_ACID) ? "ゴクン" : "クチャクチャ");
+	You_hear("%sという音を聞いた。", (obj->otyp == POT_ACID) ? "ゴクン" : "クチャクチャ");
     m_useup(mon, obj);
     if (((obj->otyp == POT_ACID) || acidic(&mons[obj->corpsenm])) &&
 		    !resists_acid(mon)) {
@@ -2509,7 +2509,7 @@ boolean stoning;
 /*JP
 	pline("%s has a very bad case of stomach acid.",
 */
-	pline("%sは胃酸の調子がとても悪い．",
+	pline("%sは胃酸の調子がとても悪い。",
 	    Monnam(mon));
     }
     if (mon->mhp <= 0) {
@@ -2540,7 +2540,7 @@ boolean stoning;
 /*JP
 	    pline("%s seems steadier now.", Monnam(mon));
 */
-	    pline("%sはより丈夫になったようだ．", Monnam(mon));
+	    pline("%sはより丈夫になったようだ。", Monnam(mon));
     }
     if (mon->mtame && !mon->isminion && nutrit > 0) {
 	struct edog *edog = EDOG(mon);

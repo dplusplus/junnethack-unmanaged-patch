@@ -497,7 +497,7 @@ domonability()
 /*JP
 	    } else There("is no fountain here.");
 */
-	    } else pline("ここには泉はない．");
+	    } else pline("ここには泉はない。");
 	} else if (is_unicorn(youmonst.data)) {
 	    fix_attributes_and_properties((struct obj *)0,0);
 	    return 1;
@@ -505,18 +505,18 @@ domonability()
 /*JP
 	    You("shriek.");
 */
-	    You("金切り声をあげた．");
+	    You("金切り声をあげた。");
 	    if(u.uburied)
 /*JP
 		pline("Unfortunately sound does not carry well through rock.");
 */
-		pline("残念ながら音は岩をうまく伝わらない．");
+		pline("残念ながら音は岩をうまく伝わらない。");
 	    else aggravate();
 	} else if (Upolyd)
 /*JP
 		pline("Any special ability you may have is purely reflexive.");
 */
-		pline("あなたの持っている特殊能力はどれも受動的だ．");
+		pline("あなたの持っている特殊能力はどれも受動的だ。");
 /*JP
 	else You("don't have a special ability in your normal form!");
 */
@@ -531,7 +531,7 @@ enter_explore_mode()
 /*JP
 		pline("Beware!  From explore mode there will be no return to normal game.");
 */
-		pline("警告！発見モードに入ったら通常モードには戻れない．");
+		pline("警告！発見モードに入ったら通常モードには戻れない。");
 /*JP
 		if (yn("Do you want to enter explore mode?") == 'y') {
 */
@@ -540,7 +540,7 @@ enter_explore_mode()
 /*JP
 			You("are now in non-scoring explore mode.");
 */
-			You("スコアがのらない発見モードに移行した．");
+			You("スコアがのらない発見モードに移行した。");
 			discover = TRUE;
 		}
 		else {
@@ -548,7 +548,7 @@ enter_explore_mode()
 /*JP
 			pline("Resuming normal game.");
 */
-			pline("通常モードを続ける．");
+			pline("通常モードを続ける。");
 		}
 	}
 	return 0;
@@ -571,7 +571,7 @@ wiz_wish()	/* Unlimited wishes for debug mode by Paul Polderman */
 /*JP
 	    pline("Unavailable command '^W'.");
 */
-	    pline("'^W'コマンドは使えない．");
+	    pline("'^W'コマンドは使えない。");
 	return 0;
 }
 
@@ -583,7 +583,7 @@ wiz_identify()
 /*JP
 	else		pline("Unavailable command '^I'.");
 */
-	else		pline("'^I'コマンドは使えない．");
+	else		pline("'^I'コマンドは使えない。");
 	return 0;
 }
 
@@ -608,7 +608,7 @@ wiz_map()
 /*JP
 	    pline("Unavailable command '^F'.");
 */
-	    pline("'^F'コマンドは使えない．");
+	    pline("'^F'コマンドは使えない。");
 	return 0;
 }
 
@@ -620,7 +620,7 @@ wiz_genesis()
 /*JP
 	else		pline("Unavailable command '^G'.");
 */
-	else		pline("'^G'コマンドは使えない．");
+	else		pline("'^G'コマンドは使えない。");
 	return 0;
 }
 
@@ -632,7 +632,7 @@ wiz_where()
 /*JP
 	else	    pline("Unavailable command '^O'.");
 */
-	else	    pline("'^O'コマンドは使えない．");
+	else	    pline("'^O'コマンドは使えない。");
 	return 0;
 }
 
@@ -644,7 +644,7 @@ wiz_detect()
 /*JP
 	else	    pline("Unavailable command '^E'.");
 */
-	else	    pline("'^E'コマンドは使えない．");
+	else	    pline("'^E'コマンドは使えない。");
 	return 0;
 }
 
@@ -656,7 +656,7 @@ wiz_level_tele()
 /*JP
 	else		pline("Unavailable command '^V'.");
 */
-	else		pline("'^V'コマンドは使えない．");
+	else		pline("'^V'コマンドは使えない。");
 	return 0;
 }
 
@@ -699,13 +699,13 @@ wiz_level_change()
 /*JP
 	You("are already that experienced.");
 */
-	You("すでにその経験レベルだ．");
+	You("すでにその経験レベルだ。");
     } else if (newlevel < u.ulevel) {
 	if (u.ulevel == 1) {
 /*JP
 	    You("are already as inexperienced as you can get.");
 */
-	    You("すでに最低の経験レベルだ．");
+	    You("すでに最低の経験レベルだ。");
 	    return 0;
 	}
 	if (newlevel < 1) newlevel = 1;
@@ -719,7 +719,7 @@ wiz_level_change()
 /*JP
 	    You("are already as experienced as you can get.");
 */
-	    You("すでに最大の経験レベルだ．");
+	    You("すでに最大の経験レベルだ。");
 	    return 0;
 	}
 	if (newlevel > MAXULEV) newlevel = MAXULEV;
@@ -919,7 +919,7 @@ const char *start, *middle, *end;
 #if 0 /*JP*/
 	Sprintf(buf, "%s%s%s.", start, middle, end);
 #else
-	Sprintf(buf, "%s%s%s．", start, middle, end);
+	Sprintf(buf, "%s%s%s。", start, middle, end);
 #endif
 	putstr(en_win, 0, buf);
 }
@@ -2326,7 +2326,7 @@ int alignment;
 /*JP
 		return " (s,c)";
 */
-		return " (初，現)";
+		return " (初、現)";
 	else if (starting_alignment == pray_alignment &&
 	    pray_alignment  == alignment)
 /*JP
@@ -2733,7 +2733,7 @@ int final;
 	    sprintf(buf, "  You ate non-vegetarian food %ld time%s.", 
 		u.uconduct.unvegetarian, plur(u.uconduct.unvegetarian));
 #else
-	    sprintf(buf, "  あなたは植物性以外の食事を%ld回した．", 
+	    sprintf(buf, "  あなたは植物性以外の食事を%ld回した。", 
 		u.uconduct.unvegetarian);
 #endif
 	    dump("", buf);
@@ -3629,7 +3629,7 @@ register char *cmd;
 #if 0 /*JP*/
 		!help_dir(0, "Invalid direction key!"))
 #else
-		!help_dir(0, "無効な方向指定です．"))
+		!help_dir(0, "無効な方向指定です。"))
 #endif
 /*JP
 	    Norep("Unknown command '%s'.", expcmd);
@@ -3808,13 +3808,13 @@ const char *msg;
 /*JP
 		putstr(win, 0, "To use that command, you press");
 */
-		putstr(win, 0, "コマンドを使用するには，<Ctrl>キーと");
+		putstr(win, 0, "コマンドを使用するには、<Ctrl>キーと");
 #if 0 /*JP*/
 		Sprintf(buf,
 			"the <Ctrl> key, and the <%c> key at the same time.", sym);
 #else
 		Sprintf(buf,
-			"<%c>キーを同時に押してください．", sym);
+			"<%c>キーを同時に押してください。", sym);
 #endif
 		putstr(win, 0, buf);
 		putstr(win, 0, "");
@@ -3879,7 +3879,7 @@ const char *msg;
 #if 0 /*JP*/
 	putstr(win, 0, "(Suppress this message with !cmdassist in config file.)");
 #else
-	putstr(win, 0, "(このメッセージを表示したくない場合は設定ファイルに !cmdassist を設定してください．)");
+	putstr(win, 0, "(このメッセージを表示したくない場合は設定ファイルに !cmdassist を設定してください。)");
 #endif
 	display_nhwindow(win, FALSE);
 	destroy_nhwindow(win);

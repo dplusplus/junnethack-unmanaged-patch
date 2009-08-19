@@ -176,7 +176,7 @@ boolean devour;
 		  (obj->oclass == FOOD_CLASS) ?
 			singular(obj, doname) : doname(obj));
 #else
-	    pline("%sは%sを%s．", mon_visible(mtmp) ? noit_Monnam(mtmp) : "何か",
+	    pline("%sは%sを%s。", mon_visible(mtmp) ? noit_Monnam(mtmp) : "何か",
 		  (obj->oclass == FOOD_CLASS) ?
 			singular(obj, doname) : doname(obj),
 		  devour ? "飲み込んでいる" : "食べている");
@@ -250,14 +250,14 @@ register struct edog *edog;
 /*JP
 		    pline("%s is confused from hunger.", Monnam(mtmp));
 */
-		    pline("%sは空腹のため混乱している．", Monnam(mtmp));
+		    pline("%sは空腹のため混乱している。", Monnam(mtmp));
 		else if (couldsee(mtmp->mx, mtmp->my))
 		    beg(mtmp);
 		else
 /*JP
 		    You_feel("worried about %s.", y_monnam(mtmp));
 */
-		    You("%sが心配になった．", y_monnam(mtmp));
+		    You("%sが心配になった。", y_monnam(mtmp));
 		stop_occupation();
 	    } else if (monstermoves > edog->hungrytime + 750 || mtmp->mhp < 1) {
  dog_died:
@@ -269,18 +269,18 @@ register struct edog *edog;
 /*JP
 		    Your("leash goes slack.");
 */
-		    Your("紐はたるんだ．");
+		    Your("紐はたるんだ。");
 		else if (cansee(mtmp->mx, mtmp->my))
 /*JP
 		    pline("%s starves.", Monnam(mtmp));
 */
-		    pline("%sは飢えで死んだ．", Monnam(mtmp));
+		    pline("%sは飢えで死んだ。", Monnam(mtmp));
 		else
 #if 0 /*JP*/
 		    You_feel("%s for a moment.",
 			Hallucination ? "bummed" : "sad");
 #else
-		    You("%s気分におそわれた．",
+		    You("%s気分におそわれた。",
 			Hallucination ? "がっかりした" : "悲しい");
 #endif
 		mondied(mtmp);
@@ -345,7 +345,7 @@ int udist;
 /*JP
 				pline("%s picks up %s.", Monnam(mtmp),
 */
-				pline("%sは%sを拾った．", Monnam(mtmp),
+				pline("%sは%sを拾った。", Monnam(mtmp),
 				    distant_name(obj, doname));
 			    obj_extract_self(obj);
 			    newsym(omx,omy);
@@ -599,7 +599,7 @@ register int after;	/* this is extra fast monster movement */
 /*JP
 		    verbalize("Since you desire conflict, have some more!");
 */
-		    verbalize("闘争を望んでいるようだから，もっと与えてやろう！");
+		    verbalize("闘争を望んでいるようだから、もっと与えてやろう！");
 		}
 		mongone(mtmp);
 		i = rnd(4);
@@ -807,7 +807,7 @@ newdogpos:
 /*JP
 			pline("%s moves only reluctantly.", Monnam(mtmp));
 */
-			pline("%sはいやいや動いた．", Monnam(mtmp));
+			pline("%sはいやいや動いた。", Monnam(mtmp));
 		for (j=MTSZ-1; j>0; j--) mtmp->mtrack[j] = mtmp->mtrack[j-1];
 		mtmp->mtrack[0].x = omx;
 		mtmp->mtrack[0].y = omy;

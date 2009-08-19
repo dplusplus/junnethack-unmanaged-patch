@@ -33,17 +33,17 @@ const char *goal;
 /*JP
     Sprintf(sbuf, "Use [%s] to move the cursor to %s.",
 */
-    Sprintf(sbuf, "[%s]で%sへ移動できる．",
+    Sprintf(sbuf, "[%s]で%sへ移動できる。",
 	    iflags.num_pad ? "2468" : "hjkl", goal);
     putstr(tmpwin, 0, sbuf);
 /*JP
     putstr(tmpwin, 0, "Use [HJKL] to move the cursor 8 units at a time.");
 */
-    putstr(tmpwin, 0, "[HJKL]で一度に8歩移動できる．");
+    putstr(tmpwin, 0, "[HJKL]で一度に8歩移動できる。");
 /*JP
     putstr(tmpwin, 0, "Or enter a background symbol (ex. <).");
 */
-    putstr(tmpwin, 0, "背景のシンボルを入力するとその位置に移動する(例：<)．");
+    putstr(tmpwin, 0, "背景のシンボルを入力するとその位置に移動する(例：<)。");
     /* disgusting hack; the alternate selection characters work for any
        getpos call, but they only matter for dowhatis (and doquickwhatis) */
     doing_what_is = (goal == what_is_an_unknown_object);
@@ -51,7 +51,7 @@ const char *goal;
     Sprintf(sbuf, "Type a .%s when you are at the right place.",
             doing_what_is ? " or , or ; or :" : "");
 #else
-    Sprintf(sbuf, "[.]%sで決定．",
+    Sprintf(sbuf, "[.]%sで決定。",
             doing_what_is ? "[,][;][:]" : "");
 #endif
     putstr(tmpwin, 0, sbuf);
@@ -59,7 +59,7 @@ const char *goal;
 /*JP
 	putstr(tmpwin, 0, "Type Space or Escape when you're done.");
 */
-	putstr(tmpwin, 0, "スペースまたはエスケープで終了．");
+	putstr(tmpwin, 0, "スペースまたはエスケープで終了。");
     putstr(tmpwin, 0, "");
     display_nhwindow(tmpwin, TRUE);
     destroy_nhwindow(tmpwin);
@@ -200,8 +200,8 @@ const char *goal;
 		    pline("その方向はない：'%s' (%s)",
 			  visctrl((char)c),
 			  force ?
-			  iflags.num_pad ? "[2468]で移動，[.]で終了" :
-			  "[hjkl]で移動，[.]で終了" :
+			  iflags.num_pad ? "[2468]で移動、[.]で終了" :
+			  "[hjkl]で移動、[.]で終了" :
 			  "中断した");
 #endif
 		    msg_given = TRUE;
@@ -211,7 +211,7 @@ const char *goal;
 /*JP
 	    pline("Done.");
 */
-	    pline("以上．");
+	    pline("以上。");
 	    msg_given = FALSE;	/* suppress clear */
 	    cx = -1;
 	    cy = 0;
@@ -283,7 +283,7 @@ do_mname()
 /*JP
 		You("would never recognize it anyway.");
 */
-		You("それを認識できない．");
+		You("それを認識できない。");
 		return 0;
 	}
 	cc.x = u.ux;
@@ -309,7 +309,7 @@ do_mname()
 		"ugly",
 		plname);
 #else
-		pline("この%s生き物は%sと呼ばれていて，名前は変更できない．",
+		pline("この%s生き物は%sと呼ばれていて、名前は変更できない。",
 		ACURR(A_CHA) > 14 ?
 		(flags.female ? "美人の" : "かっこいい") :
 		"醜い",
@@ -330,7 +330,7 @@ do_mname()
 /*JP
 		pline("I see no monster there.");
 */
-		pline("そこに怪物はいない．");
+		pline("そこに怪物はいない。");
 		return(0);
 	}
 	/* special case similar to the one in lookat() */
@@ -397,7 +397,7 @@ register struct obj *obj;
 /*JP
 		pline_The("artifact seems to resist the attempt.");
 */
-		pline("聖器は名づけを拒否しているようだ．");
+		pline("聖器は名づけを拒否しているようだ。");
 		return;
 	} else if (restrict_name(obj, buf, FALSE) || exist_artifact(obj->otyp, buf)) {
 #if 0 /*JP*/
@@ -431,12 +431,12 @@ register struct obj *obj;
 /*JP
 		pline("While engraving your %s slips.", body_part(HAND));
 */
-		pline("刻んでいる間に%sが滑ってしまった．", body_part(HAND));
+		pline("刻んでいる間に%sが滑ってしまった。", body_part(HAND));
 		display_nhwindow(WIN_MESSAGE, FALSE);
 /*JP
 		You("engrave: \"%s\".",buf);
 */
-		You("刻んだ: 「%s」．",buf);
+		You("刻んだ: 「%s」。",buf);
 	}
 	obj = oname(obj, buf);
 }
@@ -603,7 +603,7 @@ ddocall()
 /*JP
 				You("would never recognize another one.");
 */
-				You("他に認識できない．");
+				You("他に認識できない。");
 				return 0;
 			}
 			docall(obj);

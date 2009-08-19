@@ -141,7 +141,7 @@ const char *drainer;	/* cause of death, if drain should be fatal */
 /*JP
 		pline("%s level %d.", Goodbye(), u.ulevel--);
 */
-		pline("さようならレベル%d．", u.ulevel--);
+		pline("さようならレベル%d。", u.ulevel--);
 		/* remove intrinsic abilities */
 		adjabil(u.ulevel + 1, u.ulevel);
 		reset_rndmonst(NON_PM);	/* new monster selection */
@@ -201,7 +201,7 @@ boolean incr;	/* true iff via incremental experience growth */
 /*JP
 	if (!incr) You_feel("more experienced.");
 */
-	if (!incr) You("より経験をつんだような気がした．");
+	if (!incr) You("より経験をつんだような気がした。");
 	num = newhp();
 	u.uhpmax += num;
 	u.uhp += num;
@@ -231,7 +231,7 @@ boolean incr;	/* true iff via incremental experience growth */
 /*JP
 	    pline("Welcome to experience level %d.", u.ulevel);
 */
-	    pline("レベル%dにようこそ．", u.ulevel);
+	    pline("レベル%dにようこそ。", u.ulevel);
 	    adjabil(u.ulevel - 1, u.ulevel);	/* give new intrinsics */
 	    reset_rndmonst(NON_PM);		/* new monster selection */
 	}

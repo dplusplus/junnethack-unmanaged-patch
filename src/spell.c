@@ -126,14 +126,14 @@ cursed_book(bp)
 /*JP
 		You_feel("a wrenching sensation.");
 */
-		You("ねじられたような感覚を感じた．");
+		You("ねじられたような感覚を感じた。");
 		tele();		/* teleport him */
 		break;
 	case 1:
 /*JP
 		You_feel("threatened.");
 */
-		You("おどされているような気がした．");
+		You("おどされているような気がした。");
 		aggravate();
 		break;
 	case 2:
@@ -146,7 +146,7 @@ cursed_book(bp)
 /*JP
 		pline("These runes were just too much to comprehend.");
 */
-		pline("このルーン文字を理解するのは困難だ．");
+		pline("このルーン文字を理解するのは困難だ。");
 		make_confused(HConfusion + rn1(7,16),FALSE);
 		break;
 	case 5:
@@ -159,7 +159,7 @@ cursed_book(bp)
 /*JP
 			Your("gloves seem unaffected.");
 */
-			pline("小手は影響を受けなかったようだ．");
+			pline("小手は影響を受けなかったようだ。");
 		    } else if (uarmg->oeroded2 < MAX_ERODE) {
 			if (uarmg->greased) {
 /*JP
@@ -185,7 +185,7 @@ cursed_book(bp)
 			Your("gloves %s completely corroded.",
 			     Blind ? "feel" : "look");
 #else
-			pline("小手は完全に腐食した%s．",
+			pline("小手は完全に腐食した%s。",
 			     Blind ? "ようだ" : "ように見える");
 #endif
 		    break;
@@ -206,7 +206,7 @@ cursed_book(bp)
 /*JP
 		    pline_The("book %s, but you are unharmed!", explodes);
 */
-		    pline("本は強力なエネルギーを放出した，しかしあなたは傷つかない！");
+		    pline("本は強力なエネルギーを放出した、しかしあなたは傷つかない！");
 		} else {
 #if 0 /*JP*/
 		    pline("As you read the book, it %s in your %s!",
@@ -241,12 +241,12 @@ struct obj *spellbook;
 /*JP
 	  "Being confused you have difficulties in controlling your actions.");
 */
-	  "混乱しているので，そういうことをするのは難しい．");
+	  "混乱しているので、そういうことをするのは難しい。");
 	    display_nhwindow(WIN_MESSAGE, FALSE);
 /*JP
 			    You("accidentally tear the spellbook to pieces.");
 */
-			    You("うっかり，呪文書を引きさいてしまった．");
+			    You("うっかり、呪文書を引きさいてしまった。");
 	    if (!objects[spellbook->otyp].oc_name_known &&
 		!objects[spellbook->otyp].oc_uname)
 		docall(spellbook);
@@ -257,7 +257,7 @@ struct obj *spellbook;
 	    You("find yourself reading the %s line over and over again.",
 		spellbook == book ? "next" : "first");
 #else
-	    You("%sの行を何度も繰り返して読んでいたことに気付いた．",
+	    You("%sの行を何度も繰り返して読んでいたことに気付いた。",
 		spellbook == book ? "次" : "最初");
 #endif
 	}
@@ -288,7 +288,7 @@ struct obj *book2;
 /*JP
 	    pline_The("runes appear scrambled.  You can't read them!");
 */
-	    pline("ルーン文字はごちゃまぜになっており，読むことができなかった！");
+	    pline("ルーン文字はごちゃまぜになっており、読むことができなかった！");
 	    return;
 	}
 
@@ -296,7 +296,7 @@ struct obj *book2;
 /*JP
 	    pline("A chill runs down your %s.", body_part(SPINE));
 */
-	    Your("%sに寒けが走った．", body_part(SPINE));
+	    Your("%sに寒けが走った。", body_part(SPINE));
 /*JP
 	    if(!u.uhave.bell) You_hear("a faint chime...");
 */
@@ -304,7 +304,7 @@ struct obj *book2;
 /*JP
 	    if(!u.uhave.menorah) pline("Vlad's doppelganger is amused.");
 */
-	    if(!u.uhave.menorah) pline("ヴラドの生霊は笑った．");
+	    if(!u.uhave.menorah) pline("ヴラドの生霊は笑った。");
 	    return;
 	}
 
@@ -456,13 +456,13 @@ learn()
 /*JP
 			    pline("This spellbook is too faint to be read any more.");
 */
-			    pline("この呪文書の文字は薄すぎてこれ以上読めない．");
+			    pline("この呪文書の文字は薄すぎてこれ以上読めない。");
 			    book->otyp = booktype = SPE_BLANK_PAPER;
 			} else if (spellknow(i) <= 1000) {
 /*JP
 			    Your("knowledge of %s is keener.", splname);
 */
-			    Your("%sに対する知識はさらに研ぎすまされた．", splname);
+			    Your("%sに対する知識はさらに研ぎすまされた。", splname);
 			    incrnknow(i);
 			    book->spestudied++;
 			    exercise(A_WIS,TRUE);       /* extra study */
@@ -470,7 +470,7 @@ learn()
 /*JP
 			    You("know %s quite well already.", splname);
 */
-			    You("すでに%sを熟知している．", splname);
+			    You("すでに%sを熟知している。", splname);
 			    costly = FALSE;
 			}
 			/* make book become known even when spell is already
@@ -486,7 +486,7 @@ learn()
 			You(i > 0 ? "add %s to your repertoire." : "learn %s.",
 			    splname);
 #else
-			You(i > 0 ? "%sをレパートリーに加えた．" : "%sを習得した．", splname);
+			You(i > 0 ? "%sをレパートリーに加えた。" : "%sを習得した。", splname);
 #endif
 			makeknown((int)booktype);
 			break;
@@ -521,14 +521,14 @@ register struct obj *spellbook;
 /*JP
 		You("continue your efforts to memorize the spell.");
 */
-		You("呪文の学習を再開した．");
+		You("呪文の学習を再開した。");
 	} else {
 		/* KMH -- Simplified this code */
 		if (booktype == SPE_BLANK_PAPER) {
 /*JP
 			pline("This spellbook is all blank.");
 */
-			pline("この呪文書は真っ白だ．");
+			pline("この呪文書は真っ白だ。");
 			makeknown(booktype);
 			return(1);
 		}
@@ -576,7 +576,7 @@ register struct obj *spellbook;
 		      "This spellbook is %sdifficult to comprehend. Continue?",
 				    (read_ability < 12 ? "very " : ""));
 #else
-		      "この呪文書を理解するのは%s困難だ．続けますか？",
+		      "この呪文書を理解するのは%s困難だ。続けますか？",
 					(read_ability < 12 ? "とても" : ""));
 #endif
 			    if (yn(qbuf) != 'y') {
@@ -623,7 +623,7 @@ register struct obj *spellbook;
 		    spellbook->otyp == SPE_BOOK_OF_THE_DEAD ? "recite" :
 		    "memorize");
 #else
-		You("ルーン文字を%sしはじめた．",
+		You("ルーン文字を%sしはじめた。",
 		    spellbook->otyp == SPE_BOOK_OF_THE_DEAD ? "暗唱" :
 		    "記憶");
 #endif
@@ -688,7 +688,7 @@ getspell(spell_no)
 /*JP
 	    You("don't know any spells right now.");
 */
-	    You("今のところ何の呪文も知らない．");
+	    You("今のところ何の呪文も知らない。");
 	    return FALSE;
 	}
 	if (flags.menu_style == MENU_TRADITIONAL) {
@@ -721,7 +721,7 @@ getspell(spell_no)
 /*JP
 		    You("don't know that spell.");
 */
-		    You("そんな呪文は知らない．");
+		    You("そんな呪文は知らない。");
 	    }
 	}
 #if 0 /*JP*/
@@ -842,7 +842,7 @@ cast_protection()
 /*JP
 		    pline_The("%s haze around you becomes more dense.",
 */
-		    pline("あなたのまわりの%s霞が濃くなった．",
+		    pline("あなたのまわりの%s霞が濃くなった。",
 			      hgolden);
 		else
 #if 0 /*JP*/
@@ -851,7 +851,7 @@ cast_protection()
 			(Underwater || Is_waterlevel(&u.uz)) ? "water" : "air",
 			      an(hgolden));
 #else
-		    pline("あなたのまわりに%s霧があらわれてキラキラと光った．",
+		    pline("あなたのまわりに%s霧があらわれてキラキラと光った。",
 			      hgolden);
 #endif
 	    }
@@ -865,7 +865,7 @@ cast_protection()
 /*JP
 	    Your("skin feels warm for a moment.");
 */
-	    Your("肌は一瞬ポカポカした．");
+	    Your("肌は一瞬ポカポカした。");
 	}
 }
 
@@ -917,7 +917,7 @@ boolean atme;
 /*JP
 	    Your("knowledge of this spell is twisted.");
 */
-	    Your("この呪文に関する知識はよじれた．");
+	    Your("この呪文に関する知識はよじれた。");
 /*JP
 	    pline("It invokes nightmarish images in your mind...");
 */
@@ -928,12 +928,12 @@ boolean atme;
 /*JP
 	    You("strain to recall the spell.");
 */
-	    You("呪文を思いだそうとした．");
+	    You("呪文を思いだそうとした。");
 	} else if (spellknow(spell) <= 1000) {
 /*JP
 	    Your("knowledge of this spell is growing faint.");
 */
-	    Your("この呪文に関する知識が消えてゆく．");
+	    Your("この呪文に関する知識が消えてゆく。");
 	}
 	energy = (spellev(spell) * 5);    /* 5 <= energy <= 35 */
 
@@ -941,19 +941,19 @@ boolean atme;
 /*JP
 		You("are too hungry to cast that spell.");
 */
-	        pline("腹が減りすぎて呪文を唱えられない．");
+	        pline("腹が減りすぎて呪文を唱えられない。");
 		return(0);
 	} else if (ACURR(A_STR) < 4)  {
 /*JP
 		You("lack the strength to cast spells.");
 */
-		pline("強さが少なすぎて呪文を唱えられない．");
+		pline("強さが少なすぎて呪文を唱えられない。");
 		return(0);
 	} else if(check_capacity(
 /*JP
 		"Your concentration falters while carrying so much stuff.")) {
 */
-		"たくさんものを持ちすぎて集中できない．")){
+		"たくさんものを持ちすぎて集中できない。")){
 	    return (1);
 	} else if (!freehand()) {
 /*JP
@@ -967,14 +967,14 @@ boolean atme;
 /*JP
 		You_feel("the amulet draining your energy away.");
 */
-		pline("魔除けがあなたのエネルギーを吸いとっているような気がした．");
+		pline("魔除けがあなたのエネルギーを吸いとっているような気がした。");
 		energy += rnd(2*energy);
 	}
 	if(energy > u.uen)  {
 /*JP
 		You("don't have enough energy to cast that spell.");
 */
-		pline("呪文を唱えるだけの十分なエネルギーを持っていない．");
+		pline("呪文を唱えるだけの十分なエネルギーを持っていない。");
 		return(0);
 	} else {
 		if (spellid(spell) != SPE_DETECT_FOOD) {
@@ -1019,7 +1019,7 @@ boolean atme;
 /*JP
 		You("fail to cast the spell correctly.");
 */
-		You("呪文を正しく唱えることができなかった．");
+		You("呪文を正しく唱えることができなかった。");
 		u.uen -= energy / 2;
 		flags.botl = 1;
 		return(1);
@@ -1163,7 +1163,7 @@ boolean atme;
 /*JP
 		if (Sick) You("are no longer ill.");
 */
-		if (Sick) Your("病気は直った．");
+		if (Sick) Your("病気は直った。");
 		if (Slimed) {
 /*JP
 		    pline_The("slime disappears!");
@@ -1186,7 +1186,7 @@ boolean atme;
 /*JP
 		    You("sense a pointy hat on top of your %s.",
 */
-		    You("とがった帽子を%sの上に発見した．",
+		    You("とがった帽子を%sの上に発見した。",
 			body_part(HEAD));
 		break;
 	case SPE_PROTECTION:
@@ -1224,7 +1224,7 @@ throwspell()
 /*JP
 	    You("had better wait for the sun to come out."); return 0;
 */
-	    You("太陽が見えるまで待ったほうがよいだろう．"); return 0;
+	    You("太陽が見えるまで待ったほうがよいだろう。"); return 0;
 	}
 
 /*JP
@@ -1298,7 +1298,7 @@ dovspell()
 /*JP
 	    You("don't know any spells right now.");
 */
-	    You("呪文を知らない．");
+	    You("呪文を知らない。");
 	else {
 #if 0 /*JP*/
 	    while (dospellmenu("Currently known spells",
@@ -1414,7 +1414,7 @@ dump_spells()
 /*JP
 	    dump("", "You didn't know any spells.");
 */
-	    dump("", "あなたは呪文を知らない．");
+	    dump("", "あなたは呪文を知らない。");
 	    dump("", "");
 	    return;
 	}

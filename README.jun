@@ -15,13 +15,13 @@ license completely.  Japanization part copyright belong to the authors
 (see below).
 
 JUnNetHackはUnNetHack-3.5にJNetHask3.4.3のパッチを当てた上でNetHackとは異
-なるJUnNetHack独自の部分の和訳を行ったものです．JUnNetHackを再配布する際は
-オリジナルのJUnNetHack-3.5のライセンス (dat/license)をよく読んでください．
-日本語化されたUnNetHackは，オリジナルの配布規定に完全に従っています．日本
-語化された部分の Copyrightは作者らにあります(下記参考)．また，オリジナル
-のライセンスで言うところの NetHackとは JNetHack をも含むとします．
+なるJUnNetHack独自の部分の和訳を行ったものです。JUnNetHackを再配布する際は
+オリジナルのJUnNetHack-3.5のライセンス (dat/license)をよく読んでください。
+日本語化されたUnNetHackは、オリジナルの配布規定に完全に従っています。日本
+語化された部分の Copyrightは作者らにあります(下記参考)。また、オリジナル
+のライセンスで言うところの NetHackとは JNetHack をも含むとします。
 
-まだいくつか不完全な部分が残っていると思いますがどうかご容赦ください．
+まだいくつか不完全な部分が残っていると思いますがどうかご容赦ください。
 
 
 			     著作権者一覧

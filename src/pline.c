@@ -336,7 +336,7 @@ impossible VA_DECL(const char *, s)
 #if 0 /*JP*/
 	pline("Program in disorder - perhaps you'd better #quit.");
 #else
-	pline("プログラムに障害発生 - #quitしたほうがよさそうだ．");
+	pline("プログラムに障害発生 - #quitしたほうがよさそうだ。");
 #endif
 	program_state.in_impossible = 0;
 	VA_END();
@@ -595,7 +595,7 @@ ustatusline()
 		Strcat(info, "ねばねばべとつくもので");
 		if ((long)u.ucreamed < Blinded || Blindfolded
 						|| !haseyes(youmonst.data))
-		    Strcat(info, "覆われている，");
+		    Strcat(info, "覆われている、");
 #endif
 	    }	/* note: "goop" == "glop"; variation is intentional */
 	}
@@ -692,7 +692,7 @@ self_invis_message()
 	    See_invisible ? "can see right through yourself" :
 		"can't see yourself");
 #else
-	pline("%sあなたは%s．",
+	pline("%sあなたは%s。",
 	    Hallucination ? "ワーオ！" : "げ！突然",
 	    See_invisible ? "自分自身がちゃんと見えなくなった" :
 		"自分自身が見えなくなった");

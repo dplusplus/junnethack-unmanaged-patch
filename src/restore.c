@@ -382,7 +382,7 @@ unsigned int *stuckid, *steedid;	/* STEED */
 #if 0 /*JP*/
 	    pline("Saved game was not yours.");
 #else
-	    pline("セーブされたゲームはあなたのものではない．");
+	    pline("セーブされたゲームはあなたのものではない。");
 #endif
 #ifdef WIZARD
 	    if (!wizard)
@@ -408,7 +408,7 @@ unsigned int *stuckid, *steedid;	/* STEED */
 #if 0 /*JP*/
 	    You("were not healthy enough to survive restoration.");
 #else
-	    You("再開できるほど健康ではなかった．");
+	    You("再開できるほど健康ではなかった。");
 #endif
 	    /* wiz1_level.dlevel is used by mklev.c to see if lots of stuff is
 	     * uninitialized, so we only have to set it and not the other stuff.
@@ -533,7 +533,7 @@ xchar ltmp;
 #if 0 /*JP*/
 		pline("Not enough space on `%s' to restore your game.",
 #else
-		pline("ゲームを再開するための`%s'のためのスペースがない．",
+		pline("ゲームを再開するための`%s'のためのスペースがない。",
 #endif
 			levels);
 
@@ -636,7 +636,7 @@ register int fd;
 		flags.debug ? " while in debug mode" :
 		flags.explore ? " while in explore mode" : "");
 #else
-	You("%s%sの地下%d階に戻ってきた．",
+	You("%s%sの地下%d階に戻ってきた。",
 	    flags.debug ? "ウィザードモード中の" :
 	    flags.explore ? "探検モード中の" : "",
 	    jtrns_obj('d',dungeons[u.uz.dnum].dname), depth(&u.uz));
@@ -745,9 +745,9 @@ char *reason;
 	pline("Somebody is trying some trickery here...");
 	pline("This game is void.");
 #else
-	pline("妙だ，この地図は私が覚えていたものと違う．．．");
+	pline("妙だ、この地図は私が覚えていたものと違う．．．");
 	pline("だれかがここでいかさまをしようとしたようだ．．．");
-	pline("このゲームは無効となる．");
+	pline("このゲームは無効となる。");
 #endif
 	killer = reason;
 	done(TRICKED);

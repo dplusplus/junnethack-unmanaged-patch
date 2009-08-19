@@ -90,7 +90,7 @@ boolean quietly;
 /*JP
 			pline("... into a pile of dust.");
 */
-			pline("．．．そしてちりの山になった．");
+			pline("．．．そしてちりの山になった。");
 		    break;	/* mtmp is null */
 		}
 	    } else if (!rn2(3)) {
@@ -102,7 +102,7 @@ boolean quietly;
 /*JP
 		    There("seems to be nothing available for a familiar.");
 */
-		    pline("下僕は現れなかった．");
+		    pline("下僕は現れなかった。");
 		  break;
 		}
 	    }
@@ -113,7 +113,7 @@ boolean quietly;
 /*JP
 		   pline_The("figurine writhes and then shatters into pieces!");
 */
-		    pline("人形はもがき，くだけ散った！");
+		    pline("人形はもがき、くだけ散った！");
 		break;
 	    }
 	} while (!mtmp && --trycnt > 0);
@@ -136,7 +136,7 @@ boolean quietly;
 /*JP
 		       You("get a bad feeling about this.");
 */
-			You("嫌な予感がした．");
+			You("嫌な予感がした。");
 		    mtmp->mpeaceful = 0;
 		    set_malign(mtmp);
 		}
@@ -581,7 +581,7 @@ boolean pets_only;	/* true for ascension or final escape */
 /*JP
 			    pline("%s is still eating.", Monnam(mtmp));
 */
-			    pline("%sはまだ食べている．", Monnam(mtmp));
+			    pline("%sはまだ食べている。", Monnam(mtmp));
 			stay_behind = TRUE;
 #ifdef BLACKMARKET                
 		} else if (mtmp->mtame && 
@@ -591,7 +591,7 @@ boolean pets_only;	/* true for ascension or final escape */
 			      Monnam(mtmp), Is_blackmarket(&u.uz) ?
 			      "through the portal" : "into the Black Market");
 #else
-			pline("%sはあなたを追って%sことができない．",
+			pline("%sはあなたを追って%sことができない。",
 			      Monnam(mtmp), Is_blackmarket(&u.uz) ?
 			      "入口をくぐる" : "ブラックマーケットに入る");
 #endif
@@ -602,7 +602,7 @@ boolean pets_only;	/* true for ascension or final escape */
 /*JP
 			    pline("%s seems very disoriented for a moment.",
 */
-			    pline("%sは一瞬方向感覚を失ったようだ．",
+			    pline("%sは一瞬方向感覚を失ったようだ。",
 				Monnam(mtmp));
 			stay_behind = TRUE;
 		} else if (mtmp->mtame && mtmp->mtrapped) {
@@ -610,7 +610,7 @@ boolean pets_only;	/* true for ascension or final escape */
 /*JP
 			    pline("%s is still trapped.", Monnam(mtmp));
 */
-			    pline("%sはまだ罠にかかったままだ．", Monnam(mtmp));
+			    pline("%sはまだ罠にかかったままだ。", Monnam(mtmp));
 			stay_behind = TRUE;
 		}
 #ifdef STEED
@@ -624,7 +624,7 @@ boolean pets_only;	/* true for ascension or final escape */
 					    ? (mtmp->female ? "Her" : "His")
 					    : "Its");
 #else
-				pline("%sに結ばれた紐は突然ゆるんだ．",
+				pline("%sに結ばれた紐は突然ゆるんだ。",
 				        humanoid(mtmp->data)
 					    ? (mtmp->female ? "彼女" : "彼")
 					    : "その生物");
@@ -670,7 +670,7 @@ boolean pets_only;	/* true for ascension or final escape */
 /*JP
 		pline("%s leash goes slack.", s_suffix(Monnam(mtmp)));
 */
-		pline("%sに結ばれた紐はたるんだ．", Monnam(mtmp));
+		pline("%sに結ばれた紐はたるんだ。", Monnam(mtmp));
 		m_unleash(mtmp, FALSE);
 	    }
 	}
@@ -889,13 +889,13 @@ register struct obj *obj;
 #else
 		    pline("%sは%sをつかまえた%s",
 			  Monnam(mtmp), the(xname(obj)),
-			  !big_corpse ? "．" : "，と言うよりその逆か！");
+			  !big_corpse ? "。" : "、と言うよりその逆か！");
 #endif
 		} else if (cansee(mtmp->mx,mtmp->my))
 /*JP
 		    pline("%s.", Tobjnam(obj, "stop"));
 */
-		    pline("%sは止まった．", xname(obj));
+		    pline("%sは止まった。", xname(obj));
 		/* dog_eat expects a floor object */
 		place_object(obj, mtmp->mx, mtmp->my);
 		(void) dog_eat(mtmp, obj, mtmp->mx, mtmp->my, FALSE);
@@ -983,7 +983,7 @@ boolean was_dead;
 					    "refuses",
 				body_part(EYE));
 #else
-			pline("%sはあなたの%s%s．",
+			pline("%sはあなたの%s%s。",
 			      Monnam(mtmp),
 			      body_part(EYE),
 			      mtmp->mpeaceful ? "を見ることができないようだ" :
@@ -993,7 +993,7 @@ boolean was_dead;
 /*JP
 			pline("%s avoids your gaze.",
 */
-			pline("%sはあなたのにらみを回避した．",
+			pline("%sはあなたのにらみを回避した。",
 				Monnam(mtmp));
 	    }
 	}

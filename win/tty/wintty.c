@@ -458,7 +458,7 @@ give_up:	/* Quit */
 /*JP
 		Sprintf(pbuf, "Pick a role for your %s", plbuf);
 */
-		Sprintf(pbuf, "%s職業を選択してください．", plbuf);
+		Sprintf(pbuf, "%s職業を選択してください。", plbuf);
 		end_menu(win, pbuf);
 		n = select_menu(win, PICK_ONE, &selected);
 		destroy_nhwindow(win);
@@ -546,7 +546,7 @@ give_up:	/* Quit */
 /*JP
 		    Sprintf(pbuf, "Pick the race of your %s", plbuf);
 */
-		    Sprintf(pbuf, "%s種族を選択してください．", plbuf);
+		    Sprintf(pbuf, "%s種族を選択してください。", plbuf);
 		    end_menu(win, pbuf);
 		    n = select_menu(win, PICK_ONE, &selected);
 		    destroy_nhwindow(win);

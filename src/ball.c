@@ -28,7 +28,7 @@ ballfall()
 /*JP
 		pline("Startled, you drop the iron ball.");
 */
-		pline("驚いてあなたは鉄球を落した．");
+		pline("驚いてあなたは鉄球を落した。");
 		if (uwep == uball)
 			setuwep((struct obj *)0);
 		if (uswapwep == uball)
@@ -43,20 +43,20 @@ ballfall()
 /*JP
 		pline_The("iron ball falls on your %s.",
 */
-		pline("鉄球はあなたの%sの上に落ちた．",
+		pline("鉄球はあなたの%sの上に落ちた。",
 			body_part(HEAD));
 		if (uarmh) {
 		    if(is_metallic(uarmh)) {
 /*JP
 			pline("Fortunately, you are wearing a hard helmet.");
 */
-			pline("幸運にも，あなたは固い兜を身につけていた．");
+			pline("幸運にも、あなたは固い兜を身につけていた。");
 			dmg = 3;
 		    } else if (flags.verbose)
 /*JP
 			Your("%s does not protect you.", xname(uarmh));
 */
-			Your("%sでは守れない．", xname(uarmh));
+			Your("%sでは守れない。", xname(uarmh));
 		}
 #if 0 /*JP*/
 		losehp(dmg, "crunched in the head by an iron ball",
@@ -584,7 +584,7 @@ drag:
 	    You("cannot %sdrag the heavy iron ball.",
 			    invent ? "carry all that and also " : "");
 #else
-	    You("%s重い鉄球をひきずることができない．",
+	    You("%s重い鉄球をひきずることができない。",
 			    invent ? "それだけの荷物を持ったまま" : "");
 #endif
 	    nomul(0);
@@ -606,7 +606,7 @@ drag:
 /*JP
 		You_feel("a tug from the iron ball.");
 */
-		You("鉄球に引っぱられた．");
+		You("鉄球に引っぱられた。");
 		if (t) t->tseen = 1;
 	    } else {
 		struct monst *victim;
@@ -733,7 +733,7 @@ xchar x, y;
 					(side == LEFT_SIDE) ? "left" : "right",
 					body_part(LEG));
 #else
-		    Your("%s%sはひどい傷を負った．",
+		    Your("%s%sはひどい傷を負った。",
 			 (side == LEFT_SIDE) ? "左" : "右",
 			 body_part(LEG));
 #endif
@@ -801,7 +801,7 @@ litter()
 				Your("%s you down the stairs.",
 				     aobjnam(otmp, "follow"));
 #else
-				You("%sと一緒に階段を降りた．",
+				You("%sと一緒に階段を降りた。",
 				     xname(otmp));
 #endif
 				dropx(otmp);
@@ -832,7 +832,7 @@ drag_down()
 /*JP
 		You("lose your grip on the iron ball.");
 */
-		You("鉄球を手から落してしまった．");
+		You("鉄球を手から落してしまった。");
 
 	if (forward) {
 		if(rn2(6)) {

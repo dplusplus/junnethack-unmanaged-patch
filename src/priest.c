@@ -110,7 +110,7 @@ pick_move:
 /*JP
 			    pline("%s picks up %s.", Monnam(mtmp),
 */
-			    pline("%sは%sを拾った．", Monnam(mtmp),
+			    pline("%sは%sを拾った。", Monnam(mtmp),
 				distant_name(ib,doname));
 			obj_extract_self(ib);
 			(void) mpickobj(mtmp, ib);
@@ -435,7 +435,7 @@ register int roomno;
 /*JP
 			msg1 = "Infidel, you have entered Moloch's Sanctum!";
 */
-			msg1 = "異端者よ！ここは，モーロックの聖域だ！";
+			msg1 = "異端者よ！ここは、モーロックの聖域だ！";
 /*JP
 			msg2 = "Be gone!";
 */
@@ -452,7 +452,7 @@ register int roomno;
 		    Sprintf(buf, "Pilgrim, you enter a %s place!",
 			    !shrined ? "desecrated" : "sacred");
 #else
-		    Sprintf(buf, "巡礼者よ，おまえは%s地にいる！",
+		    Sprintf(buf, "巡礼者よ、おまえは%s地にいる！",
 			    !shrined ? "不浄の" : "神聖なる");
 #endif
 		    msg1 = buf;
@@ -475,7 +475,7 @@ register int roomno;
 /*JP
 		    else You("experience a strange sense of peace.");
 */
-		    else You("奇妙な満ち足りた気持ちになった．");
+		    else You("奇妙な満ち足りた気持ちになった。");
 		}
 	    } else {
 		switch(rn2(3)) {
@@ -486,8 +486,8 @@ register int roomno;
 			body_part(SPINE)); break;
 #else
 		  case 0: You("ぞっとした．．．"); break;
-		  case 1: You("見つめられているような気がした．"); break;
-		  default: pline("あなたの%sを震えが走った．",
+		  case 1: You("見つめられているような気がした。"); break;
+		  default: pline("あなたの%sを震えが走った。",
 			body_part(SPINE)); break;
 #endif
 		}
@@ -511,12 +511,12 @@ register int roomno;
 /*JP
 			You("are frightened to death, and unable to move.");
 */
-			You("まっさおになって驚き，動けなくなった．");
+			You("まっさおになって驚き、動けなくなった。");
 		    nomul(-3);
 /*JP
 		    nomovemsg = "You regain your composure.";
 */
-		    nomovemsg = "あなたは平静を取り戻した．";
+		    nomovemsg = "あなたは平静を取り戻した。";
 	       }
 	   }
        }
@@ -553,7 +553,7 @@ register struct monst *priest;
 #else
 		"汝言葉を望むのか？",
 		"話す？何を言えばよいのだ！",
-		"巡礼者よ，汝に語ることなどない．"
+		"巡礼者よ、汝に語ることなどない。"
 #endif
 	    };
 
@@ -579,7 +579,7 @@ register struct monst *priest;
 /*JP
 	    verbalize("Begone!  Thou desecratest this holy place with thy presence.");
 */
-	    verbalize("立ち去れ！汝はこの神聖なる場所を汚している．");
+	    verbalize("立ち去れ！汝はこの神聖なる場所を汚している。");
 	    priest->mpeaceful = 0;
 	    return;
 	}
@@ -592,7 +592,7 @@ register struct monst *priest;
 		    pline("%s gives you %s for an ale.", Monnam(priest),
 			(priest->mgold == 1L) ? "one bit" : "two bits");
 #else
-		    pline("%sはあなたがエール酒を飲めるように，%sを与えた．", Monnam(priest),
+		    pline("%sはあなたがエール酒を飲めるように、%sを与えた。", Monnam(priest),
 			(priest->mgold == 1L) ? "金貨1枚" : "金貨2枚");
 #endif
 		    if (priest->mgold > 1L)
@@ -611,7 +611,7 @@ register struct monst *priest;
 		    pline("%s gives you %s for an ale.", Monnam(priest),
 			(pmoney == 1L) ? "one bit" : "two bits");
 #else
-		    pline("%sはあなたがエール酒を飲めるように，%sを与えた．", Monnam(priest),
+		    pline("%sはあなたがエール酒を飲めるように、%sを与えた。", Monnam(priest),
 			(priest->mgold == 1L) ? "金貨1枚" : "金貨2枚");
 #endif
 		     money2u(priest, pmoney > 1L ? 2 : 1);
@@ -620,13 +620,13 @@ register struct monst *priest;
 /*JP
 		    pline("%s preaches the virtues of poverty.", Monnam(priest));
 */
-		    pline("%sは貧困の美徳について説教した．", Monnam(priest));
+		    pline("%sは貧困の美徳について説教した。", Monnam(priest));
 		exercise(A_WIS, TRUE);
 	    } else
 /*JP
 		pline("%s is not interested.", Monnam(priest));
 */
-		pline("%sは興味を示さない．", Monnam(priest));
+		pline("%sは興味を示さない。", Monnam(priest));
 	    return;
 	} else {
 	    long offer;
@@ -634,7 +634,7 @@ register struct monst *priest;
 /*JP
 	    pline("%s asks you for a contribution for the temple.",
 */
-	    pline("%sはあなたに寺院への寄贈を求めた．",
+	    pline("%sはあなたに寺院への寄贈を求めた。",
 			Monnam(priest));
 	    if((offer = bribe(priest)) == 0) {
 /*JP
@@ -647,18 +647,18 @@ register struct monst *priest;
 /*JP
 		if(u.ugold > (offer * 2L)) verbalize("Cheapskate.");
 */
-		if(u.ugold > (offer * 2L)) verbalize("ケチめ．");
+		if(u.ugold > (offer * 2L)) verbalize("ケチめ。");
 #else
 /*JP
 		if(money_cnt(invent) > (offer * 2L)) verbalize("Cheapskate.");
 */
-		if(money_cnt(invent) > (offer * 2L)) verbalize("ケチめ．");
+		if(money_cnt(invent) > (offer * 2L)) verbalize("ケチめ。");
 #endif
 		else {
 /*JP
 		    verbalize("I thank thee for thy contribution.");
 */
-		    verbalize("汝の寄贈に報いようぞ．");
+		    verbalize("汝の寄贈に報いようぞ。");
 		    /*  give player some token  */
 		    exercise(A_WIS, TRUE);
 		}
@@ -666,7 +666,7 @@ register struct monst *priest;
 /*JP
 		verbalize("Thou art indeed a pious individual.");
 */
-		verbalize("汝，まさに敬虔なり．");
+		verbalize("汝、まさに敬虔なり。");
 #ifndef GOLDOBJ
 		if(u.ugold < (offer * 2L)) {
 #else
@@ -677,7 +677,7 @@ register struct monst *priest;
 /*JP
 		    verbalize("I bestow upon thee a blessing.");
 */
-		    verbalize("汝に祝福を．");
+		    verbalize("汝に祝福を。");
 		    incr_itimeout(&HClairvoyant, rn1(500,500));
 		}
 	    } else if(offer < (u.ulevel * 600) &&
@@ -686,7 +686,7 @@ register struct monst *priest;
 /*JP
 		verbalize("Thy devotion has been rewarded.");
 */
-		verbalize("汝が献身に報わん．");
+		verbalize("汝が献身に報わん。");
 		if (!(HProtection & INTRINSIC))  {
 			HProtection |= FROMOUTSIDE;
 			if (!u.ublessed)  u.ublessed = rn1(3, 2);
@@ -695,7 +695,7 @@ register struct monst *priest;
 /*JP
 		verbalize("Thy selfless generosity is deeply appreciated.");
 */
-		verbalize("汝自身の真価は大いに認められた．");
+		verbalize("汝自身の真価は大いに認められた。");
 #ifndef GOLDOBJ
 		if(u.ugold < (offer * 2L) && coaligned) {
 #else
@@ -829,7 +829,7 @@ struct monst *priest;
 /*JP
 	    pline("%s roars in anger:  \"Thou shalt suffer!\"",
 */
-	    pline("%sは怒りの声をあげた：「汝，苦しむがよい！」",
+	    pline("%sは怒りの声をあげた：「汝、苦しむがよい！」",
 			a_gname_at(ax, ay));
 	    break;
 	case 1:
@@ -843,7 +843,7 @@ struct monst *priest;
 /*JP
 	    pline("%s roars:  \"Thou dost profane my shrine!\"",
 */
-	    pline("%sの声が聞こえる：「汝，我が聖堂を汚したり！」",
+	    pline("%sの声が聞こえる：「汝、我が聖堂を汚したり！」",
 			a_gname_at(ax, ay));
 	    break;
 	}

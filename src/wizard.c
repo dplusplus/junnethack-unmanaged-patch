@@ -83,12 +83,12 @@ amulet()
 /*JP
 			pline("%s very warm.", Tobjnam(amu, "feel"));
 */
-			pline("%sはとても暖かく感じた．", xname(amu));
+			pline("%sはとても暖かく感じた。", xname(amu));
 		    else if (du <= 144)
 /*JP
 			pline("%s warm.", Tobjnam(amu, "feel"));
 */
-			pline("%sは暖かく感じた．", xname(amu));
+			pline("%sは暖かく感じた。", xname(amu));
 		    /* else, the amulet feels normal */
 		    break;
 		}
@@ -106,7 +106,7 @@ amulet()
 /*JP
     "get the creepy feeling that somebody noticed your taking the Amulet."
 */
- "あなたが魔除けを持っていることが誰かに知られたと感じてぞくぞくした．"
+ "あなたが魔除けを持っていることが誰かに知られたと感じてぞくぞくした。"
 		    );
 		return;
 	    }
@@ -380,7 +380,7 @@ tactics(mtmp)
 /*JP
 				pline("%s picks up %s.",
 */
-				pline("%sは%sを拾った．",
+				pline("%sは%sを拾った。",
 				    Monnam(mtmp),
 				    (distu(mtmp->mx, mtmp->my) <= 5) ?
 				     doname(otmp) : distant_name(otmp, doname));
@@ -553,7 +553,7 @@ resurrect()
 /*JP
 		verbalize("So thou thought thou couldst %s me, fool.", verb);
 */
-		verbalize("余%sと思いしか，痴れ者が．", verb);
+		verbalize("余%sと思いしか、痴れ者が。", verb);
 	}
 
 }
@@ -570,13 +570,13 @@ intervene()
 /*JP
 	    case 1:	You_feel("vaguely nervous.");
 */
-	    case 1:	You("何となく不安になった．");
+	    case 1:	You("何となく不安になった。");
 			break;
 	    case 2:	if (!Blind)
 /*JP
 			    You("notice a %s glow surrounding you.",
 */
-			    pline("%s光があなたをとりまいているのに気がついた．",
+			    pline("%s光があなたをとりまいているのに気がついた。",
 				  hcolor(NH_BLACK));
 			rndcurse();
 			break;
@@ -675,16 +675,16 @@ const char * const random_malediction[] = {
 	"Thy fate is sealed,",
 	"Verily, thou shalt be one dead"
 #else
-	"地獄はいづれ，汝の亡骸を要求するであろう，",
-	"哀れなやつよのう．余は満足じゃ",
-	"汝，死に備えよ",
-	"抵抗しても無駄じゃ，",
-	"降参せよ．さもなくば死じゃ．",
+	"地獄はいづれ、汝の亡骸を要求するであろう、",
+	"哀れなやつよのう。余は満足じゃ",
+	"汝、死に備えよ",
+	"抵抗しても無駄じゃ、",
+	"降参せよ。さもなくば死じゃ。",
 	"慈悲は無からん",
-	"汝，ずるを後悔すべし，",
-	"汝は余にとってノミのようなものじゃ，",
-	"汝は呪われておる，",
-	"汝の運命は封印されておる，",
+	"汝、ずるを後悔すべし、",
+	"汝は余にとってノミのようなものじゃ、",
+	"汝は呪われておる、",
+	"汝の運命は封印されておる、",
 	"まことに汝は死にたる者なり"
 #endif
 };
@@ -699,13 +699,13 @@ register struct monst	*mtmp;
 /*JP
 		pline("%s laughs fiendishly.", Monnam(mtmp));
 */
-		pline("%sは悪魔のように笑った．", Monnam(mtmp));
+		pline("%sは悪魔のように笑った。", Monnam(mtmp));
 	    else
 		if (u.uhave.amulet && !rn2(SIZE(random_insult)))
 /*JP
 		    verbalize("Relinquish the amulet, %s!",
 */
-		    verbalize("魔よけを手放せ，%s！",
+		    verbalize("魔よけを手放せ、%s！",
 			  random_insult[rn2(SIZE(random_insult))]);
 		else if (u.uhp < 5 && !rn2(2))	/* Panic */
 		    verbalize(rn2(2) ?
@@ -713,8 +713,8 @@ register struct monst	*mtmp;
 			  "Even now thy life force ebbs, %s!" :
 			  "Savor thy breath, %s, it be thy last!",
 #else
-			  "今となってもなお汝の命はあえて衰えるのだ，%s！" :
-			  "息を味わっておけ，%s，汝の最期の時だ！",
+			  "今となってもなお汝の命はあえて衰えるのだ、%s！" :
+			  "息を味わっておけ、%s、汝の最期の時だ！",
 #endif
 			  random_insult[rn2(SIZE(random_insult))]);
 		else if (mtmp->mhp < 5 && !rn2(2))	/* Parthian shot */
@@ -723,14 +723,14 @@ register struct monst	*mtmp;
 			      "I shall return." :
 			      "I'll be back.");
 #else
-			      "余は必ず帰ってくる．" :
-			      "余は戻ってくる．");
+			      "余は必ず帰ってくる。" :
+			      "余は戻ってくる。");
 #endif
 		else
 #if 0 /*JP*/
 		    verbalize("%s %s!",
 #else
-		    verbalize("%s，%s！",
+		    verbalize("%s、%s！",
 #endif
 			  random_malediction[rn2(SIZE(random_malediction))],
 			  random_insult[rn2(SIZE(random_insult))]);
@@ -742,7 +742,7 @@ register struct monst	*mtmp;
 /*JP
 		pline("%s casts aspersions on your ancestry.", Monnam(mtmp));
 */
-		pline("%sはあなたの家柄を中傷した．", Monnam(mtmp));
+		pline("%sはあなたの家柄を中傷した。", Monnam(mtmp));
 	    else
 	        com_pager(rn2(QTN_DEMONIC) + QT_DEMONIC);
 	}

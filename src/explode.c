@@ -278,7 +278,7 @@ int expltype;
 /*JP
 	    if (flags.soundok) You_hear("a blast.");
 */
-	    if (flags.soundok) You_hear("爆発音を聞いた．");
+	    if (flags.soundok) You_hear("爆発音を聞いた。");
 	}
 
     if (dam)
@@ -555,7 +555,7 @@ struct obj *obj;			/* only scatter this obj        */
 /*JP
 		    pline("%s apart.", Tobjnam(otmp, "break"));
 */
-		    pline("%sは一部分が砕けた．",xname(otmp));
+		    pline("%sは一部分が砕けた。",xname(otmp));
 		    fracture_rock(otmp);
 		    place_object(otmp, sx, sy);
 		    if ((otmp = sobj_at(BOULDER, sx, sy)) != 0) {
@@ -571,7 +571,7 @@ struct obj *obj;			/* only scatter this obj        */
 /*JP
 		    pline("%s.", Tobjnam(otmp, "crumble"));
 */
-		    pline("%sはこなごなになった．",xname(otmp));
+		    pline("%sはこなごなになった。",xname(otmp));
 		    (void) break_statue(otmp);
 #ifndef FIX_BUG_C340_2
 		    place_object(otmp, sx, sy);	/* put fragments on floor */

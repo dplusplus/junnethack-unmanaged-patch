@@ -159,13 +159,13 @@ getlock()
 /*JP
 		    c = yn("There is already a game in progress under your name.  Destroy old game?");
 */
-		    c = yn("あなたの名前で不正終了したゲームが残っています．破棄しますか？");
+		    c = yn("あなたの名前で不正終了したゲームが残っています。破棄しますか？");
 		} else {
 #if 0 /*JP*/
 		    (void) printf("\nThere is already a game in progress under your name.");
 		    (void) printf("  Destroy old game? [yn] ");
 #else
-		    (void) printf("\nあなたの名前で不正終了したゲームが残っています．");
+		    (void) printf("\nあなたの名前で不正終了したゲームが残っています。");
 		    (void) printf("破棄しますか？[yn] ");
 #endif
 		    (void) fflush(stdout);
