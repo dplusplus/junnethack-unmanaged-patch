@@ -53,7 +53,11 @@
 #endif
 #define OPTIONS_FILE OPTIONS_USED
 
+#if 0 /*JP*/
 #define PORT_HELP	"porthelp"
+#else
+#define PORT_HELP	"jporthelp"
+#endif
 
 #ifdef WIN32CON
 #define PORT_DEBUG	/* include ability to debug international keyboard issues */

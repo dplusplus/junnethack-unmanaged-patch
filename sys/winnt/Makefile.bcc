@@ -945,8 +945,8 @@ $(DAT)\jporthelp: $(NTSYS)\jporthelp
 
 nhdat:	$(U)dlb_main.exe $(DAT)\data $(DAT)\joracles $(OPTIONS_FILE) \
 	$(DAT)\quest.dat $(DAT)\jrumors $(DAT)\jhelp $(DAT)\jhh $(DAT)\jcmdhelp \
-	$(DAT)\jhistory $(DAT)\jopthelp $(DAT)\jwizhelp $(DAT)\dungeon $(DAT)\porthelp \
-	$(DAT)\license $(O)sp_lev.tag
+	$(DAT)\jhistory $(DAT)\jopthelp $(DAT)\jwizhelp $(DAT)\dungeon \
+	$(DAT)\jporthelp $(DAT)\license $(O)sp_lev.tag
 	cd $(DAT)
 	echo data >dlb.lst
 	echo joracles >>dlb.lst

@@ -191,16 +191,16 @@ menu_*     メニューコマンドで使用する一文字のキャラクタ。以下にあるのは
            全てのコマンドのメニューである。それぞれに続く( )内文字の意味
            は次の通り: 'x' = x11, 't' = tty, 'g' = Gem, 'a' = Amiga.
            menu_deselect_all  全てのアイテムを非選択 [-](gxta)
-           menu_deselect_page 現在表示されているページのアイテムを非選択 [\](gta)
+           menu_deselect_page 現在表示中のページのアイテムを非選択 [\](gta)
            menu_first_page    メニューの最初のページへ [^](gta)
            menu_invert_all    全てのアイテムを反転 [@](gxta)
-           menu_invert_page   現在表示されているページのアイテムを反転 [~](gta)
+           menu_invert_page   現在表示中のページのアイテムを反転 [~](gta)
            menu_last_page     メニューの最後のページへ [|](gta)
            menu_next_page     次のメニューのページへ [>](gta)
            menu_previous_page 前のメニューのページへ [<](gta)
            menu_search        メニューの検索 [:](gxa)
            menu_select_all    全てのアイテムを選択 [.](gxta)
-           menu_select_page   現在表示されている全てのアイテムを選択 [,](gta)
+           menu_select_page   現在表示中の全てのアイテムを選択 [,](gta)
 monsters   dungeon同様、怪物のためのシンボル。
            デフォルト:  abcdefghijklmnopqrstuvwxyz
                         ABCDEFGHIJKLMNOPQRSTUVWXYZ@\ \\&;:~]
@@ -228,7 +228,7 @@ windowtype 使用するウインドゥシステム [システム依存]
 コンパイル時に TTY_GRAPHICS が設定されているならば:
 msg_window 使用するメッセージウィンドウの種類:
            single      -- 一度に 1 メッセージずつ
-           full        -- 保存されている全てのメッセージを降るウィンドウで表示
+           full        -- 保存されている全てのメッセージをフルウィンドウで表示
            reverse     -- full と同様だが、新しいメッセージから順に表示
            combination -- 1 メッセージを 2 回、その後は full
            default:  single
