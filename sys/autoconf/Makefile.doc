@@ -83,7 +83,8 @@ manpages:
 	-$(DLBMANCREATE) $(MANDIR)/dlb.$(MANEXT)
 
 # manual creation for distribution
-DISTRIB = Guidebook.txt $(GAME).txt lev_comp.txt dgn_comp.txt recover.txt dlb.txt
+#DISTRIB = Guidebook.txt $(GAME).txt lev_comp.txt dgn_comp.txt recover.txt dlb.txt
+DISTRIB = jGuidebook.txt $(GAME).txt lev_comp.txt dgn_comp.txt recover.txt dlb.txt
 
 distrib: $(DISTRIB)
 	@echo "Plain text documentation is up to date."

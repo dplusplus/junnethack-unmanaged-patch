@@ -173,6 +173,9 @@ dungeon: $(GAME)
 Guidebook.txt:
 	( cd doc; $(MAKE) Guidebook.txt )
 
+jGuidebook.txt:
+	( cd doc; $(MAKE) jGuidebook.txt )
+
 tiles.bmp: $(GAME)
 	( cd dat ; $(MAKE) tiles.bmp )
 
@@ -235,8 +238,11 @@ dofiles:
 	(cd src; cp $(GAME) @EXTRA_UNSHARE@ $(FILE_AREA_UNSHARE))
 	@HOST_MSWIN@cp $(srcdir)/sys/winnt/defaults.nh $(FILE_AREA_UNSHARE)
 	cp util/recover$(EXEEXT) $(FILE_AREA_UNSHARE)
-	if test -f $(srcdir)/doc/Guidebook.txt ; then \
-		cp $(srcdir)/doc/Guidebook.txt $(FILE_AREA_DOC); \
+#	if test -f $(srcdir)/doc/Guidebook.txt ; then \
+#		cp $(srcdir)/doc/Guidebook.txt $(FILE_AREA_DOC); \
+#	fi
+	if test -f $(srcdir)/doc/jGuidebook.txt ; then \
+		cp $(srcdir)/doc/jGuidebook.txt $(FILE_AREA_DOC); \
 	fi
 	cp $(srcdir)/dat/license $(FILE_AREA_DOC)
 #	cp win/Qt/KDE/kunnethack.kdelnk $(KDEDIR)/share/applnk/Games
