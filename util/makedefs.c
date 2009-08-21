@@ -2390,9 +2390,9 @@ static int rhash_tab[HASHSIZE];
 
 static int
 split_string(buf, key, val)
-char *buf, *key, *val;
+unsigned char *buf, *key, *val;
 {
-    char *p;
+    unsigned char *p;
 
     if(buf[0] == '#') return 0;
     p = buf;
@@ -2402,7 +2402,7 @@ char *buf, *key, *val;
 
     while(*p!=':'){
 	if(!*p) return 0;
-	else if(*(unsigned char *)p<128) {
+	else if(*p<128) {
 	    *key++ = *p++;
 	} else {
 	    *key++ = *p++;
@@ -2417,7 +2417,7 @@ char *buf, *key, *val;
 
     while(*p != ':'){
 	if(!*p) return 0;
-	else if(*(unsigned char *)p<128) {
+	else if(*p<128) {
 	    *val++ = *p++;
 	} else {
 	    *val++ = *p++;
