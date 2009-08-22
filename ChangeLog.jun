@@ -1,0 +1,9 @@
+Sat Aug 22 2009  Masaki Miyaso  <so-miya@sourceforge.jp>
+	* JUnNetHack-3.5.1-J0.1.0リリース
+	* JNetHack-3.4.3-0.10をUnNetHack-3.5.1に適用
+	* autoconfでコンパイルできるように修正。ただし、jdata.hは文字
+	  化けするため、bccのものを使用。
+	* Makefile.bccでコンパイルできるように修正。
+	* 翻訳追加修正。各所の訳において、JSporkHack、FHS Patch、
+	  JSLASH'EMを参考にしました。
+	* 句読点を「．，」から「。、」に統一しました。
