@@ -6851,9 +6851,9 @@ fi
 
 if test "$HAVE_NROFF" != "no" ; then
 if test "$HAVE_TBL" != "no" ; then
-	GUIDEBOOK=Guidebook
+	GUIDEBOOK=jGuidebook
 
-	GUIDEBOOK_TXT=Guidebook.txt
+	GUIDEBOOK_TXT=jGuidebook.txt
 
 fi
 fi

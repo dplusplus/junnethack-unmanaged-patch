@@ -31,18 +31,18 @@ PSCMD = groff -Wall -Tps
 # GUIDECMD = tbl tmac.n Guidebook.mn | nroff -c -Tascii | $(COLCMD)
 # GUIDECMD = tbl tmac.n Guidebook.mn | groff -Wall -mtty-char -Tascii -P-u -P-b 
 #GUIDECMD = tbl $(srcdir)/tmac.n $(srcdir)/Guidebook.mn | nroff -c -Tascii | $(COLCMD)
-GUIDECMD = tbl $(srcdir)/tmac.n $(srcdir)/jGuidebook.mn | nroff -c -Tascii | $(COLCMD)
+GUIDECMD = tbl $(srcdir)/tmac.n $(srcdir)/jGuidebook.mn | nroff -c -Tnippon | $(COLCMD)
 
 # the basic guidebook
-Guidebook:	Guidebook.mn
-	$(GUIDECMD) > Guidebook
+#Guidebook:	Guidebook.mn
+#	$(GUIDECMD) > Guidebook
+
+jGuidebook:	jGuidebook.mn
+	$(GUIDECMD) > jGuidebook
 
 # Fancier output for those with ditroff, psdit and a PostScript printer.
 Guidebook.ps:	Guidebook.mn
 	tbl tmac.n Guidebook.mn | $(PSCMD) > Guidebook.ps
-
-jGuidebook:	jGuidebook.mn
-	$(GUIDECMD) > jGuidebook
 
 jGuidebook.ps:	jGuidebook.mn
 	tbl tmac.n jGuidebook.mn | $(PSCMD) > jGuidebook.ps
