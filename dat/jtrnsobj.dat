@@ -331,6 +331,9 @@
 =quartz:	石英の指輪:
 =porcelain:	磁器製の指輪:
 =ceramic:	陶器製の指輪:
+=plain:		簡素な指輪:		#Slash
+=glass:		ガラスの指輪:		#Slash
+=obsidian:	黒燿石の指輪:		#Slash
 =ridged:	峰の尖った指輪:		#Slash'em
 =wedding:	結婚指輪:		#Slash
 =mithril:	ミスリルの指輪:		#UnNetHack
