@@ -49,13 +49,32 @@ char *buf;
 	return buf;
 }
 
+#if 1 /*JP*/
+/* fill and return the given buffer with the long nethack version string */
+char *
+getjversionstring(buf)
+char *buf;
+{
+	Strcpy(buf, JVERSION_ID);
+#if defined(BETA) && defined(BETA_INFO)
+	Sprintf(eos(buf), " %s", BETA_INFO);
+#endif
+#if defined(RUNTIME_PORT_ID)
+	append_port_id(buf);
+#endif
+	return buf;
+}
+#endif /*JP*/
+
 int
 doversion()
 {
 	char buf[BUFSZ];
 
 	pline("%s", getversionstring(buf));
-	pline(JVERSION_ID);
+#if 1 /*JP*/
+	pline("%s", getjversionstring(buf));
+#endif /*JP*/
 	return 0;
 }
 

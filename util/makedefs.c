@@ -605,15 +605,15 @@ const char *build_date;
 	Sprintf(outbuf,
 #ifdef BETA
 # ifdef PORT_SUB_ID
-		"%s JNetHack %s Beta Version %d.%d.%d-%d - last build %s.",
+		"%s JUnNetHack %s Beta Version %d.%d.%d-%d - last build %s.",
 # else
-		"%s JNetHack Beta Version %d.%d.%d-%d - last build %s.",
+		"%s JUnNetHack Beta Version %d.%d.%d-%d - last build %s.",
 # endif
 #else
 # ifdef PORT_SUB_ID
-		"%s JNetHack %s Version %d.%d.%d - last build %s.",
+		"%s JUnNetHack %s Version %d.%d.%d - last build %s.",
 # else
-		"%s JNetHack Version %d.%d.%d - last build %s.",
+		"%s JUnNetHack Version %d.%d.%d - last build %s.",
 # endif
 #endif
 		PORT_ID,

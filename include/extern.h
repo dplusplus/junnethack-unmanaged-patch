@@ -2189,6 +2189,9 @@ E boolean NDECL(gd_sound);
 
 E char *FDECL(version_string, (char *));
 E char *FDECL(getversionstring, (char *));
+#if 1 /*JP*/
+E char *FDECL(getjversionstring, (char *));
+#endif
 E int NDECL(doversion);
 E int NDECL(doextversion);
 #ifdef MICRO
