@@ -816,7 +816,11 @@ boolean called;
 
 	/* Put the adjectives in the buffer */
 	if (adjective)
+#if 0 /*JP*/
 	    Strcat(strcat(buf, adjective), " ");
+#else
+	    Strcat(buf, adjective);
+#endif
 	if (do_invis)
 /*JP
 	    Strcat(buf, "invisible ");

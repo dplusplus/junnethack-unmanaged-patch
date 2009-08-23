@@ -1908,9 +1908,9 @@ int nameflg;
     switch (Role_switch) {
     case PM_KNIGHT:
 	if(nameflg)
-	    Sprintf(helo_buf, "‚æ‚­‚¼™Ò‚Á‚½%s‚æ", plname);
+	    Sprintf(helo_buf, "‚æ‚­‚¼ŽQ‚Á‚½%s‚æ", plname);
 	else
-	    Sprintf(helo_buf, "‚æ‚­‚¼™Ò‚Á‚½");
+	    Sprintf(helo_buf, "‚æ‚­‚¼ŽQ‚Á‚½");
 	break;
     case PM_SAMURAI:
 	if(nameflg)

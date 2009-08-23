@@ -849,7 +849,7 @@ mattacku(mtmp)
 /*JP
 				pline("%s gulps some air!", Monnam(mtmp));
 */
-				pline("%s‚Í‘§‚ğ‹z‚¢‚±‚ñ‚½I", Monnam(mtmp));
+				pline("%s‚Í‘§‚ğ‹z‚¢‚±‚ñ‚¾I", Monnam(mtmp));
 			    } else {
 				if (youseeit)
 /*JP

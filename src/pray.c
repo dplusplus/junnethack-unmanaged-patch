@@ -1393,7 +1393,7 @@ gods_angry(g_align)
 /*JP
     godvoice(g_align, "Thou hast angered me.");
 */
-    godvoice(g_align, "汝、我を怒らしめた。");
+    godvoice(g_align, "汝、我を怒らしめたり。");
 }
 
 /* The g_align god is upset with you. */

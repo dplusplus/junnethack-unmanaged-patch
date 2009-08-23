@@ -617,11 +617,13 @@ peffects(otmp)
 			pline("酸のように舌がひりひりする！");
 			exercise(A_CON, FALSE);
 			if (u.ulycn >= LOW_PM) {
-/*JP
+#if 0 /*JP*/
 			    Your("affinity to %s disappears!",
-*/
-			    Your("%sへの親近感はなくなった！",
 				 makeplural(mons[u.ulycn].mname));
+#else
+			    Your("%s達への親近感はなくなった！",
+				 jtrns_mon(mons[u.ulycn].mname));
+#endif
 			    if (youmonst.data == &mons[u.ulycn])
 				you_unwere(FALSE);
 			    u.ulycn = NON_PM;	/* cure lycanthropy */
@@ -661,7 +663,7 @@ peffects(otmp)
 			    losehp(d(2,6), "potion of unholy water",
 				KILLED_BY_AN);
 #else
-			    losehp(d(2,6), "不浄水で",
+			    losehp(d(2,6), "不浄な水で",
 				KILLED_BY_AN);
 #endif
 			} else

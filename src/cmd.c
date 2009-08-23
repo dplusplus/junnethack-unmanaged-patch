@@ -1055,7 +1055,7 @@ int final;	/* 0 => still in progress; 1 => over, survived; 2 => dead */
 		enl_msg("Your alignment ", "is", "was", buf);
 #else
 		Sprintf(buf, "‚ ‚È‚½‚Ì‘®«’l‚Í%d", u.ualign.record);
-		you_are(buf);
+		enl_msg(buf, "‚Å‚ ‚é", "‚¾‚Á‚½", "");
 #endif
 	}
 #endif
@@ -1265,7 +1265,7 @@ int final;	/* 0 => still in progress; 1 => over, survived; 2 => dead */
 /*JP
 		you_are("poorly adorned");
 */
-		you_are_ing("‚İ‚¸‚Ù‚ç‚µ‚­’…ü‚Á‚Ä");
+		you_are_ing("‚İ‚·‚Ú‚ç‚µ‚­’…ü‚Á‚Ä");
 	    else
 /*JP
 		you_are("adorned");

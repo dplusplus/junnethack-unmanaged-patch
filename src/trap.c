@@ -1189,7 +1189,10 @@ glovecheck:		(void) rust_dmg(uarmg, "¬è", 1, TRUE, &youmonst);
 #ifdef STEED
 		    if (u.usteed) {
 		    	if ((trflags & RECURSIVETRAP) != 0)
+/*JP
 			    Sprintf(verbbuf, "and %s fall",
+*/
+			    Sprintf(verbbuf, "‚Æ%s",
 				x_monnam(u.usteed,
 				    u.usteed->mnamelth ? ARTICLE_NONE : ARTICLE_THE,
 				    (char *)0, SUPPRESS_SADDLE, FALSE));
@@ -1381,7 +1384,7 @@ glovecheck:		(void) rust_dmg(uarmg, "¬è", 1, TRUE, &youmonst);
 		      		locomotion(youmonst.data, "stumble"));
 #else
 		    Sprintf(verbbuf, "%s", Levitation ? (const char *)"•‚‚«‚È‚ª‚ç" :
-		      		jpast(locomotion(youmonst.data, "‚Â‚Ü‚¸‚­")));
+		      		jconj(locomotion(youmonst.data, "‚Â‚Ü‚¸‚­"), "‚Ä"));
 #endif
 #if 0 /*JP*/
 		    You("%s into %s spider web!",

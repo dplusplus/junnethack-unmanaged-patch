@@ -259,7 +259,7 @@ adjattrib(ndx, incr, msgflg)
 		  (incr > 0) ? plusattr[ndx] : minusattr[ndx]);
 #else
 	    You("%s%s‚È‚Á‚½‚æ‚¤‚È‹C‚ª‚µ‚½I",
-		  (incr > 1 || incr < -1) ? "‚Æ‚Ä‚à ": "",
+		  (incr > 1 || incr < -1) ? "‚Æ‚Ä‚à": "",
 		  jconj_adj((incr > 0) ? plusattr[ndx] : minusattr[ndx]));
 #endif
 	flags.botl = 1;
