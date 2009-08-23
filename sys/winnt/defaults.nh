@@ -187,11 +187,16 @@ OPTIONS=hilite_pet,!toptenwin
 #          047 045 092 058 032 058 092 045 047
 
 OPTIONS=menucolors
-MENUCOLOR="* blessed *"=green
-MENUCOLOR="* holy *"=green
-MENUCOLOR="* cursed *"=red
-MENUCOLOR="* unholy *"=red
-MENUCOLOR="* cursed * (being worn)"=orange
+#MENUCOLOR="* blessed *"=green
+#MENUCOLOR="* holy *"=green
+#MENUCOLOR="* cursed *"=red
+#MENUCOLOR="* unholy *"=red
+#MENUCOLOR="* cursed * (being worn)"=orange
+MENUCOLOR:"*èjïüÇ≥ÇÍÇΩ*"=lightgreen
+MENUCOLOR:"*êπêÖ*"=lightgreen
+MENUCOLOR:"*éÙÇÌÇÍÇΩ*"=red
+MENUCOLOR:"*ïsèÚÇ»*"=red
+MENUCOLOR:"*éÙÇÌÇÍÇΩ*(êgÇ…Ç¬ÇØÇƒÇ¢ÇÈ)"=orange
 
 OPTIONS= showborn
 OPTIONS= !newcolors
