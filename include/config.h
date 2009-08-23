@@ -113,9 +113,11 @@
 #endif
 
 #ifdef MSWIN_GRAPHICS
+#if 0 /*JP*/
 # ifdef TTY_GRAPHICS
 # undef TTY_GRAPHICS
 # endif
+#endif /*JP*/
 # ifndef DEFAULT_WINDOW_SYS
 #  define DEFAULT_WINDOW_SYS "mswin"
 # endif
@@ -421,7 +423,9 @@ typedef unsigned char	uchar;
 
 #if defined(TTY_GRAPHICS) || defined(MSWIN_GRAPHICS)
 # define MENU_COLOR
-# define MENU_COLOR_REGEX
+# if !defined(_MSC_VER) && !defined(__BORLANDC__)
+#  define MENU_COLOR_REGEX
+# endif
 /*# define MENU_COLOR_REGEX_POSIX */
 /* if MENU_COLOR_REGEX is defined, use regular expressions (regex.h,
  * GNU specific functions by default, POSIX functions with

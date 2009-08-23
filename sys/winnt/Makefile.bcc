@@ -220,15 +220,15 @@ WINPHDR	= $(WIN32)\mhaskyn.h $(WIN32)\mhdlg.h $(WIN32)\mhfont.h \
 	$(WIN32)\mhinput.h $(WIN32)\mhmain.h $(WIN32)\mhmap.h $(WIN32)\mhmenu.h \
 	$(WIN32)\mhmsg.h $(WIN32)\mhmsgwnd.h $(WIN32)\mhrip.h $(WIN32)\mhstatus.h \
 	$(WIN32)\mhtext.h $(WIN32)\resource.h $(WIN32)\winMS.h
-WINDLLS	= $(GAMEDIR)\nhdefkey.dll $(GAMEDIR)\nh340key.dll $(GAMEDIR)\nhraykey.dll
-WINPFLAG= -DTILES -DMSWIN_GRAPHICS -DWIN32CON
+WINDLLS	=
+WINPFLAG= -DTILES -DWIN32CON -DMSWIN_GRAPHICS -DTTY_GRAPHICS
 NHRES	= $(O)winhack.res
 WINPINC	= -I$(WIN32)
 !ELSE
 WINPORT	=
 WINPHDR	=
 WINDLLS	= $(GAMEDIR)\nhdefkey.dll $(GAMEDIR)\nh340key.dll $(GAMEDIR)\nhraykey.dll
-WINPFLAG= -DWIN32CON
+WINPFLAG= -DWIN32CON -DTTY_GRAPHICS
 NHRES	= $(O)console.res
 WINPINC	=
 !ENDIF
