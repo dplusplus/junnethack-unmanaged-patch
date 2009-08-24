@@ -3060,7 +3060,7 @@ n - 確認するが、標準設定はノーにする。
 .\"O systems.
 ゲーム終了時の公開情報を書き出すファイル名。 %nマクロを使用することで
 プレイキャラクター名に置き換えることができる。
-このゲームはそのディレクトリにファイルを書き出すため，書き込み権限を要求する。
+このゲームはそのディレクトリにファイルを書き出すため、書き込み権限を要求する。
 通常はUnixシステムにおいて/tmpを指定する。
 .lp dungeon
 .\"O Set the graphics symbols for displaying the dungeon
@@ -3622,6 +3622,12 @@ MSDOSのプロテクトモードで、タイルをゲームの始めにあらかじめ RAM に
 .\"O something pushes the old item into your alternate weapon slot (default off).
 既に武器を持っている時に `w' (wield: 武器を持つ) コマンドを使ったとき、
 既に持っていた武器を予備の武器に設定する(標準設定はオフ)。
+.lp qwertz_layout
+.\"O If QWERTZ was set in config.h at compile-time this option can be used to swap
+.\"O the y and z keys. This is useful for some keyboard layouts.
+コンパイル時にconfig.hにQWERTZが設定されていれば、
+このオプションを指定することでyキーとzキーを入れ替えることができる。
+これによってキーボードレイアウトを多少便利にする。
 .lp "race    "
 .\"O Selects your race (for example, ``race:human'').  Default is random.
 種族を選択する(例: ``race:human'')。標準設定はランダムである。

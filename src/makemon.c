@@ -643,6 +643,14 @@ register struct	monst	*mtmp;
 		mkmonmoney(mtmp, (long) d(level_difficulty(), 30));
 #endif
 		break;
+	    case S_VAMPIRE:
+		if (rn2(2)) {
+		    if ((int) mtmp->m_lev > rn2(30))
+			(void)mongets(mtmp, POT_VAMPIRE_BLOOD);
+		    else
+			(void)mongets(mtmp, POT_BLOOD);
+		}
+		break;
 	    case S_DEMON:
 	    	/* moved here from m_initweap() because these don't
 		   have AT_WEAP so m_initweap() is not called for them */
@@ -1204,6 +1212,32 @@ register struct permonst *ptr;
     return alshift;
 }
 
+/** Returns the level of the weakest monster to make. */
+int
+min_monster_difficulty()
+{
+	int zlevel = level_difficulty();
+	if (u.uevent.udemigod) {
+		/* all hell breaks loose */
+		return zlevel / 4;
+	} else {
+		return zlevel / 6;
+	}
+}
+
+/** Returns the level of the strongest monster to make. */
+int
+max_monster_difficulty()
+{
+	int zlevel = level_difficulty();
+	if (u.uevent.udemigod) {
+		/* all hell breaks loose */
+		return monstr[PM_DEMOGORGON];
+	} else {
+		return (zlevel + u.ulevel) / 2;
+	}
+}
+
 static NEARDATA struct {
 	int choice_count;
 	char mchoices[SPECIAL_PM];	/* value range is 0..127 */
@@ -1220,7 +1254,7 @@ rndmonst()
 	    return ptr;
 
 	if (rndmonst_state.choice_count < 0) {	/* need to recalculate */
-	    int zlevel, minmlev, maxmlev;
+	    int minmlev, maxmlev;
 	    boolean elemlevel;
 #ifdef REINCARNATION
 	    boolean upper;
@@ -1239,11 +1273,8 @@ rndmonst()
 #endif
 		return (struct permonst *)0;
 	    } /* else `mndx' now ready for use below */
-	    zlevel = level_difficulty();
-	    /* determine the level of the weakest monster to make. */
-	    minmlev = zlevel / 6;
-	    /* determine the level of the strongest monster to make. */
-	    maxmlev = (zlevel + u.ulevel) / 2;
+	    minmlev = min_monster_difficulty();
+	    maxmlev = max_monster_difficulty();
 #ifdef REINCARNATION
 	    upper = Is_rogue_level(&u.uz);
 #endif
@@ -1796,30 +1827,236 @@ assign_sym:
 	mtmp->mappearance = appear;
 }
 
-/* release a monster from a bag of tricks */
-void
+/* Release a monster from a bag of tricks or
+ * produce an interesting effect ... nda 5/13/2003 */
+int
 bagotricks(bag)
 struct obj *bag;
 {
     if (!bag || bag->otyp != BAG_OF_TRICKS) {
 	impossible("bad bag o' tricks");
     } else if (bag->spe < 1) {
-	pline(nothing_happens);
+		return use_container(bag, 1);
     } else {
-	boolean gotone = FALSE;
-	int cnt = 1;
+	
+	boolean gotone = TRUE;
+	int cnt;
+	struct monst *mtmp;
+	struct obj *otmp;
 
 	consume_obj_charge(bag, TRUE);
 
-	if (!rn2(23)) cnt += rn1(7, 1);
-	while (cnt-- > 0) {
-	    if (makemon((struct permonst *)0, u.ux, u.uy, NO_MM_FLAGS))
-		gotone = TRUE;
+	switch(rn2(40)) {
+	case 0:
+	case 1:
+		if (bag->recharged==0 && !bag->cursed) {
+			for (cnt=3;cnt>0 && (otmp = mkobj(RANDOM_CLASS,FALSE));cnt--) {
+				if (otmp->owt<100 && !objects[otmp->otyp].oc_big)
+					break;
+				obj_extract_self(otmp);
+				obfree(otmp, (struct obj *)0);
+				otmp = (struct obj*)0;
+			}
+			if (!otmp) {
+/*JP
+				pline_The("bag coughs nervously.");
+*/
+				pline("鞄は忙しげに咳をした。");
+				break;
+			}
+		} else {
+			otmp = mksobj(IRON_CHAIN,FALSE,FALSE);
+		}
+/*JP
+		pline("%s spits %s out.", The(xname(bag)),something);
+*/
+		pline("%sは%sを吐き出した。", xname(bag),something);
+/*JP
+		otmp = hold_another_object(otmp, "It slips away from you.", (char*)0, (char*)0); 
+*/
+		otmp = hold_another_object(otmp, "それは滑り落ちた。", (char*)0, (char*)0); 
+		break;
+	case 2:
+/*JP
+		pline_The("bag wriggles away from you!");
+*/
+		pline("鞄はもがいてあなたから逃げた！");
+		dropx(bag);
+		break;
+	case 3:
+		nomul(-1*(rnd(4)));
+		if (Hallucination) {
+/*JP
+			You("start climbing into the bag.");
+*/
+			You("鞄に入り込み始めた。");
+/*JP
+			nomovemsg = "You give up your attempt to climb into the bag.";
+*/
+			nomovemsg = "あなたは鞄に入るのをあきらめた。";
+		} else {
+/*JP
+			pline("%s tries to pull you into the bag!",Something);
+*/
+			pline("%sがあなたを鞄に引き込もうとしている！",Something);
+/*JP
+			nomovemsg = "You manage to free yourself.";
+*/
+			nomovemsg = "あなたは何とか抜け出した。";
+		}
+		break;
+	case 4:
+		if (Blind)
+/*JP
+			You_hear("a loud eructation.");
+*/
+			You_hear("でかいげっぷを聞いた。");
+		else
+#if 0 /*JP*/
+			pline_The("bag belches out %s.",
+				Hallucination ? "the alphabet":"a noxious cloud");
+#else
+			pline("鞄は%sを吐いた。",
+				Hallucination ? "アルファベット":"有毒の雲");
+#endif
+		(void)create_gas_cloud(u.ux,u.uy,2,8);
+		break;
+	case 5:
+		if (Blind) {
+			if (breathless(youmonst.data))
+/*JP
+				You_feel("a puff of air.");
+*/
+				You_feel("風が吹きかけられるのを感じた。");
+			else
+/*JP
+				You("smell a musty odor.");
+*/
+				pline("かび臭い匂いがした。");
+		} else {
+/*JP
+			pline_The("bag exhales of puff of spores.");
+*/
+			pline("鞄は胞子を吐き出した。");
+		}
+		if (!breathless(youmonst.data))
+			(void) make_hallucinated(HHallucination + rn1(35, 10),TRUE,0L);
+		break;
+	case 6:
+/*JP
+		pline_The("bag yells \"%s\".", Hallucination ? "!ooB":"Boo!");
+*/
+		pline("鞄は「%s」と叫んだ。", Hallucination ? "！－ブ":"ブー！");
+		for (mtmp = fmon; mtmp; mtmp = mtmp->nmon) {
+			if (DEADMONSTER(mtmp)) continue;
+			if (cansee(mtmp->mx,mtmp->my)) {
+				if (! resist(mtmp, bag->oclass, 0, NOTELL))
+				monflee(mtmp, 0, FALSE, FALSE);
+			}
+		}
+		if ((ACURR(A_WIS)<rnd(20) && !bag->blessed) || bag->cursed) {
+/*JP
+			You("are startled into immobility.");
+*/
+			You("驚いて動けなくなった。");
+			nomul(-1*rnd(3));
+			nomovemsg = "あなたは落ち着きを取り戻した。";
+		}
+		break;
+	case 7:
+#if 0 /*JP*/
+		pline_The("bag develops a huge set of %s you!", 
+			Hallucination ? "lips and kisses":"teeth and bites");
+#else
+		pline(Hallucination ? "鞄に大きな唇ができて、あなたにキスした！"
+			:"鞄から大きな歯が生えてきて、あなたを噛んだ！");
+#endif
+		cnt = rnd(10);
+		if (Half_physical_damage) cnt = (cnt+1) / 2;
+#if 0 /*JP*/
+		losehp(cnt, Hallucination ? "amorous bag":"carnivorous bag", KILLED_BY_AN);
+#else
+		losehp(cnt, Hallucination ? "エロい鞄にキスされて"
+			:"食肉鞄に噛まれて", KILLED_BY_AN);
+#endif
+		break;
+	case 8:
+		if (uwep || uswapwep) {
+			otmp = rn2(2) ? uwep : uswapwep;
+			if (!otmp) otmp = uwep ? uwep : uswapwep;
+			if (Blind)
+/*JP
+				pline("%s grabs %s away from you.", Something, yname(otmp));
+*/
+				pline("%sが%sをあなたから掴み取った。", Something, yname(otmp));
+			else
+#if 0 /*JP*/
+				pline_The("bag sprouts a tongue and flicks %s %s.",
+					yname(otmp), 
+					(Is_airlevel(&u.uz) ||
+					 Is_waterlevel(&u.uz) ||
+					 levl[u.ux][u.uy].typ < IRONBARS ||
+					 levl[u.ux][u.uy].typ >= ICE) ? 
+					 "away from you":"to the floor");
+#else
+				pline("鞄は舌を生やして%sをあなたから%s。",
+					yname(otmp), 
+					(Is_airlevel(&u.uz) ||
+					 Is_waterlevel(&u.uz) ||
+					 levl[u.ux][u.uy].typ < IRONBARS ||
+					 levl[u.ux][u.uy].typ >= ICE) ? 
+					 "払い落とした":"床に叩き落した");
+#endif
+			dropx(otmp);
+		} else {
+#if 0 /*JP*/
+			pline("%s licks your %s.", 
+				Blind ? Something : "The bag sprouts a tongue and",
+				body_part(HAND));
+#else
+			pline("%sあなたの%sを舐めた。",
+				Blind ? "何かが" : "鞄は舌を生やして",
+				body_part(HAND));
+#endif
+		}
+		break;
+	default:
+		cnt = 1;
+		gotone = FALSE;
+		if (!rn2(23)) cnt += rn1(7, 1);
+		while (cnt-- > 0) {
+			if (makemon((struct permonst *)0, u.ux, u.uy, NO_MM_FLAGS))
+			gotone = TRUE;
+		}
 	}
 	if (gotone) makeknown(BAG_OF_TRICKS);
     }
+	return 1;
 }
 
+/** May create a camera demon emerging from camera around position x,y. */
+void
+create_camera_demon(camera,x,y)
+struct obj *camera;
+int x, y;
+{
+	struct monst *mtmp;
+
+	if (!rn2(3) &&
+	    (mtmp = makemon(&mons[PM_HOMUNCULUS],x,y, NO_MM_FLAGS)) != 0) {
+#if 0 /*JP*/
+		pline("%s is released!", !canspotmon(mtmp) ?
+				Something : Hallucination ?
+				An(rndmonnam()) : "The picture-painting demon");
+#else
+		pline("%sが解放された！", !canspotmon(mtmp) ?
+				Something : Hallucination ?
+				An(rndmonnam()) : "絵描きの悪魔");
+#endif
+		mtmp->mpeaceful = !camera->cursed;
+		set_malign(mtmp);
+	}
+}
 #endif /* OVLB */
 
 /*makemon.c*/

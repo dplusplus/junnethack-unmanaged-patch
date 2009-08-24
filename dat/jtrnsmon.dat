@@ -239,26 +239,46 @@ mountain centaur:	山のケンタウロス:
 #
 #	Dragons
 #
-baby gray dragon:	灰色ドラゴンの子供:
-baby silver dragon:	銀色ドラゴンの子供:
-baby red dragon:	赤色ドラゴンの子供:
-baby white dragon:	白ドラゴンの子供:
-baby orange dragon:	オレンジドラゴンの子供:
-baby black dragon:	黒ドラゴンの子供:
-baby blue dragon:	青ドラゴンの子供:
+#baby gray dragon:	灰色ドラゴンの子供:
+#baby silver dragon:	銀色ドラゴンの子供:
+#baby red dragon:	赤色ドラゴンの子供:
+#baby white dragon:	白ドラゴンの子供:
+#baby orange dragon:	オレンジドラゴンの子供:
+#baby black dragon:	黒ドラゴンの子供:
+#baby blue dragon:	青ドラゴンの子供:
+#baby gold dragon:	金色ドラゴンの子供:	#UnNetHack
+#baby green dragon:	緑ドラゴンの子供:
+#baby yellow dragon:	黄色ドラゴンの子供:
+baby tatzelworm:	タッツェルブルムの子供:
+baby amphitere:		アンフィテァの子供:
+baby draken:		ドラケンの子供:
+baby lindworm:		リンドワームの子供:
+baby sarkany:		サーカニーの子供:
+baby sirrush:		ムシュフシュの子供:
+baby leviathan:		リヴァイアサンの子供:
 baby gold dragon:	金色ドラゴンの子供:	#UnNetHack
-baby green dragon:	緑ドラゴンの子供:
-baby yellow dragon:	黄色ドラゴンの子供:
-gray dragon:		灰色ドラゴン:
-silver dragon:		銀色ドラゴン:
-red dragon:		赤色ドラゴン:
-white dragon:		白ドラゴン:
-orange dragon:		オレンジドラゴン:
-black dragon:		黒ドラゴン:
-blue dragon:		青ドラゴン:
-gold dragon:		金色ドラゴン:	#UnNetHack
-green dragon:		緑ドラゴン:
-yellow dragon:		黄色ドラゴン:
+baby wyvern:		ワイバーンの子供:
+baby guivre:		ギーブルの子供:
+#gray dragon:		灰色ドラゴン:
+#silver dragon:		銀色ドラゴン:
+#red dragon:		赤色ドラゴン:
+#white dragon:		白ドラゴン:
+#orange dragon:		オレンジドラゴン:
+#black dragon:		黒ドラゴン:
+#blue dragon:		青ドラゴン:
+#gold dragon:		金色ドラゴン:
+#green dragon:		緑ドラゴン:
+#yellow dragon:		黄色ドラゴン:
+tatzelworm:		タッツェルブルム:	#スイス
+amphitere:		アンフィテァ:		#アメリカ
+draken:			ドラケン:		#スウェーデン
+lindworm:		リンドワーム:		#ドイツ
+sarkany:		サーカニー:		#ハンガリー
+sirrush:		ムシュフシュ:		#バビロニア
+leviathan:		リヴァイアサン:		#
+gold dragon:		金色ドラゴン:
+wyvern:			ワイバーン:		#
+guivre:			ギーブル:		#イタリア
 #
 #	Elementals
 #
@@ -656,6 +676,27 @@ Mars:			マーズ:
 #
 Moloch:			モーロック:
 #
+Marduk:			マルドゥーク:	# バビロニア神話
+Apsu:			アプス:		# バビロニア神話
+Aeon:			アイオーン:	# ギリシャ神話
+Gaia:			ガイア:		# ギリシャ神話
+Khronos:		クロノス:	# ギリシャ神話
+Atum:			アトゥム:	# エジプト神話
+Khepri:			ケプリ:		# エジプト神話
+Kamui:			神威:		# アイヌ神話
+Mbombo:			ムボンボ:	# バグバ神話
+Unkulunkulu:		ウンクルンクル:	# ズールー神話
+Vishvakarman:		ヴィシュヴァカルマン:	# ヴェーダ
+Brahma:			ブラフマー:	# ヒンドゥー教
+Coatlique:		コワトリクエ:	# アステカ神話
+Viracocha:		ビラコチャ:	# インカ神話
+Tepeu:			テペウ:		# マヤ神話
+Pangu:			盤古:		# 中華神話
+Bulaing:		ブライン:	# アボリジニー
+Ahura Mazda:		アフラマズダー:	# ゾロアスター教
+Demiourgos:		デミウルゴス:	# プラトン
+
+#
 #	bogus monster
 #
 jumbo shrimp:		巨大甘エビ:
@@ -966,3 +1007,21 @@ little green man:			緑の小人:
 # Portal
 #
 weighted Companion Cube:	コンパニオンキューブ:
+#
+# /b/
+#
+#/b/tard:	/b/tard:
+#
+# South Park
+#
+#manbearpig:	manbearpig:
+#
+#the Internet is made for cat pix
+#
+ceiling cat:	天井猫:
+basement cat:	地下室猫:
+monorail cat:	モノレールねこ:
+#
+#schnippi
+#
+rape golem:	干物ゴーレム:

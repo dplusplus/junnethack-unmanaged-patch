@@ -409,20 +409,19 @@ register struct obj *obj;
 /*JP
 			Strcpy(buf, "amulet");
 */
-			Strcat(buf, "–‚œ‚¯");  
+			Strcpy(buf, "–‚œ‚¯");
 		else if (typ == AMULET_OF_YENDOR ||
 			 typ == FAKE_AMULET_OF_YENDOR)
 			/* each must be identified individually */
 /*JP
 			Strcpy(buf, obj->known ? actualn : dn);
 */
-			Strcat(buf, obj->known ? jactualn : jdn);
+			Strcpy(buf, obj->known ? jactualn : jdn);
 		else if (nn)
-#if 0 /*JP*/
+/*JP
 			Strcpy(buf, actualn);
-#else
-			Strcat(buf, jactualn);
-#endif
+*/
+			Strcpy(buf, jactualn);
 		else if (un)
 /*JP
 			Sprintf(buf,"amulet called %s", un);
@@ -503,13 +502,11 @@ register struct obj *obj;
 		jactualn = jtrns_obj(']',actualn);
 		jdn = jtrns_obj(']',dn);
 #endif
-		/* depends on order of the dragon scales objects */
-		if (typ >= GRAY_DRAGON_SCALES && typ <= YELLOW_DRAGON_SCALES) {
+		if (Is_dragon_scales(obj->otyp)) {
 /*JP
-			Sprintf(buf, "set of %s", actualn);
+			Strcat(buf, "set of ");
 */
 			Sprintf(buf, "%sˆêŽ®", jactualn);
-			break;
 		}
 /*JP
 		if(is_boots(obj) || is_gloves(obj)) Strcpy(buf,"pair of ");
@@ -1248,33 +1245,48 @@ ring:
 		}
 		break;
 	case FOOD_CLASS:
-		if (obj->oeaten)
+		if (obj->otyp == CORPSE && obj->odrained) {
+#ifdef WIZARD
+		    if (wizard && obj->oeaten < drainlevel(obj))
 /*JP
-		    Strcat(prefix, "partly eaten ");
+			Strcpy(tmpbuf, "over-drained ");
 */
-		    Strcat(prefix, "H‚×‚©‚¯‚Ì");
-		if (obj->otyp == CORPSE) {
-		    if (mons[obj->corpsenm].geno & G_UNIQ) {
+			Strcat(prefix, "‹z‚í‚ê‰ß‚¬‚Ì");
+		    else
+#endif
 #if 0 /*JP*/
+		    Sprintf(tmpbuf, "%sdrained ",
+		      (obj->oeaten > drainlevel(obj)) ? "partly " : "");
+#else
+		    Strcat(prefix, (obj->oeaten > drainlevel(obj))
+		      ? "‹z‚¢‚©‚¯‚Ì" : "‹z‚¢s‚­‚³‚ê‚½");
+#endif
+		}
+		else if (obj->oeaten)
+#if 0 /*JP*/
+		    Strcpy(tmpbuf, "partly eaten ");
+		else
+		    tmpbuf[0] = '\0';
+		Strcat(prefix, tmpbuf);
+#else
+		    Strcat(prefix, "H‚×‚©‚¯‚Ì");
+#endif
+		if (obj->otyp == CORPSE) {
+#if 0 /*JP*/
+		    if (mons[obj->corpsenm].geno & G_UNIQ) {
 			Sprintf(prefix, "%s%s ",
 				(type_is_pname(&mons[obj->corpsenm]) ?
 					"" : "the "),
 				s_suffix(mons[obj->corpsenm].mname));
-			if (obj->oeaten) Strcat(prefix, "partly eaten ");
-#else
-			if (obj->oeaten) Strcpy(prefix, "H‚×‚©‚¯‚Ì");
-			Sprintf(eos(prefix), "%s‚Ì",
-				jtrns_mon(mons[obj->corpsenm].mname));
-#endif
+			Strcat(prefix, tmpbuf);
 		    } else {
-#if 0 /*JP*/
 			Strcat(prefix, mons[obj->corpsenm].mname);
 			Strcat(prefix, " ");
-#else
-			Strcat(prefix, jtrns_mon(mons[obj->corpsenm].mname));
-			Strcat(prefix, "‚Ì");
-#endif
 		    }
+#else
+		    Strcat(prefix, jtrns_mon(mons[obj->corpsenm].mname));
+		    Strcat(prefix, "‚Ì");
+#endif
 		} else if (obj->otyp == EGG) {
 #if 0	/* corpses don't tell if they're stale either */
 		    if (obj->known && stale_egg(obj))
@@ -2401,6 +2413,7 @@ struct alt_spellings {
 	{ "kelp", KELP_FROND },
 	{ "eucalyptus", EUCALYPTUS_LEAF },
 	{ "grapple", GRAPPLING_HOOK },
+	{ "helmet of opposite alignment", HELM_OF_OPPOSITE_ALIGNMENT },
 	{ (const char *)0, 0 },
 };
 
@@ -2423,12 +2436,12 @@ boolean from_user;
 	register int i;
 	register struct obj *otmp;
 	int cnt, spe, spesgn, typ, very, rechrg;
-	int blessed, uncursed, iscursed, ispoisoned, isgreased;
+	int blessed, uncursed, iscursed, ispoisoned, isgreased, isdrained;
 	int eroded, eroded2, erodeproof;
 #ifdef INVISIBLE_OBJECTS
 	int isinvisible;
 #endif
-	int halfeaten, mntmp, contents;
+	int halfeaten, halfdrained, mntmp, contents;
 	int islit, unlabeled, ishistoric, isdiluted;
 	struct fruit *f;
 	int ftype = current_fruit;
@@ -2455,9 +2468,13 @@ boolean from_user;
 	char oclass;
 	char *un, *dn, *actualn;
 	const char *name=0;
+	/** true if object has been found by its description name */
+	boolean found_by_descr = FALSE;
+	/** true if object has been found by its actual name */
+	boolean found_by_actualn = FALSE;
 
 	cnt = spe = spesgn = typ = very = rechrg =
-		blessed = uncursed = iscursed =
+		blessed = uncursed = iscursed = isdrained = halfdrained =
 #ifdef INVISIBLE_OBJECTS
 		isinvisible =
 #endif
@@ -2768,6 +2785,12 @@ boolean from_user;
 			   !strncmpi(bp, "rotted ", l=7)) {
 			eroded2 = 1 + very;
 			very = 0;
+		} else if (!strncmpi(bp, "partly drained ", l=15)) {
+			isdrained = 1;
+			halfdrained = 1;
+		} else if (!strncmpi(bp, "drained ", l=8)) {
+			isdrained = 1;
+			halfdrained = 0;
 		} else if (!strncmpi(bp, "partly eaten ", l=13)) {
 			halfeaten = 1;
 		} else if (!strncmpi(bp, "historic ", l=9)) {
@@ -2961,9 +2984,12 @@ boolean from_user;
 	 * Find corpse type using "of" (figurine of an orc, tin of orc meat)
 	 * Don't check if it's a wand or spellbook.
 	 * (avoid "wand/finger of death" confusion).
+	 * (ALI "potion of vampire blood" also).
 	 */
 	if (!strstri(bp, "wand ")
 	 && !strstri(bp, "spellbook ")
+	 && !strstri(bp, "potion ")
+	 && !strstri(bp, "potions ")
 	 && !strstri(bp, "finger ")) {
 	    if ((p = strstri(bp, " of ")) != 0
 		&& (mntmp = name_to_mon(p+4)) >= LOW_PM)
@@ -2975,7 +3001,9 @@ boolean from_user;
 	if (strncmpi(bp, "ninja-to", 8)) /* not the "ninja" rank */
 	if (strncmpi(bp, "master key", 10)) /* not the "master" rank */
 	if (strncmpi(bp, "Thiefbane", 9)) /* not the "thief" rank */
+	if (strncmpi(bp, "Ogresmasher", 11)) /* not the "ogre" monster */
 	if (strncmpi(bp, "magenta", 7)) /* not the "mage" rank */
+	if (strncmpi(bp, "vampire blood", 13)) /* not the "vampire" monster */
 	if (mntmp < LOW_PM && strlen(bp) > 2 &&
 	    (mntmp = name_to_mon(bp)) >= LOW_PM) {
 		int mntmptoo, mntmplen;	/* double check for rank title */
@@ -3022,6 +3050,7 @@ boolean from_user;
 			mntmp >= PM_GRAY_DRAGON && mntmp <= PM_YELLOW_DRAGON) {
 		typ = GRAY_DRAGON_SCALES + mntmp - PM_GRAY_DRAGON;
 		mntmp = NON_PM;	/* no monster */
+		found_by_descr = TRUE;
 		goto typfnd;
 	}
 
@@ -3171,6 +3200,7 @@ srch:
 		if (actualn && (zn = OBJ_NAME(objects[i])) != 0 &&
 			    wishymatch(actualn, zn, TRUE)) {
 			typ = i;
+			found_by_actualn = TRUE;
 			goto typfnd;
 		}
 		if (dn && (zn = OBJ_DESCR(objects[i])) != 0 &&
@@ -3178,6 +3208,7 @@ srch:
 			/* don't match extra descriptions (w/o real name) */
 			if (!OBJ_NAME(objects[i])) return (struct obj *)0;
 			typ = i;
+			found_by_descr = TRUE;
 			goto typfnd;
 		}
 		if (un && (zn = objects[i].oc_uname) != 0 &&
@@ -3375,6 +3406,21 @@ any:
 	if(!oclass) oclass = wrpsym[rn2((int)sizeof(wrpsym))];
 typfnd:
 	if (typ) oclass = objects[typ].oc_class;
+
+	/* return a random dragon armor if user asks for an unknown
+	   dragon armor with its actual name */
+	if (typ && from_user && found_by_actualn &&
+	    Is_dragon_armor(typ) &&
+#ifdef WIZARD
+	    !wizard &&
+#endif
+	    !objects[typ].oc_name_known) {
+		typ = rn2(YELLOW_DRAGON_SCALES-GRAY_DRAGON_SCALES);
+		if (Is_dragon_scales(typ))
+			typ += GRAY_DRAGON_SCALES;
+		else
+			typ += GRAY_DRAGON_SCALE_MAIL;
+	}
 
 	/* check for some objects that are not allowed */
 	if (typ && objects[typ].oc_unique) {
@@ -3677,6 +3723,18 @@ typfnd:
 		else otmp->oeaten = objects[otmp->otyp].oc_nutrition;
 		/* (do this adjustment before setting up object's weight) */
 		consume_oeaten(otmp, 1);
+	}
+	if (isdrained && otmp->otyp == CORPSE && mons[otmp->corpsenm].cnutrit) {
+		int amt;
+		otmp->odrained = 1;
+		amt = mons[otmp->corpsenm].cnutrit - drainlevel(otmp);
+		if (halfdrained) {
+		    amt /= 2;
+		    if (amt == 0)
+			amt++;
+		}
+		/* (do this adjustment before setting up object's weight) */
+		consume_oeaten(otmp, -amt);
 	}
 	otmp->owt = weight(otmp);
 	if (very && otmp->otyp == HEAVY_IRON_BALL) otmp->owt += 160;

@@ -81,6 +81,7 @@ static const char *random_mesg[] = {
 	/* From UnNetHack */
 	"She's watching you!", /* Portal */
 	"The cake is a lie!", /* Portal */
+	"cjohnson/tier3", /* Portal */
 	"What's the sitch?", /* Kim Possible */
 	"So not the drama.", /* Kim Possible */
 	"Sudden decompression sucks!", /* Space Quest 3 death message */
@@ -93,6 +94,7 @@ static const char *random_mesg[] = {
 	"Trust No One", /* X-Files */
 	"The Truth is Out There", /* X-Files */
 	"Look behind you, a Three-Headed Monkey!", /* Monkey Island */
+	"Ifnkovhgroghprm", /* Kings Quest I */
 #else /*JP*/
 	"Elbereth",
 	/* trap engravings */
@@ -156,6 +158,7 @@ static const char *random_mesg[] = {
 	/* From UnNetHack */
 	"彼女はあなたを見ています！", /* Portal */
 	"そのケーキは偽者です！", /* Portal */
+	"cjohnson/tier3", /* Portal */
 	"sitchって何だ？", /* Kim Possible */
 	"ドラマじゃないから大丈夫！", /* Kim Possible */
 	"突然、減圧により吸い込まれた！", /* Space Quest 3 death message */
@@ -168,6 +171,7 @@ static const char *random_mesg[] = {
 	"誰も信じるな", /* X-Files */
 	"真実はそこにある", /* X-Files */
 	"後ろを見ろ、三つ首の猿が！", /* Monkey Island */
+	"Ifnkovhgroghprm", /* Kings Quest I */
 #endif /*JP*/
 };
 
@@ -732,6 +736,12 @@ doengrave()
 		You_cant("write on the lava!");
 */
 		You("溶岩には書けない！");
+		return(0);
+	} else if (Underwater) {
+/*JP
+		You_cant("write underwater!");
+*/
+		You("水中では書けない！");
 		return(0);
 	} else if (is_pool(u.ux,u.uy) || IS_FOUNTAIN(levl[u.ux][u.uy].typ)) {
 /*JP

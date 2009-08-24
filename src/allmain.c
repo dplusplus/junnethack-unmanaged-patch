@@ -21,6 +21,7 @@
 #ifdef POSITIONBAR
 STATIC_DCL void NDECL(do_positionbar);
 #endif
+STATIC_DCL void FDECL(interrupt_multi, (const char *,int,int));
 
 #ifdef OVL0
 
@@ -187,6 +188,10 @@ moveloop()
 				    (wtcap < MOD_ENCUMBER && !(moves%20))) {
 			    flags.botl = 1;
 			    u.mh++;
+/*JP
+			    interrupt_multi("Hit points", u.mh, u.mhmax);
+*/
+			    interrupt_multi("ëÃóÕ", u.mh, u.mhmax);
 			}
 		    } else if (u.uhp < u.uhpmax &&
 			 (wtcap < MOD_ENCUMBER || !u.umoved || Regeneration)) {
@@ -203,11 +208,19 @@ moveloop()
 			    u.uhp += heal;
 			    if(u.uhp > u.uhpmax)
 				u.uhp = u.uhpmax;
+/*JP
+			    interrupt_multi("Hit points", u.uhp, u.uhpmax);
+*/
+			    interrupt_multi("ëÃóÕ", u.uhp, u.uhpmax);
 			} else if (Regeneration ||
 			     (u.ulevel <= 9 &&
 			      !(moves % ((MAXULEV+12) / (u.ulevel+2) + 1)))) {
 			    flags.botl = 1;
 			    u.uhp++;
+/*JP
+			    interrupt_multi("Hit points", u.uhp, u.uhpmax);
+*/
+			    interrupt_multi("ëÃóÕ", u.uhp, u.uhpmax);
 			}
 		    }
 
@@ -237,6 +250,10 @@ moveloop()
 			u.uen += rn1((int)(ACURR(A_WIS) + ACURR(A_INT)) / 15 + 1,1);
 			if (u.uen > u.uenmax)  u.uen = u.uenmax;
 			flags.botl = 1;
+/*JP
+			interrupt_multi("Magic energy", u.uen, u.uenmax);
+*/
+			interrupt_multi("ñÇóÕ", u.uen, u.uenmax);
 		    }
 
 		    if(!u.uinvulnerable) {
@@ -317,6 +334,31 @@ moveloop()
 	    /* once-per-hero-took-time things go here */
 	    /******************************************/
 
+	    if (u.utrap && u.utraptype == TT_LAVA) {
+		    if (!is_lava(u.ux,u.uy))
+			    u.utrap = 0;
+		    else if (!u.uinvulnerable) {
+			    u.utrap -= 1<<8;
+			    if (u.utrap < 1<<8) {
+				    killer_format = KILLED_BY;
+/*JP
+				    killer = "molten lava";
+*/
+				    killer = "Ç«ÇÎÇ«ÇÎÇÃónä‚Ç≈";
+/*JP
+				    You("sink below the surface and die.");
+*/
+				    You("ónä‚Ç…ê[Ç≠íæÇ›ÅAónÇØÇΩÅB");
+				    done(DISSOLVED);
+			    } else if (!u.umoved) {
+/*JP
+				    Norep("You sink deeper into the lava.");
+*/
+				    Norep("ónä‚Ç…ê[Ç≠íæÇÒÇæÅB");
+				    u.utrap += rnd(4);
+			    }
+		    }
+	    }
 
 	} /* actual time passed */
 
@@ -388,32 +430,6 @@ moveloop()
 	    !In_endgame(&u.uz) && !BClairvoyant &&
 	    !(moves % 15) && !rn2(2))
 		do_vicinity_map();
-
-	if(u.utrap && u.utraptype == TT_LAVA) {
-	    if(!is_lava(u.ux,u.uy))
-		u.utrap = 0;
-	    else if (!u.uinvulnerable) {
-		u.utrap -= 1<<8;
-		if(u.utrap < 1<<8) {
-		    killer_format = KILLED_BY;
-/*JP
-		    killer = "molten lava";
-*/
-			    killer = "Ç«ÇÎÇ«ÇÎÇÃónä‚Ç≈";
-/*JP
-		    You("sink below the surface and die.");
-*/
-			    You("ónä‚Ç…ê[Ç≠íæÇ›ÅAónÇØÇΩÅB");
-		    done(DISSOLVED);
-		} else if(didmove && !u.umoved) {
-/*JP
-		    Norep("You sink deeper into the lava.");
-*/
-			    Norep("ónä‚Ç…ê[Ç≠íæÇÒÇæÅB");
-		    u.utrap += rnd(4);
-		}
-	    }
-	}
 
 #ifdef WIZARD
 	if (iflags.sanity_check)
@@ -735,7 +751,24 @@ get_realtime(void)
 }
 #endif /* REALTIME_ON_BOTL || RECORD_REALTIME */
 
-
 #endif /* OVLB */
+
+/** Interrupt a multiturn action if current_points is equal to max_points. */
+STATIC_DCL
+void
+interrupt_multi(points, current_points, max_points)
+const char *points;
+int current_points;
+int max_points;
+{
+	if (multi > 0 &&
+	    current_points == max_points) {
+		nomul(0);
+/*JP
+		if (flags.verbose) pline("%s restored.", points);
+*/
+		if (flags.verbose) pline("%sÇ™âÒïúÇµÇΩÅB", points);
+	}
+}
 
 /*allmain.c*/

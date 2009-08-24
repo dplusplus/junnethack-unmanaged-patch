@@ -1547,7 +1547,6 @@ boolean telekinesis;	/* not picking it up directly by hand */
 	    obj = splitobj(obj, count);
 
 	obj = pick_obj(obj);
-	obj->was_thrown = 0;
 
 	if (uwep && uwep == obj) mrg_to_wielded = TRUE;
 	nearload = near_capacity();
@@ -1804,22 +1803,27 @@ lootcont:
 		    pline("むーん、鍵がかかっているようだ。");
 		    continue;
 		}
-		if (cobj->otyp == BAG_OF_TRICKS) {
+		if (cobj->otyp == BAG_OF_TRICKS && cobj->spe>0) {
 		    int tmp;
 /*JP
 		    You("carefully open the bag...");
 */
 		    You("慎重に鞄を開けた．．．");
-/*JP
-		    pline("It develops a huge set of teeth and bites you!");
-*/
-		    pline("鞄から大きな歯が生えてきて、あなたを噛んだ！");
+#if 0 /*JP*/
+		    pline("It develops a huge set of %s you!", 
+				Hallucination ? "lips and kisses":"teeth and bites");
+#else
+		    pline(Hallucination ? "鞄に大きな唇ができて、あなたにキスした！"
+				:"鞄から大きな歯が生えてきて、あなたを噛んだ！");
+#endif
 		    tmp = rnd(10);
 		    if (Half_physical_damage) tmp = (tmp+1) / 2;
-/*JP
-		    losehp(tmp, "carnivorous bag", KILLED_BY_AN);
-*/
-		    losehp(tmp, "食肉鞄に噛まれて", KILLED_BY_AN);
+#if 0 /*JP*/
+		    losehp(tmp, Hallucination ? "amorous bag":"carnivorous bag", KILLED_BY_AN);
+#else
+		    losehp(tmp, Hallucination ? "エロい鞄にキスされて"
+				:"食肉鞄に噛まれて", KILLED_BY_AN);
+#endif
 		    makeknown(BAG_OF_TRICKS);
 		    timepassed = 1;
 		    continue;
@@ -2106,6 +2110,14 @@ register struct obj *obj;
 */
 		pline("ご冗談を。");
 		return 0;
+	} else if (obj == current_container &&
+	           objects[obj->otyp].oc_name_known &&
+	           obj->otyp == BAG_OF_HOLDING) {
+/*JP
+		pline("Creating an artificial black hole could ruin your whole day!");
+*/
+		pline("人工ブラックホールの生成はあなたの丸一日を台無しにしてしまう！");
+		return 0;
 	} else if (obj == current_container) {
 /*JP
 		pline("That would be an interesting topological exercise.");
@@ -2126,7 +2138,7 @@ register struct obj *obj;
 /*JP
 	      pline_The("stone%s won't leave your person.", plur(obj->quan));
 */
-		pline("どういうわけかその石をしまうことはできない。");
+	      pline("どういうわけかその石をしまうことはできない。");
 		return 0;
 	} else if (obj->otyp == AMULET_OF_YENDOR ||
 		   obj->otyp == CANDELABRUM_OF_INVOCATION ||

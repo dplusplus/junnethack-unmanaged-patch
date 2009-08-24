@@ -667,8 +667,44 @@ int curse_bless;
 		    } else pline(nothing_happens);
 		}
 		break;
-	    case HORN_OF_PLENTY:
 	    case BAG_OF_TRICKS:
+		/* if there are any objects inside the bag, devour them */
+		if (!is_cursed) {
+			struct obj *curr, *otmp;
+			struct monst *shkp;
+			int lcnt = 0;
+			long loss = 0L;
+
+			makeknown(BAG_OF_TRICKS);
+			for (curr = obj->cobj; curr; curr = otmp) {
+				otmp = curr->nobj;
+				obj_extract_self(curr);
+				lcnt++;
+				if (*u.ushops && (shkp = shop_keeper(*u.ushops)) != 0) {
+					if (curr->unpaid)
+						loss += stolen_value(curr, u.ux, u.uy,
+								 (boolean)shkp->mpeaceful, TRUE);
+				}
+				/* obfree() will free all contained objects */
+				obfree(curr, (struct obj *) 0);
+			}
+
+			if (lcnt)
+/*JP
+				You_hear("loud crunching sounds from inside %s.", yname(obj));
+*/
+				You_hear("%sの中で何かが噛み砕かれる音を聞いた。", yname(obj));
+			if (lcnt && loss)
+#if 0 /*JP*/
+				You("owe %ld %s for lost item%s.",
+				loss, currency(loss), lcnt > 1 ? "s" : "");
+#else
+				You("失ったアイテムの負債として%ld%s分を負った。",
+				loss, currency(loss));
+#endif
+		}
+		/* fall through */
+	    case HORN_OF_PLENTY:
 	    case CAN_OF_GREASE:
 		if (is_cursed) stripspe(obj);
 		else if (is_blessed) {
@@ -728,6 +764,13 @@ forget_single_object(obj_id)
 	    objects[obj_id].oc_uname = 0;
 	}
 	undiscover_object(obj_id);	/* after clearing oc_name_known */
+
+	if (Is_dragon_scales(obj_id) &&
+	    objects[Dragon_scales_to_mail(obj_id)].oc_name_known)
+		forget_single_object(Dragon_scales_to_mail(obj_id));
+	else if (Is_dragon_mail(obj_id) &&
+	         objects[Dragon_mail_to_scales(obj_id)].oc_name_known)
+		forget_single_object(Dragon_mail_to_scales(obj_id));
 
 	/* clear & free object names from matching inventory items too? */
 }
@@ -2114,7 +2157,7 @@ do_class_genocide()
 /*JP
 	pline("Eliminated %d monster%s.", gonecnt, plur(gonecnt));
 */
-	pline("%dの怪物を除いた。", gonecnt);
+	pline("%d匹の怪物を除いた。", gonecnt);
 			    return;
 			} else
 #endif
@@ -2287,6 +2330,26 @@ boolean only_on_level; /**< if TRUE only genocide monsters on current level,
 			break;		/* remaining checks don't apply */
 		    } else return;
 		}
+
+#ifdef WIZARD	/* to aid in topology testing; remove pesky monsters */
+		/* copy from do_class_genocide */
+		if (wizard && buf[0] == '*') {
+			register struct monst *mtmp, *mtmp2;
+
+			int gonecnt = 0;
+			for (mtmp = fmon; mtmp; mtmp = mtmp2) {
+				mtmp2 = mtmp->nmon;
+				if (DEADMONSTER(mtmp)) continue;
+				mongone(mtmp);
+				gonecnt++;
+			}
+/*JP
+			pline("Eliminated %d monster%s.", gonecnt, plur(gonecnt));
+*/
+			pline("%d匹の怪物を除いた。", gonecnt);
+			return;
+		}
+#endif
 
 		mndx = name_to_mon(buf);
 		if (mndx == NON_PM || (mvitals[mndx].mvflags & G_GENOD)) {

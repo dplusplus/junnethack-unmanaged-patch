@@ -150,26 +150,66 @@
 ]crested helmet:	とさかの兜:
 ]helm of telepathy:	テレパシーの兜:
 ]visored helmet:	面頬付きの兜:
-]gray dragon scale mail:	灰色ドラゴンの鱗鎧:
-]silver dragon scale mail:	銀色ドラゴンの鱗鎧:
-]red dragon scale mail:		赤色ドラゴンの鱗鎧:
-]white dragon scale mail:	白ドラゴンの鱗鎧:
-]orange dragon scale mail:	オレンジドラゴンの鱗鎧:
-]black dragon scale mail:	黒ドラゴンの鱗鎧:
-]blue dragon scale mail:	青ドラゴンの鱗鎧:
-]green dragon scale mail:	緑ドラゴンの鱗鎧:
-]gold dragon scale mail:	金色ドラゴンの鱗鎧:	#UnNetHack
-]yellow dragon scale mail:	黄色ドラゴンの鱗鎧:
-]gray dragon scales:		灰色ドラゴンの鱗:
-]silver dragon scales:		銀色ドラゴンの鱗:
-]red dragon scales:		赤色ドラゴンの鱗:
-]white dragon scales:		白ドラゴンの鱗:
-]orange dragon scales:		オレンジドラゴンの鱗:
-]black dragon scales:		黒ドラゴンの鱗:
-]blue dragon scales:		青ドラゴンの鱗:
-]green dragon scales:		緑ドラゴンの鱗:
-]gold dragon scales:		金色ドラゴンの鱗:	#UnNetHack
-]yellow dragon scales:		黄色ドラゴンの鱗:
+#]gray dragon scale mail:	灰色ドラゴンの鱗鎧:
+#]silver dragon scale mail:	銀色ドラゴンの鱗鎧:
+#]red dragon scale mail:		赤色ドラゴンの鱗鎧:
+#]white dragon scale mail:	白ドラゴンの鱗鎧:
+#]orange dragon scale mail:	オレンジドラゴンの鱗鎧:
+#]black dragon scale mail:	黒ドラゴンの鱗鎧:
+#]blue dragon scale mail:	青ドラゴンの鱗鎧:
+#]green dragon scale mail:	緑ドラゴンの鱗鎧:
+#]gold dragon scale mail:	金色ドラゴンの鱗鎧:	#UnNetHack
+#]yellow dragon scale mail:	黄色ドラゴンの鱗鎧:
+]tatzelworm scale mail:		タッツェルブルムの鱗鎧:
+]amphitere scale mail:		アンフィテァの鱗鎧:
+]draken scale mail:		ドラケンの鱗鎧:
+]lindworm scale mail:		リンドワームの鱗鎧:
+]sarkany scale mail:		サーカニーの鱗鎧:
+]sirrush scale mail:		ムシュフシュの鱗鎧:
+]leviathan scale mail:		リヴァイアサンの鱗鎧:
+]wyvern scale mail:		ワイバーンの鱗鎧:
+]gold dragon scale mail:	ゴールドドラゴンの鱗鎧:
+]guivre scale mail:		ギーブルの鱗鎧:
+]magic dragon scale mail:	魔法竜の鱗鎧:
+]reflecting dragon scale mail:	反射竜の鱗鎧:
+]fire dragon scale mail:	火竜の鱗鎧:
+]ice dragon scale mail:		氷竜の鱗鎧:
+]sleep dragon scale mail:	睡眠竜の鱗鎧:
+]disintegration dragon scale mail:	分解竜の鱗鎧:
+]electric dragon scale mail:	雷竜の鱗鎧:
+]poison dragon scale mail:	毒竜の鱗鎧:
+]stone dragon scale mail:	石竜の鱗鎧:
+]acid dragon scale mail:	酸竜の鱗鎧:
+#]gray dragon scales:		灰色ドラゴンの鱗:
+#]silver dragon scales:		銀色ドラゴンの鱗:
+#]red dragon scales:		赤色ドラゴンの鱗:
+#]white dragon scales:		白ドラゴンの鱗:
+#]orange dragon scales:		オレンジドラゴンの鱗:
+#]black dragon scales:		黒ドラゴンの鱗:
+#]blue dragon scales:		青ドラゴンの鱗:
+#]green dragon scales:		緑ドラゴンの鱗:
+#]gold dragon scales:		金色ドラゴンの鱗:	#UnNetHack
+#]yellow dragon scales:		黄色ドラゴンの鱗:
+]tatzelworm scales:		タッツェルブルムの鱗:
+]amphitere scales:		アンフィテァの鱗:
+]draken scales:			ドラケンの鱗:
+]lindworm scales:		リンドワームの鱗:
+]sarkany scales:		サーカニーの鱗:
+]sirrush scales:		ムシュフシュの鱗:
+]leviathan scales:		リヴァイアサンの鱗:
+]wyvern scales:			ワイバーンの鱗:
+]gold dragon scales:		ゴールドドラゴンの鱗:
+]guivre scales:			ギーブルの鱗:
+]magic dragon scales:		魔法竜の鱗:
+]reflecting dragon scales:	反射竜の鱗:
+]fire dragon scales	:	火竜の鱗:
+]ice dragon scales:		氷竜の鱗:
+]sleep dragon scales:		睡眠竜の鱗:
+]disintegration dragon scales:	分解竜の鱗:
+]electric dragon scales:	雷竜の鱗:
+]poison dragon scales:		毒竜の鱗:
+]stone dragon scales:		石竜の鱗:
+]acid dragon scales:		酸竜の鱗:
 ]plate mail:		鋼鉄の鎧:
 ]crystal plate mail:	水晶の鎧:
 ]bronze plate mail:	青銅の鎧:
@@ -527,17 +567,19 @@
 !water:			水:
 !oil:			油:
 !acid:			酸の薬:
+!blood:			血液:		#Slash'em
+!vampire blood:		吸血鬼の血液:	#Slash'em
 !ruby:			ルビー色の:
 !pink:			ピンク色の:
 !orange:		オレンジ色の:
 !yellow:		黄色の:
 !emerald:		エメラルド色の:
 !dark green:		暗緑色の:
-!cyan:			シアン色の:
+#!cyan:			シアン色の:
 !sky blue:		水色の:
-!brilliant blue:	明るい青色の:
+#!brilliant blue:	明るい青色の:
 !magenta:		マゼンダ色の:
-!purple-red:		赤紫色の:
+#!purple-red:		赤紫色の:
 !puce:			暗褐色の:
 !milky:			ミルク色の:
 !swirly:		渦を巻いている:
@@ -558,14 +600,17 @@
 !blood-red:		血のように赤い:	#Slash'em
 !luminescent:		光る:		#Slash
 !icy:			冷たそうな:	#Slash
-!chartreuse:		青リンゴ色の: 	#SporkHack
 !greasy:		脂っぽい:	#SporkHack
 !slimy:			ねばねばした:	#SporkHack
-!burgundy:		ワイン色の:	#UnNetHack
+!soapy:			石鹸の:		#UnNetHack
 !ochre:			黄土色の:	#UnNetHack
-!mauve:			藤色の:		#UnNetHack
+!steamy:		湯気の出ている:	#UnNetHack
 !indigo:		藍色の:		#UnNetHack
 !silver:		銀色の:		#UnNetHack
+!viscous:		粘っこい:	#UnNetHack
+!amber:			琥珀色の:	#UnNetHack
+!squishy:		ネバネバした:	#UnNetHack
+!gooey:			甘ったるそうな:	#UnNetHack
 #
 #	scrolls
 #

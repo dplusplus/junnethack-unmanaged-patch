@@ -1057,6 +1057,22 @@ int final;	/* 0 => still in progress; 1 => over, survived; 2 => dead */
 		Sprintf(buf, "あなたの属性値は%d", u.ualign.record);
 		enl_msg(buf, "である", "だった", "");
 #endif
+#if 0 /*JP*/
+		Sprintf(buf, " %d - %d",
+		        min_monster_difficulty(), max_monster_difficulty());
+		enl_msg("Monster difficulty range ", "is", "was", buf);
+#else
+		Sprintf(buf, "怪物の難易度範囲は%d～%d",
+		        min_monster_difficulty(), max_monster_difficulty());
+		enl_msg(buf, "である", "だった", "");
+#endif
+#if 0 /*JP*/
+		Sprintf(buf, " %d", level_difficulty());
+		enl_msg("Level difficulty ", "is", "was", buf);
+#else
+		Sprintf(buf, "レベル難易度は%d", level_difficulty());
+		enl_msg(buf, "である", "だった", "");
+#endif
 	}
 #endif
 
@@ -3580,9 +3596,18 @@ register char *cmd;
 	} else {
 	    register const struct func_tab *tlist;
 	    int res, NDECL((*func));
+#ifdef QWERTZ
+	    unsigned char cmdchar = *cmd & 0xff;
+#endif
 
 	    for (tlist = cmdlist; tlist->f_char; tlist++) {
+#ifdef QWERTZ
+		if(C(cmdchar)==C('y') && iflags.qwertz_layout)
+			cmdchar+='z'-'y';
+		if (cmdchar != (tlist->f_char & 0xff)) continue;
+#else
 		if ((*cmd & 0xff) != (tlist->f_char & 0xff)) continue;
+#endif
 
 		if (u.uburied && !tlist->can_if_buried) {
 /*JP

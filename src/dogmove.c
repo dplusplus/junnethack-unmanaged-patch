@@ -138,6 +138,7 @@ boolean devour;
 	register struct edog *edog = EDOG(mtmp);
 	boolean poly = FALSE, grow = FALSE, heal = FALSE;
 	int nutrit;
+	boolean vampiric = is_vampiric(mtmp->data);
 
 	if(edog->hungrytime < monstermoves)
 	    edog->hungrytime = monstermoves;
@@ -149,6 +150,13 @@ boolean devour;
 	    if (mtmp->meating > 1) mtmp->meating /= 2;
 	    if (nutrit > 1) nutrit = (nutrit * 3) / 4;
 	}
+
+	/* vampires only get 1/5 normal nutrition */
+	if (vampiric) {
+	    mtmp->meating = (mtmp->meating + 4) / 5;
+	    nutrit = (nutrit + 4) / 5;
+	}
+	
 	edog->hungrytime += nutrit;
 	mtmp->mconf = 0;
 	if (edog->mhpmax_penalty) {
@@ -172,14 +180,13 @@ boolean devour;
 	if (cansee(x, y) || cansee(mtmp->mx, mtmp->my))
 #if 0 /*JP*/
 	    pline("%s %s %s.", mon_visible(mtmp) ? noit_Monnam(mtmp) : "It",
-		  devour ? "devours" : "eats",
+		  vampiric ? "drains" : devour ? "devours" : "eats",
 		  (obj->oclass == FOOD_CLASS) ?
 			singular(obj, doname) : doname(obj));
 #else
-	    pline("%sは%sを%s。", mon_visible(mtmp) ? noit_Monnam(mtmp) : "何か",
-		  (obj->oclass == FOOD_CLASS) ?
-			singular(obj, doname) : doname(obj),
-		  devour ? "飲み込んでいる" : "食べている");
+	    pline("%sは%s%s。", mon_visible(mtmp) ? noit_Monnam(mtmp) : "何か",
+		  (obj->oclass == FOOD_CLASS) ? singular(obj, doname) : doname(obj),
+		  vampiric ? "に噛み付いている" : devour ? "を飲み込んでいる" : "を食べている");
 #endif
 	/* It's a reward if it's DOGFOOD and the player dropped/threw it. */
 	/* We know the player had it if invlet is set -dlc */
@@ -201,6 +208,29 @@ boolean devour;
 		pline("%sは%sをペッと吐き出した！",
 		      Monnam(mtmp), distant_name(obj,doname));
 	    }
+	} else if (vampiric) {
+		/* Split Object */
+		if (obj->quan > 1L) {
+		    if(!carried(obj)) {
+			(void) splitobj(obj, 1L);
+		    } else {
+		    	/* Carried */
+			obj = splitobj(obj, obj->quan - 1L);
+			
+			freeinv(obj);
+			if (inv_cnt() >= 52 && !merge_choice(invent, obj))
+			    dropy(obj);
+			else
+			    obj = addinv(obj); /* unlikely but a merge is possible */
+		    }
+#ifdef DEBUG
+		    debugpline("split object,");
+#endif
+		}
+		
+		/* Take away blood nutrition */
+		obj->oeaten = drainlevel(obj);
+		obj->odrained = 1;
 	} else if (obj == uball) {
 	    unpunish();
 	    delobj(obj);

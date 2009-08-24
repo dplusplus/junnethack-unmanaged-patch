@@ -844,7 +844,7 @@ struct obj *obj;
 			} else You("stiffen momentarily under your gaze.");
 */
 			} else pline("ˆêu‚ ‚È‚½‚Ì‚É‚ç‚Ý‚Åd’¼‚µ‚½B");
-		    } else if (youmonst.data->mlet == S_VAMPIRE)
+		    } else if (is_vampire(youmonst.data))
 /*JP
 			You("don't have a reflection.");
 */
@@ -856,11 +856,7 @@ struct obj *obj;
 			pline("‚Ù‚¦HŽÊ‚Á‚Ä‚é‚Ì‚Í‚ ‚È‚½‚¶‚á‚È‚¢‚Ý‚½‚¢‚¾I");
 			make_confused(HConfusion + d(3,4),FALSE);
 		    } else if (Hallucination)
-#if 0 /*JP*/
 			You(look_str, hcolor((char *)0));
-#else
-			You(look_str, jconj_adj(hcolor((char *)0)));
-#endif
 		    else if (Sick)
 /*JP
 			You(look_str, "peaked");
@@ -871,31 +867,18 @@ struct obj *obj;
 			You(look_str, "undernourished");
 */
 			You(look_str, "‰h—{Ž¸’²‚Ì‚æ‚¤‚É");
-#if 0 /*JP*/
+/*JP
 		    else You("look as %s as ever.",
-				ACURR(A_CHA) > 14 ?
-				(poly_gender()==1 ? "beautiful" : "handsome") :
-				"ugly");
-#else
+*/
 		    else You("‚ ‚¢‚©‚í‚ç‚¸%sŒ©‚¦‚éB",
-				ACURR(A_CHA) > 14 ?
-				(poly_gender()==1 ? "”ü‚µ‚­" : "‚è‚è‚µ‚­") :
-				"X‚­");
-#endif
+				beautiful());
 		} else {
-#if 0 /*JP*/
+/*JP
 			You_cant("see your %s %s.",
-				ACURR(A_CHA) > 14 ?
-				(poly_gender()==1 ? "beautiful" : "handsome") :
-				"ugly",
-				body_part(FACE));
-#else
+*/
 			You("Ž©•ª‚Ì%s%s‚ðŒ©‚é‚±‚Æ‚ª‚Å‚«‚È‚¢B",
-				ACURR(A_CHA) > 14 ?
-				(poly_gender()==1 ? "”ü‚µ‚¢" : "‚è‚è‚µ‚¢") :
-				"X‚¢",
+				beautiful(),
 				body_part(FACE));
-#endif
 		}
 		return 1;
 	}
@@ -913,7 +896,7 @@ struct obj *obj;
 		    "give the fish a chance to fix their makeup." :
 		    "reflect the murky water.");
 #else
-		pline(Hallucination ?
+		You(Hallucination ?
 		    "‹›‚ª‚â‚Á‚Ä‚«‚Ä‰»Ï’¼‚µ‚ð‚µ‚½B":
 		    "‚ ‚È‚½‚Í‰A‹C‚È…‚ð‰f‚µ‚½B");
 #endif
@@ -951,7 +934,7 @@ struct obj *obj;
 */
 		pline("%s‚ÍŒ¶Šo‚ÉP‚í‚ê‚Ä‚¢‚ÄA‚¿‚á‚ñ‚ÆŒ©‚é‚±‚Æ‚ª‚Å‚«‚È‚¢B", Monnam(mtmp));
 	/* some monsters do special things */
-	} else if (mlet == S_VAMPIRE || mlet == S_GHOST) {
+	} else if (is_vampire(mtmp->data) || mlet == S_GHOST) {
 	    if (vis)
 /*JP
 		pline ("%s doesn't have a reflection.", Monnam(mtmp));
@@ -1941,7 +1924,9 @@ boolean
 tinnable(corpse)
 struct obj *corpse;
 {
+	if (corpse->otyp != CORPSE) return 0;
 	if (corpse->oeaten) return 0;
+	if (corpse->odrained) return 0;
 	if (!mons[corpse->corpsenm].cnutrit) return 0;
 	return 1;
 }
@@ -1963,7 +1948,7 @@ register struct obj *obj;
 		return;
 	}
 	if (!(corpse = floorfood("tin", 2))) return;
-	if (corpse->oeaten) {
+	if (corpse->otyp == CORPSE && (corpse->oeaten || corpse->odrained)) {
 /*JP
 		You("cannot tin %s which is partly eaten.",something);
 */
@@ -3885,7 +3870,7 @@ doapply()
 		res = use_container(obj, 1);
 		break;
 	case BAG_OF_TRICKS:
-		bagotricks(obj);
+		res = bagotricks(obj);
 		break;
 	case CAN_OF_GREASE:
 		use_grease(obj);

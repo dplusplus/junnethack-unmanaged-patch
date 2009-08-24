@@ -906,6 +906,7 @@ int thrown;
 */
 			You("%sカメラを壊すことができた。おめでとう！",
 			        shk_your(yourbuf, obj));
+			create_camera_demon(obj, u.ux, u.uy);
 			useup(obj);
 			return(TRUE);
 			/*NOTREACHED*/
@@ -1463,6 +1464,8 @@ int thrown;
 			    pline("%sは混乱しているようだ。", Monnam(mon));
 		}
 	}
+
+	if (!destroyed) showdmg(tmp, FALSE);
 
 	return((boolean)(destroyed ? FALSE : TRUE));
 }
@@ -2046,11 +2049,29 @@ register struct attack *mattk;
 	    case AD_DRLI:
 		if (!negated && !rn2(3) && !resists_drli(mdef)) {
 			int xtmp = d(2,6);
+			if (mdef->mhp < xtmp) xtmp = mdef->mhp;
+			if (maybe_polyd(is_vampiric(youmonst.data), 
+			    Race_if(PM_VAMPIRE)) && mattk->aatyp == AT_BITE &&
+			    has_blood(pd)) {
+				/* For the life of a creature is in the blood
+				   (Lev 17:11) */
+				if (flags.verbose)
+/*JP
+				    You("feed on the lifeblood.");
+*/
+				    You("生き血を啜った。");
+				/* [ALI] Biting monsters does not count against
+				   eating conducts. The draining of life is
+				   considered to be primarily a non-physical
+				   effect */
+				lesshungry(xtmp * 6);
+			}
 /*JP
 			pline("%s suddenly seems weaker!", Monnam(mdef));
 */
 			pline("%sは突然弱くなったように見えた！", Monnam(mdef));
 			mdef->mhpmax -= xtmp;
+			if (xtmp < mdef->mhp) showdmg(xtmp, FALSE);
 			if ((mdef->mhp -= xtmp) <= 0 || !mdef->m_lev) {
 /*JP
 				pline("%s dies!", Monnam(mdef));
@@ -2290,6 +2311,8 @@ register struct attack *mattk;
 	    default:	tmp = 0;
 		break;
 	}
+
+	if (tmp < mdef->mhp) showdmg(tmp, FALSE);
 
 	mdef->mstrategy &= ~STRAT_WAITFORU; /* in case player is very fast */
 	if((mdef->mhp -= tmp) < 1) {
@@ -2764,8 +2787,15 @@ use_weapon:
 			if (i==1 && uwep && (u.umonnum == PM_SUCCUBUS ||
 				u.umonnum == PM_INCUBUS)) goto use_weapon;
 #endif
-		case AT_KICK:
 		case AT_BITE:
+			/* [ALI] Vampires are also smart. They avoid biting
+			   monsters if doing so would be fatal */
+			if ((uwep || (u.twoweap && uswapwep)) &&
+				is_vampire(youmonst.data) &&
+				(is_rider(mon->data) ||
+				 mon->data == &mons[PM_GREEN_SLIME]))
+			    break;
+		case AT_KICK:
 		case AT_STNG:
 		case AT_TUCH:
 		case AT_BUTT:
@@ -3005,6 +3035,10 @@ uchar aatyp;
 	register struct permonst *ptr = mon->data;
 	register int i, tmp;
 
+	if (mhit && aatyp == AT_BITE && is_vampiric(youmonst.data)) {
+	    if (bite_monster(mon))
+		return 2;			/* lifesaved */
+	}
 	for(i = 0; ; i++) {
 	    if(i >= NATTK) return(malive | mhit);	/* no passive attacks */
 	    if(ptr->mattk[i].aatyp == AT_NONE) break;	/* try this one */

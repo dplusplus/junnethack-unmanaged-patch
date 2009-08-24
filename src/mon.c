@@ -1601,7 +1601,7 @@ uchar adtyp;
 #endif
 
 	/* extinguish monster's armor */
-	if ((otmp = which_armor(mtmp, W_ARM)) && (Is_gold_dragon_armor(otmp)))
+	if ((otmp = which_armor(mtmp, W_ARM)) && (Is_gold_dragon_armor(otmp->otyp)))
 		end_burn(otmp,FALSE);
 
 	mptr = mtmp->data;		/* save this for m_detach() */
@@ -2236,6 +2236,10 @@ cleanup:
 
 	/* malign was already adjusted for u.ualign.type and randomization */
 	adjalign(mtmp->malign);
+
+#ifdef LIVELOG_BONES_KILLER
+	livelog_bones_killed(mtmp);
+#endif
 }
 
 /* changes the monster into a stone monster of the same type */
@@ -2775,9 +2779,9 @@ struct monst *mon;
 	      {
 		struct obj *m_armr = which_armor(mon, W_ARM);
 
-		if (m_armr && Is_dragon_scales(m_armr))
+		if (m_armr && Is_dragon_scales(m_armr->otyp))
 		    mndx = Dragon_scales_to_pm(m_armr) - mons;
-		else if (m_armr && Is_dragon_mail(m_armr))
+		else if (m_armr && Is_dragon_mail(m_armr->otyp))
 		    mndx = Dragon_mail_to_pm(m_armr) - mons;
 	      }
 		break;

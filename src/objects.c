@@ -329,40 +329,40 @@ HELM("helm of telepathy", "visored helmet",
  *	(2) That the order of the dragon scale mail and dragon scales is the
  *	    the same defined in monst.c.
  */
-#define DRGN_ARMR(name,mgc,power,cost,ac,color) \
-	ARMOR(name,(char *)0,1,mgc,1,power,0,5,40,cost,ac,0,ARM_SUIT,DRAGON_HIDE,color)
+#define DRGN_ARMR(name,desc,mgc,power,cost,ac,color) \
+	ARMOR(name,desc,0,mgc,1,power,0,5,40,cost,ac,0,ARM_SUIT,DRAGON_HIDE,color)
 /* 3.4.1: dragon scale mail reclassified as "magic" since magic is
    needed to create them */
-DRGN_ARMR("gray dragon scale mail",   1, ANTIMAGIC,  1200, 1, CLR_GRAY),
-DRGN_ARMR("silver dragon scale mail", 1, REFLECTING, 1200, 1, DRAGON_SILVER),
+DRGN_ARMR("magic dragon scale mail", "tatzelworm scale mail", 1, ANTIMAGIC,  1200, 1, CLR_GRAY),
+DRGN_ARMR("reflecting dragon scale mail", "amphitere scale mail", 1, REFLECTING, 1200, 1, DRAGON_SILVER),
 #if 0	/* DEFERRED */
 DRGN_ARMR("shimmering dragon scale mail", 1, DISPLACED, 1200, 1, CLR_CYAN),
 #endif
-DRGN_ARMR("red dragon scale mail",    1, FIRE_RES,    900, 1, CLR_RED),
-DRGN_ARMR("white dragon scale mail",  1, COLD_RES,    900, 1, CLR_WHITE),
-DRGN_ARMR("orange dragon scale mail", 1, SLEEP_RES,   900, 1, CLR_ORANGE),
-DRGN_ARMR("black dragon scale mail",  1, DISINT_RES, 1200, 1, CLR_BLACK),
-DRGN_ARMR("blue dragon scale mail",   1, SHOCK_RES,   900, 1, CLR_BLUE),
-DRGN_ARMR("green dragon scale mail",  1, POISON_RES,  900, 1, CLR_GREEN),
-DRGN_ARMR("gold dragon scale mail",   1, STONE_RES,   900, 1, HI_GOLD),
-DRGN_ARMR("yellow dragon scale mail", 1, ACID_RES,    900, 1, CLR_YELLOW),
+DRGN_ARMR("fire dragon scale mail", "draken scale mail", 1, FIRE_RES,    900, 1, CLR_RED),
+DRGN_ARMR("ice dragon scale mail", "lindworm scale mail", 1, COLD_RES,    900, 1, CLR_WHITE),
+DRGN_ARMR("sleep dragon scale mail", "sarkany scale mail", 1, SLEEP_RES,   900, 1, CLR_ORANGE),
+DRGN_ARMR("disintegration dragon scale mail", "sirrush scale mail", 1, DISINT_RES, 1200, 1, CLR_BLACK),
+DRGN_ARMR("electric dragon scale mail", "leviathan scale mail", 1, SHOCK_RES,   900, 1, CLR_BLUE),
+DRGN_ARMR("poison dragon scale mail", "wyvern scale mail", 1, POISON_RES,  900, 1, CLR_GREEN),
+DRGN_ARMR("stone dragon scale mail", "gold dragon scale mail", 1, STONE_RES,   900, 1, HI_GOLD),
+DRGN_ARMR("acid dragon scale mail", "guivre scale mail", 1, ACID_RES,    900, 1, CLR_YELLOW),
 
 /* For now, only dragons leave these. */
 /* 3.4.1: dragon scales left classified as "non-magic"; they confer
    magical properties but are produced "naturally" */
-DRGN_ARMR("gray dragon scales",   0, ANTIMAGIC,  700, 7, CLR_GRAY),
-DRGN_ARMR("silver dragon scales", 0, REFLECTING, 700, 7, DRAGON_SILVER),
+DRGN_ARMR("magic dragon scales", "tatzelworm scales", 0, ANTIMAGIC,  700, 7, CLR_GRAY),
+DRGN_ARMR("reflecting dragon scales", "amphitere scales", 0, REFLECTING, 700, 7, DRAGON_SILVER),
 #if 0	/* DEFERRED */
 DRGN_ARMR("shimmering dragon scales", 0, DISPLACED,  700, 7, CLR_CYAN),
 #endif
-DRGN_ARMR("red dragon scales",    0, FIRE_RES,   500, 7, CLR_RED),
-DRGN_ARMR("white dragon scales",  0, COLD_RES,   500, 7, CLR_WHITE),
-DRGN_ARMR("orange dragon scales", 0, SLEEP_RES,  500, 7, CLR_ORANGE),
-DRGN_ARMR("black dragon scales",  0, DISINT_RES, 700, 7, CLR_BLACK),
-DRGN_ARMR("blue dragon scales",   0, SHOCK_RES,  500, 7, CLR_BLUE),
-DRGN_ARMR("green dragon scales",  0, POISON_RES, 500, 7, CLR_GREEN),
-DRGN_ARMR("gold dragon scales",   0, STONE_RES,  500, 7, HI_GOLD),
-DRGN_ARMR("yellow dragon scales", 0, ACID_RES,   500, 7, CLR_YELLOW),
+DRGN_ARMR("fire dragon scales", "draken scales", 0, FIRE_RES,   500, 7, CLR_RED),
+DRGN_ARMR("ice dragon scales", "lindworm scales", 0, COLD_RES,   500, 7, CLR_WHITE),
+DRGN_ARMR("sleep dragon scales", "sarkany scales", 0, SLEEP_RES,  500, 7, CLR_ORANGE),
+DRGN_ARMR("disintegration dragon scales", "sirrush scales",  0, DISINT_RES, 700, 7, CLR_BLACK),
+DRGN_ARMR("electric dragon scales", "leviathan scales", 0, SHOCK_RES,  500, 7, CLR_BLUE),
+DRGN_ARMR("poison dragon scales", "wyvern scales", 0, POISON_RES, 500, 7, CLR_GREEN),
+DRGN_ARMR("stone dragon scales", "gold dragon scales", 0, STONE_RES,  500, 7, HI_GOLD),
+DRGN_ARMR("acid dragon scales", "guivre scales", 0, ACID_RES,   500, 7, CLR_YELLOW),
 #undef DRGN_ARMR
 
 ARMOR("plate mail", (char *)0,
@@ -758,11 +758,11 @@ POTION("confusion", "orange",           1, CONFUSION,  42, 100, CLR_ORANGE),
 POTION("blindness", "yellow",           1, BLINDED,    40, 150, CLR_YELLOW),
 POTION("paralysis", "emerald",          1, 0,          42, 300, CLR_BRIGHT_GREEN),
 POTION("speed", "dark green",           1, FAST,       42, 200, CLR_GREEN),
-POTION("levitation", "cyan",            1, LEVITATION, 42, 200, CLR_CYAN),
+POTION("levitation", "viscous",         1, LEVITATION, 42, 200, CLR_GRAY),
 POTION("hallucination", "sky blue",     1, HALLUC,     40, 100, CLR_CYAN),
-POTION("invisibility", "brilliant blue",1, INVIS,      40, 150, CLR_BRIGHT_BLUE),
+POTION("invisibility", "indigo",        1, INVIS,      40, 150, CLR_BRIGHT_BLUE),
 POTION("see invisible", "magenta",      1, SEE_INVIS,  42,  50, CLR_MAGENTA),
-POTION("healing", "purple-red",         1, 0,          57, 100, CLR_MAGENTA),
+POTION("healing", "amber",              1, 0,          57, 100, CLR_ORANGE),
 POTION("extra healing", "puce",         1, 0,          47, 100, CLR_RED),
 POTION("gain level", "milky",           1, 0,          20, 300, CLR_WHITE),
 POTION("enlightenment", "swirly",       1, 0,          20, 200, CLR_BROWN),
@@ -779,18 +779,19 @@ POTION("acid", "white",                 0, 0,          10, 250, CLR_WHITE),
 POTION("oil", "murky",                  0, 0,          30, 250, CLR_BROWN),
 POTION((char *)0, "muddy",              0, 0,           0,   0, CLR_BROWN),
 POTION((char *)0, "sparkling",          0, 0,           0,   0, CLR_CYAN),
-POTION((char *)0, "blood-red",          0, 0,           0,   0, CLR_RED),
 POTION((char *)0, "luminescent",        0, 0,           0,   0, CLR_WHITE),
 POTION((char *)0, "icy",                0, 0,           0,   0, CLR_BRIGHT_BLUE),
-POTION((char *)0, "chartreuse",         0, 0,           0,   0, CLR_GREEN),
+POTION((char *)0, "squishy",            0, 0,           0,   0, CLR_GREEN),
 POTION((char *)0, "greasy",             0, 0,           0,   0, CLR_BLACK),
 POTION((char *)0, "slimy",              0, 0,           0,   0, CLR_BROWN),
-POTION((char *)0, "burgundy",           0, 0,           0,   0, CLR_RED),
+POTION((char *)0, "soapy",              0, 0,           0,   0, CLR_RED),
 POTION((char *)0, "ochre",              0, 0,           0,   0, CLR_BROWN),
-POTION((char *)0, "mauve",              0, 0,           0,   0, CLR_MAGENTA),
-POTION((char *)0, "indigo",             0, 0,           0,   0, CLR_MAGENTA),
+POTION((char *)0, "steamy",             0, 0,           0,   0, CLR_WHITE),
+POTION((char *)0, "gooey",              0, 0,           0,   0, CLR_MAGENTA),
 POTION((char *)0, "silver",             0, 0,           0,   0, HI_SILVER),
 POTION("water", "clear",                0, 0,          92, 100, CLR_CYAN),
+POTION("blood", "blood-red",            0, 0,           0,  50, CLR_RED),
+POTION("vampire blood", "blood-red",    1, 0,           0, 350, CLR_RED),
 #undef POTION
 
 /* scrolls ... */

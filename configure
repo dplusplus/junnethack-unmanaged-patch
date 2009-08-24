@@ -666,7 +666,6 @@ WINDRES
 ac_ct_CHMOD
 ac_ct_CHGRP
 ac_ct_CHOWN
-YFLAGS
 YACC
 LEXLIB
 LEX_OUTPUT_ROOT
@@ -773,6 +772,7 @@ enable_show_extinct
 enable_dungeon_growth
 enable_goldobj
 enable_autopickup_exceptions
+enable_qwertz
 enable_simple_mail
 enable_xlogfile
 enable_livelog
@@ -800,8 +800,6 @@ CPPFLAGS
 LIBXAW_CFLAGS
 LIBXAW_LIBS
 PKG_CONFIG
-YACC
-YFLAGS
 CPP'
 
 
@@ -1463,6 +1461,7 @@ Optional Features:
                           (default=no)
   --enable-autopickup-exceptions
                           Exceptions to autopickup (experimental) (default=no)
+  --enable-qwertz         QWERTZ keyboard layout support (default=yes)
   --enable-simple-mail    simple mail dgamelaunch support (default=no)
   --enable-xlogfile=FILE  More verbose logfile (default=yes, default
                           file=xlogfile)
@@ -1504,11 +1503,6 @@ Some influential environment variables:
               Compiler flags for libXaw, overriding pkg-config
   LIBXAW_LIBS Linker flags for libXaw, overriding pkg-config
   PKG_CONFIG  path to pkg-config utility
-  YACC        The `Yet Another C Compiler' implementation to use. Defaults to
-              the first program found out of: `bison -y', `byacc', `yacc'.
-  YFLAGS      The list of arguments that will be passed by default to $YACC.
-              This script will default YFLAGS to the empty string to avoid a
-              default value of `-d' given by some make applications.
   CPP         C preprocessor
 
 Use these variables to override the choices made by `configure' or to help
@@ -3867,7 +3861,12 @@ fi
 rm -f conftest.l $LEX_OUTPUT_ROOT.c
 
 fi
-for ac_prog in 'bison -y' byacc
+if test "$LEX" == ":"; then
+	{ { $as_echo "$as_me:$LINENO: error: cannot find flex or lex" >&5
+$as_echo "$as_me: error: cannot find flex or lex" >&2;}
+   { (exit 1); exit 1; }; }
+fi
+for ac_prog in 'bison -y' byacc yacc
 do
   # Extract the first word of "$ac_prog", so it can be a program name with args.
 set dummy $ac_prog; ac_word=$2
@@ -3908,8 +3907,12 @@ fi
 
   test -n "$YACC" && break
 done
-test -n "$YACC" || YACC="yacc"
 
+if test -z "$YACC"; then
+	{ { $as_echo "$as_me:$LINENO: error: cannot find bison, byacc or yacc" >&5
+$as_echo "$as_me: error: cannot find bison, byacc or yacc" >&2;}
+   { (exit 1); exit 1; }; }
+fi
 if test -n "$ac_tool_prefix"; then
   for ac_prog in chown true
   do
@@ -7462,7 +7465,25 @@ _ACEOF
 
    fi
 
-#NETHACK_ARG(qwertz,[QWERTZ keyboard layout support],QWERTZ,yes)
+{ $as_echo "$as_me:$LINENO: checking whether to enable qwertz" >&5
+$as_echo_n "checking whether to enable qwertz... " >&6; }
+   # Check whether --enable-qwertz was given.
+if test "${enable_qwertz+set}" = set; then
+  enableval=$enable_qwertz;
+else
+  enable_qwertz="yes"
+fi
+
+   { $as_echo "$as_me:$LINENO: result: $enable_qwertz" >&5
+$as_echo "$enable_qwertz" >&6; }
+   if test "$enable_qwertz" != "no" ; then
+
+cat >>confdefs.h <<_ACEOF
+#define QWERTZ /**/
+_ACEOF
+
+   fi
+
 { $as_echo "$as_me:$LINENO: checking whether to enable simple-mail" >&5
 $as_echo_n "checking whether to enable simple-mail... " >&6; }
    # Check whether --enable-simple-mail was given.

@@ -107,7 +107,13 @@ struct linfo level_info[MAXLINFO];
 NEARDATA struct sinfo program_state;
 
 /* 'rogue'-like direction commands (cmd.c) */
+#ifdef QWERTZ
+const char qykbd_dir[] = "hykulnjb><";       /* qwerty layout */
+const char qzkbd_dir[] = "hzkulnjb><";       /* qwertz layout */
+char const *sdir=qykbd_dir;
+#else
 const char sdir[] = "hykulnjb><";
+#endif
 const char ndir[] = "47896321><";	/* number pad mode */
 const schar xdir[10] = { -1,-1, 0, 1, 1, 1, 0,-1, 0, 0 };
 const schar ydir[10] = {  0,-1,-1,-1, 0, 1, 1, 1, 0, 0 };
@@ -240,12 +246,12 @@ char dump_fn[PL_PSIZ] = DUMMY;
 NEARDATA struct c_color_names c_color_names = {
 #if 0 /*JP*/
 	"black", "amber", "golden",
-	"light blue", "red", "green",
+	"light blue", "red", "orange", "green",
 	"silver", "blue", "purple",
 	"white"
 #else
 	"黒い", "琥珀色の", "金色の",
-	"水色の", "赤い", "緑色の",
+	"水色の", "赤い", "オレンジ色の", "緑色の",
 	"銀色の", "青い", "紫色の",
 	"白い"
 #endif

@@ -263,7 +263,7 @@ struct obj *corpse;
 	if (uball) uball->owornmask = uchain->owornmask = 0;
 
 	/* extinguish armor */
-	if (uarm && Is_gold_dragon_armor(uarm))
+	if (uarm && Is_gold_dragon_armor(uarm->otyp))
 		end_burn(uarm,FALSE);
 
 	/* dispose of your possessions, usually cursed */
@@ -317,6 +317,9 @@ struct obj *corpse;
 		mtmp->mhp = mtmp->mhpmax = u.uhpmax;
 		mtmp->female = flags.female;
 		mtmp->msleeping = 1;
+#ifdef LIVELOG_BONES_KILLER
+		Strcpy(mtmp->former_rank, rank());
+#endif
 	}
 	for(mtmp = fmon; mtmp; mtmp = mtmp->nmon) {
 		resetobjs(mtmp->minvent,FALSE);

@@ -365,7 +365,7 @@ dosit()
 			verbalize("%s‚æI“ğ‚Ì˜ü–•·‚«‚¢‚ê‚æ‚¤‚¼B",
 				  flags.female ? "—" : "’j");
 #endif
-			do_genocide(5, TRUE);	/* REALLY|ONTHRONE, see do_genocide() */
+			do_genocide(5, FALSE);	/* REALLY|ONTHRONE, see do_genocide() */
 			break;
 		    case 9:
 #if 0 /*JP*/

@@ -226,7 +226,12 @@ E const char *nomovemsg;
 E const char nul[];
 E char lock[];
 
+#ifdef QWERTZ
+E const char qykbd_dir[], qzkbd_dir[], ndir[];
+E char const *sdir;
+#else
 E const char sdir[], ndir[];
+#endif
 E const schar xdir[], ydir[], zdir[];
 
 E NEARDATA schar tbx, tby;		/* set in mthrowu.c */
@@ -293,6 +298,51 @@ E NEARDATA struct you u;
 #include "pm.h"
 #endif
 
+
+#define PM_BABY_GRAY_DRAGON   PM_BABY_TATZELWORM
+#define PM_BABY_SILVER_DRAGON PM_BABY_AMPHITERE
+#define PM_BABY_RED_DRAGON    PM_BABY_DRAKEN
+#define PM_BABY_WHITE_DRAGON  PM_BABY_LINDWORM
+#define PM_BABY_ORANGE_DRAGON PM_BABY_SARKANY
+#define PM_BABY_BLACK_DRAGON  PM_BABY_SIRRUSH
+#define PM_BABY_BLUE_DRAGON   PM_BABY_LEVIATHAN
+#define PM_BABY_GREEN_DRAGON  PM_BABY_WYVERN
+/*#define PM_BABY_GOLD_DRAGON   PM_BABY_GOLD_DRAGON*/
+#define PM_BABY_YELLOW_DRAGON PM_BABY_GUIVRE
+#define PM_GRAY_DRAGON        PM_TATZELWORM
+#define PM_SILVER_DRAGON      PM_AMPHITERE
+#define PM_RED_DRAGON         PM_DRAKEN
+#define PM_WHITE_DRAGON       PM_LINDWORM
+#define PM_ORANGE_DRAGON      PM_SARKANY
+#define PM_BLACK_DRAGON       PM_SIRRUSH
+#define PM_BLUE_DRAGON        PM_LEVIATHAN
+#define PM_GREEN_DRAGON       PM_WYVERN
+/*#define PM_GOLD_DRAGON        PM_GOLD_DRAGON*/
+#define PM_YELLOW_DRAGON      PM_GUIVRE
+
+#define GRAY_DRAGON_SCALE_MAIL       MAGIC_DRAGON_SCALE_MAIL
+#define SILVER_DRAGON_SCALE_MAIL     REFLECTING_DRAGON_SCALE_MAIL
+#define RED_DRAGON_SCALE_MAIL        FIRE_DRAGON_SCALE_MAIL
+#define WHITE_DRAGON_SCALE_MAIL      ICE_DRAGON_SCALE_MAIL
+#define ORANGE_DRAGON_SCALE_MAIL     SLEEP_DRAGON_SCALE_MAIL
+#define BLACK_DRAGON_SCALE_MAIL      DISINTEGRATION_DRAGON_SCALE_MA
+#define BLUE_DRAGON_SCALE_MAIL       ELECTRIC_DRAGON_SCALE_MAIL
+#define GREEN_DRAGON_SCALE_MAIL      POISON_DRAGON_SCALE_MAIL
+#define GOLD_DRAGON_SCALE_MAIL       STONE_DRAGON_SCALE_MAIL
+#define YELLOW_DRAGON_SCALE_MAIL     ACID_DRAGON_SCALE_MAIL
+
+#define GRAY_DRAGON_SCALES       MAGIC_DRAGON_SCALES
+#define SILVER_DRAGON_SCALES     REFLECTING_DRAGON_SCALES
+#define RED_DRAGON_SCALES        FIRE_DRAGON_SCALES
+#define WHITE_DRAGON_SCALES      ICE_DRAGON_SCALES
+#define ORANGE_DRAGON_SCALES     SLEEP_DRAGON_SCALES
+#define BLACK_DRAGON_SCALES      DISINTEGRATION_DRAGON_SCALES
+#define BLUE_DRAGON_SCALES       ELECTRIC_DRAGON_SCALES
+#define GREEN_DRAGON_SCALES      POISON_DRAGON_SCALES
+#define GOLD_DRAGON_SCALES       STONE_DRAGON_SCALES
+#define YELLOW_DRAGON_SCALES     ACID_DRAGON_SCALES
+
+
 E NEARDATA struct monst youmonst;	/* init'd and defined in decl.c */
 E NEARDATA struct monst *mydogs, *migrating_mons;
 
@@ -304,15 +354,16 @@ E NEARDATA struct mvitals {
 
 E NEARDATA struct c_color_names {
     const char	*const c_black, *const c_amber, *const c_golden,
-		*const c_light_blue,*const c_red, *const c_green,
-		*const c_silver, *const c_blue, *const c_purple,
-		*const c_white;
+		*const c_light_blue,*const c_red, *const c_orange,
+		*const c_green, *const c_silver, *const c_blue,
+		*const c_purple, *const c_white;
 } c_color_names;
 #define NH_BLACK		c_color_names.c_black
 #define NH_AMBER		c_color_names.c_amber
 #define NH_GOLDEN		c_color_names.c_golden
 #define NH_LIGHT_BLUE		c_color_names.c_light_blue
 #define NH_RED			c_color_names.c_red
+#define NH_ORANGE		c_color_names.c_orange
 #define NH_GREEN		c_color_names.c_green
 #define NH_SILVER		c_color_names.c_silver
 #define NH_BLUE			c_color_names.c_blue

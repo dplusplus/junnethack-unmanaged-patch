@@ -302,19 +302,12 @@ do_mname()
 		mtmp = u.usteed;
 	    else {
 #endif
-#if 0 /*JP*/
+/*JP
 		pline("This %s creature is called %s and cannot be renamed.",
-		ACURR(A_CHA) > 14 ?
-		(flags.female ? "beautiful" : "handsome") :
-		"ugly",
-		plname);
-#else
+*/
 		pline("この%s生き物は%sと呼ばれていて、名前は変更できない。",
-		ACURR(A_CHA) > 14 ?
-		(flags.female ? "美人の" : "かっこいい") :
-		"醜い",
+		beautiful(),
 		plname);
-#endif
 		return(0);
 #ifdef STEED
 	    }
@@ -1212,6 +1205,11 @@ static const char * const bogusmons[] = {
 	"three-headed monkey",			/* Monkey Island */
 	"little green man",			/* modern folklore */
 	"weighted Companion Cube",		/* Portal */
+	"/b/tard",				/* /b/ */
+	"manbearpig",				/* South Park */
+	"ceiling cat", "basement cat",
+	"monorail cat",				/* the Internet is made for cat pix */
+	"rape golem",				/* schnippi */
 };
 
 
@@ -1266,7 +1264,7 @@ static NEARDATA const char * const hcolors[] = {
 #if 0 /*JP*/
 	"ultraviolet", "infrared", "bluish-orange",
 	"reddish-green", "dark white", "light black", "sky blue-pink",
-	"salty", "sweet", "sour", "bitter",
+	"salty", "sweet", "sour", "bitter", "umami",
 	"striped", "spiral", "swirly", "plaid", "checkered", "argyle",
 	"paisley", "blotchy", "guernsey-spotted", "polka-dotted",
 	"square", "round", "triangular",
@@ -1276,7 +1274,7 @@ static NEARDATA const char * const hcolors[] = {
 #else
 	"紫外色の", "赤外色の", "青色がかったオレンジ色の",
 	"赤みがかった緑色の", "暗い白色の", "明るい黒の", "水色がかったピンク色の",
-	"塩辛い", "甘い", "すっぱい", "苦い",
+	"塩辛い", "甘い", "すっぱい", "苦い", "旨い",
 	"しま模様の", "らせん状の", "波状の", "格子模様状の", "チェック状の", "放射状の",
 	"ペーズリー模様の", "しみ状の", "青色の斑点状の", "点状の",
 	"四角形状の", "丸状の", "三角状の",

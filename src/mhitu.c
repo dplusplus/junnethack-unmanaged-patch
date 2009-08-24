@@ -12,6 +12,7 @@
 
 #include "hack.h"
 #include "artifact.h"
+#include "edog.h"
 
 STATIC_VAR NEARDATA struct obj *otmp;
 
@@ -1502,7 +1503,21 @@ dopois:
 		break;
 	    case AD_DRLI:
 		hitmsg(mtmp, mattk);
-		if ((uncancelled || mdat == &mons[PM_VLAD_THE_IMPALER]) && !rn2(3) && !Drain_resistance) {
+		/* if vampire biting (and also a pet) */
+		if (is_vampire(mtmp->data) && mattk->aatyp == AT_BITE &&
+			has_blood(youmonst.data)) {
+/*JP
+			   Your("blood is being drained!");
+*/
+			   You("ŒŒ‚ð‹z‚í‚ê‚½I");
+			   /* Get 1/20th of full corpse value
+			    * Therefore 4 bites == 1 drink
+			    */
+			    if (mtmp->mtame && !mtmp->isminion)
+			    	EDOG(mtmp)->hungrytime += ((int)((youmonst.data)->cnutrit / 20) + 1);
+		}
+		
+		if (uncancelled && !rn2(3) && !Drain_resistance) {
 /*JP
 		    losexp("life drainage");
 */
@@ -2895,6 +2910,7 @@ mdamageu(mtmp, n)	/* mtmp hits you for n points damage */
 register struct monst *mtmp;
 register int n;
 {
+	showdmg(n, TRUE);
 	flags.botl = 1;
 	if (Upolyd) {
 		u.mh -= n;

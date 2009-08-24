@@ -162,6 +162,9 @@ static struct Bool_Opt
 	{"prayconfirm", &flags.prayconfirm, TRUE, SET_IN_GAME},
 	{"preload_tiles", &iflags.wc_preload_tiles, TRUE, DISP_IN_GAME},	/*WC*/
 	{"pushweapon", &flags.pushweapon, FALSE, SET_IN_GAME},
+#ifdef QWERTZ
+	{"qwertz_layout", &iflags.qwertz_layout, FALSE, SET_IN_GAME},
+#endif
 #if defined(MICRO) && !defined(AMIGA)
 	{"rawio", &iflags.rawio, FALSE, DISP_IN_GAME},
 #else
@@ -178,6 +181,7 @@ static struct Bool_Opt
 	{"showborn", &iflags.show_born, FALSE, SET_IN_GAME},
 #endif
 	{"showbuc", &iflags.show_buc, FALSE, SET_IN_GAME},
+	{"showdmg", &iflags.showdmg, FALSE, SET_IN_GAME},
 	{"show_dgn_name", &iflags.show_dgn_name, FALSE, SET_IN_GAME},
 #ifdef EXP_ON_BOTL
 	{"showexp", &flags.showexp, FALSE, SET_IN_GAME},
@@ -1710,6 +1714,18 @@ boolean tinitial, tfrom_file;
 		return;
 	}
 
+#ifdef QWERTZ
+	fullname = "qwertz_layout";
+	if (match_optname(opts, fullname, 6, FALSE)) {
+		if (negated)
+			sdir=qykbd_dir;
+		else
+			sdir=qzkbd_dir;
+		iflags.qwertz_layout=!negated;
+		return;
+	}
+#endif
+
 	fullname = "runmode";
 	if (match_optname(opts, fullname, 4, TRUE)) {
 		if (negated) {
@@ -3078,6 +3094,7 @@ doset()
 #ifdef WIZARD
 		    if (bool_p == &iflags.sanity_check && !wizard) continue;
 		    if (bool_p == &iflags.menu_tab_sep && !wizard) continue;
+		    if (bool_p == &iflags.showdmg && !wizard) continue;
 #endif
 		    if (is_wc_option(boolopt[i].name) &&
 			!wc_supported(boolopt[i].name)) continue;

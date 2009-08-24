@@ -380,7 +380,7 @@ register struct monst *mtmp;
 		u.ugrave_arise = PM_WRAITH;
 	else if (mtmp->data->mlet == S_MUMMY && urace.mummynum != NON_PM)
 		u.ugrave_arise = urace.mummynum;
-	else if (mtmp->data->mlet == S_VAMPIRE && Race_if(PM_HUMAN))
+	else if (is_vampire(mtmp->data) && Race_if(PM_HUMAN))
 		u.ugrave_arise = PM_VAMPIRE;
 	else if (mtmp->data == &mons[PM_GHOUL])
 		u.ugrave_arise = PM_GHOUL;
@@ -1439,8 +1439,8 @@ boolean identified, all_containers, want_dump, want_disp;
 
 	for (box = list; box; box = box->nobj) {
 	    if (Is_container(box) || box->otyp == STATUE) {
-		if (box->otyp == BAG_OF_TRICKS) {
-		    continue;	/* wrong type of container */
+		if (box->otyp == BAG_OF_TRICKS && box->spe) {
+		    continue;	/* bag of tricks with charges can't contain anything */
 		} else if (box->cobj) {
 		    winid tmpwin;
 #ifdef DUMP_LOG

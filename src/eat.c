@@ -137,6 +137,15 @@ register struct obj *obj;
 	    !Has_contents(obj))
 		return TRUE;
 
+	/* Vampires drink the blood of meaty corpses */
+	/* [ALI] (fully) drained food is not presented as an option,
+	 * but partly eaten food is (even though you can't drain it).
+	 */
+	if (is_vampiric(youmonst.data))
+		return (boolean)(obj->otyp == CORPSE &&
+		  has_blood(&mons[obj->corpsenm]) && (!obj->odrained ||
+		  obj->oeaten > drainlevel(obj)));
+
      /* return((boolean)(!!index(comestibles, obj->oclass))); */
 	return (boolean)(obj->oclass == FOOD_CLASS);
 }
@@ -165,6 +174,7 @@ static const struct { const char *txt; int nut; } tintxts[] = {
 	{"candied",      100},
 	{"boiled",       50},
 	{"dried",        55},
+#define SZECHUAN_TIN 10
 	{"szechuan",     70},
 #define FRENCH_FRIED_TIN 11
 	{"french fried", 40},
@@ -185,6 +195,7 @@ static const struct { const char *txt; int nut; } tintxts[] = {
 	{"砂糖漬け",    100},
 	{"ゆで",         50},
 	{"乾燥",         55},
+#define SZECHUAN_TIN 10
 	{"四川風",       70},
 #define FRENCH_FRIED_TIN 11
 	{"フレンチ風",   40},
@@ -321,7 +332,7 @@ choke(food)	/* To a full belly all food is bad. (It.) */
 			You("%sを喉に詰まらせてしまった。", foodword(food));
 			if (food->oclass == COIN_CLASS) {
 /*JP
-				killer = "a very rich meal";
+				killer = "very rich meal";
 */
 				killer = "とても高価な料理";
 			} else {
@@ -482,12 +493,23 @@ eatfood()		/* called each move during eating process */
 		do_reset_eat();
 		return(0);
 	}
+	if (is_vampiric(youmonst.data) != victual.piece->odrained) {
+	    /* Polymorphed while eating/draining */
+	    do_reset_eat();
+	    return(0);
+	}
 	if(!victual.eating) return(0);
 
 	if(++victual.usedtime <= victual.reqtime) {
 	    if(bite()) return(0);
 	    return(1);	/* still busy */
 	} else {	/* done */
+	    int crumbs = victual.piece->oeaten;		/* The last crumbs */
+	    if (victual.piece->odrained) crumbs -= drainlevel(victual.piece);
+	    if (crumbs > 0) {
+		lesshungry(crumbs);
+		victual.piece->oeaten -= crumbs;
+	    }
 	    done_eating(TRUE);
 	    return(0);
 	}
@@ -504,18 +526,27 @@ boolean message;
 		if (message) pline(nomovemsg);
 		nomovemsg = 0;
 	} else if (message)
-/*JP
-		You("finish eating %s.", food_xname(victual.piece, TRUE));
-*/
-		You("%sを食べ終えた。",  food_xname(victual.piece, TRUE));
+#if 0 /*JP*/
+		You("finish %s %s.", victual.piece->odrained ? "draining" :
+		  "eating", food_xname(victual.piece, TRUE));
+#else
+		You("%sを%s終えた。", food_xname(victual.piece, TRUE),
+		  victual.piece->odrained ? "吸い" : "食べ");
+#endif
 
-	if(victual.piece->otyp == CORPSE)
+	if (victual.piece->otyp == CORPSE) {
+		if (!victual.piece->odrained || Race_if(PM_VAMPIRE) && !rn2(5))
 		cpostfx(victual.piece->corpsenm);
-	else
+	} else
 		fpostfx(victual.piece);
 
-	if (carried(victual.piece)) useup(victual.piece);
-	else useupf(victual.piece, 1L);
+	if (victual.piece->odrained) {
+		victual.piece->in_use = FALSE;
+	} else if (carried(victual.piece)) {
+		useup(victual.piece);
+	} else {
+		useupf(victual.piece, 1L);
+	}
 	victual.piece = (struct obj *) 0;
 	victual.fullwarn = victual.eating = victual.doreset = FALSE;
 }
@@ -631,6 +662,48 @@ register int pm;
 		    fix_petrification();
 		break;
 	}
+}
+
+/**
+ * Called when a vampire bites a monster.
+ * Returns TRUE if hero died and was lifesaved.
+ */
+
+boolean
+bite_monster(mon)
+struct monst *mon;
+{
+    switch(monsndx(mon->data)) {
+	case PM_LIZARD:
+	    if (Stoned) fix_petrification();
+	    break;
+	case PM_DEATH:
+	case PM_PESTILENCE:
+	case PM_FAMINE:
+/*JP
+	    pline("Unfortunately, eating any of it is fatal.");
+*/
+	    pline("なんたる不幸！それに噛み付くのは致命的だ。");
+	    done_in_by(mon);
+	    return TRUE;		/* lifesaved */
+
+	case PM_GREEN_SLIME:
+	    if (!Unchanging && youmonst.data != &mons[PM_FIRE_VORTEX] &&
+			    youmonst.data != &mons[PM_FIRE_ELEMENTAL] &&
+			    youmonst.data != &mons[PM_GREEN_SLIME]) {
+/*JP
+		You("don't feel very well.");
+*/
+		You("すごく気分が悪い。");
+		Slimed = 10L;
+	    }
+	    /* Fall through */
+	default:
+	    if (acidic(mon->data) && Stoned)
+		fix_petrification();
+	    break;
+    }
+    return FALSE;
 }
 
 void
@@ -1328,6 +1401,27 @@ opentin()		/* called during each move whilst opening a tin */
 		    tintxts[r].txt);
 #endif
 
+		/* SZECHUAN_TIN might have free fortune cookie */
+		if (r==SZECHUAN_TIN && rn2(2)) {
+			struct obj* cookie = mksobj(FORTUNE_COOKIE,FALSE,FALSE);
+			cookie->blessed = tin.tin->blessed;
+			cookie->cursed = tin.tin->cursed;
+#ifdef INVISIBLE_OBJECTS
+			cookie->oinvis = tin.tin->oinvis;
+#endif
+/*JP
+			There("is a free fortune cookie inside!");
+*/
+			pline("中に無料の占いクッキーが入っていた！");
+#if 0 /*JP*/
+			(void)hold_another_object(cookie,
+				"It falls to the floor.",0,0);
+#else
+			(void)hold_another_object(cookie,
+				"それは床に落ちた。",0,0);
+#endif
+		}
+
 	    /* KMH, conduct */
 	    u.uconduct.food++;
 	    if (!vegan(&mons[tin.tin->corpsenm]))
@@ -1586,16 +1680,60 @@ eatcorpse(otmp)		/* called when a corpse is selected as food */
 		else if (otmp->blessed) rotted -= 2L;
 	}
 
+	/* Vampires only drink the blood of very young, meaty corpses 
+	 * is_edible only allows meaty corpses here
+	 * Blood is assumed to be 1/5 of the nutrition
+	 * Thus happens before the conduct checks intentionally - should it be after?
+	 * Blood is assumed to be meat and flesh.
+	 */
+	if (is_vampiric(youmonst.data)) {
+	    /* oeaten is set up by touchfood */
+	    if (otmp->odrained ? otmp->oeaten <= drainlevel(otmp) :
+	      otmp->oeaten < mons[otmp->corpsenm].cnutrit) {
+/*JP
+	    	pline("There is no blood left in this corpse!");
+*/
+	    	pline("この死体には血液がもう残っていない！");
+	    	return 3;
+	    } else if (rotted <= 0 &&
+	      (peek_at_iced_corpse_age(otmp) + 5) >= monstermoves) {
+#if 0 /*JP*/
+		char buf[BUFSZ];
+
+		/* Generate the name for the corpse */
+		if (!uniq || Hallucination)
+		    Sprintf(buf, "%s", the(corpse_xname(otmp,TRUE)));
+		else
+		    Sprintf(buf, "%s%s corpse",
+			    !type_is_pname(&mons[mnum]) ? "the " : "",
+			    s_suffix(mons[mnum].mname));
+
+	    	pline("You drain the blood from %s.", buf);
+#else
+		You("%sから血を吸った。", corpse_xname(otmp,TRUE));
+#endif
+		otmp->odrained = 1;
+	    } else {
+/*JP
+	    	pline("The blood in this corpse has coagulated!");
+*/
+		pline("この死体の血はすでに固まってしまっている！");
+	    	return 3;
+	    }
+	}
+	else
+	    otmp->odrained = 0;
+
 	if (mnum != PM_ACID_BLOB && !stoneable && rotted > 5L) {
 		boolean cannibal = maybe_cannibal(mnum, FALSE);
 #if 0 /*JP*/
-		pline("Ulch - that %s was tainted%s!",
+		pline("Ulch!  That %s was tainted%s!",
 		      mons[mnum].mlet == S_FUNGUS ? "fungoid vegetation" :
 		      !vegetarian(&mons[mnum]) ? "meat" : "protoplasm",
 		      cannibal ? " cannibal" : "");
 #else
 		pline("オェ！この%sは腐っている%s！", 
-		      mons[mnum].mlet == S_FUNGUS ? "細菌に汚染された植物" :
+		      mons[mnum].mlet == S_FUNGUS ? "キノコ" :
 		      !vegetarian(&mons[mnum]) ? "肉" : "生物",
 		      cannibal ? "。しかも共食いだ" : "");
 #endif
@@ -1669,6 +1807,7 @@ eatcorpse(otmp)		/* called when a corpse is selected as food */
 
 	/* delay is weight dependent */
 	victual.reqtime = 3 + (mons[mnum].cwt >> 6);
+	if (otmp->odrained) victual.reqtime = rounddiv(victual.reqtime, 5);
 
 	if (!tp && mnum != PM_LIZARD && mnum != PM_LICHEN &&
 			(otmp->orotten || !rn2(7))) {
@@ -1689,9 +1828,11 @@ eatcorpse(otmp)		/* called when a corpse is selected as food */
 		else useupf(otmp, 1L);
 		retcode = 2;
 	    }
-		    
+		
 	    if (!retcode) consume_oeaten(otmp, 2);	/* oeaten >>= 2 */
-	} else {
+	    if (retcode<2 && otmp->odrained && otmp->oeaten < drainlevel(otmp))
+	        otmp->oeaten = drainlevel(otmp);
+	} else if (!is_vampiric(youmonst.data)) {
 #if 0 /*JP*/
 	    pline("%s%s %s!",
 		  !uniq ? "This " : !type_is_pname(&mons[mnum]) ? "The " : "",
@@ -1707,6 +1848,26 @@ eatcorpse(otmp)		/* called when a corpse is selected as food */
 		   (carnivorous(youmonst.data) && !herbivorous(youmonst.data)))
 		  ? "とても旨い" : "ひどい味だ");
 #endif
+	}
+
+	/* Eating slimy or oily corpses make your fingers slippery.
+	   Note: Snakes are not slimy. */
+	if ((amorphous(&mons[mnum]) || slithy(&mons[mnum]) ||
+	     mons[mnum].mlet == S_BLOB) &&
+	    mons[mnum].mlet != S_SNAKE && mons[mnum].mlet != S_NAGA &&
+	    mons[mnum].mlet != S_MIMIC && rnf(1,5)) {
+#if 0 /*JP*/
+		pline("Eating this %s corpse makes your %s %s slippery.",
+		      amorphous(&mons[mnum]) ? "glibbery" : "slimy",
+		      makeplural(body_part(FINGER)),
+		      Glib ? "even more" : "very");
+#else
+		pline("%sしたものを食べたのであなたの%sは%s滑りやすくなった。",
+		      amorphous(&mons[mnum]) ? "ぬるぬる" : "つるつる",
+		      body_part(FINGER),
+		      Glib ? "さらに" : "");
+#endif
+		incr_itimeout(&Glib, rnd(15));
 	}
 
 	return(retcode);
@@ -1742,10 +1903,13 @@ start_eating(otmp)		/* called as you start to eat */
 	    return;
 	}
 
-/*JP
-	Sprintf(msgbuf, "eating %s", food_xname(otmp, TRUE));
-*/
-	Sprintf(msgbuf, "%sを食べる", food_xname(otmp, TRUE));
+#if 0 /*JP*/
+	Sprintf(msgbuf, "%s %s", otmp->odrained ? "draining" : "eating",
+	  food_xname(otmp, TRUE));
+#else
+	Sprintf(msgbuf, "%sを%s", food_xname(otmp, TRUE),
+	  otmp->odrained ? "吸う" : "食べる");
+#endif
 	set_occupation(eatfood, msgbuf, 0);
 }
 
@@ -2422,6 +2586,7 @@ doeat()		/* generic "eat" command funtion (see cmd.c) */
 {
 	register struct obj *otmp;
 	int basenutrit;			/* nutrition of full item */
+	int nutrit;			/* nutrition available */
 	boolean dont_start = FALSE;
 	
 	if (Strangled) {
@@ -2482,7 +2647,7 @@ doeat()		/* generic "eat" command funtion (see cmd.c) */
 			otmp = splitobj(otmp, 1L);
 		}
 /*JP
-		pline("Ulch - That %s was rustproofed!", xname(otmp));
+		pline("Ulch!  That %s was rustproofed!", xname(otmp));
 */
 		pline("ウゲェー！%sは防錆されている！", xname(otmp));
 		/* The regurgitated object's rustproofing is gone now */
@@ -2491,7 +2656,7 @@ doeat()		/* generic "eat" command funtion (see cmd.c) */
 /*JP
 		You("spit %s out onto the %s.", the(xname(otmp)),
 */
-		You("%sを%sに吐き出した。", the(xname(otmp)),
+		You("%sを%sに吐き出した。", xname(otmp),
 			surface(u.ux, u.uy));
 		if (carried(otmp)) {
 			freeinv(otmp);
@@ -2576,6 +2741,19 @@ doeat()		/* generic "eat" command funtion (see cmd.c) */
 	    return 1;
 	}
 
+	/* [ALI] Hero polymorphed in the meantime.
+	 */
+	if (otmp == victual.piece &&
+	  is_vampiric(youmonst.data) != otmp->odrained)
+	    victual.piece = (struct obj *)0;	/* Can't resume */
+
+	/* [ALI] Blood can coagulate during the interruption
+	 *       but not during the draining process.
+	 */
+	if(otmp == victual.piece && otmp->odrained &&
+	  (peek_at_iced_corpse_age(otmp) + victual.usedtime + 5) < monstermoves)
+	    victual.piece = (struct obj *)0;	/* Can't resume */
+
 	if(otmp == victual.piece) {
 	/* If they weren't able to choke, they don't suddenly become able to
 	 * choke just because they were interrupted.  On the other hand, if
@@ -2613,7 +2791,23 @@ doeat()		/* generic "eat" command funtion (see cmd.c) */
 	 */
 	if(otmp->otyp == CORPSE) {
 	    int tmp = eatcorpse(otmp);
-	    if (tmp == 2) {
+	    if (tmp == 3) {
+		/* inedible */
+		victual.piece = (struct obj *)0;
+		/*
+		 * The combination of odrained == TRUE and oeaten == cnutrit
+		 * represents the case of starting to drain a corpse but not
+		 * getting any further (eg., loosing consciousness due to
+		 * rotten food). We must preserve this case to avoid corpses
+		 * changing appearance after a failed attempt to eat.
+		 */
+		if (!otmp->odrained &&
+			otmp->oeaten == mons[otmp->corpsenm].cnutrit)
+		    otmp->oeaten = 0;
+		/* ALI, conduct: didn't eat it after all */
+		u.uconduct.food--;
+		return 0;
+	    } else if (tmp == 2) {
 		/* used up */
 		victual.piece = (struct obj *)0;
 		return(1);
@@ -2652,20 +2846,34 @@ doeat()		/* generic "eat" command funtion (see cmd.c) */
 		    otmp->orotten = TRUE;
 		    dont_start = TRUE;
 		}
-		consume_oeaten(otmp, 1);	/* oeaten >>= 1 */
+		if (otmp->oeaten < 2) {
+			victual.piece = (struct obj *)0;
+			if (carried(otmp)) useup(otmp);
+			else useupf(otmp, 1L);
+			return 1;
+		} else {
+			consume_oeaten(otmp, 1);	/* oeaten >>= 1 */
+		}
 	    } else fprefx(otmp);
 	}
 
 	/* re-calc the nutrition */
 	if (otmp->otyp == CORPSE) basenutrit = mons[otmp->corpsenm].cnutrit;
 	else basenutrit = objects[otmp->otyp].oc_nutrition;
+	nutrit = otmp->oeaten;
+	if (otmp->otyp == CORPSE && otmp->odrained) {
+	    nutrit -= drainlevel(otmp);
+	    basenutrit -= drainlevel(otmp);
+	}
 
 #ifdef DEBUG
 	debugpline("before rounddiv: victual.reqtime == %d", victual.reqtime);
 	debugpline("oeaten == %d, basenutrit == %d", otmp->oeaten, basenutrit);
+	debugpline("nutrit == %d, cnutrit == %d", nutrit, otmp->otyp == CORPSE ?
+	  mons[otmp->corpsenm].cnutrit : objects[otmp->otyp].oc_nutrition);
 #endif
 	victual.reqtime = (basenutrit == 0 ? 0 :
-		rounddiv(victual.reqtime * (long)otmp->oeaten, basenutrit));
+		rounddiv(victual.reqtime * (long)nutrit, basenutrit));
 #ifdef DEBUG
 	debugpline("after rounddiv: victual.reqtime == %d", victual.reqtime);
 #endif
@@ -2675,13 +2883,13 @@ doeat()		/* generic "eat" command funtion (see cmd.c) */
 	 * TODO: add in a "remainder" value to be given at the end of the
 	 *	 meal.
 	 */
-	if (victual.reqtime == 0 || otmp->oeaten == 0)
+	if (victual.reqtime == 0 || nutrit == 0)
 	    /* possible if most has been eaten before */
 	    victual.nmod = 0;
-	else if ((int)otmp->oeaten >= victual.reqtime)
-	    victual.nmod = -((int)otmp->oeaten / victual.reqtime);
+	else if (nutrit >= victual.reqtime)
+	    victual.nmod = -(nutrit / victual.reqtime);
 	else
-	    victual.nmod = victual.reqtime % otmp->oeaten;
+	    victual.nmod = victual.reqtime % nutrit;
 	victual.canchoke = (u.uhs == SATIATED);
 
 	if (!dont_start) start_eating(otmp);

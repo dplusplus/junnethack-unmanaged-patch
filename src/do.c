@@ -256,6 +256,25 @@ const char *verb;
 		bury_objs(x, y);
 		newsym(x,y);
 		return TRUE;
+	} else if (obj->otyp==AMULET_OF_YENDOR &&
+	           (obj->cursed ? rnf(1,2) :
+		    obj->blessed ? rnf(1,16) : rnf(1,4))) {
+		/* prevent recursive call of teleportation through flooreffects */
+		if (!obj->orecursive) {
+#if 0 /*JP*/
+			if (cansee(x,y)) pline("Right after touching the %s the amulet teleports away!",
+			  surface(x, y));
+#else
+			if (!Blind) pline("–‚œ‚¯‚Í%s‚ÉG‚ê‚½‚Æ‚½‚ñ‚ÉuŠÔˆÚ“®‚µ‚ÄÁ‚¦‚½I",
+			  surface(x, y));
+#endif
+			obj->orecursive = TRUE;
+			rloco(obj);
+			obj->orecursive = FALSE;
+			return TRUE;
+		} else {
+			return FALSE;
+		}
 	} else if (is_lava(x, y)) {
 		return fire_damage(obj, FALSE, FALSE, x, y);
 	} else if (is_pool(x, y)) {
@@ -925,17 +944,6 @@ register struct obj *obj;
 		    }
 		}
 	    }
-	} else if (obj->otyp==AMULET_OF_YENDOR &&
-	           (obj->cursed ? rnf(1,2) :
-		    obj->blessed ? rnf(1,16) : rnf(1,4))) {
-#if 0 /*JP*/
-		if (!Blind) pline("Right before touching the %s the amulet teleports away!",
-		                  surface(u.ux, u.uy));
-#else
-		if (!Blind) pline("–‚œ‚¯‚Í%s‚ÉG‚ê‚é‚Ü‚³‚É’¼‘O‚ÉuŠÔˆÚ“®‚µ‚ÄÁ‚¦‚½I",
-		                  surface(u.ux, u.uy));
-#endif
-		rloco(obj);
 	} else {
 	    place_object(obj, u.ux, u.uy);
 	    if (obj == uball)

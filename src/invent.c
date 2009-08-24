@@ -316,8 +316,7 @@ struct obj *obj;
 #ifdef LIVELOGFILE
 		livelog_achieve_update();
 #endif
-	} else if((obj->otyp == AMULET_OF_REFLECTION ||
-	           obj->otyp == BAG_OF_HOLDING) &&
+	} else if(Is_sokoend_level(&u.uz) &&
 	          obj->record_achieve_special) {
 		achieve.finish_sokoban = 1;
 		obj->record_achieve_special = 0;
@@ -349,7 +348,7 @@ struct obj *obj;
 	}
 }
 
-/*
+/**
 Add obj to the hero's inventory.  Make sure the object is "free".
 Adjust hero attributes as necessary.
 */
@@ -362,6 +361,7 @@ struct obj *obj;
 	if (obj->where != OBJ_FREE)
 	    panic("addinv: obj not free");
 	obj->no_charge = 0;	/* not meaningful for invent */
+	obj->was_thrown = 0;
 
 	addinv_core1(obj);
 #ifndef GOLDOBJ
@@ -2906,7 +2906,7 @@ mergable(otmp, obj)	/* returns TRUE if obj  & otmp can be merged */
 	    return FALSE;
 
 	if (obj->oclass == FOOD_CLASS && (obj->oeaten != otmp->oeaten ||
-					  obj->orotten != otmp->orotten))
+	     obj->odrained != otmp->odrained || obj->orotten != otmp->orotten))
 	    return(FALSE);
 
 	if (obj->otyp == CORPSE || obj->otyp == EGG || obj->otyp == TIN) {

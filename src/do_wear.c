@@ -676,7 +676,7 @@ STATIC_PTR
 int
 Armor_on()
 {
-	if (Is_gold_dragon_armor(uarm)) {
+	if (uarm && Is_gold_dragon_armor(uarm->otyp)) {
 		begin_burn(uarm,FALSE);
 		if (!Blind)
 /*JP
@@ -690,7 +690,7 @@ Armor_on()
 int
 Armor_off()
 {
-	if (Is_gold_dragon_armor(uarm)) {
+	if (uarm && Is_gold_dragon_armor(uarm->otyp)) {
 		end_burn(uarm,FALSE);
 		if (!Blind)
 /*JP
@@ -710,7 +710,7 @@ Armor_off()
 int
 Armor_gone()
 {
-	if (Is_gold_dragon_armor(uarm))
+	if (uarm && Is_gold_dragon_armor(uarm->otyp))
 		end_burn(uarm,FALSE);
 	takeoff_mask &= ~W_ARM;
     setnotworn(uarm);
@@ -1278,15 +1278,14 @@ dotakeoff()
 #endif
 	}
 	if (!armorpieces) {
-	     /* assert( GRAY_DRAGON_SCALES > YELLOW_DRAGON_SCALE_MAIL ); */
 		if (uskin)
 #if 0 /*JP*/
 		    pline_The("%s merged with your skin!",
-			      uskin->otyp >= GRAY_DRAGON_SCALES ?
+			      Is_dragon_scales(uskin->otyp) ?
 				"dragon scales are" : "dragon scale mail is");
 #else
 		    pline("ドラゴンの鱗%sはあなたの肌と融合してしまっている！",
-			      uskin->otyp >= GRAY_DRAGON_SCALES ?
+			      Is_dragon_scales(uskin->otyp) ?
 				"" : "鎧");
 #endif
 		else
@@ -1845,13 +1844,14 @@ doputon()
 		Your("%s%s are full, and you're already wearing an amulet and %s.",
 			humanoid(youmonst.data) ? "ring-" : "",
 			makeplural(body_part(FINGER)),
-			ublindf->otyp==LENSES ? "some lenses" : "a blindfold");
+			ublindf->otyp==LENSES ? "some lenses" :
+			ublindf->otyp==TOWEL ? "a towel" : "a blindfold");
 #else
 		Your("%s%sはふさがってるし、すでに魔除けと%sも身につけている。",
 			humanoid(youmonst.data) ? "薬" : "",
 			makeplural(body_part(FINGER)),
-			ublindf->otyp==LENSES ? "レンズ" : "目隠し");
-	  return(0);
+			ublindf->otyp==LENSES ? "レンズ" :
+			ublindf->otyp==TOWEL ? "タオル" : "目隠し");
 #endif
 		return(0);
 	}

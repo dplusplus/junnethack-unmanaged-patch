@@ -106,6 +106,7 @@ E int NDECL(newhp);
 E schar FDECL(acurr, (int));
 E schar NDECL(acurrstr);
 E void FDECL(adjalign, (int));
+E const char * NDECL(beautiful);
 
 /* ### ball.c ### */
 
@@ -134,6 +135,7 @@ E void NDECL(max_rank_sz);
 E long NDECL(botl_score);
 #endif
 E int FDECL(describe_level, (char *));
+E const char *NDECL(rank);
 E const char *FDECL(rank_of, (int,SHORT_P,BOOLEAN_P));
 E void NDECL(bot);
 #ifdef DUMP_LOG
@@ -556,6 +558,7 @@ E void NDECL(vomit);
 E int FDECL(eaten_stat, (int,struct obj *));
 E void FDECL(food_disappears, (struct obj *));
 E void FDECL(food_substitution, (struct obj *,struct obj *));
+E boolean FDECL(bite_monster, (struct monst *mon));
 E void NDECL(fix_petrification);
 E void FDECL(consume_oeaten, (struct obj *,int));
 E boolean FDECL(maybe_finished_meal, (BOOLEAN_P));
@@ -724,6 +727,7 @@ E void NDECL(lookaround);
 E int NDECL(monster_nearby);
 E void FDECL(nomul, (int));
 E void FDECL(unmul, (const char *));
+E void FDECL(showdmg, (int, BOOLEAN_P));
 E void FDECL(losehp, (int,const char *,BOOLEAN_P));
 E int NDECL(weight_cap);
 E int NDECL(inv_weight);
@@ -977,8 +981,11 @@ E void FDECL(mimic_hit_msg, (struct monst *, SHORT_P));
 #ifdef GOLDOBJ
 E void FDECL(mkmonmoney, (struct monst *, long));
 #endif
-E void FDECL(bagotricks, (struct obj *));
+E int FDECL(bagotricks, (struct obj *));
 E boolean FDECL(propagate, (int, BOOLEAN_P,BOOLEAN_P));
+E void FDECL(create_camera_demon, (struct obj *,int,int));
+E int NDECL(min_monster_difficulty);
+E int NDECL(max_monster_difficulty);
 
 /* ### mapglyph.c ### */
 

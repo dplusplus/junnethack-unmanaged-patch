@@ -308,6 +308,7 @@ struct obj *otmp;
 #define MUSE_UNICORN_HORN 17
 #define MUSE_POT_FULL_HEALING 18
 #define MUSE_LIZARD_CORPSE 19
+#define MUSE_POT_VAMPIRE_BLOOD 20
 /*
 #define MUSE_INNATE_TPT 9999
  * We cannot use this.  Since monsters get unlimited teleportation, if they
@@ -412,6 +413,12 @@ struct monst *mtmp;
 		if ((obj = m_carrying(mtmp, POT_HEALING)) != 0) {
 		    m.defensive = obj;
 		    m.has_defense = MUSE_POT_HEALING;
+		    return TRUE;
+		}
+		if (is_vampire(mtmp->data) &&
+		  (obj = m_carrying(mtmp, POT_VAMPIRE_BLOOD)) !=0) {
+		    m.defensive = obj;
+		    m.has_defense = MUSE_POT_VAMPIRE_BLOOD;
 		    return TRUE;
 		}
 	    }
@@ -565,6 +572,11 @@ struct monst *mtmp;
 		if(obj->otyp == POT_HEALING) {
 			m.defensive = obj;
 			m.has_defense = MUSE_POT_HEALING;
+		}
+		nomore(MUSE_POT_VAMPIRE_BLOOD);
+		if(is_vampire(mtmp->data) && obj->otyp == POT_VAMPIRE_BLOOD) {
+			m.defensive = obj;
+			m.has_defense = MUSE_POT_VAMPIRE_BLOOD;
 		}
 	    } else {	/* Pestilence */
 		nomore(MUSE_POT_FULL_HEALING);
@@ -1043,6 +1055,29 @@ mon_tele:
 		if (oseen) makeknown(otmp->otyp);
 		m_useup(mtmp, otmp);
 		return 2;
+	case MUSE_POT_VAMPIRE_BLOOD:
+		mquaffmsg(mtmp, otmp);
+		if (!otmp->cursed) {
+		    i = rnd(8) + rnd(2);
+		    mtmp->mhp += i;
+		    mtmp->mhpmax += i;
+#if 0 /*JP*/
+		    if (vismon) pline("%s looks full of life.", Monnam(mtmp));
+#else
+		    if (vismon) pline("%s‚Í¶–½‚É–ž‚¿‚Ä‚¢‚é‚æ‚¤‚ÉŒ©‚¦‚éB",
+					Monnam(mtmp));
+#endif
+		}
+		else if (vismon)
+#if 0 /*JP*/
+		    pline("%s discards the congealed blood in disgust.", Monnam(mtmp));
+#else
+		    pline("%s‚Í‹ÃŒÅ‚µ‚½ŒŒ‰t‚ð‚¢‚Ü‚¢‚Ü‚µ‚»‚¤‚É“Š‚°ŽÌ‚Ä‚½B",
+			Monnam(mtmp));
+#endif
+		if (oseen) makeknown(POT_VAMPIRE_BLOOD);
+		m_useup(mtmp, otmp);
+		return 2;
 	case MUSE_LIZARD_CORPSE:
 		/* not actually called for its unstoning effect */
 		mon_consume_unstone(mtmp, otmp, FALSE, FALSE);
@@ -1116,6 +1151,7 @@ struct monst *mtmp;
 /*#define MUSE_WAN_TELEPORTATION 15*/
 #define MUSE_POT_SLEEPING 16
 #define MUSE_SCR_EARTH 17
+#define MUSE_WAN_CANCELLATION 18
 
 /* Select an offensive item/action for a monster.  Returns TRUE iff one is
  * found.
@@ -1192,6 +1228,11 @@ struct monst *mtmp;
 		if(obj->otyp == WAN_STRIKING && obj->spe > 0) {
 			m.offensive = obj;
 			m.has_offense = MUSE_WAN_STRIKING;
+		}
+		nomore(MUSE_WAN_CANCELLATION);
+		if(obj->otyp == WAN_CANCELLATION && obj->spe > 0) {
+			m.offensive = obj;
+			m.has_offense = MUSE_WAN_CANCELLATION;
 		}
 		nomore(MUSE_POT_PARALYSIS);
 		if(obj->otyp == POT_PARALYSIS && multi >= 0) {
@@ -1497,6 +1538,7 @@ struct monst *mtmp;
 		return (mtmp->mhp <= 0) ? 1 : 2;
 	case MUSE_WAN_TELEPORTATION:
 	case MUSE_WAN_STRIKING:
+	case MUSE_WAN_CANCELLATION:
 		zap_oseen = oseen;
 		mzapmsg(mtmp, otmp, FALSE);
 		otmp->spe--;
@@ -1936,9 +1978,9 @@ struct monst *mon;
 	struct obj *m_armr;
 
 	if ((m_armr = which_armor(mon, W_ARM)) != 0) {
-	    if (Is_dragon_scales(m_armr))
+	    if (Is_dragon_scales(m_armr->otyp))
 		return Dragon_scales_to_pm(m_armr);
-	    else if (Is_dragon_mail(m_armr))
+	    else if (Is_dragon_mail(m_armr->otyp))
 		return Dragon_mail_to_pm(m_armr);
 	}
 	return rndmonst();
@@ -2292,6 +2334,8 @@ struct obj *obj;
 		return TRUE;
 	    break;
 	case POTION_CLASS:
+	    if (typ == POT_VAMPIRE_BLOOD)
+		return is_vampire(mon->data);
 	    if (typ == POT_HEALING ||
 		    typ == POT_EXTRA_HEALING ||
 		    typ == POT_FULL_HEALING ||

@@ -73,6 +73,7 @@ struct obj {
 	Bitfield(oerodeproof,1); /* erodeproof weapon/armor */
 	Bitfield(olocked,1);	/* object is locked */
 #define sokoprize olocked	/* special flag for sokoban prize */
+#define orecursive olocked	/* special flag for preventing recursive calls */
 	Bitfield(obroken,1);	/* lock has been broken */
 	Bitfield(otrapped,1);	/* container is trapped */
 				/* or accidental tripped rolling boulder trap */
@@ -93,7 +94,8 @@ struct obj {
 	Bitfield(in_use,1);	/* for magic items before useup items */
 	Bitfield(bypass,1);	/* mark this as an object to be skipped by bhito() */
 	Bitfield(was_thrown,1);	/* thrown by the hero since last picked up */
-	/* 5 free bits */
+	Bitfield(odrained,1);	/* drained corpse */
+	/* 4 free bits */
 
 	int	corpsenm;	/* type of corpse is mons[corpsenm] */
 #define leashmon  corpsenm	/* gets m_id of attached pet */
@@ -218,6 +220,7 @@ struct obj {
 			 pm_to_cham((obj)->corpsenm) != CHAM_ORDINARY)
 #define mlevelgain(obj) (ofood(obj) && (obj)->corpsenm == PM_WRAITH)
 #define mhealup(obj)	(ofood(obj) && (obj)->corpsenm == PM_NURSE)
+#define drainlevel(corpse) (mons[(corpse)->corpsenm].cnutrit*4/5)
 
 /* Containers */
 #define carried(o)	((o)->where == OBJ_INVENT)
@@ -233,14 +236,16 @@ struct obj {
 #define Is_sokoprize(otmp)	((otmp)->sokoprize && !Is_box(otmp))
 
 /* dragon gear */
-#define Is_dragon_scales(obj)	((obj)->otyp >= GRAY_DRAGON_SCALES && \
-				 (obj)->otyp <= YELLOW_DRAGON_SCALES)
-#define Is_dragon_mail(obj)	((obj)->otyp >= GRAY_DRAGON_SCALE_MAIL && \
-				 (obj)->otyp <= YELLOW_DRAGON_SCALE_MAIL)
-#define Is_dragon_armor(obj)	(Is_dragon_scales(obj) || Is_dragon_mail(obj))
-#define Is_gold_dragon_armor(obj)	(Is_dragon_armor(obj) && \
-					 (OBJ_NAME(objects[obj->otyp])) && \
-					 (!strncmp(OBJ_NAME(objects[obj->otyp]), "gold ", 5)))
+#define Is_dragon_scales(idx)	(idx >= GRAY_DRAGON_SCALES && \
+				 idx <= YELLOW_DRAGON_SCALES)
+#define Is_dragon_mail(idx)	(idx >= GRAY_DRAGON_SCALE_MAIL && \
+				 idx <= YELLOW_DRAGON_SCALE_MAIL)
+#define Is_dragon_armor(idx)	(Is_dragon_scales(idx) || Is_dragon_mail(idx))
+#define Is_gold_dragon_armor(idx)	(Is_dragon_armor(idx) && \
+					 (OBJ_DESCR(objects[idx])) && \
+					 (!strncmp(OBJ_DESCR(objects[idx]), "gold ", 5)))
+#define Dragon_scales_to_mail(idx) (idx - GRAY_DRAGON_SCALES + GRAY_DRAGON_SCALE_MAIL)
+#define Dragon_mail_to_scales(idx) (idx - GRAY_DRAGON_SCALE_MAIL + GRAY_DRAGON_SCALES)
 #define Dragon_scales_to_pm(obj) &mons[PM_GRAY_DRAGON + (obj)->otyp \
 				       - GRAY_DRAGON_SCALES]
 #define Dragon_mail_to_pm(obj)	&mons[PM_GRAY_DRAGON + (obj)->otyp \

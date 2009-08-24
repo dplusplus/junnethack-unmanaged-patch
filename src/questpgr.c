@@ -24,6 +24,7 @@
 static void FDECL(Fread, (genericptr_t,int,int,dlb *));
 STATIC_DCL struct qtmsg * FDECL(construct_qtlist, (long));
 STATIC_DCL const char * NDECL(intermed);
+STATIC_DCL const char * NDECL(creatorname);
 STATIC_DCL const char * NDECL(neminame);
 STATIC_DCL const char * NDECL(guardname);
 STATIC_DCL const char * NDECL(homebase);
@@ -285,6 +286,8 @@ char c;
 */
 	    case 'o':	str = jtrns_obj('A', (artiname(urole.questarti)));
 			break;
+	    case 'm':	str = creatorname();
+			break;
 	    case 'n':	str = neminame();
 			break;
 	    case 'g':	str = guardname();
@@ -493,6 +496,41 @@ qt_montype()
 	if (qpm != NON_PM && rn2(5) && !(mvitals[qpm].mvflags & G_GENOD))
 	    return (&mons[qpm]);
 	return (mkclass(urole.enemy2sym, 0));
+}
+
+/** The names of creator deities from different cultures. */
+static const char *creator_names[] = {
+	"Marduk", /* Babylonian */
+	"Apsu", /* Babylonian */
+	"Aeon", /* Greek */
+	"Gaia", /* Greek */
+	"Khronos", /* Greek */
+	"Atum", /* Egyptian */
+	"Khepri", /* Egyptian */
+	"Kamui", /* Ainu */
+	"Mbombo", /* Bakuba */
+	"Unkulunkulu", /* Zulu */
+	"Vishvakarman", /* Vedic */
+	"Brahma", /* Hindu */
+	"Coatlique", /* Aztec */
+	"Viracocha", /* Inca */
+	"Tepeu", /* Maya */
+	"Pangu", /* Chinese */
+	"Bulaing", /* Australian */
+	"Ahura Mazda", /* Zoroastrian */
+	"Demiourgos", /* Platon */
+};
+
+/** Return the name of the creator deity.
+ * The name stays the same for the running game. */
+STATIC_OVL const char *
+creatorname()	
+{
+	int index = u.ubirthday % SIZE(creator_names);
+/*JP
+        return creator_names[index];
+*/
+        return jtrns_mon(creator_names[index]);
 }
 
 /*questpgr.c*/

@@ -380,6 +380,8 @@ boolean artif;
 	otmp->otyp = otyp;
 	otmp->where = OBJ_FREE;
 	otmp->dknown = index(dknowns, let) ? 0 : 1;
+	if (otmp->otyp == AMULET_OF_YENDOR)
+		otmp->orecursive = FALSE;
 	if ((otmp->otyp >= ELVEN_SHIELD && otmp->otyp <= ORCISH_SHIELD) ||
 			otmp->otyp == SHIELD_OF_REFLECTION)
 		otmp->dknown = 0;
@@ -405,6 +407,7 @@ boolean artif;
 		    otmp = mk_artifact(otmp, (aligntyp)A_NONE);
 		break;
 	case FOOD_CLASS:
+	    otmp->odrained = 0;
 	    otmp->oeaten = 0;
 	    switch(otmp->otyp) {
 	    case CORPSE:

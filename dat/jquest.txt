@@ -3636,8 +3636,8 @@
 「%nは忍者を雇ったそうだ。気をつけろ。」
 %E
 %Cp Sam 00009
-#"If %o is not returned, we will all be ninja."
-「もし%oが手に戻らなければ、我々は全員忍者になる。」
+#"If %o is not returned, we will all be ronin."
+「もし%oが手に戻らなければ、我々は全員浪人だ。」
 %E
 %Cp Sam 00010
 #"Come, join us in celebrating with some sake."
@@ -5167,8 +5167,8 @@
 #It is written in the Book of %d:
 #
 #    After the Creation, the cruel god Moloch rebelled
-#    against the authority of Marduk the Creator.
-#    Moloch stole from Marduk the most powerful of all
+#    against the authority of %m the Creator.
+#    Moloch stole from %m the most powerful of all
 #    the artifacts of the gods, the Amulet of Yendor,
 #    and he hid it in the dark cavities of Gehennom, the
 #    Under World, where he now lurks, and bides his time.
@@ -5183,8 +5183,8 @@
 #of us all:  Go bravely with %d!
 これは、%dの書に述べられているものである。
 
-   天地創造の後、破壊神モーロック、創造主マルドゥークと違いして
-   反乱す。破壊神モーロック、マルドゥークの聖器のなかより、万物
+   天地創造の後、破壊神モーロック、創造主%mと違いして
+   反乱す。破壊神モーロック、%mの聖器のなかより、万物
    の力の源「イェンダーの魔除け」を盗みだし、それを彼の潜む
    世界の底、ゲヘナの闇の洞窟に隠し、時を待てり。
 
@@ -5386,6 +5386,7 @@
  %l:	return((char *)ldrname());
  %i:	return(intermed());
  %o:	return(artiname());
+ %m:	return((char *)creatorname());
  %n:	return((char *)neminame());
  %g:	return((char *)guardname());
  %G:	return((char *)align_gtitle(u.ualignbase[1]));
