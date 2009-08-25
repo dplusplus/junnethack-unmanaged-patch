@@ -16,7 +16,7 @@
 #if 0 /*JP*/
 #define PREFIX	80	/* (56) */
 #else
-/* 「呪われていない油の塗られた食べかけのクロマティック・ドラゴン(の死体)」*/
+/* 「透明な呪われていない油の塗られた吸い尽くされたクロマティック・ドラゴン(の死体)」*/
 #define PREFIX	100
 #endif
 #define SCHAR_LIM 127
@@ -409,19 +409,19 @@ register struct obj *obj;
 /*JP
 			Strcpy(buf, "amulet");
 */
-			Strcpy(buf, "魔除け");
+			Strcat(buf, "魔除け");
 		else if (typ == AMULET_OF_YENDOR ||
 			 typ == FAKE_AMULET_OF_YENDOR)
 			/* each must be identified individually */
 /*JP
 			Strcpy(buf, obj->known ? actualn : dn);
 */
-			Strcpy(buf, obj->known ? jactualn : jdn);
+			Strcat(buf, obj->known ? jactualn : jdn);
 		else if (nn)
 /*JP
 			Strcpy(buf, actualn);
 */
-			Strcpy(buf, jactualn);
+			Strcat(buf, jactualn);
 		else if (un)
 /*JP
 			Sprintf(buf,"amulet called %s", un);
@@ -503,10 +503,13 @@ register struct obj *obj;
 		jdn = jtrns_obj(']',dn);
 #endif
 		if (Is_dragon_scales(obj->otyp)) {
-/*JP
+#if 0 /*JP*/
 			Strcat(buf, "set of ");
-*/
-			Sprintf(buf, "%s一式", jactualn);
+#else
+			if (!nn && un) Sprintf(eos(buf), "%sと呼ばれる鱗一式", un);
+			else Sprintf(eos(buf), "%s一式", nn ? jactualn : jdn);
+			break;
+#endif
 		}
 /*JP
 		if(is_boots(obj) || is_gloves(obj)) Strcpy(buf,"pair of ");
