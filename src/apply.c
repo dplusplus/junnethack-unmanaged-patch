@@ -856,11 +856,10 @@ struct obj *obj;
 			pline("ÇŸÇ¶ÅHé Ç¡ÇƒÇÈÇÃÇÕÇ†Ç»ÇΩÇ∂Ç·Ç»Ç¢Ç›ÇΩÇ¢ÇæÅI");
 			make_confused(HConfusion + d(3,4),FALSE);
 		    } else if (Hallucination)
-#if 0 /*JP*/
+/*JP
 			You(look_str, hcolor((char *)0));
-#else
+*/
 			You(look_str, jconj_adj(hcolor((char *)0)));
-#endif
 		    else if (Sick)
 /*JP
 			You(look_str, "peaked");

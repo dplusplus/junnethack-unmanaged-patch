@@ -1595,7 +1595,7 @@ eatcorpse(otmp)		/* called when a corpse is selected as food */
 		      cannibal ? " cannibal" : "");
 #else
 		pline("オェ！この%sは腐っている%s！", 
-		      mons[mnum].mlet == S_FUNGUS ? "細菌に汚染された植物" :
+		      mons[mnum].mlet == S_FUNGUS ? "キノコ" :
 		      !vegetarian(&mons[mnum]) ? "肉" : "生物",
 		      cannibal ? "。しかも共食いだ" : "");
 #endif
@@ -2491,7 +2491,7 @@ doeat()		/* generic "eat" command funtion (see cmd.c) */
 /*JP
 		You("spit %s out onto the %s.", the(xname(otmp)),
 */
-		You("%sを%sに吐き出した。", the(xname(otmp)),
+		You("%sを%sに吐き出した。", xname(otmp),
 			surface(u.ux, u.uy));
 		if (carried(otmp)) {
 			freeinv(otmp);

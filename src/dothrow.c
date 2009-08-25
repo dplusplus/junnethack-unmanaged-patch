@@ -1865,7 +1865,7 @@ boolean from_invent;
 /*JP
 					    You("smell a peculiar odor...");
 */
-					    You("薬っぽい匂いがした．．．");
+					    pline("薬っぽい匂いがした．．．");
 					else {
 #if 0 /*JP*/
 					    int numeyes = eyecount(youmonst.data);

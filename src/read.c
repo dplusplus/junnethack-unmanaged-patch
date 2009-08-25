@@ -2114,7 +2114,7 @@ do_class_genocide()
 /*JP
 	pline("Eliminated %d monster%s.", gonecnt, plur(gonecnt));
 */
-	pline("%d‚Ì‰ö•¨‚ğœ‚¢‚½B", gonecnt);
+	pline("%d•C‚Ì‰ö•¨‚ğœ‚¢‚½B", gonecnt);
 			    return;
 			} else
 #endif
