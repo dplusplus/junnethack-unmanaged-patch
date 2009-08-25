@@ -877,8 +877,8 @@ beautiful()
 		"ugly");
 #else
 	return (ACURR(A_CHA) > 14 ?
-		(poly_gender()==1 ? "”ü‚µ‚­" : "‚è‚è‚µ‚­") :
-		"X‚­");
+		(poly_gender()==1 ? "”ü‚µ‚¢" : "‚è‚è‚µ‚¢") :
+		"X‚¢");
 #endif
 }
 

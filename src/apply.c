@@ -856,7 +856,10 @@ struct obj *obj;
 			pline("ほえ？写ってるのはあなたじゃないみたいだ！");
 			make_confused(HConfusion + d(3,4),FALSE);
 		    } else if (Hallucination)
+/*JP
 			You(look_str, hcolor((char *)0));
+*/
+			You(look_str, jconj_adj(hcolor((char *)0)));
 		    else if (Sick)
 /*JP
 			You(look_str, "peaked");
@@ -867,11 +870,13 @@ struct obj *obj;
 			You(look_str, "undernourished");
 */
 			You(look_str, "栄養失調のように");
-/*JP
+#if 0 /*JP*/
 		    else You("look as %s as ever.",
-*/
-		    else You("あいかわらず%s見える。",
 				beautiful());
+#else
+		    else You("あいかわらず%s見える。",
+		    	jconj_adj(beautiful()));
+#endif
 		} else {
 /*JP
 			You_cant("see your %s %s.",
@@ -896,7 +901,7 @@ struct obj *obj;
 		    "give the fish a chance to fix their makeup." :
 		    "reflect the murky water.");
 #else
-		You(Hallucination ?
+		pline(Hallucination ?
 		    "魚がやってきて化粧直しをした。":
 		    "あなたは陰気な水を映した。");
 #endif
