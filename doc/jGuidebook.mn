@@ -832,13 +832,15 @@ Figure 2
 最短距離は、あなたが知っている(見た、または以前に通った)地図配置を
 基に計算される。
 知っている道がない場合、代わりに推測が行われる。
-.\"マウスに対応している版では、現在位置以外の位置を
-.\"マウスでクリックしたときにもこのコマンドが発動する。
 .\"O Stops on most of
 .\"O the same conditions as the `G' command, but without picking up
 .\"O objects, similar to the `M' command.  For ports with mouse 
+.\"O support, the command is also invoked when a mouse-click takes place on a 
+.\"O location other than the current position.
 `G'コマンドとほぼ同じ条件で停止するが、
 `M'コマンドと同様に物を拾わないで移動する。
+マウスに対応している版では、現在位置以外の位置を
+マウスでクリックしたときにもこのコマンドが発動する。
 .lp .
 .\"O Rest, do nothing for one turn.
 休憩する。1 ターン何もしない。
@@ -1963,18 +1965,6 @@ NetHack においても怪物にだいたい同じダメージを与える。
 `Q'コマンドで設定した物がなくなった時に、
 NetHack が自動的に矢筒に他の物を入れてくれる。
 .pg
----
-.\"O Some characters will throw multiple items in a single action.  Rangers,
-.\"O for instance, or anyone who achieves a high level of proficiency in
-.\"O the relevant weapon skill (in bow skill if you're wielding one to
-.\"O shoot arrows, or in sling skill if you're wielding one to shoot stones).
-.\"O There is little you can do
-.\"O to control this; if NetHack decides that you'll be shooting 3 arrows
-.\"O on the current shot, then three arrows will travel in the direction
-.\"O you've indicated, even if the first or second succeeds in killing the
-.\"O target.  You can explicitly limit the number of shots by using a numeric
-.\"O prefix before the `t' or `f' command.
----
 .\"O Some characters have the ability to fire a volley of multiple items in a
 .\"O single turn.  Knowing how to load several rounds of ammunition at
 .\"O once -- or hold several missiles in your hand -- and still hit a
@@ -2035,11 +2025,11 @@ NetHack が自動的に矢筒に他の物を入れてくれる。
 .\"O polearms.  Each role has a limit on what level of proficiency a character
 .\"O can achieve for each group.  For instance, wizards can become highly
 .\"O skilled in daggers or staves but not in swords or bows.
-技量を示すために、武器は daggers 、 broadswords 、 polearms といった風に
+技量を示すために、武器は 短剣 、 幅広の剣 、 長斧 といった風に
 いくつかのグループに分けられている。
 それぞれのグループで技量レベルをどこまで高めることが出来るかは職業毎に決まっている。
-例えば魔法使いは daggers や staves に対しては高いレベルに達することが出来るが、
-swords や bows に対してはそうではない。
+例えば魔法使いは 短剣 や 六尺棒 に対しては高いレベルに達することが出来るが、
+剣 や 弓 に対してはそうではない。
 .pg
 .\"O The `#enhance' extended command is used to review current weapons proficiency
 .\"O (also spell proficiency) and to choose which skill(s) to improve when
@@ -2054,14 +2044,14 @@ swords や bows に対してはそうではない。
 `#enhance'拡張コマンドで現在の武器(と呪文)の技量を見ることができる。
 さらに、ひとつまたは複数の技能を向上させることができる状態なら、
 どの技能を向上させるかを選択することができる。
-技能のランクは"none" (技能を向上させることができないという意味で
-"restricted"(制限された) と呼ばれることもある)、 "unskilled"(初心者),
-"basic"(入門者), "skilled"(熟練者), "expert"(エキスパート)である。
+技能のランクは``なし''(none) (技能を向上させることができないという意味で
+``制限された''(restricted) と呼ばれることもある)、 ``初心者''(unskilled),
+``入門者''(basic), ``熟練者''(skilled), ``エキスパート''(expert)である。
 制限された技能は単に`#enhance'コマンドで一覧に表示されない。
 (神の介入によりある種の技能の制限が解除されることもある。
-その時には技能は"unskilled"となり、限界は"basic"までとなる)
+その時には技能は 初心者 となり、限界は 入門者 までとなる)
 キャラクターによっては、素手での戦闘やマーシャルアーツの技能を
-``master''(マスター)や``grand master''(グランドマスター)にまで向上させる
+``マスター''(master)や``グランドマスター''(grand master)にまで向上させる
 ことができる。
 .pg
 .\"O Use of a weapon in which you're restricted or unskilled
@@ -2077,11 +2067,11 @@ swords や bows に対してはそうではない。
 .\"O are not increased automatically because there is a limit to your total
 .\"O overall skills, so you need to actively choose which skills to enhance
 .\"O and which to ignore.
-技能レベルが"restricted"や"unskilled"の武器を使うと、怪物への命中率や
+技能レベルが``制限された''や``初心者''の武器を使うと、怪物への命中率や
 命中した時に与えるダメージにペナルティがある。
-"basic"ではペナルティもボーナスもない。
-"skilled"では命中率と与えるダメージにささやかなボーナスがある。
-"expert"ではボーナスは大きくなる。
+``入門者''ではペナルティもボーナスもない。
+``熟練者''では命中率と与えるダメージにささやかなボーナスがある。
+``エキスパート''ではボーナスは大きくなる。
 攻撃が命中すると、使っている武器に関する技能を(もし最大に達していないなら)
 向上させるための訓練度を増やすチャンスがある。
 この訓練度が次のレベルに必要な値に達すると、
@@ -2126,11 +2116,11 @@ elven mithril-coat(エルフのミスリル服)	5
 chain mail(鎖かたびら)	5
 orcish chain mail(オークの鎖かたびら)	6
 scale mail(鱗の鎧)	6
-studded leather armor(鋲付き皮鎧)	7
+studded leather armor(鋲付き革鎧)	7
 ring mail(鉄環の鎧)	7
 orcish ring mail(オークの鉄環の鎧)	8
-leather armor(皮鎧)	8
-leather jacket(皮ジャケット)	9
+leather armor(革鎧)	8
+leather jacket(革の服)	9
 no armor(鎧なし)	10
 .TE
 .pg
@@ -3060,7 +3050,7 @@ n - 確認するが、標準設定はノーにする。
 .\"O systems.
 ゲーム終了時の公開情報を書き出すファイル名。 %nマクロを使用することで
 プレイキャラクター名に置き換えることができる。
-このゲームはそのディレクトリにファイルを書き出すため，書き込み権限を要求する。
+このゲームはそのディレクトリにファイルを書き出すため、書き込み権限を要求する。
 通常はUnixシステムにおいて/tmpを指定する。
 .lp dungeon
 .\"O Set the graphics symbols for displaying the dungeon
@@ -3387,64 +3377,64 @@ Amiga, Gem, tty で実装されている。(標準設定は `,')
 オプションと同様に処理される。
 .\"O The order of the symbols is
 シンボルの順序は、
-ant or other insect(蟻あるいはその他の昆虫),
+ant or other insect(蟻または他の昆虫),
 blob(ブロッブ),
 cockatrice(コカトリス),
-dog or other canine(犬またはその他のイヌ科の動物),
+dog or other canine(犬またはイヌ科の動物),
 eye or sphere(目または球体),
-feline(猫),
+feline(ネコ科の動物),
 gremlin(グレムリン),
-humanoid(人間),
-imp or minor demon(インプまたは低級悪魔),
+humanoid(ヒューマノイド),
+imp or minor demon(インプまたは下級悪魔),
 jelly(ゼリー),
 kobold(コボルド),
 leprechaun(レプラコーン),
 mimic(ミミック),
 nymph(ニンフ),
 orc(オーク),
-piercer(突き刺すもの),
-quadruped(四つ足動物),
-rodent(鼠),
-arachnid or centipede(くもまたはムカデ),
-trapper or lurker above(トラッパーまたは天井に潜むもの),
+piercer(穴喰い),
+quadruped(四足動物),
+rodent(齧歯動物),
+arachnid or centipede(クモ類またはムカデ),
+trapper or lurker above(トラッパーまたはラーカー),
 horse or unicorn(馬またはユニコーン),
-vortex(渦巻き),
+vortex(渦),
 worm(ワーム),
-xan or other mythical/fantastic insect(ザンまたはその他の不思議な昆虫),
-light(ライト),
+xan or other mythical/fantastic insect(ザンまたは神話やファンタジーの昆虫),
+light(光),
 zruty(ズルティ),
-angelic being(天使のような存在),
-bat or bird(コウモリまたは鳥),
-centaur(ケンタウルス),
-dragon(龍),
-elemental(エレメンタル),
-fungus or mold(カビやコケ),
+angelic being(天使のごとき存在),
+bat or bird(こうもりまたは鳥),
+centaur(ケンタウロス),
+dragon(ドラゴン),
+elemental(精霊),
+fungus or mold(キノコまたはモールド),
 gnome(ノーム),
-giant humanoid(大型人類),
+giant humanoid(巨人),
 invisible monster(見えない怪物),
-jabberwock(ジャバーウォック),
-Keystone Kop(キーストーンコップ),
+jabberwock(ジャバウォック),
+Keystone Kop(警備員),
 lich(リッチ),
 mummy(ミイラ),
 naga(ナーガ),
 ogre(オーガ),
-pudding or ooze(スライム),
+pudding or ooze(プリンまたはウーズ),
 quantum mechanic(量子力学),
 rust monster(錆の怪物),
-snake(蛇),
-troll(トロール),
+snake(ヘビ),
+troll(トロル),
 umber hulk(アンバーハルク),
-vampire(バンパイア),
+vampire(吸血鬼),
 wraith(レイス),
 xorn(ゾーン),
-apelike creature(猿のような生き物),
+apelike creature(猿のような生物),
 zombie(ゾンビ),
 human(人間),
 ghost(幽霊),
 golem(ゴーレム),
 demon(悪魔),
 sea monster(海の怪物),
-lizard(トカゲ),
+lizard(爬虫類),
 long worm tail(ロングワームの尻尾),
 mimic(ミミック)
 .\"O Cannot be set with the `O' command.
@@ -3545,12 +3535,12 @@ NetHack のニュースファイルがあればそれを読む(標準設定はオン)。
 .\"O Cannot be set with the `O' command.
 `O' コマンドで設定することはできない。
 .lp packorder
-.\"O Specify the order to list object types in (default ``")[%?+!=/(*`0_'')
+.\"O Specify the order to list object types in (default ``")[%?+!=/(*`0_'').
 .\"O The value of this option should be a string containing the
 .\"O symbols for the various object types.  Any omitted types are filled in
 .\"O at the end from the previous order.
 物の種類を表示するときの順番を指定する(標準設定は
-``")[%?+!=/(*`0_'').
+``")[%?+!=/(*`0_'')。
 このオプションにはいろいろな物の種類を表す文字の列を設定する。
 設定されなかった種類は以前の順序で最後に表示される。
 .lp perm_invent
@@ -3789,11 +3779,11 @@ X11 インタフェースは常にタイマーを使用する。
 シンボルの順序は、
 arrow trap(矢の罠),
 dart trap(投げ矢の罠),
-falling rock trap(岩落しの罠),
+falling rock trap(落石の罠),
 squeaky board(きしむ板),
 bear trap(熊の罠),
 land mine(地雷),
-rolling boulder trap(落岩の罠),
+rolling boulder trap(巨岩の罠),
 sleeping gas trap(睡眠ガスの罠),
 rust trap(腐食の罠),
 fire trap(火の罠),
