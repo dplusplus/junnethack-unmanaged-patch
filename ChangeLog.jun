@@ -1,5 +1,5 @@
 Wed Aug 26 2009  Masaki Miyaso  <so-miya@sourceforge.jp>
-	* UnNetHack SVN版rev.274をベースにした。
+	* UnNetHack SVN版rev.275をベースにした。
 	* バグ修正 [#18365] 扉を鍵開け器具で開けようとすると落ちる。
 	* バグ修正 [#18372] 指輪の未識別名が一部未訳
 	* バグ修正 [#18413] 施錠しようとすると落ちる
