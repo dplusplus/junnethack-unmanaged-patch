@@ -689,7 +689,7 @@ do_look(quick)
 /*JP
 	getlin("Specify what? (type the word)", out_str);
 */
-	getlin("‰½‚ğ’²‚×‚éH(•¶š‚ğ“ü‚ê‚Ä‚Ë)", out_str);
+	getlin("‰½‚ğ’²‚×‚éH(’PŒê‚ğ“ü‚ê‚Ä‚Ë)", out_str);
 	if (out_str[0] == '\0' || out_str[0] == '\033')
 	    return 0;
 
