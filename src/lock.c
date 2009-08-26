@@ -436,7 +436,7 @@ int rx,ry;
 #else
 		    if (otmp->obroken) verb = "C•œ‚·‚é";
 		    else if (otmp->otyp == IRON_SAFE) verb = "”j‚é", it = 1;
-		    else if (!otmp->olocked) "Œ®‚ð‚©‚¯‚é", it = 1;
+		    else if (!otmp->olocked) verb = "Œ®‚ð‚©‚¯‚é", it = 1;
 		    else if (picktyp != LOCK_PICK) verb = "Œ®‚ð‚Í‚¸‚·", it = 1;
 		    else verb = "‚±‚¶ŠJ‚¯‚é";
 #endif

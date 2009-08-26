@@ -1,7 +1,8 @@
-Tue Aug 25 2009  Masaki Miyaso  <so-miya@sourceforge.jp>
+Wed Aug 26 2009  Masaki Miyaso  <so-miya@sourceforge.jp>
 	* UnNetHack SVN版rev.274をベースにした。
 	* バグ修正 [#18365] 扉を鍵開け器具で開けようとすると落ちる。
 	* バグ修正 [#18372] 指輪の未識別名が一部未訳
+	* バグ修正 [#18413] 施錠しようとすると落ちる
 	* バグ修正 [JNetHack #17806] 3.4.3-0.10でのメッセージ不具合
 	* 薬の未識別名「脂の薬」を「脂っぽい薬」に変更。
 	* borland ｃでコンパイル時にconfig.hを修正する必要がないように修正。
