@@ -795,7 +795,6 @@ int how;
 	boolean bones_ok, have_windows = iflags.window_inited;
 	struct obj *corpse = (struct obj *)0;
 	long umoney;
-	int i;
 
 	if (how == TRICKED) {
 	    if (killer) {
@@ -941,8 +940,13 @@ die:
 		   urole.jname.f : urole.jname.m);
 #endif
 	  dump("", pbuf);
+	  /* D: Add a line for clearance from the screen dump */
+	  dump("", "");
+	  dump_screen();
+	}
 # ifdef DUMPMSGS
-	  if (lastmsg >= 0) {
+	if (lastmsg >= 0) {
+		int i;
 /*JP
 		dump ("", "Latest messages");
 */
@@ -950,18 +954,15 @@ die:
 		for (i = lastmsg + 1; i < DUMPMSGS; i++) {
 		  if (msgs[i] && strcmp(msgs[i], "") )
 		    dump ("  ", msgs[i]);
-		} 
+		}
 		for (i = 0; i <= lastmsg; i++) {
 		  if (msgs[i] && strcmp(msgs[i], "") )
 		    dump ("  ", msgs[i]);
-		} 
+		}
 		dump ("","");
-	  }
-#  endif /* DUMPMSGS */
-	  /* D: Add a line for clearance from the screen dump */
-	  dump("", "");
-	  dump_screen();
+		dump ("","");
 	}
+# endif /* DUMPMSGS */
 #endif /* DUMP_LOG */
 	/* render vision subsystem inoperative */
 	iflags.vision_inited = 0;
