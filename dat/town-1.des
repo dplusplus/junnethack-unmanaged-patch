@@ -1,4 +1,4 @@
-#       
+#
 # Angband-1
 # Copyright (c) 2009 by Patric Mueller
 #
@@ -9,15 +9,16 @@ LEVEL: "town-1"
 #MESSAGE: "You step into the sunlight. You hear the sounds of civilization."
 MESSAGE: "あなたは陽のあたる場所に踏み込んだ。 あなたは市場のざわめきを聞いた。"
 RANDOM_MONSTERS:'@','r'
-ROOM: "ordinary" , lit, random, random, (76,17)
+ROOM: "ordinary", lit, random, random, (76,17)
 NAME: "town" 
 FOUNTAIN: ( 6,12)
 FOUNTAIN: (39, 9)
 FOUNTAIN: (68, 3)
-STAIR: random, down
+RANDOM_PLACES:(4,6),(4,16),(18,2),(25,10),(40,13),(55,4),(58,12),(71,2),(73,15)
+STAIR: place[0], down
 #JP
-#ENGRAVING: random, mark, "Welcome to the town of Angband!"
-ENGRAVING: random, mark, "アングバンドの街にようこそ！"
+#ENGRAVING: place[1], mark, "Welcome to the town of Angband!"
+ENGRAVING: place[1], mark, "アングバンドの街にようこそ！"
 #
 #       The Town Watch.
 #
