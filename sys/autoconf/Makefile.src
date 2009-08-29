@@ -372,7 +372,8 @@ $(MAKEDEFS): ../util/makedefs.c  $(CONFIG_H) ../include/permonst.h \
 		../include/objclass.h ../include/monsym.h \
 		../include/artilist.h ../include/dungeon.h ../include/obj.h \
 		../include/monst.h ../include/you.h ../include/flag.h \
-		../include/dlb.h ../include/patchlevel.h ../include/qtext.h
+		../include/dlb.h ../include/patchlevel.h ../include/qtext.h \
+		 ../japanese/jpatchlevel.h
 	@( cd ../util ; $(MAKE) makedefs)
 
 ../include/onames.h: $(MAKEDEFS)
@@ -796,7 +797,7 @@ u_init.o: $(srcdir)/u_init.c $(HACK_H)
 uhitm.o: $(srcdir)/uhitm.c $(HACK_H)
 vault.o: $(srcdir)/vault.c $(HACK_H) ../include/vault.h
 version.o: $(srcdir)/version.c $(HACK_H) ../include/date.h \
-		../include/patchlevel.h
+		../include/patchlevel.h ../japanese/jpatchlevel.h
 vision.o: $(srcdir)/vision.c $(HACK_H) ../include/vis_tab.h
 weapon.o: $(srcdir)/weapon.c $(HACK_H)
 were.o: $(srcdir)/were.c $(HACK_H)
