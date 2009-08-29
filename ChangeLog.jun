@@ -25,7 +25,7 @@ Fri Aug 28 2009  Masaki Miyaso  <so-miya@sourceforge.jp>
 	  r232 プタハは魔法使いの秩序の神であるため創造神からをはずして交
 	       換した。
 	  r233 u.ubirthdayに基づいて創造神の名称を決定するようにした。
-	  r234 階段の位置を候補からランダムに選択するようにした。
+	  r234 Townの階段の位置を候補からランダムに選択するようにした。
 	  r238 薬に浸すときの単体テスト
 	  r239 dodipを分割して新関数dipを作成（testing_frameworkからマー
 	       ジ）
