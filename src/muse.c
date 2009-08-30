@@ -1023,7 +1023,7 @@ mon_tele:
 /*JP
 		if (vismon) pline("%s looks much better.", Monnam(mtmp));
 */
-		if (vismon) pline("%sとても気分がよくなったようだ。", Monnam(mtmp));
+		if (vismon) pline("%sはとても気分がよくなったようだ。", Monnam(mtmp));
 		if (oseen) makeknown(POT_EXTRA_HEALING);
 		m_useup(mtmp, otmp);
 		return 2;
