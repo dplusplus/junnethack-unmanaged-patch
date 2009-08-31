@@ -2320,60 +2320,6 @@ int final;
 } /* dump_enlightenment */
 #endif
 
-
-/**
- * Returns the alignment code for the deities list.
- */
-char*
-get_alignment_code(alignment)
-int alignment;
-{
-	/* alignment at beginning of game */
-	aligntyp starting_alignment = u.ualignbase[A_ORIGINAL];
-	/* alignment without any modifications
-	 * e.g. helm of opposite alignment */
-	aligntyp current_alignment = u.ualignbase[A_CURRENT];
-	/* temporary alignment, effective for praying,
-	 * feelings in temples */
-	aligntyp pray_alignment = u.ualign.type;
-
-	if (starting_alignment == current_alignment &&
-	    current_alignment  == alignment)
-/*JP
-		return " (s,c)";
-*/
-		return " (初、現)";
-	else if (starting_alignment == pray_alignment &&
-	    pray_alignment  == alignment)
-/*JP
-		return " (s,t)";
-*/
-		return " (初, 臨)";
-	else if (pray_alignment == current_alignment &&
-	    current_alignment  == alignment)
-/*JP
-		return " (c)";
-*/
-		return " (現)";
-	else if (starting_alignment == alignment)
-/*JP
-		return " (s)";
-*/
-		return " (初)";
-	else if (current_alignment == alignment) 
-/*JP
-		return " (c)";
-*/
-		return " (現)";
-	else if (pray_alignment == alignment) 
-/*JP
-		return " (t)";
-*/
-		return " (臨)";
-	else
-		return "";
-}
-
 /*
  * Courtesy function for non-debug, non-explorer mode players
  * to help refresh them about who/what they are.
@@ -2496,7 +2442,16 @@ minimal_enlightenment()
 */
 	add_menu(tmpwin, NO_GLYPH, &any, 0, 0, iflags.menu_headings, "神", FALSE);
 	Sprintf(buf2, deity_fmtstr, align_gname(A_CHAOTIC),
-	    get_alignment_code(A_CHAOTIC));
+	    (u.ualignbase[A_ORIGINAL] == u.ualign.type
+#if 0 /*JP*/
+		&& u.ualign.type == A_CHAOTIC) ? " (s,c)" :
+	    (u.ualignbase[A_ORIGINAL] == A_CHAOTIC)       ? " (s)" :
+	    (u.ualign.type   == A_CHAOTIC)       ? " (c)" : "");
+#else
+		&& u.ualign.type == A_CHAOTIC) ? " (初、現)" :
+	    (u.ualignbase[A_ORIGINAL] == A_CHAOTIC)       ? " (初)" :
+	    (u.ualign.type   == A_CHAOTIC)       ? " (現)" : "");
+#endif
 /*JP
 	Sprintf(buf, fmtstr, "Chaotic", buf2);
 */
@@ -2504,7 +2459,16 @@ minimal_enlightenment()
 	add_menu(tmpwin, NO_GLYPH, &any, 0, 0, ATR_NONE, buf, FALSE);
 
 	Sprintf(buf2, deity_fmtstr, align_gname(A_NEUTRAL),
-	    get_alignment_code(A_NEUTRAL));
+	    (u.ualignbase[A_ORIGINAL] == u.ualign.type
+#if 0 /*JP*/
+		&& u.ualign.type == A_NEUTRAL) ? " (初、現)" :
+	    (u.ualignbase[A_ORIGINAL] == A_NEUTRAL)       ? " (初)" :
+	    (u.ualign.type   == A_NEUTRAL)       ? " (現)" : "");
+#else
+		&& u.ualign.type == A_NEUTRAL) ? " (s,c)" :
+	    (u.ualignbase[A_ORIGINAL] == A_NEUTRAL)       ? " (s)" :
+	    (u.ualign.type   == A_NEUTRAL)       ? " (c)" : "");
+#endif
 /*JP
 	Sprintf(buf, fmtstr, "Neutral", buf2);
 */
@@ -2512,7 +2476,16 @@ minimal_enlightenment()
 	add_menu(tmpwin, NO_GLYPH, &any, 0, 0, ATR_NONE, buf, FALSE);
 
 	Sprintf(buf2, deity_fmtstr, align_gname(A_LAWFUL),
-	    get_alignment_code(A_LAWFUL));
+	    (u.ualignbase[A_ORIGINAL] == u.ualign.type &&
+#if 0 /*JP*/
+		u.ualign.type == A_LAWFUL)  ? " (s,c)" :
+	    (u.ualignbase[A_ORIGINAL] == A_LAWFUL)        ? " (s)" :
+	    (u.ualign.type   == A_LAWFUL)        ? " (c)" : "");
+#else
+		u.ualign.type == A_LAWFUL)  ? " (初、現)" :
+	    (u.ualignbase[A_ORIGINAL] == A_LAWFUL)        ? " (初)" :
+	    (u.ualign.type   == A_LAWFUL)        ? " (現)" : "");
+#endif
 /*JP
 	Sprintf(buf, fmtstr, "Lawful", buf2);
 */

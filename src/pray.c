@@ -1457,9 +1457,6 @@ dosacrifice()
     int value = 0;
     int pm;
     aligntyp altaralign = a_align(u.ux,u.uy);
-    /* the real current alignment without modifications by a helm of
-     * opposite alignment */
-    aligntyp real_alignment = u.ualignbase[A_CURRENT];
     char qbuf[QBUFSZ];
     char c;
 
@@ -1692,22 +1689,21 @@ dosacrifice()
 	    You("offer the Amulet of Yendor to %s...", a_gname());
 */
 	    You("イェンダーの魔除けを%sに献上した．．．",a_gname());
-	    /* Only true believers are rewarded */
-	    if (real_alignment != altaralign) {
+	    if (u.ualign.type != altaralign) {
 		/* And the opposing team picks you up and
 		   carries you off on their shoulders */
 		adjalign(-99);
 #if 0 /*JP*/
 		pline("%s accepts your gift, and gains dominion over %s...",
-		      a_gname(), align_gname(real_alignment));
+		      a_gname(), u_gname());
 #else
 		pline("%sはあなたの贈り物を受けとり、%sの権力を得た．．．",
-		      a_gname(), align_gname(real_alignment));
+		      a_gname(), u_gname());
 #endif
 /*JP
-		pline("%s is enraged...", align_gname(real_alignment));
+		pline("%s is enraged...", u_gname());
 */
-		pline("%sは激怒した．．．", align_gname(real_alignment));
+		pline("%sは激怒した．．．", u_gname());
 /*JP
 		pline("Fortunately, %s permits you to live...", a_gname());
 */
