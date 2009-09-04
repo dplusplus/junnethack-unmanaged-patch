@@ -161,7 +161,8 @@ struct monst *mtmp;
 {
 	char *name = NAME(mtmp);
 
-	if (name && mtmp->former_rank) {
+	if (name &&
+	    mtmp->former_rank && strlen(mtmp->former_rank) > 0) {
 		/* $player killed the $bones_monst of $bones_killed the former
 		 * $bones_rank on $turns on dungeon level $dlev! */
 		snprintf(strbuf, STRBUF_LEN,
@@ -172,10 +173,46 @@ struct monst *mtmp;
 				depth(&u.uz),
 				name,
 				mtmp->former_rank,
+/*JP
 				mtmp->data->mname);
+*/
+				jtrns_mon(mtmp->data->mname));
+		livelog_write_string(strbuf);
+	} else if ((mtmp->data->geno & G_UNIQ)
+#ifdef BLACKMARKET
+	           || (mtmp->data == &mons[PM_BLACK_MARKETEER])
+#endif
+		  ) {
+		char *n = noit_mon_nam(mtmp);
+		/* $player killed a uniq monster */
+		snprintf(strbuf, STRBUF_LEN,
+				"player=%s:turns=%ld:killed_uniq=%s\n",
+				plname,
+				moves,
+				n);
 		livelog_write_string(strbuf);
 	}
 }
 #endif /* LIVELOG_BONES_KILLER */
+
+/** Reports shoplifting */
+void
+livelog_shoplifting(shk_name, shop_name, total)
+const char* shk_name;
+const char* shop_name;
+long total;
+{
+	/* shopkeeper: Name of the shopkeeper (e.g. Kopasker)
+	   shop:       Name of the shop (e.g. general store)
+	   shoplifted: Merchandise worth this many Zorkmids was stolen */
+	snprintf(strbuf, STRBUF_LEN,
+		"player=%s:turns=%ld:shopkeeper=%s:shop=%s:shoplifted=%ld\n",
+		plname,
+		moves,
+		shk_name,
+		shop_name,
+		total);
+	livelog_write_string(strbuf);
+}
 
 #endif /* LIVELOGFILE */

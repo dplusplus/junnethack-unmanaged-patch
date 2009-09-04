@@ -619,6 +619,11 @@ struct monst *shkp;
 	You("ŽG‰Ý‚ð%ld%s•ª“‚ñ‚¾B",
 #endif
 	    total, currency(total));
+#ifdef LIVELOGFILE
+	livelog_shoplifting(shkname(shkp),
+	                    shtypes[eshkp->shoptype - SHOPBASE].name,
+	                    total);
+#endif
 	if (!Role_if(PM_ROGUE))	/* stealing is unlawful */
 	    adjalign(-sgn(u.ualign.type));
 
