@@ -1,5 +1,5 @@
 Fri Aug 28 2009  Masaki Miyaso  <so-miya@sourceforge.jp>
-	* UnNetHack SVN版rev.299をベースにした。
+	* UnNetHack SVN版rev.300をベースにした。
 	  r208 スキルレベルを増やした。
 	  r209 patchlevelを3.5.2にした。
 	  r210 修正：投げたオブジェクトが捕まえられたとき投擲bitがクリアさ
@@ -92,6 +92,7 @@ Fri Aug 28 2009  Masaki Miyaso  <so-miya@sourceforge.jp>
 	  r291 バグ修正：殺した前の冒険者の称号を実際に持つ怪物のみリポートする
 	  r292 Livelog：ユニークモンスターに殺されたことをリポートする
 	  r299 骨ファイル：いくつかのアイテムをランダムに削除する
+	  r300 Patric Mueller氏の故猫シヴァへ捧ぐ
 	* バグ修正 [#18365] 扉を鍵開け器具で開けようとすると落ちる。
 	* バグ修正 [#18372] 指輪の未識別名が一部未訳
 	* バグ修正 [#18413] 施錠しようとすると落ちる

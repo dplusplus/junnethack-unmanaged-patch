@@ -187,19 +187,27 @@ makedog()
 		petname = catname;
 
 	/* default pet names */
-	if (!*petname && pettype == PM_LITTLE_DOG) {
-	    /* All of these names were for dogs. */
+	if (!*petname) {
+		if (pettype == PM_LITTLE_DOG) {
+			/* All of these names were for dogs. */
 #if 0 /*JP*/
-	    if(Role_if(PM_CAVEMAN)) petname = "Slasher";   /* The Warrior */
-	    if(Role_if(PM_SAMURAI)) petname = "Hachi";     /* Shibuya Station */
-	    if(Role_if(PM_BARBARIAN)) petname = "Idefix";  /* Obelix */
-	    if(Role_if(PM_RANGER)) petname = "Sirius";     /* Orion's dog */
+			if(Role_if(PM_CAVEMAN)) petname = "Slasher";   /* The Warrior */
+			if(Role_if(PM_SAMURAI)) petname = "Hachi";     /* Shibuya Station */
+			if(Role_if(PM_BARBARIAN)) petname = "Idefix";  /* Obelix */
+			if(Role_if(PM_RANGER)) petname = "Sirius";     /* Orion's dog */
 #else
-	    if(Role_if(PM_CAVEMAN)) petname = "スラッシャー";
-	    if(Role_if(PM_SAMURAI)) petname = "ハチ公";
-	    if(Role_if(PM_BARBARIAN)) petname = "イデフィクス";
-	    if(Role_if(PM_RANGER)) petname = "シリウス";
+			if(Role_if(PM_CAVEMAN)) petname = "スラッシャー";
+			if(Role_if(PM_SAMURAI)) petname = "ハチ公";
+			if(Role_if(PM_BARBARIAN)) petname = "イデフィクス";
+			if(Role_if(PM_RANGER)) petname = "シリウス";
 #endif /*JP*/
+		} else if (pettype == PM_KITTEN) {
+#if 0 /*JP*/
+			if (!rn2(100)) petname = "Shiva"; /* RIP 1 Oct 1998 - 6 Sep 2009 */
+#else
+			if (!rn2(100)) petname = "シヴァ"; /* RIP 1 Oct 1998 - 6 Sep 2009 */
+#endif /*JP*/
+		}
 	}
 
 	mtmp = makemon(&mons[pettype], u.ux, u.uy, MM_EDOG);
