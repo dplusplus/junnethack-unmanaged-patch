@@ -1,5 +1,5 @@
 Fri Aug 28 2009  Masaki Miyaso  <so-miya@sourceforge.jp>
-	* UnNetHack SVN版rev.303をベースにした。
+	* UnNetHack SVN版rev.304をベースにした。
 	  r208 スキルレベルを増やした。
 	  r209 patchlevelを3.5.2にした。
 	  r210 修正：投げたオブジェクトが捕まえられたとき投擲bitがクリアさ
@@ -96,6 +96,7 @@ Fri Aug 28 2009  Masaki Miyaso  <so-miya@sourceforge.jp>
 	  r301 アルミ箔の帽子をHelmet_on及びHelmet_offに追加し忘れていた
 	  r302 paniclogで出力する情報を増やした
 	  r303 impossible()の単語をよりよいものに (SporkHackから)
+	  r304 祝福された水晶球の失敗率を増やした
 	* バグ修正 [#18365] 扉を鍵開け器具で開けようとすると落ちる。
 	* バグ修正 [#18372] 指輪の未識別名が一部未訳
 	* バグ修正 [#18413] 施錠しようとすると落ちる

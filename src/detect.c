@@ -947,7 +947,7 @@ struct obj *obj;
 	pline("‚È‚ñ‚Ä‚±‚Æ‚¾B%s‚ðŒ©‚é‚±‚Æ‚ª‚Å‚«‚È‚¢B", the(xname(obj)));
 	return;
     }
-    oops = (rnd(obj->blessed ? 10 : 20) > ACURR(A_INT) || obj->cursed);
+    oops = (rnd(obj->blessed ? 13 : 20) > ACURR(A_INT) || obj->cursed);
     if (oops && (obj->spe > 0)) {
 	switch (rnd(obj->oartifact ? 4 : 5)) {
 /*JP
