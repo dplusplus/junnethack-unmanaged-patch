@@ -334,9 +334,9 @@ impossible VA_DECL(const char *, s)
 	}
 	vpline(s,VA_ARGS);
 #if 0 /*JP*/
-	pline("Program in disorder - perhaps you'd better #quit.");
+	pline("Program in disorder; you probably should S)ave and restart the process.");
 #else
-	pline("プログラムに障害発生 - #quitしたほうがよさそうだ。");
+	pline("プログラムに障害発生 - セーブ(S)して再実行したほうがよさそうだ。");
 #endif
 	program_state.in_impossible = 0;
 	VA_END();
