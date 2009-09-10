@@ -98,7 +98,7 @@ static int map_cnt = 0;
 		  map[map_cnt - 1] = '\n';
 		  map[map_cnt] = '\0';
 		}
-^#.*\n		{ line_number++; }
+^[ \t]*#.*\n		{ line_number++; }
 :		{ colon_line_number = line_number; return ':'; }
 MESSAGE		return MESSAGE_ID;
 MAZE		return MAZE_ID;
@@ -133,15 +133,14 @@ POOL		return POOL_ID;
 NON_DIGGABLE	return NON_DIGGABLE_ID;
 NON_PASSWALL	return NON_PASSWALL_ID;
 IF		return IF_ID;
-THEN		return THEN_ID;
 ELSE		return ELSE_ID;
-ENDIF		return ENDIF_ID;
 EXIT		return EXIT_ID;
 ROOM		return ROOM_ID;
 SUBROOM		return SUBROOM_ID;
 RANDOM_CORRIDORS	return RAND_CORRIDOR_ID;
 CORRIDOR	return CORRIDOR_ID;
 SPILL	  return SPILL_ID;
+RANDLINE	return RANDLINE_ID;
 TERRAIN		return TERRAIN_ID;
 REPLACE_TERRAIN	return REPLACE_TERRAIN_ID;
 GOLD		return GOLD_ID;
@@ -211,6 +210,9 @@ hardfloor	{ yylval.i=HARDFLOOR; return FLAG_TYPE; }
 nommap		{ yylval.i=NOMMAP; return FLAG_TYPE; }
 arboreal	{ yylval.i=ARBOREAL; return FLAG_TYPE; }	/* KMH */
 shortsighted	{ yylval.i=SHORTSIGHTED; return FLAG_TYPE; }
+noflipx		{ yylval.i=NOFLIPX; return FLAG_TYPE; }
+noflipy		{ yylval.i=NOFLIPY; return FLAG_TYPE; }
+noflip		{ yylval.i=(NOFLIPX + NOFLIPY); return FLAG_TYPE; }
 \[\ *[0-9]+\%\ *\] { yylval.i = atoi(yytext + 1); return PERCENT; }
 [0-9]+\%	{ yylval.i = atoi(yytext); return SPERCENT; }
 [+\-]?[0-9]+	{ yylval.i=atoi(yytext); return INTEGER; }
