@@ -1869,6 +1869,11 @@ register struct obj	*sobj;
 */
 		    if (dmg) losehp(dmg, "‘å’n‚ÌŠª•¨‚Å", KILLED_BY_AN);
 		}
+	    } else if (In_endgame(&u.uz)) {
+/*JP
+		You_hear("the %s rumbling below you!", surface(u.ux,u.uy));
+*/
+		You_hear("%s‚ª‘«Œ³‚Å–Â“®‚µ‚Ä‚¢‚é‚Ì‚ğ•·‚¢‚½I", surface(u.ux,u.uy));
 	    }
 	    break;
 	case SCR_PUNISHMENT:
