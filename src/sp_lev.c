@@ -95,6 +95,38 @@ char *lev_message = 0;
 lev_region *lregions = 0;
 int num_lregions = 0;
 
+struct obj *container_obj[MAX_CONTAINMENT];
+int container_idx = 0;
+
+
+void
+lvlfill_maze_grid(x1,y1,x2,y2,filling)
+int x1,y1,x2,y2;
+schar filling;
+{
+	int x,y;
+
+	for (x = x1; x <= x2; x++)
+		for (y = y1; y <= y2; y++) {
+#ifndef WALLIFIED_MAZE
+			levl[x][y].typ = STONE;
+#else
+			levl[x][y].typ =
+				(y < 2 || ((x % 2) && (y % 2))) ? STONE : filling;
+#endif
+		}
+}
+
+void
+lvlfill_solid(filling)
+schar filling;
+{
+	int x,y;
+	for (x = 2; x <= x_maze_max; x++)
+		for (y = 0; y <= y_maze_max; y++)
+			levl[x][y].typ = filling;
+}
+
 void flip_drawbridge_horizontal(lev)
 struct rm *lev;
 {
@@ -929,33 +961,40 @@ struct mkroom *broom;
 
 		dpos = dd->pos;
 		if (dpos == -1)	/* The position is RANDOM */
-		    dpos = rn2((dwall == W_WEST || dwall == W_EAST) ?
+		    dpos = rn2(((dwall & (W_WEST|W_EAST)) ? 2 : 1) ?
 			    (broom->hy - broom->ly) : (broom->hx - broom->lx));
 
 		/* Convert wall and pos into an absolute coordinate! */
-
-		switch (dwall) {
-		      case W_NORTH:
+		wtry = rn2(4);
+		for (walltry = 0; walltry < 4; walltry++) {
+		    switch ((wtry+walltry) % 4) {
+		      case 0:
+			if (!(dwall & W_NORTH)) break;
 			y = broom->ly - 1;
 			x = broom->lx + dpos;
-			break;
-		      case W_SOUTH:
+			goto outdirloop;
+		      case 1:
+			if (!(dwall & W_SOUTH)) break;
 			y = broom->hy + 1;
 			x = broom->lx + dpos;
-			break;
-		      case W_WEST:
+			goto outdirloop;
+		      case 2:
+			if (!(dwall & W_WEST)) break;
 			x = broom->lx - 1;
 			y = broom->ly + dpos;
-			break;
-		      case W_EAST:
+			goto outdirloop;
+		      case 3:
+			if (!(dwall & W_EAST)) break;
 			x = broom->hx + 1;
 			y = broom->ly + dpos;
-			break;
+			goto outdirloop;
 		      default:
 			x = y = 0;
 			panic("create_door: No wall for door!");
-			break;
+			goto outdirloop;
+		    }
 		}
+outdirloop:
 		if (okdoor(x,y))
 		    break;
 	} while (++trycnt <= 100);
@@ -1358,21 +1397,28 @@ struct mkroom	*croom;
 	    otmp = oname(otmp, o->name.str);
 
 	switch(o->containment) {
-	    static struct obj *container = 0;
 
 	    /* contents */
 	    case 1:
-		if (!container) {
+		if (!container_idx) {
 		    impossible("create_object: no container");
 		    break;
 		}
 		remove_object(otmp);
-		(void) add_to_container(container, otmp);
+		(void) add_to_container(container_obj[container_idx-1], otmp);
 		return;		/* don't stack */
 	    /* container */
 	    case 2:
 		delete_contents(otmp);
-		container = otmp;
+		if (container_idx < MAX_CONTAINMENT) {
+		    if (container_idx) {
+			remove_object(otmp);
+			(void) add_to_container(container_obj[container_idx-1], otmp);
+		    }
+		    container_obj[container_idx] = otmp;
+		    container_idx++;
+		} else impossible("create_object: too deeply nested containers.");
+		/*container = otmp;*/
 		break;
 	    /* nothing */
 	    case 0: break;
@@ -2312,7 +2358,7 @@ sp_lev *lvl;
     long n_opcode = 0;
     long i,j;
     genericptr_t opdat;
-    char n;
+    unsigned char n;
     int size, opcode;
     lev_region  *tmplregion;
     mazepart *tmpmazepart;
@@ -2331,6 +2377,7 @@ sp_lev *lvl;
 	opdat = NULL;
 
 	switch (opcode) {
+	case SPO_POP_CONTAINER:
 	case SPO_NULL:
 	case SPO_EXIT:
 	case SPO_WALLIFY:
@@ -2546,6 +2593,7 @@ sp_lev *lvl;
         case SPO_JG:
         case SPO_NULL:
 	case SPO_EXIT:
+	case SPO_POP_CONTAINER:
 	case SPO_MESSAGE:
 	case SPO_DOOR:
 	case SPO_ENDROOM:
@@ -2671,7 +2719,7 @@ sp_lev *lvl;
     boolean prefilled, room_not_needed;
 
     char    n = '\0';
-    char    halign, valign;
+    schar   halign, valign;
 
     int     xi, dir;
     int     tmpi;
@@ -2682,38 +2730,48 @@ sp_lev *lvl;
 
     struct trap *badtrap;
     boolean has_bounds = FALSE;
+    boolean premapped = FALSE;
 
     prevstair.x = prevstair.y = 0;
     tmproom = tmpsubroom = (room *) 0;
 
     shuffle_alignments();
 
+    for (xi = 0; xi < MAX_CONTAINMENT; xi++) container_obj[xi] = NULL;
+    container_idx = 0;
+
     (void) memset((genericptr_t)&SpLev_Map[0][0], 0, sizeof SpLev_Map);
 
-    level.flags.is_maze_lev = lvl->init_lev.levtyp == SP_LEV_MAZE;
+    level.flags.is_maze_lev = 0;
 
-    if (lvl->init_lev.init_present) {
-	if (lvl->init_lev.lit < 0) lvl->init_lev.lit = rn2(2);
-	mkmap(&(lvl->init_lev));
-    } else {
-	for(x = 2; x <= x_maze_max; x++)
-	    for(y = 0; y <= y_maze_max; y++)
-		if (lvl->init_lev.filling == -1) {
-#ifndef WALLIFIED_MAZE
-		    levl[x][y].typ = STONE;
-#else
-		    levl[x][y].typ =
-			(y < 2 || ((x % 2) && (y % 2))) ? STONE : HWALL;
-#endif
-		} else {
-		    levl[x][y].typ = lvl->init_lev.filling;
-		}
-	/* ensure the whole level is marked as mapped area */
+    switch (lvl->init_lev.init_style) {
+    default: impossible("Unrecognized level init style."); break;
+    case LVLINIT_NONE: break;
+    case LVLINIT_SOLIDFILL:
+	lvlfill_solid(lvl->init_lev.filling);
 	xstart = 1;
 	ystart = 0;
 	xsize = COLNO-1;
 	ysize = ROWNO;
+	break;
+    case LVLINIT_MAZEGRID:
+	lvlfill_maze_grid(2,0, x_maze_max,y_maze_max, lvl->init_lev.filling);
+	xstart = 1;
+	ystart = 0;
+	xsize = COLNO-1;
+	ysize = ROWNO;
+	break;
+    case LVLINIT_MINES:
+	if (lvl->init_lev.lit < 0) lvl->init_lev.lit = rn2(2);
+	if (lvl->init_lev.filling > -1) lvlfill_solid(lvl->init_lev.filling);
+	mkmap(&(lvl->init_lev));
+	xstart = 1;
+	ystart = 0;
+	xsize = COLNO-1;
+	ysize = ROWNO;
+	break;
     }
+
 
     if (lvl->init_lev.flags & NOTELEPORT)   level.flags.noteleport = 1;
     if (lvl->init_lev.flags & HARDFLOOR)    level.flags.hardfloor = 1;
@@ -2722,6 +2780,9 @@ sp_lev *lvl;
     if (lvl->init_lev.flags & ARBOREAL)     level.flags.arboreal = 1;
     if (lvl->init_lev.flags & NOFLIPX)      allow_flips &= ~1;
     if (lvl->init_lev.flags & NOFLIPY)      allow_flips &= ~2;
+    if (lvl->init_lev.flags & MAZELEVEL)    level.flags.is_maze_lev = 1;
+    if (lvl->init_lev.flags & PREMAPPED)    premapped = TRUE;
+    if (lvl->init_lev.flags & SHROUD)       level.flags.hero_memory = 0;
 
     while (n_opcode < lvl->init_lev.n_opcodes && !exit_script) {
 	int opcode = lvl->opcodes[n_opcode].opcode;
@@ -2741,6 +2802,12 @@ sp_lev *lvl;
 	    break;
 	case SPO_EXIT:
 	    exit_script = TRUE;
+	    break;
+	case SPO_POP_CONTAINER:
+	    if (container_idx > 0) {
+		container_idx--;
+		container_obj[container_idx] = NULL;
+	    }
 	    break;
 	case SPO_MESSAGE:
 	    if (opdat) {
@@ -3045,6 +3112,14 @@ sp_lev *lvl;
 	    x = (xchar)tmpwalk->x;  y = (xchar)tmpwalk->y;
 	    dir = tmpwalk->dir;
 
+	    if (tmpwalk->typ < 1) {
+#ifndef WALLIFIED_MAZE
+		tmpwalk->typ = CORR;
+#else
+		tmpwalk->typ = ROOM;
+#endif
+	    }
+
 	    /* don't use move() - it doesn't use W_NORTH, etc. */
 	    switch (dir) {
 	    case W_NORTH: --y; break;
@@ -3055,11 +3130,7 @@ sp_lev *lvl;
 	    }
 
 	    if(!IS_DOOR(levl[x][y].typ)) {
-#ifndef WALLIFIED_MAZE
-		levl[x][y].typ = CORR;
-#else
-		levl[x][y].typ = ROOM;
-#endif
+		levl[x][y].typ = tmpwalk->typ;
 		levl[x][y].flags = 0;
 	    }
 
@@ -3075,11 +3146,7 @@ sp_lev *lvl;
 		    x--;
 
 		/* no need for IS_DOOR check; out of map bounds */
-#ifndef WALLIFIED_MAZE
-		levl[x][y].typ = CORR;
-#else
-		levl[x][y].typ = ROOM;
-#endif
+		levl[x][y].typ = tmpwalk->typ;
 		levl[x][y].flags = 0;
 	    }
 
@@ -3090,7 +3157,7 @@ sp_lev *lvl;
 		    y--;
 	    }
 
-	    walkfrom(x, y);
+	    walkfrom(x, y, tmpwalk->typ);
 	    if (tmpwalk->stocked) fill_empty_maze();
 	    break;
 	case SPO_NON_DIGGABLE:
@@ -3203,12 +3270,13 @@ sp_lev *lvl;
 		    panic("reading special level with ysize too large");
 	    }
 
-	    if(lvl->init_lev.init_present && xsize <= 1 && ysize <= 1) {
+	    if (xsize <= 1 && ysize <= 1) {
 		xstart = 1;
 		ystart = 0;
 		xsize = COLNO-1;
 		ysize = ROWNO;
 	    } else {
+
 		/* Load the map */
 		for(y = ystart; y < ystart+ysize; y++)
 		    for(x = xstart; x < xstart+xsize; x++) {
@@ -3221,6 +3289,7 @@ sp_lev *lvl;
 			levl[x][y].horizontal = 0;
 			levl[x][y].roomno = 0;
 			levl[x][y].edge = 0;
+
 
 			/*
 			 *  Set secret doors to closed (why not trapped too?).  Set
@@ -3245,8 +3314,9 @@ sp_lev *lvl;
 			else if(levl[x][y].typ == CROSSWALL)
 			    has_bounds = TRUE;
 		    }
-		if (lvl->init_lev.init_present && lvl->init_lev.joined)
+		if (lvl->init_lev.joined)
 		    remove_rooms(xstart, ystart, xstart+xsize, ystart+ysize);
+
 	    }
 
 	    if (!tmpmazepart->keep_region) {
@@ -3305,6 +3375,8 @@ sp_lev *lvl;
 	}
 
     count_features();
+
+    if (premapped) sokoban_detect();
 
     return TRUE;
 }

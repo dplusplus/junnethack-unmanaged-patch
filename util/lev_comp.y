@@ -85,7 +85,7 @@ static short on_olist = 0, on_mlist = 0, on_plist = 0;
 static long lev_flags;
 
 unsigned int max_x_map, max_y_map;
-
+int obj_containment = 0;
 
 extern int fatal_error;
 extern int want_warnings;
@@ -106,7 +106,8 @@ extern const char *fname;
 
 
 %token	<i> CHAR INTEGER BOOLEAN PERCENT SPERCENT
-%token	<i> MESSAGE_ID MAZE_ID LEVEL_ID LEV_INIT_ID GEOMETRY_ID NOMAP_ID
+%token	<i> MAZE_GRID_ID SOLID_FILL_ID MINES_ID
+%token	<i> MESSAGE_ID LEVEL_ID LEV_INIT_ID GEOMETRY_ID NOMAP_ID
 %token	<i> OBJECT_ID COBJECT_ID MONSTER_ID TRAP_ID DOOR_ID DRAWBRIDGE_ID
 %token	<i> MAZEWALK_ID WALLIFY_ID REGION_ID FILLING
 %token	<i> RANDOM_OBJECTS_ID RANDOM_MONSTERS_ID RANDOM_PLACES_ID
@@ -118,13 +119,14 @@ extern const char *fname;
 %token	<i> ALIGNMENT LEFT_OR_RIGHT CENTER TOP_OR_BOT ALTAR_TYPE UP_OR_DOWN
 %token	<i> SUBROOM_ID NAME_ID FLAGS_ID FLAG_TYPE MON_ATTITUDE MON_ALERTNESS
 %token	<i> MON_APPEARANCE ROOMDOOR_ID IF_ID ELSE_ID
-%token	<i> CONTAINED SPILL_ID TERRAIN_ID HORIZ_OR_VERT REPLACE_TERRAIN_ID
+%token	<i> SPILL_ID TERRAIN_ID HORIZ_OR_VERT REPLACE_TERRAIN_ID
 %token	<i> EXIT_ID
 %token	<i> ',' ':' '(' ')' '[' ']' '{' '}'
 %token	<map> STRING MAP_ID
 %type	<i> h_justif v_justif trap_name room_type door_state light_state
-%type	<i> alignment altar_type a_register roomfill filling door_pos
-%type	<i> door_wall walled secret amount chance opt_boolean
+%type	<i> alignment altar_type a_register roomfill door_pos
+%type	<i> door_wall walled secret amount chance
+%type	<i> dir_list
 %type	<i> engraving_type flags flag_list prefilled lev_region lev_init
 %type	<i> monster monster_c m_register object object_c o_register
 %type	<map> string level_def m_name o_name
@@ -147,7 +149,7 @@ level		: level_def flags lev_init levstatements
 				"%s : %d errors detected. No output created!\n",
 					fname, fatal_error);
 			} else {
-			        splev.init_lev.init_present = (boolean) $3;
+			        splev.init_lev.init_style = (xchar) $3;
 				splev.init_lev.flags = (long) $2;
 			        if (check_subrooms(&splev)) {
 				   if (!write_level_file($1, &splev)) {
@@ -160,50 +162,79 @@ level		: level_def flags lev_init levstatements
 		  }
 		;
 
-level_def	: MAZE_ID ':' string ',' filling
+level_def	: LEVEL_ID ':' string
 		  {
-			splev.init_lev.filling = (schar) $5;
-		        splev.init_lev.levtyp = SP_LEV_MAZE;
 			if (index($3, '.'))
 			    yyerror("Invalid dot ('.') in level name.");
 			if ((int) strlen($3) > 8)
 			    yyerror("Level names limited to 8 characters.");
-			$$ = $3;
 			n_plist = n_mlist = n_olist = 0;
-		  }
-		| LEVEL_ID ':' string
-		  {
-			splev.init_lev.levtyp = SP_LEV_ROOMS;
-			if (index($3, '.'))
-			    yyerror("Invalid dot ('.') in level name.");
-			if ((int) strlen($3) > 8)
-			    yyerror("Level names limited to 8 characters.");
 			$$ = $3;
 		  }
 		;
 
 lev_init	: /* nothing */
 		  {
-			$$ = 0;
+			$$ = LVLINIT_NONE;
 		  }
-		| LEV_INIT_ID ':' CHAR ',' CHAR ',' BOOLEAN ',' BOOLEAN ',' light_state ',' walled
+		| LEV_INIT_ID ':' SOLID_FILL_ID ',' CHAR
 		  {
-			splev.init_lev.fg = what_map_char((char) $3);
-			if (splev.init_lev.fg == INVALID_TYPE)
-			    yyerror("Invalid foreground type.");
-			splev.init_lev.bg = what_map_char((char) $5);
-			if (splev.init_lev.bg == INVALID_TYPE)
-			    yyerror("Invalid background type.");
-			splev.init_lev.smoothed = $7;
-			splev.init_lev.joined = $9;
+		      splev.init_lev.filling = what_map_char((char) $5);
+		      if (splev.init_lev.filling == INVALID_TYPE ||
+			  splev.init_lev.filling >= MAX_TYPE)
+			    yyerror("INIT_MAP: Invalid fill char type.");
+		      $$ = LVLINIT_SOLIDFILL;
+		      max_x_map = COLNO-1;
+		      max_y_map = ROWNO;
+		  }
+		| LEV_INIT_ID ':' MAZE_GRID_ID ',' CHAR
+		  {
+		      splev.init_lev.filling = what_map_char((char) $5);
+		      if (splev.init_lev.filling == INVALID_TYPE ||
+			  splev.init_lev.filling >= MAX_TYPE)
+			    yyerror("INIT_MAP: Invalid fill char type.");
+		      $$ = LVLINIT_MAZEGRID;
+		      max_x_map = COLNO-1;
+		      max_y_map = ROWNO;
+		  }
+		| LEV_INIT_ID ':' MINES_ID ',' CHAR ',' CHAR ',' BOOLEAN ',' BOOLEAN ',' light_state ',' walled opt_fillchar
+		  {
+			splev.init_lev.fg = what_map_char((char) $5);
+			if (splev.init_lev.fg == INVALID_TYPE ||
+			  splev.init_lev.filling >= MAX_TYPE)
+			    yyerror("INIT_MAP: Invalid foreground type.");
+			splev.init_lev.bg = what_map_char((char) $7);
+			if (splev.init_lev.bg == INVALID_TYPE ||
+			  splev.init_lev.filling >= MAX_TYPE)
+			    yyerror("INIT_MAP: Invalid background type.");
+			splev.init_lev.smoothed = $9;
+			splev.init_lev.joined = $11;
 			if (splev.init_lev.joined &&
 			    splev.init_lev.fg != CORR && splev.init_lev.fg != ROOM)
-			    yyerror("Invalid foreground type for joined map.");
-			splev.init_lev.lit = $11;
-			splev.init_lev.walled = $13;
-			$$ = 1;
+			    yyerror("INIT_MAP: Invalid foreground type for joined map.");
+			splev.init_lev.lit = $13;
+			splev.init_lev.walled = $15;
+
+			splev.init_lev.filling = $<i>16;
+			if (splev.init_lev.filling == INVALID_TYPE)
+			    yyerror("INIT_MAP: Invalid fill char type.");
+
+			$$ = LVLINIT_MINES;
+			max_x_map = COLNO-1;
+			max_y_map = ROWNO;
 		  }
 		;
+
+opt_fillchar	: /* nothing */
+		  {
+		      $<i>$ = -1;
+		  }
+		| ',' CHAR
+		  {
+		      $<i>$ = what_map_char((char) $2);
+		  }
+		;
+
 
 walled		: BOOLEAN
 		| RANDOM_TYPE
@@ -234,10 +265,6 @@ levstatements	: /* nothing */
 		| levstatement levstatements
 		;
 
-roomstatements	: /* nothing */
-		| roomstatement roomstatements
-		;
-
 levstatement 	: message
 		| altar_detail
 		| branch_region
@@ -262,6 +289,7 @@ levstatement 	: message
 		| random_corridors
 		| region_detail
 		| room_def
+		| subroom_def
 		| room_chance
 		| room_name
 		| sink_detail
@@ -274,22 +302,6 @@ levstatement 	: message
 		| teleprt_region
 		| trap_detail
 		| wallify_detail
-		;
-
-roomstatement	: subroom_def
-		| room_chance
-		| room_name
-		| door_detail
-		| monster_detail
-		| object_detail
-		| trap_detail
-		| altar_detail
-		| fountain_detail
-		| sink_detail
-		| pool_detail
-		| gold_detail
-		| engraving_detail
-		| stair_detail
 		;
 
 exitstatement	: EXIT_ID
@@ -360,6 +372,61 @@ message		: MESSAGE_ID ':' STRING
 		  }
 		;
 
+cobj_ifstatement : IF_ID chance
+		  {
+		     opcmp *tmpcmp = New(opcmp);
+		     opjmp *tmpjmp = New(opjmp);
+
+		     if (n_if_list >= MAX_NESTED_IFS)
+		       yyerror("Too deeply nested IF-statements!");
+		     tmpcmp->cmp_what = 0;
+		     tmpcmp->cmp_val = (long) $2;
+		     add_opcode(&splev, SPO_CMP, tmpcmp);
+		     tmpjmp->jmp_target = -1;
+		     if_list[n_if_list++] = splev.init_lev.n_opcodes;
+		     add_opcode(&splev, SPO_JG, tmpjmp);
+		  }
+		 cobj_if_ending
+		  {
+		     /* do nothing */
+		  }
+		;
+
+cobj_if_ending	: '{' cobj_statements '}'
+		  {
+		     if (n_if_list > 0) {
+			opjmp *tmpjmp;
+			tmpjmp = (opjmp *) splev.opcodes[if_list[--n_if_list]].opdat;
+			tmpjmp->jmp_target = splev.init_lev.n_opcodes-1;
+		     } else yyerror("IF...THEN ... huh?!");
+		  }
+		| '{' cobj_statements '}'
+		  {
+		     if (n_if_list > 0) {
+			long tmppos = splev.init_lev.n_opcodes;
+			opjmp *tmpjmp = New(opjmp);
+
+			tmpjmp->jmp_target = -1;
+			add_opcode(&splev, SPO_JMP, tmpjmp);
+
+			tmpjmp = (opjmp *) splev.opcodes[if_list[--n_if_list]].opdat;
+			tmpjmp->jmp_target = splev.init_lev.n_opcodes-1;
+
+			if_list[n_if_list++] = tmppos;
+		     } else yyerror("IF...THEN ... huh?!");
+		  }
+		 ELSE_ID '{' cobj_statements '}'
+		  {
+		     if (n_if_list > 0) {
+			opjmp *tmpjmp;
+			tmpjmp = (opjmp *) splev.opcodes[if_list[--n_if_list]].opdat;
+			tmpjmp->jmp_target = splev.init_lev.n_opcodes-1;
+		     } else yyerror("IF...THEN...ELSE ... huh?!");
+		  }
+		;
+
+
+
 random_corridors: RAND_CORRIDOR_ID
 		  {
 		     corridor *tmpcorridor = New(corridor);
@@ -422,7 +489,7 @@ subroom_def	: SUBROOM_ID ':' room_type ',' light_state ',' subroom_pos ',' room_
 
 		     add_opcode(&splev, SPO_SUBROOM, tmpr);
 		  }
-		  '{' roomstatements '}'
+		  '{' levstatements '}'
 		  {
 		      add_opcode(&splev, SPO_ENDROOM, NULL);
 		  }
@@ -446,7 +513,7 @@ room_def	: ROOM_ID ':' room_type ',' light_state ',' room_pos ',' room_align ','
 
 		     add_opcode(&splev, SPO_ROOM, tmpr);
 		  }
-		  '{' roomstatements '}'
+		  '{' levstatements '}'
 		  {
 		      add_opcode(&splev, SPO_ENDROOM, NULL);
 		  }
@@ -585,22 +652,22 @@ secret		: BOOLEAN
 		| RANDOM_TYPE
 		;
 
-door_wall	: DIRECTION
+door_wall	: dir_list
 		| RANDOM_TYPE
+		;
+
+dir_list	: DIRECTION
+		  {
+		      $$ = $1;
+		  }
+		| DIRECTION '|' dir_list
+		  {
+		      $$ = ($1 | $3);
+		  }
 		;
 
 door_pos	: INTEGER
 		| RANDOM_TYPE
-		;
-
-filling		: CHAR
-		  {
-			$$ = get_floor_type((char)$1);
-		  }
-		| RANDOM_TYPE
-		  {
-			$$ = -1;
-		  }
 		;
 
 map_definition	: NOMAP_ID
@@ -823,6 +890,42 @@ monster_info	: ',' string
 		  }
 		;
 
+cobj_statements	: /* nothing */
+		  {
+		  }
+		| cobj_statement cobj_statements
+		;
+
+cobj_statement  : cobj_detail
+		| cobj_ifstatement
+		;
+
+cobj_detail	: OBJECT_ID cobj_desc
+		  {
+		      object *tmpobj =
+			  (object *) get_last_opcode_data1(&splev, SPO_OBJECT);
+		      if (!tmpobj) yyerror("No object defined?!");
+		      tmpobj->containment = (obj_containment ? 1 : 0);
+		  }
+		| COBJECT_ID cobj_desc
+		  {
+		     object *tmpobj =
+		       (object *) get_last_opcode_data1(&splev, SPO_OBJECT);
+		     if (!tmpobj) yyerror("No object defined?!");
+		     tmpobj->containment = 2;
+		     obj_containment++;
+
+			/* 1: is contents of preceeding object with 2 */
+			/* 2: is a container */
+			/* 0: neither */
+		  }
+		 '{' cobj_statements '}'
+		  {
+		      add_opcode(&splev, SPO_POP_CONTAINER, NULL);
+		      obj_containment--;
+		  }
+		;
+
 object_detail	: OBJECT_ID object_desc
 		  {
 		  }
@@ -832,10 +935,44 @@ object_detail	: OBJECT_ID object_desc
 		       (object *) get_last_opcode_data1(&splev, SPO_OBJECT);
 		     if (!tmpobj) yyerror("No object defined?!");
 		     tmpobj->containment = 2;
+		     obj_containment++;
 
 			/* 1: is contents of preceeding object with 2 */
 			/* 2: is a container */
 			/* 0: neither */
+		  }
+		 '{' cobj_statements '}'
+		  {
+		      add_opcode(&splev, SPO_POP_CONTAINER, NULL);
+		      obj_containment--;
+		  }
+		;
+
+cobj_desc	: chance ':' object_c ',' o_name
+		  {
+		     object *tmpobj = New(object);
+
+		     tmpobj->class = $<i>3;
+		     tmpobj->corpsenm = NON_PM;
+		     tmpobj->curse_state = -1;
+		     tmpobj->name.str = 0;
+		     tmpobj->chance = $1;
+		     tmpobj->id = -1;
+		     if ($5) {
+			int token = get_object_id($5, $<i>3);
+			if (token == ERR)
+			  yywarning(
+			    "Illegal object name!  Making random object.");
+			else
+			  tmpobj->id = token;
+			Free($5);
+		     }
+		     add_opcode(&splev, SPO_OBJECT, tmpobj);
+
+		  }
+		  object_infos
+		  {
+		      /* nothing here */
 		  }
 		;
 
@@ -876,17 +1013,6 @@ object_where	: coordinate
 		     tmpobj->containment = 0;
 		     tmpobj->x = current_coord.x;
 		     tmpobj->y = current_coord.y;
-		  }
-		| CONTAINED
-		  {
-		     object *tmpobj =
-		       (object *) get_last_opcode_data1(&splev, SPO_OBJECT);
-
-		     if (!tmpobj) yyerror("No object defined?!");
-		     tmpobj->containment = 1;
-		     /* random coordinate, will be overridden anyway */
-		     tmpobj->x = -MAX_REGISTERS-1;
-		     tmpobj->y = -MAX_REGISTERS-1;
 		  }
 		;
 
@@ -1020,27 +1146,29 @@ drawbridge_detail: DRAWBRIDGE_ID ':' coordinate ',' DIRECTION ',' door_state
 		   }
 		;
 
-mazewalk_detail : MAZEWALK_ID ':' coordinate ',' DIRECTION opt_boolean
+mazewalk_detail : MAZEWALK_ID ':' coordinate ',' DIRECTION
 		  {
 		      walk *tmpwalk = New(walk);
 
 		      tmpwalk->x = current_coord.x;
 		      tmpwalk->y = current_coord.y;
 		      tmpwalk->dir = $5;
-		      tmpwalk->stocked = $<i>6;
+		      tmpwalk->stocked = 1;
+		      tmpwalk->typ = 0;
 
 		      add_opcode(&splev, SPO_MAZEWALK, tmpwalk);
 		  }
-		;
+		| MAZEWALK_ID ':' coordinate ',' DIRECTION ',' BOOLEAN opt_fillchar
+		  {
+		      walk *tmpwalk = New(walk);
 
-/* opt_boolean is the same as roomfill, should consolidate */
-opt_boolean	: /* nothing */
-		  {
-		      $$ = 1;
-		  }
-		| ',' BOOLEAN
-		  {
-		      $$ = $2;
+		      tmpwalk->x = current_coord.x;
+		      tmpwalk->y = current_coord.y;
+		      tmpwalk->dir = $5;
+		      tmpwalk->stocked = $<i>7;
+		      tmpwalk->typ = $<i>8;
+
+		      add_opcode(&splev, SPO_MAZEWALK, tmpwalk);
 		  }
 		;
 
@@ -1276,7 +1404,11 @@ replace_terrain_detail : REPLACE_TERRAIN_ID ':' region ',' CHAR ',' CHAR ',' lig
 		      tmprepl->x2 = current_region.x2;
 		      tmprepl->y2 = current_region.y2;
 		      tmprepl->fromter = what_map_char((char) $5);
+		      if (tmprepl->fromter >= MAX_TYPE)
+			  yyerror("Replace terrain: illegal 'from' map char");
 		      tmprepl->toter = what_map_char((char) $7);
+		      if (tmprepl->toter >= MAX_TYPE)
+			  yyerror("Replace terrain: illegal 'to' map char");
 		      tmprepl->tolit = $9;
 		      add_opcode(&splev, SPO_REPLACETERRAIN, tmprepl);
 		  }
@@ -1292,6 +1424,8 @@ terrain_detail : TERRAIN_ID chance ':' coordinate ',' CHAR ',' light_state
 		     tmpterrain->y1 = current_coord.y;
 		     tmpterrain->x2 = tmpterrain->y2 = -1;
 		     tmpterrain->ter = what_map_char((char) $6);
+		     if (tmpterrain->ter >= MAX_TYPE)
+			 yyerror("Terrain: illegal map char");
 		     tmpterrain->tlit = $8;
 
 		     add_opcode(&splev, SPO_TERRAIN, tmpterrain);
@@ -1313,6 +1447,8 @@ terrain_detail : TERRAIN_ID chance ':' coordinate ',' CHAR ',' light_state
 		         tmpterrain->x2 = -1;
 		     }
 		     tmpterrain->ter = what_map_char((char) $10);
+		     if (tmpterrain->ter >= MAX_TYPE)
+			 yyerror("Terrain: illegal map char");
 		     tmpterrain->tlit = $12;
 
 		     add_opcode(&splev, SPO_TERRAIN, tmpterrain);
@@ -1329,6 +1465,8 @@ terrain_detail : TERRAIN_ID chance ':' coordinate ',' CHAR ',' light_state
 		     tmpterrain->x2 = current_region.x2;
 		     tmpterrain->y2 = current_region.y2;
 		     tmpterrain->ter = what_map_char((char) $8);
+		     if (tmpterrain->ter >= MAX_TYPE)
+			 yyerror("Terrain: illegal map char");
 		     tmpterrain->tlit = $10;
 
 		     add_opcode(&splev, SPO_TERRAIN, tmpterrain);
@@ -1344,8 +1482,9 @@ randline_detail : RANDLINE_ID ':' lineends ',' CHAR ',' light_state ',' INTEGER 
 		      tmprandline->x2 = current_region.x2;
 		      tmprandline->y2 = current_region.y2;
 		      tmprandline->fg = what_map_char((char) $5);
-		      if (tmprandline->fg == INVALID_TYPE) {
-			  yyerror("Invalid map character in randline!");
+		      if (tmprandline->fg == INVALID_TYPE ||
+			  tmprandline->fg >= MAX_TYPE) {
+			  yyerror("RANDLINE: Invalid map character!");
 		      }
 		      tmprandline->lit = $7;
 		      tmprandline->roughness = $9;
@@ -1370,13 +1509,14 @@ spill_detail : SPILL_ID ':' coordinate ',' CHAR ',' DIRECTION ',' INTEGER ',' li
 				tmpspill->x = current_coord.x;
 				tmpspill->y = current_coord.y;
 				tmpspill->typ = what_map_char((char) $5);
-				if (tmpspill->typ == INVALID_TYPE) {
-					yyerror("Invalid map character in spill!");
+				if (tmpspill->typ == INVALID_TYPE ||
+				    tmpspill->typ >= MAX_TYPE) {
+					yyerror("SPILL: Invalid map character!");
 				}
 				tmpspill->direction = $7;
 				tmpspill->count = $9;
 				if (tmpspill->count < 1) {
-					yyerror("Invalid count in spill!");
+					yyerror("SPILL: Invalid count!");
 				}
 				tmpspill->lit = $11;
 
@@ -1687,13 +1827,13 @@ region		: '(' INTEGER ',' INTEGER ',' INTEGER ',' INTEGER ')'
 /* This series of if statements is a hack for MSC 5.1.  It seems that its
    tiny little brain cannot compile if these are all one big if statement. */
 			if ($2 < 0 || $2 > (int)max_x_map)
-				yyerror("Region out of map range!");
+			  yyerror("Region out of map range (x1)!");
 			else if ($4 < 0 || $4 > (int)max_y_map)
-				yyerror("Region out of map range!");
+			  yyerror("Region out of map range (y1)!");
 			else if ($6 < 0 || $6 > (int)max_x_map)
-				yyerror("Region out of map range!");
+			  yyerror("Region out of map range (x2)!");
 			else if ($8 < 0 || $8 > (int)max_y_map)
-				yyerror("Region out of map range!");
+			  yyerror("Region out of map range (y2)!");
 			current_region.x1 = $2;
 			current_region.y1 = $4;
 			current_region.x2 = $6;
