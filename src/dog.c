@@ -601,7 +601,7 @@ boolean pets_only;	/* true for ascension or final escape */
 #else
 			pline("%sはあなたを追って%sことができない。",
 			      Monnam(mtmp), Is_blackmarket(&u.uz) ?
-			      "入口をくぐる" : "ブラックマーケットに入る");
+			      "入口をくぐる" : "闇市に入る");
 #endif
 			stay_behind = TRUE;
 #endif /* BLACKMARKET */
