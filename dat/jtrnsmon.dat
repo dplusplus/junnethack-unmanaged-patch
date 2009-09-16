@@ -383,7 +383,7 @@ quantum mechanic:	量子物理学者:
 #
 rust monster:		錆の怪物:
 disenchanter:		吸魔の怪物:
-disintegrator:		粉砕の怪物
+disintegrator:		粉砕の怪物:
 #
 #	Snakes
 #
@@ -944,7 +944,7 @@ voluptuous ampersand:	色っぽい『＆(アンパサンド)』:	#SporkHack
 wee green blobbie:	ちっちゃな緑ブロッブ:		#SporkHack #starflight?
 wereplatypus:		カモノハシ人間:			#SporkHack
 zergling:		ザーグリング:			#SporkHack #star craft?
-#hag of bolding:	#大胆な抱擁 ・・・ 軽量化の鞄のもじり
+#hag of bolding:	大胆な抱擁:	# ・・・ 軽量化の鞄のもじり
 
 #
 #UnNetHack

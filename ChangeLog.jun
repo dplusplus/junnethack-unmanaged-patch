@@ -131,6 +131,8 @@ Fri Aug 28 2009  Masaki Miyaso  <so-miya@sourceforge.jp>
 	* 薬の未識別名「脂の薬」を「脂っぽい薬」に変更。
 	* borland c++でコンパイル時にconfig.hを修正する必要がないように修正。
 	* 設定ファイルのmenucolorの設定値を日本語版に即したものに
+	* disintegrator(粉砕の怪物)とfire dragon scales(火竜の鱗)が英語で表示
+	  されてしまう不具合を修正。
 	* 翻訳追加修正。
 
 Sat Aug 22 2009  Masaki Miyaso  <so-miya@sourceforge.jp>
