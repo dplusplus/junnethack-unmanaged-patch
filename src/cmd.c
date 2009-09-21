@@ -2435,6 +2435,16 @@ minimal_enlightenment()
 	Sprintf(buf, fmtstr, "ëÆê´", align_str(u.ualign.type));
 	add_menu(tmpwin, NO_GLYPH, &any, 0, 0, ATR_NONE, buf, FALSE);
 
+	/* Current position of hero */
+	if (wizard) {
+		Sprintf(buf2, "(%2d,%2d)", u.ux, u.uy);
+/*JP
+		Sprintf(buf, fmtstr, "position", buf2);
+*/
+		Sprintf(buf, fmtstr, "à íu", buf2);
+		add_menu(tmpwin, NO_GLYPH, &any, 0, 0, ATR_NONE, buf, FALSE);
+	}
+
 	/* Deity list */
 	add_menu(tmpwin, NO_GLYPH, &any, 0, 0, ATR_NONE, "", FALSE);
 /*JP
