@@ -1,5 +1,5 @@
-Fri Aug 28 2009  Masaki Miyaso  <so-miya@sourceforge.jp>
-	* UnNetHack SVN版rev.304をベースにした。
+Wed Sep 30 2009  Masaki Miyaso  <so-miya@sourceforge.jp>
+	* UnNetHack SVN版rev.326をベースにした。
 	  r208 スキルレベルを増やした。
 	  r209 patchlevelを3.5.2にした。
 	  r210 修正：投げたオブジェクトが捕まえられたとき投擲bitがクリアさ
@@ -127,6 +127,8 @@ Fri Aug 28 2009  Masaki Miyaso  <so-miya@sourceforge.jp>
 	  r324 ウィザードモードにてマップ上の現在位置を表示する
 	  r325 バグ修正：死の谷から到達したときプレイヤーが石の中に閉じ込めら
 	       れないようにした
+	  r326 バグ修正：倉庫番最上階で拾った死体が巨大蟻の死体に変化してしま
+	       う問題を修正
 	* バグ修正 [#18365] 扉を鍵開け器具で開けようとすると落ちる。
 	* バグ修正 [#18372] 指輪の未識別名が一部未訳
 	* バグ修正 [#18413] 施錠しようとすると落ちる
