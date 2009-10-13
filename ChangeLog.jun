@@ -1,5 +1,5 @@
 Tue Oct 13 2009  Masaki Miyaso  <so-miya@sourceforge.jp>
-	* UnNetHack SVN版rev.329をベースにした。
+	* UnNetHack SVN版rev.330をベースにした。
 	  r208 スキルレベルを増やした。
 	  r209 patchlevelを3.5.2にした。
 	  r210 修正：投げたオブジェクトが捕まえられたとき投擲bitがクリアさ
@@ -132,6 +132,7 @@ Tue Oct 13 2009  Masaki Miyaso  <so-miya@sourceforge.jp>
 	  r328 パニックメッセージ「obj not free」に情報追加
 	  r329 魔法のランプによる願いの成功率をバニラの値に戻した。 (r32をリバ
 	       ートした)
+	  r330 簡単にゲームを認識するために全livelogメッセージに開始日時を追加。
 	* バグ修正 [#18365] 扉を鍵開け器具で開けようとすると落ちる。
 	* バグ修正 [#18372] 指輪の未識別名が一部未訳
 	* バグ修正 [#18413] 施錠しようとすると落ちる
