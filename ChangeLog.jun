@@ -1,5 +1,5 @@
-Fri Oct 16 2009  Masaki Miyaso  <so-miya@sourceforge.jp>
-	* UnNetHack SVN版rev.331をベースにした。
+Mon Oct 19 2009  Masaki Miyaso  <so-miya@sourceforge.jp>
+	* UnNetHack SVN版rev.334をベースにした。
 	  r208 スキルレベルを増やした。
 	  r209 patchlevelを3.5.2にした。
 	  r210 修正：投げたオブジェクトが捕まえられたとき投擲bitがクリアさ
@@ -135,6 +135,8 @@ Fri Oct 16 2009  Masaki Miyaso  <so-miya@sourceforge.jp>
 	  r330 簡単にゲームを認識するために全livelogメッセージに開始日時を追加
 	  r331 バグ修正：倉庫番最上階で拾った缶が巨大蟻の缶に変化してしまう問
 	       題を修正
+	  r334 能力獲得の薬は3回だけ上昇させる能力を探す。祝福された薬はさらに
+	       努力して能力をひとつだけ上げる。
 	* バグ修正 [#18365] 扉を鍵開け器具で開けようとすると落ちる。
 	* バグ修正 [#18372] 指輪の未識別名が一部未訳
 	* バグ修正 [#18413] 施錠しようとすると落ちる
