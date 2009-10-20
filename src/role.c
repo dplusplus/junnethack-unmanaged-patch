@@ -1852,27 +1852,21 @@ struct monst *mtmp;
 	switch (Role_switch) {
 	case PM_KNIGHT:
 	    return ("Salutations"); /* Olde English */
+	case PM_MONK:
+	    return ("Namaste"); /* Sanskrit */
 	case PM_SAMURAI:
 	    return (mtmp && mtmp->data == &mons[PM_SHOPKEEPER] ?
 	    		"Irasshaimase" : "Konnichi wa"); /* Japanese */
 #ifdef TOURIST
 	case PM_TOURIST:
-# if 0 /*JP*/
 	    return ("Aloha");       /* Hawaiian */
-# else
-	    return ("アローハ");       /* Hawaiian */
-# endif
 #endif
 	case PM_VALKYRIE:
 	    return (
 #ifdef MAIL
 	    		mtmp && mtmp->data == &mons[PM_MAIL_DAEMON] ? "Hallo" :
 #endif
-#if 0 /*JP*/
 	    		"Velkommen");   /* Norse */
-#else
-	    		"ようこそ");
-#endif
 	default:
 	    return ("Hello");
 	}
@@ -1884,6 +1878,8 @@ Goodbye()
 	switch (Role_switch) {
 	case PM_KNIGHT:
 	    return ("Fare thee well");  /* Olde English */
+	case PM_MONK:
+	    return ("Punardarsanaya");  /* Sanskrit */
 	case PM_SAMURAI:
 	    return ("Sayonara");        /* Japanese */
 #ifdef TOURIST
@@ -1896,7 +1892,7 @@ Goodbye()
 	    return ("Goodbye");
 	}
 }
-#else
+#else /*JP*/
 const char *
 Hello(mtmp, nameflg)
 struct monst *mtmp;
@@ -1911,6 +1907,12 @@ int nameflg;
 	    Sprintf(helo_buf, "よくぞ参った%sよ", plname);
 	else
 	    Sprintf(helo_buf, "よくぞ参った");
+	break;
+    case PM_MONK:
+	if(nameflg)
+	    Sprintf(helo_buf, "ナマステー%s", plname);
+	else
+	    Sprintf(helo_buf, "ナマステー");
 	break;
     case PM_SAMURAI:
 	if(nameflg)
@@ -1955,6 +1957,12 @@ Goodbye(int nameflg)
 	else
 	    Sprintf(helo_buf, "さらば敬虔なる");
 	break;
+    case PM_MONK:
+	if(nameflg)
+	    Sprintf(helo_buf, "さらば悟りを開かんとする%sよ", plname);
+	else
+	    Sprintf(helo_buf, "さらば悟りを開かんとする");
+	break;
     case PM_SAMURAI:
 	if(nameflg)
 	    Sprintf(helo_buf, "さらば武士道を志す%sよ", plname);
@@ -1985,5 +1993,5 @@ Goodbye(int nameflg)
 
     return helo_buf;
 }
-#endif
+#endif /*JP*/
 /* role.c */
