@@ -1,5 +1,5 @@
-Mon Nov 16 2009  Masaki Miyaso  <so-miya@sourceforge.jp>
-	* UnNetHack SVN版rev.338をベースにした。
+Tue Nov 24 2009  Masaki Miyaso  <so-miya@sourceforge.jp>
+	* UnNetHack SVN版rev.339をベースにした。
 	  r208 スキルレベルを増やした。
 	  r209 patchlevelを3.5.2にした。
 	  r210 修正：投げたオブジェクトが捕まえられたとき投擲bitがクリアさ
@@ -141,6 +141,7 @@ Mon Nov 16 2009  Masaki Miyaso  <so-miya@sourceforge.jp>
 	  r336 聖域にて2本の衝撃の杖の配置位置をランダムにした
 	  r337 幻覚時のモンスターを追加
 	  r338 UI: ショートカットキーによるgetpos選択の改良
+	  r339 幻覚時のモンスターを追加
 	* バグ修正 [#18365] 扉を鍵開け器具で開けようとすると落ちる。
 	* バグ修正 [#18372] 指輪の未識別名が一部未訳
 	* バグ修正 [#18413] 施錠しようとすると落ちる
