@@ -1,5 +1,5 @@
 Mon Nov 30 2009  Masaki Miyaso  <so-miya@sourceforge.jp>
-	* UnNetHack SVN版rev.342をベースにした。
+	* UnNetHack SVN版rev.345をベースにした。
 	  r208 スキルレベルを増やした。
 	  r209 patchlevelを3.5.2にした。
 	  r210 修正：投げたオブジェクトが捕まえられたとき投擲bitがクリアさ
@@ -145,6 +145,7 @@ Mon Nov 30 2009  Masaki Miyaso  <so-miya@sourceforge.jp>
 	  r340 闇市：サムは遠すぎるところにテレポートしない
 	  r341 Livelog：ゲームの開始、復帰、保存、パニックをリポートする
 	  r342 README.configureを追加
+	  r345 いくつかのimpossible()を新関数warning()に入れ替えた
 	* バグ修正 [#18365] 扉を鍵開け器具で開けようとすると落ちる。
 	* バグ修正 [#18372] 指輪の未識別名が一部未訳
 	* バグ修正 [#18413] 施錠しようとすると落ちる

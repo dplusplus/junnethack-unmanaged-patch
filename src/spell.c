@@ -492,7 +492,7 @@ learn()
 			break;
 		}
 	}
-	if (i == MAXSPELL) impossible("Too many spells memorized!");
+	if (i == MAXSPELL) warning("Too many spells memorized!");
 
 	if (book->cursed) {	/* maybe a demon cursed it */
 	    if (cursed_book(book)) {
@@ -551,7 +551,7 @@ register struct obj *spellbook;
 			delay = -8 * objects[booktype].oc_delay;
 			break;
 		 default:
-			impossible("Unknown spellbook level %d, book %d;",
+			warning("Unknown spellbook level %d, book %d;",
 				objects[booktype].oc_level, booktype);
 			return 0;
 		}
@@ -785,7 +785,7 @@ int skill;
 */
 		return "•¨Ž¿";
 	    default:
-		impossible("Unknown spell skill, %d;", skill);
+		warning("Unknown spell skill, %d;", skill);
 		return "";
 	}
 }
@@ -1197,7 +1197,7 @@ boolean atme;
 			pline(nothing_happens);
 		break;
 	default:
-		impossible("Unknown spell %d attempted.", spell);
+		warning("Unknown spell %d attempted.", spell);
 		obfree(pseudo, (struct obj *)0);
 		return(0);
 	}
@@ -1597,7 +1597,7 @@ struct obj *obj;
 	        return;
 	    }
 	}
-	impossible("Too many spells memorized!");
+	warning("Too many spells memorized!");
 	return;
 }
 

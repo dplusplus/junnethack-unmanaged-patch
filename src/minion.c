@@ -111,7 +111,7 @@ boolean talk;
 	    mnum = ndemon(alignment);
 	    break;
 	default:
-	    impossible("unaligned player?");
+	    warning("unaligned player?");
 	    mnum = ndemon(A_NONE);
 	    break;
     }

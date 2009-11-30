@@ -83,7 +83,7 @@ register const char *pref;
 	register int i = (int)strlen(pref);
 
 	if(i > PREFIX) {
-		impossible("PREFIX too short (for %d).", i);
+		warning("PREFIX too short (for %d).", i);
 		return(s);
 	}
 	s -= i;
@@ -578,7 +578,7 @@ register struct obj *obj;
 					break;
 				}
 			}
-			if (!f) impossible("Bad fruit #%d?", obj->spe);
+			if (!f) warning("Bad fruit #%d?", obj->spe);
 			break;
 		}
 
@@ -1947,7 +1947,7 @@ const char *oldstr;
 
 	while (*oldstr==' ') oldstr++;
 	if (!oldstr || !*oldstr) {
-		impossible("plural of null?");
+		warning("plural of null?");
 		Strcpy(str, "s");
 		return str;
 	}
@@ -2221,7 +2221,7 @@ const char *oldstr;
 	char *str = nextobuf();
 
 	if (!oldstr || !*oldstr) {
-		impossible("singular of null?");
+		warning("singular of null?");
 		str[0] = 0;
 		return str;
 	}

@@ -329,7 +329,7 @@ wildmiss(mtmp, mattk)		/* monster attacked your displaced image */
 */
 		pline("%s‚Í…‚Ì”½ŽË‚É‚¾‚Ü‚³‚êA‚Í‚¸‚µ‚½I",Monnam(mtmp));
 
-	} else impossible("%s attacks you without knowing your location?",
+	} else warning("%s attacks you without knowing your location?",
 		Monnam(mtmp));
 }
 
@@ -354,7 +354,7 @@ boolean message;
 				if(mdat->mattk[i].aatyp == AT_ENGL)
 					break;
 			if (mdat->mattk[i].aatyp != AT_ENGL)
-			      impossible("Swallower has no engulfing attack?");
+			      warning("Swallower has no engulfing attack?");
 			else {
 				if (is_whirly(mdat)) {
 					switch (mdat->mattk[i].adtyp) {
@@ -592,7 +592,7 @@ mattacku(mtmp)
 #endif
 			    if (obj) obj->spe = save_spe;
 			} else
-			    impossible("hiding under nothing?");
+			    warning("hiding under nothing?");
 		    }
 		    newsym(u.ux,u.uy);
 		}
@@ -2896,7 +2896,7 @@ gazemu(mtmp, mattk)	/* monster gazes at you */
 		    stop_occupation();
 		break;
 #endif
-	    default: impossible("Gaze attack %d?", mattk->adtyp);
+	    default: warning("Gaze attack %d?", mattk->adtyp);
 		break;
 	}
 	return(0);
@@ -3173,7 +3173,7 @@ register struct monst *mon;
 #endif
 		    Ring_gone(uleft);
 		    setworn(ring, LEFT_RING);
-		} else impossible("ring replacement");
+		} else warning("ring replacement");
 		Ring_on(ring);
 		prinv((char *)0, ring, 0L);
 	    }

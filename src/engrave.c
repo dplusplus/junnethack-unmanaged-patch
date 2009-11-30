@@ -564,7 +564,7 @@ register int x,y;
 		}
 		break;
 	    default:
-		impossible("%s is written in a very strange way.",
+		warning("%s is written in a very strange way.",
 				Something);
 		sensed = 1;
 	    }
@@ -1209,7 +1209,7 @@ doengrave()
 		}
 #endif
 	    case ILLOBJ_CLASS:
-		impossible("You're engraving with an illegal object!");
+		warning("You're engraving with an illegal object!");
 		break;
 	}
 
@@ -1717,7 +1717,7 @@ register struct engr *ep;
 			break;
 		    }
 		if (!ept) {
-		    impossible("Error in del_engr?");
+		    warning("Error in del_engr?");
 		    return;
 		}
 	}

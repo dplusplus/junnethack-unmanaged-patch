@@ -126,7 +126,7 @@ int how;
 
 	/* Put together death description */
 	switch (killer_format) {
-		default: impossible("bad killer format?");
+		default: warning("bad killer format?");
 		case KILLED_BY_AN:
 #if 0 /*JP*/
 			Strcpy(buf, killed_by_prefix[how]);

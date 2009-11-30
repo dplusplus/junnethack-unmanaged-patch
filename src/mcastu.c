@@ -221,7 +221,7 @@ castmu(mtmp, mattk, thinks_it_foundyou, foundyou)
 		    if (!is_undirected_spell(mattk->adtyp, spellnum) ||
 			spell_would_be_useless(mtmp, mattk->adtyp, spellnum)) {
 			if (foundyou)
-			    impossible("spellcasting monster found you and doesn't know it?");
+			    warning("spellcasting monster found you and doesn't know it?");
 			return 0;
 		    }
 		    break;
@@ -305,7 +305,7 @@ castmu(mtmp, mattk, thinks_it_foundyou, foundyou)
 	if (!foundyou) {
 	    dmg = 0;
 	    if (mattk->adtyp != AD_SPEL && mattk->adtyp != AD_CLRC) {
-		impossible(
+		warning(
 	      "%s casting non-hand-to-hand version of hand-to-hand spell %d?",
 			   Monnam(mtmp), mattk->adtyp);
 		return(0);
@@ -394,7 +394,7 @@ int dmg;
 int spellnum;
 {
     if (dmg == 0 && !is_undirected_spell(AD_SPEL, spellnum)) {
-	impossible("cast directed wizard spell (%d) with dmg=0?", spellnum);
+	warning("cast directed wizard spell (%d) with dmg=0?", spellnum);
 	return;
     }
 
@@ -441,7 +441,7 @@ int spellnum;
 	    clonewiz();
 	    dmg = 0;
 	} else
-	    impossible("bad wizard cloning?");
+	    warning("bad wizard cloning?");
 	break;
     case MGC_SUMMON_MONS:
     {
@@ -547,7 +547,7 @@ int spellnum;
 	    mon_set_minvis(mtmp);
 	    dmg = 0;
 	} else
-	    impossible("no reason for monster to cast disappear spell?");
+	    warning("no reason for monster to cast disappear spell?");
 	break;
     case MGC_STUN_YOU:
 	if (Antimagic || Free_action) {
@@ -625,7 +625,7 @@ int spellnum;
 	    You("“Ë‘RŒƒ‚µ‚¢%s’É‚É‚¨‚»‚í‚ê‚½I", body_part(HEAD));
 	break;
     default:
-	impossible("mcastu: invalid magic spell (%d)", spellnum);
+	warning("mcastu: invalid magic spell (%d)", spellnum);
 	dmg = 0;
 	break;
     }
@@ -641,7 +641,7 @@ int dmg;
 int spellnum;
 {
     if (dmg == 0 && !is_undirected_spell(AD_CLRC, spellnum)) {
-	impossible("cast directed cleric spell (%d) with dmg=0?", spellnum);
+	warning("cast directed cleric spell (%d) with dmg=0?", spellnum);
 	return;
     }
 
@@ -790,7 +790,7 @@ int spellnum;
 	    if (!Blind) Your(vision_clears);
 	    dmg = 0;
 	} else
-	    impossible("no reason for monster to cast blindness spell?");
+	    warning("no reason for monster to cast blindness spell?");
 	break;
     case CLC_PARALYZE:
 	if (Antimagic || Free_action) {
@@ -882,7 +882,7 @@ int spellnum;
 	    pline("‘Ì‚ª‚¾‚ç‚¯‚É‚È‚Á‚½I");
 	break;
     default:
-	impossible("mcastu: invalid clerical spell (%d)", spellnum);
+	warning("mcastu: invalid clerical spell (%d)", spellnum);
 	dmg = 0;
 	break;
     }
@@ -1011,7 +1011,7 @@ buzzmu(mtmp, mattk)		/* monster uses spell (ranged) */
 			  flash_types[ad_to_typ(mattk->adtyp)]);
 		buzz(-ad_to_typ(mattk->adtyp), (int)mattk->damn,
 		     mtmp->mx, mtmp->my, sgn(tbx), sgn(tby));
-	    } else impossible("Monster spell %d cast", mattk->adtyp-1);
+	    } else warning("Monster spell %d cast", mattk->adtyp-1);
 	}
 	return(1);
 }

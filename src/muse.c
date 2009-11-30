@@ -652,7 +652,7 @@ struct monst *mtmp;
 			pline("%s seems steadier now.", Monnam(mtmp));
 */
 			pline("%s‚Í•½Ã‚ð‚Æ‚è‚à‚Ç‚µ‚½B", Monnam(mtmp));
-		} else impossible("No need for unicorn horn?");
+		} else warning("No need for unicorn horn?");
 		return 2;
 	case MUSE_BUGLE:
 		if (vismon)
@@ -1083,7 +1083,7 @@ mon_tele:
 		mon_consume_unstone(mtmp, otmp, FALSE, FALSE);
 		return 2;
 	case 0: return 0; /* i.e. an exploded wand */
-	default: impossible("%s wanted to perform action %d?", Monnam(mtmp),
+	default: warning("%s wanted to perform action %d?", Monnam(mtmp),
 			m.has_defense);
 		break;
 	}
@@ -1803,7 +1803,7 @@ struct monst *mtmp;
 			distmin(mtmp->mx,mtmp->my,mtmp->mux,mtmp->muy), otmp);
 		return 2;
 	case 0: return 0; /* i.e. an exploded wand */
-	default: impossible("%s wanted to perform action %d?", Monnam(mtmp),
+	default: warning("%s wanted to perform action %d?", Monnam(mtmp),
 			m.has_offense);
 		break;
 	}
@@ -2225,7 +2225,7 @@ skipmsg:
 		}
 		return 0;
 	case 0: return 0; /* i.e. an exploded wand */
-	default: impossible("%s wanted to perform action %d?", Monnam(mtmp),
+	default: warning("%s wanted to perform action %d?", Monnam(mtmp),
 			m.has_misc);
 		break;
 	}
