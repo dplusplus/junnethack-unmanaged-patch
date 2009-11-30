@@ -2155,41 +2155,73 @@ domove()
 void
 invocation_message()
 {
-	/* a special clue-msg when on the Invocation position */
-	if(invocation_pos(u.ux, u.uy) && !On_stairs(u.ux, u.uy)) {
-	    char buf[BUFSZ];
-	    struct obj *otmp = carrying(CANDELABRUM_OF_INVOCATION);
+	/* a special clue-msg when near the Invocation position */
+	if (Invocation_lev(&u.uz)) {
+		char *strange_vibration;
+		int dist_invocation_pos = distu(inv_pos.x, inv_pos.y);
 
-	    nomul(0);		/* stop running or travelling */
+		/* different message depending on the distance to the vibrating square
+		   ..f..
+		   .www.
+		   fwswf
+		   .www.
+		   ..f..
+		   */
+		if (dist_invocation_pos == 0) {
+/*JP
+			strange_vibration = "strange vibration";
+*/
+			strange_vibration = "äÔñ≠Ç»êUìÆ";
+		} else if (dist_invocation_pos <= 2) { 
+/*JP
+			strange_vibration = "weak trembling";
+*/
+			strange_vibration = "é„Ç¢êUìÆ";
+		} else {
+/*JP
+			strange_vibration = "faint trembling";
+*/
+			strange_vibration = "Ç©Ç∑Ç©Ç»êUìÆ";
+		}
+
+		/* within close proximity of the vibrating square */
+		if (dist_invocation_pos <= 4 && !On_stairs(inv_pos.x, inv_pos.y)) {
+			char buf[BUFSZ];
+			struct obj *otmp = carrying(CANDELABRUM_OF_INVOCATION);
+
+			nomul(0);		/* stop running or travelling */
 #ifdef STEED
 /*JP
-	    if (u.usteed) Sprintf(buf, "beneath %s", y_monnam(u.usteed));
+			if (u.usteed) Sprintf(buf, "beneath %s", y_monnam(u.usteed));
 */
-	    if (u.usteed) Sprintf(buf, "%sÇÃâ∫Ç…", y_monnam(u.usteed));
-	    else
+			if (u.usteed) Sprintf(buf, "%sÇÃâ∫Ç…", y_monnam(u.usteed));
+			else
 #endif
 /*JP
-	    if (Levitation || Flying) Strcpy(buf, "beneath you");
+			if (Levitation || Flying) Strcpy(buf, "beneath you");
 */
-	    if (Levitation || Flying) Strcpy(buf, "â∫ï˚Ç…");
+			if (Levitation || Flying) Strcpy(buf, "â∫ï˚Ç…");
 /*JP
-	    else Sprintf(buf, "under your %s", makeplural(body_part(FOOT)));
+			else Sprintf(buf, "under your %s", makeplural(body_part(FOOT)));
 */
-	    else Strcpy(buf, "ë´å≥Ç…");
+			else Strcpy(buf, "ë´å≥Ç…");
 
 /*JP
-	    You_feel("a strange vibration %s.", buf);
+			You_feel("a %s %s.", strange_vibration, buf);
 */
-	    You("%säÔñ≠Ç»êUìÆÇä¥Ç∂ÇΩÅB", buf);
-	    if (otmp && otmp->spe == 7 && otmp->lamplit)
+			You("%s%sÇä¥Ç∂ÇΩÅB", buf, strange_vibration);
+			/* only report if on the vibrating square */
+			if (invocation_pos(u.ux, u.uy) &&
+			    otmp && otmp->spe == 7 && otmp->lamplit) {
 #if 0 /*JP*/
-		pline("%s %s!", The(xname(otmp)),
-		    Blind ? "throbs palpably" : "glows with a strange light");
+				pline("%s %s!", The(xname(otmp)),
+				      Blind ? "throbs palpably" : "glows with a strange light");
 #else
-	        pline("%sÇÕ%sÇµÇΩÅI", The(xname(otmp)),
-		    Blind ? "Ç©Ç∑Ç©Ç…êUìÆ" : "äÔñ≠Ç»åıÇî≠");
+				pline("%sÇÕ%sÇµÇΩÅI", The(xname(otmp)),
+				      Blind ? "Ç©Ç∑Ç©Ç…êUìÆ" : "äÔñ≠Ç»åıÇî≠");
 #endif
-
+			}
+		}
 	}
 }
 

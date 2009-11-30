@@ -1,5 +1,5 @@
 Mon Nov 30 2009  Masaki Miyaso  <so-miya@sourceforge.jp>
-	* UnNetHack SVN版rev.346をベースにした。
+	* UnNetHack SVN版rev.347をベースにした。
 	  r208 スキルレベルを増やした。
 	  r209 patchlevelを3.5.2にした。
 	  r210 修正：投げたオブジェクトが捕まえられたとき投擲bitがクリアさ
@@ -148,6 +148,7 @@ Mon Nov 30 2009  Masaki Miyaso  <so-miya@sourceforge.jp>
 	  r345 いくつかのimpossible()を新関数warning()に入れ替えた
 	  r346 熊の罠がある条件を満たす怪物に対して睡眠ガスの罠のように動作し
 	       てしまう
+	  r347 振動する床：プレイヤーが近いときのメッセージ
 	* バグ修正 [#18365] 扉を鍵開け器具で開けようとすると落ちる。
 	* バグ修正 [#18372] 指輪の未識別名が一部未訳
 	* バグ修正 [#18413] 施錠しようとすると落ちる
