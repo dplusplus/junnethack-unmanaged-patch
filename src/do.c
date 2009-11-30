@@ -260,14 +260,29 @@ const char *verb;
 	           (obj->cursed ? rnf(1,2) :
 		    obj->blessed ? rnf(1,16) : rnf(1,4))) {
 		/* prevent recursive call of teleportation through flooreffects */
-		if (!obj->orecursive) {
+		if (!obj->orecursive &&
+		    distu(x,y) < 9) {
+			if (Blind) {
 #if 0 /*JP*/
-			if (cansee(x,y)) pline("Right after touching the %s the amulet teleports away!",
-			  surface(x, y));
+				You_hear("%s!",
+				         (Hallucination) ? "nothing special happening" :
+				                           "something teleporting");
 #else
-			if (!Blind) pline("–‚œ‚¯‚Í%s‚ÉG‚ê‚½‚Æ‚½‚ñ‚ÉuŠÔˆÚ“®‚µ‚ÄÁ‚¦‚½I",
-			  surface(x, y));
+				You_hear("%sI",
+				         (Hallucination) ? "•Ê‚É‰½‚à‚Ü‚Á‚½‚­•·‚±‚¦‚È‚©‚Á‚½" :
+				                           "‰½‚©‚ªuŠÔˆÚ“®‚·‚é‰¹‚ð•·‚¢‚½");
 #endif
+			} else if (cansee(x,y)) {
+#if 0 /*JP*/
+				pline("Right after touching the %s the %s teleports away!",
+				      surface(x, y),
+				      (Hallucination) ? "teddy bear" : "amulet");
+#else
+				pline("%s‚Í%s‚ÉG‚ê‚½‚Æ‚½‚ñ‚ÉuŠÔˆÚ“®‚µ‚ÄÁ‚¦‚½I",
+				      (Hallucination) ? "ƒeƒfƒBƒxƒA" : "–‚œ‚¯",
+				      surface(x, y));
+#endif
+			}
 			obj->orecursive = TRUE;
 			rloco(obj);
 			obj->orecursive = FALSE;
