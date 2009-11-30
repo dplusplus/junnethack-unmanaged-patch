@@ -587,7 +587,7 @@ drag:
 	    You("%sd‚¢“S‹…‚ð‚Ð‚«‚¸‚é‚±‚Æ‚ª‚Å‚«‚È‚¢B",
 			    invent ? "‚»‚ê‚¾‚¯‚Ì‰×•¨‚ðŽ‚Á‚½‚Ü‚Ü" : "");
 #endif
-	    nomul(0);
+	    nomul(0, 0);
 	    return FALSE;
 	}
 
@@ -631,7 +631,7 @@ drag:
 		    u.uy = uchain->oy;
 		    newsym(u.ux0, u.uy0);
 		}
-		nomul(0);
+		nomul(0, 0);
 
 		*bc_control = BC_BALL;
 		move_bc(1, *bc_control, *ballx, *bally, *chainx, *chainy);

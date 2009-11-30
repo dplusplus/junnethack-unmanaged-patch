@@ -459,7 +459,10 @@ gotobj:
 #endif
 			named++;
 			/* the following is to set multi for later on */
-			nomul(-armordelay);
+/*JP
+			nomul(-armordelay, "taking off clothes");
+*/
+			nomul(-armordelay, "•ž‚ð’E‚¢‚Å‚¢‚é");
 			remove_worn_item(otmp, TRUE);
 			otmp->cursed = curssv;
 			if(multi < 0){

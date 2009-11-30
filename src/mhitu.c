@@ -458,7 +458,7 @@ mattacku(mtmp)
 		 * invisible, or you might be blind....
 		 */
 	
-	if(!ranged) nomul(0);
+	if(!ranged) nomul(0, 0);
 	if(mtmp->mhp <= 0 || (Underwater && !is_swimmer(mtmp->data)))
 	    return(0);
 
@@ -1496,7 +1496,10 @@ dopois:
 */
 		    else pline("%s‚É‚æ‚Á‚Ä“®‚¯‚È‚­‚È‚Á‚½I", mon_nam(mtmp));
 			nomovemsg = 0;	/* default: "you can move again" */
-			nomul(-rnd(10));
+/*JP
+			nomul(-rnd(10), "paralyzed by a monster");
+*/
+			nomul(-rnd(10), "‰ö•¨‚É–ƒáƒ‚³‚¹‚ç‚ê‚½Œ„‚É");
 			exercise(A_DEX, FALSE);
 		    }
 		}

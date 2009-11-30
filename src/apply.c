@@ -839,7 +839,12 @@ struct obj *obj;
 			      "おゎ！鏡があなたをにらみ返した！" :
 			      "おゎ！あなたは動けなくなった！");
 #endif
-			nomul(-rnd((MAXULEV+6) - u.ulevel));
+#if 0 /*JP*/
+			nomul(-rnd((MAXULEV+6) - u.ulevel), "gazing into a mirror");
+#else
+			nomul(-rnd((MAXULEV+6) - u.ulevel)
+				, "鏡に反射した視線で硬直している");
+#endif
 /*JP
 			} else You("stiffen momentarily under your gaze.");
 */
@@ -1096,7 +1101,7 @@ struct obj **optr;
 				break;
 			case 2: /* no explanation; it just happens... */
 				nomovemsg = "";
-				nomul(-rnd(2));
+				nomul(-rnd(2), 0);
 				break;
 		}
 	    }
@@ -1918,7 +1923,10 @@ int magic; /* 0=Physical, otherwise skill level */
 		change_luck(-1);
 
 	    teleds(cc.x, cc.y, TRUE);
-	    nomul(-1);
+/*JP
+	    nomul(-1, "jumping around");
+*/
+	    nomul(-1, "跳ね回っているときに");
 	    nomovemsg = "";
 	    morehungry(rnd(25));
 	    return 1;
@@ -3785,7 +3793,7 @@ do_break_wand(obj)
     current_wand = 0;
     if (obj)
 	delobj(obj);
-    nomul(0);
+    nomul(0, 0);
     return 1;
 }
 
@@ -4097,11 +4105,11 @@ doapply()
 */
 		pline("それをどうやって使うんだい？");
 	xit:
-		nomul(0);
+		nomul(0, 0);
 		return 0;
 	}
 	if (res && obj && obj->oartifact) arti_speak(obj);
-	nomul(0);
+	nomul(0, 0);
 	return res;
 }
 

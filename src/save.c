@@ -82,7 +82,7 @@ dosave()
 */
 	if(yn("–{“–‚É•Û‘¶‚·‚éH") == 'n') {
 		clear_nhwindow(WIN_MESSAGE);
-		if(multi > 0) nomul(0);
+		if(multi > 0) nomul(0, 0);
 	} else {
 		clear_nhwindow(WIN_MESSAGE);
 /*JP

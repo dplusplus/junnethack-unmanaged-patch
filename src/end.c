@@ -221,7 +221,7 @@ int sig_unused;
 		clear_nhwindow(WIN_MESSAGE);
 		curs_on_u();
 		wait_synch();
-		if(multi > 0) nomul(0);
+		if(multi > 0) nomul(0, 0);
 	} else {
 		(void)done2();
 	}
@@ -242,7 +242,7 @@ done2()
 		clear_nhwindow(WIN_MESSAGE);
 		curs_on_u();
 		wait_synch();
-		if(multi > 0) nomul(0);
+		if(multi > 0) nomul(0, 0);
 		if(multi == 0) {
 		    u.uinvulnerable = FALSE;	/* avoid ctrl-C bug -dlc */
 		    u.usleep = 0;
@@ -314,6 +314,13 @@ register struct monst *mtmp;
 	pline("あなたは死にました．．．");
 	mark_synch();	/* flush buffered screen output */
 	buf[0] = '\0';
+#if 1 /*JP*/
+	/*JP
+	  日本語で "××隙に" は "○○に攻撃されて" 等の寸前で補う
+	*/
+	if (multi && strlen(multi_txt) > 0)
+	    Sprintf(eos(buf), "%s時に", multi_txt);
+#endif
 	killer_format = KILLED_BY_AN;
 #if 0 /*JP*//* 日本語には関係ないのでまとめてコメントアウト */
 	/* "killed by the high priest of Crom" is okay, "killed by the high
@@ -368,12 +375,23 @@ register struct monst *mtmp;
 		if (mtmp->mnamelth)
 		    Sprintf(eos(buf), " called %s", NAME(mtmp));
 #else
+		if (mtmp->mnamelth)
+		    Sprintf(eos(buf), "%sと呼ばれる", NAME(mtmp));
 		Strcat(buf, jtrns_mon_gen(mtmp->data->mname, mtmp->female));
 #endif
 	}
 
 #if 0 /*JP*/
-	if (multi) Strcat(buf, ", while helpless");
+	if (multi) {
+	  if (strlen(multi_txt) > 0)
+	    Sprintf(eos(buf), ", while %s", multi_txt);
+	  else
+	    Strcat(buf, ", while helpless");
+	}
+	/*JP
+	  日本語では "為す術も無く" は "死んだ/殺された/石化した" 等の寸前で補う為，
+	  こちらのif (multi)の処理は削除
+	*/
 #endif
 	killer = buf;
 	if (mtmp->data->mlet == S_WRAITH)
@@ -397,6 +415,12 @@ register struct monst *mtmp;
 	      STONING の場合は "石化した" が補われる。
 	    */
 	    Strcat(buf, "の攻撃で");
+
+	    /*JP
+	      日本語では "為す術も無く" は "死んだ/殺された/石化した" 等の寸前で補う為，
+	      if (multi)の処理をここに移動
+	    */
+	    if (multi && !strlen(multi_txt)) Strcat(buf, "為す術も無く");
 	    done(STONING);
 	}
 #endif
@@ -405,9 +429,15 @@ register struct monst *mtmp;
 		done(DIED);
 #else
 	{
+	    Strcat(buf,"に");
+	    /*JP
+	      日本語では "為す術も無く" は "死んだ/殺された/石化した" 等の寸前で補う為，
+	      if (multi)の処理をここに移動
+	    */
+	    if (multi && !strlen(multi_txt)) Strcat(buf, "為す術も無く");
 	    /*JP
 	      DIED の場合は通常 "死んだ" が補われるが、
-	      怪物による場合は "に殺された" を補う。
+	      怪物による場合は "殺された" を補う。
 	    */
 	    killer_format = KILLED_SUFFIX;
 	    done(DIED);
@@ -1036,7 +1066,7 @@ die:
 			p = "";
 			break;
 		      case KILLED_SUFFIX:
-			p = "に殺された";
+			p = "殺された";
 			break;
 		      default:
 			p = killed_by_prefix[how];

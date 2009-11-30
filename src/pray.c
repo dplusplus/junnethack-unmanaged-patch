@@ -1590,7 +1590,10 @@ dosacrifice()
 		    You("are terrified, and unable to move.");
 */
 		    You("‹°•|‚Å“®‚¯‚È‚­‚È‚Á‚½B");
-		    nomul(-3);
+/*JP
+		    nomul(-3, "being terrified of a demon");
+*/
+		    nomul(-3, "ˆ«–‚‚É‹°•|‚µ‚½Œ„‚É");
 /*JP
 		} else pline_The("%s.", demonless_msg);
 */
@@ -2144,7 +2147,10 @@ dopray()
 	}
     }
 #endif
-    nomul(-3);
+/*JP
+    nomul(-3, "praying");
+*/
+    nomul(-3, "‹F‚Á‚Ä‚¢‚éŠÔ‚É");
 /*JP
     nomovemsg = "You finish your prayer.";
 */
@@ -2339,7 +2345,10 @@ doturn()
 		    }
 	    }
 	}
-	nomul(-5);
+/*JP
+	nomul(-5, "trying to turn the monsters");
+*/
+	nomul(-5, "‰ö•¨‚Ç‚à‚ğ“y‚É•Ô‚»‚¤‚Æ‚µ‚½‚É");
 	return(1);
 }
 

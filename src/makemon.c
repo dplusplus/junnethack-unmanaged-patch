@@ -1883,7 +1883,10 @@ struct obj *bag;
 		dropx(bag);
 		break;
 	case 3:
-		nomul(-1*(rnd(4)));
+/*JP
+		nomul(-1*(rnd(4)), "sucked by a bag");
+*/
+		nomul(-1*(rnd(4)), "Š“‚É‹z‚¢‚Ü‚ê‚Ä‚¢‚éŠÔ‚É");
 		if (Hallucination) {
 /*JP
 			You("start climbing into the bag.");
@@ -1958,7 +1961,13 @@ struct obj *bag;
 			You("are startled into immobility.");
 */
 			You("‹Á‚¢‚Ä“®‚¯‚È‚­‚È‚Á‚½B");
-			nomul(-1*rnd(3));
+/*JP
+			nomul(-1*rnd(3), "startled by a bag");
+*/
+			nomul(-1*rnd(3), "Š“‚É‹Á‚©‚³‚ê‚½Œ„‚É");
+/*JP
+			nomovemsg = "You regain your composure.";
+*/
 			nomovemsg = "‚ ‚È‚½‚Í—‚¿’…‚«‚ğæ‚è–ß‚µ‚½B";
 		}
 		break;

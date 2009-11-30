@@ -488,7 +488,7 @@ int how;
 #if 1 /*JP*/
 		case KILLED_SUFFIX:
 			(void) strncat(t0->death, killer, DTHSZ);
-			Strcat(t0->death, "‚ÉE‚³‚ê‚½");
+			Strcat(t0->death, "E‚³‚ê‚½");
 #endif
 	}
 	t0->birthdate = yyyymmdd(u.ubirthday);

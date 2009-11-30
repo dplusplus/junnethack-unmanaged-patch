@@ -426,7 +426,11 @@ learn()
 	if (Confusion) {		/* became confused while learning */
 	    (void) confused_book(book);
 	    book = 0;			/* no longer studying */
-	    nomul(delay);		/* remaining delay is uninterrupted */
+#if 0 /*JP*/
+	    nomul(delay, "reading a book");		/* remaining delay is uninterrupted */
+#else
+	    nomul(delay, "–{‚ð“Ç‚ñ‚Å‚¢‚é‚Æ‚«‚É");		/* remaining delay is uninterrupted */
+#endif
 	    delay = 0;
 	    return(0);
 	}
@@ -594,7 +598,11 @@ register struct obj *spellbook;
 		if (too_hard) {
 		    boolean gone = cursed_book(spellbook);
 
-		    nomul(delay);			/* study time */
+#if 0 /*JP*/
+		    nomul(delay, "reading a book");			/* study time */
+#else
+		    nomul(delay, "–{‚ð“Ç‚ñ‚Å‚¢‚é‚Æ‚«‚É");			/* study time */
+#endif
 		    delay = 0;
 		    if(gone || !rn2(3)) {
 /*JP
@@ -612,7 +620,10 @@ register struct obj *spellbook;
 		    if (!confused_book(spellbook)) {
 			spellbook->in_use = FALSE;
 		    }
-		    nomul(delay);
+/*JP
+		    nomul(delay, "reading a book");
+*/
+		    nomul(delay, "–{‚ð“Ç‚ñ‚Å‚¢‚é‚Æ‚«‚É");
 		    delay = 0;
 		    return(1);
 		}

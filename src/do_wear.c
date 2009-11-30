@@ -1431,7 +1431,10 @@ register struct obj *otmp;
 
 	if(cursed(otmp)) return(0);
 	if(delay) {
-		nomul(delay);
+/*JP
+		nomul(delay, "disrobing");
+*/
+		nomul(delay, "’E‚¢‚Å‚éŠÔ‚É");
 		if (is_helmet(otmp)) {
 /*JP
 			nomovemsg = "You finish taking off your helmet.";
@@ -1814,7 +1817,10 @@ dowear()
 	setworn(otmp, mask);
 	delay = -objects[otmp->otyp].oc_delay;
 	if(delay){
-		nomul(delay);
+/*JP
+		nomul(delay, "dressing up");
+*/
+		nomul(delay, "‘•”õ‚µ‚Ä‚¢‚éŠÔ‚É");
 		if(is_boots(otmp)) afternmv = Boots_on;
 		if(is_helmet(otmp)) afternmv = Helmet_on;
 		if(is_gloves(otmp)) afternmv = Gloves_on;

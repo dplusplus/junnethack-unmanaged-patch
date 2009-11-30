@@ -261,7 +261,7 @@ castmu(mtmp, mattk, thinks_it_foundyou, foundyou)
 	    return(0);
 	}
 
-	nomul(0);
+	nomul(0, 0);
 	if(rn2(ml*10) < (mtmp->mconf ? 100 : 20)) {	/* fumbled attack */
 	    if (canseemon(mtmp) && flags.soundok)
 /*JP
@@ -800,7 +800,10 @@ int spellnum;
 		You("stiffen briefly.");
 */
 		You("ˆêud’¼‚µ‚½B");
-	    nomul(-1);
+/*JP
+	    nomul(-1, "paralyzed by a monster");
+*/
+	    nomul(-1, "‰ö•¨‚É–ƒáƒ‚³‚¹‚ç‚ê‚½Œ„‚É");
 	} else {
 	    if (multi >= 0)
 /*JP
@@ -809,7 +812,10 @@ int spellnum;
 		You("‚»‚Ìê‚Å“®‚¯‚È‚­‚È‚Á‚½I");
 	    dmg = 4 + (int)mtmp->m_lev;
 	    if (Half_spell_damage) dmg = (dmg + 1) / 2;
-	    nomul(-dmg);
+/*JP
+	    nomul(-dmg, "paralyzed by a monster");
+*/
+	    nomul(-dmg, "‰ö•¨‚É–ƒáƒ‚³‚¹‚ç‚ê‚½Œ„‚É");
 	}
 	dmg = 0;
 	break;
@@ -1001,7 +1007,7 @@ buzzmu(mtmp, mattk)		/* monster uses spell (ranged) */
 	    return(0);
 	}
 	if(lined_up(mtmp) && rn2(3)) {
-	    nomul(0);
+	    nomul(0, 0);
 	    if(mattk->adtyp && (mattk->adtyp < 11)) { /* no cf unsigned >0 */
 		if(canseemon(mtmp))
 /*JP

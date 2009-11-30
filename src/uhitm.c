@@ -2548,7 +2548,10 @@ register struct attack *mattk;
 */
 				You("%s‚ğÁ‰»‚µ‚Ä‚¢‚éB", mon_nam(mdef));
 				if (Slow_digestion) tmp *= 2;
-				nomul(-tmp);
+/*JP
+				nomul(-tmp, "digesting something");
+*/
+				nomul(-tmp, "Á‰»’†‚É");
 				nomovemsg = msgbuf;
 			    } else pline("%s", msgbuf);
 			    if (mdef->data == &mons[PM_GREEN_SLIME]) {
@@ -3191,7 +3194,12 @@ uchar aatyp;
 */
 			    You("%s‚Ì‚É‚ç‚İ‚Å“®‚¯‚È‚­‚È‚Á‚½I",
 				  s_suffix(mon_nam(mon)));
-			    nomul((ACURR(A_WIS) > 12 || rn2(4)) ? -tmp : -127);
+#if 0 /*JP*/
+			    nomul((ACURR(A_WIS) > 12 || rn2(4)) ? -tmp : -127, "frozen by a monster's gaze");
+#else
+			    nomul((ACURR(A_WIS) > 12 || rn2(4)) ? -tmp : -127
+				, "‰ö•¨‚Ì‚É‚ç‚İ‚Å“®‚¯‚È‚­‚È‚Á‚½Œ„‚É");
+#endif
 			}
 		    } else {
 #if 0 /*JP*/
@@ -3214,7 +3222,10 @@ uchar aatyp;
 */
 		    You("%s‚É‚æ‚Á‚Ä“®‚¯‚È‚­‚È‚Á‚½I", mon_nam(mon));
 	    	    nomovemsg = 0;	/* default: "you can move again" */
-		    nomul(-tmp);
+/*JP
+		    nomul(-tmp, "frozen by a monster");
+*/
+		    nomul(-tmp, "‰ö•¨‚É‚æ‚Á‚Ä“®‚¯‚È‚­‚È‚Á‚½");
 		    exercise(A_DEX, FALSE);
 		}
 		break;

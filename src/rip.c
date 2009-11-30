@@ -151,7 +151,7 @@ int how;
 #if 1 /*JP*/
 		case KILLED_SUFFIX:
 			Strcpy(buf, killer);
-			Strcat(buf, "‚ÉŽE‚³‚ê‚½");
+			Strcat(buf, "ŽE‚³‚ê‚½");
 #endif
 	}
 

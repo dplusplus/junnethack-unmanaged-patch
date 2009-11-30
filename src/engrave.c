@@ -587,7 +587,7 @@ register int x,y;
 		You("%sFu%sv",
 		      (Blind) ? "ŽŸ‚Ì‚æ‚¤‚ÉŠ´‚¶‚½" : "“Ç‚ñ‚¾",  et);
 #endif
-		if(flags.run > 1) nomul(0);
+		if(flags.run > 1) nomul(0, 0);
 	    }
 	}
 }

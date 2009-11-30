@@ -718,7 +718,7 @@ hurtle(dx, dy, range, verbose)
 	You_feel("a tug from the iron ball.");
 */
 	You_feel("“S‹…‚É‚Ğ‚Á‚Ï‚ç‚ê‚Ä‚¢‚é‚æ‚¤‚È‹C‚ª‚µ‚½B");
-	nomul(0);
+	nomul(0, 0);
 	return;
     } else if (u.utrap) {
 #if 0 /*JP*/
@@ -730,7 +730,7 @@ hurtle(dx, dy, range, verbose)
 	    u.utraptype == TT_WEB ? "‚­‚à‚Ì‘ƒ" : u.utraptype == TT_LAVA ? "—nŠâ" :
 		u.utraptype == TT_INFLOOR ? surface(u.ux,u.uy) : "ã©");
 #endif
-	nomul(0);
+	nomul(0, 0);
 	return;
     }
 
@@ -740,7 +740,10 @@ hurtle(dx, dy, range, verbose)
 
     if(!range || (!dx && !dy) || u.ustuck) return; /* paranoia */
 
-    nomul(-range);
+/*JP
+    nomul(-range, "moving through the air");
+*/
+    nomul(-range, "‹ó’†‚ğˆÚ“®‚µ‚Ä‚¢‚é‚Æ‚«‚É");
     if (verbose)
 /*JP
 	You("%s in the opposite direction.", range > 1 ? "hurtle" : "float");

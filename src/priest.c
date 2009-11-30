@@ -512,7 +512,10 @@ register int roomno;
 			You("are frightened to death, and unable to move.");
 */
 			You("‚Ü‚Á‚³‚¨‚É‚È‚Á‚Ä‹Á‚«A“®‚¯‚È‚­‚È‚Á‚½B");
-		    nomul(-3);
+/*JP
+		    nomul(-3, "frightened to death");
+*/
+		    nomul(-3, "€‚Ê‚Ù‚Ç‹Á‚¢‚½Œ„‚É");
 /*JP
 		    nomovemsg = "You regain your composure.";
 */

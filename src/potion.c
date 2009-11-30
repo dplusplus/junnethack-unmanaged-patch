@@ -430,7 +430,10 @@ ghost_from_bottle()
 	    You("are frightened to death, and unable to move.");
 */
 	    You("まっさおになって驚き、動けなくなった。");
-	nomul(-3);
+/*JP
+	nomul(-3, "being frightened to death");
+*/
+	nomul(-3, "死ぬほど驚いた隙に");
 /*JP
 	nomovemsg = "You regain your composure.";
 */
@@ -845,7 +848,12 @@ peffects(otmp)
 #else
 			You("動けなくなった！");
 #endif
-		    nomul(-(rn1(10, 25 - 12*bcsign(otmp))));
+#if 0 /*JP*/
+		    nomul(-(rn1(10, 25 - 12*bcsign(otmp))), "frozen by a potion");
+#else
+		    nomul(-(rn1(10, 25 - 12*bcsign(otmp)))
+			, "薬で動けなくなっている");
+#endif
 		    nomovemsg = You_can_move_again;
 		    exercise(A_DEX, FALSE);
 		}
@@ -1848,7 +1856,10 @@ register struct obj *obj;
 		    pline("%s seems to be holding you.", Something);
 */
 		    pline("%sがあなたをつかまえているような気がした。", Something);
-		    nomul(-rnd(5));
+/*JP
+		    nomul(-rnd(5), "frozen by a potion");
+*/
+		    nomul(-rnd(5), "薬で動けなくなった隙に");
 		    nomovemsg = You_can_move_again;
 		    exercise(A_DEX, FALSE);
 /*JP
@@ -1863,7 +1874,10 @@ register struct obj *obj;
 		    You_feel("rather tired.");
 */
 		    You("すこし疲れた。");
-		    nomul(-rnd(5));
+/*JP
+		    nomul(-rnd(5), "sleeping off a magical draught");
+*/
+		    nomul(-rnd(5), "魔法的に眠ってしまった隙に");
 		    nomovemsg = You_can_move_again;
 		    exercise(A_DEX, FALSE);
 /*JP

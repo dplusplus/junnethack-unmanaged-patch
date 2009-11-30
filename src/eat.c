@@ -1117,7 +1117,10 @@ register int pm;
                     /* A pile of gold can't ride. */
 		    if (u.usteed) dismount_steed(DISMOUNT_FELL);
 #endif
-		    nomul(-tmp);
+/*JP
+		    nomul(-tmp, "pretending to be a pile of gold");
+*/
+		    nomul(-tmp, "‹à‰İ‚ÌR‚Ì^—‚ğ‚µ‚Ä‚¢‚éŠÔ‚É");
 #if 0 /*JP*/
 		    Sprintf(buf, Hallucination ?
 			"You suddenly dread being peeled and mimic %s again!" :
@@ -1644,7 +1647,10 @@ struct obj *obj;
 */
 		pline("¢ŠE‚ª‰ñ“]‚µA%s%sB", where, what);
 		flags.soundok = 0;
-		nomul(-rnd(10));
+/*JP
+		nomul(-rnd(10), "unconscious from rotten food");
+*/
+		nomul(-rnd(10), "•…‚Á‚½H‚×•¨‚ÅˆÓ¯‚ğ¸‚Á‚Ä‚¢‚éŠÔ‚É");
 /*JP
 		nomovemsg = "You are conscious again.";
 */
@@ -3057,7 +3063,7 @@ is_fainted()
 void
 reset_faint()	/* call when a faint must be prematurely terminated */
 {
-	if(is_fainted()) nomul(0);
+	if(is_fainted()) nomul(0, 0);
 }
 
 #if 0
@@ -3068,7 +3074,10 @@ sync_hunger()
 	if(is_fainted()) {
 
 		flags.soundok = 0;
-		nomul(-10+(u.uhunger/10));
+/*JP
+		nomul(-10+(u.uhunger/10), "fainted from lack of food");
+*/
+		nomul(-10+(u.uhunger/10), "• ‚ªŒ¸‚Á‚Ä“|‚ê‚Ä‚¢‚éŠÔ‚É");
 /*JP
 		nomovemsg = "You regain consciousness.";
 */
@@ -3139,7 +3148,10 @@ boolean incr;
 */
 				You("• ‚ªŒ¸‚Á‚Ä“|‚ê‚½B");
 				flags.soundok = 0;
-				nomul(-10+(u.uhunger/10));
+/*JP
+				nomul(-10+(u.uhunger/10), "fainted from lack of food");
+*/
+				nomul(-10+(u.uhunger/10), "• ‚ªŒ¸‚Á‚Ä“|‚ê‚Ä‚¢‚éŠÔ‚É");
 /*JP
 				nomovemsg = "You regain consciousness.";
 */
@@ -3412,7 +3424,10 @@ void
 vomit()		/* A good idea from David Neves */
 {
 	make_sick(0L, (char *) 0, TRUE, SICK_VOMITABLE);
-	nomul(-2);
+/*JP
+	nomul(-2, "vomiting");
+*/
+	nomul(-2, "šq“f‚µ‚Ä‚¢‚éÅ’†‚É");
 }
 
 int

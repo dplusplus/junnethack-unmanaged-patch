@@ -1182,7 +1182,10 @@ struct obj *obj;
 #endif
 			    /* you ought to be able to let go; tough luck */
 			    /* (maybe `move_into_trap()' would be better) */
-			    nomul(-d(2,2));
+/*JP
+			    nomul(-d(2,2), "stuck in a spider web");
+*/
+			    nomul(-d(2,2), "‚­‚à‚Ì‘ƒ‚É•ß‚Ü‚Á‚Ä‚¢‚éŒ„‚É");
 /*JP
 			    nomovemsg = "You pull free.";
 */

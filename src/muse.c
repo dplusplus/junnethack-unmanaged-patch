@@ -1333,7 +1333,7 @@ register struct obj *otmp;
 */
 			} else pline("ñ‚Í‚Í‚¸‚ê‚½B");
 			stop_occupation();
-			nomul(0);
+			nomul(0, 0);
 		} else if (resists_magm(mtmp)) {
 			shieldeff(mtmp->mx, mtmp->my);
 /*JP

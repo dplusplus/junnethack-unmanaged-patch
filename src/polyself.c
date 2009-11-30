@@ -952,7 +952,7 @@ rehumanize()
 	if (!uarmg) selftouch("No longer petrify-resistant, you");
 */
 	if (!uarmg) selftouch("Î‰»‚Ö‚Ì’ïR—Í‚ª‚È‚­‚È‚Á‚ÄA‚ ‚È‚½‚Í");
-	nomul(0);
+	nomul(0, 0);
 
 	flags.botl = 1;
 	vision_full_recalc = 1;
@@ -1350,7 +1350,11 @@ dogaze()
 			    nomul((u.ulevel > 6 || rn2(4)) ?
 				    -d((int)mtmp->m_lev+1,
 					    (int)mtmp->data->mattk[0].damd)
-				    : -200);
+#if 0 /*JP*/
+				    : -200, "frozen by a monster's gaze");
+#else
+				    : -200, "‰ö•¨‚ÌáÉ‚Ý‚Å“®‚¯‚È‚­‚È‚Á‚½Œ„‚É");
+#endif
 			    return 1;
 			} else
 /*JP

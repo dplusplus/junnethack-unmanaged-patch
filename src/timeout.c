@@ -51,7 +51,10 @@ stoned_dialogue()
 	if (i == 5L)
 		HFast = 0L;
 	if (i == 3L)
-		nomul(-3);
+/*JP
+		nomul(-3, "getting stoned");
+*/
+		nomul(-3, "石化中に");
 	exercise(A_DEX, FALSE);
 }
 
@@ -194,7 +197,7 @@ slime_dialogue()
 	if (i == 3L) {	/* limbs becoming oozy */
 	    HFast = 0L;	/* lose intrinsic speed */
 	    stop_occupation();
-	    if (multi > 0) nomul(0);
+	    if (multi > 0) nomul(0, 0);
 	}
 	exercise(A_DEX, FALSE);
 }
@@ -452,7 +455,10 @@ nh_timeout()
 			/* otherwise handle fumbling msgs locally. */
 			if (u.umoved && !Levitation) {
 			    slip_or_trip();
-			    nomul(-2);
+/*JP
+			    nomul(-2, "fumbling");
+*/
+			    nomul(-2, "へまをした隙に");
 			    nomovemsg = "";
 			    /* The more you are carrying the more likely you
 			     * are to make noise when you fumble.  Adjustments
@@ -490,7 +496,10 @@ int how_long;
 boolean wakeup_msg;
 {
 	stop_occupation();
-	nomul(how_long);
+/*JP
+	nomul(how_long, "sleeping");
+*/
+	nomul(how_long, "眠っている隙に");
 	/* generally don't notice sounds while sleeping */
 	if (wakeup_msg && multi == how_long) {
 	    /* caller can follow with a direct call to Hear_again() if
@@ -1542,7 +1551,10 @@ do_storms()
 	pline("ピカッ！！ゴロゴロゴロゴロ！！ドーン！");
 	if(!u.uinvulnerable) {
 	    stop_occupation();
-	    nomul(-3);
+/*JP
+	    nomul(-3, "hiding from thunderstorm");
+*/
+	    nomul(-3, "雷雨を避けようとしたときに");
 	}
     } else
 /*JP

@@ -598,7 +598,7 @@ register struct monst *mtmp;
 	pline("%s %s!", Monnam(mtmp), vtense((char *)0, growl_verb));
 */
 	pline("%sは%s！", Monnam(mtmp), makeplural(growl_verb));
-	if(flags.run) nomul(0);
+	if(flags.run) nomul(0, 0);
 	wake_nearto(mtmp->mx, mtmp->my, mtmp->data->mlevel * 18);
     }
 }
@@ -660,7 +660,7 @@ register struct monst *mtmp;
 	pline("%s %s!", Monnam(mtmp), vtense((char *)0, yelp_verb));
 */
 	pline("%sは%s！", Monnam(mtmp), yelp_verb);
-	if(flags.run) nomul(0);
+	if(flags.run) nomul(0, 0);
 	wake_nearto(mtmp->mx, mtmp->my, mtmp->data->mlevel * 12);
     }
 }
@@ -704,7 +704,7 @@ register struct monst *mtmp;
 	pline("%s %s.", Monnam(mtmp), vtense((char *)0, whimper_verb));
 */
 	pline("%sは%s。", Monnam(mtmp), whimper_verb);
-	if(flags.run) nomul(0);
+	if(flags.run) nomul(0, 0);
 	wake_nearto(mtmp->mx, mtmp->my, mtmp->data->mlevel * 6);
     }
 }
@@ -1099,7 +1099,10 @@ register struct monst *mtmp;
 	    You("freeze for a moment.");
 */
 	    You("一瞬凍りついた。");
-	    nomul(-2);
+/*JP
+	    nomul(-2, "scared by rattling");
+*/
+	    nomul(-2, "骨のカタカタ言う音におびえた隙に");
 	    break;
 	case MS_LAUGH:
 	    {

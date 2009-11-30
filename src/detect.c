@@ -1068,7 +1068,10 @@ struct obj *obj;
     You("peer into %s...", the(xname(obj)));
 */
     You("%s‚ð”`‚«‚±‚ñ‚¾DDD", the(xname(obj)));
-    nomul(-rnd(10));
+/*JP
+    nomul(-rnd(10), "gazing into a crystal ball");
+*/
+    nomul(-rnd(10), "…»‹…‚ÉáÉ‚Ü‚ê‚½Œ„‚É");
     nomovemsg = "";
     if (obj->spe <= 0)
 /*JP
@@ -1432,7 +1435,7 @@ register int aflag;
 			if(rnl(7-fund)) continue;
 			cvt_sdoor_to_door(&levl[x][y]);	/* .typ = DOOR */
 			exercise(A_WIS, TRUE);
-			nomul(0);
+			nomul(0, 0);
 			if (Blind && !aflag)
 			    feel_location(x,y);	/* make sure it shows up */
 			else
@@ -1442,7 +1445,7 @@ register int aflag;
 			levl[x][y].typ = CORR;
 			unblock_point(x,y);	/* vision */
 			exercise(A_WIS, TRUE);
-			nomul(0);
+			nomul(0, 0);
 			newsym(x,y);
 		    } else {
 		/* Be careful not to find anything in an SCORR or SDOOR */
@@ -1493,7 +1496,7 @@ register int aflag;
 			}
 
 			if ((trap = t_at(x,y)) && !trap->tseen && !rnl(8)) {
-			    nomul(0);
+			    nomul(0, 0);
 
 			    if (trap->ttyp == STATUE_TRAP) {
 				if (activate_statue_trap(trap, x, y, FALSE))
