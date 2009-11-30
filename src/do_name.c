@@ -897,7 +897,10 @@ boolean called;
 	    Strcat(buf, pbuf);
 #endif
 	} else if (is_rider(mtmp->data) && 
-		   (distu(mtmp->mx, mtmp->my) > 2)) {
+		   (distu(mtmp->mx, mtmp->my) > 2) &&
+		   !(canseemon(mtmp)) &&
+		   /* for livelog reporting */
+		   !(suppress & SUPPRESS_IT)) {
 		/* prevent the three horsemen to be identified from afar */
 #if 0 /*JP*/
 		Strcat(buf, "Rider");
