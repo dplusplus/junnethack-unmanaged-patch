@@ -316,10 +316,10 @@ register struct monst *mtmp;
 	buf[0] = '\0';
 #if 1 /*JP*/
 	/*JP
-	  日本語で "××隙に" は "○○に攻撃されて" 等の寸前で補う
+	  日本語では"while ?"（動けない間に）は「○○に攻撃されて」等の寸前で補う
 	*/
 	if (multi && strlen(multi_txt) > 0)
-	    Sprintf(eos(buf), "%s時に", multi_txt);
+	    Strcat(buf, multi_txt);
 #endif
 	killer_format = KILLED_BY_AN;
 #if 0 /*JP*//* 日本語には関係ないのでまとめてコメントアウト */
