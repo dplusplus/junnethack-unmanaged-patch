@@ -1418,7 +1418,7 @@ int buflen, rolenum, racenum, gendnum, alignnum;
 /*JP
 	static char err_ret[] = " character's";
 */
-	static char err_ret[] = "キャラクターの";
+	static char err_ret[] = "キャラクタの";
 	boolean donefirst = FALSE;
 
 	if (!suppliedbuf || buflen < 1) return err_ret;
@@ -1586,7 +1586,7 @@ int buflen, rolenum, racenum, gendnum, alignnum;
 		Strcat(buf, "character");
 #else
 		if (donefirst) Strcat(buf, "の");
-		Strcat(buf, "キャラクター");
+		Strcat(buf, "キャラクタ");
 #endif
 		donefirst = TRUE;
 	}
@@ -1611,7 +1611,7 @@ int buflen, rolenum, racenum, gendnum, alignnum;
 /*JP
 	const char *defprompt = "Shall I pick a character for you? [ynq] ";
 */
-	const char *defprompt = "適当にキャラクターを選んでよいですか？[ynq] ";
+	const char *defprompt = "適当にキャラクタを選んでよいですか？[ynq] ";
 	int num_post_attribs = 0;
 	char tmpbuf[BUFSZ];
 	

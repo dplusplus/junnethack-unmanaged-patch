@@ -139,7 +139,7 @@ logfile ファイルのパーミッションが設定されていない場合表示されます。
 上記のように書き込み権限を有効にします。
 
 
-5-4) セーブ時に No such file or directory Exec to compress save/[キャラクター名] failed.
+5-4) セーブ時に No such file or directory Exec to compress save/[キャラクタ名] failed.
 
 compress もしくは gzip が存在しないか設定が間違っています。
 include/config.h の COMPRESS の設定が正しいかどうか確認してください。

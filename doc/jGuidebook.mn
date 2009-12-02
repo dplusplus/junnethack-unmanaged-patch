@@ -229,7 +229,7 @@ Eric S. Raymond
 ŒoŒ±‚ğÏ‚ñ‚¾–‚–@g‚¢‚Í‹°‚é‚×‚«“G‚Å‚ ‚éB
 .pg
 .\"O You may also choose the race of your character:
-‚Ü‚½AƒLƒƒƒ‰ƒNƒ^[‚Ìí‘°‚à‘I‚Ô‚±‚Æ‚ª‚Å‚«‚éB
+‚Ü‚½AƒLƒƒƒ‰ƒNƒ^‚Ìí‘°‚à‘I‚Ô‚±‚Æ‚ª‚Å‚«‚éB
 .pg
 .\"O \fIDwarves\fP are smaller than humans or elves, but are stocky and solid
 .\"O individuals.  Dwarves' most notable trait is their great expertise in mining
@@ -406,7 +406,7 @@ Figure 1
 .\"O successfully you perform physical tasks, how much damage you do in
 .\"O combat, and how much loot you can carry.
 ‚ ‚È‚½‚ÌƒLƒƒƒ‰ƒNƒ^‚Ì—Í‚Ì‹­‚³‚Ì’l‚Å‚ ‚èA6 ‚Â‚ÌŠî–{“I‚È‘®«‚Ì 1 
-‚Â‚Å‚ ‚éBlŠÔ‚ÌƒLƒƒƒ‰ƒNƒ^[‚Ìê‡A—Í‚Ì‹­‚³‚Í 3 ‚©‚ç 18 ‚ÌŠÔ‚Ì’l‚ğ‚Æ‚éB
+‚Â‚Å‚ ‚éBlŠÔ‚ÌƒLƒƒƒ‰ƒNƒ^‚Ìê‡A—Í‚Ì‹­‚³‚Í 3 ‚©‚ç 18 ‚ÌŠÔ‚Ì’l‚ğ‚Æ‚éB
 ‚»‚Ì‘¼‚Ìê‡A‚±‚Ì§ŒÀ‚ğ‰z‚¦‚é‚±‚Æ‚à‚ ‚é
 (Ü 18/xx ‚Ì‚æ‚¤‚È“Á•Ê‚È—Í‚ğ“¾‚é‚±‚Æ‚à‚ ‚èA–‚–@‚Ì—Í‚à•’Ê‚Ì§ŒÀ‚ğ‰z‚¦‚é
 ”\—Í‚ğ—^‚¦‚é‚±‚Æ‚ª‚ ‚é)B
@@ -586,7 +586,7 @@ Figure 1
 •Â‚¶‚½”àA‚Ü‚½‚ÍŠwK‚Å‚«‚é‚©‚à‚µ‚ê‚È‚¢ô•¶‚Ì‘‚©‚ê‚½ô•¶‘B
 .lp @
 .\"O Your character or a human.
-‚ ‚È‚½‚ÌƒLƒƒƒ‰ƒNƒ^[A‚Ü‚½‚ÍlŠÔB
+‚ ‚È‚½‚ÌƒLƒƒƒ‰ƒNƒ^A‚Ü‚½‚ÍlŠÔB
 .lp $
 .\"O A pile of gold.
 ‹à‰İ‚ÌRB
@@ -937,7 +937,7 @@ E- - ‚Ù‚±‚è‚Ì’†‚Éw‚Å‘‚­B
 –î“›‚É“ü‚ê‚Ä‚ ‚é‚à‚Ì‚ğ”­Ë‚·‚éB
 ”­Ë‚·‚é‚à‚Ì‚Í—\‚ß`Q'ƒRƒ}ƒ“ƒh‚Å‘I‘ğ‚·‚é‚±‚Æ‚ào—ˆ‚é‚µA
 .op autoquiver
-ƒIƒvƒVƒ‡ƒ“‚ªİ’è‚³‚ê‚Ä‚¢‚éê‡‚ÍAƒRƒ“ƒsƒ…[ƒ^[‚É
+ƒIƒvƒVƒ‡ƒ“‚ªİ’è‚³‚ê‚Ä‚¢‚éê‡‚ÍAƒRƒ“ƒsƒ…[ƒ^‚É
 ©“®“I‚É“K“–‚È‚à‚Ì‚ğİ’è‚³‚¹‚é‚±‚Æ‚à‚Å‚«‚éB
 .lp i
 .\"O List your inventory (everything you're carrying).
@@ -1025,7 +1025,7 @@ I$ - ‚¨‹à‚ğ”‚¦‚éB
 –h‹ï‚ğ‚Í‚¸‚·B
 .lp ^T
 .\"O Teleport, if you have the ability.
-ƒeƒŒƒ|[ƒg”\—Í‚ª‚ ‚ê‚ÎƒeƒŒƒ|[ƒg‚·‚éB
+uŠÔˆÚ“®”\—Í‚ª‚ ‚ê‚ÎuŠÔˆÚ“®‚·‚éB
 .lp v
 .\"O Display version number.
 ƒo[ƒWƒ‡ƒ“”Ô†‚ğ•\¦‚·‚éB
@@ -1896,7 +1896,7 @@ crossbow bolt(ƒNƒƒXƒ{ƒE—p‚Ì‘¾–î)‚ğ”­Ë‚·‚é‚½‚ß‚Ì‚à‚Ì‚Å‚ ‚éB
 .\"O weapon at a time.
 ‚³‚ç‚Éu“ñ“—¬í“¬v‹Z”\‚Ì‹Z—Ê‚ª‚ ‚éê‡A“ñ‚Â‚Ì•Ší‚ğ“¯‚Ég‚¤‚±‚Æ‚ª‚Å‚«‚éB
 `#twoweapon' Šg’£ƒRƒ}ƒ“ƒh‚Å“ñ“—¬í“¬‚ğ‚·‚é‚©‚Ç‚¤‚©‚ğØ‚è‘Ö‚¦‚ç‚ê‚éB
-ˆê•”‚ÌƒLƒƒƒ‰ƒNƒ^[(—á‚¦‚Î–ì”Øl)‚¾‚¯‚ª‚±‚Ì‹Z”\‚ğ‚Á‚Ä‚¢‚éB
+ˆê•”‚ÌƒLƒƒƒ‰ƒNƒ^(—á‚¦‚Î–ì”Øl)‚¾‚¯‚ª‚±‚Ì‹Z”\‚ğ‚Á‚Ä‚¢‚éB
 ‚½‚Æ‚¦‚±‚Ì‹Z”\‚ğ‚Á‚Ä‚¢‚Ä‚àAˆê“x‚É“ñ‚Â‚Ì•Ší‚ğg‚¤‚Æ
 ‚Ğ‚Æ‚Â‚µ‚©g‚í‚È‚¢‚É”ä‚×‚Ä“G‚É–½’†‚·‚éŠm—¦‚Éƒyƒiƒ‹ƒeƒB‚ğó‚¯‚éB
 .pg
@@ -1976,7 +1976,7 @@ NetHack ‚ª©“®“I‚É–î“›‚É‘¼‚Ì•¨‚ğ“ü‚ê‚Ä‚­‚ê‚éB
 .\"O The number of items that the character has a chance to fire varies from
 .\"O turn to turn.  You can explicitly limit the number of shots by using a
 .\"O numeric prefix before the `t' or `f' command.
-ˆê“x‚É•¡”‚Ì•¨‚ğ“Š‚°‚é‚±‚Æ‚ª‚Å‚«‚éƒLƒƒƒ‰ƒNƒ^[‚à‚¢‚éB
+ˆê“x‚É•¡”‚Ì•¨‚ğ“Š‚°‚é‚±‚Æ‚ª‚Å‚«‚éƒLƒƒƒ‰ƒNƒ^‚à‚¢‚éB
 ˆê“x‚É•¡”‚Ì–î‚ğ‘•“U‚µ(‚ ‚é‚¢‚Íˆê“x‚É•¡”‚Ì•¨‚ğ‚¿)A
 ‚»‚ê‚ğ–Ú•W‚É“–‚Ä‚é‚±‚Æ‚Í‚½‚â‚·‚¢d–‚Å‚Í‚È‚¢B
 ƒŒƒ“ƒWƒƒ[‚Í‚±‚Ì‹Z”\‚É—D‚ê‚Ä‚¢‚é‚µA“KØ‚È•Ší‚Ì‹Z”\
@@ -2050,7 +2050,7 @@ NetHack ‚ª©“®“I‚É–î“›‚É‘¼‚Ì•¨‚ğ“ü‚ê‚Ä‚­‚ê‚éB
 §ŒÀ‚³‚ê‚½‹Z”\‚Í’P‚É`#enhance'ƒRƒ}ƒ“ƒh‚Åˆê——‚É•\¦‚³‚ê‚È‚¢B
 (_‚Ì‰î“ü‚É‚æ‚è‚ ‚éí‚Ì‹Z”\‚Ì§ŒÀ‚ª‰ğœ‚³‚ê‚é‚±‚Æ‚à‚ ‚éB
 ‚»‚Ì‚É‚Í‹Z”\‚Í ‰SÒ ‚Æ‚È‚èAŒÀŠE‚Í “ü–åÒ ‚Ü‚Å‚Æ‚È‚é)
-ƒLƒƒƒ‰ƒNƒ^[‚É‚æ‚Á‚Ä‚ÍA‘fè‚Å‚Ìí“¬‚âƒ}[ƒVƒƒƒ‹ƒA[ƒc‚Ì‹Z”\‚ğ
+ƒLƒƒƒ‰ƒNƒ^‚É‚æ‚Á‚Ä‚ÍA‘fè‚Å‚Ìí“¬‚âƒ}[ƒVƒƒƒ‹ƒA[ƒc‚Ì‹Z”\‚ğ
 ``ƒ}ƒXƒ^[''(master)‚â``ƒOƒ‰ƒ“ƒhƒ}ƒXƒ^[''(grand master)‚É‚Ü‚ÅŒüã‚³‚¹‚é
 ‚±‚Æ‚ª‚Å‚«‚éB
 .pg
@@ -2901,7 +2901,7 @@ $ \fBexport NETHACKOPTIONS\fP
 .\"O false, the `t' (throw) command is executed instead.  (default false)
 ‚±‚ÌƒIƒvƒVƒ‡ƒ“‚Í–î“›‚ª‹ó‚Ì‚É`f'(fire:–î“›‚Ì’†‚É‚ ‚é‚à‚Ì‚ğ”­Ë‚·‚é)ƒRƒ}ƒ“ƒh‚ğ
 Às‚µ‚½‚É‚Ç‚¤‚·‚é‚©‚ğŒˆ‚ß‚éB
-ƒIƒ“‚È‚çAƒRƒ“ƒsƒ…[ƒ^[‚Í“K“–‚È•Ší‚ğ–î“›‚É“ü‚ê‚éB
+ƒIƒ“‚È‚çAƒRƒ“ƒsƒ…[ƒ^‚Í“K“–‚È•Ší‚ğ–î“›‚É“ü‚ê‚éB
 ‚±‚ÌAô‚¢Aj•ŸA–‚–@A—ò‰»A•Ší‚Ì”‚È‚Ç‚Íl—¶‚³‚ê‚È‚¢‚Ì‚Å’ˆÓ‚·‚é‚±‚ÆB
 ‘ã‚í‚è‚É`Q'ƒRƒ}ƒ“ƒh‚ğg‚Á‚Ä©•ª‚ÌD‚«‚È•¨‚ğ–î“›‚É“ü‚ê‚éB
 “ü‚ê‚é•Ší‚ª‚È‚¢‚©A‚±‚ÌƒIƒvƒVƒ‡ƒ“‚ªƒIƒt‚Ì‚Í
@@ -2920,7 +2920,7 @@ $ \fBexport NETHACKOPTIONS\fP
 .\"O synonym for ``role''.  See ``name'' for an alternate method
 .\"O of specifying your role.  Normally only the first letter of
 .\"O the value is examined; the string ``random'' is an exception.
-ƒLƒƒƒ‰ƒNƒ^[‚Ìƒ^ƒCƒv‚ğİ’è‚·‚é(—á:``character:Monk'')B
+ƒLƒƒƒ‰ƒNƒ^‚Ìƒ^ƒCƒv‚ğİ’è‚·‚é(—á:``character:Monk'')B
 ``role''ƒIƒvƒVƒ‡ƒ“‚Æ“¯‚¶‚Å‚ ‚éB
 E‹Æ‚ğİ’è‚·‚é‚»‚Ì‘¼‚Ì•û–@‚É‚Â‚¢‚Ä‚Í``name''ƒIƒvƒVƒ‡ƒ“‚ğQÆ‚Ì‚±‚ÆB
 ``random''ˆÈŠO‚Ì•¶š—ñ‚ÍÅ‰‚Ì 1 •¶š‚¾‚¯‚Å”»•Ê‚³‚ê‚éB
@@ -2963,7 +2963,7 @@ $ \fBexport NETHACKOPTIONS\fP
 “´ŒA‚Ì•\¦‚É—p‚¢‚é•¶š‚ğ‚ ‚È‚½©g‚Å‚·‚×‚Ä’è‹`‚·‚é‘ã‚í‚è‚ÉA
 DEC VT-xxx/DEC Rainbow/ANSI Œrü•¶šƒZƒbƒg‚©‚ç
 ‚ ‚ç‚©‚¶‚ß—pˆÓ‚³‚ê‚½İ’è‚ğg—p‚·‚é(•W€İ’è‚ÍƒIƒt)B
-‚±‚ÌƒIƒvƒVƒ‡ƒ“‚Í‚Ü‚½ƒ^[ƒ~ƒiƒ‹‚ª“KØ‚ÈƒOƒ‰ƒtƒBƒbƒNƒLƒƒƒ‰ƒNƒ^[‚ğˆµ‚¦‚é‚æ‚¤İ’è‚·‚éB
+‚±‚ÌƒIƒvƒVƒ‡ƒ“‚Í‚Ü‚½ƒ^[ƒ~ƒiƒ‹‚ª“KØ‚ÈƒOƒ‰ƒtƒBƒbƒNƒLƒƒƒ‰ƒNƒ^‚ğˆµ‚¦‚é‚æ‚¤İ’è‚·‚éB
 ‚·‚È‚í‚¿A‚ ‚È‚½‚ª©•ª‚ÅƒOƒ‰ƒtƒBƒbƒN•¶š‚ğã‘‚«İ’è‚·‚é‚Æ‚«‚É‚à
 –¾¦‚µ‚È‚­‚Ä‚Í‚¢‚¯‚È‚¢B
 .lp disclose
@@ -3049,7 +3049,7 @@ n - Šm”F‚·‚é‚ªA•W€İ’è‚Íƒm[‚É‚·‚éB
 .\"O directory where the file is written. Normally /tmp may be used for unix
 .\"O systems.
 ƒQ[ƒ€I—¹‚ÌŒöŠJî•ñ‚ğ‘‚«o‚·ƒtƒ@ƒCƒ‹–¼B %nƒ}ƒNƒ‚ğg—p‚·‚é‚±‚Æ‚Å
-ƒvƒŒƒCƒLƒƒƒ‰ƒNƒ^[–¼‚É’u‚«Š·‚¦‚é‚±‚Æ‚ª‚Å‚«‚éB
+ƒvƒŒƒCƒLƒƒƒ‰ƒNƒ^–¼‚É’u‚«Š·‚¦‚é‚±‚Æ‚ª‚Å‚«‚éB
 ‚±‚ÌƒQ[ƒ€‚Í‚»‚ÌƒfƒBƒŒƒNƒgƒŠ‚Éƒtƒ@ƒCƒ‹‚ğ‘‚«o‚·‚½‚ßA‘‚«‚İŒ ŒÀ‚ğ—v‹‚·‚éB
 ’Êí‚ÍUnixƒVƒXƒeƒ€‚É‚¨‚¢‚Ä/tmp‚ğw’è‚·‚éB
 .lp dungeon
@@ -3238,7 +3238,7 @@ IBM Šg’£ ASCII •¶šƒZƒbƒg‚©‚ç‚ ‚ç‚©‚¶‚ß—pˆÓ‚³‚ê‚½İ’è‚ğg—p‚·‚é
 .\"O This option also sets up proper handling of graphics
 .\"O characters for such terminals, so you should specify it when appropriate
 .\"O even if you override the selections with your own graphics strings.
-‚±‚ÌƒIƒvƒVƒ‡ƒ“‚Í‚Ü‚½ƒ^[ƒ~ƒiƒ‹‚ª“KØ‚ÈƒOƒ‰ƒtƒBƒbƒNƒLƒƒƒ‰ƒNƒ^[‚ğˆµ‚¦‚é‚æ‚¤İ’è‚·‚éB
+‚±‚ÌƒIƒvƒVƒ‡ƒ“‚Í‚Ü‚½ƒ^[ƒ~ƒiƒ‹‚ª“KØ‚ÈƒOƒ‰ƒtƒBƒbƒNƒLƒƒƒ‰ƒNƒ^‚ğˆµ‚¦‚é‚æ‚¤İ’è‚·‚éB
 ‚·‚È‚í‚¿A‚ ‚È‚½‚ª©•ª‚ÌƒOƒ‰ƒtƒBƒbƒN•¶š‚Åã‘‚«İ’è‚·‚é‚Æ‚«‚É‚à
 –¾¦‚µ‚È‚­‚Ä‚Í‚¢‚¯‚È‚¢B
 .lp ignintr
@@ -3278,7 +3278,7 @@ IBM Šg’£ ASCII •¶šƒZƒbƒg‚©‚ç‚ ‚ç‚©‚¶‚ß—pˆÓ‚³‚ê‚½İ’è‚ğg—p‚·‚é
 .\"O immediately displays a menu of all objects.  Full displays a menu of
 .\"O object classes rather than a character prompt, and then a menu of matching
 .\"O objects for selection.
-‚¢‚ë‚¢‚ë‚ÈƒIƒuƒWƒFƒNƒg‚ğw’è‚·‚é‚Æ‚«(‚½‚Æ‚¦‚Î DropƒRƒ}ƒ“ƒh)‚É—p
+‚¢‚ë‚¢‚ë‚ÈƒAƒCƒeƒ€‚ğw’è‚·‚é‚Æ‚«(‚½‚Æ‚¦‚Î DropƒRƒ}ƒ“ƒh)‚É—p
 ‚¢‚éƒCƒ“ƒ^ƒtƒF[ƒX‚Ì§ŒäB’l‚Í tradional, combination, partial, full
 ‚Ì 4 ‚Â‚Ìƒ^ƒCƒv‚ÌÅ‰‚Ìˆê•¶š‚ğw’è‚·‚éB
 ``tradional''‚ÍŒÃ‚¢ƒo[ƒWƒ‡ƒ“‚Å—Bˆê—˜—p‚Å‚«‚½‚à‚Ì‚ÅA
@@ -3475,7 +3475,7 @@ r - ‘S‰æ–ÊBV‚µ‚¢ƒƒbƒZ[ƒW‚ªæB
 .\"O set your character's role by appending a dash and one or more letters of
 .\"O the role (that is, by suffixing one of
 .\"O .op "-A -B -C -H -K -M -P -Ra -Ro -S -T -V -W" ).
-‚ ‚È‚½‚ÌƒLƒƒƒ‰ƒNƒ^‚Ì–¼‘O‚ğİ’è‚·‚é(•W€İ’è‚Í‚ ‚È‚½‚Ì ƒ†[ƒU[–¼)B
+‚ ‚È‚½‚ÌƒLƒƒƒ‰ƒNƒ^‚Ì–¼‘O‚ğİ’è‚·‚é(•W€İ’è‚Í‚ ‚È‚½‚Ì ƒ†[ƒU–¼)B
 -‹L†‚ÆƒLƒƒƒ‰ƒNƒ^‚ÌE‹Æ‚Ì“ª•¶š‚ğ•t‚¯‰Á‚¦‚é(‚Â‚Ü‚è
 .op "-A -B -C -H -K -M -P -Ra -Ro -S -T -V -W"
 ‚Ì‚Ç‚ê‚©‚ğŒã‚É•t‚¯‚é)‚±‚Æ‚É‚æ‚Á‚ÄE‹Æ‚ğİ’è‚·‚é‚±‚Æ‚à‚Å‚«‚éB
@@ -3633,7 +3633,7 @@ MSDOS‚ÌƒvƒƒeƒNƒgƒ‚[ƒh‚ÅAƒ^ƒCƒ‹‚ğƒQ[ƒ€‚Ìn‚ß‚É‚ ‚ç‚©‚¶‚ß RAM ‚É
 .\"O of specifying your role.  Normally only the first letter of the
 .\"O value is examined; `r' is an exception with ``Rogue'', ``Ranger'',
 .\"O and ``random'' values.
-ƒLƒƒƒ‰ƒNƒ^[‚Ìƒ^ƒCƒv‚ğİ’è‚·‚é (—á:``role:Samurai'')B
+ƒLƒƒƒ‰ƒNƒ^‚Ìí—Ş‚ğİ’è‚·‚é (—á:``role:Samurai'')B
 ``character''ƒIƒvƒVƒ‡ƒ“‚Æ“¯‚¶‚Å‚ ‚éB
 E‹Æ‚ğİ’è‚·‚é‚»‚Ì‘¼‚Ì•û–@‚É‚Â‚¢‚Ä‚Í``name''ƒIƒvƒVƒ‡ƒ“‚ğQÆ‚Ì‚±‚ÆB
 •’Ê‚Íæ“ª‚Ì 1 •¶š‚¾‚¯‚Å”»•Ê‚³‚ê‚é‚ªA
@@ -3711,8 +3711,8 @@ crawl - ``walk'' ‚Æ“¯—l‚¾‚ªAˆê•à–ˆ‚É‚µ‚Î‚ç‚­’â~‚·‚éB
 .\"O Note that this has nothing to do with your computer's audio capabilities.
 .\"O This option is only partly under player control.  The game toggles it
 .\"O off and on during and after sleep, for example.
-‚ ‚È‚½‚ÌƒLƒƒƒ‰ƒNƒ^[‚ª•·‚¢‚½‚à‚Ì‚ÉŠÖ‚·‚éƒƒbƒZ[ƒW‚ğ•\¦‚·‚é(•W€İ’è‚ÍƒIƒ“)B
-‚±‚ê‚ÍƒRƒ“ƒsƒ…[ƒ^[‚Ì‰¹ºo—Í‹@”\‚Æ‚Í‰½‚ÌŠÖŒW‚à‚È‚¢‚±‚Æ‚É’ˆÓ‚·‚é‚±‚ÆB
+‚ ‚È‚½‚ÌƒLƒƒƒ‰ƒNƒ^‚ª•·‚¢‚½‚à‚Ì‚ÉŠÖ‚·‚éƒƒbƒZ[ƒW‚ğ•\¦‚·‚é(•W€İ’è‚ÍƒIƒ“)B
+‚±‚ê‚ÍƒRƒ“ƒsƒ…[ƒ^‚Ì‰¹ºo—Í‹@”\‚Æ‚Í‰½‚ÌŠÖŒW‚à‚È‚¢‚±‚Æ‚É’ˆÓ‚·‚é‚±‚ÆB
 ‚±‚ÌƒIƒvƒVƒ‡ƒ“‚Í•”•ª“I‚É‚¾‚¯ƒvƒŒƒCƒ„[‚Ì§Œä‰º‚É‚ ‚éB
 —á‚¦‚ÎA–°‚Á‚Ä‚¢‚éŠÔ‚Í‚±‚ÌƒIƒvƒVƒ‡ƒ“‚Í©“®“I‚ÉƒIƒt‚É‚³‚êA
 –ÚŠo‚ß‚é‚ÆƒIƒ“‚É‚È‚éB
@@ -3928,7 +3928,7 @@ tty‚É‚¨‚¯‚éƒƒjƒ…[‚¨‚æ‚ÑƒeƒLƒXƒgƒEƒBƒ“ƒhƒE‚É‚¨‚¢‚ÄA‰EŠñ‚¹‚Å‚Í‚È‚­¶Šñ‚¹‚Å•\¦‚
 “ü—Í‚ÆˆÚ“®‚Éƒ}ƒEƒX‚ğg‚¦‚é‚æ‚¤‚É‚·‚éB
 .lp player_selection
 .\"O NetHack should pop up dialog boxes, or use prompts for character selection.
-ƒLƒƒƒ‰ƒNƒ^[‘I‘ğ‚Éƒ_ƒCƒAƒƒOƒ{ƒbƒNƒX‚âŠm”F‰æ–Ê‚ğ—p‚¢‚é
+ƒLƒƒƒ‰ƒNƒ^‘I‘ğ‚Éƒ_ƒCƒAƒƒOƒ{ƒbƒNƒX‚âŠm”F‰æ–Ê‚ğ—p‚¢‚é
 .lp popup_dialog	
 .\"O NetHack should pop up dialog boxes for input.
 “ü—Í‚Éƒ|ƒbƒvƒAƒbƒvƒ_ƒCƒAƒƒOƒ{ƒbƒNƒX‚ğ—p‚¢‚é
@@ -4192,13 +4192,13 @@ TTY_GRAPHICS‚ÆVIDEOSHADES‚ğ—LŒø‚É‚µ‚½ó‘Ô‚ÅƒRƒ“ƒpƒCƒ‹‚µ‚½‘¼‚ÌƒVƒXƒeƒ€‚Å‚Í‚à‚¤3F
 .\"O At this time the Qt port and the win32tty and win32gui ports support the
 .\"O use of user sounds.
 ƒƒbƒZ[ƒWƒEƒBƒ“ƒhƒE‚É•\¦‚³‚ê‚½ƒƒbƒZ[ƒW‚ª
-ƒ†[ƒU[’è‹`‚Ìƒpƒ^[ƒ“‚Æˆê’v‚µ‚½‚Æ‚«‚É
+ƒ†[ƒU’è‹`‚Ìƒpƒ^[ƒ“‚Æˆê’v‚µ‚½‚Æ‚«‚É
 “Á’è‚Ì‰¹ºƒtƒ@ƒCƒ‹‚ğ–Â‚ç‚·‚±‚Æ‚ª‚Å‚«‚éƒvƒ‰ƒbƒgƒtƒH[ƒ€‚à‚ ‚éB
-Œ»İ‚Ì‚Æ‚±‚ëAQt, win32tty, win32gui ‚ªƒ†[ƒU[‰¹º‚É‘Î‰‚µ‚Ä‚¢‚éB
+Œ»İ‚Ì‚Æ‚±‚ëAQt, win32tty, win32gui ‚ªƒ†[ƒU‰¹º‚É‘Î‰‚µ‚Ä‚¢‚éB
 .pg
 .\"O The following config file entries are relevant to mapping user sounds
 .\"O to messages:
-ƒ†[ƒU[‰¹º‚ÆƒƒbƒZ[ƒW‚ÌŠÖ˜A•t‚¯‚ÉŠÖ‚·‚éİ’èƒtƒ@ƒCƒ‹€–Ú‚Í
+ƒ†[ƒU‰¹º‚ÆƒƒbƒZ[ƒW‚ÌŠÖ˜A•t‚¯‚ÉŠÖ‚·‚éİ’èƒtƒ@ƒCƒ‹€–Ú‚Í
 ˆÈ‰º‚Ì‚Æ‚¨‚è‚Å‚ ‚éB
 .lp SOUNDDIR
 .\"O The directory that houses the sound files to be played.
@@ -4214,7 +4214,7 @@ TTY_GRAPHICS‚ÆVIDEOSHADES‚ğ—LŒø‚É‚µ‚½ó‘Ô‚ÅƒRƒ“ƒpƒCƒ‹‚µ‚½‘¼‚ÌƒVƒXƒeƒ€‚Å‚Í‚à‚¤3F
 .\"O volume     - the volume to be set while playing the sound file.
 .\"O .ei
 .\"O .ed
-‰¹ºƒtƒ@ƒCƒ‹‚Æƒ†[ƒU[‚ªw’è‚·‚éƒƒbƒZ[ƒWƒpƒ^[ƒ“‚ğŠÖ˜A•t‚¯‚é€–ÚB
+‰¹ºƒtƒ@ƒCƒ‹‚Æƒ†[ƒU‚ªw’è‚·‚éƒƒbƒZ[ƒWƒpƒ^[ƒ“‚ğŠÖ˜A•t‚¯‚é€–ÚB
 Še SOUND €–Ú‚ÍˆÈ‰º‚Ì€–Ú‚É•ª‰ğ‚³‚ê‚éB
 .sd
 .si
@@ -4281,7 +4281,7 @@ NetHack ‚Ì“à‘ ƒpƒ^[ƒ“ƒ}ƒbƒ`ƒ“ƒOƒ‹[ƒ`ƒ“‚ÍˆÈ‰º‚Ì“Áê•¶š‚ğ—p‚¢‚éB
 .\"O NetHack can be set up to use only standard ASCII characters for making
 .\"O maps of the dungeons. This makes the MS-DOS versions of NetHack completely
 .\"O accessible to the blind who use speech and/or Braille access technologies.
-NetHack ‚Í“´ŒA‚Ì’n}‚ğì‚é‚Ì‚É•W€‚Ì ASCII ƒLƒƒƒ‰ƒNƒ^[‚¾‚¯‚ğg‚¤‚æ‚¤‚É
+NetHack ‚Í“´ŒA‚Ì’n}‚ğì‚é‚Ì‚É•W€‚Ì ASCII ƒLƒƒƒ‰ƒNƒ^‚¾‚¯‚ğg‚¤‚æ‚¤‚É
 İ’è‚·‚é‚±‚Æ‚à‚Å‚«‚éB‚±‚ê‚É‚æ‚èA MS-DOS ”Å‚Ì NetHack ‚Í
 ‰¹º‡¬‚Ü‚½‚Í“_š‹Zp‚ğ—p‚¢‚ê‚Î–Ú‚Ì•s©—R‚Èl‚Å‚àŠ®‘S‚ÉƒvƒŒƒC‰Â”\‚Å‚ ‚éB
 .\"O Players will require a good working knowledge of their screen-reader's
@@ -4302,7 +4302,7 @@ NetHack ‚Í“´ŒA‚Ì’n}‚ğì‚é‚Ì‚É•W€‚Ì ASCII ƒLƒƒƒ‰ƒNƒ^[‚¾‚¯‚ğg‚¤‚æ‚¤‚É
 ƒvƒŒƒC‚·‚é‘O‚É‚±‚ÌƒKƒCƒhƒuƒbƒN‚ğ\•ª‚É“Ç‚ß‚ÎA
 ‰æ–Ê‚ÌƒŒƒCƒAƒEƒg‚ª‚Ç‚ñ‚ÈŠ´‚¶‚©‚ª‚í‚©‚é‚¾‚ë‚¤B
 ‚Ü‚½A PC ƒJ[ƒ\ƒ‹‚ÌˆÊ’u‚ğ“Ë‚«~‚ß‚é‚±‚Æ‚ª‚Å‚«‚é•K—v‚ª‚ ‚éB
-‚±‚ê‚Í©•ª‚ÌƒLƒƒƒ‰ƒNƒ^[‚ÌˆÊ’u‚ğ¦‚µ‚Ä‚¢‚éB
+‚±‚ê‚Í©•ª‚ÌƒLƒƒƒ‰ƒNƒ^‚ÌˆÊ’u‚ğ¦‚µ‚Ä‚¢‚éB
 `@'‚Í‘¼‚Ìƒqƒ…[ƒ}ƒmƒCƒh‚ğ•\‚í‚·‚Ì‚É‚à—p‚¢‚ç‚ê‚é‚Ì‚ÅA
 ©•ª‚ÌˆÊ’u‚ğ’T‚·‚Ì‚É`@'‚ğŒŸõ‚·‚é‚¾‚¯‚Å‚Í•s\•ª‚Å‚ ‚éB
 ‚³‚ç‚ÉA‚ ‚È‚½‚ªŒ©‚Ä‚¢‚éˆÊ’u‚Æ PC ƒJ[ƒ\ƒ‹‚ÌˆÊ’u‚Ì•¨—“I‚Ès‚ÆŒ…‚ğ’m‚ç‚¹‚é‹@”\‚ª
@@ -4311,7 +4311,7 @@ NetHack ‚Í“´ŒA‚Ì’n}‚ğì‚é‚Ì‚É•W€‚Ì ASCII ƒLƒƒƒ‰ƒNƒ^[‚¾‚¯‚ğg‚¤‚æ‚¤‚É
 .pg
 .\"O While it is not difficult for experienced users to edit the \fBdefaults.nh\fP
 .\"O file to accomplish this, novices may find this task somewhat daunting.
-Šµ‚ê‚½ƒ†[ƒU[‚È‚ç \fBdefaults.nh\fP‚ğC³‚·‚é‚±‚Æ‚Í“ï‚µ‚­‚È‚¢‚¾‚ë‚¤‚ªA
+Šµ‚ê‚½ƒ†[ƒU‚È‚ç \fBdefaults.nh\fP‚ğC³‚·‚é‚±‚Æ‚Í“ï‚µ‚­‚È‚¢‚¾‚ë‚¤‚ªA
 ‰SÒ‚Í­‚µ‚Ğ‚é‚ñ‚Å‚µ‚Ü‚¤d–‚©‚à‚µ‚ê‚È‚¢B
 .\"O Included in all official distributions of NetHack is a file called
 .\"O \fBNHAccess.nh\fP.  Replacing \fBdefaults.nh\fP with this file will cause
@@ -4346,11 +4346,11 @@ NetHack ‚Ì‘S‚Ä‚ÌŒö®”z•z‚É‚Í \fBNHAccess.nh\fP‚Æ‚¢‚¤ƒtƒ@ƒCƒ‹‚ªŠÜ‚Ü‚ê‚Ä‚¢‚éB
 .\"O default representation of the dungeon using standard ASCII characters
 .\"O with fancier characters from extended character sets, and these fancier
 .\"O characters can annoy screen-readers.
-\fBdefaults.nh\fP ƒtƒ@ƒCƒ‹‚Ì‰º‚Ì•û‚É‚ ‚é‘S‚Ä‚ÌƒLƒƒƒ‰ƒNƒ^[ƒOƒ‰ƒtƒBƒbƒNİ’è‚ğ
+\fBdefaults.nh\fP ƒtƒ@ƒCƒ‹‚Ì‰º‚Ì•û‚É‚ ‚é‘S‚Ä‚ÌƒLƒƒƒ‰ƒNƒ^ƒOƒ‰ƒtƒBƒbƒNİ’è‚ğ
 ƒRƒƒ“ƒgƒAƒEƒg‚·‚éB‚±‚ê‚ç‚Ì‚Ù‚Æ‚ñ‚Ç‚Í \fBNetHack\fP ‚Ì
-•W€‚Å‚ ‚éA•W€ ASCII ƒLƒƒƒ‰ƒNƒ^[‚ğ—p‚¢‚½“´ŒA‚Ì•\Œ»‚ğ
-Šg’£ƒLƒƒƒ‰ƒNƒ^[ƒZƒbƒg‚Ì‚æ‚è‹Ã‚Á‚½ƒLƒƒƒ‰ƒNƒ^[‚Å’u‚«Š·‚¦‚éB
-‚±‚ê‚ç‚ÌƒLƒƒƒ‰ƒNƒ^[‚Í‰æ–Ê“Ç‚İæ‚èƒVƒXƒeƒ€‚ğ”Ï‚í‚¹‚é‚¾‚ë‚¤B
+•W€‚Å‚ ‚éA•W€ ASCII ƒLƒƒƒ‰ƒNƒ^‚ğ—p‚¢‚½“´ŒA‚Ì•\Œ»‚ğ
+Šg’£ƒLƒƒƒ‰ƒNƒ^ƒZƒbƒg‚Ì‚æ‚è‹Ã‚Á‚½ƒLƒƒƒ‰ƒNƒ^‚Å’u‚«Š·‚¦‚éB
+‚±‚ê‚ç‚ÌƒLƒƒƒ‰ƒNƒ^‚Í‰æ–Ê“Ç‚İæ‚èƒVƒXƒeƒ€‚ğ”Ï‚í‚¹‚é‚¾‚ë‚¤B
 .hn 1
 .\"O Scoring
 “¾“_
@@ -4530,7 +4530,7 @@ PC NetHack 3.0 ‚Ì‚½‚ß‚ÌƒI[ƒo[ƒŒƒCƒ‹[ƒ`ƒ“‚ğİŒv‚µ‚½B
 \fBPat Rankin\fP, \fBEric Raymond\fP, \fBEric Smith\fP ‚ğŠÜ‚Ş§ìƒ`[ƒ€‚ª
 3.0‚Ì“O’ê“I‚ÈŒ©’¼‚µ‚ğs‚È‚Á‚½B
 ”Ş‚ç‚ÍƒQ[ƒ€ƒfƒUƒCƒ“‚ğÄ\’z‚µAƒR[ƒh‚Ì‘å•”•ª‚ğ‘‚«’¼‚µ‚½B
-•¡‡ƒ_ƒ“ƒWƒ‡ƒ“AV‚µ‚¢ƒfƒBƒXƒvƒŒƒCA‚»‚ê‚¼‚ê‚ÌƒLƒƒƒ‰ƒNƒ^[–ˆ‚Ì“Á•Ê‚ÌƒNƒGƒXƒgA
+•¡‡ƒ_ƒ“ƒWƒ‡ƒ“AV‚µ‚¢ƒfƒBƒXƒvƒŒƒCA‚»‚ê‚¼‚ê‚ÌƒLƒƒƒ‰ƒNƒ^–ˆ‚Ì“Á•Ê‚ÌƒNƒGƒXƒgA
 V‚µ‚¢ƒGƒ“ƒhƒQ[ƒ€‚Æ‚»‚Ì‘¼‚Ì‘½‚­‚ÌV‚µ‚¢—v‘f‚ğ’Ç‰Á‚µA
 NetHack 3.1‚ğ§ì‚µ‚½B
 .pg

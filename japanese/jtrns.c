@@ -114,7 +114,7 @@ set_trns_mode(flg)
 }
 
 /*
-  モンスター名変換(性別つき)
+  怪物名変換(性別つき)
 */
 const char *
 jtrns_mon_gen(name, female)
@@ -143,7 +143,7 @@ jtrns_mon_gen(name, female)
 }
 
 /*
-  モンスター名変換(無性別)
+  怪物名変換(無性別)
 */
 const char *
 jtrns_mon(name)

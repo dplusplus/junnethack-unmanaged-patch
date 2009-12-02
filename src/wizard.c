@@ -705,7 +705,7 @@ register struct monst	*mtmp;
 /*JP
 		    verbalize("Relinquish the amulet, %s!",
 */
-		    verbalize("魔よけを手放せ、%s！",
+		    verbalize("魔除けを手放せ、%s！",
 			  random_insult[rn2(SIZE(random_insult))]);
 		else if (u.uhp < 5 && !rn2(2))	/* Panic */
 		    verbalize(rn2(2) ?

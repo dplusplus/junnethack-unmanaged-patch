@@ -2785,7 +2785,7 @@ boolean put_in;
 /*JP
 	Sprintf(buf,"%s what type of objects?", put_in ? putin : takeout);
 */
-	Sprintf(buf,"どのタイプの物体を%s？", put_in ? putin : takeout);
+	Sprintf(buf,"どの種類のアイテムを%s？", put_in ? putin : takeout);
 	mflags = put_in ? ALL_TYPES | BUC_ALLBKNOWN | BUC_UNKNOWN :
 		          ALL_TYPES | CHOOSE_ALL | BUC_ALLBKNOWN | BUC_UNKNOWN;
 	n = query_category(buf, put_in ? invent : container->cobj,

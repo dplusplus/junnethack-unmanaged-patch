@@ -400,7 +400,7 @@ static struct Comp_Opt
 #else /*JP*/
 	{ "map_mode", "ウィンドウ表示時のマップの表示モード", 20, DISP_IN_GAME },	/*WC*/
 	{ "menucolor", "メニューの色設定", PL_PSIZ, SET_IN_FILE },
-	{ "menustyle", "オブジェクトを選択するときのユーザーインタフェース",
+	{ "menustyle", "アイテムを選択するときのユーザインタフェース",
 						MENUTYPELEN, SET_IN_GAME },
 	{ "menu_deselect_all", "全てのアイテムを非選択", 4, SET_IN_FILE },
 	{ "menu_deselect_page", "現在表示されているページのアイテムを非選択",
@@ -488,7 +488,7 @@ static struct Comp_Opt
 						20, SET_IN_GAME },
 	{ "pickup_types", "自動で拾いあげる物のシンボル",
 						MAXOCLASSES, SET_IN_GAME },
-	{ "player_selection", "キャラクター選択にダイアログや確認画面を使う",
+	{ "player_selection", "キャラクタ選択にダイアログや確認画面を使う",
 						12, DISP_IN_GAME },
 #endif
 #if 0 /*JP*/
