@@ -1,5 +1,6 @@
-Mon Nov 30 2009  Masaki Miyaso  <so-miya@sourceforge.jp>
-	* UnNetHack SVN版rev.350をベースにした。
+Sun Dec 6 2009  Masaki Miyaso  <so-miya@sourceforge.jp>
+	* JUnNetHack-3.5.2-J0.2.1リリース
+	* UnNetHack 3.5.2をベースにした。
 	  r208 スキルレベルを増やした。
 	  r209 patchlevelを3.5.2にした。
 	  r210 修正：投げられたアイテムがキャッチされたとき投擲bitがクリア
