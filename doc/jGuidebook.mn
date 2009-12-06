@@ -11,7 +11,7 @@
 .\" Usage:
 .\"   tbl tmac.n jGuideBook.mn | nroff -Tnippon
 .\"
-.\"WORD:	Dungeoneer		洞窟の主
+.\"WORD:	Dungeoneer		洞窟マニア
 .\"WORD:	the Mazes of Menace	恐怖の迷宮
 .\"WORD:	dungeon			洞窟
 .\"WORD:	proficiency		技量
@@ -55,23 +55,24 @@ Eric S. Raymond
 .\"O through the first time.  And who was to say that all of those who did 
 .\"O not return had not just kept going?
 .\"O 
-最近、あなたは日々の仕事に満たされなく、敬遠しつつある自分に気がついた。
-最近数ヶ月、あなたが見る夢は探査、盗み、十字軍、戦闘といったものであったが、
+最近、あなたは日々の繰り返しに満足できず、敬遠しつつある自分に気がついた。
+何かを探したり、盗んだり、聖戦に参加したり、戦ったりといったといった
+奇妙な夢をここ数ヶ月の間眠りの中でたびたびあなたは見るのだが、
 あなたにはその理由がはっきりとはわからなかった。
-あなたはこれらの夢を実際には生まれてこのかたずっと見続けていて、
-なぜか今までそれらについて忘れようとしていたのではないか、と思った。
-ある夜、あなたは飛び起きて、
-夢の中の洞窟のあらゆる角の後ろに潜んでいるように見える、
-奇妙で強力な怪物の鮮明な記憶にぞっとして大声で叫んだ。
-あなたの夢に出没する内容は本当なのだろうか?
-夜毎に、廃墟の近くの不思議な洞窟に入るという欲求が強くなった。
-それでも、毎朝あなたはそのような考えを、
-洞窟に入って帰って来なかった人々の話を思い出すことで頭から追い出した。
-しかし、ついにあなたは夢の中に出てくる不思議な場所を捜し求めるという思いを
+あなたはこれらの夢を実際には生まれてこのかたずっと見続けていたのに、
+今までそれらについて何故か忘れてしまっていたのではないか、と思うようになった。
+ある夜、あなたは飛び起き大声で叫ぶはめになった。
+夢の中の洞窟のあらゆる曲がり角の暗がりに潜んでいるらしき、
+奇妙で強力な怪物の鮮明な記憶に恐怖したのだ。
+夢にたびたび出没することは実際に起きていることではないのか？
+夜毎に、遺跡の近くの不思議な洞窟に入りたいという欲求が強くなった。
+しかし朝が来る毎に、あなたはそのような考えを
+洞窟に入って帰って来なかった人々の話を思い出すことで頭から追い出していた。
+しかし、ついにあなたは夢の中に出てくる不思議な場所を捜し求めたいという思いを
 抑えきれなくなった。
-何といっても、冒険者は最初にその道を通っていった時より、
-こちらに戻って来る時の方が裕福になっているように見えるのだ。
-戻って来ない人たちは皆、単にまだ冒険を続けているだけなのでは?
+何といっても、戻ってきた冒険者は最初にその道を通っていった時より、
+こちらに戻って来た時の方が裕福になっているように見えるのだ。
+戻って来ない人たちは皆、単にまだ冒険を続けているだけなのではないか？
 
 .pg
 .\"O Asking around, you hear about a bauble, called the Amulet of Yendor by some,
@@ -88,19 +89,19 @@ Eric S. Raymond
 .\"O your dreams along the way.  You spend one last night fortifying yourself 
 .\"O at the local inn, becoming more and more depressed as you watch the odds 
 .\"O of your success being posted on the inn's walls getting lower and lower.  
-あちこちで尋ねるうちに、あなたはある噂を耳にした。
-イェンダーの魔除けとかいうものがあり、手に入れることができたなら、
+あちこちで聞いてまわるうちに、あなたはある噂を耳にした。
+イェンダーの魔除けと呼ばれるものがあり、それを手に入れることができれば、
 すばらしい財産をもたらすと言うのだ。
 あなたが聞いたとある伝説では、
-魔除けを見つけたものは神から不死の体を授かるとさえ言われているらしい。
+魔除けを見つけたものは神から不死の体を授かるとさえされているらしい。
 魔除けは恐怖の迷宮の奥深く、ゲヘナの谷を越えたどこかにあるという噂である。
-伝説を聞いた瞬間、あなたは自分には洞窟に入って彼らの話している
-魔除けを捜し求めるべき深遠で未知のなんらかの理由があると確信した。
+その伝説を聞いた瞬間、あなたは自分には洞窟に入って、彼らの話す
+魔除けを捜し求めるべき深遠かつ未知なるなにかの運命があると確信した。
 あなたはたとえ魔除けの力が真実でなくても、
-少なくとも冒険談を地元のの吟遊詩人にかなりの金額で売り込めるだろうと考えた。
-夢の中で出てきた恐ろしく、不思議な怪物に出会うことができればなおさらである。
-あなたは地元の安宿で最後の宿を取り対策を練った。
-安宿の壁に掲げられた成功率のオッズが下がれば下がるほど、
+少なくとも冒険談を地元の吟遊詩人にかなりの金額で売り込めるだろうと考えた。
+夢の中で出てきた恐ろしく、不思議な生き物に出会うことができるならばなおさらである。
+あなたは地元の安宿で一晩の宿を取り対策を練った。
+その宿の壁に貼り出されたあなたの成功へのオッズが下がれば下がるほど、
 あなたは意気消沈した。
 
 .pg
@@ -116,11 +117,11 @@ Eric S. Raymond
 示す古代の遺跡へとたどり着いた。夜も更けていたので入口でキャンプをすることにし、
 その夜は広々とした空の下で眠りに就いた。翌朝あなたは道具をかき集め、
 もしかすると地上での最後になるかもしれない食事を済ませ、
-洞窟へと入っていった。
+洞窟へと入っていった・・・
 
 .hn 1
 .\"O What is going on here?
-あなたを取り巻く状況
+あなたを取り巻く状況は？
 .pg
 .\"O You have just begun a game of NetHack.  Your goal is to grab as much
 .\"O treasure as you can, retrieve the Amulet of Yendor, and escape the
@@ -132,13 +133,13 @@ Eric S. Raymond
 .\"O Your abilities and strengths for dealing with the hazards of adventure
 .\"O will vary with your background and training:
 冒険におけるいろいろな困難に対応するための各種の能力や力は、
-あなたの生い立ちと修行によって変化する。
+あなたの生い立ちと修練によって変化するだろう。
 .pg
 .\"O \fIArcheologists\fP understand dungeons pretty well; this enables them
 .\"O to move quickly and sneak up on the local nasties.  They start equipped
 .\"O with the tools for a proper scientific expedition.
 \fI考古学者(Archeologist)\fP は洞窟について多くの知識を持っている。
-このため素早く動いたり洞窟での不快な事態を切り抜けることができる。
+このため素早く動いてその場における厄介ごとを切り抜けることができる。
 彼らは学術的調査のための探検旅行に適した道具を持って出発する。
 .pg
 .\"O \fIBarbarians\fP are warriors out of the hinterland, hardened to battle.
@@ -151,79 +152,79 @@ Eric S. Raymond
 .\"O \fICavemen\fP and \fICavewomen\fP start with exceptional strength but,
 .\"O unfortunately, with neolithic weapons.
 \fI 洞窟人(Caveman と Cavewoman)\fPはとりわけ強い力を持っているが、
-新石器時代に使われた武器を持って出発する。
+残念なことに新石器時代の武器を持って出発する。
 .pg
 .\"O \fIHealers\fP are wise in medicine and apothecary.  They know the
 .\"O herbs and simples that can restore vitality, ease pain, anesthetize,
 .\"O and neutralize poisons; and with their instruments, they can divine a
 .\"O being's state of health or sickness.  Their medical practice earns them
 .\"O quite reasonable amounts of money, with which they enter the dungeon.
-\fI医者(Healer)\fPは医術や薬物について精通している。
+\fI薬師(Healer)\fPは医術や薬物について精通している。
 生気を回復させたり、苦痛を和らげたり、麻酔をかけたり、
 毒を中和させたりする香草や薬草について詳しい。
 そして器具を使って生物の健康状態を見抜くことができる。
-彼らは開業医としてかなりよい報酬を得て、それを持って洞窟に入っていく。
+彼らは開業医としてかなりよい報酬を得ていて、それを持って洞窟に入っていく。
 .pg
 .\"O \fIKnights\fP are distinguished from the common skirmisher by their
 .\"O devotion to the ideals of chivalry and by the surpassing excellence of
 .\"O their armor.
 \fI騎士(Knight)\fP は騎士道に忠実であることと防具が驚くほど優れていることとい
-う点で、普通の戦士とは区別される。
+う点で、普通の民兵とは区別される。
 .pg
 .\"O \fIMonks\fP are ascetics, who by rigorous practice of physical and mental
 .\"O disciplines have become capable of fighting as effectively without weapons
 .\"O as with.  They wear no armor but make up for it with increased mobility.
-\fI モンク(Monk) \fP は修道者であり、厳格な肉体的習慣と精神的訓練によって、
+\fI 武闘家(Monk) \fP は修道者であり、厳格な肉体的習慣と精神的訓練によって、
 武器なしでも武器を使うのと同じように戦うことが出来る。
-モンクは防具をつけないが、機動性を向上させることで埋め合わせている。
+彼らは防具を身につけないが、機動性を向上させることで埋め合わせている。
 .pg
 .\"O \fIPriests\fP and \fIPriestesses\fP are clerics militant, crusaders
 .\"O advancing the cause of righteousness with arms, armor, and arts
 .\"O thaumaturgic.  Their ability to commune with deities via prayer
 .\"O occasionally extricates them from peril, but can also put them in it.
-\fI僧侶と尼僧(Priest と Priestess)\fP は聖職の戦士であり、
-武器と防具を持ち魔法の業を駆使して正義を広めんとする聖戦士である。
+\fI僧侶と尼僧(Priest と Priestess)\fP は聖職の闘士であり、
+武器と防具、そして聖なる御業を駆使して正義を広めんとする聖戦士である。
 祈りを通じて神と語る能力により、彼らはしばしば危難から逃れることができる…
 が、祈りは危難をもたらすこともある。
 .pg
 .\"O \fIRangers\fP are most at home in the woods, and some say slightly out
 .\"O of place in a dungeon.  They are, however, experts in archery as well
 .\"O as tracking and stealthy movement.
-\fI レンジャー(Ranger)\fP はほとんど森を住みかとし、洞窟は少々場違いかもしれない。
+\fIレンジャー(Ranger)\fP はほとんど森を住みかとし、洞窟は少々場違いかもしれない。
 しかし、彼らは追跡術や隠密行動と共に、弓術の達人である。
 .pg
 .\"O \fIRogues\fP are agile and stealthy thieves, with knowledge of locks,
 .\"O traps, and poisons.  Their advantage lies in surprise, which they employ
 .\"O to great advantage.
-\fI 盗賊(Rogue)\fP は敏捷で身を隠す業に長けた泥棒であり、
+\fI盗賊(Rogue)\fP は敏捷で身を隠す業に長けた泥棒であり、
 錠や罠や毒に詳しい。
 彼らの長所は奇襲であり、これは非常な長所となる。
 .pg
 .\"O \fISamurai\fP are the elite warriors of feudal Nippon.  They are lightly
 .\"O armored and quick, and wear the \fIdai-sho\fP, two swords of the deadliest
 .\"O keenness.
-\fI 侍(Samurai)\fP は封建時代の日本の精鋭の武人である。
+\fI侍(Samurai)\fP は封建時代の日本の精鋭の武人である。
 防具は軽装で身のこなし
 に秀でており、この上なく研ぎ澄まされた \fI 大小 \fP 2本の刀を帯びている。
 .pg
 .\"O \fITourists\fP start out with lots of gold (suitable for shopping with),
 .\"O a credit card, lots of food, some maps, and an expensive camera.  Most
 .\"O monsters don't like being photographed.
-\fI 観光客(Tourist)\fP は多額の金(買物に最適である)とクレジットカード、大量の食料、
+\fI観光客(Tourist)\fP は多額の金(買物に最適である)とクレジットカード、大量の食料、
 地図、そして高価なカメラを持って出発する。
 ほとんどの怪物は写真に撮られるのを嫌うものである。
 .pg
 .\"O \fIValkyries\fP are hardy warrior women.  Their upbringing in the harsh
 .\"O Northlands makes them strong, inures them to extremes of cold, and instills
 .\"O in them stealth and cunning.
-\fI ワルキューレ(Valkyrie)\fP は勇敢な女戦士である。
+\fIワルキューレ(Valkyrie)\fP は勇敢な女戦士である。
 過酷なスカンジナビアの国々で育った彼女らは頑強で、厳しい寒さにも耐え、
 身を隠す業と巧妙さを身につけている。
 .pg
 .\"O \fIWizards\fP start out with a knowledge of magic, a selection of magical
 .\"O items, and a particular affinity for dweomercraft.  Although seemingly weak
 .\"O and easy to overcome at first sight, an experienced Wizard is a deadly foe.
-\fI 魔法使い(Wizard)\fPは魔術の知識とに選び抜かれた魔法の道具を準備しており、
+\fI魔法使い(Wizard)\fPは魔術の知識とに選び抜かれた魔法の道具を準備しており、
 いにしえの魔法学に対して特に造詣が深い。
 見かけは弱そうで簡単に打ち倒せるように思えるが、
 経験を積んだ魔法使いは恐るべき敵である。
@@ -235,7 +236,7 @@ Eric S. Raymond
 .\"O individuals.  Dwarves' most notable trait is their great expertise in mining
 .\"O and metalwork.  Dwarvish armor is said to be second in quality not even to the
 .\"O mithril armor of the Elves.
-\fI ドワーフ(Dwarf) \fP は人間やエルフよりも小さいが、がっしりした体つきで丈夫である。
+\fIドワーフ(Dwarf)\fP は人間やエルフよりも小さいが、がっしりした体つきで丈夫である。
 ドワーフの注目すべき特性は採掘と金属工作の専門的技術である。
 ドワーフの防具はエルフのミスリル防具と同じとまではいかないまでも、
 それに次ぐ品質である。
@@ -243,7 +244,7 @@ Eric S. Raymond
 .\"O \fIElves\fP are agile, quick, and perceptive; very little of what goes
 .\"O on will escape an Elf.  The quality of Elven craftsmanship often gives
 .\"O them an advantage in arms and armor.
-\fI エルフ(Elf) \fP は機敏さと迅速さ、そして鋭敏な感覚を持っている。
+\fIエルフ(Elf)\fP は機敏さと迅速さ、そして鋭敏な感覚を持っている。
 周囲で起きるどんな些細なことも彼らの目を逃れることはできない。
 職人気質の彼らの持つ武器と防具は優秀なものである。
 .pg
@@ -251,26 +252,26 @@ Eric S. Raymond
 .\"O known to be expert miners, and it is known that a secret underground mine
 .\"O complex built by this race exists within the Mazes of Menace, filled with
 .\"O both riches and danger.
-\fI ノーム(Gnome) \fP はドワーフよりもさらに小さいが、ドワーフと似ている。
+\fIノーム(Gnome)\fP はドワーフよりもさらに小さいが、ドワーフと似ている。
 ノームは熟練した採掘師として知られ、
 富と危険で満ちている秘密の地下坑道を恐怖の迷宮に作っていることで知られる。
 .pg
 .\"O \fIHumans\fP are by far the most common race of the surface world, and
 .\"O are thus the norm by which other races are often compared.  Although
 .\"O they have no special abilities, they can succeed in any role.
-\fI 人間(Human) \fP は地上で最も一般的な種族で、ゆえに他の種族と比較される時の基準となっている。
-特別な能力は持っていないが、あらゆる職業で成功することができる。
+\fI人間(Human)\fP は地上で最も一般的な種族で、ゆえに他の種族と比較される時の基準となっている。
+特別な能力は持っていないが、あらゆる職業に着くことができる。
 .pg
 .\"O \fIOrcs\fP are a cruel and barbaric race that hate every living thing
 .\"O (including other orcs).  Above all others, Orcs hate Elves with a passion
 .\"O unequalled, and will go out of their way to kill one at any opportunity.
 .\"O The armor and weapons fashioned by the Orcs are typically of inferior quality.
-\fI オーク(Orc) \fP は残酷で野蛮な種族で、(他のオークを含む)あらゆる生物を嫌っている。
+\fIオーク(Orc)\fP は残酷で野蛮な種族で、(他のオークを含む)あらゆる生物を嫌っている。
 特に、オークはエルフを感性の違いゆえに嫌い、わざわざあらゆる機会を見つけて殺そうとする。
 オークによって作られた防具と武器は一般的に品質が劣る。
 .hn 1
 .\"O What do all those things on the screen mean?
-画面に表示されるものの意味
+画面に表示されるものの意味は？
 .pg
 .\"O On the screen is kept a map of where you have
 .\"O been and what you have seen on the current dungeon level; as you
@@ -292,7 +293,7 @@ Eric S. Raymond
 NetHack の祖先である \fIrogue\fP が最初に現れたとき、そのスクリーン指向は
 コンピュータファンタジーゲームの中でも全く独特のものであった。それ以来
 スクリーン指向は例外的なものというよりむしろ標準となった。NetHack はこ
-のすばらしい伝統を受け継いでいる。疑似的な英語でコマンドを入力し、結果
+のすばらしい伝統を受け継いでいる。疑似的な英語でコマンドを入力して結果
 が文章で表示されるテキストアドベンチャーゲームとは異なり、NetHack のコ
 マンドはすべて 1 文字か 2 文字のキー入力で与えられ、その結果は画面上に
 グラフィカルに表示される。画面は最低 80 桁および 24 行の大きさが推奨さ
@@ -356,7 +357,7 @@ NetHack で何が起きているのかを理解するには、まず NetHack では画面が
 center tab(~);
 a.
 _
-The bat bites!
+こうもりは噛みついた！
 
     ------
     |....|    ----------
@@ -367,8 +368,8 @@ The bat bites!
 
 
 
-Player the Rambler     St:12 Dx:7 Co:18 In:11 Wi:9 Ch:15  Neutral
-Dlvl:1 $:0  HP:9(12) Pw:3(3) AC:10 Exp:1/19 T:257 Weak
+Player プー太郎     強:12 早:7 耐:18 知:11 賢:9 魅:15  中立
+地下:1 $:0  体:9(12) 魔:3(3) 鎧:10 経験:1/19 歩:257 衰弱
 
 _
 .TE
@@ -388,7 +389,7 @@ Figure 1
 画面の下 2 行には、あなたの現在の状態を表す暗号のような情報の断片が含まれている。
 どちらかの行が画面の幅よりも長くなるとその全部を見ることはできない
 かもしれない。以下に状態を示すいろいろな項目が何を意味するのかを述べる
-(コンフィグレーションによっては、以下に一覧されている状態を示す項目の
+(設定によっては、以下に一覧されている状態を示す項目の
 すべてが表示されるとは限らない)。
 .\"O .lp "Rank  "
 .lp 名前とランク(Rank)
@@ -405,13 +406,13 @@ Figure 1
 .\"O higher your strength, the stronger you are.  Strength affects how
 .\"O successfully you perform physical tasks, how much damage you do in
 .\"O combat, and how much loot you can carry.
-あなたのキャラクタの力の強さの値であり、6 つの基本的な属性の 1 
+あなたのキャラクタの力強さの値であり、6 つの基本的な属性の 1 
 つである。人間のキャラクタの場合、力の強さは 3 から 18 の間の値をとる。
 その他の場合、この制限を越えることもある
 (時折 18/xx のような特別な力を得ることもあり、魔法の力も普通の制限を越える
 能力を与えることがある)。
-力の強さの値が大きいほど、あなたの力は強い。
-力の強さは力仕事をどれだけうまくやれるか、戦いでどれだけの
+力強さの値が大きいほど、あなたの力は強い。
+力強さは力仕事をどれだけうまくやれるか、戦いでどれだけの
 ダメージを与えるか、どれくらい荷物を運べるかに影響する。
 .\"O .lp Dexterity
 .lp 素早さ(Dexterity)
@@ -424,7 +425,7 @@ Figure 1
 .lp 耐久力(Constitution)
 .\"O Constitution affects your ability to recover from injuries and other
 .\"O strains on your stamina.
-耐久力は怪我やその他の圧迫によるスタミナの消耗から回復する能力に影響する。
+耐久力は怪我やその他の疲労によるスタミナの消耗から回復する能力に影響する。
 .\"O .lp Intelligence
 .lp 知力(Intelligence)
 .\"O Intelligence affects your ability to cast spells and read spellbooks.
@@ -439,7 +440,7 @@ Figure 1
 .lp 魅力(Charisma)
 .\"O Charisma affects how certain creatures react toward you.  In
 .\"O particular, it can affect the prices shopkeepers offer you.
-魅力はある種の生物があなたに対してとる態度に影響を与える。
+魅力はある種の生き物があなたに対してとる態度に影響を与える。
 特に店主が示す価格に影響する。
 .\"O .lp Alignment
 .lp 属性(Alignment)
@@ -449,12 +450,12 @@ Figure 1
 .\"O monsters react toward you.  Monsters of a like alignment are more likely
 .\"O to be non-aggressive, while those of an opposing alignment are more likely
 .\"O to be seriously offended at your presence.
-属性には \fB 秩序 (Lawful)\fP, \fB 中立 (Neutral)\fP,
-\fB 混沌(Chaotic)\fP がある。
+属性には \fB秩序 (Lawful)\fP, \fB中立 (Neutral)\fP,
+\fB混沌 (Chaotic)\fP がある。
 しばしば、秩序は善、混沌は悪であるとされるが、法と道徳が
 常に一致するとは限らない。
 あなたの属性は他の怪物のあなたに対する反応に影響を与える。
-属性が似ている怪物は好戦的ではなく、
+属性が近い怪物は好戦的ではなく、
 反対の属性に対してはあなたの存在に対して極めて好戦的であるらしい。
 .\"O .lp "Dungeon Level
 .lp "階数(Dungeon Level)"
@@ -470,7 +471,7 @@ Figure 1
 .lp 金(Gold)
 .\"O The number of gold pieces you are openly carrying.  Gold which you have
 .\"O concealed in containers is not counted.
-大っぴらに所持している金貨の数である。箱などに隠したお金は勘定に入っていない。
+大っぴらに所持している金貨の数である。鞄などに隠したお金は勘定に入っていない。
 .\"O .lp "Hit Points
 .lp "体力(Hit Points)
 .\"O Your current and maximum hit points.  Hit points indicate how much
@@ -495,7 +496,7 @@ Figure 1
 .\"O A measure of how effectively your armor stops blows from unfriendly
 .\"O creatures.  The lower this number is, the more effective the armor; it
 .\"O is quite possible to have negative armor class. 
-非友好的な生物からの攻撃を防具がどれほど食い止められるかを示す値である。
+非友好的な生き物からの攻撃を防具がどれほど食い止められるかを示す値である。
 数字が小さいほど防具は有効であり、
 防御値が負の値になることさえ十分あり得る。
 .\"O .lp Experience
@@ -522,16 +523,16 @@ Figure 1
 .\"O Your current hunger status, ranging from \fBSatiated\fP down to
 .\"O \fBFainting\fP.  If your hunger status is normal, it is not displayed.
 現在の腹具合である。腹具合は \fB 満腹(Satiated)\fP から
-\fB ふらふら(Fainting) \P までの値をとる。腹具合が普通なら表示されない。
+\fB ふらふら(Fainting) \fP までの値をとる。腹具合が普通なら表示されない。
 .pg
 .\"O Additional status flags may appear after the hunger status:  \fBConf\fP
 .\"O when you're confused, \fBFoodPois\fP or \fBIll\fP
 .\"O when sick, \fBBlind\fP when you can't
 .\"O see, \fBStun\fP when stunned, and \fBHallu\fP when hallucinating.
 この他にも状態を示す表示が腹具合の後ろに表示されることがあるかもしれ
-ない。混乱しているときには \fBConf\fP、病気のときには \fBFoodPois\fP または \fBIll\fP、
-目が見えないときには \fBBlind\fP、眩暈がしたときは \fBStun\fP、
-幻覚を見ているときは \fBHallu\fP と表示される。
+ない。混乱しているときには \fB混乱(Conf)\fP、病気のときには \fB食毒(FoodPois)\fP または \fB病気(Ill)\fP、
+目が見えないときには \fB盲目(Blind)\fP、眩暈がしたときは \fB眩暈(Stun)\fP、
+幻覚を見ているときは \fB幻覚(Hallu)\fP と表示される。
 .hn 2
 .\"O The message line (top)
 メッセージ行(画面の上部)
@@ -573,7 +574,7 @@ Figure 1
 .lp #
 .\"O A corridor, or iron bars, or a tree, or possibly a kitchen sink (if
 .\"O your dungeon has sinks), or a drawbridge.
-通路、鉄の棒、木、あるいは台所の流し台(流し台がインプリメントされているとき)
+通路、鉄の棒、木、あるいは台所の流し台(流し台オプションが有効な場合)
 または跳ね橋
 .lp >
 .\"O Stairs down: a way to the next level.
@@ -621,7 +622,7 @@ Figure 1
 .\"O An amulet or a spider web.
 .lp *
 .\"O A gem or rock (possibly valuable, possibly worthless).
-宝石または岩(貴重なものかもしれないし、価値のないものかもしれない)。
+宝石または石(貴重なものかもしれないし、価値のないものかもしれない)。
 .lp `
 .\"O A boulder or statue.
 岩、または彫像。
@@ -639,13 +640,13 @@ Figure 1
 水たまり、または堀、または溶岩の海。
 .lp "\e
 .\"O An opulent throne.
-豪華な王座
+華やかな玉座
 .\"O .lp "a-zA-Z and other symbols
 .lp "a-zA-Z およびその他のシンボル
 .\"O Letters and certain other symbols represent the various inhabitants
 .\"O of the Mazes of Menace.  Watch out, they can be nasty and vicious.
 .\"O Sometimes, however, they can be helpful.
-これらの文字とその他のいくつかのシンボルは恐怖の迷宮のいろいろな住人たちを表す。
+これらの文字とその他のいくつかのシンボルは恐怖の迷宮の様々な住人たちを表す。
 彼らは不機嫌で悪意に満ちているかも知れないので警戒しなければならない。
 が、ときには何かの手助けになることもある。
 .lp I
@@ -695,7 +696,7 @@ NetHack は選択メニューもしくはコマンドラインプロンプトのいずれかを表示する。
 .\"O carrying.  Finally, if you change your mind and decide you don't want
 .\"O to do this command after all, you can press the ESC key to abort the
 .\"O command.
-例えば ``What do you want to use?\ [a-zA-Z\ ?*]'' という形式の質問がよくあるが、
+例えば ``何を使う？\ [a-zA-Z\ ?*]'' という形式の質問がよくあるが、
 これはあなたに持っている物のうちどれを選ぶかを尋ねるものである。
 この質問において「a-zA-Z」はあなたが選べる持物の目録記号である。
 `?' を入力するとこれらの物の目録一覧が得られ、
@@ -757,7 +758,7 @@ NetHack は選択メニューもしくはコマンドラインプロンプトのいずれかを表示する。
 `.'を押すと、選んだ場所で表示されているシンボルの説明が表示され、
 もし
 .op help
-オプションがオンなら場合によっては``More info?''(詳細を見る?)と質問され、
+オプションがオンなら場合によっては``詳細を見る？(More info?)''と質問され、
 それからさらに他の場所を指定することができる。
 `,'を押すと、シンボルの説明が表示されるが、詳細情報は表示されない。
 `;'を押すと、詳細情報は表示されず、さらに他の場所の指定もできない。
@@ -773,10 +774,10 @@ NetHack は選択メニューもしくはコマンドラインプロンプトのいずれかを表示する。
 コマンドの動作を示す。
 .lp <
 .\"O Go up to the previous level (if you are on a staircase or ladder).
-上の階へ行く(階段やはしごにいるとき)。
+上の階へ行く(階段やはしごの上にいるとき)。
 .lp >
 .\"O Go down to the next level (if you are on a staircase or ladder).
-下の階へ行く(階段やはしごにいるとき)。
+下の階へ行く(階段やはしごの上にいるとき)。
 .lp [yuhjklbn]
 .\"O Go one step in the direction indicated (see Figure 2).  If you sense
 .\"O or remember
@@ -810,20 +811,20 @@ Figure 2
 .lp m[yuhjklbn]
 .\"O Prefix:  move without picking up objects or fighting (even if you remember
 .\"O a monster there)
-プレフィックス: 物を拾ったり、
+前置: 物を拾ったり、
 (たとえそこに怪物がいると思っていても)戦ったりせずに移動する。
 .lp F[yuhjklbn]
 .\"O Prefix:  fight a monster (even if you only guess one is there)
-プレフィックス: (そこに怪物がいると予想しているだけでも)怪物と戦う
+前置: (そこに怪物がいると予想しているだけでも)怪物と戦う
 .lp M[yuhjklbn]
 .\"O Prefix:  move far, no pickup.
-プレフィックス: 物を拾わずに遠くへ移動する。
+前置: 物を拾わずに遠くへ移動する。
 .lp "g[yuhjklbn]
 .\"O Prefix:  move until something interesting is found.
-プレフィックス: 何かが見つかるまで移動する。
+前置: 何かが見つかるまで移動する。
 .lp "G[yuhjklbn] or <CONTROL->[yuhjklbn]
 .\"O Prefix:  same as `g', but forking of corridors is not considered interesting.
-プレフィックス: 'g' と同じ。ただし通路の分岐点では止まらない。
+前置: 'g' と同じ。ただし通路の分岐点では止まらない。
 .lp _
 .\"O Travel to a map location via a shortest-path algorithm.  The shortest path
 .\"O is computed over map locations the hero knows about (e.g. seen or
@@ -875,7 +876,7 @@ Figure 2
 .\"O you should type zero or more object symbols possibly followed by 
 .\"O `a' and/or `i' and/or `u' and/or `m'.  In addition, one or more of
 .\"O the blessed/uncursed/cursed groups may be typed.
-いくつかの物を下に置く。``What kinds of things do you want to drop?[!%= BUCXaium]''
+いくつかの物を下に置く。``どの種類のアイテムを置きますか？ [!%= BUCXaium] (Drop what type of items?)''
 (どの種類のものを置きますか?)
 の質問に対して、0 個以上の物のシンボルを入力することで答える。
 さらに`a', `i', `m', `u' をその後に入力することもできる。
@@ -1153,7 +1154,7 @@ NetHack の作者たちはすべての文字を使い果たしてしまったので、
 .lp #conduct
 .\"O List which challenges you have adhered to.  See the section below entitled
 .\"O ``Conduct'' for details.
-どの挑戦がまだ守られているかを表示する。詳しくは後述する「制限プレイ」の章を
+どの挑戦がまだ守られているかを表示する。詳しくは後述する「自発的挑戦」の章を
 参照すること。
 .lp #dip
 .\"O Dip an object into something.
@@ -1376,7 +1377,7 @@ NT, OS/2, PC NetHack では 'Alt' キーがこの目的に使われる.
 .\"O discover it with the `s' (search) command.  Monsters can fall prey to
 .\"O traps, too, which can be a very useful defensive strategy.
 そそっかしい冒険者を陥れようとする罠が洞窟のあちこちにある。
-例えば落し穴に落ちると上り出るのに数ターンの間その場から動けなくなるであろう。
+例えば落し穴に落ちると這い上がるまでの数ターンの間その場から動けなくなるであろう。
 そこに誰かが足を踏み入れて引っかかるか、`s'(search: 探す) コマンドで見つけるか
 して初めて罠は表示される。怪物も罠の餌食になることがある。これは非常に有効な
 防御戦術である。
@@ -1515,8 +1516,8 @@ NT, OS/2, PC NetHack では 'Alt' キーがこの目的に使われる.
 店の特殊な性質
 .pg
 .\"O Several aspects of shop behavior might be unexpected.
-.\"O .\" note: using * instead of \(bu is better for plain text output
 店のいくつかの性質は意外なものかもしれない。
+.\" note: using * instead of \(bu is better for plain text output
 .lp * 2
 .\"O The price of a given item can vary due to a variety of factors.
 アイテムの値段は色々な要素によって様々に変化する。
@@ -1598,7 +1599,7 @@ NT, OS/2, PC NetHack では 'Alt' キーがこの目的に使われる.
 もちろん、もし怪物が移動してしまっていたら、あなたの攻撃は空を切ることになる。
 もし怪物がすでに移動してしまっていると考え、戦いたくない場合は、
 `m'コマンドを使うことで戦うことなく移動できる。
-逆に、そこに怪物がいるかどうかわからないけれどもとにかく戦って見たい場合は、
+逆に、そこに怪物がいるかどうかわからないけれどもとにかく戦ってみたい場合は、
 `F'コマンドが使える。
 .hn 2
 .\"O Your pet
@@ -1653,7 +1654,7 @@ NT, OS/2, PC NetHack では 'Alt' キーがこの目的に使われる.
 ダンジョンにいるある種の生物は、あなたが正しい装備と能力を
 持っていれば、乗ることができる。
 野生の生物にあなたが乗ることを納得させるのは困難である。
-多くの洞窟の主は協力関係をでっち上げるのに魔法の力に頼らなければならない。
+多くの洞窟マニアは協力関係をでっち上げるのに魔法の力に頼らなければならない。
 .\"O Once you do have the beast under your control however, you can 
 .\"O easily climb in and out of the saddle with the `#ride' command.  Lead
 .\"O the beast around the dungeon when riding, in the same manner as 
@@ -1834,7 +1835,7 @@ NetHack では荷物の重さがどれくらい悪影響を与えるかを教えてくれる。
 殺そうとするだろう。自分の身を守る(先に怪物を殺してしまう)ために
 あなたは武器を必要とする。武器なしではポイントにして 1 ～ 2 のダメージ
 (いくらかの加算があるかも知れないが)を与えることしかできない。
-但し、モンクは例外である。モンクは武器を使って攻撃するよりも
+但し、武闘家は例外である。武闘家は武器を使って攻撃するよりも
 素手で攻撃した方が遥かに大きなダメージを与えることができる。
 .pg
 .\"O There are wielded weapons, like maces and swords, and thrown weapons,
@@ -2402,7 +2403,7 @@ NetHack のメール配達機能はシステムのメールボックスに電子メールが
 .\"O don't require a direction.
 指向性のある呪文の場合、呪文を唱える方向を指定する必要がある。
 方向として`.'または`s'を指定することで自分自身に対して呪文を唱えることもできる。
-しかし、これはしばしば愚かな行為である。
+しかし、これは大抵において愚かな行為である。
 指向性のない呪文の場合、方向を指定する必要はない。
 .pg
 .\"O Just as weapons are divided into groups in which a character can become
@@ -2438,7 +2439,7 @@ NetHack のメール配達機能はシステムのメールボックスに電子メールが
 .\"O be placed into or taken out of.
 道具はいろいろな目的に使う種々雑多な物である。杖などと同じように使用
 回数に制限のある物もある。例えばランプはしばらくたつと燃え尽きてしまう。
-その他の道具の中には容器も含まれており、物を出し入れすることができる。
+その他にも道具の中には箱や袋といったコンテナも含まれており、アイテムを出し入れすることができる。
 .pg
 .\"O The command to use tools is `a' (apply).
 道具を使うためのコマンドは `a'(apply: 道具を用いる) である。
@@ -2451,27 +2452,27 @@ NetHack のメール配達機能はシステムのメールボックスに電子メールが
 .\"O you are standing on top of it (that is, on the same floor spot),
 .\"O or with the `a' (apply) command when you are carrying it.  However,
 .\"O chests are often locked, and are in any case unwieldy objects.
-冒険の途中で鞄や箱やひつに出くわすこともあるであろう。
+冒険の途中で鞄や箱や宝箱に出くわすこともあるだろう。
 これらは置いてある場所に立っている場合には
 拡張コマンド「#loot」によって、
 また持っているときには `a'(apply: 道具を用いる) コマンドで開けることができる。
-しかしながらひつにはしばしば錠がかかっており、大抵は重くて運びにくい物体である。
+しかしながら宝箱には大体において鍵がかかっており、大抵は重くて運びにくい物体である。
 .\"O You must set one down before unlocking it by
 .\"O using a key or lock-picking tool with the `a' (apply) command,
 .\"O by kicking it with the `^D' command,
 .\"O or by using a weapon to force the lock with the ``#force'' extended command.
-ひつは手に持つことはできない物なので、
-錠をはずす(`a'(apply: 道具を用いる) コマンドで鍵や錠をはずす道具を使ったり、
+`a'(apply: 道具を用いる) コマンドで鍵や鍵開け道具を使ったり、
 `^D'コマンドで蹴とばしたり、
-拡張コマンド``#force''により武器を使ってこじ開けるなどの方法による)には
+拡張コマンド``#force''により武器を使ってこじ開けたりすることで
+宝箱の鍵をはずすにはそれを
 床に置かなくてはならない。
 .pg
 .\"O Some chests are trapped, causing nasty things to happen when you
 .\"O unlock or open them.  You can check for and try to deactivate traps
 .\"O with the ``#untrap'' extended command.
-ひつには罠が仕掛けられているものもあり、錠をはずしたりふたを開けたり
-したときに不快な出来事が起きる。拡張コマンド``#untrap''によってチェックを
-して罠が無効になるよう試みることができる。
+宝箱には罠が仕掛けられているものもあり、鍵をはずしたりふたを開けたり
+したときに不快な事が起きる。拡張コマンド``#untrap''によってチェック
+し、罠が無効になるよう試みることができる。
 .hn 2
 .\"O Amulets (`"')
 魔除け (`"')
@@ -2488,8 +2489,8 @@ NetHack のメール配達機能はシステムのメールボックスに電子メールが
 .pg
 .\"O The commands to use amulets are the same as for rings, `P' (put on)
 .\"O and `R' (remove).
-魔除けを使うためのコマンドは指輪の場合と同じく `P'(put on: 指輪を
-はめる) と `R'(remove: 指輪をはずす) である。
+魔除けを使うためのコマンドは指輪の場合と同じく `P'(put on: 着ける)
+と `R'(remove: はずす) である。
 .hn 2
 .\"O Gems (`*')
 宝石 (`*')
@@ -2515,7 +2516,7 @@ NetHack のメール配達機能はシステムのメールボックスに電子メールが
 .\"O Statues and boulders are not particularly useful, and are generally
 .\"O heavy.  It is rumored that some statues are not what they seem.
 彫像や巨石は特に有用ではないし、一般的に重いものである。
-見かけとは異なった彫像もあるという噂である。
+噂では、いくつかの彫像は見かけどおりではないそうである。
 .pg
 .\"O Very large humanoids (giants and their ilk) have been known to use boulders
 .\"O as weapons.
@@ -2529,12 +2530,12 @@ NetHack のメール配達機能はシステムのメールボックスに電子メールが
 .\"O There are a number
 .\"O of monsters in the dungeon that may be influenced by the amount of gold
 .\"O you are carrying (shopkeepers aside).
-迷宮にはあなたの持つお金に影響されるかもしれない数多くの怪物が
+洞窟にはあなたの持つお金に影響されるかもしれない数多くの怪物が
 いる(店主は別として)。
 
 .hn 1
 .\"O Conduct
-制限プレイ
+自発的挑戦
 .pg
 .\"O As if winning NetHack were not difficult enough, certain players
 .\"O seek to challenge themselves by imposing restrictions on the
@@ -2551,11 +2552,11 @@ NetHack のメール配達機能はシステムのメールボックスに電子メールが
 これらの挑戦の一部はゲームによって自動的に記録され、
 ゲーム中いつでも #conduct コマンドで確認できる。
 またゲーム終了時にも表示される。
-挑戦に反するような行動を取ると、もはやその挑戦は表示されない。l
+挑戦に反するような行動を取ると、もはやその挑戦は表示されない。
 これらの挑戦に勝利することによって、プレイヤーは追加の``自慢する権利''を
 得られる。
 なお、これらの制限に従うことなくゲームに勝利することも
-完全に有効であり、最初にゲームに勝利するときは普通これらの挑戦は関係ない。
+完全に有効であり、ゲームに初めて勝利するまでは普通これらの挑戦は関係ない。
 .pg
 .\"O Several of the challenges are related to eating behavior.  The most
 .\"O difficult of these is the foodless challenge.  Although creatures
@@ -2601,7 +2602,7 @@ NetHack のメール配達機能はシステムのメールボックスに電子メールが
 ブラックプリン以外のプリン(`P')、卵、卵から作られた食べ物
 (占いクッキーとパンケーキ)、牛乳から造られた食べ物
 (クリームパイとキャンディーバー)、ロイヤルゼリーを食べることができる。
-モンクは菜食主義者とみなされる。
+武闘家は菜食主義者とみなされる。
 .pg
 .\"O Eating any kind of meat violates the vegetarian, vegan, and foodless
 .\"O conducts.  This includes tripe rations, the corpses or tins of any
@@ -2656,7 +2657,7 @@ NetHack のメール配達機能はシステムのメールボックスに電子メールが
 .\"O attach no special meaning to them.
 無神論者は宗教を否定する。つまり、#pray(祈る), #offer(いけにえを捧げる),
 #turn (不死のものを戻す), 僧侶に対する #chat(話す)ことはできない。
-一部の読者はモンクや僧侶でプレイするのもこの制限に反していると主張するかもしれないが、
+一部の読者は武闘家や僧侶でプレイするのもこの制限に反していると主張するかもしれないが、
 ここではプレイヤーの選択の余地を残してある。
 イェンダーの魔除けを神に捧げるのはゲームに勝利するために必要なので
 制限には反しないものとする。
@@ -4512,7 +4513,7 @@ NetHack 3.0 は \fBEric R. Smith\fP によって Atari へ、
 \fBNorm Meluch、\fBStephen Spackman\fP、\fBPierre Martineau\fP は
 PC NetHack 3.0 のためのオーバーレイルーチンを設計した。
 \fBJohnny Lee\fP は NetHack 3.0 を Macintosh へ移植した。
-彼らは他のさまざまな洞窟の主たちとともに PC、Macintosh、Amiga 
+彼らは他のさまざまな洞窟マニアたちとともに PC、Macintosh、Amiga 
 の移植版の拡張を続け、 3.0 のその後のいくつかの改訂版を作成した。
 .pg
 .\"O Headed by \fBMike Stephenson\fP and coordinated by \fBIzchak Miller\fP and
@@ -4670,7 +4671,7 @@ Kevin は後に開発チームに加わり、これらのアイデアを NetHack 3.3 に統合した。
 まず、種族と職業を分離した最初のバージョンである。
 職業としてのエルフは削除され、種族の一つとなった。
 また、ドワーフ、ノーム、オークが種族として追加された。
-モンクとレンジャーの二つが職業として追加された。
+武闘家とレンジャーの二つが職業として追加された。
 さらに、動物に乗ることが出来る最初のバージョンでもあり、
 発見された全てのバグをウェブサイトで公表した最初のバージョンでもある。
 バグリストが順調に伸びていったにも関わらず、
@@ -4741,7 +4742,7 @@ NetHack 3.4.0 リリース直前の 2002 年 3 月に \fB Warwick Allison\fP が加わった。
 時々ネットワークの世界のどうしようもない連中が、
 ゲームの改良の手助けをしようとしてとりわけ興味をそそるような修正を送ってよこす。
 洞窟の神々は、ときにはこういった悪党のうちでも最も邪悪な連中の名前を
-洞窟の主たちの一覧としてここに記すのだ。
+洞窟マニアたちの一覧としてここに記すのだ。
 .sd
 .TS S
 center;
