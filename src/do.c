@@ -1048,7 +1048,7 @@ int retry;
 /*JP
 	n = query_category("Drop what type of items?",
 */
-	n = query_category("どの種類の道具を置きますか？",
+	n = query_category("どの種類のアイテムを置きますか？",
 			invent,
 			UNPAID_TYPES | ALL_TYPES | CHOOSE_ALL |
 			BUC_BLESSED | BUC_CURSED | BUC_UNCURSED | BUC_UNKNOWN,
