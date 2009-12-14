@@ -2370,58 +2370,69 @@ int rtype;
 	switch(rtype) {
 		case SHOPBASE:
 /*JP
-			return "general store";
+			return "a general store";
 */
 			return "G‰İ‰®";
 		case ARMORSHOP:
 /*JP
-			return "armor shop";
+			return "a armor shop";
 */
 			return "–h‹ï‰®";
 		case SCROLLSHOP:
 /*JP
-			return "scroll shop";
+			return "a scroll shop";
 */
 			return "Šª•¨‰®";
 		case POTIONSHOP:
 /*JP
-			return "potion shop";
+			return "a potion shop";
 */
 			return "–ò‰®";
 		case WEAPONSHOP:
 /*JP
-			return "weapon shop";
+			return "a weapon shop";
 */
 			return "•Ší‰®";
 		case FOODSHOP:
 /*JP
-			return "delicatessen";
+			return "a delicatessen";
 */
 			return "H•i“X";
 		case RINGSHOP:
 /*JP
-			return "jewelers";
+			return "a jewelers";
 */
 			return "•óü“X";
 		case WANDSHOP:
 /*JP
-			return "wand shop";
+			return "a wand shop";
 */
 			return "ñ‰®";
 		case BOOKSHOP:
 /*JP
-			return "bookstore";
+			return "a bookstore";
 */
 			return "–{‰®";
 		case CANDLESHOP:
 /*JP
-			return "lighting shop";
+			return "a lighting shop";
 */
 			return "Æ–¾“X";
+		case TOOLSHOP:
+/*JP
+			return "a tool shop";
+*/
+			return "“¹‹ï‰®";
+		case BLACKSHOP:
+/*JP
+			return "the Blackmarket";
+*/
+			return "ˆÅs";
 		default:
 			/* In case another patch adds a shop type that doesn't exist,
 			 * do something reasonable like "a shop".
 			 */
+			warning("Unknown shop number: %d", rtype);
 /*JP
 			return "shop";
 */
@@ -2554,7 +2565,7 @@ boolean printdun;
 			ADDNTOBUF("“X", mptr->feat.nshop)
 		else if (mptr->feat.nshop == 1)
 			Sprintf(eos(buf), "%s%s", COMMA, 
-				an(shop_string(mptr->feat.shoptype)));
+				shop_string(mptr->feat.shoptype));
 
 		/* Temples + non-temple altars get munged into just "altars" */
 		if (!mptr->feat.ntemple || mptr->feat.ntemple != mptr->feat.naltar)
