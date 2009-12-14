@@ -1,6 +1,7 @@
 Mon Dec 14 2009  Masaki Miyaso  <so-miya@sourceforge.jp>
-	* UnNetHack SVN版r356をベースにした。
+	* UnNetHack SVN版r357をベースにした。
 	  r356 patchlevelを3.5.2にした
+	  r357 パッチ：ダンジョンマップ概要3 (Hojita Discordiaより)
 
 Sun Dec 6 2009  Masaki Miyaso  <so-miya@sourceforge.jp>
 	* JUnNetHack-3.5.2-J0.2.1リリース
