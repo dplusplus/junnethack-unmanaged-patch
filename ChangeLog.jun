@@ -1,3 +1,7 @@
+Mon Dec 14 2009  Masaki Miyaso  <so-miya@sourceforge.jp>
+	* UnNetHack SVN版r356をベースにした。
+	  r356 patchlevelを3.5.2にした
+
 Sun Dec 6 2009  Masaki Miyaso  <so-miya@sourceforge.jp>
 	* JUnNetHack-3.5.2-J0.2.1リリース
 	* UnNetHack 3.5.2をベースにした。
