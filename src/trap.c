@@ -282,6 +282,7 @@ struct monst *victim;
 			  Blind ? "‚æ‚¤‚¾" : "");
 #endif
 	    }
+	    destroy_arm(otmp);
 	}
 	return(TRUE);
 }
