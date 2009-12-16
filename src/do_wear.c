@@ -1302,7 +1302,11 @@ dotakeoff()
 #endif
 		return 0;
 	}
-	if (armorpieces > 1)
+	if (armorpieces > 1
+#ifdef PARANOID
+	    || iflags.paranoid_remove
+#endif
+	    )
 		otmp = getobj(clothes, "take off");
 	if (otmp == 0) return(0);
 	if (!(otmp->owornmask & W_ARMOR)) {
@@ -1368,7 +1372,11 @@ doremring()
 #endif
 		return(0);
 	}
-	if (Accessories != 1) otmp = getobj(accessories, "remove");
+	if (Accessories != 1
+#ifdef PARANOID
+	    || iflags.paranoid_remove
+#endif
+	    ) otmp = getobj(accessories, "remove");
 	if(!otmp) return(0);
 	if(!(otmp->owornmask & (W_RING | W_AMUL | W_TOOL))) {
 /*JP

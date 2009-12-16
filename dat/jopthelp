@@ -68,6 +68,15 @@ rawio          I/Oを直接操作する(スタート時のみ設定可能)               [FALSE]
 checkspace     ディスクにファイルを書き込む前にディスクの空き容        [TRUE]
                量をチェックする。
 
+コンパイル時に PARANOID が設定されているならば:
+paranoid_hit   友好的なものを攻撃するとき明確に'yes'と入力させる。     [FALSE]
+
+コンパイル時に PARANOID が設定されているならば:
+paranoid_quit  ゲームをやめるとき明確に'yes'と入力させる。             [FALSE]
+
+コンパイル時に PARANOID が設定されているならば:
+paranoid_remove TおよびRコマンドにて常にメニューを表示する。           [FALSE]
+
 コンパイル時に SHOW_BORN が設定されているならば:
 showborn       倒した怪物数の後に生成された怪物数を表示する。          [FALSE]
 

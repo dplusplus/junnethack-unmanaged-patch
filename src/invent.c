@@ -838,6 +838,12 @@ static struct trans_verb wield =
     {"wield",	"‚Ç‚ê", "‚ğ", (void *)0}
 ;
 
+#ifdef PARANOID
+static struct trans_verb dip_into = 
+    {"dip into:",	"‚Ç‚ê", (void *)0, "Z‚·"}
+;
+#endif
+
 static struct trans_verb dummyverb = 
     {(void *)0,	"‚Ç‚ê", "‚ğ", (void *)0}
 ;
@@ -850,7 +856,15 @@ struct trans_verb
 	wield.jp = body_part(HANDED);
 	return &wield;
     }
-    
+
+#ifdef PARANOID
+    if(!strncmp(en, dip_into.en, strlen(dip_into.en))){
+	static char buf[BUFSZ];
+	Sprintf(buf, "‚É%s‚ğ", en+strlen(dip_into.en));
+	dip_into.particle = buf;
+	return &dip_into;
+    }
+#endif
 
     while(list->en){
 	if(!strcmp(en, list->en)){

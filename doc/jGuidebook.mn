@@ -3544,6 +3544,21 @@ NetHack のニュースファイルがあればそれを読む(標準設定はオン)。
 ``")[%?+!=/(*`0_'')。
 このオプションにはいろいろな物の種類を表す文字の列を設定する。
 設定されなかった種類は以前の順序で最後に表示される。
+.lp paranoid_hit
+.\"O If true, asks you to type the word ``yes'' when hitting any peaceful
+.\"O monster, not just the letter ``y''.
+有効にしたとき、友好的な怪物を攻撃するとき明確に``yes''と入力させる。
+``y''一文字は不可。
+.lp paranoid_quit
+.\"O If true, asks you to type the word ``yes'' when quitting or entering
+.\"O Explore mode, not just the letter ``y''.
+有効にしたとき、ゲームをやめたり探検モードに入るとき明確に``yes''と入力させる。
+``y''一文字は不可。
+.lp paranoid_remove
+.\"O If true, always show menu with the R and T commands even when there is
+.\"O only one item to remove or take off.
+有効にしたとき、TおよびRコマンドにて常にメニューを表示する。これは外したり
+脱いだりできるアイテムが一つしかないときにも有効である。
 .lp perm_invent
 .\"O If true, always display your current inventory in a window.  This only
 .\"O makes sense for windowing system interfaces that implement this feature.
