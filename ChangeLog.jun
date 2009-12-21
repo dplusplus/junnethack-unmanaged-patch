@@ -1,5 +1,5 @@
 Mon Dec 21 2009  Masaki Miyaso  <so-miya@sourceforge.jp>
-	* UnNetHack SVN版r363をベースにした。
+	* UnNetHack SVN版r364をベースにした。
 	  r356 patchlevelを3.5.2にした
 	  r357 パッチ：ダンジョンマップ概要3 (Hojita Discordiaより)
 	  r358 マップ概要に闇市と道具屋を追加
@@ -8,6 +8,8 @@ Mon Dec 21 2009  Masaki Miyaso  <so-miya@sourceforge.jp>
 	  r361 x11とmswinのGUI構成オプションを削除
 	  r362 偏執的確認パッチコードの改善
 	  r363 闇市：大地の巻物は効果減少
+	  r364 ダンジョン分岐の外にジャンプしようとしたときランダムなレベ
+	       ルテレポートをする
 
 Sun Dec 6 2009  Masaki Miyaso  <so-miya@sourceforge.jp>
 	* JUnNetHack-3.5.2-J0.2.1リリース

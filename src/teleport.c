@@ -1022,6 +1022,19 @@ level_tele()
 			"そして全ての持ち物を拾い上げた。" : "");
 #endif
 		return;
+#ifdef WIZARD
+	    } else if (!wizard && newlev > 0) {
+#else
+	    } else if (newlev > 0) {
+#endif
+		/* random teleport for destination level outside of the current dungeon branch */
+		if (newlev > dungeons[u.uz.dnum].depth_start + dunlevs_in_dungeon(&u.uz)) {
+/*JP
+			pline("Oops...");
+*/
+			pline("おっと．．．");
+			goto random_levtport;
+		}
 	    }
 
 	    /* if in Knox and the requested level > 0, stay put.
