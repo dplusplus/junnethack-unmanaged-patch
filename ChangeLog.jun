@@ -1,10 +1,11 @@
-Wed Dec 16 2009  Masaki Miyaso  <so-miya@sourceforge.jp>
-	* UnNetHack SVN版r360をベースにした。
+Mon Dec 21 2009  Masaki Miyaso  <so-miya@sourceforge.jp>
+	* UnNetHack SVN版r361をベースにした。
 	  r356 patchlevelを3.5.2にした
 	  r357 パッチ：ダンジョンマップ概要3 (Hojita Discordiaより)
 	  r358 マップ概要に闇市と道具屋を追加
 	  r359 完全に傷んだ防具は破壊するように
 	  r360 パッチ：偏執的確認パッチ (variousより)
+	  r361 x11とmswinのGUI構成オプションを削除
 
 Sun Dec 6 2009  Masaki Miyaso  <so-miya@sourceforge.jp>
 	* JUnNetHack-3.5.2-J0.2.1リリース
