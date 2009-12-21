@@ -232,30 +232,10 @@ int sig_unused;
 int
 done2()
 {
-#ifdef PARANOID
-	char buf[BUFSZ];
-	int really_quit = FALSE;
-
-	if (iflags.paranoid_quit) {
 /*JP
-		getlin ("Really quit [yes/no]?",buf);
+	if (paranoid_yn("Really quit?", iflags.paranoid_quit) == 'n') {
 */
-		getlin ("本当に [yes/no]？",buf);
-		(void) lcase (buf);
-		if (!(strcmp (buf, "yes"))) really_quit = TRUE;
-	} else {
-/*JP
-		if(yn("Really quit?") == 'y') really_quit = TRUE;
-*/
-		if(yn("本当に？") == 'y') really_quit = TRUE;
-	}
-	if (!really_quit) {
-#else /* PARANOID */
-/*JP
-	if(yn("Really quit?") == 'n') {
-*/
-	if(yn("本当に？") == 'n') {
-#endif /* PARANOID */
+	if (paranoid_yn("本当に？", iflags.paranoid_quit) == 'n') {
 #ifndef NO_SIGNAL
 		(void) signal(SIGINT, (SIG_RET_TYPE) done1);
 #endif
@@ -842,10 +822,6 @@ void
 done(how)
 int how;
 {
-#if defined(WIZARD) && defined(PARANOID)
-	char paranoid_buf[BUFSZ];
-	int really_bon = TRUE;
-#endif
 	boolean taken;
 	char kilbuf[BUFSZ], pbuf[BUFSZ];
 	winid endwin = WIN_ERR;
@@ -1166,23 +1142,10 @@ die:
 
 	if (bones_ok) {
 #ifdef WIZARD
-# ifdef PARANOID
-		if(wizard) {
 /*JP
-			getlin("Save WIZARD MODE bones? [yes/no]", paranoid_buf);
+	    if (!wizard || paranoid_yn("Save bones?", iflags.paranoid_quit) == 'y')
 */
-			getlin("ウィザードモードの骨をうめる？ [yes/no]", paranoid_buf);
-			(void) lcase (paranoid_buf);
-			if (strcmp (paranoid_buf, "yes"))
-				really_bon = FALSE;
-		}
-		if(really_bon)
-# else
-/*JP
-	    if (!wizard || yn("Save bones?") == 'y')
-*/
-	    if (!wizard || yn("骨をうめる？") == 'y')
-#endif /* PARANOID */
+	    if (!wizard || paranoid_yn("骨をうめる？", iflags.paranoid_quit) == 'y')
 #endif /* WIZARD */
 		savebones(corpse);
 	    /* corpse may be invalid pointer now so

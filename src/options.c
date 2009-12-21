@@ -157,9 +157,9 @@ static struct Bool_Opt
 	{"page_wait", (boolean *)0, FALSE, SET_IN_FILE},
 #endif
 #ifdef PARANOID
-	{"paranoid_hit", &iflags.paranoid_hit, FALSE, SET_IN_GAME},
-	{"paranoid_quit", &iflags.paranoid_quit, FALSE, SET_IN_GAME},
-	{"paranoid_remove", &iflags.paranoid_remove, FALSE, SET_IN_GAME},
+	{"paranoid_hit", &iflags.paranoid_hit, FALSE, SET_IN_FILE},
+	{"paranoid_quit", &iflags.paranoid_quit, FALSE, SET_IN_FILE},
+	{"paranoid_remove", &iflags.paranoid_remove, FALSE, SET_IN_FILE},
 #endif
 	{"perm_invent", &flags.perm_invent, FALSE, SET_IN_GAME},
 	{"pickup_thrown", &flags.pickup_thrown, TRUE, SET_IN_GAME},
@@ -480,6 +480,11 @@ static struct Comp_Opt
 #endif
 #endif /*JP*/
 #if 0 /*JP*/
+#ifdef PARANOID
+	{ "paranoid", "the kind of actions you want to be paranoid about",
+						1, /* not needed */
+						SET_IN_GAME },
+#endif
 	{ "pettype",  "your preferred initial pet type", 4, DISP_IN_GAME },
 	{ "pickup_burden",  "maximum burden picked up before prompt",
 						20, SET_IN_GAME },
@@ -488,6 +493,11 @@ static struct Comp_Opt
 	{ "player_selection", "choose character via dialog or prompts",
 						12, DISP_IN_GAME },
 #else /*JP*/
+#ifdef PARANOID
+	{ "paranoid", "厳密に確認したいと思っている動作の種類",
+						1, /* not needed */
+						SET_IN_GAME },
+#endif
 	{ "pettype",  "あなたの選択した初期ペットの種類", 4, DISP_IN_GAME },
 	{ "pickup_burden",  "拾うときに最大荷重になる手前で確認する",
 						20, SET_IN_GAME },
@@ -2467,6 +2477,70 @@ goodfruit:
 		if (badopt) badoption(opts);
 		return;
 	}
+
+#ifdef PARANOID
+	/* things the player want an extended yes/no answer to */
+	fullname = "paranoid";
+	if (match_optname(opts, fullname, 8, TRUE)) {
+		boolean badopt = FALSE;
+		int prefix_val;
+
+		op = string_for_opt(opts, TRUE);
+		if (op && negated) {
+			bad_negation(fullname, TRUE);
+			return;
+		}
+		/* "paranoid" without a value means "all"
+		   and negated means "none" */
+		if (!op || !strcmpi(op, "all") || !strcmpi(op, "none")) {
+			if (op && !strcmpi(op, "none")) negated = TRUE;
+			boolean value = negated ? FALSE : TRUE;
+			iflags.paranoid_hit = value;
+			iflags.paranoid_quit = value;
+			iflags.paranoid_remove = value;
+			return;
+		}
+
+		/* check for "+option1 -option2" */
+		prefix_val = -1;
+		while (*op) {
+			boolean check = FALSE, value = FALSE;
+			register char c;
+			c = *op;
+			if (c == '+') {
+				check = TRUE;
+				value = TRUE;
+			} else if (c == '-') {
+				check = TRUE;
+				value = FALSE;
+			} else if (c == ' ') {
+				/* do nothing */
+				check = FALSE;
+			} else {
+				badopt = TRUE;
+			}
+			op++;
+			if (check) {
+				if (!strncmp(op, "hit", 3)) {
+					iflags.paranoid_hit = value;
+					op += 3;
+				} else if (!strncmp(op, "quit", 4)) {
+					iflags.paranoid_quit = value;
+					op += 4;
+				} else if (!strncmp(op, "remove", 6)) {
+					iflags.paranoid_remove = value;
+					op += 6;
+				} else {
+					badopt = TRUE;
+				}
+			}
+		}
+
+		if (badopt) badoption(opts);
+		return;
+	}
+#endif
+
 #if 1 /*JP*/
         if (!strncmpi(opts, "kcode", 3)){
 	    if ((op = string_for_env_opt("kcode", opts, FALSE)) != 0){
@@ -3314,6 +3388,53 @@ boolean setinitial,setfromfile;
 	/* parseoptions will prompt for the list of types */
 	parseoptions(strcpy(buf, "pickup_types"), setinitial, setfromfile);
 	retval = TRUE;
+#ifdef PARANOID
+    } else if (!strcmp("paranoid", optname)) {
+	int pick_cnt, pick_idx, opt_idx;
+	menu_item *paranoid_category_pick = (menu_item *)0;
+
+	static const char *paranoid_names[] = {
+/*JP
+		"hit", "quit", "remove"
+*/
+		"hit    (友好攻撃)", "quit   (ゲーム中止)", "remove (装備外し)"
+	};
+	#define NUM_PARANOID_OPTIONS SIZE(paranoid_names)
+	static boolean *paranoid_bools[NUM_PARANOID_OPTIONS];
+	paranoid_bools[0] = &iflags.paranoid_hit;
+	paranoid_bools[1] = &iflags.paranoid_quit;
+	paranoid_bools[2] = &iflags.paranoid_remove;
+	int paranoid_settings[NUM_PARANOID_OPTIONS];
+
+	tmpwin = create_nhwindow(NHW_MENU);
+	start_menu(tmpwin);
+	for (i = 0; i < NUM_PARANOID_OPTIONS; i++) {
+		any.a_int = i + 1;
+		add_menu(tmpwin, NO_GLYPH, &any, paranoid_names[i][0], 0,
+		         ATR_NONE, paranoid_names[i],
+		         *paranoid_bools[i] ? MENU_SELECTED : MENU_UNSELECTED);
+		paranoid_settings[i] = 0;
+	}
+/*JP
+	end_menu(tmpwin, "Change which paranoid settings:");
+*/
+	end_menu(tmpwin, "どの厳密な確認設定を変更しますか：");
+	if ((pick_cnt = select_menu(tmpwin, PICK_ANY, &paranoid_category_pick)) > 0) {
+		for (pick_idx = 0; pick_idx < pick_cnt; ++pick_idx) {
+			opt_idx = paranoid_category_pick[pick_idx].item.a_int - 1;
+			paranoid_settings[opt_idx] = 1;
+		}
+		free((genericptr_t)paranoid_category_pick);
+		paranoid_category_pick = (menu_item *)0;
+	}
+	destroy_nhwindow(tmpwin);
+
+	iflags.paranoid_hit = paranoid_settings[0];
+	iflags.paranoid_quit = paranoid_settings[1];
+	iflags.paranoid_remove = paranoid_settings[2];
+
+	retval = TRUE;
+#endif
     } else if (!strcmp("disclose", optname)) {
 	int pick_cnt, pick_idx, opt_idx;
 	menu_item *disclosure_category_pick = (menu_item *)0;
@@ -3955,6 +4076,19 @@ char *buf;
 #ifdef CHANGE_COLOR
 	else if (!strcmp(optname, "palette")) 
 		Sprintf(buf, "%s", get_color_string());
+#endif
+#ifdef PARANOID
+	else if (!strcmp(optname, "paranoid"))
+		Sprintf(buf, "%s%s %s%s %s%s",
+#if 0 /*JP*/
+			iflags.paranoid_hit ? "+" : "-", "hit",
+			iflags.paranoid_quit ? "+" : "-", "quit",
+			iflags.paranoid_remove ? "+" : "-", "remove");
+#else
+			iflags.paranoid_hit ? "+" : "-", "友好攻撃",
+			iflags.paranoid_quit ? "+" : "-", "ゲーム中止",
+			iflags.paranoid_remove ? "+" : "-", "装備外し");
+#endif
 #endif
 	else if (!strcmp(optname, "pettype")) 
 #if 0 /*JP*/
