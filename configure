@@ -2073,8 +2073,8 @@ fi
     nethack_wins="tty $nethack_wins"
   fi
 #NETHACK_WIN_ENABLE(x11, no)
-enable_x11_graphics="no"
 #NETHACK_WIN_ENABLE(mswin, no, [use Microsoft Window's native graphics])
+enable_x11_graphics="no"
 enable_mswin_graphics="no"
 
 ac_ext=c
