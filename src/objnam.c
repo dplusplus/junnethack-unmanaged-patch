@@ -691,10 +691,20 @@ register struct obj *obj;
 */
 				Strcat(buf, obj->blessed ? "êπ" : "ïsèÚÇ»");
 			    }
+			    /* work around for potion alchemy bug that lets one
+			     * alchemize potions in unused range */
+			    if (actualn) {
 /*JP
-			    Strcat(buf, actualn);
+				Strcat(buf, actualn);
 */
-			    Strcat(buf, jactualn);
+				Strcat(buf, jactualn);
+			    } else {
+				warning("inexistant potion %d", obj->otyp);
+/*JP
+				Strcat(buf, "inexistant");
+*/
+				Strcat(buf, "îÒë∂ç›");
+			    }
 			} else {
 #if 0 /*JP*/
 				Strcat(buf, " called ");

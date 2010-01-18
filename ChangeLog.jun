@@ -1,4 +1,4 @@
-Sun Dec 6 2009  Masaki Miyaso  <so-miya@sourceforge.jp>
+Mon Jan 18 2010  Masaki Miyaso  <so-miya@sourceforge.jp>
 	* JUnNetHack-3.5.2-J0.2.1リリース
 	* UnNetHack 3.5.2をベースにした。
 	  r208 スキルレベルを増やした。
@@ -155,6 +155,7 @@ Sun Dec 6 2009  Masaki Miyaso  <so-miya@sourceforge.jp>
 	  r350 盲目時にイェンダーの魔除けが瞬間移動したときのメッセージ
 	  r352 さまよう目の配色を明るい緑に変更
 	  r354 Windowsコンソール時のCLR_BLACK対応色の修正
+	  r372 修正: 存在しない薬で錬金術をしない
 	* バグ修正 [#18365] 扉を鍵開け器具で開けようとすると落ちる。
 	* バグ修正 [#18372] 指輪の未識別名が一部未訳
 	* バグ修正 [#18413] 施錠しようとすると落ちる
