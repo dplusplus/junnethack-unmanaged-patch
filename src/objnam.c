@@ -580,6 +580,12 @@ register struct obj *obj;
 			}
 			if (!f) warning("Bad fruit #%d?", obj->spe);
 			break;
+		} else if (typ == CREAM_PIE && piday()) {
+/*JP
+			Strcpy(buf, "irrational pie");
+*/
+			Strcpy(buf, "ƒNƒŠ[ƒ€ƒÎ");
+			break;
 		}
 
 #if 0 /*JP*/

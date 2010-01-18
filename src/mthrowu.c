@@ -523,10 +523,15 @@ m_throw(mon, x, y, dx, dy, range, obj)
 					AT_SPIT : AT_WEAP), singleobj)) {
 			blindinc = rnd(25);
 			if(singleobj->otyp == CREAM_PIE) {
-/*JP
-			    if(!Blind) pline("Yecch!  You've been creamed.");
-*/
-			    if(!Blind) pline("ウェー。クリームをかぶった。");
+#if 0 /*JP*/
+			    if(!Blind) pline("Yecch!  You've been %s.",
+			                     piday() ? "pied" : "creamed");
+#else
+				/* (円周率)pi と pie(クリームパイ) と pied(まだら模様) を
+				 * かけてあるのだが・・・訳が難しい。 */
+			    if(!Blind) pline("ウェー！ %s。",
+			                     piday() ? "πまみれだ" : "クリームをかぶった");
+#endif /*JP*/
 #if 0 /*JP*/
 			    else pline("There's %s sticky all over your %s.",
 				       something,
