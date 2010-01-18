@@ -433,10 +433,11 @@ VOBJ20 = $(O)rnd.o      $(O)role.o     $(O)rumors.o   $(O)save.o
 VOBJ21 = $(O)shk.o      $(O)shknam.o   $(O)sit.o      $(O)sounds.o  
 VOBJ22 = $(O)sp_lev.o   $(O)spell.o    $(O)steal.o    $(O)steed.o   
 VOBJ23 = $(O)teleport.o $(O)timeout.o  $(O)topten.o   $(O)track.o   
-VOBJ24 = $(O)trap.o     $(O)u_init.o   $(O)uhitm.o    $(O)vault.o   
-VOBJ25 = $(O)vis_tab.o  $(O)vision.o   $(O)weapon.o   $(O)were.o    
-VOBJ26 = $(O)wield.o    $(O)windows.o  $(O)wizard.o   $(O)worm.o    
-VOBJ27 = $(O)worn.o     $(O)write.o    $(O)zap.o      $(O)livelog.o
+VOBJ24 = $(O)trap.o     $(O)tutorial.o $(O)u_init.o   $(O)uhitm.o   
+VOBJ25 = $(O)vault.o    $(O)vis_tab.o  $(O)vision.o   $(O)weapon.o  
+VOBJ26 = $(O)were.o     $(O)wield.o    $(O)windows.o  $(O)wizard.o  
+VOBJ27 = $(O)worm.o     $(O)worn.o     $(O)write.o    $(O)zap.o     
+VOBJ28 = $(O)livelog.o
 
 DLBOBJ = $(O)dlb.o
 
@@ -450,7 +451,7 @@ OBJS   = $(VOBJ01) $(VOBJ02) $(VOBJ03) $(VOBJ04) $(VOBJ05) \
          $(VOBJ11) $(VOBJ12) $(VOBJ13) $(VOBJ14) $(VOBJ15) \
          $(VOBJ16) $(VOBJ17) $(VOBJ18) $(VOBJ19) $(VOBJ20) \
          $(VOBJ21) $(VOBJ22) $(VOBJ23) $(VOBJ24) $(VOBJ25) \
-         $(VOBJ26) $(VOBJ27)
+         $(VOBJ26) $(VOBJ27) $(VOBJ28)
 
 TILOBJ = $(WINPORT)
 
@@ -482,7 +483,8 @@ HACK_H = $(INCL)\hack.h $(CONFIG_H) $(INCL)\align.h \
 		$(INCL)\objclass.h $(INCL)\youprop.h $(INCL)\prop.h \
 		$(INCL)\permonst.h $(INCL)\monattk.h \
 		$(INCL)\monflag.h $(INCL)\mondata.h $(INCL)\pm.h \
-		$(INCL)\wintype.h $(INCL)\decl.h $(INCL)\quest.h \
+		$(INCL)\wintype.h $(INCL)\decl.h \
+		$(INCL)\quest.h $(INCL)\qtext.h \
 		$(INCL)\spell.h $(INCL)\color.h $(INCL)\obj.h \
 		$(INCL)\you.h $(INCL)\attrib.h $(INCL)\monst.h \
 		$(INCL)\skills.h $(INCL)\onames.h $(INCL)\timeout.h \
@@ -1369,8 +1371,8 @@ $(O)potion.o: potion.c $(HACK_H)
 $(O)pray.o: pray.c $(HACK_H) $(INCL)\epri.h
 $(O)priest.o: priest.c $(HACK_H) $(INCL)\mfndpos.h $(INCL)\eshk.h \
 		$(INCL)\epri.h $(INCL)\emin.h
-$(O)quest.o: quest.c $(HACK_H) $(INCL)\qtext.h
-$(O)questpgr.o: questpgr.c $(HACK_H) $(INCL)\dlb.h $(INCL)\qtext.h
+$(O)quest.o: quest.c $(HACK_H)
+$(O)questpgr.o: questpgr.c $(HACK_H) $(INCL)\dlb.h
 $(O)read.o: read.c $(HACK_H)
 $(O)rect.o: rect.c $(HACK_H)
 $(O)region.o: region.c $(HACK_H) $(INCL)\lev.h
@@ -1393,6 +1395,7 @@ $(O)timeout.o: timeout.c $(HACK_H) $(INCL)\lev.h
 $(O)topten.o: topten.c $(HACK_H) $(INCL)\dlb.h $(INCL)\patchlevel.h
 $(O)track.o: track.c $(HACK_H)
 $(O)trap.o: trap.c $(HACK_H)
+$(O)tutorial.o: tutorial.c $(HACK_H)
 $(O)u_init.o: u_init.c $(HACK_H)
 $(O)uhitm.o: uhitm.c $(HACK_H)
 $(O)vault.o: vault.c $(HACK_H) $(INCL)\vault.h
@@ -1403,7 +1406,7 @@ $(O)weapon.o: weapon.c $(HACK_H)
 $(O)were.o: were.c $(HACK_H)
 $(O)wield.o: wield.c $(HACK_H)
 $(O)windows.o: windows.c $(HACK_H) $(INCL)\wingem.h $(INCL)\winGnome.h
-$(O)wizard.o: wizard.c $(HACK_H) $(INCL)\qtext.h
+$(O)wizard.o: wizard.c $(HACK_H)
 $(O)worm.o: worm.c $(HACK_H) $(INCL)\lev.h
 $(O)worn.o: worn.c $(HACK_H)
 $(O)write.o: write.c $(HACK_H)

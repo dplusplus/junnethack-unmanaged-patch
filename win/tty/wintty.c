@@ -340,6 +340,7 @@ tty_player_selection()
 {
 	int i, k, n;
 	char pick4u = 'n', thisch, lastch = 0;
+	boolean tutorial = FALSE;
 	char pbuf[QBUFSZ], plbuf[QBUFSZ];
 	winid win;
 	anything any;
@@ -355,13 +356,17 @@ tty_player_selection()
 	    int echoline;
 	    char *prompt = build_plselection_prompt(pbuf, QBUFSZ, flags.initrole,
 				flags.initrace, flags.initgend, flags.initalign);
-
+/*JP
+	    tty_putstr(BASE_WINDOW, 0, "New? Press T to enter a tutorial.");
+*/
+	    tty_putstr(BASE_WINDOW, 0, "ご新規さん？ Tを押せばチュートリアルを開始します。");
 	    tty_putstr(BASE_WINDOW, 0, "");
 	    echoline = wins[BASE_WINDOW]->cury;
 	    tty_putstr(BASE_WINDOW, 0, prompt);
 	    do {
 		pick4u = lowc(readchar());
 		if (index(quitchars, pick4u)) pick4u = 'y';
+		if (pick4u == 't') {pick4u = 'y'; tutorial = TRUE;}
 	    } while(!index(ynqchars, pick4u));
 	    if ((int)strlen(prompt) + 1 < CO) {
 		/* Echo choice and move back down line */
@@ -382,6 +387,74 @@ give_up:	/* Quit */
 		/*NOTREACHED*/
 		return;
 	    }
+	}
+
+	if (tutorial) {
+	    tty_clear_nhwindow(BASE_WINDOW);
+/*JP
+	    tty_putstr(BASE_WINDOW, 0, "Choose a Character");
+*/
+	    tty_putstr(BASE_WINDOW, 0, "キャラクターの選択");
+	    win = create_nhwindow(NHW_MENU);
+	    start_menu(win);
+	    any.a_int = 1;
+	    add_menu(win, NO_GLYPH, &any, 'v', 0, ATR_NONE,
+/*JP
+		     "lawful female dwarf Valkyrie (uses melee and thrown weapons)",
+*/
+		     "秩序のワルキューレ(ドワーフの女性) (直接攻撃と投擲武器が得意)",
+		     MENU_UNSELECTED);
+	    any.a_int = 2;
+	    add_menu(win, NO_GLYPH, &any, 'w', 0, ATR_NONE,
+/*JP
+		     "chaotic male elf Wizard      (relies mostly on spells)",
+*/
+		     "混沌の魔法使い(エルフの男性)       (ほとんど呪文に依存)",
+		     MENU_UNSELECTED);
+	    any.a_int = 3;
+	    add_menu(win, NO_GLYPH, &any, 'R', 0, ATR_NONE,
+/*JP
+		     "neutral female human Ranger  (good with ranged combat)",
+*/
+		     "中立のレンジャー(人間の女性)       (遠距離戦が得意)",
+		     MENU_UNSELECTED);
+	    any.a_int = 4;
+	    add_menu(win, NO_GLYPH, &any, 'q', 0, ATR_NONE,
+/*JP
+		     "quit", MENU_UNSELECTED);
+*/
+		     "やめる", MENU_UNSELECTED);
+/*JP
+	    end_menu(win, "What character do you want to try?");
+*/
+	    end_menu(win, "どのキャラクターを試してみたいですか？");
+	    n = select_menu(win, PICK_ONE, &selected);
+	    destroy_nhwindow(win);
+	    if (n != 1 || selected[0].item.a_int == 4) goto give_up;
+	    switch (selected[0].item.a_int) {
+	    case 1:
+		flags.initrole = str2role("Valkyrie");
+		flags.initrace = str2race("dwarf");
+		flags.initgend = str2gend("female");
+		flags.initalign = str2align("lawful");
+		break;
+	    case 2:
+		flags.initrole = str2role("Wizard");
+		flags.initrace = str2race("elf");
+		flags.initgend = str2gend("male");
+		flags.initalign = str2align("chaotic");
+		break;
+	    case 3:
+		flags.initrole = str2role("Ranger");
+		flags.initrace = str2race("human");
+		flags.initgend = str2gend("female");
+		flags.initalign = str2align("neutral");
+		break;
+	    default: panic("Impossible menu selection"); break;
+	    }
+	    free((genericptr_t) selected);
+	    selected = 0;
+	    flags.tutorial = 1;
 	}
 
 	(void)  root_plselection_prompt(plbuf, QBUFSZ - 1,

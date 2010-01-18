@@ -1,5 +1,5 @@
-Tue Jan 12 2010  Masaki Miyaso  <so-miya@sourceforge.jp>
-	* UnNetHack SVN版r367をベースにした。
+Mon Jan 18 2010  Masaki Miyaso  <so-miya@sourceforge.jp>
+	* UnNetHack SVN版r369をベースにした。
 	  r356 patchlevelを3.5.3にした
 	  r357 パッチ：ダンジョンマップ概要3 (Hojita Discordiaより)
 	  r358 マップ概要に闇市と道具屋を追加
@@ -13,6 +13,9 @@ Tue Jan 12 2010  Masaki Miyaso  <so-miya@sourceforge.jp>
 	  r365 ランダムな扉の設置時のエラーを修正
 	  r366 configure修正によるタイルの完全無効化
 	  r367 lev_compによる"Invalid monster name"警告の修正
+	  r368 パッチ：チュートリアルモード(Alex Smithより)
+	  r369 デバッグコードの削除によりチュートリアルメッセージの再表示
+	       を修正
 
 Sun Dec 6 2009  Masaki Miyaso  <so-miya@sourceforge.jp>
 	* JUnNetHack-3.5.2-J0.2.1リリース

@@ -2669,6 +2669,7 @@ register boolean newlev;
 			verbalize("おお%s、デルファイの神託所によくぞまいられた！",
 					plname);
 #endif
+		    check_tutorial_message(QT_T_ORACLE);
 		    break;
 		case TEMPLE:
 		    intemple(roomno + ROOMOFFSET);

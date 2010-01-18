@@ -1609,9 +1609,9 @@ char *buf;
 int buflen, rolenum, racenum, gendnum, alignnum;
 {
 /*JP
-	const char *defprompt = "Shall I pick a character for you? [ynq] ";
+	const char *defprompt = "Shall I pick a character for you? [yntq] ";
 */
-	const char *defprompt = "適当にキャラクタを選んでよいですか？[ynq] ";
+	const char *defprompt = "適当にキャラクタを選んでよいですか？[yntq] ";
 	int num_post_attribs = 0;
 	char tmpbuf[BUFSZ];
 	
@@ -1673,9 +1673,9 @@ int buflen, rolenum, racenum, gendnum, alignnum;
 		}
 	}
 /*JP
-	Strcat(buf, " for you? [ynq] ");
+	Strcat(buf, " for you? [yntq] ");
 */
-	Strcat(buf, "を適当に選んでよろしいですか？[ynq] ");
+	Strcat(buf, "を適当に選んでよろしいですか？[yntq] ");
 	return buf;
 }
 

@@ -588,6 +588,7 @@ register int x,y;
 		      (Blind) ? "ŽŸ‚Ì‚æ‚¤‚ÉŠ´‚¶‚½" : "“Ç‚ñ‚¾",  et);
 #endif
 		if(flags.run > 1) nomul(0, 0);
+		if (moves > 5) check_tutorial_message(QT_T_ENGRAVING);
 	    }
 	}
 }

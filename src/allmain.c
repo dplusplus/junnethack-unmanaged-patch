@@ -466,6 +466,7 @@ moveloop()
 #ifdef MAIL
 	    ckmailstatus();
 #endif
+            maybe_tutorial();
 	    rhack((char *)0);
 	}
 	if (u.utotype)		/* change dungeon level */

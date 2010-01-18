@@ -1041,6 +1041,8 @@ do_look(quick)
 	    pline("そんな名前は聞いたことがない。");
 	}
 
+	if (quick) check_tutorial_farlook(cc.x, cc.y);
+
     } while (from_screen && !quick && ans != LOOK_ONCE);
 
     flags.verbose = save_verbose;
@@ -1057,6 +1059,10 @@ dowhatis()
 int
 doquickwhatis()
 {
+	if(iflags.num_pad)
+		check_tutorial_message(QT_T_CURSOR_NUMPAD);
+	else
+		check_tutorial_message(QT_T_CURSOR_VIKEYS);
 	return do_look(TRUE);
 }
 
@@ -1190,12 +1196,14 @@ static const char *help_menu_items[] = {
 /* 6*/	"Longer explanation of game options.",
 /* 7*/	"List of extended commands.",
 /* 8*/	"The NetHack license.",
+/* 9*/  "Redisplay tutorial messages.",
+#define TUTHLP_SLOT 9
 #ifdef PORT_HELP
 	"%s-specific help and commands.",
 #define PORT_HELP_ID 100
-#define WIZHLP_SLOT 10
+#define WIZHLP_SLOT 11
 #else
-#define WIZHLP_SLOT 9
+#define WIZHLP_SLOT 10
 #endif
 #ifdef WIZARD
 	"List of wizard-mode commands.",
@@ -1211,12 +1219,14 @@ static const char *help_menu_items[] = {
 /* 6*/	"ゲームのオプション一覧。(長文)",
 /* 7*/	"拡張コマンド一覧。",
 /* 8*/	"NetHackのライセンス。",
+/* 9*/  "チュートリアルメッセージの再表示。",
+#define TUTHLP_SLOT 9
 #ifdef PORT_HELP
 	"%sに特有のヘルプおよびコマンド。",
 #define PORT_HELP_ID 100
-#define WIZHLP_SLOT 10
+#define WIZHLP_SLOT 11
 #else
-#define WIZHLP_SLOT 9
+#define WIZHLP_SLOT 10
 #endif
 #ifdef WIZARD
 	"ウィザードモードのコマンド一覧。",
@@ -1256,6 +1266,7 @@ help_menu(sel)
 #endif
 	    {
 		any.a_int = (*help_menu_items[i]) ? i+1 : 0;
+		if (flags.tutorial || i != TUTHLP_SLOT)
 		add_menu(tmpwin, NO_GLYPH, &any, 0, 0,
 			ATR_NONE, help_menu_items[i], MENU_UNSELECTED);
 	    }
@@ -1289,8 +1300,9 @@ dohelp()
 			case  6:  display_file(OPTIONFILE, TRUE);  break;
 			case  7:  (void) doextlist();  break;
 			case  8:  display_file(LICENSE, TRUE);  break;
+			case  9:  tutorial_redisplay();  break;
 #ifdef WIZARD
-			/* handle slot 9 or 10 */
+			/* handle slot 10 or 11 */
 			default: display_file(DEBUGHELP, TRUE);  break;
 #endif
 #ifdef PORT_HELP
