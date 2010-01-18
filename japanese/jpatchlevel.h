@@ -9,5 +9,5 @@
 
 #define JVERSION_MAJOR	0
 #define JVERSION_MINOR	2
-#define JPATCHLEVEL	1
+#define JPATCHLEVEL	2
 #define JEDITLEVEL	0

@@ -658,10 +658,13 @@ boolean new_game;	/* false => restoring an old game */
 #else
     if(new_game){
 	pline("%s、UnNetHackの世界へ！このゲームではあなたは%sの%s(%s)だ。",
-	      Hello((struct monst *) 0, TRUE), urace.j, role_name, buf);
+	      Hello((struct monst *) 0, TRUE), urace.j,
+	      (currentgend && urole.jname.f) ? urole.jname.f : urole.jname.m,
+	      buf);
     } else {
 	pline("%s、UnNetHackの世界へ！あなたは%sの%sだ！",
-	      Hello((struct monst *) 0, TRUE), urace.j, role_name);
+	      Hello((struct monst *) 0, TRUE), urace.j,
+	      (currentgend && urole.jname.f) ? urole.jname.f : urole.jname.m);
     }
 #endif
 #ifdef LIVELOGFILE
