@@ -858,8 +858,9 @@ cast_protection()
 		else
 #if 0 /*JP*/
 		    pline_The("%s around you begins to shimmer with %s haze.",
-			/*[ what about being inside solid rock while polyd? ]*/
-			(Underwater || Is_waterlevel(&u.uz)) ? "water" : "air",
+			(Underwater || Is_waterlevel(&u.uz)) ? "water" :
+			 u.uswallow ? mbodypart(u.ustuck, STOMACH) :
+			 IS_STWALL(levl[u.dx][u.dy].typ) ? "stone" : "air",
 			      an(hgolden));
 #else
 		    pline("‚ ‚È‚½‚Ì‚Ü‚í‚è‚É%s–¶‚ª‚ ‚ç‚í‚ê‚ÄƒLƒ‰ƒLƒ‰‚ÆŒõ‚Á‚½B",

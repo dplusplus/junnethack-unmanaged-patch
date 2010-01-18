@@ -1,5 +1,5 @@
 Mon Jan 18 2010  Masaki Miyaso  <so-miya@sourceforge.jp>
-	* UnNetHack SVN版r379をベースにした。
+	* UnNetHack SVN版r380をベースにした。
 	  r356 patchlevelを3.5.3にした
 	  r357 パッチ：ダンジョンマップ概要3 (Hojita Discordiaより)
 	  r358 マップ概要に闇市と道具屋を追加
@@ -23,6 +23,8 @@ Mon Jan 18 2010  Masaki Miyaso  <so-miya@sourceforge.jp>
 	  r377 床の上にアイテムが複数ある場合反転表示する
 	  r378 闇市：闘争を引き起こしているとSamを怒らせる
 	  r379 SHOPTYPE：店名で生成可能にする
+	  r380 修正: C343-235 プレイヤーが飲み込まれていたり岩盤の中にいた
+	       りする時に守りの呪文を唱えると、不適切なメッセージが出る
 	* 起動時の職業名が翻訳されなくなっていたのを修正
 
 Sun Dec 6 2009  Masaki Miyaso  <so-miya@sourceforge.jp>
