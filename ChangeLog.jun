@@ -18,6 +18,7 @@ Mon Jan 18 2010  Masaki Miyaso  <so-miya@sourceforge.jp>
 	       を修正
 	  r370 チュートリアル：UnNetHackの仕様どおりにする変更と少々の書式
 	       修正
+	* 起動時の職業名が翻訳されなくなっていたのを修正
 
 Sun Dec 6 2009  Masaki Miyaso  <so-miya@sourceforge.jp>
 	* JUnNetHack-3.5.2-J0.2.1リリース
