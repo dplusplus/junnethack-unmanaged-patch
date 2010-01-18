@@ -1,5 +1,5 @@
 Mon Jan 18 2010  Masaki Miyaso  <so-miya@sourceforge.jp>
-	* UnNetHack SVN版r375をベースにした。
+	* UnNetHack SVN版r376をベースにした。
 	  r356 patchlevelを3.5.3にした
 	  r357 パッチ：ダンジョンマップ概要3 (Hojita Discordiaより)
 	  r358 マップ概要に闇市と道具屋を追加
@@ -19,6 +19,7 @@ Mon Jan 18 2010  Masaki Miyaso  <so-miya@sourceforge.jp>
 	  r370 チュートリアル：UnNetHackの仕様どおりにする変更と少々の書式
 	       修正
 	  r375 チュートリアル：ダンジョンの構成表示の文章追加
+	  r376 いくつかのimpossible()をwarning()に置換
 	* 起動時の職業名が翻訳されなくなっていたのを修正
 
 Sun Dec 6 2009  Masaki Miyaso  <so-miya@sourceforge.jp>
