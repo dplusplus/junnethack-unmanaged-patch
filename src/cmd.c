@@ -1426,7 +1426,7 @@ int final;	/* 0 => still in progress; 1 => over, survived; 2 => dead */
 		you_are("ineffectively protected");
 */
 		you_are_ing("•s\•ª‚ÉŽç‚ç‚ê‚Ä");
-	    else
+	    else if (prot > 0)
 /*JP
 		you_are("protected");
 */
