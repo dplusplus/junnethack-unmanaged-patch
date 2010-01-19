@@ -326,7 +326,7 @@ mattackm(magr, mdef)
           (touch_disintegrates(mdef->data) &&
            (mattk->aatyp == AT_WEAP || !(resists_disint(magr))) ) ||
 #endif 
-		    mattk->aatyp != AT_WEAP && touch_petrifies(mdef->data))) {
+		    (mattk->aatyp != AT_WEAP && touch_petrifies(mdef->data)))) {
 		    strike = 0;
 		    break;
 		}
@@ -715,7 +715,7 @@ defdisintagr(magr, mdef, mattk)
 		switch (attk_protection((int)mattk->aatyp)) {
 			/* this is in dire need of optimization */
 			case (W_ARMC|W_ARMG):
-				if (otch = which_armor(magr, W_ARMG)) {
+				if ((otch = which_armor(magr, W_ARMG))) {	
 					if (!oresist_disintegration(otch)) {
 						if (canseemon(magr))
 #if 0 /*JP*/
@@ -731,7 +731,7 @@ defdisintagr(magr, mdef, mattk)
 						touched = 1;
 					}
 				} else touched = 1;
-				if (otch = which_armor(magr, W_ARMC)) {
+				if ((otch = which_armor(magr, W_ARMC))) {
 					if (!oresist_disintegration(otch)) {
 						if (canseemon(magr))
 #if 0 /*JP*/
@@ -792,7 +792,7 @@ defdisintagr(magr, mdef, mattk)
 						m_useup(magr,otmp);
 						tmp = 0;
 					}
-				} else if (otch = which_armor(magr,W_ARMG)) {
+				} else if ((otch = which_armor(magr,W_ARMG))) {
 					if (!oresist_disintegration(otch)) {
 						if (canseemon(magr))
 #if 0 /*JP*/
@@ -809,7 +809,7 @@ defdisintagr(magr, mdef, mattk)
 				} else touched = 1;
 				break;
 			case (W_ARMH):
-				if (otch = which_armor(magr,W_ARMH)) {
+				if ((otch = which_armor(magr,W_ARMH))) {
 					if (!oresist_disintegration(otch)) {
 						if (canseemon(magr))
 #if 0 /*JP*/
@@ -826,7 +826,7 @@ defdisintagr(magr, mdef, mattk)
 				} else touched = 1;
 				break;
 			case (W_ARMF):
-				if (otch = which_armor(magr,W_ARMF)) {
+				if ((otch = which_armor(magr,W_ARMF))) {
 					if (!oresist_disintegration(otch)) {
 						if (canseemon(magr))
 #if 0 /*JP*/
@@ -1642,17 +1642,17 @@ mdamagem(magr, mdef, mattk)
 		if (!magr->mcan && magr->mhp > 6) {
 			struct obj * otch = 0;
 			int recip_dam = 0;
-			if (otch = which_armor(mdef, W_ARMS)) {
+			if ((otch = which_armor(mdef, W_ARMS))) {
 				if (oresist_disintegration(otch))
 					otch = 0;
-			} else if (otch = which_armor(mdef, W_ARMC)) {
+			} else if ((otch = which_armor(mdef, W_ARMC))) {
 				if (oresist_disintegration(otch))
 					otch = 0;
-			} else if (otch = which_armor(mdef, W_ARM)) {
+			} else if ((otch = which_armor(mdef, W_ARM))) {
 				if (oresist_disintegration(otch))
 					otch = 0;
 #ifdef TOURIST
-			} else if (otch = which_armor(mdef, W_ARMU)) {
+			} else if ((otch = which_armor(mdef, W_ARMU))) {
 				if (oresist_disintegration(otch))
 					otch = 0;
 #endif

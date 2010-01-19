@@ -1,5 +1,5 @@
 Tue Jan 19 2010  Masaki Miyaso  <so-miya@sourceforge.jp>
-	* UnNetHack SVN版r382をベースにした。
+	* UnNetHack SVN版r383をベースにした。
 	  r356 patchlevelを3.5.3にした
 	  r357 パッチ：ダンジョンマップ概要3 (Hojita Discordiaより)
 	  r358 マップ概要に闇市と道具屋を追加
@@ -27,6 +27,7 @@ Tue Jan 19 2010  Masaki Miyaso  <so-miya@sourceforge.jp>
 	       りする時に守りの呪文を唱えると、不適切なメッセージが出る
 	  r381 円周率の日に対応
 	  r382 守りのAC値が0の場合は「あなたは守られている」と表示しない
+	  r383 コンパイラのwarningを減らした
 	* 起動時の職業名が翻訳されなくなっていたのを修正
 
 Sun Dec 6 2009  Masaki Miyaso  <so-miya@sourceforge.jp>

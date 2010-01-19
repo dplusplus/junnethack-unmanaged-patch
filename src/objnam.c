@@ -1089,7 +1089,7 @@ register struct obj *obj;
 		Strcat(prefix, "blessed ");
 */
 		Strcat(prefix, "j•Ÿ‚³‚ê‚½");
-	    else if (iflags.show_buc || (!obj->known || !objects[obj->otyp].oc_charged ||
+	    else if (iflags.show_buc || ((!obj->known || !objects[obj->otyp].oc_charged ||
 		      (obj->oclass == ARMOR_CLASS ||
 		       obj->oclass == RING_CLASS))
 		/* For most items with charges or +/-, if you know how many
@@ -1107,7 +1107,7 @@ register struct obj *obj;
 #endif
 			&& obj->otyp != FAKE_AMULET_OF_YENDOR
 			&& obj->otyp != AMULET_OF_YENDOR
-			&& !Role_if(PM_PRIEST))
+			&& !Role_if(PM_PRIEST)))
 /*JP
 		Strcat(prefix, "uncursed ");
 */

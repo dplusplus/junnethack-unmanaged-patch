@@ -1661,6 +1661,7 @@ E void FDECL(altar_wrath, (int,int));
 #ifdef ASTRAL_ESCAPE
 E int FDECL(invoke_amulet, (struct obj *));
 #endif
+E int NDECL(in_trouble);
 
 
 /* ### priest.c ### */
@@ -1707,6 +1708,7 @@ E boolean FDECL(is_quest_artifact, (struct obj*));
 E void FDECL(com_pager, (int));
 E void FDECL(qt_pager, (int));
 E struct permonst *NDECL(qt_montype);
+E void FDECL(qt_com_firstline, (int, char*));
 
 /* ### random.c ### */
 
@@ -2026,6 +2028,7 @@ E boolean FDECL(goodpos, (int,int,struct monst *,unsigned));
 E boolean FDECL(enexto, (coord *,XCHAR_P,XCHAR_P,struct permonst *));
 E boolean FDECL(enexto_core, (coord *,XCHAR_P,XCHAR_P,struct permonst *,unsigned));
 E boolean FDECL(enexto_core_range, (coord *,XCHAR_P,XCHAR_P,struct permonst *,unsigned,int));
+E int FDECL(epathto, (coord *,int,XCHAR_P,XCHAR_P,struct permonst *));
 E void FDECL(teleds, (int,int,BOOLEAN_P));
 E boolean FDECL(safe_teleds, (BOOLEAN_P));
 E boolean FDECL(teleport_pet, (struct monst *,BOOLEAN_P));
@@ -2360,6 +2363,7 @@ E int NDECL(uwep_skill_type);
 E int FDECL(weapon_hit_bonus, (struct obj *));
 E int FDECL(weapon_dam_bonus, (struct obj *));
 E void FDECL(skill_init, (const struct def_skill *));
+E boolean NDECL(can_advance_something);
 
 /* ### were.c ### */
 
@@ -2509,6 +2513,16 @@ E void FDECL(livelog_game_started, (const char*, const char*, const char*, const
 E void FDECL(livelog_game_action, (const char*));
 
 #endif /* !MAKEDEFS_C && !LEV_LEX_C */
+
+
+/* ### tutorial.c ### */
+E boolean FDECL(check_tutorial_message, (int));
+E void NDECL(maybe_tutorial);
+E int NDECL(tutorial_redisplay);
+E void NDECL(tutorial_redisplay_message);
+E void FDECL(check_tutorial_farlook, (int, int));
+E void FDECL(check_tutorial_command, (char));
+E int FDECL(check_tutorial_location, (int, int, BOOLEAN_P));
 
 #if 1 /*JP*/
 

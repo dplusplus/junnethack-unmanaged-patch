@@ -1479,7 +1479,7 @@ boolean identified, all_containers, want_dump, want_disp;
 		if (box->otyp == BAG_OF_TRICKS && box->spe) {
 		    continue;	/* bag of tricks with charges can't contain anything */
 		} else if (box->cobj) {
-		    winid tmpwin;
+		    winid tmpwin = WIN_ERR;
 #ifdef DUMP_LOG
 		    if (want_disp)
 #endif
@@ -1599,7 +1599,7 @@ boolean want_dump;
     int ntypes = 0, max_lev = 0, nkilled;
     long total_killed = 0L;
     char c;
-    winid klwin;
+    winid klwin = WIN_ERR;
     char buf[BUFSZ];
 
 #ifdef GCC_WARN
@@ -1760,7 +1760,7 @@ boolean ask;
     int nextincted=0;
 #endif
     char c;
-    winid klwin;
+    winid klwin = WIN_ERR;
     char buf[BUFSZ];
 
 #ifdef GCC_WARN
