@@ -1,5 +1,5 @@
-Tue Jan 19 2010  Masaki Miyaso  <so-miya@sourceforge.jp>
-	* UnNetHack SVN版r384をベースにした。
+Thu Jan 21 2010  Masaki Miyaso  <so-miya@sourceforge.jp>
+	* UnNetHack SVN版r385をベースにした。
 	  r356 patchlevelを3.5.3にした
 	  r357 パッチ：ダンジョンマップ概要3 (Hojita Discordiaより)
 	  r358 マップ概要に闇市と道具屋を追加
@@ -29,6 +29,7 @@ Tue Jan 19 2010  Masaki Miyaso  <so-miya@sourceforge.jp>
 	  r382 守りのAC値が0の場合は「あなたは守られている」と表示しない
 	  r383 コンパイラのwarningを減らした
 	  r384 回復の指輪装備時に自動識別する
+	  r385 巻物：水難の巻物を追加し、記憶喪失の巻物を削除
 	* 起動時の職業名が翻訳されなくなっていたのを修正
 
 Sun Dec 6 2009  Masaki Miyaso  <so-miya@sourceforge.jp>
