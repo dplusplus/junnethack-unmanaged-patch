@@ -1,5 +1,5 @@
-Mon Jan 25 2010  Masaki Miyaso  <so-miya@sourceforge.jp>
-	* UnNetHack SVN版r388をベースにした。
+Tue Jan 26 2010  Masaki Miyaso  <so-miya@sourceforge.jp>
+	* UnNetHack SVN版r389をベースにした。
 	  r356 patchlevelを3.5.3にした
 	  r357 パッチ：ダンジョンマップ概要3 (Hojita Discordiaより)
 	  r358 マップ概要に闇市と道具屋を追加
@@ -34,6 +34,7 @@ Mon Jan 25 2010  Masaki Miyaso  <so-miya@sourceforge.jp>
 	  r387 パッチ：64bit化修正（Clive Crousより）
 	  r388 位置指定時にアイテムに隠れたダンジョン設備を文字指定可能に
 	       した
+	  r389 #ifdef TOURIST の抜けを修正
 	* 起動時の職業名が翻訳されなくなっていたのを修正
 
 Sun Dec 6 2009  Masaki Miyaso  <so-miya@sourceforge.jp>
