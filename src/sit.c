@@ -691,6 +691,7 @@ attrcurse()			/* remove a random INTRINSIC ability */
 			You_feel("vulnerable.");
 */
 			You("–³–h”õ‚É‚È‚Á‚½‹C‚ª‚µ‚½B");
+			u.ublessed = 0; /* fix for C343-189 */
 			break;
 		}
 	case 11: if (HAggravate_monster & INTRINSIC) {

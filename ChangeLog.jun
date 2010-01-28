@@ -1,5 +1,5 @@
-Tue Jan 26 2010  Masaki Miyaso  <so-miya@sourceforge.jp>
-	* UnNetHack SVN版r390をベースにした。
+Thu Jan 28 2010  Masaki Miyaso  <so-miya@sourceforge.jp>
+	* UnNetHack SVN版r391をベースにした。
 	  r356 patchlevelを3.5.3にした
 	  r357 パッチ：ダンジョンマップ概要3 (Hojita Discordiaより)
 	  r358 マップ概要に闇市と道具屋を追加
@@ -37,6 +37,8 @@ Tue Jan 26 2010  Masaki Miyaso  <so-miya@sourceforge.jp>
 	  r389 #ifdef TOURIST の抜けを修正
 	  r390 一括移動：選択を改良 (廊下にあるミミックや設備を再び選択可
 	       能に)
+	  r391 修正: C343-189 グレムリンの攻撃により失われた寺院への寄付に
+	       よる守りと魔法防御は不当に相互作用する
 	* 起動時の職業名が翻訳されなくなっていたのを修正
 
 Sun Dec 6 2009  Masaki Miyaso  <so-miya@sourceforge.jp>
