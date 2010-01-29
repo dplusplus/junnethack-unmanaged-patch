@@ -1586,81 +1586,13 @@ struct monst *mtmp;
 	    	    	if (isok(x, y) && !closed_door(x, y) &&
 	    	    			!IS_ROCK(levl[x][y].typ) &&
 	    	    			!IS_AIR(levl[x][y].typ) &&
+#ifdef BLACKMARKET
+	    	    			!(Is_blackmarket(&u.uz) && rn2(2)) &&
+#endif
 	    	    			(((x == mmx) && (y == mmy)) ?
 	    	    			    !otmp->blessed : !otmp->cursed) &&
 					(x != u.ux || y != u.uy)) {
-			    register struct obj *otmp2;
-			    register struct monst *mtmp2;
-
-	    	    	    /* Make the object(s) */
-	    	    	    otmp2 = mksobj(confused ? ROCK : BOULDER,
-	    	    	    		FALSE, FALSE);
-	    	    	    if (!otmp2) continue;  /* Shouldn't happen */
-	    	    	    otmp2->quan = confused ? rn1(5,2) : 1;
-	    	    	    otmp2->owt = weight(otmp2);
-
-	    	    	    /* Find the monster here (might be same as mtmp) */
-	    	    	    mtmp2 = m_at(x, y);
-	    	    	    if (mtmp2 && !amorphous(mtmp2->data) &&
-	    	    	    		!passes_walls(mtmp2->data) &&
-	    	    	    		!noncorporeal(mtmp2->data) &&
-	    	    	    		!unsolid(mtmp2->data)) {
-				struct obj *helmet = which_armor(mtmp2, W_ARMH);
-				int mdmg;
-
-				if (cansee(mtmp2->mx, mtmp2->my)) {
-#if 0 /*JP*/
-				    pline("%s is hit by %s!", Monnam(mtmp2),
-	    	    	    			doname(otmp2));
-#else
-				    pline("%s‚Í%s‚É–½’†‚µ‚½I",
-					  doname(otmp2), Monnam(mtmp2));
-#endif
-				    if (mtmp2->minvis && !canspotmon(mtmp2))
-					map_invisible(mtmp2->mx, mtmp2->my);
-				}
-	    	    	    	mdmg = dmgval(otmp2, mtmp2) * otmp2->quan;
-				if (helmet) {
-				    if(is_metallic(helmet)) {
-					if (canspotmon(mtmp2))
-/*JP
-					    pline("Fortunately, %s is wearing a hard helmet.", mon_nam(mtmp2));
-*/
-					    pline("K‰^‚É‚à%s‚ÍŒÅ‚¢Š•‚ðg‚É‚Â‚¯‚Ä‚¢‚éB", mon_nam(mtmp2));
-					else if (flags.soundok)
-/*JP
-					    You_hear("a clanging sound.");
-*/
-					    You_hear("ƒKƒc[ƒ“‚Æ‚¢‚¤‰¹‚ð•·‚¢‚½B");
-					if (mdmg > 2) mdmg = 2;
-				    } else {
-					if (canspotmon(mtmp2))
-/*JP
-					    pline("%s's %s does not protect %s.",
-*/
-					    pline("%s‚Ì%s‚Å‚Í%s‚ð–h‚°‚È‚¢B",
-						Monnam(mtmp2), xname(helmet),
-						mhim(mtmp2));
-				    }
-				}
-	    	    	    	mtmp2->mhp -= mdmg;
-	    	    	    	if (mtmp2->mhp <= 0) {
-/*JP
-				    pline("%s is killed.", Monnam(mtmp2));
-*/
-				    pline("%s‚ÍŽ€‚ñ‚¾B", Monnam(mtmp2));
-	    	    	    	    mondied(mtmp2);
-				}
-	    	    	    }
-	    	    	    /* Drop the rock/boulder to the floor */
-/*JP
-	    	    	    if (!flooreffects(otmp2, x, y, "fall")) {
-*/
-	    	    	    if (!flooreffects(otmp2, x, y, "—Ž‚¿‚é")) {
-	    	    	    	place_object(otmp2, x, y);
-	    	    	    	stackobj(otmp2);
-	    	    	    	newsym(x, y);  /* map the rock */
-	    	    	    }
+				drop_boulder_on_monster(x, y, confused, FALSE);
 	    	    	}
 		    }
 		}

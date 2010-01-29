@@ -1,5 +1,5 @@
 Fri Jan 29 2010  Masaki Miyaso  <so-miya@sourceforge.jp>
-	* UnNetHack SVN版r392をベースにした。
+	* UnNetHack SVN版r393をベースにした。
 	  r356 patchlevelを3.5.3にした
 	  r357 パッチ：ダンジョンマップ概要3 (Hojita Discordiaより)
 	  r358 マップ概要に闇市と道具屋を追加
@@ -40,6 +40,7 @@ Fri Jan 29 2010  Masaki Miyaso  <so-miya@sourceforge.jp>
 	  r391 修正: C343-189 グレムリンの攻撃により失われた寺院への寄付に
 	       よる守りと魔法防御は不当に相互作用する
 	  r392 関数抽出: drop_boulder_on_player()
+	  r393 関数抽出: drop_boulder_on_monster()
 	* 起動時の職業名が翻訳されなくなっていたのを修正
 
 Sun Dec 6 2009  Masaki Miyaso  <so-miya@sourceforge.jp>
