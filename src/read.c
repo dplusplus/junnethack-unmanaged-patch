@@ -1936,56 +1936,7 @@ register struct obj	*sobj;
 		}
 		/* Attack the player */
 		if (!sobj->blessed) {
-		    int dmg;
-		    struct obj *otmp2;
-
-		    /* Okay, _you_ write this without repeating the code */
-		    otmp2 = mksobj(confused ? ROCK : BOULDER,
-				FALSE, FALSE);
-		    if (!otmp2) break;
-		    otmp2->quan = confused ? rn1(5,2) : 1;
-		    otmp2->owt = weight(otmp2);
-		    if (!amorphous(youmonst.data) &&
-				!Passes_walls &&
-				!noncorporeal(youmonst.data) &&
-				!unsolid(youmonst.data)) {
-/*JP
-			You("are hit by %s!", doname(otmp2));
-*/
-			pline("%sが命中した！", doname(otmp2));
-			dmg = dmgval(otmp2, &youmonst) * otmp2->quan;
-			if (uarmh && !sobj->cursed) {
-			    if(is_metallic(uarmh)) {
-/*JP
-				pline("Fortunately, you are wearing a hard helmet.");
-*/
-				pline("幸運にも、あなたは固い兜を身につけている。");
-				if (dmg > 2) dmg = 2;
-			    } else if (flags.verbose) {
-#if 0 /*JP*/
-				Your("%s does not protect you.",
-						xname(uarmh));
-#else
-				Your("%sでは守れない。",
-						xname(uarmh));
-#endif
-			    }
-			}
-		    } else
-			dmg = 0;
-		    /* Must be before the losehp(), for bones files */
-/*JP
-		    if (!flooreffects(otmp2, u.ux, u.uy, "fall")) {
-*/
-		    if (!flooreffects(otmp2, u.ux, u.uy, "落ちる")) {
-			place_object(otmp2, u.ux, u.uy);
-			stackobj(otmp2);
-			newsym(u.ux, u.uy);
-		    }
-/*JP
-		    if (dmg) losehp(dmg, "scroll of earth", KILLED_BY_AN);
-*/
-		    if (dmg) losehp(dmg, "大地の巻物で", KILLED_BY_AN);
+		    drop_boulder_on_player(confused, !sobj->cursed);
 		} else {
 			if (boulder_created == 0)
 /*JP
@@ -2803,5 +2754,60 @@ create_particular()
 #endif /* WIZARD */
 
 #endif /* OVLB */
+
+void
+drop_boulder_on_player(confused, helmet_protects)
+boolean confused;
+boolean helmet_protects; /**< if player is protected by a hard helmet */
+{
+		    int dmg;
+		    struct obj *otmp2;
+		    /* Okay, _you_ write this without repeating the code */
+		    otmp2 = mksobj(confused ? ROCK : BOULDER,
+				FALSE, FALSE);
+		    if (!otmp2) return;
+		    otmp2->quan = confused ? rn1(5,2) : 1;
+		    otmp2->owt = weight(otmp2);
+		    if (!amorphous(youmonst.data) &&
+				!Passes_walls &&
+				!noncorporeal(youmonst.data) &&
+				!unsolid(youmonst.data)) {
+/*JP
+			You("are hit by %s!", doname(otmp2));
+*/
+			pline("%sが命中した！", doname(otmp2));
+			dmg = dmgval(otmp2, &youmonst) * otmp2->quan;
+			if (uarmh && helmet_protects) {
+			    if(is_metallic(uarmh)) {
+/*JP
+				pline("Fortunately, you are wearing a hard helmet.");
+*/
+				pline("幸運にも、あなたは固い兜を身につけている。");
+				if (dmg > 2) dmg = 2;
+			    } else if (flags.verbose) {
+#if 0 /*JP*/
+				Your("%s does not protect you.",
+						xname(uarmh));
+#else
+				Your("%sでは防げない。", xname(uarmh));
+#endif
+			    }
+			}
+		    } else
+			dmg = 0;
+		    /* Must be before the losehp(), for bones files */
+/*JP
+		    if (!flooreffects(otmp2, u.ux, u.uy, "fall")) {
+*/
+		    if (!flooreffects(otmp2, u.ux, u.uy, "落ちる")) {
+			place_object(otmp2, u.ux, u.uy);
+			stackobj(otmp2);
+			newsym(u.ux, u.uy);
+		    }
+/*JP
+		    if (dmg) losehp(dmg, "scroll of earth", KILLED_BY_AN);
+*/
+		    if (dmg) losehp(dmg, "大地の巻物で", KILLED_BY_AN);
+}
 
 /*read.c*/
