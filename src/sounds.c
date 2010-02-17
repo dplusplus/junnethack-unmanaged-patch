@@ -1467,6 +1467,8 @@ dochat()
     register struct monst *mtmp;
     register int tx,ty;
     struct obj *otmp;
+    int mon_count = 0;
+    int dx,dy;
 
     if (is_silent(youmonst.data)) {
 /*JP
@@ -1509,10 +1511,25 @@ dochat()
 	return(1);
     }
 
+    /* count the monsters surrounding the player */
+    u.dx = u.dy = u.dz = 0;
+    for (dx = -1; dx <= +1; dx++) {
+	for (dy = -1; dy <= +1; dy++) {
+	    if (u.ux+dx == u.ux && u.uy+dy == u.uy) continue;
+	    mtmp = m_at(u.ux+dx, u.uy+dy);
+	    if (mtmp && canspotmon(mtmp)) {
+		mon_count++;
+		u.dx = dx; u.dy = dy;
+	    }
+	}
+    }
+
+    /* only ask for directions if there is more or less than one monster
+     * around */
 /*JP
-    if (!getdir("Talk to whom? (in what direction)")) {
+    if (mon_count != 1 && !getdir("Talk to whom? (in what direction)")) {
 */
-    if (!getdir("誰と話しますか？[方向を入れてね]")) {
+    if (mon_count != 1 && !getdir("誰と話しますか？[方向を入れてね]")) {
 	/* decided not to chat */
 	return(0);
     }
