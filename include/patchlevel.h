@@ -17,7 +17,7 @@
 #define EDITLEVEL	0
 
 #define COPYRIGHT_BANNER_A \
-"UnNetHack, Copyright 2009"
+"UnNetHack, Copyright 2009-2010"
 
 #define COPYRIGHT_BANNER_B \
 "    Based on NetHack, Copyright 1985-2003 by Stichting Mathematisch"
@@ -27,7 +27,7 @@
 
 #if 1 /*JP*/
 #define JA_COPYRIGHT_BANNER_A \
-"JUnNetHack, Copyright 2009"
+"JUnNetHack, Copyright 2009-2010"
 
 #define JA_COPYRIGHT_BANNER_B \
 "    Base on NetHack[“ú–{Œê”Å], Copyright 1993-1996 By I. Numata,"
@@ -36,7 +36,7 @@
 "         S. Miyashita and N. Hamada."
 
 #define JA_COPYRIGHT_BANNER_D \
-"         for 3.4,  Copyright 2002 - 2008 By K.Shirakata."
+"         for 3.4,  Copyright 2002 - 2010 By K.Shirakata."
 #endif
 
 /*
