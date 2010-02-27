@@ -214,9 +214,9 @@ static const char *shkblack[] = {
 
 const struct shclass shtypes[] = {
 /*JP
-	{"general store", RANDOM_CLASS, 44,
+	{"general store", RANDOM_CLASS, 43,
 */
-	{"éGâ›âÆ", RANDOM_CLASS, 44,
+	{"éGâ›âÆ", RANDOM_CLASS, 43,
 	    D_SHOP, {{100, RANDOM_CLASS}, {0, 0}, {0, 0}}, shkgeneral},
 /*JP
 	{"used armor dealership", ARMOR_CLASS, 14,
@@ -271,6 +271,14 @@ const struct shclass shtypes[] = {
 */
 	{"å∂ÇÃñ{âÆ", SPBOOK_CLASS, 3, D_SHOP,
 	    {{90, SPBOOK_CLASS}, {10, SCROLL_CLASS}, {0, 0}}, shkbooks},
+/*JP
+	{"canned food factory", FOOD_CLASS, 1, D_SHOP,
+*/
+	{"ä ãlçHñ[", FOOD_CLASS, 1, D_SHOP,
+		{{10, -ICE_BOX}, {90, -TIN},
+		/* shopkeeper will pay for corpses, but they aren't generated */
+		/* on the shop floor */
+		{0, -CORPSE}, {0, 0}}, shkfoods},
 	/* Shops below this point are "unique".  That is they must all have a
 	 * probability of zero.  They are only created via the special level
 	 * loader.

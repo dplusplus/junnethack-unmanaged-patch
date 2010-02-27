@@ -1,5 +1,5 @@
 Sat Feb 27 2010  Masaki Miyaso  <so-miya@sourceforge.jp>
-	* UnNetHack SVN版r405をベースにした。
+	* UnNetHack SVN版r407をベースにした。
 	  r356 patchlevelを3.5.3にした
 	  r357 パッチ：ダンジョンマップ概要3 (Hojita Discordiaより)
 	  r358 マップ概要に闇市と道具屋を追加
@@ -47,6 +47,7 @@ Sat Feb 27 2010  Masaki Miyaso  <so-miya@sourceforge.jp>
 	  r399 露呈したミミックを選択しないglyph_at(x,y)の使用
 	  r404 コピーライトの年を更新
 	  r405 自発的挑戦の拡張パッチ
+	  r407 缶詰店（Slash'emより）
 	* 起動時の職業名が翻訳されなくなっていたのを修正
 
 Sun Dec 6 2009  Masaki Miyaso  <so-miya@sourceforge.jp>
