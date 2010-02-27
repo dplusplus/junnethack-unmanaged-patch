@@ -2424,6 +2424,16 @@ int rtype;
 			return "a tool shop";
 */
 			return "“¹‹ï‰®";
+		case INSTRUMENTSHOP:
+/*JP
+			return "a music store";
+*/
+			return "ŠyŠí“X";
+		case TINSHOP:
+/*JP
+			return "a tin shop";
+*/
+			return "ŠÊ‹l“X";
 		case BLACKSHOP:
 /*JP
 			return "the Blackmarket";
