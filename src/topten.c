@@ -883,6 +883,22 @@ boolean so;
 #endif /*JP*/
 	    second_line = FALSE;
 #if 0 /*JP*/
+	} else if (!strncmp("ascended ", t1->death, 9)) {
+#else
+	} else if (!strncmp("昇天した ", jdeath, 9)
+		   || !strncmp("ascended ", jdeath, 9)) {
+#endif
+#if 0 /*JP:T*/
+	    Strcat(linebuf, "the ");
+	    Strcat(linebuf, t1->death + 9);
+	    Sprintf(eos(linebuf), " ascended to demigod%s-hood",
+		    (t1->plgend[0] == 'F') ? "dess" : "");
+#else
+	    Sprintf(action, "%s昇天し%s神となった",
+		    jdeath + 9, (t1->plgend[0] == 'F') ? "女" : "");
+#endif
+	    second_line = FALSE;
+#if 0 /*JP*/
 	} else if (!strncmp("ascended", t1->death, 8)) {
 #else
 	} else if (!strncmp("昇天した", jdeath, 8)
@@ -988,6 +1004,7 @@ boolean so;
 	    }
 
 	    /* kludge for "quit while already on Charon's boat" */
+	    /* and "quit after breaking pacifism conduct"	*/
 	    if (!strncmp(t1->death, "quit ", 5))
 		Strcat(linebuf, t1->death + 4);
 	}

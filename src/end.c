@@ -269,6 +269,7 @@ done2()
 	}
 #endif
 #ifndef LINT
+	killer = 0;
 	done(QUIT);
 #endif
 	return 0;
@@ -855,10 +856,13 @@ int how;
 	/* Avoid killed by "a" burning or "a" starvation */
 	if (!killer && (how == STARVING || how == BURNING))
 		killer_format = KILLED_BY;
+	/* Ignore some killer-strings, but use them for QUIT and ASCENDED */
 /*JP
-	Strcpy(kilbuf, (!killer || how >= PANICKED ? deaths[how] : killer));
+	Strcpy(kilbuf, ((how == PANICKED) || (how == TRICKED) || (how == ESCAPED)
+				|| !killer ? deaths[how] : killer));
 */
-	Strcpy(kilbuf, (!killer || how >= PANICKED ? ends[how] : killer));
+	Strcpy(kilbuf, ((how == PANICKED) || (how == TRICKED) || (how == ESCAPED)
+				|| !killer ? ends[how] : killer));
 	killer = kilbuf;
 
 	if (how < PANICKED) u.umortality++;

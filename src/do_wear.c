@@ -1162,6 +1162,7 @@ register struct obj *otmp;
 {
 	boolean was_blind = Blind, changed = FALSE;
 
+	violated(CONDUCT_BLINDFOLDED);
 	takeoff_mask &= ~W_TOOL;
 	setworn((struct obj *)0, otmp->owornmask);
 	off_msg(otmp);

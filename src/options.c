@@ -150,6 +150,14 @@ static struct Bool_Opt
 #else
 	{"news", (boolean *)0, FALSE, SET_IN_FILE},
 #endif
+	{"conducts_ascet", &flags.ascet, FALSE, SET_IN_FILE },
+	{"conducts_atheist", &flags.atheist, FALSE, SET_IN_FILE },
+	{"conducts_blindfolded", &flags.blindfolded, FALSE, SET_IN_FILE },
+	{"conducts_illiterate", &flags.illiterate, FALSE, SET_IN_FILE },
+	{"conducts_pacifist", &flags.pacifist, FALSE, SET_IN_FILE },
+	{"conducts_nudist", &flags.nudist, FALSE, SET_IN_FILE },
+	{"conducts_vegan", &flags.vegan, FALSE, SET_IN_FILE }, 
+	{"conducts_vegetarian", &flags.vegetarian, FALSE, SET_IN_FILE }, 
 	{"null", &flags.null, TRUE, SET_IN_GAME},
 #ifdef MAC
 	{"page_wait", &flags.page_wait, TRUE, SET_IN_GAME},
@@ -270,18 +278,28 @@ static struct Comp_Opt
 #if 0 /*JP*/
 	{ "catname",  "the name of your (first) cat (e.g., catname:Tabby)",
 						PL_PSIZ, DISP_IN_GAME },
-#ifdef EXOTIC_PETS
-	{ "crocodilename", "the name of your (first) crocodile (e.g., crocodilename:TickTock)",
-						PL_PSIZ, DISP_IN_GAME },
-#endif
-#else /*JP*/
+#else
 	{ "catname",  "冒険を供にする(最初の)猫の名前 (例 catname:たま)",
 						PL_PSIZ, DISP_IN_GAME },
+#endif
+#if 0 /*JP*/
+	{ "conducts", "the kind of conducts you want to adhere to",
+						1, /* not needed */
+						DISP_IN_GAME },
+#else /*JP*/
+	{ "conducts", "挑戦する自発的挑戦の種類",
+						1, /* not needed */
+						DISP_IN_GAME },
+#endif
 #ifdef EXOTIC_PETS
+#if 0 /*JP*/
+	{ "crocodilename", "the name of your (first) crocodile (e.g., crocodilename:TickTock)",
+						PL_PSIZ, DISP_IN_GAME },
+#else
 	{ "crocodilename", "冒険を供にする(最初の)ワニの名前 (例 crocodilename:チクタク)",
 						PL_PSIZ, DISP_IN_GAME },
 #endif
-#endif /*JP*/
+#endif
 #if 0 /*JP*/
 	{ "disclose", "the kinds of information to disclose at end of game",
 						sizeof(flags.end_disclose) * 2,
@@ -1545,6 +1563,74 @@ char *str;
 #endif /* MENU_COLOR */
 
 void
+common_prefix_options_parser(fullname, opts, negated)
+const char *fullname;
+char *opts;
+boolean negated;
+{
+	boolean badopt = FALSE;
+	int i;
+	char *op;
+	int fullname_len = strlen(fullname);
+
+	op = string_for_opt(opts, TRUE);
+	if (op && negated) {
+		bad_negation(fullname, TRUE);
+		return;
+	}
+	/* "fullname" without a value means "all"
+	   and negated means "none" */
+	if (!op || !strcmpi(op, "all") || !strcmpi(op, "none")) {
+		if (op && !strcmpi(op, "none")) negated = TRUE;
+		boolean value = negated ? FALSE : TRUE;
+		/* set all boolean options starting with fullname */
+		for (i = 0; boolopt[i].name; i++) {
+			if (!strncmp(boolopt[i].name, fullname, fullname_len)) {
+				*boolopt[i].addr = value;
+			}
+		}
+		return;
+	}
+
+	/* check for "+option1 -option2" */
+	while (*op) {
+		boolean check = FALSE, value = FALSE;
+		register char c;
+		c = *op;
+		if (c == '+') {
+			check = TRUE;
+			value = TRUE;
+		} else if (c == '-' || c == '!') {
+			check = TRUE;
+			value = FALSE;
+		} else if (c == ' ') {
+			/* do nothing */
+			check = FALSE;
+		} else {
+			badopt = TRUE;
+		}
+		op++;
+		if (check) {
+			int i;
+			for (i = 0; boolopt[i].name; i++) {
+				int name_len = strlen(boolopt[i].name)-fullname_len-1;
+				if ((strlen(boolopt[i].name) > fullname_len) &&
+				    /* name starts with fullname */
+				    !strncmp(boolopt[i].name, fullname, fullname_len) &&
+				    boolopt[i].name[fullname_len] == '_' &&
+				    /* name ends with user supplied option name */
+				    !strncmp(boolopt[i].name+fullname_len+1, op, name_len)) {
+					op += name_len;
+					*boolopt[i].addr = value;
+				}
+			}
+		}
+	}
+
+	if (badopt) badoption(opts);
+}
+
+void
 parseoptions(opts, tinitial, tfrom_file)
 register char *opts;
 boolean tinitial, tfrom_file;
@@ -2475,64 +2561,15 @@ goodfruit:
 	}
 
 #ifdef PARANOID
+	fullname = "conducts";
+	if (match_optname(opts, fullname, 8, TRUE)) {
+		common_prefix_options_parser(fullname, opts, negated);
+		return;
+	}
 	/* things the player want an extended yes/no answer to */
 	fullname = "paranoid";
 	if (match_optname(opts, fullname, 8, TRUE)) {
-		boolean badopt = FALSE;
-		int prefix_val;
-
-		op = string_for_opt(opts, TRUE);
-		if (op && negated) {
-			bad_negation(fullname, TRUE);
-			return;
-		}
-		/* "paranoid" without a value means "all"
-		   and negated means "none" */
-		if (!op || !strcmpi(op, "all") || !strcmpi(op, "none")) {
-			if (op && !strcmpi(op, "none")) negated = TRUE;
-			boolean value = negated ? FALSE : TRUE;
-			iflags.paranoid_hit = value;
-			iflags.paranoid_quit = value;
-			iflags.paranoid_remove = value;
-			return;
-		}
-
-		/* check for "+option1 -option2" */
-		prefix_val = -1;
-		while (*op) {
-			boolean check = FALSE, value = FALSE;
-			register char c;
-			c = *op;
-			if (c == '+') {
-				check = TRUE;
-				value = TRUE;
-			} else if (c == '-') {
-				check = TRUE;
-				value = FALSE;
-			} else if (c == ' ') {
-				/* do nothing */
-				check = FALSE;
-			} else {
-				badopt = TRUE;
-			}
-			op++;
-			if (check) {
-				if (!strncmp(op, "hit", 3)) {
-					iflags.paranoid_hit = value;
-					op += 3;
-				} else if (!strncmp(op, "quit", 4)) {
-					iflags.paranoid_quit = value;
-					op += 4;
-				} else if (!strncmp(op, "remove", 6)) {
-					iflags.paranoid_remove = value;
-					op += 6;
-				} else {
-					badopt = TRUE;
-				}
-			}
-		}
-
-		if (badopt) badoption(opts);
+		common_prefix_options_parser(fullname, opts, negated);
 		return;
 	}
 #endif
@@ -3920,6 +3957,40 @@ char *buf;
 			iflags.bouldersym : oc_syms[(int)objects[BOULDER].oc_class]);
 	else if (!strcmp(optname, "catname")) 
 		Sprintf(buf, "%s", catname[0] ? catname : none );
+	else if (!strcmp(optname, "conducts"))
+		Sprintf(buf, "%s%s %s%s %s%s %s%s %s%s %s%s %s%s %s%s",
+/*JP
+			flags.ascet ? "+" : "-", "ascet",
+*/
+			flags.ascet ? "+" : "-", "苦行",
+/*JP
+			flags.atheist ? "+" : "-", "atheist",
+*/
+			flags.atheist ? "+" : "-", "無神論",
+/*JP
+			flags.blindfolded ? "+" : "-", "blindfolded",
+*/
+			flags.blindfolded ? "+" : "-", "盲目",
+/*JP
+			flags.illiterate ? "+" : "-", "illiterate",
+*/
+			flags.illiterate ? "+" : "-", "無学",
+/*JP
+			flags.nudist ? "+" : "-", "nudist",
+*/
+			flags.nudist ? "+" : "-", "裸",
+/*JP
+			flags.pacifist ? "+" : "-", "pacifist",
+*/
+			flags.pacifist ? "+" : "-", "平和主義",
+/*JP
+			flags.vegan ? "+" : "-", "vegan",
+*/
+			flags.vegan ? "+" : "-", "厳格菜食",
+/*JP
+			flags.vegetarian ? "+" : "-", "vegetarian");
+*/
+			flags.vegetarian ? "+" : "-", "菜食");
 #ifdef EXOTIC_PETS
 	else if (!strcmp(optname, "crocodilename")) 
 		Sprintf(buf, "%s", crocodilename[0] ? crocodilename : none);

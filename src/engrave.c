@@ -695,8 +695,10 @@ doengrave()
 	char ebuf[BUFSZ];	/* Buffer for initial engraving text */
 	char qbuf[QBUFSZ];	/* Buffer for query text */
 	char post_engr_text[BUFSZ]; /* Text displayed after engraving prompt */
+	const char *eword;	/* What to engrave */
 	const char *everb;	/* Present tense of engraving type */
-	const char *eloc;	/* Where the engraving is (ie dust/floor/...) */
+	const char *eloc; 	/* Where to engrave in the ground */
+	const char *eground;	/* Type of the ground (ie dust/floor/...) */
 	char *sp;		/* Place holder for space count of engr text */
 	int len;		/* # of nonspace chars of new engraving text */
 	int maxelen;		/* Max allowable length of engraving text */
@@ -1356,102 +1358,117 @@ doengrave()
 	    }
 	}
 
-	eloc = surface(u.ux,u.uy);
+/*JP
+	eword = (u.roleplay.illiterate ? "your name " : "");
+*/
+	eword = (u.roleplay.illiterate ? "あなたの名前を" : "");
+	eground = surface(u.ux,u.uy);
 	switch(type){
 	    default:
 #if 0 /*JP*/
-		everb = (oep && !eow ? "add to the weird writing on" :
-				       "write strangely on");
+		everb = (oep && !eow ? "add" : "write");
+		eloc = (oep && !eow ? "to the weird writing on" :
+		    "strangely onto");
 #else
-		everb = (oep && !eow ? "奇妙な文字列に書き加える" :
-				       "奇妙な文字列を書く");
+		everb = (oep && !eow ? "書き加える" : "書く");
+		eloc = (oep && !eow ? "の変な何かに" : "の奇妙な何かに");
 #endif
 		break;
 	    case DUST:
 #if 0 /*JP*/
-		everb = (oep && !eow ? "add to the writing in" :
-				       "write in");
+		everb = (oep && !eow ? "add" : "write");
+		eloc = (oep && !eow ? "to the writing in" : "into");
+		eground = (is_ice(u.ux,u.uy) ? "frost" : "dust");
 #else
-		everb = (oep && !eow ? "書き加える" :
-				       "書く");
+		everb = (oep && !eow ? "書き加える" : "書く");
+		eloc = (oep && !eow ? "に書かれたものに" : "に");
+		eground = (is_ice(u.ux,u.uy) ? "氷" : "ほこり");
 #endif
-/*JP
-		eloc = is_ice(u.ux,u.uy) ? "frost" : "dust";
-*/
-		eloc = is_ice(u.ux,u.uy) ? "氷" : "ほこり";
 		break;
 	    case HEADSTONE:
 #if 0 /*JP*/
-		everb = (oep && !eow ? "add to the epitaph on" :
-				       "engrave on");
+		everb = (oep && !eow ? "add" : "engrave");
+		eloc = (oep && !eow ? "to the epitaph on" : "on");
 #else
-		everb = (oep && !eow ? "墓碑銘を刻み加える" :
-				       "墓碑銘を刻む");
+		everb = (oep && !eow ? "刻み加える" : "刻む");
+		eloc = (oep && !eow ? "の墓碑銘に" : "の銘を");
 #endif
 		break;
 	    case ENGRAVE:
 #if 0 /*JP*/
-		everb = (oep && !eow ? "add to the engraving in" :
-				       "engrave in");
+		everb = (oep && !eow ? "add" : "engrave");
+		eloc = (oep && !eow ? "to the engraving in" : "into");
 #else
-		everb = (oep && !eow ? "刻み加える" :
-				       "刻む");
+		everb = (oep && !eow ? "刻み加える" : "刻む");
+		eloc = (oep && !eow ? "に刻まれたものに" : "に");
 #endif
 		break;
 	    case BURN:
 #if 0 /*JP*/
-		everb = (oep && !eow ?
-			( is_ice(u.ux,u.uy) ? "add to the text melted into" :
-					      "add to the text burned into") :
-			( is_ice(u.ux,u.uy) ? "melt into" : "burn into"));
+		everb = (oep && !eow ? "add" :
+			( is_ice(u.ux,u.uy) ? "melt" : "burn" ) );
+		eloc = (oep && !eow ? ( is_ice(u.ux,u.uy) ?
+			"to the text melted into" : "to the text burned into" ) :
+			"into");
 #else
 		everb = (oep && !eow ?
-			( is_ice(u.ux,u.uy) ? "刻み加える" :
-			                      "燃えている文字に書き加える") :
-			( is_ice(u.ux,u.uy) ? "刻む" : "焼印をいれる"));
+			( is_ice(u.ux,u.uy) ? "彫り加える" : "焼き加える" ) :
+			( is_ice(u.ux,u.uy) ? "彫る" : "焼き付ける" ) );
+		eloc = (oep && !eow ? ( is_ice(u.ux,u.uy) ?
+			"に彫りこまれた文字に" : "に焼き付けられた文字に" ) : "に");
 #endif
 		break;
 	    case MARK:
 #if 0 /*JP*/
-		everb = (oep && !eow ? "add to the graffiti on" :
-				       "scribble on");
+		everb = (oep && !eow ? "add" : "scribble");
+		eloc = (oep && !eow ? "to the graffiti on" : "onto");
 #else
-		everb = (oep && !eow ? "落書に書き加える" :
-				       "はしり書きする");
+		everb = (oep && !eow ? "書き加える" : "落書きする");
+		eloc = (oep && !eow ? "の落書きに" : "に");
 #endif
 		break;
 	    case ENGR_BLOOD:
 #if 0 /*JP*/
-		everb = (oep && !eow ? "add to the scrawl on" :
-				       "scrawl on");
+		everb = (oep && !eow ? "add" : "scrawl");
+		eloc = (oep && !eow ? "to the scrawl on" : "onto");
 #else
-		everb = (oep && !eow ? "なぐり書きに書き加える" :
-				       "なぐり書きする");
+		everb = (oep && !eow ? "書き加える" : "なぐり書きする");
+		eloc = (oep && !eow ? "のなぐり書きに" : "に");
 #endif
 		break;
 	}
 
 	/* Tell adventurer what is going on */
 	if (otmp != &zeroobj)
-/*JP
-	    You("%s the %s with %s.", everb, eloc, doname(otmp));
-*/
-	    You("%sで%sに%s。", doname(otmp), eloc, jpast(everb));
+#if 0 /*JP*/
+	    You("%s %swith %s %s the %s.", everb, eword, doname(otmp),
+		eloc, eground);
+#else
+	    You("%sで%s%s%s%s。", doname(otmp), eground,
+		eloc, eword, jpast(everb));
+#endif
 	else
 #if 0 /*JP*/
-	    You("%s the %s with your %s.", everb, eloc,
-		makeplural(body_part(FINGER)));
+	    You("%s %swith your %s %s the %s.", everb, eword,
+		makeplural(body_part(FINGER)), eloc, eground);
 #else
-	    You("%sで%sに%s。", makeplural(body_part(FINGER)),
-		eloc, jpast(everb));
+	    You("%sで%s%s%s%s。", body_part(FINGER), eground,
+		eloc, eword, jpast(everb));
 #endif
 
-	/* Prompt for engraving! */
-/*JP
-	Sprintf(qbuf,"What do you want to %s the %s here?", everb, eloc);
-*/
-	Sprintf(qbuf,"%sに何と%sか？", eloc, jpolite(everb));
-	getlin(qbuf, ebuf);
+	/* Prompt for engraving! (if literate) */
+	if(u.roleplay.illiterate) {
+	    Sprintf(ebuf,"X");
+	}
+	else {
+#if 0 /*JP*/
+	    Sprintf(qbuf,"What do you want to %s %s the %s here?", everb,
+		eloc, eground);
+#else
+	    Sprintf(qbuf,"%s%s何と%sか？", eground, eloc, jpolite(everb));
+#endif
+	    getlin(qbuf, ebuf);
+	}
 
 	/* Count the actual # of chars engraved not including spaces */
 	len = strlen(ebuf);
@@ -1475,7 +1492,7 @@ doengrave()
 
 	/* A single `x' is the traditional signature of an illiterate person */
 	if (len != 1 || (!index(ebuf, 'x') && !index(ebuf, 'X')))
-	    u.uconduct.literate++;
+	    violated(CONDUCT_ILLITERACY);
 
 	/* Mix up engraving if surface or state of mind is unsound.
 	   Note: this won't add or remove any spaces. */
@@ -1595,7 +1612,7 @@ doengrave()
 			multi = -(maxelen/10);
 		    } else
 			if (len > 1) otmp->spe -= len >> 1;
-			else otmp->spe -= 1; /* Prevent infinite grafitti */
+			else otmp->spe -= 1; /* Prevent infinite graffiti */
 		}
 /*JP
 		if (multi) nomovemsg = "You finish defacing the dungeon.";

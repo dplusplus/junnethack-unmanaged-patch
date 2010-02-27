@@ -1830,6 +1830,11 @@ E const char *FDECL(Goodbye, (int));
 #endif
 E char *FDECL(build_plselection_prompt, (char *, int, int, int, int, int));
 E char *FDECL(root_plselection_prompt, (char *, int, int, int, int, int));
+E void FDECL(violated, (int));
+E boolean FDECL(successful_cdt, (int));
+E boolean FDECL(intended_cdt, (int));
+E boolean FDECL(superfluous_cdt, (int));
+E boolean FDECL(failed_cdt, (int));
 
 /* ### rumors.c ### */
 

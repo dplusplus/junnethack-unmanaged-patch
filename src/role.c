@@ -805,6 +805,111 @@ const struct Align aligns[] = {
 #endif
 };
 
+
+/* Table of roleplay-conducts */
+
+const struct Conduct conducts[] = {
+#if 0 /*JP*/
+{	"pacifism",	"pacifist", 	"peaceful",	TRUE,
+	"You ","have been ","were ","a pacifist",
+	"pretended to be a pacifist"},
+#else
+{	"平和主義",	"平和主義者", 	"平和的で",	TRUE,
+	"あなたは","である","だった","平和主義者",
+	"平和主義者に挑戦して頓挫して"},
+#endif /*JP*/
+
+#if 0 /*JP*/
+{	"sadism",	"sadist", 	"sadistic",	TRUE,
+	"You ","have been ","were ","a sadist",
+	"pretended to be a sadist"},
+#else
+{	"加虐趣味",	"サディスト", 	"加虐的で",	TRUE,
+	"あなたは","である","だった","サディスト",
+	"サディストに挑戦して頓挫して"},
+#endif /*JP*/
+
+#if 0 /*JP*/
+{	"atheism", 	"atheist", 	"atheistic",	TRUE,
+	"You ","have been ","were ","an atheist",
+	"pretended to be an atheist"},
+#else
+{	"無神論", 	"無神論者", 	"無信心で",	TRUE,
+	"あなたは","である","だった","無神論者",
+	"無神論者に挑戦して頓挫して"},
+#endif /*JP*/
+
+#if 0 /*JP*/
+{	"nudism", 	"nudist", 	"nude",		TRUE,
+	"You ","have been ","were ","a nudist",
+	"pretended to be a nudist"},
+#else
+{	"裸体主義", 	"ヌーディスト", 	"裸で",		TRUE,
+	"あなたは","である","だった","ヌーディスト",
+	"ヌーディストに挑戦して頓挫して"},
+#endif /*JP*/
+
+#if 0 /*JP*/
+{	"zen",		"zen master", 	"blindfolded",	TRUE,
+	"You ","have followed ","followed ","the true Path of Zen",
+	"left the true Path of Zen"},
+#else
+{	"禅",		"禅マスター", 	"盲目で",	TRUE,
+	"あなたは","を求道している","を求道していた","禅の道",
+	"禅の道から外れて"},
+#endif /*JP*/
+
+#if 0 /*JP*/
+{	"asceticism",	"ascetic",	"hungry",	TRUE,
+	"You ","have gone ","went ","without food",
+	"pretended to be an ascet"},
+#else
+{	"苦行",	"苦行者",	"空腹で",	TRUE,
+	"あなたは","ていない","なかった","食事をし",
+	"苦行に挑戦して頓挫して"},
+#endif /*JP*/
+
+#if 0 /*JP*/
+{	"vegan",	"vegan",	"vegan",	TRUE,
+	"You ","have followed ","followed ","a strict vegan diet",
+	"pretended to be a vegan"},
+#else
+{	"厳格な菜食主義",	"厳格な菜食主義者",	"厳格な菜食主義で",	TRUE,
+	"あなたは","である","だった","厳格な菜食主義者",
+	"厳格な菜食主義に挑戦して頓挫して"},
+#endif /*JP*/
+
+#if 0 /*JP*/
+{	"vegetarian", 	"vegetarian",	"vegetarian",	TRUE,
+	"You ","have been ","were ","vegetarian",
+	"pretended to be a vegetarian"},
+#else
+{	"菜食主義", 	"菜食主義者",	"菜食主義で",	TRUE,
+	"あなたは","である","だった","菜食主義者",
+	"菜食主義に挑戦して頓挫して"},
+#endif /*JP*/
+
+#if 0 /*JP*/
+{	"illiteracy", 	"illiterate",	"illiterate",	TRUE,
+	"You ","have been ","were ","illiterate",
+	"become literate"},
+#else
+{	"文盲", 	"文盲者",	"文盲で",	TRUE,
+	"あなたは","ていない","なかった","読み書きし",
+	"読み書きし始めて"},
+#endif /*JP*/
+
+#if 0 /*JP*/
+{	"thievery",	"master thief",	"tricky",	TRUE,
+	"You ","have been ","were ","very tricky",
+	"pretended to be a master thief"}
+#else
+{	"盗み",	"盗賊頭",	"厄介で",	TRUE,
+	"あなたは","である","だった","とても厄介者",
+	"盗賊頭に挑戦して頓挫して"}
+#endif /*JP*/
+};
+
 STATIC_DCL char * FDECL(promptsep, (char *, int));
 STATIC_DCL int FDECL(role_gendercount, (int));
 STATIC_DCL int FDECL(race_alignmentcount, (int));
@@ -1835,6 +1940,11 @@ role_init()
 	    	mons[urole.femalenum].mflags3 |= M3_INFRAVISION;
 	}
 
+	if (Role_if(PM_MONK)) 
+	    flags.vegetarian = TRUE;
+	flags.vegan |= flags.ascet;
+	flags.vegetarian |= flags.vegan;
+
 	/* Artifacts are fixed in hack_artifacts() */
 
 	/* Success! */
@@ -1994,4 +2104,189 @@ Goodbye(int nameflg)
     return helo_buf;
 }
 #endif /*JP*/
+
+/* A function to break a specific roleplay-conduct */
+void
+violated(cdt)
+int cdt;
+{
+	switch(cdt) {		
+	case CONDUCT_PACIFISM:
+	    u.uconduct.killer++;
+	    if (u.roleplay.pacifist) {
+/*JP
+		You_feel("violent!");
+*/
+		You_feel("暴力的だと感じた！");
+/*JP
+		if (yn("Do you want to quit?") == 'y') {
+*/
+		if (yn("ゲームをやめる？") == 'y') {
+		    killer_format = NO_KILLER_PREFIX;
+/*JP
+		    killer = "quit after an act of violence";
+*/
+		    killer = "暴力的行為のあと抜けた";
+		    done(QUIT);
+		}
+	    if (u.uconduct.killer >= 10) u.roleplay.pacifist = FALSE;
+	    }
+	    break;
+
+	case CONDUCT_NUDISM:
+	    u.uconduct.armoruses++;
+	    if (u.roleplay.nudist){
+/*JP
+		You("realize you were nude.");
+*/
+		You("裸だったことに気づいた。");
+		makemon(&mons[PM_COBRA],u.ux, u.uy, NO_MM_FLAGS);
+		mksobj_at(APPLE, u.ux, u.uy, FALSE, FALSE);
+		u.roleplay.nudist = FALSE;
+	    }
+	    break;
+
+	case CONDUCT_BLINDFOLDED:
+	    u.uconduct.unblinded++;
+	    if (u.roleplay.blindfolded){
+/*JP
+		pline("The Spirit of Zen leaves your body.");
+*/
+		pline("禅の精神はあなたの身体から去った。");
+		makemon(mkclass(S_ZOMBIE, 0), u.ux, u.uy, NO_MM_FLAGS); /* Z */
+		makemon(mkclass(S_EYE, 0), u.ux, u.uy, NO_MM_FLAGS);    /* e */
+		makemon(mkclass(S_NYMPH, 0), u.ux, u.uy, NO_MM_FLAGS);  /* n */
+		u.roleplay.blindfolded = FALSE;
+	    }
+	    break;
+
+	case CONDUCT_VEGETARIAN:	/* replaces violated_vegetarian() */
+	    if (u.roleplay.vegetarian)
+/*JP
+		You_feel("guilty.");
+*/
+		You_feel("罪を感じた。");
+	    if (Role_if(PM_MONK))
+		adjalign(-1);
+	    u.uconduct.unvegetarian++;
+	    u.uconduct.unvegan++;
+	    u.uconduct.food++;
+	    if (u.uconduct.unvegetarian >= 30) u.roleplay.vegetarian = FALSE;
+	    if (u.uconduct.unvegan >= 20) u.roleplay.vegan = FALSE;
+	    if (u.uconduct.food >= 10) u.roleplay.ascet = FALSE;
+	    break;
+
+	case CONDUCT_VEGAN:
+	    if (u.roleplay.vegan)
+/*JP
+		You_feel("a bit guilty.");
+*/
+		You_feel("ちょっと罪を感じた。");
+	    u.uconduct.unvegan++;
+	    u.uconduct.food++;
+	    if (u.uconduct.unvegan >= 20) u.roleplay.vegan = FALSE;
+	    if (u.uconduct.food >= 10) u.roleplay.ascet = FALSE;
+	    break;
+
+	case CONDUCT_FOODLESS:
+	    if (u.roleplay.ascet)
+/*JP
+		You_feel("a little bit guilty.");
+*/
+		You_feel("ほんのわずかな罪を感じた。");
+	    u.uconduct.food++;
+	    if (u.uconduct.food >= 10) u.roleplay.ascet = FALSE;
+	    break;
+
+	case CONDUCT_ILLITERACY:
+	    u.uconduct.literate++;
+	    if (u.roleplay.illiterate) {
+		/* should be impossible */
+/*JP
+		pline("Literatally literature for literate illiterates!");
+*/
+		pline("学識ある文盲者のための洗練された文学！");
+		exercise(A_WIS, TRUE);		
+		}
+	    break;
+
+	case CONDUCT_THIEVERY:
+	    u.uconduct.robbed++;
+	    if (Role_if(PM_ROGUE))
+/*JP
+		You_feel("like an ordinary robber."); 
+*/
+		You_feel("並以下の強盗になってしまったような気がした。"); 
+	    break;
+
+	default: 
+	    impossible("violated: unknown conduct");
+
+	}
+	return;
+}
+
+/* a function to check whether a specific conduct has been broken
+ * return FALSE if broken
+*/
+boolean
+successful_cdt(cdt)
+int cdt;
+{
+	if ((cdt == CONDUCT_PACIFISM) && !u.uconduct.killer &&
+			!num_genocides() && (u.uconduct.weaphit<=100)) 
+	    return TRUE;
+	if ((cdt == CONDUCT_SADISM) && !u.uconduct.killer &&
+		 	(num_genocides() || (u.uconduct.weaphit>100)))
+	    return TRUE;
+	if ((cdt == CONDUCT_ATHEISM) && !u.uconduct.gnostic) return TRUE;
+	if ((cdt == CONDUCT_NUDISM) && !u.uconduct.armoruses) return TRUE;
+	if ((cdt == CONDUCT_BLINDFOLDED) && !u.uconduct.unblinded) return TRUE;
+	if ((cdt == CONDUCT_VEGETARIAN) && !u.uconduct.unvegetarian) return TRUE;
+	if ((cdt == CONDUCT_VEGAN) && !u.uconduct.unvegan) return TRUE;
+	if ((cdt == CONDUCT_FOODLESS) && !u.uconduct.food) return TRUE;
+	if ((cdt == CONDUCT_ILLITERACY) && !u.uconduct.literate) return TRUE;
+	if ((cdt == CONDUCT_THIEVERY) && !u.uconduct.robbed) return TRUE;
+
+	return FALSE;
+}
+
+/* a function to check whether a specific conduct *
+ *  was selected at character creation		  */
+boolean
+intended_cdt(cdt)
+int cdt;
+{
+	if ((cdt == CONDUCT_PACIFISM) && flags.pacifist) return TRUE;
+	if ((cdt == CONDUCT_ATHEISM) && flags.atheist) return TRUE;
+	if ((cdt == CONDUCT_NUDISM) && flags.nudist) return TRUE;
+	if ((cdt == CONDUCT_BLINDFOLDED) && flags.blindfolded) return TRUE;
+	if ((cdt == CONDUCT_FOODLESS) && flags.ascet) return TRUE;
+	if ((cdt == CONDUCT_VEGAN) && flags.vegan) return TRUE;
+	if ((cdt == CONDUCT_VEGETARIAN) && flags.vegetarian) return TRUE;
+	if ((cdt == CONDUCT_ILLITERACY) && flags.illiterate) return TRUE;
+
+	return FALSE;
+}
+
+/* a function to check whether it's superflous to list that conduct */ 
+boolean
+superfluous_cdt(cdt)
+int cdt;
+{
+	if ((cdt == CONDUCT_VEGAN) && successful_cdt(CONDUCT_FOODLESS)) return TRUE;
+	if ((cdt == CONDUCT_VEGETARIAN) && successful_cdt(CONDUCT_VEGAN)) return TRUE;
+	if ((cdt == CONDUCT_THIEVERY) && !u.uevent.invoked) return TRUE;
+
+	return FALSE;
+}
+
+/* tell if you failed a selected conduct */ 
+boolean
+failed_cdt(cdt)
+int cdt;
+{
+	return (intended_cdt(cdt) && !successful_cdt(cdt));
+}
+
 /* role.c */

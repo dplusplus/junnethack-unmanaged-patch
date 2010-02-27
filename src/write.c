@@ -94,7 +94,13 @@ register struct obj *pen;
 	char tmp[BUFSZ];
 #endif
 
-	if (nohands(youmonst.data)) {
+	if (u.roleplay.illiterate) {
+/*JP
+	    You("don't know how to write!");
+*/
+	    You("‘‚«•û‚ð’m‚ç‚È‚¢I");
+	    return 0;
+	} else if (nohands(youmonst.data)) {
 /*JP
 	    You("need hands to be able to write!");
 */
@@ -213,7 +219,7 @@ found:
 	}
 
 	/* KMH, conduct */
-	u.uconduct.literate++;
+	violated(CONDUCT_ILLITERACY);
 
 	new_obj = mksobj(i, FALSE, FALSE);
 	new_obj->bknown = (paper->bknown && pen->bknown);

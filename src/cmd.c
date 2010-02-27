@@ -2549,6 +2549,7 @@ int final;
 {
 	char buf[BUFSZ];
 	int ngenocided;
+	int cdt;
 
 	/* Create the conduct window */
 	en_win = create_nhwindow(NHW_MENU);
@@ -2558,28 +2559,43 @@ int final;
 	putstr(en_win, 0, "©”­“I’§í:");
 	putstr(en_win, 0, "");
 
-	if (!u.uconduct.food)
-/*JP
-	    enl_msg(You_, "have gone", "went", " without food");
-*/
-	    enl_msg("‚ ‚È‚½‚ÍH–‚ğ‚µ", "‚Ä‚¢‚È‚¢", "‚È‚©‚Á‚½", "");
-	    /* But beverages are okay */
-	else if (!u.uconduct.unvegan)
-/*JP
-	    you_have_X("followed a strict vegan diet");
-*/
-	    you_are("ŒµŠi‚ÈØHå‹`Ò");
-	else if (!u.uconduct.unvegetarian)
-/*JP
-	    you_have_been("vegetarian");
-*/
-	    you_are("ØHå‹`Ò");
+	/* list all major conducts */
 
-	if (!u.uconduct.gnostic)
+	for(cdt=FIRST_CONDUCT; cdt<=LAST_CONDUCT; cdt++){
+	    if(successful_cdt(cdt)){
+		if (!superfluous_cdt(cdt))
+		    enl_msg(conducts[cdt].prefix, 	/* "You "	*/
+			conducts[cdt].presenttxt,	/* "have been"	*/
+			conducts[cdt].pasttxt,		/* "were"	*/
+			conducts[cdt].suffix);		/* "a pacifist"	*/
+	    } else if(intended_cdt(cdt)){
+#if 0 /*JP*/
+		you_have_X(conducts[cdt].failtxt);	/* "pretended to be a pacifist" */
+#else
+		enl_msg(conducts[cdt].failtxt, "‚¢‚½", "‚¢‚½", "");	/* "–³–d‚É‚à•½˜aå‹`Ò‚ğ’§‚ñ‚Å" */
+#endif
+	    }
+	}
+
+	if (failed_cdt(CONDUCT_PACIFISM) || failed_cdt(CONDUCT_SADISM)){
+	    if (u.uconduct.killer == 0){
 /*JP
-	    you_have_been("an atheist");
+		you_have_never("killed a creature");
 */
-	    you_are("–³_˜_Ò");
+		enl_msg(You_, "‚µ‚Ä‚¢‚È‚¢", "‚³‚È‚©‚Á‚½", "¶‚«•¨‚ğE");
+	    } else {
+#if 0 /*JP*/
+		Sprintf(buf, "killed %ld creature%s", u.uconduct.killer,
+			plur(u.uconduct.killer));
+		you_have_X(buf);
+#else
+		Sprintf(buf, "%ld•C‚Ì¶‚«•¨‚ğE‚µ", u.uconduct.killer);
+		enl_msg(You_, "‚Ä‚¢‚é", "‚½", buf);
+#endif
+	    }
+	}
+
+	/* now list the remaining statistical details */
 
 	if (!u.uconduct.weaphit)
 /*JP
@@ -2598,20 +2614,7 @@ int final;
 	    enl_msg(buf, "‚Ä‚¢‚é", "‚½", "");
 #endif
 	}
-#endif
-	if (!u.uconduct.killer)
-/*JP
-	    you_have_been("a pacifist");
-*/
-	    you_are("•½˜aå‹`Ò");
-
-	if (!u.uconduct.literate)
-/*JP
-	    you_have_been("illiterate");
-*/
-	    enl_msg("‚ ‚È‚½‚Í“Ç‚İ‘‚«‚µ", "‚Ä‚¢‚È‚¢", "‚È‚©‚Á‚½", "");
-#ifdef WIZARD
-	else if (wizard) {
+	if (wizard && u.uconduct.literate){
 #if 0 /*JP*/
 	    Sprintf(buf, "read items or engraved %ld time%s",
 		    u.uconduct.literate, plur(u.uconduct.literate));
@@ -2620,6 +2623,16 @@ int final;
 	    Sprintf(buf, "%ld‰ñ“Ç‚ñ‚¾‚è‘‚¢‚½‚è‚µ",
 		    u.uconduct.literate);
 	    enl_msg(buf, "‚Ä‚¢‚é", "‚½", "");
+#endif
+	}
+	if (wizard && u.uconduct.armoruses) {
+#if 0 /*JP*/
+	    Sprintf(buf, "put on armor %ld time%s",
+		  u.uconduct.armoruses, plur(u.uconduct.armoruses));
+	    you_have_X(buf);
+#else
+	    Sprintf(buf, "%ld‰ñ–h‹ï‚ğ‘•”õ‚µ", u.uconduct.armoruses);
+	    enl_msg(You_, "‚Ä‚¢‚é", "‚½", buf);
 #endif
 	}
 #endif

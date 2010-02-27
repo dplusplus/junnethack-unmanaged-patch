@@ -63,8 +63,19 @@ doread()
 		You("break up the cookie and throw away the pieces.");
 */
 		You("クッキーを割り、かけらを投げすてた。");
-	    outrumor(bcsign(scroll), BY_COOKIE);
-	    if (!Blind) u.uconduct.literate++;
+	    if(u.roleplay.illiterate) {
+/*JP
+		pline("This cookie has a scrap of paper inside.");
+*/
+		pline("このクッキーには紙切が入っている。");
+/*JP
+		pline("What a pity that you cannot read!");
+*/
+		pline("読めないなんて気の毒な！");
+	    } else {
+		outrumor(bcsign(scroll), BY_COOKIE);
+		if (!Blind) violated(CONDUCT_ILLITERACY);
+	    }
 	    useup(scroll);
 	    return(1);
 #ifdef TOURIST
@@ -129,6 +140,22 @@ doread()
 */
 		pline("それを読んだ：");
 	    Strcpy(buf, shirt_msgs[scroll->o_id % SIZE(shirt_msgs)]);
+	    if (u.roleplay.illiterate) {
+/*JP
+		pline("Unfortunately you cannot read!");
+*/
+		pline("不幸なことにあなたは読むことができない！");
+		return 0;
+	    } else {
+		violated(CONDUCT_ILLITERACY);
+		if(flags.verbose)
+/*JP
+		    pline("It reads:");
+*/
+		    pline("それを読んだ：");
+		Strcpy(buf, shirt_msgs[scroll->o_id % SIZE(shirt_msgs)]);
+	    }
+
 	    erosion = greatest_erosion(scroll);
 	    if (erosion)
 		wipeout_text(buf,
@@ -327,7 +354,13 @@ doread()
 */
 	    pline(silly_thing_to, "読む");
 	    return(0);
-	} else if (Blind) {
+	} else if (u.roleplay.illiterate && (scroll->otyp != SPE_BOOK_OF_THE_DEAD)) {
+/*JP
+	    pline("Unfortunately you cannot read.");
+*/
+	    pline("不幸なことにあなたは読むことができない。");
+	    return(0);
+	} else if (Blind && (scroll->otyp != SPE_BOOK_OF_THE_DEAD)) {
 	    const char *what = 0;
 	    if (scroll->oclass == SPBOOK_CLASS)
 /*JP
@@ -352,7 +385,7 @@ doread()
 	if (scroll->otyp != SPE_BOOK_OF_THE_DEAD &&
 		scroll->otyp != SPE_BLANK_PAPER &&
 		scroll->otyp != SCR_BLANK_PAPER)
-	    u.uconduct.literate++;
+	    violated(CONDUCT_ILLITERACY);
 
 	confused = (Confusion != 0);
 #ifdef MAIL
