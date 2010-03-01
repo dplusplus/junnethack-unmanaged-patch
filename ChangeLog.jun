@@ -1,5 +1,5 @@
-Sat Feb 27 2010  Masaki Miyaso  <so-miya@sourceforge.jp>
-	* UnNetHack SVN版r414をベースにした。
+Mon Mar 1 2010  Masaki Miyaso  <so-miya@sourceforge.jp>
+	* UnNetHack SVN版r415をベースにした。
 	  r356 patchlevelを3.5.3にした
 	  r357 パッチ：ダンジョンマップ概要3 (Hojita Discordiaより)
 	  r358 マップ概要に闇市と道具屋を追加
@@ -55,6 +55,7 @@ Sat Feb 27 2010  Masaki Miyaso  <so-miya@sourceforge.jp>
 	  r412 ペット専門店（Slash'Emより）
 	  r413 缶詰店固有の店長名
 	  r414 店長名指定ミスでコンパイルできなくなっていた
+	  r415 黒いアイテムが正常に反転表示されるように
 	* 起動時の職業名が翻訳されなくなっていたのを修正
 
 Sun Dec 6 2009  Masaki Miyaso  <so-miya@sourceforge.jp>
