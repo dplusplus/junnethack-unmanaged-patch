@@ -3291,13 +3291,23 @@ doorganize()	/* inventory organizer by Del Lamb */
 	register char let;
 	char alphabet[52+1], buf[52+1];
 	char qbuf[QBUFSZ];
+#ifdef ADJSPLIT
+	char allowallcnt[3];
+#else
 	char allowall[2];
+#endif
 	const char *adj_type;
 
 	if (!flags.invlet_constant) reassign();
 	/* get a pointer to the object the user wants to organize */
+#ifdef ADJSPLIT
+	allowallcnt[0] = ALLOW_COUNT; allowallcnt[1] = ALL_CLASSES;
+	allowallcnt[2] = '\0';
+	if (!(obj = getobj(allowallcnt,"adjust"))) return(0);
+#else
 	allowall[0] = ALL_CLASSES; allowall[1] = '\0';
 	if (!(obj = getobj(allowall,"adjust"))) return(0);
+#endif
 
 	/* initialize the list with all upper and lower case letters */
 	for (let = 'a', ix = 0;  let <= 'z';) alphabet[ix++] = let++;
@@ -3329,7 +3339,11 @@ doorganize()	/* inventory organizer by Del Lamb */
 		let = yn_function(qbuf, (char *)0, '\0');
 		if(index(quitchars,let)) {
 			pline(Never_mind);
+#ifdef ADJSPLIT
+			goto cleansplit;
+#else
 			return(0);
+#endif
 		}
 		if (let == '@' || !letter(let))
 /*JP
@@ -3341,10 +3355,12 @@ doorganize()	/* inventory organizer by Del Lamb */
 	}
 
 	/* change the inventory and print the resulting item */
+#ifndef ADJSPLIT
 /*JP
 	adj_type = "Moving:";
 */
 	adj_type = "を移動した。";
+#endif
 
 	/*
 	 * don't use freeinv/addinv to avoid double-touching artifacts,
@@ -3352,25 +3368,71 @@ doorganize()	/* inventory organizer by Del Lamb */
 	 */
 	extract_nobj(obj, &invent);
 
+#ifdef ADJSPLIT
+	for (otmp = invent; otmp && otmp->invlet != let;)
+		otmp = otmp->nobj;
+	if (!otmp)
+/*JP
+		adj_type = "Moving:";
+*/
+		adj_type = "を移動した。";
+	else if (merged(&otmp,&obj)) {
+#else
 	for (otmp = invent; otmp;)
 		if (merged(&otmp,&obj)) {
+#endif
 /*JP
 			adj_type = "Merging:";
 */
 			adj_type = "を合わせた。";
 			obj = otmp;
+#ifndef ADJSPLIT
 			otmp = otmp->nobj;
+#endif
 			extract_nobj(obj, &invent);
 		} else {
+#ifdef ADJSPLIT
+		  struct obj *otmp2;
+		  for (otmp2 = invent; otmp2
+			 && otmp2->invlet != obj->invlet;)
+			otmp2 = otmp2->nobj;
+
+		  if (otmp2) {
+			char oldlet = obj->invlet;
+
+/*JP
+			adj_type = "Displacing:";
+*/
+			adj_type = "を置き換えた。";
+
+			/* Here be a nasty hack; solutions that don't
+			 * require duplication of assigninvlet's code
+			 * here are welcome.
+			 */
+			assigninvlet(obj);
+
+			if (obj->invlet == NOINVSYM) {
+/*JP
+				pline("There's nowhere to put that.");
+*/
+				pline("それの置き場所が見つからない。");
+				obj->invlet = oldlet;
+				goto cleansplit;
+			}
+		  } else
+#else
 			if (otmp->invlet == let) {
+#endif
 /*JP
 				adj_type = "Swapping:";
 */
 				adj_type = "を交換した。";
 				otmp->invlet = obj->invlet;
 			}
+#ifndef ADJSPLIT
 			otmp = otmp->nobj;
 		}
+#endif
 
 	/* inline addinv (assuming flags.invlet_constant and !merged) */
 	obj->invlet = let;
@@ -3382,6 +3444,14 @@ doorganize()	/* inventory organizer by Del Lamb */
 	prinv(adj_type, obj, 0L);
 	update_inventory();
 	return(0);
+#ifdef ADJSPLIT
+cleansplit:
+	for (otmp = invent; otmp; otmp = otmp->nobj)
+                if (otmp != obj && otmp->invlet == obj->invlet)
+                        merged( &otmp, &obj );
+
+	return 0;
+#endif
 }
 
 /* common to display_minventory and display_cinventory */
