@@ -141,7 +141,7 @@ STATIC_PTR int NDECL(wiz_mazewalkmap);
 extern char SpLev_Map[COLNO][ROWNO];
 STATIC_PTR int NDECL(wiz_showkills);	/* showborn patch */
 #ifdef SHOW_BORN
-extern void FDECL(list_vanquished, (int, BOOLEAN_P)); /* showborn patch */
+extern void FDECL(list_vanquished, (int, BOOLEAN_P, BOOLEAN_P)); /* showborn patch */
 #endif /* SHOW_BORN */
 #if defined(__BORLANDC__) && !defined(_WIN32)
 extern void FDECL(show_borlandc_stats, (winid));
@@ -563,6 +563,9 @@ dooverview_or_wiz_where()
 #ifdef WIZARD
 	//if (wizard) return wiz_where();
 	//else
+#if 1 /*JP*/
+	if (wizard && yn("全表示する？") == 'y') return wiz_where();
+#endif
 #endif
 	dooverview();
 	return 0;
@@ -876,7 +879,7 @@ wiz_show_wmodes()
 /* #showkills command */
 STATIC_PTR int wiz_showkills()		/* showborn patch */
 {
-	list_vanquished('y', FALSE);
+	list_vanquished('y', FALSE, TRUE);
 	return 0;
 }
 
@@ -922,6 +925,7 @@ static const char
 #define you_are_ing(goodthing) enl_msg(You_,iru,ita,goodthing)
 #endif
 
+static BOOLEAN_P want_display = FALSE;
 static void
 enlght_line(start, middle, end)
 const char *start, *middle, *end;
@@ -933,7 +937,10 @@ const char *start, *middle, *end;
 #else
 	Sprintf(buf, "%s%s%s。", start, middle, end);
 #endif
-	putstr(en_win, 0, buf);
+	if (want_display) {
+		putstr(en_win, 0, buf);
+	}
+	dump("  ", buf);
 }
 
 /* format increased damage or chance to hit */
@@ -989,18 +996,25 @@ char *outbuf;
 }
 
 void
-enlightenment(final)
+enlightenment(final, want_disp)
 int final;	/* 0 => still in progress; 1 => over, survived; 2 => dead */
+BOOLEAN_P want_disp;
 {
 	int ltmp;
 	char buf[BUFSZ];
 
-	en_win = create_nhwindow(NHW_MENU);
+	want_display = want_disp;
+
 /*JP
-	putstr(en_win, 0, final ? "Final Attributes:" : "Current Attributes:");
+	Sprintf(buf, final ? "Final Attributes:" : "Current Attributes:");
 */
-	putstr(en_win, 0, final ? "最終属性：" : "現在の属性：");
-	putstr(en_win, 0, "");
+	Sprintf(buf, final ? "最終属性：" : "現在の属性：");
+	if (want_display) {
+		en_win = create_nhwindow(NHW_MENU);
+		putstr(en_win, 0, buf);
+		putstr(en_win, 0, "");
+	}
+	dump_title(buf);
 
 #ifdef ELBERETH
 	if (u.uevent.uhand_of_elbereth) {
@@ -1333,7 +1347,7 @@ int final;	/* 0 => still in progress; 1 => over, survived; 2 => dead */
 	else if (Levitation) you_are("levitating");	/* without control */
 	else if (Flying) you_can("fly");
 	if (Wwalking) you_can("walk on water");
-	if (Swimming) you_can("swim");        
+	if (Swimming) you_can("swim");
 	if (Breathless) you_can("survive without air");
 	else if (Amphibious) you_can("breathe water");
 	if (Passes_walls) you_can("walk through walls");
@@ -1345,7 +1359,7 @@ int final;	/* 0 => still in progress; 1 => over, survived; 2 => dead */
 	else if (Levitation) you_are("浮遊状態");	/* without control */
 	else if (Flying) you_can("飛ぶことが");
 	if (Wwalking) you_can("水の上を歩くことが");
-	if (Swimming) you_can("泳ぐことが");        
+	if (Swimming) you_can("泳ぐことが");
 	if (Breathless) you_can("空気なしで生き延びることが");
 	else if (Amphibious) you_can("水中で呼吸が");
 	if (Passes_walls) you_can("壁を通り抜けることが");
@@ -1637,700 +1651,13 @@ int final;	/* 0 => still in progress; 1 => over, survived; 2 => dead */
 */
 	if (p) enl_msg(You_, "死んでいる", p, buf);
     }
+    dump("", "");
 
+    if (want_display) {
 	display_nhwindow(en_win, TRUE);
 	destroy_nhwindow(en_win);
-	return;
-}
-
-#ifdef DUMP_LOG
-void
-dump_enlightenment(final)
-int final;
-{
-	int ltmp;
-	char buf[BUFSZ];
-	char buf2[BUFSZ];
-	const char *enc_stat[] = { /* copied from botl.c */
-#if 0 /*JP*/
-	     "",
-	     "burdened",
-	     "stressed",
-	     "strained",
-	     "overtaxed",
-	     "overloaded"
-#else
-	     "",
-	     "よろめき",
-	     "圧迫",
-	     "限界",
-	     "荷重",
-	     "超過"
-#endif
-	};
-#if 0 /*JP*/
-	char *youwere = "  You were ";
-	char *youhave = "  You have ";
-	char *youhad  = "  You had ";
-	char *youcould = "  You could ";
-#else
-	char *youwere, *youhad, *youcould;
-	youwere = youhad = youcould = "  あなたは";
-#define DE_WERE "であった"
-#define DE_HAD "をもっていた"
-#define DE_COULD "できた"
-#define DE_WERE_ING "いた"
-#endif
-
-/*JP
-	dump("", "Final attributes");
-*/
-	dump("", "最終属性");
-
-#ifdef ELBERETH
-	if (u.uevent.uhand_of_elbereth) {
-	    static const char * const hofe_titles[3] = {
-#if 0 /*JP*/
-				"the Hand of Elbereth",
-				"the Envoy of Balance",
-				"the Glory of Arioch"
-#else
-				"エルベレスの御手" DE_WERE,
-				"調和の使者" DE_WERE,
-				"アリオッチの名誉" DE_WERE
-#endif
-	    };
-	    dump(youwere,
-		(char *)hofe_titles[u.uevent.uhand_of_elbereth - 1]);
-	}
-#endif
-
-	if (u.ualign.record >= 20)
-/*JP
-		dump(youwere, "piously aligned");
-*/
-		dump(youhad, "敬虔な信仰心" DE_HAD);
-	else if (u.ualign.record > 13)
-/*JP
-	    dump(youwere, "devoutly aligned");
-*/
-	    dump(youhad, "心からの信仰心" DE_HAD);
-	else if (u.ualign.record > 8)
-/*JP
-	    dump(youwere, "fervently aligned");
-*/
-	    dump(youhad, "熱心な信仰心" DE_HAD);
-	else if (u.ualign.record > 3)
-/*JP
-	    dump(youwere, "stridently aligned");
-*/
-	    dump(youhad, "おおげさな信仰心" DE_HAD);
-	else if (u.ualign.record == 3)
-/*JP
-	    dump(youwere, "aligned");
-*/
-	    dump(youhad, "普通の信仰心" DE_HAD);
-	else if (u.ualign.record > 0)
-/*JP
-	    dump(youwere, "haltingly aligned");
-*/
-	    dump(youhad, "躊躇しながらも信仰心" DE_HAD);
-	else if (u.ualign.record == 0)
-/*JP
-	    dump(youwere, "nominally aligned");
-*/
-	    dump(youhad, "形だけの信仰心" DE_HAD);
-/*JP
-	else if (u.ualign.record >= -3)	dump(youhave, "strayed");
-*/
-	else if (u.ualign.record >= -3)	dump(youhad, "信仰に迷い" DE_HAD);
-/*JP
-	else if (u.ualign.record >= -8)	dump(youhave, "sinned");
-*/
-	else if (u.ualign.record >= -8)	dump(youhad, "罪を負って" DE_WERE_ING);
-/*JP
-	else dump("  You have ", "transgressed");
-*/
-	else dump(youhad, "信仰から逸脱して" DE_WERE_ING);
-#if 0 /*JP*/
-	Sprintf(buf, " %d", u.ualign.record);
-	dump("  Your alignment was ", buf);
-#else
-	Sprintf(buf, "%dだった", u.ualign.record);
-	dump("  あなたの属性値は", buf);
-#endif
-
-
-	/*** Resistances to troubles ***/
-/*JP
-	if (Fire_resistance) dump(youwere, "fire resistant");
-*/
-	if (Fire_resistance) dump(youhad, "火への耐性" DE_HAD);
-/*JP
-	if (Cold_resistance) dump(youwere, "cold resistant");
-*/
-	if (Cold_resistance) dump(youhad, "寒さへの耐性" DE_HAD);
-/*JP
-	if (Sleep_resistance) dump(youwere, "sleep resistant");
-*/
-	if (Sleep_resistance) dump(youhad, "眠りへの耐性" DE_HAD);
-/*JP
-	if (Disint_resistance) dump(youwere, "disintegration-resistant");
-*/
-	if (Disint_resistance) dump(youhad, "粉砕への耐性" DE_HAD);
-/*JP
-	if (Shock_resistance) dump(youwere, "shock resistant");
-*/
-	if (Shock_resistance) dump(youhad, "電撃への耐性" DE_HAD);
-/*JP
-	if (Poison_resistance) dump(youwere, "poison resistant");
-*/
-	if (Poison_resistance) dump(youhad, "毒への耐性" DE_HAD);
-/*JP
-	if (Drain_resistance) dump(youwere, "level-drain resistant");
-*/
-	if (Drain_resistance) dump(youhad, "レベルダウンへの耐性" DE_HAD);
-/*JP
-	if (Sick_resistance) dump(youwere, "immune to sickness");
-*/
-	if (Sick_resistance) dump(youhad, "病気に対する免疫" DE_HAD);
-/*JP
-	if (Acid_resistance) dump(youwere, "acid resistant");
-*/
-	if (Acid_resistance) dump(youhad, "酸への耐性" DE_HAD);
-/*JP
-	if (Stone_resistance) dump(youwere, "petrification resistant");
-*/
-	if (Stone_resistance) dump(youhad, "石化への耐性" DE_HAD);
-/*JP
-	if (Invulnerable) dump(youwere, "invulnerable");
-*/
-	if (Invulnerable) dump(youwere, "不死身" DE_WERE);
-/*JP
-	if (u.uedibility) dump(youcould, "recognize detrimental food");
-*/
-	if (u.uedibility) dump(youcould, "有害な食料を識別" DE_COULD);
-
-	/*** Troubles ***/
-/*JP
-	if (Halluc_resistance) 	dump("  ", "You resisted hallucinations");
-*/
-	if (Halluc_resistance) 	dump(youhad, "幻覚への耐性" DE_HAD);
-/*JP
-	if (Hallucination) dump(youwere, "hallucinating");
-*/
-	if (Hallucination) dump(youwere, "幻覚状態" DE_WERE);
-/*JP
-	if (Stunned) dump(youwere, "stunned");
-*/
-	if (Stunned) dump(youwere, "くらくら状態" DE_WERE);
-/*JP
-	if (Confusion) dump(youwere, "confused");
-*/
-	if (Confusion) dump(youwere, "混乱状態" DE_WERE);
-/*JP
-	if (Blinded) dump(youwere, "blinded");
-*/
-	if (Blinded) dump(youwere, "盲目" DE_WERE);
-	if (Sick) {
-		if (u.usick_type & SICK_VOMITABLE)
-/*JP
-			dump(youwere, "sick from food poisoning");
-*/
-			dump(youwere, "食中毒で気分が悪かった");
-		if (u.usick_type & SICK_NONVOMITABLE)
-/*JP
-			dump(youwere, "sick from illness");
-*/
-			dump(youwere, "病気で気分が悪かった");
-	}
-/*JP
-	if (Stoned) dump(youwere, "turning to stone");
-*/
-	if (Stoned) dump(youwere, "石になった");
-/*JP
-	if (Slimed) dump(youwere, "turning into slime");
-*/
-	if (Slimed) dump(youwere, "スライム状になって" DE_WERE_ING);
-	if (Strangled)
-/*JP
-		dump(youwere, (u.uburied) ? "buried" : "being strangled");
-*/
-		dump(youwere, (u.uburied) ? "窒息して" DE_WERE_ING
-			: "首を絞められて" DE_WERE_ING);
-	if (Glib) {
-#if 0 /*JP:T*/
-		Sprintf(buf, "slippery %s", makeplural(body_part(FINGER)));
-		dump(youhad, buf);
-#else
-		Sprintf(buf, "%sがぬるぬるしていた", body_part(FINGER));
-		dump("", buf);
-#endif
-	}
-/*JP
-	if (Fumbling) dump("  ", "You fumbled");
-*/
-	if (Fumbling) dump(youwere, "不器用になって" DE_WERE_ING);
-	if (Wounded_legs
-#ifdef STEED
-	    && !u.usteed
-#endif
-			  ) {
-#if 0 /*JP:T*/
-		Sprintf(buf, "wounded %s", makeplural(body_part(LEG)));
-		dump(youhad, buf);
-#else
-		Sprintf(buf, "%sを怪我して" DE_WERE_ING, makeplural(body_part(LEG)));
-		dump(youhad, buf);
-#endif
-	}
-#ifdef STEED
-	if (Wounded_legs && u.usteed) {
-	    Strcpy(buf, x_monnam(u.usteed, ARTICLE_YOUR, (char *)0, 
-		    SUPPRESS_SADDLE | SUPPRESS_HALLUCINATION, FALSE));
-#if 0 /*JP:T*/
-	    *buf = highc(*buf);
-	    Strcat(buf, " had wounded legs");
-	    dump("  ", buf);
-#else
-	    Strcat(buf, "は脚を怪我していた");
-	    dump("  ", buf);
-#endif
-	}
-#endif
-/*JP
-	if (Sleeping) dump("  ", "You fell asleep");
-*/
-	if (Sleeping) dump(youwere, "眠って" DE_WERE_ING);
-/*JP
-	if (Hunger) dump("  ", "You hungered rapidly");
-*/
-	if (Hunger) dump(youwere, "すぐに腹が減る状態だった");
-
-	/*** Vision and senses ***/
-/*JP
-	if (See_invisible) dump("  ", "You saw invisible");
-*/
-	if (See_invisible) dump(youwere, "透明なものを見られた");
-/*JP
-	if (Blind_telepat) dump(youwere, "telepathic");
-*/
-	if (Blind_telepat) dump(youhad, "テレパシー" DE_HAD);
-/*JP
-	if (Warning) dump(youwere, "warned");
-*/
-	if (Warning) dump(youwere, "警戒能力" DE_HAD);
-	if (Warn_of_mon && flags.warntype) {
-#if 0 /*JP*/
-		Sprintf(buf, "aware of the presence of %s",
-			(flags.warntype & M2_ORC) ? "orcs" :
-			(flags.warntype & M2_DEMON) ? "demons" :
-			something); 
-#else
-		Sprintf(buf, "%sの存在を感じる能力" DE_HAD,
-			(flags.warntype & M2_ORC) ? "オーク" :
-			(flags.warntype & M2_DEMON) ? "悪魔" :
-			something); 
-#endif
-		dump(youhad, buf);
-	}
-/*JP
-	if (Undead_warning) dump(youwere, "warned of undead");
-*/
-	if (Undead_warning) dump(youhad, "不死の生物への警戒能力" DE_HAD);
-/*JP
-	if (Searching) dump(youhad, "automatic searching");
-*/
-	if (Searching) dump(youhad, "探査能力" DE_HAD);
-/*JP
-	if (Clairvoyant) dump(youwere, "clairvoyant");
-*/
-	if (Clairvoyant) dump(youhad, "千里眼能力" DE_HAD);
-/*JP
-	if (Infravision) dump(youhad, "infravision");
-*/
-	if (Infravision) dump(youhad, "赤外線を見る能力" DE_HAD);
-	if (Detect_monsters)
-/*JP
-	  dump(youwere, "sensing the presence of monsters");
-*/
-	  dump(youhad, "怪物を探す能力" DE_HAD);
-/*JP
-	if (u.umconf) dump(youwere, "going to confuse monsters");
-*/
-	if (u.umconf) dump(youhad, "怪物を混乱させる能力" DE_HAD);
-
-	/*** Appearance and behavior ***/
-	if (Adornment) {
-	    int adorn = 0;
-	    if(uleft && uleft->otyp == RIN_ADORNMENT) adorn += uleft->spe;
-	    if(uright && uright->otyp == RIN_ADORNMENT) adorn += uright->spe;
-	    if (adorn < 0)
-/*JP
-		dump(youwere, "poorly adorned");
-*/
-		dump(youwere, "みずほらしく着飾って" DE_WERE_ING);
-	    else
-/*JP
-		dump(youwere, "adorned");
-*/
-		dump(youwere, "着飾って" DE_WERE_ING);
-	}
-/*JP
-	if (Invisible) dump(youwere, "invisible");
-*/
-	if (Invisible) dump(youwere, "透明" DE_WERE);
-/*JP
-	else if (Invis) dump(youwere, "invisible to others");
-*/
-	else if (Invis) dump(youwere, "他人に対して透明" DE_WERE);
-	/* ordinarily "visible" is redundant; this is a special case for
-	   the situation when invisibility would be an expected attribute */
-	else if ((HInvis || EInvis || pm_invisible(youmonst.data)) && BInvis)
-/*JP
-	    dump(youwere, "visible");
-*/
-	    dump(youwere, "不透明" DE_WERE);
-/*JP
-	if (Displaced) dump(youwere, "displaced");
-*/
-	if (Displaced) dump(youhad, "幻影能力" DE_HAD);
-/*JP
-	if (Stealth) dump(youwere, "stealthy");
-*/
-	if (Stealth) dump(youhad, "人目を盗む能力" DE_HAD);
-/*JP
-	if (Aggravate_monster) dump("  ", "You aggravated monsters");
-*/
-	if (Aggravate_monster) dump(youwere, "反感をかって" DE_WERE_ING);
-/*JP
-	if (Conflict) dump("  ", "You caused conflict");
-*/
-	if (Conflict) dump(youwere, "闘争を引き起こして" DE_WERE_ING);
-
-	/*** Transportation ***/
-/*JP
-	if (Jumping) dump(youcould, "jump");
-*/
-	if (Jumping) dump(youcould, "跳躍することが" DE_COULD);
-/*JP
-	if (Teleportation) dump(youcould, "teleport");
-*/
-	if (Teleportation) dump(youcould, "瞬間移動が" DE_COULD);
-/*JP
-	if (Teleport_control) dump(youhad, "teleport control");
-*/
-	if (Teleport_control) dump(youhad, "瞬間移動の制御能力" DE_HAD);
-/*JP
-	if (Lev_at_will) dump(youwere, "levitating, at will");
-*/
-	if (Lev_at_will) dump(youhad, "上手く浮遊する能力" DE_HAD);
-	else if (Levitation)
-#if 0 /*JP*/
-	  dump(youwere, "levitating");	/* without control */
-#else
-	  dump(youwere, "浮遊状態" DE_WERE);	/* without control */
-#endif
-/*JP
-	else if (Flying) dump(youcould, "fly");
-*/
-	else if (Flying) dump(youcould, "飛ぶことが" DE_COULD);
-/*JP
-	if (Wwalking) dump(youcould, "walk on water");
-*/
-	if (Wwalking) dump(youcould, "水の上を歩くことが" DE_COULD);
-/*JP
-	if (Swimming) dump(youcould, "swim");
-*/
-	if (Swimming) dump(youcould, "泳ぐことが" DE_COULD);
-/*JP
-	if (Breathless) dump(youcould, "survive without air");
-*/
-	if (Breathless) dump(youcould, "空気なしで生き延びることが" DE_COULD);
-/*JP
-	else if (Amphibious) dump(youcould, "breathe water");
-*/
-	else if (Amphibious) dump(youcould, "水中で呼吸が" DE_COULD);
-/*JP
-	if (Passes_walls) dump(youcould, "walk through walls");
-*/
-	if (Passes_walls) dump(youcould, "壁を通り抜けることが" DE_COULD);
-#ifdef STEED
-#if 0 /*JP*/
-	if (u.usteed && (final < 2 || strcmp(killer, "riding accident"))) {
-	    Sprintf(buf, "riding %s", y_monnam(u.usteed));
-	    dump(youwere, buf);
-	}
-#else
-	if (u.usteed && (final < 2 || strcmp(killer, "乗りものから落ちて"))) {
-	    Sprintf(buf, "%sに乗っていた", y_monnam(u.usteed));
-	    dump(youwere, buf);
-	}
-#endif /*JP*/
-#endif
-	if (u.uswallow) {
-/*JP
-	    Sprintf(buf, "swallowed by %s", a_monnam(u.ustuck));
-*/
-	    Sprintf(buf, "%sに飲み込まれていた", a_monnam(u.ustuck));
-#ifdef WIZARD
-	    if (wizard) Sprintf(eos(buf), " (%u)", u.uswldtim);
-#endif
-	    dump(youwere, buf);
-	} else if (u.ustuck) {
-#if 0 /*JP*/
-	    Sprintf(buf, "%s %s",
-		    (Upolyd && sticks(youmonst.data)) ? "holding" : "held by",
-		    a_monnam(u.ustuck));
-#else
-	    Sprintf(buf, "%s%sいた",
-		    a_monnam(u.ustuck),
-		    (Upolyd && sticks(youmonst.data)) ? "を捕まえて" : "に捕まって");
-#endif
-	    dump(youwere, buf);
-	}
-
-	/*** Physical attributes ***/
-	if (u.uhitinc)
-#if 0 /*JP*/
-	    dump(youhad,
-		enlght_combatinc("to hit", u.uhitinc, final, buf));
-#else
-	{
-		enlght_combatinc("命中率", u.uhitinc, final, buf);
-	    Strcat(buf, DE_HAD);
-	    dump(youhad, buf);
-	}
-#endif /*JP*/
-	if (u.udaminc)
-#if 0 /*JP*/
-	    dump(youhad,
-		enlght_combatinc("damage", u.udaminc, final, buf));
-#else
-	{
-	    enlght_combatinc("ダメージ", u.udaminc, final, buf);
-	    Strcat(buf, DE_HAD);
-	    dump(youhad, buf);
-	}
-#endif /*JP*/
-/*JP
-	if (Slow_digestion) dump(youhad, "slower digestion");
-*/
-	if (Slow_digestion) dump(youhad, "食物の消化が遅かった");
-/*JP
-	if (Regeneration) dump("  ", "You regenerated");
-*/
-	if (Regeneration) dump(youhad, "再生能力" DE_HAD);
-	if (u.uspellprot || Protection) {
-	    int prot = 0;
-
-	    if(uleft && uleft->otyp == RIN_PROTECTION) prot += uleft->spe;
-	    if(uright && uright->otyp == RIN_PROTECTION) prot += uright->spe;
-	    if (HProtection & INTRINSIC) prot += u.ublessed;
-	    prot += u.uspellprot;
-	    
-	    if (prot < 0)
-/*JP
-		dump(youwere, "ineffectively protected");
-*/
-		dump(youwere, "不十分に守られて" DE_WERE_ING);
-	    else
-/*JP
-		dump(youwere, "protected");
-*/
-		dump(youwere, "守られて" DE_WERE_ING);
-	}
-	if (Protection_from_shape_changers)
-/*JP
-		dump(youwere, "protected from shape changers");
-*/
-		dump(youwere, "変化怪物への耐性" DE_HAD);
-/*JP
-	if (Polymorph) dump(youwere, "polymorphing");
-*/
-	if (Polymorph) dump(youwere, "変化して" DE_WERE_ING);
-/*JP
-	if (Polymorph_control) dump(youhad, "polymorph control");
-*/
-	if (Polymorph_control) dump(youhad, "変化の制御能力" DE_HAD);
-	if (u.ulycn >= LOW_PM) {
-#if 0/*JP*/
-		Strcpy(buf, an(mons[u.ulycn].mname));
-#else
-		Strcpy(buf, jtrns_mon_gen(mons[u.ulycn].mname, flags.female));
-		Strcat(buf, DE_WERE);
-#endif
-		dump(youwere, buf);
-	}
-	if (Upolyd) {
-#if 0/*JP*/
-	    if (u.umonnum == u.ulycn) Strcpy(buf, "in beast form");
-	    else Sprintf(buf, "polymorphed into %s",
-			 an(youmonst.data->mname));
-#else
-	    if (u.umonnum == u.ulycn) Strcpy(buf, "獣の姿をしていた");
-	    else Sprintf(buf, "%sに変化していた", a_monnam(&youmonst));
-#endif
-#ifdef WIZARD
-	    if (wizard) Sprintf(eos(buf), " (%d)", u.mtimedone);
-#endif
-	    dump(youwere, buf);
-	}
-	if (Unchanging)
-/*JP
-	  dump(youcould, "not change from your current form");
-*/
-	  dump(youcould, "今の姿から変化することができなかった");
-#if 0/*JP*/
-	if (Fast) dump(youwere, Very_fast ? "very fast" : "fast");
-#else
-	if (Fast) {
-		Sprintf(buf, "%s素早く行動する能力" DE_HAD,
-		    Very_fast ? "とても" : "");
-		dump(youwere, buf);
-	}
-#endif
-/*JP
-	if (Reflecting) dump(youhad, "reflection");
-*/
-	if (Reflecting) dump(youhad, "反射能力" DE_HAD);
-/*JP
-	if (Free_action) dump(youhad, "free action");
-*/
-	if (Free_action) dump(youhad, "拘束されない能力" DE_HAD);
-/*JP
-	if (Fixed_abil) dump(youhad, "fixed abilities");
-*/
-	if (Fixed_abil) dump(youhad, "能力が変化しなかった");
-	if (Lifesaved)
-/*JP
-		dump("  ", "Your life would have been saved");
-*/
-		dump("  ", "あなたの生命は保存されて" DE_WERE_ING);
-/*JP
-	if (u.twoweap) dump(youwere, "wielding two weapons at once");
-*/
-	if (u.twoweap) dump(youwere, "二刀流" DE_WERE);
-
-	/*** Miscellany ***/
-	if (Luck) {
-	    ltmp = abs((int)Luck);
-#if 0 /*JP*/
-	    Sprintf(buf, "%s%slucky (%d)",
-		    ltmp >= 10 ? "extremely " : ltmp >= 5 ? "very " : "",
-		    Luck < 0 ? "un" : "", Luck);
-#else
-	    Sprintf(buf, "%s%s(%d)",
-		    ltmp >= 10 ? "猛烈に" : ltmp >= 5 ? "とても" : "",
-		    Luck < 0 ? "不幸" : "幸福", Luck);
-#endif
-	    dump(youwere, buf);
-	}
-#ifdef WIZARD
-/*JP
-	 else if (wizard) dump("  ", "Your luck was zero");
-*/
-	 else if (wizard) dump("  ", "あなたの運はゼロだった");
-#endif
-/*JP
-	if (u.moreluck > 0) dump(youhad, "extra luck");
-*/
-	if (u.moreluck > 0) dump(youhad, "さらなる幸運");
-/*JP
-	else if (u.moreluck < 0) dump(youhad, "reduced luck");
-*/
-	else if (u.moreluck < 0) dump(youhad, "さらなる悪運");
-	if (carrying(LUCKSTONE) || stone_luck(TRUE)) {
-	    ltmp = stone_luck(FALSE);
-	    if (ltmp <= 0)
-/*JP
-		dump("  ", "Bad luck did not time out for you");
-*/
-		dump("  ", "悪運は時間切れにならなかった");
-	    if (ltmp >= 0)
-/*JP
-		dump("  ", "Good luck did not time out for you");
-*/
-		dump("  ", "幸運は時間切れにならなかった");
-	}
-
-	if (u.ugangr) {
-#if 0 /*JP*/
-	    Sprintf(buf, " %sangry with you",
-		u.ugangr > 6 ? "extremely " : u.ugangr > 3 ? "very " : "");
-#ifdef WIZARD
-	    if (wizard) Sprintf(eos(buf), " (%d)", u.ugangr);
-#endif
-	    Sprintf(buf2, "%s was %s", u_gname(), buf);
-	    dump("  ", buf2);
-#else /*JP*/
-	    Sprintf(buf, "%sは%s怒っていた", u_gname(),
-		u.ugangr > 6 ? "猛烈に" : u.ugangr > 3 ? "とても" : "");
-#ifdef WIZARD
-	    if (wizard) Sprintf(eos(buf), " (%d)", u.ugangr);
-#endif
-	    dump("  ", buf);
-#endif /*JP*/
-	}
-
-    {
-	const char *p;
-
-	buf[0] = '\0';
-	if (final < 2) {    /* quit/escaped/ascended */
-#if 0 /*JP*/
-	    p = "survived after being killed ";
-	    switch (u.umortality) {
-	    case 0:  p = "survived";  break;
-	    case 1:  Strcpy(buf, "once");  break;
-	    case 2:  Strcpy(buf, "twice");  break;
-	    case 3:  Strcpy(buf, "thrice");  break;
-	    default: Sprintf(buf, "%d times", u.umortality);
-		     break;
-#else
-	    p = "死んだ後復活していた";
-	    switch (u.umortality) {
-	    case 0:  p = "生き延びた";  break;
-	    case 1:  Strcpy(buf, "一度");  break;
-	    case 2:  Strcpy(buf, "二度");  break;
-	    case 3:  Strcpy(buf, "三度");  break;
-	    default: Sprintf(buf, "%d回", u.umortality);
-		     break;
-	    }
-#endif
-	} else {		/* game ended in character's death */
-#if 0 /*JP*/
-	    p = "are dead";
-	    switch (u.umortality) {
-	    case 0:  warning("dead without dying?");
-	    case 1:  break;			/* just "are dead" */
-	    default: Sprintf(buf, " (%d%s time!)", u.umortality,
-			     ordin(u.umortality));
-		     break;
-	    }
-#else
-	    p = "死んでいる";
-	    switch (u.umortality) {
-	    case 0:  warning("dead without dying?");
-	    case 1:  break;			/* just "are dead" */
-	    default: Sprintf(buf, "(%d回！)", u.umortality);
-		     break;
-	    }
-#endif
-	}
-	if (p) {
-/*JP
-	  Sprintf(buf2, "You %s %s", p, buf);
-*/
-	  Sprintf(buf2, "あなたは%s%s", buf, p);
-	  dump("  ", buf2);
-	}
     }
-	dump("", "");
-	return;
-
-} /* dump_enlightenment */
-#endif
+}
 
 /*
  * Courtesy function for non-debug, non-explorer mode players
@@ -2529,7 +1856,7 @@ doattributes()
 	if (!minimal_enlightenment())
 		return 0;
 	if (wizard || discover)
-		enlightenment(0);
+		enlightenment(0, TRUE);
 	return 0;
 }
 
@@ -2539,25 +1866,34 @@ doattributes()
 STATIC_PTR int
 doconduct()
 {
-	show_conduct(0);
+	show_conduct(0, TRUE);
 	return 0;
 }
 
 void
-show_conduct(final)
+show_conduct(final, want_disp)
 int final;
+BOOLEAN_P want_disp;
 {
 	char buf[BUFSZ];
 	int ngenocided;
 	int cdt;
 
+	want_display = want_disp;
+
 	/* Create the conduct window */
-	en_win = create_nhwindow(NHW_MENU);
+	if (want_display) {
+		en_win = create_nhwindow(NHW_MENU);
 /*JP
-	putstr(en_win, 0, "Voluntary challenges:");
+		putstr(en_win, 0, "Voluntary challenges:");
 */
-	putstr(en_win, 0, "自発的挑戦:");
-	putstr(en_win, 0, "");
+		putstr(en_win, 0, "自発的挑戦:");
+		putstr(en_win, 0, "");
+	}
+/*JP
+	dump("", "Voluntary challenges");
+*/
+	dump("", "自発的挑戦");
 
 	/* list all major conducts */
 
@@ -2717,187 +2053,14 @@ int final;
 		enl_msg("あなたは聖器を願", "っていない", "わなかった", "");
 #endif
 	}
+	dump("", "");
 
 	/* Pop up the window and wait for a key */
-	display_nhwindow(en_win, TRUE);
-	destroy_nhwindow(en_win);
+	if (want_display) {
+		display_nhwindow(en_win, TRUE);
+		destroy_nhwindow(en_win);
+	}
 }
-
-#ifdef DUMP_LOG
-void
-dump_conduct(final)
-int final;
-{
-	char buf[BUFSZ];
-	int ngenocided;
-
-/*JP
-	dump("", "Voluntary challenges");
-*/
-	dump("", "自発的挑戦");
-
-	if (!u.uconduct.food)
-/*JP
-	    dump("", "  You went without food");
-*/
-	    dump("", "  あなたは食事をしなかった");
-	    /* But beverages are okay */
-	else if (!u.uconduct.unvegan)
-/*JP
-	    dump("", "  You followed a strict vegan diet");
-*/
-	    dump("", "  あなたは厳格な菜食主義者であった");
-	else if (!u.uconduct.unvegetarian)
-/*JP
-	    dump("", "  You were a vegetarian");
-*/
-	    dump("", "  あなたは菜食主義者であった");
-	else if (Role_if(PM_MONK) && u.uconduct.unvegetarian < 10) {
-#if 0 /*JP*/
-	    sprintf(buf, "  You ate non-vegetarian food %ld time%s.", 
-		u.uconduct.unvegetarian, plur(u.uconduct.unvegetarian));
-#else
-	    sprintf(buf, "  あなたは植物性以外の食事を%ld回した。", 
-		u.uconduct.unvegetarian);
-#endif
-	    dump("", buf);
-	}
-
-	if (!u.uconduct.gnostic)
-/*JP
-	    dump("", "  You were an atheist");
-*/
-	    dump("", "  あなたは無神論者であった");
-
-	if (!u.uconduct.weaphit)
-/*JP
-	    dump("", "  You never hit with a wielded weapon");
-*/
-	    dump("", "  あなたは装備している武器で攻撃しなかった");
-	else if (Role_if(PM_MONK) && u.uconduct.weaphit < 10) {
-#if 0 /*JP*/
-	    Sprintf(buf, "  You hit with a wielded weapon %ld time%s",
-		    u.uconduct.weaphit, plur(u.uconduct.weaphit));
-#else
-	    Sprintf(buf, "  あなたは%ld回装備した武器を使用した",
-		    u.uconduct.weaphit);
-#endif
-	    dump("", buf);
-	}
-#ifdef WIZARD
-	else if (wizard) {
-#if 0 /*JP*/
-	    Sprintf(buf, "hit with a wielded weapon %ld time%s",
-		    u.uconduct.weaphit, plur(u.uconduct.weaphit));
-	    dump("  You ", buf);
-#else
-	    Sprintf(buf, "%ld回装備した武器を使用した",
-		    u.uconduct.weaphit);
-	    dump("  あなたは", buf);
-#endif
-	}
-#endif
-	if (!u.uconduct.killer)
-/*JP
-	    dump("", "  You were a pacifist");
-*/
-	    dump("", "  あなたは平和主義者であった");
-
-	if (!u.uconduct.literate)
-/*JP
-	    dump("", "  You were illiterate");
-*/
-	    dump("", "  あなたは読み書きしなかった");
-#ifdef WIZARD
-	else if (wizard) {
-#if 0 /*JP*/
-	    Sprintf(buf, "read items or engraved %ld time%s",
-		    u.uconduct.literate, plur(u.uconduct.literate));
-	    dump("  You ", buf);
-#else
-	    Sprintf(buf, "%ld回読んだり書いたりした",
-		    u.uconduct.literate);
-	    dump("  あなたは", buf);
-#endif
-	}
-#endif
-
-	ngenocided = num_genocides();
-	if (ngenocided == 0) {
-/*JP
-	    dump("", "  You never genocided any monsters");
-*/
-	    dump("", "  あなたは怪物を虐殺しなかった");
-	} else {
-#if 0 /*JP*/
-	    Sprintf(buf, "genocided %d type%s of monster%s",
-		    ngenocided, plur(ngenocided), plur(ngenocided));
-	    dump("  You ", buf);
-#else
-	    Sprintf(buf, "%d種の怪物を虐殺した", ngenocided);
-	    dump("  あなたは", buf);
-#endif
-	}
-
-	if (!u.uconduct.polypiles)
-/*JP
-	    dump("", "  You never polymorphed an object");
-*/
-	    dump("", "  あなたは物体を変化させなかった");
-	else {
-#if 0 /*JP*/
-	    Sprintf(buf, "polymorphed %ld item%s",
-		    u.uconduct.polypiles, plur(u.uconduct.polypiles));
-	    dump("  You ", buf);
-#else
-	    Sprintf(buf, "%ld個の道具を変化させた",
-		    u.uconduct.polypiles);
-	    dump("  あなたは", buf);
-#endif
-	}
-
-	if (!u.uconduct.polyselfs)
-/*JP
-	    dump("", "  You never changed form");
-*/
-	    dump("", "  You never changed form");
-	else {
-#if 0 /*JP*/
-	    Sprintf(buf, "changed form %ld time%s",
-		    u.uconduct.polyselfs, plur(u.uconduct.polyselfs));
-	    dump("  You ", buf);
-#else
-	    Sprintf(buf, "%ld回姿を変えた",
-		    u.uconduct.polyselfs);
-	    dump("  あなたは", buf);
-#endif
-	}
-
-	if (!u.uconduct.wishes)
-/*JP
-	    dump("", "  You used no wishes");
-*/
-	    dump("", "  あなたは願い事をしなかった");
-	else {
-#if 0 /*JP*/
-	    Sprintf(buf, "used %ld wish%s",
-		    u.uconduct.wishes, (u.uconduct.wishes > 1L) ? "es" : "");
-	    dump("  You ", buf);
-#else
-	    Sprintf(buf, "%ld回願い事をした", u.uconduct.wishes);
-	    dump("  あなたは", buf);
-#endif
-
-	    if (!u.uconduct.wisharti)
-/*JP
-		dump("", "  You did not wish for any artifacts");
-*/
-		dump("", "  あなたは聖器を願わなかった");
-	}
-
-	dump("", "");
-}
-#endif /* DUMP_LOG */
 
 #endif /* OVLB */
 #ifdef OVL1

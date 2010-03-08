@@ -1415,8 +1415,8 @@ int *spell_no;
 	return FALSE;
 }
 
-#ifdef DUMP_LOG
-void 
+/** Dump the currently known spells. */
+void
 dump_spells()
 {
 	int i;
@@ -1458,7 +1458,6 @@ dump_spells()
 	dump("","");
 
 } /* dump_spells */
-#endif
 
 /**
  * Integer square root function without using floating point.

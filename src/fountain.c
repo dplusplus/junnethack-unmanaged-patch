@@ -332,7 +332,7 @@ drinkfountain()
 */
 			You("自分自身が判るような気がした．．．");
 			display_nhwindow(WIN_MESSAGE, FALSE);
-			enlightenment(0);
+			enlightenment(0, TRUE);
 			exercise(A_WIS, TRUE);
 /*JP
 			pline_The("feeling subsides.");

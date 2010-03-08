@@ -1,5 +1,5 @@
-Sun Mar 7 2010  Masaki Miyaso  <so-miya@sourceforge.jp>
-	* UnNetHack SVN版r419をベースにした。
+Mon Mar 8 2010  Masaki Miyaso  <so-miya@sourceforge.jp>
+	* UnNetHack SVN版r423をベースにした。
 	  r356 patchlevelを3.5.3にした
 	  r357 パッチ：ダンジョンマップ概要3 (Hojita Discordiaより)
 	  r358 マップ概要に闇市と道具屋を追加
@@ -60,6 +60,11 @@ Sun Mar 7 2010  Masaki Miyaso  <so-miya@sourceforge.jp>
 	  r418 いくつかのオプションの初期値を変更
 	  r419 パッチ：#adjustを分離可能に (Sam Dennis と Jukka Lahtinen
 	       による)
+	  r420 ダンプコードの汎用的な再構築と重複の排除
+	  r421 ダンプコードの更なる再構築
+	  r422 ダンプコードの再構築：dump_spells() と dump_weapon_skill()
+	  r423 ダンプコードの再構築によってゲーム終了時の表示がうまくでき
+	       ていなかったので修正
 	* 起動時の職業名が翻訳されなくなっていたのを修正
 
 Sun Dec 6 2009  Masaki Miyaso  <so-miya@sourceforge.jp>

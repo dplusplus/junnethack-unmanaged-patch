@@ -177,12 +177,8 @@ E void NDECL(add_debug_extended_commands);
 E void FDECL(rhack, (char *));
 E int NDECL(doextlist);
 E int NDECL(extcmd_via_menu);
-E void FDECL(enlightenment, (int));
-E void FDECL(show_conduct, (int));
-#ifdef DUMP_LOG
-E void FDECL(dump_enlightenment, (int));
-E void FDECL(dump_conduct, (int));
-#endif
+E void FDECL(enlightenment, (int,BOOLEAN_P));
+E void FDECL(show_conduct, (int,BOOLEAN_P));
 E int FDECL(xytod, (SCHAR_P,SCHAR_P));
 E void FDECL(dtoxy, (coord *,int));
 E int FDECL(movecmd, (CHAR_P));
@@ -585,11 +581,13 @@ E void FDECL(done_in_by, (struct monst *));
 E void VDECL(panic, (const char *,...)) PRINTF_F(1,2);
 #if !defined(MAKEDEFS_C) && !defined(LEV_LEX_C)
 E void FDECL(done, (int));
-E void FDECL(container_contents, (struct obj *,BOOLEAN_P,BOOLEAN_P));
+E void FDECL(container_contents, (struct obj *,BOOLEAN_P,BOOLEAN_P,BOOLEAN_P));
+E void FDECL(dump, (const char *, const char *));
+E void FDECL(dump_title, (char *));
 #ifdef DUMP_LOG
-E void FDECL(dump, (char *, char *));
-E void FDECL(do_containerconts, (struct obj *,BOOLEAN_P,BOOLEAN_P,BOOLEAN_P,BOOLEAN_P));
+E void FDECL(putstr_dump, (winid, int, const char *));
 #endif
+E void FDECL(dump_containerconts, (struct obj *,BOOLEAN_P,BOOLEAN_P,BOOLEAN_P));
 E void FDECL(terminate, (int));
 E int NDECL(num_genocides);
 
@@ -843,9 +841,7 @@ E void FDECL(prinv, (const char *,struct obj *,long));
 E char *FDECL(xprname, (struct obj *,const char *,CHAR_P,BOOLEAN_P,long,long));
 E int NDECL(ddoinv);
 E char FDECL(display_inventory, (const char *,BOOLEAN_P));
-#ifdef DUMP_LOG
 E char FDECL(dump_inventory, (const char *,BOOLEAN_P,BOOLEAN_P));
-#endif
 E int FDECL(display_binventory, (int,int,BOOLEAN_P));
 E struct obj *FDECL(display_cinventory,(struct obj *));
 E struct obj *FDECL(display_minventory,(struct monst *,int,char *));
@@ -1995,6 +1991,7 @@ E int FDECL(spelleffects, (int,BOOLEAN_P));
 E void NDECL(losespells);
 E int NDECL(dovspell);
 E void FDECL(initialspell, (struct obj *));
+E void NDECL(dump_spells);
 
 /* ### steal.c ### */
 

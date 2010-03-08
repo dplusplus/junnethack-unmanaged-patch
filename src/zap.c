@@ -2043,7 +2043,7 @@ register struct obj *obj;
 */
 			You("自分自身が判るような気がした．．．");
 			display_nhwindow(WIN_MESSAGE, FALSE);
-			enlightenment(FALSE);
+			enlightenment(FALSE, TRUE);
 /*JP
 			pline_The("feeling subsides.");
 */
