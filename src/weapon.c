@@ -1021,9 +1021,10 @@ int enhance_skill(boolean want_dump)
 
 	    if (want_dump) {
 /*JP
-		dump("","Your skills at the end");
+		dump_title("Your skills at the end");
 */
-		dump("","あなたの持っていたスキル一覧");
+		dump_title("あなたの持っていたスキル一覧");
+		dump_html("<pre>", ""); /* TODO table */
 	    } else {
 	    win = create_nhwindow(NHW_MENU);
 	    start_menu(win);
@@ -1157,7 +1158,7 @@ int enhance_skill(boolean want_dump)
 			u.weapon_slots, plur(u.weapon_slots));
 #endif
 	    if (want_dump) {
-		dump("","");
+		dump_html("</pre>", ""); /* TODO table */
 		n=0;
 	    } else {
 	    end_menu(win, buf);

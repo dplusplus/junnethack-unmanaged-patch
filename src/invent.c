@@ -2059,9 +2059,9 @@ boolean want_disp;
 	    win = WIN_INVEN;
 	}
 /*JP
-	dump("", "Your inventory");
+	dump_title("Your inventory");
 */
-	dump("", "ŠŽ•i");
+	dump_title("ŠŽ•i");
 
 	/*
 	Exit early if no inventory -- but keep going if we are doing
@@ -2121,7 +2121,7 @@ boolean want_disp;
 		  {
 		    char letbuf[7];
 		    sprintf(letbuf, "  %c - ", lets[0]);
-		    dump(letbuf,
+		    dump_object(lets[0],
 			 xprname(otmp, (char *)0, lets[0], TRUE, 0L, 0L));
 		  }
 		    break;
@@ -2144,7 +2144,7 @@ nextclass:
 			if (!flags.sortpack || otmp->oclass == *invlet) {
 			    if (flags.sortpack && !classcount) {
 				any.a_void = 0;		/* zero */
-				dump("  ", let_to_name(*invlet, FALSE));
+				dump_subtitle(let_to_name(*invlet, FALSE));
 				if (want_disp)
 				add_menu(win, NO_GLYPH, &any, 0, 0, iflags.menu_headings,
 				    let_to_name(*invlet, FALSE), MENU_UNSELECTED);
@@ -2154,7 +2154,7 @@ nextclass:
 			    {
 			      char letbuf[7];
 			      sprintf(letbuf, "  %c - ", ilet);
-			      dump(letbuf, doname(otmp));
+			      dump_object(ilet, objects[otmp->otyp].oc_color, doname(otmp));
 			    }
 			    if (want_disp)
 			    add_menu(win, obj_to_glyph(otmp),

@@ -136,17 +136,25 @@ static NEARDATA const char *ends[] = {		/* "when you..." */
 extern const char * const killed_by_prefix[];	/* from topten.c */
 
 #ifdef DUMP_LOG
-FILE *dump_fp = (FILE *)0;  /* file pointer for dumps */
-/* functions dump_init, dump_exit and dump are from the dump patch */
+FILE *dump_fp = (FILE *)0;  /**< file pointer for text dumps */
+FILE *html_dump_fp = (FILE *)0;  /**< file pointer for html dumps */
+/* TODO:
+ * - escape unmasked characters in html
+ * - tables for skills and spells
+ * - menucolors for items?
+ * - move everything into a new dump.c file
+ * - started/ended date at the top
+ */
 
 void
 dump_init()
 {
   if (dump_fn[0]) {
+    int new_dump_fn_len = strlen(dump_fn)+strlen(plname);
+    char *new_dump_fn = (char *) alloc((unsigned)(new_dump_fn_len+5+1)); /* space for ".html" */
     char *p = (char *) strstr(dump_fn, "%n");
+
     if (p) {
-      int new_dump_fn_len = strlen(dump_fn)+strlen(plname)-2; /* %n */
-      char *new_dump_fn = (char *) alloc((unsigned)(new_dump_fn_len+1));
       char *q = new_dump_fn;
       strncpy(q, dump_fn, p-dump_fn);
       q += p-dump_fn;
@@ -157,9 +165,13 @@ dump_init()
       p += 2;	/* skip "%n" */
       strncpy(q, p, strlen(p));
       new_dump_fn[new_dump_fn_len] = '\0';
+    } else {
+      strcpy(new_dump_fn, dump_fn);
+    }
 
-      dump_fp = fopen(new_dump_fn, "w");
-      if (!dump_fp) {
+#ifdef DUMP_TEXT_LOG
+    dump_fp = fopen(new_dump_fn, "w");
+    if (!dump_fp) {
 /*JP
 	pline("Can't open %s for output.", new_dump_fn);
 */
@@ -168,23 +180,22 @@ dump_init()
 	pline("Dump file not created.");
 */
 	pline("ダンプファイルを作成できなかった。");
-      }
-      free(new_dump_fn);
-
-    } else {
-      dump_fp = fopen (dump_fn, "w");
-
-      if (!dump_fp) {
-/*JP
-	pline("Can't open %s for output.", dump_fn);
-*/
-	pline("%sを出力用に開けない。", dump_fn);
-/*JP
-	pline("Dump file not created.");
-*/
-	pline("ダンプファイルを作成できなかった。");
-      }
     }
+#endif
+#ifdef DUMP_HTML_LOG
+    html_dump_fp = fopen(strcat(new_dump_fn, ".html"), "w");
+    if (!html_dump_fp) {
+/*JP
+	pline("Can't open %s for output.", new_dump_fn);
+*/
+	pline("%sを出力用に開けない。", new_dump_fn);
+/*JP
+	pline("Html dump file not created.");
+*/
+	pline("HTMLダンプファイルを作成できなかった。");
+    }
+#endif
+    if (new_dump_fn) free(new_dump_fn);
   }
 }
 
@@ -198,12 +209,75 @@ dump_exit()
 
 void
 dump(pre, str)
-     const char *pre, *str;
+const char *pre, *str;
 {
 #ifdef DUMP_LOG
   if (dump_fp)
-    fprintf (dump_fp, "%s%s\n", pre, str);
+    fprintf(dump_fp, "%s%s\n", pre, str);
+  if (html_dump_fp)
+    fprintf(html_dump_fp, "%s%s\n", pre, str);
 #endif /* DUMP_LOG */
+}
+
+/** Outputs a string only into the html dump. */
+void
+dump_html(format, str)
+const char *format, *str;
+{
+#ifdef DUMP_LOG
+  if (html_dump_fp)
+    fprintf(html_dump_fp, format, str);
+#endif /* DUMP_LOG */
+}
+
+/** Outputs a string only into the text dump. */
+void
+dump_text(format, str)
+const char *format, *str;
+{
+#ifdef DUMP_LOG
+  if (dump_fp)
+    fprintf(dump_fp, format, str);
+#endif
+}
+
+/** Dumps one line as is. */
+static void
+dump_line(pre, str)
+const char *pre, *str;
+{
+#ifdef DUMP_LOG
+  if (dump_fp)
+    fprintf(dump_fp, "%s%s\n", pre, str);
+  if (html_dump_fp)
+    fprintf(html_dump_fp, "%s%s<br />\n", pre, str);
+#endif
+}
+
+/** Dumps an object from the inventory. */
+void
+dump_object(c, color, str)
+const char c;
+const int color;
+const char *str;
+{
+#ifdef DUMP_LOG
+  if (dump_fp)
+    fprintf(dump_fp, "  %c - %s\n", c, str);
+  if (html_dump_fp)
+    fprintf(html_dump_fp, "<span class=\"nh_item_letter\">%c</span> - <span class=\"nh%d\">%s</span><br />\n", c, color, str);
+#endif
+}
+
+/** Dumps a secondary title. */
+void
+dump_subtitle(str)
+const char *str;
+{
+#ifdef DUMP_LOG
+  dump_text("  %s\n", str);
+  dump_html("<h3>%s</h3>\n", str);
+#endif
 }
 
 /** Dump a title. Strips : from the end of str. */
@@ -216,18 +290,56 @@ char *str;
 	if (str[len-1] == ':') {
 		str[len-1] = '\0';
 	}
-	dump("", str);
+	if (dump_fp)
+		fprintf(dump_fp, "%s\n", str);
+	if (html_dump_fp)
+		fprintf(html_dump_fp, "<h2>%s</h2>\n", str);
 #endif /* DUMP_LOG */
 }
-
+/** Starts a list in the dump. */
 void
-putstr_dump(window, attr, str)
-winid window;
-int attr;
+dump_list_start()
+{
+#ifdef DUMP_LOG
+	if (html_dump_fp)
+		fprintf(html_dump_fp, "<ul>\n");
+#endif /* DUMP_LOG */
+}
+/** Dumps a list item. */
+void
+dump_list_item(str)
 const char *str;
 {
-	putstr(window, attr, str);
-	dump("", str);
+#ifdef DUMP_LOG
+	if (dump_fp)
+		fprintf(dump_fp, "  %s\n", str);
+	if (html_dump_fp)
+		fprintf(html_dump_fp, "<li>%s</li>\n", str);
+#endif
+}
+/** Ends a list in the dump. */
+void
+dump_list_end()
+{
+	dump_html("</ul>\n","");
+}
+/** Starts a blockquote in the dump. */
+static void
+dump_blockquote_start()
+{
+#ifdef DUMP_LOG
+	if (html_dump_fp)
+		fprintf(html_dump_fp, "<blockquote>\n");
+#endif
+}
+/** Ends a blockquote in the dump. */
+static void
+dump_blockquote_end()
+{
+#ifdef DUMP_LOG
+	dump_text("\n", "");
+	dump_html("</blockquote>\n", "");
+#endif /* DUMP_LOG */
 }
 
 /*ARGSUSED*/
@@ -985,19 +1097,20 @@ die:
 	if (lastmsg >= 0) {
 		int i;
 /*JP
-		dump ("", "Latest messages");
+		dump_title("Latest messages");
 */
-		dump ("", "直前のメッセージ");
+		dump_title("直前のメッセージ");
+		dump_blockquote_start();
 		for (i = lastmsg + 1; i < DUMPMSGS; i++) {
 		  if (msgs[i] && strcmp(msgs[i], "") )
-		    dump ("  ", msgs[i]);
+		    dump_line("  ", msgs[i]);
 		}
 		for (i = 0; i <= lastmsg; i++) {
 		  if (msgs[i] && strcmp(msgs[i], "") )
-		    dump ("  ", msgs[i]);
+		    dump_line("  ", msgs[i]);
 		}
-		dump ("","");
-		dump ("","");
+		dump_blockquote_end();
+		dump("","");
 	}
 # endif /* DUMPMSGS */
 #endif /* DUMP_LOG */
@@ -1224,7 +1337,9 @@ die:
 	    putstr(endwin, 0, pbuf);
 	    putstr(endwin, 0, "");
 	}
-	dump("", pbuf);
+	dump_line("","");
+	dump_blockquote_start();
+	dump_line("", pbuf);
 
 #ifdef ASTRAL_ESCAPE
 	if (how == ESCAPED || how == DEFIED || how == ASCENDED) {
@@ -1271,7 +1386,7 @@ die:
 		Strcat(pbuf, "は");
 #endif
 		if (!done_stopprint) putstr(endwin, 0, pbuf);
-		dump("", pbuf);
+		dump_line("", pbuf);
 		pbuf[0] = '\0';
 	    } else {
 /*JP
@@ -1299,7 +1414,7 @@ die:
 					"迷宮から脱出した");
 #endif
 #endif /*JP*/
-	    dump("", pbuf);
+	    dump_line("", pbuf);
 	    if (!done_stopprint) {
 		putstr(endwin, 0, pbuf);
 	    }
@@ -1344,7 +1459,7 @@ die:
 #endif
 		    }
 		    putstr(endwin, 0, pbuf);
-		    dump("", pbuf);
+		    dump_line("", pbuf);
 		}
 	    }
 
@@ -1388,7 +1503,7 @@ die:
 		    u.urexp);
 #endif
 	    if (!done_stopprint) putstr(endwin, 0, pbuf);
-	    dump("", pbuf);
+	    dump_line("", pbuf);
 	}
 
 #if 0 /*JP*/
@@ -1399,22 +1514,18 @@ die:
 		    u.ugold, moves);
 #endif
 	if (!done_stopprint)  putstr(endwin, 0, pbuf);
-#ifdef DUMP_LOG
-	if (dump_fp) {
-	  dump("", pbuf);
+	dump_line("", pbuf);
 /*JP
-	  Sprintf(pbuf, "Killer: %s", killer);
+	Sprintf(pbuf, "Killer: %s", killer);
 */
-	  Sprintf(pbuf, "死因： %s", killer);
-	  dump("", pbuf);
-	}
-#endif
+	Sprintf(pbuf, "死因： %s", killer);
+	dump_line("", pbuf);
 #if 0 /*JP*/
-	    Sprintf(pbuf,
+	Sprintf(pbuf,
 	     "You were level %d with a maximum of %d hit point%s when you %s.",
 		    u.ulevel, u.uhpmax, plur(u.uhpmax), ends[how]);
 #else
-	    Sprintf(pbuf,
+	Sprintf(pbuf,
 	     "%sとき、あなたはレベル%uで、最大体力は%dであった。",
 		    ends[how],u.ulevel, u.uhpmax);
 #endif
@@ -1422,7 +1533,9 @@ die:
 	    putstr(endwin, 0, pbuf);
 	    putstr(endwin, 0, "");
 	}
-	dump("", pbuf);
+	dump_line("", pbuf);
+	dump_blockquote_end();
+
 	if (!done_stopprint)
 	    display_nhwindow(endwin, TRUE);
 	if (endwin != WIN_ERR)
@@ -1471,17 +1584,19 @@ BOOLEAN_P identified, all_containers, want_disp;
 			    putstr(tmpwin, 0, buf);
 			    putstr(tmpwin, 0, "");
 		    }
-		    dump("", buf);
+		    dump_subtitle(buf);
+		    dump_list_start();
 		    for (obj = box->cobj; obj; obj = obj->nobj) {
 			if (identified) {
 			    makeknown(obj->otyp);
 			    obj->known = obj->bknown =
 			    obj->dknown = obj->rknown = 1;
 			}
-			dump("  ", doname(obj));
+			dump_list_item(doname(obj));
 			if (want_disp)
 				putstr(tmpwin, 0, doname(obj));
 		    }
+		    dump_list_end();
 		    dump("","");
 		    if (want_disp) {
 			    display_nhwindow(tmpwin, TRUE);
@@ -1500,9 +1615,9 @@ BOOLEAN_P identified, all_containers, want_disp;
 			    display_nhwindow(WIN_MESSAGE, FALSE);
 		    }
 /*JP
-		    dump(The(xname(box)), " is empty.");
+		    dump_line(The(xname(box)), " is empty.");
 */
-		    dump(xname(box), "は空っぽだ。");
+		    dump_line(xname(box), "は空っぽだ。");
 		    dump("", "");
 		}
 	    }
@@ -1590,10 +1705,11 @@ boolean ask;
 	if (c == 'q') done_stopprint++;
 	if (c == 'y') {
 	    klwin = create_nhwindow(NHW_MENU);
-	    putstr_dump(klwin, 0, buf);
+	    putstr(klwin, 0, buf);
 	    putstr(klwin, 0, "");
 	}
 	dump_title(buf);
+	dump_list_start();
 
 	    /* countdown by monster "toughness" */
 	    for (lev = max_lev; lev >= 0; lev--)
@@ -1649,8 +1765,9 @@ boolean ask;
 #endif
 		    }
 		    if (c == 'y') putstr(klwin, 0, buf);
-		    dump("  ", buf);
+		    dump_list_item(buf);
 		}
+	    dump_list_end();
 	    /*
 	     * if (Hallucination)
 	     *     putstr(klwin, 0, "and a partridge in a pear tree");
@@ -1662,9 +1779,7 @@ boolean ask;
 */
 		Sprintf(buf, "%ld匹の敵を倒した。", total_killed);
 		if (c == 'y') putstr(klwin, 0, buf);
-#ifdef DUMP_LOG
-		dump("  ", buf);
-#endif
+		dump_line("  ", buf);
 	    }
 	    if (c == 'y') {
 	    display_nhwindow(klwin, TRUE);

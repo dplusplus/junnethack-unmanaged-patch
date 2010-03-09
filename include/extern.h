@@ -583,10 +583,12 @@ E void VDECL(panic, (const char *,...)) PRINTF_F(1,2);
 E void FDECL(done, (int));
 E void FDECL(container_contents, (struct obj *,BOOLEAN_P,BOOLEAN_P,BOOLEAN_P));
 E void FDECL(dump, (const char *, const char *));
+E void FDECL(dump_text, (const char *, const char *));
+E void FDECL(dump_html, (const char *, const char *));
 E void FDECL(dump_title, (char *));
-#ifdef DUMP_LOG
-E void FDECL(putstr_dump, (winid, int, const char *));
-#endif
+E void NDECL(dump_list_start);
+E void FDECL(dump_list_item, (const char *));
+E void NDECL(dump_list_end);
 E void FDECL(dump_containerconts, (struct obj *,BOOLEAN_P,BOOLEAN_P,BOOLEAN_P));
 E void FDECL(terminate, (int));
 E int NDECL(num_genocides);
