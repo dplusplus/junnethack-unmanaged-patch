@@ -1,4 +1,4 @@
-Mon Mar 8 2010  Masaki Miyaso  <so-miya@sourceforge.jp>
+Tue Mar 9 2010  Masaki Miyaso  <so-miya@sourceforge.jp>
 	* UnNetHack SVN版r423をベースにした。
 	  r356 patchlevelを3.5.3にした
 	  r357 パッチ：ダンジョンマップ概要3 (Hojita Discordiaより)
@@ -66,6 +66,8 @@ Mon Mar 8 2010  Masaki Miyaso  <so-miya@sourceforge.jp>
 	  r423 ダンプコードの再構築によってゲーム終了時の表示がうまくでき
 	       ていなかったので修正
 	* 起動時の職業名が翻訳されなくなっていたのを修正
+	* ダンプ関係で終了時のトップテン表示がおかしくなっていたので修正
+	* 日本語ダンプファイル名の対処
 
 Sun Dec 6 2009  Masaki Miyaso  <so-miya@sourceforge.jp>
 	* JUnNetHack-3.5.2-J0.2.1リリース

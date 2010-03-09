@@ -1040,10 +1040,16 @@ boolean so;
 	    if (so) {
 		while (bp < car + (COLNO-1)) *bp++ = ' ';
 		*bp = 0;
-		topten_print_bold(car);
-	    } else
-		topten_print(car);
-	    
+		if(!done_stopprint) topten_print_bold(car);
+#ifdef DUMP_LOG
+		dump("*", car[0]==' '? car+1: car);
+#endif
+	    } else {
+		if(!done_stopprint) topten_print(car);
+#ifdef DUMP_LOG
+		dump(" ", car[0]==' '? car+1: car);
+#endif
+	    }
 	    Sprintf(linebuf, "%15s %s", "", cdr);
 	    lngr = (int)strlen(linebuf);
 	}
