@@ -437,7 +437,7 @@ VOBJ24 = $(O)trap.o     $(O)tutorial.o $(O)u_init.o   $(O)uhitm.o
 VOBJ25 = $(O)vault.o    $(O)vis_tab.o  $(O)vision.o   $(O)weapon.o  
 VOBJ26 = $(O)were.o     $(O)wield.o    $(O)windows.o  $(O)wizard.o  
 VOBJ27 = $(O)worm.o     $(O)worn.o     $(O)write.o    $(O)zap.o     
-VOBJ28 = $(O)livelog.o
+VOBJ28 = $(O)livelog.o  $(O)dump.o
 
 DLBOBJ = $(O)dlb.o
 
@@ -1318,6 +1318,7 @@ $(O)dogmove.o: dogmove.c $(HACK_H) $(INCL)\mfndpos.h $(INCL)\edog.h
 $(O)dokick.o: dokick.c $(HACK_H) $(INCL)\eshk.h
 $(O)dothrow.o: dothrow.c $(HACK_H) $(INCL)\edog.h
 $(O)drawing.o: drawing.c $(HACK_H) $(INCL)\tcap.h
+$(O)dump.o: dump.c $(HACK_H)
 $(O)dungeon.o: dungeon.c $(HACK_H) $(INCL)\dgn_file.h $(INCL)\dlb.h
 $(O)eat.o: eat.c $(HACK_H)
 $(O)end.o: end.c $(HACK_H) $(INCL)\eshk.h $(INCL)\dlb.h

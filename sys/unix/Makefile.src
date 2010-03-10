@@ -332,7 +332,7 @@ HACK_H	= ../src/hack.h-t
 HACKCSRC = allmain.c alloc.c apply.c artifact.c attrib.c ball.c bones.c \
 	   botl.c cmd.c dbridge.c decl.c detect.c dig.c display.c dlb.c do.c \
 	   do_name.c do_wear.c dog.c dogmove.c dokick.c dothrow.c drawing.c \
-	   dungeon.c eat.c end.c engrave.c exper.c explode.c extralev.c \
+	   dump.c dungeon.c eat.c end.c engrave.c exper.c explode.c extralev.c \
 	   files.c fountain.c hack.c hacklib.c invent.c light.c lock.c \
 	   mail.c makemon.c mapglyph.c mcastu.c mhitm.c mhitu.c minion.c \
 	   mklev.c mkmap.c \
@@ -342,9 +342,9 @@ HACKCSRC = allmain.c alloc.c apply.c artifact.c attrib.c ball.c bones.c \
 	   priest.c quest.c questpgr.c read.c rect.c region.c restore.c rip.c \
 	   rnd.c role.c rumors.c save.c shk.c shknam.c sit.c sounds.c sp_lev.c \
 	   spell.c steal.c steed.c teleport.c timeout.c topten.c track.c \
-           trap.c tutorial.c u_init.c uhitm.c vault.c version.c vision.c \
+	   trap.c tutorial.c u_init.c uhitm.c vault.c version.c vision.c \
 	   weapon.c were.c wield.c windows.c wizard.c worm.c worn.c write.c \
-           zap.c
+	   zap.c 
 
 # all operating-system-dependent .c (for dependencies and such)
 SYSCSRC = ../sys/atari/tos.c ../sys/share/pcmain.c ../sys/share/pcsys.c \
@@ -390,7 +390,7 @@ FIRSTOBJ = monst.o objects.o
 HOBJ = $(FIRSTOBJ) allmain.o alloc.o apply.o artifact.o attrib.o ball.o \
 	bones.o botl.o cmd.o dbridge.o decl.o detect.o dig.o display.o dlb.o \
 	do.o do_name.o do_wear.o dog.o dogmove.o dokick.o dothrow.o \
-	drawing.o dungeon.o eat.o end.o engrave.o exper.o explode.o \
+	drawing.o dump.o dungeon.o eat.o end.o engrave.o exper.o explode.o \
 	extralev.o files.o fountain.o hack.o hacklib.o invent.o light.o \
 	lock.o mail.o makemon.o mapglyph.o mcastu.o mhitm.o mhitu.o \
 	minion.o mklev.o mkmap.o \
@@ -765,6 +765,7 @@ dogmove.o: dogmove.c $(HACK_H) ../include/mfndpos.h ../include/edog.h
 dokick.o: dokick.c $(HACK_H) ../include/eshk.h
 dothrow.o: dothrow.c $(HACK_H) ../include/edog.h
 drawing.o: drawing.c $(HACK_H) ../include/tcap.h
+dump.o: dump.c $(HACK_H)
 dungeon.o: dungeon.c $(HACK_H) ../include/dgn_file.h ../include/dlb.h
 eat.o: eat.c $(HACK_H)
 end.o: end.c $(HACK_H) ../include/eshk.h ../include/dlb.h

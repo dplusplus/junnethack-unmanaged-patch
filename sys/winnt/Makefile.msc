@@ -377,6 +377,7 @@ VOBJ24 = $(O)trap.o     $(O)tutorial.o $(O)u_init.o   $(O)uhitm.o
 VOBJ25 = $(O)vault.o    $(O)vis_tab.o  $(O)vision.o   $(O)weapon.o  
 VOBJ26 = $(O)were.o     $(O)wield.o    $(O)windows.o  $(O)wizard.o  
 VOBJ27 = $(O)worm.o     $(O)worn.o     $(O)write.o    $(O)zap.o     
+VOBJ28 = $(O)livelog.o  $(O)dump.o
 JOBJ   = $(O)jlib.o     $(O)jtrns.o    $(O)jconj.o
 
 DLBOBJ = $(O)dlb.o
@@ -391,7 +392,7 @@ OBJS   = $(VOBJ01) $(VOBJ02) $(VOBJ03) $(VOBJ04) $(VOBJ05) \
          $(VOBJ11) $(VOBJ12) $(VOBJ13) $(VOBJ14) $(VOBJ15) \
          $(VOBJ16) $(VOBJ17) $(VOBJ18) $(VOBJ19) $(VOBJ20) \
          $(VOBJ21) $(VOBJ22) $(VOBJ23) $(VOBJ24) $(VOBJ25) \
-         $(VOBJ26) $(VOBJ27)
+         $(VOBJ26) $(VOBJ27) $(VOBJ28)
 
 WINPOBJ = $(WINPORT)
 
@@ -1337,6 +1338,7 @@ $(O)dogmove.o: dogmove.c $(HACK_H) $(INCL)\mfndpos.h $(INCL)\edog.h
 $(O)dokick.o: dokick.c $(HACK_H) $(INCL)\eshk.h
 $(O)dothrow.o: dothrow.c $(HACK_H) $(INCL)\edog.h
 $(O)drawing.o: drawing.c $(HACK_H) $(INCL)\tcap.h
+$(O)dump.o: dump.c $(HACK_H)
 $(O)dungeon.o: dungeon.c $(HACK_H) $(INCL)\dgn_file.h $(INCL)\dlb.h
 $(O)eat.o: eat.c $(HACK_H)
 $(O)end.o: end.c $(HACK_H) $(INCL)\eshk.h $(INCL)\dlb.h
@@ -1350,6 +1352,7 @@ $(O)hack.o: hack.c $(HACK_H)
 $(O)hacklib.o: hacklib.c $(HACK_H)
 $(O)invent.o: invent.c $(HACK_H)
 $(O)light.o: light.c $(HACK_H) $(INCL)\lev.h
+$(O)livelog.o: livelog.c $(HACK_H)
 $(O)lock.o: lock.c $(HACK_H)
 $(O)mail.o: mail.c $(HACK_H) $(INCL)\mail.h
 $(O)makemon.o: makemon.c $(HACK_H) $(INCL)\epri.h $(INCL)\emin.h \
