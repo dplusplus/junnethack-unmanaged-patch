@@ -2498,8 +2498,8 @@
             dened, streSsed, straiNed, overTaxed, overLoaded) 以上 に な る
             と、続行するかどうかを確認する。 (標準設定は `S').
 
-          pickup_thrown
-            この真偽オプションと autopickup が有効である場合、 pickup_types
+          pickup_dropped
+            こ の 真 偽 オ プ ショ ンが無効で autopickup が有効である場合、
 
 
           NetHack 3.4                                      December 2, 2003
@@ -2512,6 +2512,11 @@
 
 
 
+            pickup_types に入ってるものであっても、あなたが落としたものは自
+            動的に拾わない。初期値は無効。
+
+          pickup_thrown
+            この真偽オプションと autopickup が有効である場合、 pickup_types
             に入っていないものであっても、あなたが投げたものを自動的に拾 お
             うと試みる。初期値は有効。
 
@@ -2560,12 +2565,7 @@
             コマンドやマウスのクリックを使った場合) ときにどれくらいの頻 度
             で地図を更新するかを制御する。設定可能な値は以下の通り。
 
-                 teleport - 移動が完了してから地図を更新する。
-                 run - 7 歩ぐらい毎に地図を更新する。
-                 walk - 1 歩毎に地図を更新する。
-                 crawl - ``walk'' と同様だが、一歩毎にしばらく停止する。
 
-            こ のオプションは画面表示にのみ影響し、実際の移動結果には影響し
 
 
           NetHack 3.4                                      December 2, 2003
@@ -2578,6 +2578,12 @@
 
 
 
+                 teleport - 移動が完了してから地図を更新する。
+                 run - 7 歩ぐらい毎に地図を更新する。
+                 walk - 1 歩毎に地図を更新する。
+                 crawl - ``walk'' と同様だが、一歩毎にしばらく停止する。
+
+            こ のオプションは画面表示にのみ影響し、実際の移動結果には影響し
             ない。標準設定は `run' である。バージョン 3.4.1 以前 は  `tele-
             port'  のみであった。効果が確認できるかどうかは使っている版や端
             末の種類に依存する。
@@ -2627,12 +2633,6 @@
           standout
             怪物と``--More--''を太字で表示する(標準設定はオフ)。
 
-          suppress_alert
-            前のバージョンから変更された機能に対して注意を促すメッセージ を
-            表 示 し な い ようにする NetHack のバージョンを設定する。 (例:
-            ``suppress_alert:3.3.1'') 例のように指定すると 3.3.1 以前に変更
-            された機能に対する注意メッセージは表示されない。
-
 
           NetHack 3.4                                      December 2, 2003
 
@@ -2643,6 +2643,12 @@
           NetHack Guidebook                                              41
 
 
+
+          suppress_alert
+            前のバージョンから変更された機能に対して注意を促すメッセージ を
+            表 示 し な い ようにする NetHack のバージョンを設定する。 (例:
+            ``suppress_alert:3.3.1'') 例のように指定すると 3.3.1 以前に変更
+            された機能に対する注意メッセージは表示されない。
 
           time
             最 下 行にゲームで経過した時間をターン数で表示する(標準設定はオ
@@ -2693,12 +2699,6 @@
           verbose
             ゲーム中のコメントを詳細に表示する(標準設定はオン)。
 
-          windowtype
-            ウ インドウシステムを使用するかどうかを「tty」または「X11」で選
-            択する（標準設定はバージョンによる）。 `O' コマンドで設定するこ
-            とはできない。
-
-
 
           NetHack 3.4                                      December 2, 2003
 
@@ -2709,6 +2709,11 @@
           NetHack Guidebook                                              42
 
 
+
+          windowtype
+            ウ インドウシステムを使用するかどうかを「tty」または「X11」で選
+            択する（標準設定はバージョンによる）。 `O' コマンドで設定するこ
+            とはできない。
 
           win_edge
             ttyにおけるメニューおよびテキストウィンドウにおいて、右寄せでは
@@ -2759,11 +2764,6 @@
           font_size_map
             マップウィンドウを表示するフォントサイズ
 
-          font_size_menu
-            メニューウィンドウを表示するフォントサイズ
-
-          font_size_message
-            メッセージウィンドウを表示するフォントサイズ
 
 
           NetHack 3.4                                      December 2, 2003
@@ -2775,6 +2775,12 @@
           NetHack Guidebook                                              43
 
 
+
+          font_size_menu
+            メニューウィンドウを表示するフォントサイズ
+
+          font_size_message
+            メッセージウィンドウを表示するフォントサイズ
 
           font_size_status
             ステータスウィンドウを表示するフォントサイズ
@@ -2823,12 +2829,6 @@
 
           softkeyboard
 
-          splash_screen
-            起動時にスプラッシュスクリーンを表示する(標準設定はオン)
-
-          tiled_map
-            可能ならタイルマップを表示する
-
 
 
 
@@ -2841,6 +2841,12 @@
           NetHack Guidebook                                              44
 
 
+
+          splash_screen
+            起動時にスプラッシュスクリーンを表示する(標準設定はオン)
+
+          tiled_map
+            可能ならタイルマップを表示する
 
           tile_file
             標準設定を上書きする別のタイルファイルの名前
@@ -2890,12 +2896,6 @@
           page_wait
             (標準設定はオン。 Mac NetHack のみ)。
 
-          rawio
-            raw(cbreak でない) モードを使用して、より高速な出力と問題の起こ
-            らない入力を実現する (MS-DOS ではプリンタがないにも 関 わ ら ず
-            `^P'  をプリンタ出力のトグルとみなしてしまうことがある) (標準設
-            定はオフ)。注意: DEC Rainbow ではこれがオンのときはハングアップ
-            してしまう。 `O' コマンドで設定することはできない。
 
 
           NetHack 3.4                                      December 2, 2003
@@ -2907,6 +2907,13 @@
           NetHack Guidebook                                              45
 
 
+
+          rawio
+            raw(cbreak でない) モードを使用して、より高速な出力と問題の起こ
+            らない入力を実現する (MS-DOS ではプリンタがないにも 関 わ ら ず
+            `^P'  をプリンタ出力のトグルとみなしてしまうことがある) (標準設
+            定はオフ)。注意: DEC Rainbow ではこれがオンのときはハングアップ
+            してしまう。 `O' コマンドで設定することはできない。
 
           soundcard
             (標準設定はオン。 PC NetHack のみ)。 `O' コマンドで設定すること
@@ -2954,13 +2961,6 @@
                autopickup_exception  行を設定ファイルに書くことで、何かを拾
           おうとするときにチェックするべきパターンを定義できる。
 
-          autopickup_exception
-            pickup_types オプションの例外を設定する。  autopickup_exception
-            オ プ ショ ンはあなたの位置にある物体の説明の単数形に一致するパ
-            ターンを指定する。これは 1-80 文字の文字列であるべきである。
-
-               パターンでは以下の特殊文字が使える。
-
 
 
 
@@ -2973,6 +2973,13 @@
           NetHack Guidebook                                              46
 
 
+
+          autopickup_exception
+            pickup_types オプションの例外を設定する。  autopickup_exception
+            オ プ ショ ンはあなたの位置にある物体の説明の単数形に一致するパ
+            ターンを指定する。これは 1-80 文字の文字列であるべきである。
+
+               パターンでは以下の特殊文字が使える。
 
                  *--- 0 以上の文字にマッチする。
                  ?--- 任意の 1 文字にマッチする。
@@ -3021,13 +3028,6 @@
           る。 ``正規表現'' マッチングは NetHack 内蔵パターンマッチングより
           洗 練されているが、サードパーティライブラリが必要なプラットフォー
           ムもある。 ``正規表現'' に関する説明はどこか他のところを参照の こ
-          と。 どちらのパターンマッチングが用いられているかは #version コマ
-          ンドで確認できる。
-
-               NetHack の内蔵パターンマッチングルーチンは以下の特殊文字を用
-          いる。
-
-
 
 
           NetHack 3.4                                      December 2, 2003
@@ -3039,6 +3039,12 @@
           NetHack Guidebook                                              47
 
 
+
+          と。 どちらのパターンマッチングが用いられているかは #version コマ
+          ンドで確認できる。
+
+               NetHack の内蔵パターンマッチングルーチンは以下の特殊文字を用
+          いる。
 
                  *--- 0 個以上の文字にマッチする。
                  ?--- 任意の 1 文字にマッチする。
@@ -3089,12 +3095,6 @@
             合、 number_pad オプションをオフにして、伝統的な Rogue 風コマン
             ドを使うこと。
 
-          Character graphics
-            defaults.nh ファイルの下の方にある全てのキャラクタグラフィッ ク
-            設定をコメントアウトする。これらのほとんどは NetHack の標準であ
-            る、標準 ASCII キャラクタを用いた洞窟の表現を拡張キャラクタセッ
-            ト のより凝ったキャラクタで置き換える。これらのキャラクタは画面
-
 
           NetHack 3.4                                      December 2, 2003
 
@@ -3106,6 +3106,11 @@
 
 
 
+          Character graphics
+            defaults.nh ファイルの下の方にある全てのキャラクタグラフィッ ク
+            設定をコメントアウトする。これらのほとんどは NetHack の標準であ
+            る、標準 ASCII キャラクタを用いた洞窟の表現を拡張キャラクタセッ
+            ト のより凝ったキャラクタで置き換える。これらのキャラクタは画面
             読み取りシステムを煩わせるだろう。
 
           10.  得点
@@ -3156,11 +3161,6 @@
           は  Ken  Arromdee   による Further Exploration of the Dungeons of
           Doom(運命の洞窟の深部への探検) から採っている。
 
-               NetHack は文字どおり何十人もの人々の手によって完成された。以
-          下はゲームの開発の過程での主な出来事である。
-
-
-
 
           NetHack 3.4                                      December 2, 2003
 
@@ -3170,6 +3170,10 @@
 
           NetHack Guidebook                                              49
 
+
+
+               NetHack は文字どおり何十人もの人々の手によって完成された。以
+          下はゲームの開発の過程での主な出来事である。
 
 
                Jay Fenlason は Kenny Woodland, Mike Thome, Jon Payne らの助
@@ -3222,10 +3226,6 @@
           Mike Passaretti, Olaf Seibert の助けを借りて Amiga 用 NetHack 3.1
           を作成した。
 
-               Norm  Meluch   と  Kevin Smolkowski は Carl Schelin, Stephen
-          Spackman, Steve VanDevender, Paul Winner の助けを借り て  NetHack
-          3.1 を PC に移植した。
-
 
 
           NetHack 3.4                                      December 2, 2003
@@ -3237,6 +3237,10 @@
           NetHack Guidebook                                              50
 
 
+
+               Norm  Meluch   と  Kevin Smolkowski は Carl Schelin, Stephen
+          Spackman, Steve VanDevender, Paul Winner の助けを借り て  NetHack
+          3.1 を PC に移植した。
 
                Jon Watte と Hao-yang Wang は Ross Brown, Mike Engber, David
           Hairston,  Michael  Hamel,  Jonathan  Handler,  Johnny  Lee,  Tim
@@ -3287,11 +3291,7 @@
           2000   年 問題対策のために 3.3.0 と同時に 1999 年 12 月に発表され
           た。
 
-               Michael Allison, Ken Arromdee, David Cohrs,  Jessie  Collet,
-          Steve  Creps, Kevin Darcy, Timo Hakulinen, Kevin Hugo, Steve Lin-
-          hart, Ken Lorber,  Dean  Luick,  Pat  Rankin,  Eric  Smith,  Mike
-          Stephenson,  Janet  Walz, Paul Winner からなる 3.3 の開発チームは
-          1999 年 12 月に 3.3.0を、 2000 年 8 月に 3.3.1 をリリースした。
+
 
 
           NetHack 3.4                                      December 2, 2003
@@ -3303,6 +3303,12 @@
           NetHack Guidebook                                              51
 
 
+
+               Michael Allison, Ken Arromdee, David Cohrs,  Jessie  Collet,
+          Steve  Creps, Kevin Darcy, Timo Hakulinen, Kevin Hugo, Steve Lin-
+          hart, Ken Lorber,  Dean  Luick,  Pat  Rankin,  Eric  Smith,  Mike
+          Stephenson,  Janet  Walz, Paul Winner からなる 3.3 の開発チームは
+          1999 年 12 月に 3.3.0を、 2000 年 8 月に 3.3.1 をリリースした。
 
                バージョン 3.3 は多くの新要素を提供した。まず、種族と職業 を
           分 離した最初のバージョンである。職業としてのエルフは削除され、種
@@ -3352,12 +3358,6 @@
           の手助けをしようとしてとりわけ興味をそそるような修正を送ってよ こ
           す。 洞窟の神々は、ときにはこういった悪党のうちでも最も邪悪な連中
           の名前を洞窟マニアたちの一覧としてここに記すのだ。
-
-
-
-
-
-
 
 
           NetHack 3.4                                      December 2, 2003

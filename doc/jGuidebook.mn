@@ -3582,6 +3582,19 @@ NetHack のニュースファイルがあればそれを読む(標準設定はオン)。
 (Unburdened, Burdened, streSsed, straiNed, overTaxed, overLoaded)
 以上になると、続行するかどうかを確認する。
 (標準設定は `S').
+.lp pickup_dropped
+.\"O If this boolean option is false and
+.\"O .op autopickup
+.\"O is on, don't pick up things that you have droppped deliberately, even if they
+.\"O are in
+.\"O .op pickup_types .
+.\"O Default is on.
+この真偽オプションが無効で
+.op autopickup
+が有効である場合、
+.op pickup_types
+に入ってるものであっても、あなたが落としたものは自動的に拾わない。
+初期値は無効。
 .lp pickup_thrown
 .\"O If this boolean option is true and
 .\"O .op autopickup
