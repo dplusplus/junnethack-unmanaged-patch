@@ -1455,7 +1455,6 @@ void dump_screen()
     int color;
     unsigned special;
 
-    dump_html("%s\n", "<head><link rel=\"stylesheet\" type=\"text/css\" href=\"unnethack_dump.css\" /></head>");
     dump_html("<pre class=\"nh_screen\">\n", "");
     for (y = 0; y < ROWNO; y++) {
 	buf[0] = '\0';
@@ -1495,7 +1494,7 @@ void dump_screen()
 	    else if (oclass < 0 && levl[x][y].typ == CORR)
 		Sprintf(tmpbuf, "<span class=\"nh_corridor\">%c</span>", c);
 	    else if (oclass < 0 && levl[x][y].typ == STAIRS)
-		Sprintf(tmpbuf, "<span class=\"nh_stairs\">%c</span>", c);
+		Sprintf(tmpbuf, "<span class=\"nh_stairs\">%s</span>", html_escape_character(c));
 	    else if (oclass < 0 && levl[x][y].typ == LADDER)
 		Sprintf(tmpbuf, "<span class=\"nh_ladder\">%c</span>", c);
 	    else if (oclass < 0 && levl[x][y].typ == FOUNTAIN)
@@ -1511,7 +1510,7 @@ void dump_screen()
 	    else if (oclass < 0 && levl[x][y].typ == ICE)
 		Sprintf(tmpbuf, "<span class=\"nh_ice\">%c</span>", c);
 	    else
-		Sprintf(tmpbuf, "<span class=\"nh_color_%d\">%c</span>", color, c);
+		Sprintf(tmpbuf, "<span class=\"nh_color_%d\">%s</span>", color, html_escape_character(c));
 	    Strcat(html_buf, tmpbuf);
 	    Sprintf(tmpbuf, "%c", c);
 	    Strcat(buf, tmpbuf);

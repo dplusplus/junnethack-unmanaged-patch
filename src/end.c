@@ -880,6 +880,7 @@ die:
 		  (flags.female && urole.jname.f)?
 		   urole.jname.f : urole.jname.m);
 #endif
+	  dump_header_html(pbuf);
 	  dump("", pbuf);
 	  /* D: Add a line for clearance from the screen dump */
 	  dump("", "");

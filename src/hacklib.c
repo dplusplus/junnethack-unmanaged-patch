@@ -51,6 +51,7 @@ NetHack, except that rounddiv may call panic().
 	int		night		(void)
 	int		midnight	(void)
 	boolean		towelday	(void)
+	char *		iso8601		(time_t)
 =*/
 #ifdef LINT
 # define Static		/* pacify lint */
@@ -694,6 +695,16 @@ boolean
 piday()
 {
 	return(boolean)((getmonth()==3) && (getmday()==14));
+}
+
+static char buf_iso8601[BUFSZ];
+char *
+iso8601(date)
+time_t date;
+{
+	strftime(buf_iso8601, BUFSZ, "%Y-%m-%dT%H:%M:%S%z",
+	         (date == 0) ? getlt() : localtime(&date));
+	return buf_iso8601;
 }
 
 /*hacklib.c*/
