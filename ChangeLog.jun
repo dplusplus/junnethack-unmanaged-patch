@@ -1,5 +1,5 @@
 Wed Mar 10 2010  Masaki Miyaso  <so-miya@sourceforge.jp>
-	* UnNetHack SVN版r431をベースにした。
+	* UnNetHack SVN版r432をベースにした。
 	  r356 patchlevelを3.5.3にした
 	  r357 パッチ：ダンジョンマップ概要3 (Hojita Discordiaより)
 	  r358 マップ概要に闇市と道具屋を追加
@@ -73,6 +73,7 @@ Wed Mar 10 2010  Masaki Miyaso  <so-miya@sourceforge.jp>
 	  r429 ダンプ：HTMLヘッダを改善
 	  r430 ダンプ：HTML文字をエスケープ（現状マップのみ）
 	  r431 幻覚時のモンスターを追加
+	  r432 ダンプ：所持品ダンプにmenucolorsを反映
 	* 起動時の職業名が翻訳されなくなっていたのを修正
 	* ダンプ関係で終了時のトップテン表示がおかしくなっていたので修正
 	* 日本語ダンプファイル名の対処
