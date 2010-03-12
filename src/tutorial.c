@@ -2,6 +2,12 @@
 /*	Copyright 2009, Alex Smith		  */
 /* NetHack may be freely redistributed.  See license for details. */
 
+/*
+**	Japanese version Copyright
+**	(c) Masaki Miyaso, 2009-2010
+**	JNetHack may be freely redistributed.  See license for details. 
+*/
+
 #include "hack.h"
 #include "quest.h"
 #include "qtext.h"

@@ -2,6 +2,14 @@
 /* Copyright (c) Stichting Mathematisch Centrum, Amsterdam, 1985. */
 /* NetHack may be freely redistributed.  See license for details. */
 
+/*
+**	Japanese version Copyright
+**	(c) Issei Numata, Naoki Hamada, Shigehiro Miyashita, 1994-2000
+**	For 3.4, Copyright (c) Kentaro Shirakata, 2002-2005
+**	For UnNetHack 3.5 Copyright (c) Masaki Miyaso, 2009-2010
+**	JNetHack may be freely redistributed.  See license for details. 
+*/
+
 #ifdef OPTION_LISTS_ONLY	/* (AMIGA) external program for opt lists */
 #include "config.h"
 #include "objclass.h"

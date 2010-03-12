@@ -1,6 +1,12 @@
 /* Write live game progress changes to a log file
  * Needs xlog-v3 patch. */
 
+/*
+**	Japanese version Copyright
+**	(c) Masaki Miyaso, 2009
+**	JNetHack may be freely redistributed.  See license for details. 
+*/
+
 #include "hack.h"
 
 #ifdef LIVELOGFILE

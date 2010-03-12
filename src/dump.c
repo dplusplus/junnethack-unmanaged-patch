@@ -2,6 +2,12 @@
 /* Copyright (c) Patric Mueller.			*/
 /* NetHack may be freely redistributed.  See license for details. */
 
+/*
+**	Japanese version Copyright
+**	(c) Masaki Miyaso, 2010
+**	JNetHack may be freely redistributed.  See license for details. 
+*/
+
 #include "hack.h"
 #include "date.h"
 

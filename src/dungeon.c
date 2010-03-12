@@ -2,6 +2,12 @@
 /* Copyright (c) Stichting Mathematisch Centrum, Amsterdam, 1985. */
 /* NetHack may be freely redistributed.  See license for details. */
 
+/*
+**	Japanese version Copyright
+**	For UnNetHack 3.5 Copyright (c) Masaki Miyaso, 2009-2010
+**	JNetHack may be freely redistributed.  See license for details. 
+*/
+
 #include "hack.h"
 #include "dgn_file.h"
 #include "dlb.h"

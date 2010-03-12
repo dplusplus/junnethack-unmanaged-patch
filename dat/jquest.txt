@@ -65,7 +65,8 @@
 #	general		issei@jaist.ac.jp
 #	angelic/demonic	s92458km@sfc.keio.ac.jp
 #
-#	for 3.4.0	So-Miya and Kentaro Shirakata
+#	for 3.4.0	Masaki Miyaso and Kentaro Shirakata
+#	for UnNetHack 3.5	Masaki Miyaso
 #
 
 #
