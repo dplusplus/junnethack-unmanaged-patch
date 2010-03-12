@@ -2526,6 +2526,11 @@
             AUTOPICKUP_EXCEPTIONS が指定されていると、 autopickup_exception
             行を使うことで autopickup の振る舞いをより細かく制御できる。
 
+          pilesize
+            "ここにあるものは．．．"のトリガーとなるアイテム数を設 定 で き
+            る。指定可能な最小数は 1 で、それを指定するとアイテム一つの場合
+            でも "ここにあるものは．．．" 一覧を表示しない。
+
           prayconfirm
             神に祈る前に確認する(標準設定はオン)。
 
@@ -2560,11 +2565,6 @@
             け  で  判  別  さ  れ  る  が、   `r'   は   例   外   で   あ
             る。``Rogue''、``Ranger''、``random''があるからである。
 
-          runmode
-            「まとめて移動」する(shift+方向やcontrol+方向で移動するか、旅行
-            コマンドやマウスのクリックを使った場合) ときにどれくらいの頻 度
-            で地図を更新するかを制御する。設定可能な値は以下の通り。
-
 
 
 
@@ -2577,6 +2577,11 @@
           NetHack Guidebook                                              40
 
 
+
+          runmode
+            「まとめて移動」する(shift+方向やcontrol+方向で移動するか、旅行
+            コマンドやマウスのクリックを使った場合) ときにどれくらいの頻 度
+            で地図を更新するかを制御する。設定可能な値は以下の通り。
 
                  teleport - 移動が完了してから地図を更新する。
                  run - 7 歩ぐらい毎に地図を更新する。
@@ -2626,12 +2631,7 @@
             御下にある。例えば、眠っている間はこのオプションは自動的にオ フ
             にされ、目覚めるとオンになる。
 
-          sparkle
-            怪 物(やあなた)が攻撃を受け、それに抵抗した場合に画面効果を表示
-            する (標準設定はオン)。
 
-          standout
-            怪物と``--More--''を太字で表示する(標準設定はオフ)。
 
 
           NetHack 3.4                                      December 2, 2003
@@ -2643,6 +2643,13 @@
           NetHack Guidebook                                              41
 
 
+
+          sparkle
+            怪 物(やあなた)が攻撃を受け、それに抵抗した場合に画面効果を表示
+            する (標準設定はオン)。
+
+          standout
+            怪物と``--More--''を太字で表示する(標準設定はオフ)。
 
           suppress_alert
             前のバージョンから変更された機能に対して注意を促すメッセージ を
@@ -2691,13 +2698,6 @@
 
             `O' コマンドで設定することはできない。
 
-          travel
-            ト ラベルコマンドを有効にする(標準設定はオン)。このオプションを
-            オフにすることによって、うっかり地図ウィンドウをクリックする こ
-            とによって、望まない移動をしようとすることを防ぐことができる。
-
-          verbose
-            ゲーム中のコメントを詳細に表示する(標準設定はオン)。
 
 
           NetHack 3.4                                      December 2, 2003
@@ -2709,6 +2709,14 @@
           NetHack Guidebook                                              42
 
 
+
+          travel
+            ト ラベルコマンドを有効にする(標準設定はオン)。このオプションを
+            オフにすることによって、うっかり地図ウィンドウをクリックする こ
+            とによって、望まない移動をしようとすることを防ぐことができる。
+
+          verbose
+            ゲーム中のコメントを詳細に表示する(標準設定はオン)。
 
           windowtype
             ウ インドウシステムを使用するかどうかを「tty」または「X11」で選
@@ -2755,14 +2763,6 @@
           font_message
             メッセージを表示するフォント名
 
-          font_status
-            ステータスを表示するフォント名
-
-          font_text
-            テキストを表示するフォント名
-
-          font_size_map
-            マップウィンドウを表示するフォントサイズ
 
 
 
@@ -2775,6 +2775,15 @@
           NetHack Guidebook                                              43
 
 
+
+          font_status
+            ステータスを表示するフォント名
+
+          font_text
+            テキストを表示するフォント名
+
+          font_size_map
+            マップウィンドウを表示するフォントサイズ
 
           font_size_menu
             メニューウィンドウを表示するフォントサイズ
@@ -2821,15 +2830,6 @@
 
           scroll_amount
             scroll_margin  オプションで指定された位置に来たときに、どれだけ
-            の数スクロールさせるかを指定する。
-
-          scroll_margin
-            ウィンドウの端からここで指定されたマス数にあなたまたはカーソ ル
-            が移動したときに、画面をスクロールさせる。
-
-          softkeyboard
-
-
 
 
           NetHack 3.4                                      December 2, 2003
@@ -2841,6 +2841,14 @@
           NetHack Guidebook                                              44
 
 
+
+            の数スクロールさせるかを指定する。
+
+          scroll_margin
+            ウィンドウの端からここで指定されたマス数にあなたまたはカーソ ル
+            が移動したときに、画面をスクロールさせる。
+
+          softkeyboard
 
           splash_screen
             起動時にスプラッシュスクリーンを表示する(標準設定はオン)
@@ -2887,14 +2895,6 @@
             BIOS コールを使用する。 (標準設定はオフ。OS/2 , PC, およ び  ST
             NetHack のみ)
 
-          flush
-            (標準設定はオフ。 AMIGA NetHack のみ)。
-
-          MACgraphics
-            (標準設定はオン。 Mac NetHack のみ)。
-
-          page_wait
-            (標準設定はオン。 Mac NetHack のみ)。
 
 
 
@@ -2907,6 +2907,15 @@
           NetHack Guidebook                                              45
 
 
+
+          flush
+            (標準設定はオフ。 AMIGA NetHack のみ)。
+
+          MACgraphics
+            (標準設定はオン。 Mac NetHack のみ)。
+
+          page_wait
+            (標準設定はオン。 Mac NetHack のみ)。
 
           rawio
             raw(cbreak でない) モードを使用して、より高速な出力と問題の起こ
@@ -2951,15 +2960,6 @@
             かったら、!colorを試してみること。 `O' コマンドで設定することは
             できない。
 
-          9.7.  自動拾い例外の設定
-
-               実験的コンパイル時オプションとして AUTOPICKUP_EXCEPTIONS  が
-          あ る。 こ のオプションを定義してコンパイルされたバイナリの場合、
-          autopickup オプションの振る舞いを pickup_types オプションを使って
-          より洗練させることができる。
-
-               autopickup_exception  行を設定ファイルに書くことで、何かを拾
-          おうとするときにチェックするべきパターンを定義できる。
 
 
 
@@ -2973,6 +2973,16 @@
           NetHack Guidebook                                              46
 
 
+
+          9.7.  自動拾い例外の設定
+
+               実験的コンパイル時オプションとして AUTOPICKUP_EXCEPTIONS  が
+          あ る。 こ のオプションを定義してコンパイルされたバイナリの場合、
+          autopickup オプションの振る舞いを pickup_types オプションを使って
+          より洗練させることができる。
+
+               autopickup_exception  行を設定ファイルに書くことで、何かを拾
+          おうとするときにチェックするべきパターンを定義できる。
 
           autopickup_exception
             pickup_types オプションの例外を設定する。  autopickup_exception
@@ -3018,16 +3028,6 @@
             音 声ファイルとユーザが指定するメッセージパターンを関連付ける項
             目。各 SOUND 項目は以下の項目に分解される。
 
-                 MESG       - メッセージウィンドウ指定 (3.4 ではただ一つだけに対応している)
-                 pattern    - マッチするパターン
-                 sound file - 鳴らす音声ファイル
-                 volume     - 音声ファイルを鳴らすときの音量
-
-               パターンの正確な書式はプラットフォームが ``正規表現'' を用い
-          る か  NetHack の内蔵パターンマッチング機能を用いるかによって変わ
-          る。 ``正規表現'' マッチングは NetHack 内蔵パターンマッチングより
-          洗 練されているが、サードパーティライブラリが必要なプラットフォー
-          ムもある。 ``正規表現'' に関する説明はどこか他のところを参照の こ
 
 
           NetHack 3.4                                      December 2, 2003
@@ -3040,6 +3040,16 @@
 
 
 
+                 MESG       - メッセージウィンドウ指定 (3.4 ではただ一つだけに対応している)
+                 pattern    - マッチするパターン
+                 sound file - 鳴らす音声ファイル
+                 volume     - 音声ファイルを鳴らすときの音量
+
+               パターンの正確な書式はプラットフォームが ``正規表現'' を用い
+          る か  NetHack の内蔵パターンマッチング機能を用いるかによって変わ
+          る。 ``正規表現'' マッチングは NetHack 内蔵パターンマッチングより
+          洗 練されているが、サードパーティライブラリが必要なプラットフォー
+          ムもある。 ``正規表現'' に関する説明はどこか他のところを参照の こ
           と。 どちらのパターンマッチングが用いられているかは #version コマ
           ンドで確認できる。
 
@@ -3083,17 +3093,7 @@
           ろう。そのための説明は NHAccess.nh そのものに含まれている。ゲーム
           のアクセシビリティに最も影響を与える設定は以下のものである:
 
-          IBMgraphics
-            このオプションをコメントアウトすることによって IBM グラフィック
-            を無効にする。
 
-          menustyle:traditional
-            これは音声合成システムを利用する助けになる。
-
-          number_pad
-            多くの発声プログラムは number-pad を画面の確認に用いる。この 場
-            合、 number_pad オプションをオフにして、伝統的な Rogue 風コマン
-            ドを使うこと。
 
 
           NetHack 3.4                                      December 2, 2003
@@ -3105,6 +3105,18 @@
           NetHack Guidebook                                              48
 
 
+
+          IBMgraphics
+            このオプションをコメントアウトすることによって IBM グラフィック
+            を無効にする。
+
+          menustyle:traditional
+            これは音声合成システムを利用する助けになる。
+
+          number_pad
+            多くの発声プログラムは number-pad を画面の確認に用いる。この 場
+            合、 number_pad オプションをオフにして、伝統的な Rogue 風コマン
+            ドを使うこと。
 
           Character graphics
             defaults.nh ファイルの下の方にある全てのキャラクタグラフィッ ク
@@ -3148,6 +3160,18 @@
 
                探検モードに入るには 2 通りの方法がある。1 つはゲームの開 始
           時に -X スイッチを付けることである。もう 1 つはゲームのプレイ中に
+
+
+          NetHack 3.4                                      December 2, 2003
+
+
+
+
+
+          NetHack Guidebook                                              49
+
+
+
           `X' コマンドを入力することである。探検モードで得られる他の利点 は
           大胆な読者諸君自ら確かめて欲しい。
 
@@ -3160,17 +3184,6 @@
           Doom(運命の洞窟への招待) を図々しくも盗用したものである。また一部
           は  Ken  Arromdee   による Further Exploration of the Dungeons of
           Doom(運命の洞窟の深部への探検) から採っている。
-
-
-          NetHack 3.4                                      December 2, 2003
-
-
-
-
-
-          NetHack Guidebook                                              49
-
-
 
                NetHack は文字どおり何十人もの人々の手によって完成された。以
           下はゲームの開発の過程での主な出来事である。
@@ -3213,6 +3226,18 @@
           ともに PC、Macintosh、Amiga の移植版の拡張を続け、 3.0 のその後の
           いくつかの改訂版を作成した。
 
+
+
+          NetHack 3.4                                      December 2, 2003
+
+
+
+
+
+          NetHack Guidebook                                              50
+
+
+
                Mike Stephensonをリーダーとし、Izchak MillerとJanet Walzの助
           け に よっ て  Ken Arromdee, David Cohrs, Jean-Christophe Collet,
           Kevin Darcy, Matt Day, Timo Hakulinen, Steve Linhart, Dean Luick,
@@ -3225,18 +3250,6 @@
                Ken  Lorber,  Gregg Wonderly, Greg Olson は Richard Addison,
           Mike Passaretti, Olaf Seibert の助けを借りて Amiga 用 NetHack 3.1
           を作成した。
-
-
-
-          NetHack 3.4                                      December 2, 2003
-
-
-
-
-
-          NetHack Guidebook                                              50
-
-
 
                Norm  Meluch   と  Kevin Smolkowski は Carl Schelin, Stephen
           Spackman, Steve VanDevender, Paul Winner の助けを借り て  NetHack
@@ -3279,19 +3292,6 @@
           NetHack  Plus   を作成した。 Tom Proudfoot は後に NetHack Plus と
           NetHack-- を統合し、 SLASH を作成した。 Larry  Stewart-Zerba   と
           Warwick  Allison は呪文詠唱システムを改良した Wizard Patch を作成
-          した。 Warwick Allison は NetHack を Qt インターフェースを使う よ
-          うに変更した。
-
-               Warren  Cheung  は SLASH と Wizard Patch を統合して Slash'em
-          を作成し、 Kevin Hugo の力を借りて、多くの要素を追加した。  Kevin
-          は後に開発チームに加わり、これらのアイデアを NetHack 3.3 に統合し
-          た。
-
-               3.2 の最終バージョンはバグ修正版である 3.2.3 である。これ は
-          2000   年 問題対策のために 3.3.0 と同時に 1999 年 12 月に発表され
-          た。
-
-
 
 
           NetHack 3.4                                      December 2, 2003
@@ -3303,6 +3303,18 @@
           NetHack Guidebook                                              51
 
 
+
+          した。 Warwick Allison は NetHack を Qt インターフェースを使う よ
+          うに変更した。
+
+               Warren  Cheung  は SLASH と Wizard Patch を統合して Slash'em
+          を作成し、 Kevin Hugo の力を借りて、多くの要素を追加した。  Kevin
+          は後に開発チームに加わり、これらのアイデアを NetHack 3.3 に統合し
+          た。
+
+               3.2 の最終バージョンはバグ修正版である 3.2.3 である。これ は
+          2000   年 問題対策のために 3.3.0 と同時に 1999 年 12 月に発表され
+          た。
 
                Michael Allison, Ken Arromdee, David Cohrs,  Jessie  Collet,
           Steve  Creps, Kevin Darcy, Timo Hakulinen, Kevin Hugo, Steve Lin-
@@ -3346,6 +3358,18 @@
                3.3.1 で復活した Amiga への移植と拡張は Janne Salmijarvi  と
           Teemu Suikki が行っている。
 
+
+
+          NetHack 3.4                                      December 2, 2003
+
+
+
+
+
+          NetHack Guidebook                                              52
+
+
+
                3.3.1 で復活した Atari 版は Christian ``Marvin'' Bressler が
           管理している。
 
@@ -3358,17 +3382,6 @@
           の手助けをしようとしてとりわけ興味をそそるような修正を送ってよ こ
           す。 洞窟の神々は、ときにはこういった悪党のうちでも最も邪悪な連中
           の名前を洞窟マニアたちの一覧としてここに記すのだ。
-
-
-          NetHack 3.4                                      December 2, 2003
-
-
-
-
-
-          NetHack Guidebook                                              52
-
-
 
                     Adam Aronow            Izchak Miller         Mike Stephenson
                     Alex Kompel            J. Ali Harlow           Norm Meluch
@@ -3409,19 +3422,6 @@
                Irina Rempt-Drijfhout      Mike Passaretti
 
           ブランドと製品名は各社の商標または登録商標である。
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 

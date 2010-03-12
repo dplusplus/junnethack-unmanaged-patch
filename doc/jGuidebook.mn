@@ -3623,6 +3623,13 @@ NetHack のニュースファイルがあればそれを読む(標準設定はオン)。
 行を使うことで
 .op autopickup
 の振る舞いをより細かく制御できる。
+.lp pilesize
+.\"O Allows setting the number of items that trigger the "Things that are here".
+.\"O The minimum value allowed is 1, which will tell you about one object
+.\"O and will never give you the "Things that are here" list. 
+"ここにあるものは．．．"のトリガーとなるアイテム数を設定できる。
+指定可能な最小数は 1 で、それを指定するとアイテム一つの場合でも
+"ここにあるものは．．．" 一覧を表示しない。
 .lp prayconfirm
 .\"O Prompt for confirmation before praying (default on).
 神に祈る前に確認する(標準設定はオン)。

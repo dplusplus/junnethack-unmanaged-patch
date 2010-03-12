@@ -509,6 +509,8 @@ static struct Comp_Opt
 						20, SET_IN_GAME },
 	{ "pickup_types", "types of objects to pick up automatically",
 						MAXOCLASSES, SET_IN_GAME },
+	{ "pilesize", "maximum number of items on floor to list automatically",
+						20, SET_IN_GAME },
 	{ "player_selection", "choose character via dialog or prompts",
 						12, DISP_IN_GAME },
 #else /*JP*/
@@ -522,6 +524,8 @@ static struct Comp_Opt
 						20, SET_IN_GAME },
 	{ "pickup_types", "自動で拾いあげる物のシンボル",
 						MAXOCLASSES, SET_IN_GAME },
+	{ "pilesize", "自動で一覧表示する床の上のアイテムの上限数",
+						20, SET_IN_GAME },
 	{ "player_selection", "キャラクタ選択にダイアログや確認画面を使う",
 						12, DISP_IN_GAME },
 #endif
@@ -817,6 +821,7 @@ initoptions()
 	iflags.prevmsg_window = 's';
 #endif
 	iflags.menu_headings = ATR_INVERSE;
+	iflags.pilesize = 5;
 
 	/* Use negative indices to indicate not yet selected */
 	flags.initrole = -1;
@@ -2470,6 +2475,18 @@ goodfruit:
 		}
 		return;
 	}
+
+	fullname = "pilesize";
+	if (match_optname(opts, fullname, sizeof("pilesize")-1, TRUE)) {
+		if (negated) {
+			bad_negation(fullname, FALSE);
+			return;
+		} else if (!(op = string_for_opt(opts, FALSE))) return;
+		iflags.pilesize = atoi(op);
+		if (iflags.pilesize < 1) iflags.pilesize = 1;
+		return;
+	}
+
 	/* WINCAP
 	 * player_selection: dialog | prompts */
 	fullname = "player_selection";
@@ -4179,6 +4196,9 @@ char *buf;
 	else if (!strcmp(optname, "pickup_types")) {
 		oc_to_str(flags.pickup_types, ocl);
 		Sprintf(buf, "%s", ocl[0] ? ocl : "all" );
+	     }
+	else if (!strcmp(optname, "pilesize")) {
+		Sprintf(buf, "%u", iflags.pilesize);
 	     }
 	else if (!strcmp(optname, "race"))
 #if 0 /*JP*/
