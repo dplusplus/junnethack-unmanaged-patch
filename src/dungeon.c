@@ -2440,6 +2440,11 @@ int rtype;
 			return "a tin shop";
 */
 			return "ŠÊ‹l“X";
+		case PETSHOP:
+/*JP
++			return "a pet store";
+*/
+			return "ƒyƒbƒg“X";
 		case BLACKSHOP:
 /*JP
 			return "the Blackmarket";
