@@ -1001,9 +1001,10 @@ char *prefix;
 #endif
 }
 
-char *
-doname(obj)
+static char *
+doname_base(obj, with_price)
 register struct obj *obj;
+boolean with_price;
 {
 	boolean ispoisoned = FALSE;
 	char prefix[PREFIX];
@@ -1380,6 +1381,15 @@ ring:
 		Sprintf(eos(bp), "(–¢•¥‚¢A%ld%s)",
 #endif
 			quotedprice, currency(quotedprice));
+	} else if (with_price) {
+		long price = get_cost_of_shop_item(obj);
+		if (price > 0) {
+#if 0 /*JP*/
+			Sprintf(eos(bp), " (%ld %s)", price, currency(price));
+#else
+			Sprintf(eos(bp), "(%ld%s)", price, currency(price));
+#endif
+		}
 	}
 #if 0 /*JP*/ /* a-an ‚Í‚È‚¢ */
 	if (!strncmp(prefix, "a ", 2) &&
@@ -1397,6 +1407,22 @@ ring:
 	bp = strprepend(bp, preprefix);
 #endif
 	return(bp);
+}
+
+/** Wrapper function for vanilla behaviour. */
+char *
+doname(obj)
+register struct obj *obj;
+{
+	return doname_base(obj, FALSE);
+}
+
+/** Name of object including price. */
+char *
+doname_with_price(obj)
+register struct obj *obj;
+{
+	return doname_base(obj, TRUE);
 }
 
 #endif /* OVL0 */
