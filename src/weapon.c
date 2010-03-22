@@ -1159,6 +1159,7 @@ int enhance_skill(boolean want_dump)
 #endif
 	    if (want_dump) {
 		dump_html("</pre>", ""); /* TODO table */
+		dump("", "");
 		n=0;
 	    } else {
 	    end_menu(win, buf);
