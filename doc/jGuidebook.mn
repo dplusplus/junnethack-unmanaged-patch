@@ -3451,9 +3451,9 @@ mimic(ミミック)
 .\"O The possible values are:
 .\"O .sd
 .\"O .si
-.\"O s - single message (default, this was the behavior before 3.4.0).
+.\"O s - single message.
 .\"O c - combination, two messages as `single', then as `full'.
-.\"O f - full window, oldest message first.
+.\"O f - full window, oldest message first (default).
 .\"O r - full window, newest message first.
 .\"O .ei
 .\"O .ed
@@ -3463,9 +3463,9 @@ mimic(ミミック)
 指定できる値は以下のとおり。
 .sd
 .si
-s - `single': 1 メッセージだけ (標準設定。これは 3.4.0 以前での振る舞いである)
+s - `single': 1 メッセージだけ。
 c - `conbination': 最初の 2 メッセージは `single'、その後は `full'。
-f - `full': 全画面。古いメッセージが先。
+f - `full': 全画面。古いメッセージが先 (標準設定)。
 r - 全画面。新しいメッセージが先。
 .ei
 .ed
@@ -3758,8 +3758,8 @@ crawl - ``walk'' と同様だが、一歩毎にしばらく停止する。
 怪物(やあなた)が攻撃を受け、それに抵抗した場合に画面効果を表示する
 (標準設定はオン)。
 .lp standout
-.\"O Boldface monsters and ``\fB--More--\fP'' (default off).
-怪物と``\fB--More--\fP''を太字で表示する(標準設定はオフ)。
+.\"O Boldface monsters and ``\fB--More--\fP'' (default on).
+怪物と``\fB--More--\fP''を太字で表示する(標準設定はオン)。
 .lp suppress_alert
 .\"O This option may be set to a NetHack version level to suppress
 .\"O alert notification messages about feature changes for that 

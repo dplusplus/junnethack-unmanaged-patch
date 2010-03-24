@@ -1992,9 +1992,9 @@ Allows you to change the way recalled messages are displayed.
 The possible values are:
 .sd
 .si
-s - single message (default, this was the behavior before 3.4.0).
+s - single message.
 c - combination, two messages as `single', then as `full'.
-f - full window, oldest message first.
+f - full window, oldest message first (default).
 r - full window, newest message first.
 .ei
 .ed
@@ -2155,7 +2155,7 @@ off and on during and after sleep, for example.
 Display a sparkly effect when a monster (including yourself) is hit by an
 attack to which it is resistant (default on).
 .lp standout
-Boldface monsters and ``\fB--More--\fP'' (default off).
+Boldface monsters and ``\fB--More--\fP'' (default on).
 .lp suppress_alert
 This option may be set to a NetHack version level to suppress
 alert notification messages about feature changes for that 
