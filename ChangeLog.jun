@@ -1,5 +1,5 @@
 Wed Mar 31 2010  Masaki Miyaso  <so-miya@sourceforge.jp>
-	* UnNetHack SVN版r447をベースにした。
+	* UnNetHack SVN版r448をベースにした。
 	  r356 patchlevelを3.5.3にした
 	  r357 パッチ：ダンジョンマップ概要3 (Hojita Discordiaより)
 	  r358 マップ概要に闇市と道具屋を追加
@@ -107,6 +107,13 @@ Wed Mar 31 2010  Masaki Miyaso  <so-miya@sourceforge.jp>
 	       - 小文字のダンプ演算子は必要な場所に少しの改行を追加する
 	  r447 レベルコンパイラ：新しいレベルフラグ"stormy"を追加。
 	       → 風の精霊界における稲妻効果（SporkHack rev.545から）
+	  r448 レベルコンパイラ：変更を追加（SporkHack rev.546-548,550か
+	       ら）
+	       - ハードコーディングされていたクエストレベルの怪物生成確率
+	         をlev_compに移動
+	       - MON_GENERATIONを％確率で使用できるように変更
+	       - lev_compのMON_GENERATIONによって不要になったクエストの敵
+	         怪物データを削除
 	* 起動時の職業名が翻訳されなくなっていたのを修正
 	* ダンプ関係で終了時のトップテン表示がおかしくなっていたので修正
 	* 日本語ダンプファイル名の対処
