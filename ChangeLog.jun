@@ -1,5 +1,5 @@
 Wed Mar 31 2010  Masaki Miyaso  <so-miya@sourceforge.jp>
-	* UnNetHack SVN版r443をベースにした。
+	* UnNetHack SVN版r444をベースにした。
 	  r356 patchlevelを3.5.3にした
 	  r357 パッチ：ダンジョンマップ概要3 (Hojita Discordiaより)
 	  r358 マップ概要に闇市と道具屋を追加
@@ -89,6 +89,8 @@ Wed Mar 31 2010  Masaki Miyaso  <so-miya@sourceforge.jp>
 	       - WALLIFYに領域オプション追加
 	  r443 レベルコンパイラ：OBJECT用の数パラメタオプション追加
 	       （SporkHack rev.528から）
+	  r444 レベルコンパイラ：WALLIFYに領域オプション追加（SporkHack
+	       rev.529から）
 	* 起動時の職業名が翻訳されなくなっていたのを修正
 	* ダンプ関係で終了時のトップテン表示がおかしくなっていたので修正
 	* 日本語ダンプファイル名の対処
