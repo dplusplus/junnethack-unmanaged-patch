@@ -909,15 +909,22 @@ $(O)sp_lev.tag: $(O)utility.tag $(DAT)/bigroom.des  $(DAT)/castle.des \
 	$(DAT)/caveman.des   $(DAT)/healer.des   $(DAT)/knight.des \
 	$(DAT)/monk.des      $(DAT)/priest.des   $(DAT)/ranger.des \
 	$(DAT)/rogue.des     $(DAT)/samurai.des  $(DAT)/tourist.des \
-	$(DAT)/valkyrie.des  $(DAT)/wizard.des
+	$(DAT)/valkyrie.des  $(DAT)/wizard.des \
+	$(DAT)/blkmar.des    $(DAT)/heck.des     $(DAT)/nymph.des \
+	$(DAT)/town-1.des    $(DAT)/town-2.des   $(DAT)/sokoban.des
 	@$(subst /,\,cd $(DAT))
 	@$(subst /,\,$(U)lev_comp bigroom.des)
+	@$(subst /,\,$(U)lev_comp blkmar.des)
 	@$(subst /,\,$(U)lev_comp castle.des)
 	@$(subst /,\,$(U)lev_comp endgame.des)
 	@$(subst /,\,$(U)lev_comp gehennom.des)
+	@$(subst /,\,$(U)lev_comp heck.des)
 	@$(subst /,\,$(U)lev_comp knox.des)
 	@$(subst /,\,$(U)lev_comp mines.des)
 	@$(subst /,\,$(U)lev_comp medusa.des)
+	@$(subst /,\,$(U)lev_comp nymph.des)
+	@$(subst /,\,$(U)lev_comp town-1.des)
+	@$(subst /,\,$(U)lev_comp town-2.des)
 	@$(subst /,\,$(U)lev_comp oracle.des)
 	@$(subst /,\,$(U)lev_comp sokoban.des)
 	@$(subst /,\,$(U)lev_comp tower.des)
@@ -1198,7 +1205,7 @@ $(O)dogmove.o: dogmove.c $(HACK_H) $(INCL)/mfndpos.h $(INCL)/edog.h
 $(O)dokick.o: dokick.c $(HACK_H) $(INCL)/eshk.h
 $(O)dothrow.o: dothrow.c $(HACK_H)
 $(O)drawing.o: drawing.c $(HACK_H) $(INCL)/tcap.h
-$(O)dump.o: dump.c $(HACK_H)
+$(O)dump.o: dump.c $(HACK_H) $(INCL)/date.h
 $(O)dungeon.o: dungeon.c $(HACK_H) $(INCL)/dgn_file.h $(INCL)/dlb.h
 $(O)eat.o: eat.c $(HACK_H)
 $(O)end.o: end.c $(HACK_H) $(INCL)/eshk.h $(INCL)/dlb.h

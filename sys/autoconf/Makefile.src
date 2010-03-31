@@ -431,6 +431,7 @@ spotless: clean
 	-rm -f monstr.c ../include/vis_tab.h vis_tab.c tile.c *.moc
 	-rm -f $(srcdir)/../win/gnome/gn_rip.h
 	-rm -f ../include/filename.h
+	-rm -f ../include/jdata.h
 	-rm -f Makefile
 
 depend: ../sys/autoconf/depend.awk \
@@ -712,7 +713,7 @@ dogmove.o: $(srcdir)/dogmove.c $(HACK_H) ../include/mfndpos.h \
 dokick.o: $(srcdir)/dokick.c $(HACK_H) ../include/eshk.h
 dothrow.o: $(srcdir)/dothrow.c $(HACK_H) ../include/edog.h
 drawing.o: $(srcdir)/drawing.c $(HACK_H) ../include/tcap.h
-dump.o: $(srcdir)/dump.c $(HACK_H)
+dump.o: $(srcdir)/dump.c $(HACK_H) ../include/date.h
 dungeon.o: $(srcdir)/dungeon.c $(HACK_H) ../include/dlb.h
 eat.o: $(srcdir)/eat.c $(HACK_H)
 end.o: $(srcdir)/end.c $(HACK_H) ../include/eshk.h ../include/dlb.h

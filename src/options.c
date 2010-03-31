@@ -1592,8 +1592,9 @@ boolean negated;
 	/* "fullname" without a value means "all"
 	   and negated means "none" */
 	if (!op || !strcmpi(op, "all") || !strcmpi(op, "none")) {
+		boolean value;
 		if (op && !strcmpi(op, "none")) negated = TRUE;
-		boolean value = negated ? FALSE : TRUE;
+		value = negated ? FALSE : TRUE;
 		/* set all boolean options starting with fullname */
 		for (i = 0; boolopt[i].name; i++) {
 			if (!strncmp(boolopt[i].name, fullname, fullname_len)) {

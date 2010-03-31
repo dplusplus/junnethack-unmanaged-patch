@@ -1068,17 +1068,17 @@ spotless: clean
 	if exist $(U)*_yacc.c      del $(U)*_yacc.c
 	if exist $(U)*_flex.c      del $(U)*_flex.c
 	if exist $(DAT)\data       del $(DAT)\data
-	if exist $(DAT)\rumors     del $(DAT)\rumors
 	if exist $(DAT)\???-fil?.lev	del $(DAT)\???-fil?.lev
 	if exist $(DAT)\???-goal.lev	del $(DAT)\???-goal.lev
 	if exist $(DAT)\???-loca.lev	del $(DAT)\???-loca.lev
 	if exist $(DAT)\???-strt.lev	del $(DAT)\???-strt.lev
 	if exist $(DAT)\air.lev		del $(DAT)\air.lev
-	if exist $(DAT)\asmodeus.lev	del $(DAT)\asmodeus.lev
+	if exist $(DAT)\asmod-?.lev	del $(DAT)\asmod-?.lev
 	if exist $(DAT)\astral.lev	del $(DAT)\astral.lev
-	if exist $(DAT)\baalz.lev	del $(DAT)\baalz.lev
-	if exist $(DAT)\bigroom.lev	del $(DAT)\bigroom.lev
-	if exist $(DAT)\castle.lev	del $(DAT)\castle.lev
+	if exist $(DAT)\baalz-?.lev	del $(DAT)\baalz-?.lev
+	if exist $(DAT)\bigrm-*.lev	del $(DAT)\bigrm-*.lev
+	if exist $(DAT)\blkmar.lev	del $(DAT)\blkmar.lev
+	if exist $(DAT)\castle-?.lev	del $(DAT)\castle-?.lev
 	if exist $(DAT)\data		del $(DAT)\data
 	if exist $(DAT)\dungeon		del $(DAT)\dungeon
 	if exist $(DAT)\dungeon.pdf	del $(DAT)\dungeon.pdf
@@ -1086,23 +1086,27 @@ spotless: clean
 	if exist $(DAT)\fakewiz?.lev	del $(DAT)\fakewiz?.lev
 	if exist $(DAT)\fire.lev	del $(DAT)\fire.lev
 	if exist $(DAT)\juiblex.lev	del $(DAT)\juiblex.lev
-	if exist $(DAT)\knox.lev	del $(DAT)\knox.lev
+	if exist $(DAT)\heck-?-?.lev	del $(DAT)\heck-?-?.lev
+	if exist $(DAT)\hellfill.lev	del $(DAT)\hellfill.lev
+	if exist $(DAT)\knox-?.lev	del $(DAT)\knox-?.lev
 	if exist $(DAT)\medusa-?.lev	del $(DAT)\medusa-?.lev
 	if exist $(DAT)\mine*.lev	del $(DAT)\mine*.lev
+	if exist $(DAT)\nymph.lev	del $(DAT)\nymph.lev
 	if exist $(DAT)\options		del $(DAT)\options
 	if exist $(DAT)\ttyoptions	del $(DAT)\ttyoptions
 	if exist $(DAT)\guioptions	del $(DAT)\guioptions
 	if exist $(DAT)\oracle.lev	del $(DAT)\oracle.lev
 	if exist $(DAT)\oracles		del $(DAT)\oracles
 	if exist $(DAT)\joracles	del $(DAT)\joracles
-	if exist $(DAT)\orcus.lev	del $(DAT)\orcus.lev
+	if exist $(DAT)\orcus-?.lev	del $(DAT)\orcus-?.lev
+	if exist $(DAT)\quest.dat	del $(DAT)\quest.dat
 	if exist $(DAT)\rumors		del $(DAT)\rumors
 	if exist $(DAT)\jrumors		del $(DAT)\jrumors
-	if exist $(DAT)\quest.dat	del $(DAT)\quest.dat
 	if exist $(DAT)\sanctum.lev	del $(DAT)\sanctum.lev
 	if exist $(DAT)\soko?-?.lev	del $(DAT)\soko?-?.lev
 	if exist $(DAT)\tower?.lev	del $(DAT)\tower?.lev
-	if exist $(DAT)\valley.lev	del $(DAT)\valley.lev
+	if exist $(DAT)\town-?.lev	del $(DAT)\town-?.lev
+	if exist $(DAT)\valley-?.lev	del $(DAT)\valley-?.lev
 	if exist $(DAT)\water.lev	del $(DAT)\water.lev
 	if exist $(DAT)\wizard?.lev	del $(DAT)\wizard?.lev
 	if exist $(O)sp_lev.tag	        del $(O)sp_lev.tag
@@ -1318,7 +1322,7 @@ $(O)dogmove.o: dogmove.c $(HACK_H) $(INCL)\mfndpos.h $(INCL)\edog.h
 $(O)dokick.o: dokick.c $(HACK_H) $(INCL)\eshk.h
 $(O)dothrow.o: dothrow.c $(HACK_H) $(INCL)\edog.h
 $(O)drawing.o: drawing.c $(HACK_H) $(INCL)\tcap.h
-$(O)dump.o: dump.c $(HACK_H)
+$(O)dump.o: dump.c $(HACK_H) $(INCL)\date.h
 $(O)dungeon.o: dungeon.c $(HACK_H) $(INCL)\dgn_file.h $(INCL)\dlb.h
 $(O)eat.o: eat.c $(HACK_H)
 $(O)end.o: end.c $(HACK_H) $(INCL)\eshk.h $(INCL)\dlb.h

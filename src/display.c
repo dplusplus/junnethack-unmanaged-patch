@@ -1461,12 +1461,13 @@ void dump_screen()
 	html_buf[0] = '\0';
 	lastc = 0;
 	for (x = 1; x < COLNO; x++) {
+	    uchar c;
 	    /* map glyph to character and color */
 	    glyph = gbuf[y][x].glyph;
 	    mapglyph(glyph, &ch, &color, &special, x, y);
 	    /* we can't use ch for output as that may be non-ASCII due
 	     * to DEC- or IBMgraphics */
-	    uchar c = get_glyph_char(glyph, &oclass);
+	    c = get_glyph_char(glyph, &oclass);
 	    if (c == ' ')
 		Strcpy(tmpbuf, " ");
 	    else if (x == u.ux && y == u.uy)
