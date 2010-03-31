@@ -209,6 +209,7 @@ LFLAGS	= $(LFLAGSBASEG) $(NHLFLAGS1) $(NHLFLAGS2)
 !ELSE
 LFLAGS	= $(LFLAGSBASEC) $(NHLFLAGS1) $(NHLFLAGS2)
 !ENDIF
+LEVCOMP_FLAGS=-v
 
 GAMEFILE = $(GAMEDIR)\$(GAME).exe # whole thing
 
@@ -510,35 +511,35 @@ $(O)sp_lev.tag: $(O)utility.tag $(DAT)\bigroom.des  $(DAT)\castle.des \
 	$(DAT)/blkmar.des  $(DAT)/heck.des     $(DAT)/nymph.des \
 	$(DAT)/town-1.des  $(DAT)/town-2.des
 	cd $(DAT)
-	$(U)lev_comp bigroom.des
-	$(U)lev_comp blkmar.des
-	$(U)lev_comp castle.des
-	$(U)lev_comp endgame.des
-	$(U)lev_comp gehennom.des
-	$(U)lev_comp heck.des
-	$(U)lev_comp knox.des
-	$(U)lev_comp mines.des
-	$(U)lev_comp medusa.des
-	$(U)lev_comp nymph.des
-	$(U)lev_comp oracle.des
-	$(U)lev_comp sokoban.des
-	$(U)lev_comp town-1.des
-	$(U)lev_comp town-2.des
-	$(U)lev_comp tower.des
-	$(U)lev_comp yendor.des
-	$(U)lev_comp arch.des
-	$(U)lev_comp barb.des
-	$(U)lev_comp caveman.des
-	$(U)lev_comp healer.des
-	$(U)lev_comp knight.des
-	$(U)lev_comp monk.des
-	$(U)lev_comp priest.des
-	$(U)lev_comp ranger.des
-	$(U)lev_comp rogue.des
-	$(U)lev_comp samurai.des
-	$(U)lev_comp tourist.des
-	$(U)lev_comp valkyrie.des
-	$(U)lev_comp wizard.des
+	$(U)lev_comp $(LEVCOMP_FLAGS) bigroom.des
+	$(U)lev_comp $(LEVCOMP_FLAGS) blkmar.des
+	$(U)lev_comp $(LEVCOMP_FLAGS) castle.des
+	$(U)lev_comp $(LEVCOMP_FLAGS) endgame.des
+	$(U)lev_comp $(LEVCOMP_FLAGS) gehennom.des
+	$(U)lev_comp $(LEVCOMP_FLAGS) heck.des
+	$(U)lev_comp $(LEVCOMP_FLAGS) knox.des
+	$(U)lev_comp $(LEVCOMP_FLAGS) mines.des
+	$(U)lev_comp $(LEVCOMP_FLAGS) medusa.des
+	$(U)lev_comp $(LEVCOMP_FLAGS) nymph.des
+	$(U)lev_comp $(LEVCOMP_FLAGS) oracle.des
+	$(U)lev_comp $(LEVCOMP_FLAGS) sokoban.des
+	$(U)lev_comp $(LEVCOMP_FLAGS) town-1.des
+	$(U)lev_comp $(LEVCOMP_FLAGS) town-2.des
+	$(U)lev_comp $(LEVCOMP_FLAGS) tower.des
+	$(U)lev_comp $(LEVCOMP_FLAGS) yendor.des
+	$(U)lev_comp $(LEVCOMP_FLAGS) arch.des
+	$(U)lev_comp $(LEVCOMP_FLAGS) barb.des
+	$(U)lev_comp $(LEVCOMP_FLAGS) caveman.des
+	$(U)lev_comp $(LEVCOMP_FLAGS) healer.des
+	$(U)lev_comp $(LEVCOMP_FLAGS) knight.des
+	$(U)lev_comp $(LEVCOMP_FLAGS) monk.des
+	$(U)lev_comp $(LEVCOMP_FLAGS) priest.des
+	$(U)lev_comp $(LEVCOMP_FLAGS) ranger.des
+	$(U)lev_comp $(LEVCOMP_FLAGS) rogue.des
+	$(U)lev_comp $(LEVCOMP_FLAGS) samurai.des
+	$(U)lev_comp $(LEVCOMP_FLAGS) tourist.des
+	$(U)lev_comp $(LEVCOMP_FLAGS) valkyrie.des
+	$(U)lev_comp $(LEVCOMP_FLAGS) wizard.des
 	cd $(SRC)
 	echo sp_levs done > $(O)sp_lev.tag
 

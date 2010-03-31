@@ -137,6 +137,7 @@ TERMLIB =
 
 cflags = -c -O -I../include $(DLBFLG) -DSUPPRESS_GRAPHICS
 LFLAGS =
+LEVCOMP_FLAGS=-v
 
 else
 
@@ -147,6 +148,7 @@ else
 #    Normal
 cflags = -c -O -I../include $(DLBFLG) -DUSE_TILES
 LFLAGS =
+LEVCOMP_FLAGS=-v
 endif
 
 #==========================================
@@ -913,35 +915,35 @@ $(O)sp_lev.tag: $(O)utility.tag $(DAT)/bigroom.des  $(DAT)/castle.des \
 	$(DAT)/blkmar.des    $(DAT)/heck.des     $(DAT)/nymph.des \
 	$(DAT)/town-1.des    $(DAT)/town-2.des   $(DAT)/sokoban.des
 	@$(subst /,\,cd $(DAT))
-	@$(subst /,\,$(U)lev_comp bigroom.des)
-	@$(subst /,\,$(U)lev_comp blkmar.des)
-	@$(subst /,\,$(U)lev_comp castle.des)
-	@$(subst /,\,$(U)lev_comp endgame.des)
-	@$(subst /,\,$(U)lev_comp gehennom.des)
-	@$(subst /,\,$(U)lev_comp heck.des)
-	@$(subst /,\,$(U)lev_comp knox.des)
-	@$(subst /,\,$(U)lev_comp mines.des)
-	@$(subst /,\,$(U)lev_comp medusa.des)
-	@$(subst /,\,$(U)lev_comp nymph.des)
-	@$(subst /,\,$(U)lev_comp town-1.des)
-	@$(subst /,\,$(U)lev_comp town-2.des)
-	@$(subst /,\,$(U)lev_comp oracle.des)
-	@$(subst /,\,$(U)lev_comp sokoban.des)
-	@$(subst /,\,$(U)lev_comp tower.des)
-	@$(subst /,\,$(U)lev_comp yendor.des)
-	@$(subst /,\,$(U)lev_comp arch.des)
-	@$(subst /,\,$(U)lev_comp barb.des)
-	@$(subst /,\,$(U)lev_comp caveman.des)
-	@$(subst /,\,$(U)lev_comp healer.des)
-	@$(subst /,\,$(U)lev_comp knight.des)
-	@$(subst /,\,$(U)lev_comp monk.des)
-	@$(subst /,\,$(U)lev_comp priest.des)
-	@$(subst /,\,$(U)lev_comp ranger.des)
-	@$(subst /,\,$(U)lev_comp rogue.des)
-	@$(subst /,\,$(U)lev_comp samurai.des)
-	@$(subst /,\,$(U)lev_comp tourist.des)
-	@$(subst /,\,$(U)lev_comp valkyrie.des)
-	@$(subst /,\,$(U)lev_comp wizard.des)
+	@$(subst /,\,$(U)lev_comp $(LEVCOMP_FLAGS) bigroom.des)
+	@$(subst /,\,$(U)lev_comp $(LEVCOMP_FLAGS) blkmar.des)
+	@$(subst /,\,$(U)lev_comp $(LEVCOMP_FLAGS) castle.des)
+	@$(subst /,\,$(U)lev_comp $(LEVCOMP_FLAGS) endgame.des)
+	@$(subst /,\,$(U)lev_comp $(LEVCOMP_FLAGS) gehennom.des)
+	@$(subst /,\,$(U)lev_comp $(LEVCOMP_FLAGS) heck.des)
+	@$(subst /,\,$(U)lev_comp $(LEVCOMP_FLAGS) knox.des)
+	@$(subst /,\,$(U)lev_comp $(LEVCOMP_FLAGS) mines.des)
+	@$(subst /,\,$(U)lev_comp $(LEVCOMP_FLAGS) medusa.des)
+	@$(subst /,\,$(U)lev_comp $(LEVCOMP_FLAGS) nymph.des)
+	@$(subst /,\,$(U)lev_comp $(LEVCOMP_FLAGS) town-1.des)
+	@$(subst /,\,$(U)lev_comp $(LEVCOMP_FLAGS) town-2.des)
+	@$(subst /,\,$(U)lev_comp $(LEVCOMP_FLAGS) oracle.des)
+	@$(subst /,\,$(U)lev_comp $(LEVCOMP_FLAGS) sokoban.des)
+	@$(subst /,\,$(U)lev_comp $(LEVCOMP_FLAGS) tower.des)
+	@$(subst /,\,$(U)lev_comp $(LEVCOMP_FLAGS) yendor.des)
+	@$(subst /,\,$(U)lev_comp $(LEVCOMP_FLAGS) arch.des)
+	@$(subst /,\,$(U)lev_comp $(LEVCOMP_FLAGS) barb.des)
+	@$(subst /,\,$(U)lev_comp $(LEVCOMP_FLAGS) caveman.des)
+	@$(subst /,\,$(U)lev_comp $(LEVCOMP_FLAGS) healer.des)
+	@$(subst /,\,$(U)lev_comp $(LEVCOMP_FLAGS) knight.des)
+	@$(subst /,\,$(U)lev_comp $(LEVCOMP_FLAGS) monk.des)
+	@$(subst /,\,$(U)lev_comp $(LEVCOMP_FLAGS) priest.des)
+	@$(subst /,\,$(U)lev_comp $(LEVCOMP_FLAGS) ranger.des)
+	@$(subst /,\,$(U)lev_comp $(LEVCOMP_FLAGS) rogue.des)
+	@$(subst /,\,$(U)lev_comp $(LEVCOMP_FLAGS) samurai.des)
+	@$(subst /,\,$(U)lev_comp $(LEVCOMP_FLAGS) tourist.des)
+	@$(subst /,\,$(U)lev_comp $(LEVCOMP_FLAGS) valkyrie.des)
+	@$(subst /,\,$(U)lev_comp $(LEVCOMP_FLAGS) wizard.des)
 	@$(subst /,\,cd $(SRC))
 	@$(subst /,\,echo sp_levs done > $@)
 

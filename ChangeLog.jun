@@ -1,5 +1,5 @@
 Wed Mar 31 2010  Masaki Miyaso  <so-miya@sourceforge.jp>
-	* UnNetHack SVN版r441をベースにした。
+	* UnNetHack SVN版r442をベースにした。
 	  r356 patchlevelを3.5.3にした
 	  r357 パッチ：ダンジョンマップ概要3 (Hojita Discordiaより)
 	  r358 マップ概要に闇市と道具屋を追加
@@ -77,12 +77,16 @@ Wed Mar 31 2010  Masaki Miyaso  <so-miya@sourceforge.jp>
 	  r434 新オプション：pickup_dropped
 	  r435 パッチ：pilesizeオプション（Glyn Kenningtonによる）
 	  r436 texファイルの修正
-	  r437 ページ表示ウィンドウにて最終ページの --More-- を --End-- に
-	       置き換える
+	  r437 ページ表示ウィンドウにて最終ページの --More-- を --End--
+	       に置き換える
 	  r438 店内の売り物の値段を#chatなしに表示
 	  r439 ダンジョン概要：忘れていたペット専門店を追加
 	  r440 ダンプ：開始終了時間と有効プレイ時間の出力
 	  r441 オプション：msg_windowとstandoutの初期値を変更
+	  r442 レベルコンパイラ：SporkHack rev.516～518、526～528の変更を
+	       追加
+	       - OBJECT用の数パラメタオプション追加
+	       - WALLIFYに領域オプション追加
 	* 起動時の職業名が翻訳されなくなっていたのを修正
 	* ダンプ関係で終了時のトップテン表示がおかしくなっていたので修正
 	* 日本語ダンプファイル名の対処
