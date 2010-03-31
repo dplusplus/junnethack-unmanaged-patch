@@ -1,5 +1,5 @@
 Wed Mar 31 2010  Masaki Miyaso  <so-miya@sourceforge.jp>
-	* UnNetHack SVN版r449をベースにした。
+	* UnNetHack SVN版r450をベースにした。
 	  r356 patchlevelを3.5.3にした
 	  r357 パッチ：ダンジョンマップ概要3 (Hojita Discordiaより)
 	  r358 マップ概要に闇市と道具屋を追加
@@ -117,6 +117,15 @@ Wed Mar 31 2010  Masaki Miyaso  <so-miya@sourceforge.jp>
 	  r449 レベルコンパイラ：新しいレベルフラグ"graveyard"(墓地)を追
 	       加。これは以前からハードコーディングされていた（SporkHack
 	       rev.551から）
+	  r450 レベルコンパイラ：変更を追加（SporkHack rev.552,553,555,
+	       556から）
+	       - 怪物の所持品を追加
+	       - オーケス、アスモデウス、クロイソスおよびペスティレンスの
+	         所持品をdesファイルに記述。 怪物はこれらのアイテムを装備
+	         状態で生成されます。
+	       - SWITCH に DEFAULT の場合を追加
+	       - INIT_MAP:solidfill は光状態パラメタオプションを持てるよ
+	         うに
 	* 起動時の職業名が翻訳されなくなっていたのを修正
 	* ダンプ関係で終了時のトップテン表示がおかしくなっていたので修正
 	* 日本語ダンプファイル名の対処
