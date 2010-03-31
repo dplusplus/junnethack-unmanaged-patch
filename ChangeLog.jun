@@ -1,5 +1,5 @@
 Wed Mar 31 2010  Masaki Miyaso  <so-miya@sourceforge.jp>
-	* UnNetHack SVN版r451をベースにした。
+	* UnNetHack SVN版r452をベースにした。
 	  r356 patchlevelを3.5.3にした
 	  r357 パッチ：ダンジョンマップ概要3 (Hojita Discordiaより)
 	  r358 マップ概要に闇市と道具屋を追加
@@ -127,6 +127,15 @@ Wed Mar 31 2010  Masaki Miyaso  <so-miya@sourceforge.jp>
 	       - INIT_MAP:solidfill は光状態パラメタオプションを持てるよ
 	         うに
 	  r451 レベルコンパイラ：新コマンド GRAVE（SporkHack rev.557から）
+	  r452 レベルコンパイラ：変更追加（SporkHack rev.559-567から）
+	       - 基本サブルーチンの追加
+	       - lev_compのコードをいくつかlev_main.c内の関数に移動
+	       - レベルフラグ作成とマップ初期化の演算子を作成
+	       - バグ修正：MESSAGE文字列の明示的な初期化がなかったので
+	         opvar_free()でやるようにした。
+	       - 巨大なsp_level_coder()を分割して小分けにした
+	       - バグ修正：忘れられていた変数のハードコーディング変更
+	       - クエストページ表示での%変数をMESSAGEで使用可能に
 	* 起動時の職業名が翻訳されなくなっていたのを修正
 	* ダンプ関係で終了時のトップテン表示がおかしくなっていたので修正
 	* 日本語ダンプファイル名の対処
