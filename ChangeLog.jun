@@ -1,5 +1,5 @@
 Wed Mar 31 2010  Masaki Miyaso  <so-miya@sourceforge.jp>
-	* UnNetHack SVN版r445をベースにした。
+	* UnNetHack SVN版r446をベースにした。
 	  r356 patchlevelを3.5.3にした
 	  r357 パッチ：ダンジョンマップ概要3 (Hojita Discordiaより)
 	  r358 マップ概要に闇市と道具屋を追加
@@ -99,6 +99,12 @@ Wed Mar 31 2010  Masaki Miyaso  <so-miya@sourceforge.jp>
 	       - SWITCHステートメント追加
 	       - OBJECTパラメタにさらにオプション追加
 	       - MONSTERパラメタにさらにオプション追加
+	  r446 レベルコンパイラ：変更を追加（SporkHack rev.539,540,543,
+	       544から）
+	       - ユーザにダンプさせる低レベル演算子'-d'パラメタを追加
+	       - 64bitシステムでも動作するように lev_comp の varargs を
+	         修正
+	       - 小文字のダンプ演算子は必要な場所に少しの改行を追加する
 	* 起動時の職業名が翻訳されなくなっていたのを修正
 	* ダンプ関係で終了時のトップテン表示がおかしくなっていたので修正
 	* 日本語ダンプファイル名の対処
