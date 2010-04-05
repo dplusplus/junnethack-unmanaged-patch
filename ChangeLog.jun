@@ -1,5 +1,5 @@
 Mon Apr 5 2010  Masaki Miyaso  <so-miya@sourceforge.jp>
-	* UnNetHack SVN版r455をベースにした。
+	* UnNetHack SVN版r456をベースにした。
 	  r356 patchlevelを3.5.3にした
 	  r357 パッチ：ダンジョンマップ概要3 (Hojita Discordiaより)
 	  r358 マップ概要に闇市と道具屋を追加
@@ -141,6 +141,16 @@ Mon Apr 5 2010  Masaki Miyaso  <so-miya@sourceforge.jp>
 	  r454 無変化の魔除けは変化させることができない
 	  r455 バグ修正：ダンプファイル名の長さとhtmlダンプファイルのフッ
 	       タ処理
+	  r456 レベルコンパイラ：変更を追加（SporkHack rev.570～579から）
+	       - opcode定義をenumに変更
+	       - 「以下なら遷移」SPO_JLE 演算子が無かったので追加
+	       - sp_lev構造体のメモリ配分を動的にした
+	       - lev_comp：本物のサブルーチンをここに
+	       - lev_comp：関数は同ファイル内でその定義以降の全てのレベル
+	         定義で使用可能
+	       - lev_comp：関数内でアイテム、怪物、施設の登録がまだ未定義
+	         でも可能とする
+	       - lev_comp: 他のdesファイルから関数をincludeできる
 	* 起動時の職業名が翻訳されなくなっていたのを修正
 	* ダンプ関係で終了時のトップテン表示がおかしくなっていたので修正
 	* 日本語ダンプファイル名の対処
