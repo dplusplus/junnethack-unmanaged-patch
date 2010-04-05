@@ -161,6 +161,8 @@ Mon Apr 5 2010  Masaki Miyaso  <so-miya@sourceforge.jp>
 	         に int を long に型変換
 	       - yacc の機能を使って current_region および current_coord
 	         のハックを除去
+	  r458 隠された壁裏の小部屋にたまに鉄格子をつける（SporkHack
+	       rev.616から）
 	* 起動時の職業名が翻訳されなくなっていたのを修正
 	* ダンプ関係で終了時のトップテン表示がおかしくなっていたので修正
 	* 日本語ダンプファイル名の対処
