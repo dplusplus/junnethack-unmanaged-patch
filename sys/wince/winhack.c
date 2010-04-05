@@ -336,6 +336,10 @@ register char *s;
 	register unsigned char *lp;
 
 	for (lp = s; *lp; lp++)
+#if 1 /*JP*/
+	    if (is_kanji1(s, (int)lp-(int)s)) lp++;
+	    else
+#endif
 	    if ( *lp == '?' || *lp == '"' || *lp == '\\' ||
 		 *lp == '/' || *lp == '>' || *lp == '<'  ||
 		 *lp == '*' || *lp == '|' || *lp == ':'  || (*lp > 127))

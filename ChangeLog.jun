@@ -1,5 +1,5 @@
-Thu Apr 1 2010  Masaki Miyaso  <so-miya@sourceforge.jp>
-	* UnNetHack SVN版r454をベースにした。
+Mon Apr 5 2010  Masaki Miyaso  <so-miya@sourceforge.jp>
+	* UnNetHack SVN版r455をベースにした。
 	  r356 patchlevelを3.5.3にした
 	  r357 パッチ：ダンジョンマップ概要3 (Hojita Discordiaより)
 	  r358 マップ概要に闇市と道具屋を追加
@@ -139,6 +139,8 @@ Thu Apr 1 2010  Masaki Miyaso  <so-miya@sourceforge.jp>
 	  r453 レベルコンパイラ：レベル仕様としてSOUNDSをdesファイルに定
 	       義可能に（SporkHack rev.568から）
 	  r454 無変化の魔除けは変化させることができない
+	  r455 バグ修正：ダンプファイル名の長さとhtmlダンプファイルのフッ
+	       タ処理
 	* 起動時の職業名が翻訳されなくなっていたのを修正
 	* ダンプ関係で終了時のトップテン表示がおかしくなっていたので修正
 	* 日本語ダンプファイル名の対処

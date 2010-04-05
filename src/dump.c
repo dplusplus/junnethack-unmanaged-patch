@@ -31,8 +31,8 @@ void
 dump_init()
 {
   if (dump_fn[0]) {
-    int new_dump_fn_len = strlen(dump_fn)+strlen(plname);
-    char *new_dump_fn = (char *) alloc((unsigned)(new_dump_fn_len+5+1)); /* space for ".html" */
+    int new_dump_fn_len = strlen(dump_fn)+strlen(plname)+5; /* space for ".html" */
+    char *new_dump_fn = (char *) alloc((unsigned)(new_dump_fn_len+1));
     char *p = (char *) strstr(dump_fn, "%n");
 
     if (p) {
@@ -45,7 +45,8 @@ dump_init()
       q += strlen(q);
       p += 2;	/* skip "%n" */
       strncpy(q, p, strlen(p));
-      new_dump_fn[new_dump_fn_len] = '\0';
+      q += strlen(p);
+      q[0] = '\0';
     } else {
       strcpy(new_dump_fn, dump_fn);
     }
@@ -86,8 +87,11 @@ dump_exit()
 {
 #ifdef DUMP_LOG
 	if (dump_fp) {
+		fclose(dump_fp);
+	}
+	if (html_dump_fp) {
 		dump_html("</body>\n</html>\n","");
-		fclose (dump_fp);
+		fclose(html_dump_fp);
 	}
 #endif
 }

@@ -163,8 +163,8 @@ register char *s;
 
 	for (lp = s; *lp; lp++)
 #if 1 /*JP*/
-		if (is_kanji1(s, (int)lp-(int)s)) lp++;
-		else
+	    if (is_kanji1(s, (int)lp-(int)s)) lp++;
+	    else
 #endif
 	    if ( *lp == '?' || *lp == '"' || *lp == '\\' ||
 		 *lp == '/' || *lp == '>' || *lp == '<'  ||
