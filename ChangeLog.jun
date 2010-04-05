@@ -1,5 +1,5 @@
 Mon Apr 5 2010  Masaki Miyaso  <so-miya@sourceforge.jp>
-	* UnNetHack SVN版r456をベースにした。
+	* UnNetHack SVN版r457をベースにした。
 	  r356 patchlevelを3.5.3にした
 	  r357 パッチ：ダンジョンマップ概要3 (Hojita Discordiaより)
 	  r358 マップ概要に闇市と道具屋を追加
@@ -151,6 +151,16 @@ Mon Apr 5 2010  Masaki Miyaso  <so-miya@sourceforge.jp>
 	       - lev_comp：関数内でアイテム、怪物、施設の登録がまだ未定義
 	         でも可能とする
 	       - lev_comp: 他のdesファイルから関数をincludeできる
+	  r457 レベルコンパイラ：変更を追加（SporkHack rev.588,590～592か
+	       ら）
+	       - ROOM と SUBROOM の部屋の種類のchance はifステートメント用
+	         の演算子を生成すべきではない
+	       - 聖域生成時にクラッシュしていた不明瞭な64bitバグを修正：
+	         intではなくlongを使用
+	       - sizeof int != sizeof long の場合を考慮して add_opvars()用
+	         に int を long に型変換
+	       - yacc の機能を使って current_region および current_coord
+	         のハックを除去
 	* 起動時の職業名が翻訳されなくなっていたのを修正
 	* ダンプ関係で終了時のトップテン表示がおかしくなっていたので修正
 	* 日本語ダンプファイル名の対処
