@@ -82,6 +82,7 @@ static struct Bool_Opt
 	{"cmdassist", &iflags.cmdassist, TRUE, SET_IN_GAME},
 	{"color", &iflags.wc_color, TRUE, SET_IN_GAME},		/*WC*/
 	{"confirm",&flags.confirm, TRUE, SET_IN_GAME},
+	{"dark_room", &iflags.dark_room, TRUE, SET_IN_GAME},
 #if defined(TERMLIB) && !defined(MAC_GRAPHICS_ENV)
 	{"DECgraphics", &iflags.DECgraphics, FALSE, SET_IN_GAME},
 #else
@@ -914,7 +915,7 @@ initoptions()
 	/* result in the player's preferred fruit [better than "\033"].	*/
 	obj_descr[SLIME_MOLD].oc_name = "fruit";
 
-	if (flags.lit_corridor && iflags.use_color) {
+	if (iflags.dark_room && iflags.use_color) {
 		showsyms[S_darkroom]=showsyms[S_room];
 	} else {
 		showsyms[S_darkroom]=showsyms[S_stone];
@@ -3035,7 +3036,8 @@ goodfruit:
 			    else lan_mail_finish();
 			}
 #endif
-			else if ((boolopt[i].addr) == &flags.lit_corridor) {
+			else if (((boolopt[i].addr) == &flags.lit_corridor) ||
+			         ((boolopt[i].addr) == &iflags.dark_room)) {
 			    /*
 			     * All corridor squares seen via night vision or
 			     * candles & lamps change.  Update them by calling
@@ -3382,7 +3384,7 @@ doset()
 
 	destroy_nhwindow(tmpwin);
 	if (need_redraw) {
-	    if (flags.lit_corridor && iflags.use_color) {
+	    if (iflags.dark_room && iflags.use_color) {
 		showsyms[S_darkroom]=showsyms[S_room];
 	    } else {
 		showsyms[S_darkroom]=showsyms[S_stone];

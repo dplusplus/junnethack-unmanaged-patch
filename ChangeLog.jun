@@ -1,5 +1,5 @@
-Tue Apr 6 2010  Masaki Miyaso  <so-miya@sourceforge.jp>
-	* UnNetHack SVN版r458をベースにした。
+Wed Apr 7 2010  Masaki Miyaso  <so-miya@sourceforge.jp>
+	* UnNetHack SVN版r460をベースにした。
 	  r356 patchlevelを3.5.3にした
 	  r357 パッチ：ダンジョンマップ概要3 (Hojita Discordiaより)
 	  r358 マップ概要に闇市と道具屋を追加
@@ -164,6 +164,7 @@ Tue Apr 6 2010  Masaki Miyaso  <so-miya@sourceforge.jp>
 	  r458 隠された壁裏の小部屋にたまに鉄格子をつける（SporkHack
 	       rev.616から）
 	  r459 パッチ：未探索と部屋の暗がりの分離（Clive Crousより）
+	  r460 Dark room：Dark roomの有効無効を切り替えるオプション追加
 	* 起動時の職業名が翻訳されなくなっていたのを修正
 	* ダンプ関係で終了時のトップテン表示がおかしくなっていたので修正
 	* 日本語ダンプファイル名の対処
