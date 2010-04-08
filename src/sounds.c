@@ -1540,10 +1540,11 @@ dochat()
 
     /* only ask for directions if there is more or less than one monster
      * around */
+    if ((mon_count != 1 || iflags.vanilla_ui_behavior) &&
 /*JP
-    if (mon_count != 1 && !getdir("Talk to whom? (in what direction)")) {
+        !getdir("Talk to whom? (in what direction)")) {
 */
-    if (mon_count != 1 && !getdir("誰と話しますか？[方向を入れてね]")) {
+        !getdir("誰と話しますか？[方向を入れてね]")) {
 	/* decided not to chat */
 	return(0);
     }

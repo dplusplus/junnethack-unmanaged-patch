@@ -1,5 +1,5 @@
 Thu Apr 8 2010  Masaki Miyaso  <so-miya@sourceforge.jp>
-	* UnNetHack SVN版r461をベースにした。
+	* UnNetHack SVN版r462をベースにした。
 	  r356 patchlevelを3.5.3にした
 	  r357 パッチ：ダンジョンマップ概要3 (Hojita Discordiaより)
 	  r358 マップ概要に闇市と道具屋を追加
@@ -166,6 +166,7 @@ Thu Apr 8 2010  Masaki Miyaso  <so-miya@sourceforge.jp>
 	  r459 パッチ：未探索と部屋の暗がりの分離（Clive Crousより）
 	  r460 Dark room：Dark roomの有効無効を切り替えるオプション追加
 	  r461 #lootの対象が一つだけの場合は開けるかどうかを確認しない
+	  r462 新オプション：vanilla_ui_behavior （UI挙動をバニラに）
 	* 起動時の職業名が翻訳されなくなっていたのを修正
 	* ダンプ関係で終了時のトップテン表示がおかしくなっていたので修正
 	* 日本語ダンプファイル名の対処
