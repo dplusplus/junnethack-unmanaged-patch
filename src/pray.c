@@ -1487,7 +1487,7 @@ dosacrifice()
 		    if ((c = yn_function(qbuf,ynqchars,'n')) == 'y')
 			    break;
 		    else if (c == 'q')
-			    otmp = ((struct obj *) 0);
+			    return 0;
 	    }
     }
     if (!otmp)

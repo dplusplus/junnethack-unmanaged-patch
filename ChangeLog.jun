@@ -1,5 +1,5 @@
-Thu Apr 8 2010  Masaki Miyaso  <so-miya@sourceforge.jp>
-	* UnNetHack SVN版r462をベースにした。
+Fri Apr 9 2010  Masaki Miyaso  <so-miya@sourceforge.jp>
+	* UnNetHack SVN版r463をベースにした。
 	  r356 patchlevelを3.5.3にした
 	  r357 パッチ：ダンジョンマップ概要3 (Hojita Discordiaより)
 	  r358 マップ概要に闇市と道具屋を追加
@@ -167,6 +167,9 @@ Thu Apr 8 2010  Masaki Miyaso  <so-miya@sourceforge.jp>
 	  r460 Dark room：Dark roomの有効無効を切り替えるオプション追加
 	  r461 #lootの対象が一つだけの場合は開けるかどうかを確認しない
 	  r462 新オプション：vanilla_ui_behavior （UI挙動をバニラに）
+	  r463 バグ修正：捧げるときの確認で中断したときにクラッシュする問
+	       題を修正。その他の確認（食べるときなど）の中断時とは挙動を
+	       変更。
 	* 起動時の職業名が翻訳されなくなっていたのを修正
 	* ダンプ関係で終了時のトップテン表示がおかしくなっていたので修正
 	* 日本語ダンプファイル名の対処
