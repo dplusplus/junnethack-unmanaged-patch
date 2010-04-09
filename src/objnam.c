@@ -555,7 +555,7 @@ register struct obj *obj;
 		else if(un) {
 			char *p;
 			if(is_boots(obj)) p = "ŒC";
-			else if(is_gloves(obj)) p = "¬è";
+			else if(is_gloves(obj)) p = "è‘Ü";
 			else if(is_cloak(obj)) p = "ƒNƒ[ƒN";
 			else if(is_helmet(obj)) p = "Š•";
 			else if(is_shield(obj)) p = "‚";
@@ -1170,7 +1170,7 @@ plus:
 /*JP
 			Strcat(bp, " (in use)");
 */
-			Strcat(bp, "(Œ‹‚Ñ‚Â‚¯‚Ä‚¢‚é)");
+			Strcat(bp, "(‚Â‚È‚¢‚Å‚¢‚é)");
 			break;
 		}
 		if (is_weptool(obj))

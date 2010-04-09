@@ -3255,7 +3255,7 @@ register boolean silent;
 				You("see %sangry guard%s approaching!",
 				  sct == 1 ? "an " : "", sct > 1 ? "s" : "");
 #else
-				You("“{‚Á‚½”Ô•º‚ª‹ßŠñ‚Á‚Ä‚­‚é‚Ì‚ªŒ©‚¦‚½I");
+				You("“{‚Á‚½”Ô•º‚ª‹ßŠñ‚Á‚Ä‚­‚é‚Ì‚ğŒ©‚½I");
 #endif
 		} else if(flags.soundok)
 /*JP

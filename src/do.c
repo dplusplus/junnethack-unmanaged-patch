@@ -657,7 +657,7 @@ giveback:
 		    You("see some %s in the sink.",
 		        Hallucination ? "oxygen molecules" : "air");
 #else
-		    You("流し台の上に%sが見えた。",
+		    You("流し台の上に%sを見た。",
 		        Hallucination ? "いくつかの酸素分子" : "何らかの気体");
 #endif
 		    break;
@@ -795,7 +795,7 @@ register const char *word;
 /*JP
 			pline_The("leash is tied around your %s.",
 */
-			pline("紐はあなたの%sに結びつけられている。",
+			pline("紐はあなたの%sに輪になって掛けられている。",
 					body_part(HAND));
 		return(FALSE);
 	}

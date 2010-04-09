@@ -942,13 +942,13 @@ const char *tailer;
 /*JP
 		pline("%s flickers%s.", Yname2(obj), tailer);
 */
-		pline("%sは%s点滅した。", Yname2(obj), tailer);
+		pline("%sは%s瞬いた。", Yname2(obj), tailer);
 		break;
 	    case OBJ_FLOOR:
 /*JP
 		You("see %s flicker%s.", an(xname(obj)), tailer);
 */
-		You("%sが%s点滅するのが見えた。", an(xname(obj)), tailer);
+		You("%sが%s瞬くのを見た。", an(xname(obj)), tailer);
 		break;
 	}
 }
@@ -975,7 +975,7 @@ struct obj *obj;
 /*JP
 		You("see a lantern getting dim.");
 */
-		pline("ランタンが暗くなったのが見えた。");
+		You("ランタンが暗くなったのを見た。");
 		break;
 	    case OBJ_MINVENT:
 /*JP
@@ -1056,7 +1056,7 @@ long timeout;
 /*JP
 				You("see a burning potion of oil go out.");
 */
-				You("オイルの火が消えたのが見えた。");
+				You("オイルの火が消えたのを見た。");
 				need_newsym = TRUE;
 				break;
 			}
@@ -1096,14 +1096,14 @@ long timeout;
 /*JP
 					pline("%s %s seems about to go out.",
 */
-					pline("%s%sは今にも消えそうだ。",
+					pline("%s%sは今にも消えてしまいそうだ。",
 					    whose, xname(obj));
 					break;
 				    case OBJ_FLOOR:
 /*JP
 					You("see %s about to go out.",
 */
-					pline("%sが消えかけているのが見えた。",
+					pline("%sは消えつつあるように見える。",
 					    an(xname(obj)));
 					break;
 				}
@@ -1121,7 +1121,7 @@ long timeout;
 /*JP
 					pline("%s lantern has run out of power.",
 */
-					pline("%sランタンの力を使い切った。",
+					pline("%sランタンの電力を使い切った。",
 					    whose);
 				    else
 /*JP
@@ -1135,12 +1135,12 @@ long timeout;
 /*JP
 					You("see a lantern run out of power.");
 */
-					You("ランタンが消えるのが見えた。");
+					You("ランタンの電力が切れたのを見た。");
 				    else
 /*JP
 					You("see %s go out.",
 */
-					You("%sが消えるのが見えた。",
+					You("%sが消えるのを見た。",
 					    an(xname(obj)));
 				    break;
 			    }
@@ -1177,7 +1177,7 @@ long timeout;
 					menorah ? "candelabrum's " : "",
 					many ? "s are" : " is");
 #else
-				    pline("%s%sろうそくは短くなった。",
+				    pline("%s%sろうそくが短くなってきた。",
 					whose,
 					menorah ? "燭台の" : "");
 #endif
@@ -1189,7 +1189,7 @@ long timeout;
 						many ? "some " : "a ",
 					    many ? "s" : "");
 #else
-				    You("%sろうそくが短くなるのが見えた。",
+				    You("%sろうそくが短くなってきているのを見た。",
 					    menorah ? "燭台の" : "");
 #endif
 				    break;
@@ -1210,7 +1210,7 @@ long timeout;
 					    many ? "s" : "",
 					    many ? "" : "s");
 #else
-					"%s%sろうそくの炎は点滅し、暗くなった！",
+					"%s%sろうそくの炎は瞬き、弱まった！",
 					    whose,
 					    menorah ? "燭台の" : "");
 #endif
@@ -1223,7 +1223,7 @@ long timeout;
 					    many ? "s'" : "'s",
 					    many ? "s" : "");
 #else
-				    You("%sろうそくの炎が点滅し、暗くなるのが見えた！",
+				    You("%sろうそくの炎が瞬き、弱くなってゆくのを見た！",
 					    menorah ? "燭台の" : "");
 #endif
 				    break;
@@ -1251,7 +1251,7 @@ long timeout;
 					You("see a candelabrum's flame%s die.",
 						many ? "s" : "");
 #else
-					You("燭台の炎が消えるのが見えた。");
+					You("燭台の炎が消えるのを見た。");
 #endif
 					break;
 				}
@@ -1280,7 +1280,7 @@ long timeout;
 					    many ? "some " : "",
 					    many ? xname(obj):an(xname(obj)));
 #else
-					You("%sが燃えつきるのが見えた！",
+					You("%sが燃えつきるのを見た！",
 					    xname(obj));
 #endif
 					need_newsym = TRUE;

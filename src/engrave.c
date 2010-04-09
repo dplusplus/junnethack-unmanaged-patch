@@ -786,7 +786,7 @@ doengrave()
 /*JP
 		You("have no free %s to write with!", body_part(HAND));
 */
-		pline("%s‚Ì©—R‚ªŒø‚©‚È‚¢‚Ì‚Å‘‚¯‚È‚¢I", body_part(HAND));
+		Your("%s‚ÍÇ‚ª‚Á‚Ä‚¢‚é‚Ì‚Å‘‚¯‚È‚¢I", body_part(HAND));
 		return(0);
 	}
 

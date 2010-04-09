@@ -212,7 +212,7 @@ lookat(x, y, buf, monbuf, buf2)
 #if 0 /*JP*/
 		Strcat(buf, ", leashed to you");
 #else
-		Strcat(buf, "A•R‚ÅŒ‹‚Î‚ê‚Ä‚¢‚é");
+		Strcat(buf, "A•R‚Å‚Â‚È‚ª‚ê‚Ä‚¢‚é");
 #endif
 
 	    if (mtmp->mtrapped && cansee(mtmp->mx, mtmp->my)) {

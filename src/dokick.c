@@ -1358,8 +1358,8 @@ dokick()
 				      "Muddy waste pops up from the drain"));
 #else
 			pline("‚¤‚íI%sB", (Blind ?
-				      "‚ ‚È‚½‚ÍAƒoƒ`ƒƒƒoƒ`ƒƒ‚·‚é‰¹‚ð•·‚¢‚½" :
-				      "”r…Œû‚©‚ç‚Ç‚ë‚Ç‚ë‚Ì”pŠü•¨‚ªo‚Ä‚­‚é"));
+				      "‚ ‚È‚½‚ÍƒSƒ{ƒSƒ{‚Æ‰¹‚ª–Â‚é‚Ì‚ð•·‚¢‚½" :
+				      "”r…Œû‚©‚ç‚Ç‚ë‚Ç‚ë‚Ì”pŠü•¨‚ª‹t—¬‚µ‚Ä‚«‚½"));
 #endif
 			if(!(maploc->looted & S_LRING)) { /* once per sink */
 			    if (!Blind)

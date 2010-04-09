@@ -3207,7 +3207,7 @@ register struct monst *mon;
 /*JP
 		mayberem(uarm, "suit");
 */
-		mayberem(uarm, "スーツ");
+		mayberem(uarm, "服");
 /*JP
 	mayberem(uarmf, "boots");
 */
@@ -3216,7 +3216,7 @@ register struct monst *mon;
 /*JP
 		mayberem(uarmg, "gloves");
 */
-		mayberem(uarmg, "小手");
+		mayberem(uarmg, "手袋");
 /*JP
 	mayberem(uarms, "shield");
 */
@@ -3264,7 +3264,7 @@ register struct monst *mon;
 /*JP
 			case 0: You_feel("drained of energy.");
 */
-			case 0: You("体力が消耗したような気がした。");
+			case 0: You_feel("体力を消耗したような気がした。");
 				u.uen = 0;
 				u.uenmax -= rnd(Half_physical_damage ? 5 : 10);
 			        exercise(A_CON, FALSE);

@@ -1153,7 +1153,7 @@ register struct obj	*sobj;
 				 otense(otmp, Blind ? "feel" : "look"));
 #else
 			    Your("%sは新品同様になったように%s！",
-				 xname(otmp), Blind ? "感じた" : "見えた");
+				 xname(otmp), Blind ? "感じる" : "見える");
 #endif
 			}
 			break;
@@ -1553,7 +1553,7 @@ register struct obj	*sobj;
 				 aobjnam(uwep, Blind ? "feel" : "look"));
 #else
 			    pline("%sは新品同様になったように%s！",
-				 xname(uwep), Blind ? "感じた" : "見えた");
+				 xname(uwep), Blind ? "感じる" : "見える");
 #endif
 			}
 		} else return !chwepon(sobj,
@@ -1874,7 +1874,7 @@ register struct obj	*sobj;
 	    	pline_The("%s rumbles %s you!", ceiling(u.ux,u.uy),
 	    			sobj->blessed ? "around" : "above");
 #else
-	    	pline("あなたの%sの%sからゴロゴロと音が聞こえてきた！",
+	    	pline("あなたの%sの%sからゴロゴロと音が轟いた！",
 		      sobj->blessed ? "まわり" : "真上",
 		      ceiling(u.ux,u.uy));
 #endif

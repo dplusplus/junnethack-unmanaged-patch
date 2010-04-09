@@ -2516,7 +2516,7 @@ register int held;
 /*JP
 		You("have no free %s.", body_part(HAND));
 */
-		You("%s‚Ì©—R‚ªŒø‚©‚È‚¢B", body_part(HAND));
+		Your("%s‚ÍÇ‚ª‚Á‚Ä‚¢‚éB", body_part(HAND));
 		return 0;
 	}
 	if (obj->olocked) {

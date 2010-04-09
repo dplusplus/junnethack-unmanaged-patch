@@ -70,7 +70,7 @@ use_camera(obj)
 /*JP
 		pline("Using your camera underwater would void the warranty.");
 */
-		pline("そんなことをしたら保証が効かなくなる。");
+		pline("水面下でのカメラの使用は保証の対象外です。");
 		return(0);
 	}
 	if(!getdir((char *)0)) return(0);
@@ -118,7 +118,7 @@ use_towel(obj)
 /*JP
 		You("have no free %s!", body_part(HAND));
 */
-		You("%sの自由が効かない！", body_part(HAND));
+		Your("%sは塞がっている！", body_part(HAND));
 		return 0;
 	} else if (obj->owornmask) {
 /*JP
@@ -154,23 +154,21 @@ use_towel(obj)
 			make_blinded(Blinded + (long)u.ucreamed - old, TRUE);
 		    } else {
 			const char *what = (ublindf->otyp == LENSES) ?
-/*JP
 					    "lenses" : "blindfold";
-*/
-					    "レンズ" : "目隠し";
 			if (ublindf->cursed) {
 #if 0 /*JP*/
 			    You("push your %s %s.", what,
 				rn2(2) ? "cock-eyed" : "crooked");
 #else
-			    pline("%sがずれた。", what);
+			    pline("%sがちょっと%s。", jtrns_obj('(',what),
+				rn2(2) ? "ずれた" : "ゆがんだ");
 #endif
 			} else {
 			    struct obj *saved_ublindf = ublindf;
 /*JP
 			    You("push your %s off.", what);
 */
-			    pline("%sがずり落ちた。", what);
+			    pline("%sがずり落ちてしまった。", jtrns_obj('(',what));
 			    Blindf_off(ublindf);
 			    dropx(saved_ublindf);
 			}
@@ -203,7 +201,7 @@ use_towel(obj)
 /*JP
 			Your("%s feels clean now.", body_part(FACE));
 */
-			pline("%sの汚れを拭きとった。", body_part(FACE));
+			You("%sの汚れを拭きとった。", body_part(FACE));
 		}
 		return 1;
 	}
@@ -308,7 +306,7 @@ use_stethoscope(obj)
 /*JP
 		You("have no free %s.", body_part(HAND));
 */
-		You("%sの自由が効かない。", body_part(HAND));
+		Your("%sは塞がっている。", body_part(HAND));
 		return 0;
 	}
 	if (!getdir((char *)0)) return 0;
@@ -619,7 +617,7 @@ struct obj *obj;
 				"cannot be" : "is not");
 #else
 		pline("%sは紐で%s！", Monnam(mtmp), (!obj->leashmon) ?
-				"結べない" : "結ばれていない");
+				"つなげない" : "つながれてない");
 #endif
 	    return;
 	}
@@ -629,7 +627,7 @@ struct obj *obj;
 			pline("This %s is already leashed.",
 			      spotmon ? l_monnam(mtmp) : "monster");
 #else
-			pline("%sはすでに結びつけられている。",
+			pline("%sはすでにつなげられている。",
 			      spotmon ? l_monnam(mtmp) : "怪物");
 #endif
 			return;
@@ -638,7 +636,7 @@ struct obj *obj;
 		You("slip the leash around %s%s.",
 		    spotmon ? "your " : "", l_monnam(mtmp));
 #else
-		You("%sを紐で結びつけた。",
+		You("%sを紐でつないだ。",
 		    l_monnam(mtmp));
 #endif
 		mtmp->mleashed = 1;
@@ -650,7 +648,7 @@ struct obj *obj;
 /*JP
 		pline("This leash is not attached to that creature.");
 */
-		pline("この紐はそれには結ばれていない。");
+		pline("この紐はそれにはつながれていない。");
 		return;
 	} else {
 		if(obj->cursed) {
@@ -942,7 +940,7 @@ struct obj *obj;
 /*JP
 		pline("%s can't see anything right now.", Monnam(mtmp));
 */
-		pline("%sは幻覚に襲われていて、ちゃんと見ることができない。", Monnam(mtmp));
+		pline("%sは現状では何も見ることができない。", Monnam(mtmp));
 	/* some monsters do special things */
 	} else if (is_vampire(mtmp->data) || mlet == S_GHOST) {
 	    if (vis)
@@ -1218,7 +1216,7 @@ register struct obj *obj;
 		    pline_The("%s %s for a moment, then %s.",
 			      s, vtense(s, "flicker"), vtense(s, "die"));
 #else
-		    pline("ろうそくの炎はしばらく点滅し、消えた。");
+		    pline("ろうそくの炎はしばらく瞬き、消えた。");
 #endif
 		return;
 	}
@@ -1522,7 +1520,7 @@ struct obj *obj;
 		pline("%s for a moment, then %s.",
 		      Tobjnam(obj, "flicker"), otense(obj, "die"));
 #else
-		pline("%sはしばらくの間点滅し、消えた。",
+		pline("%sはしばらく瞬き、消えた。",
 		       xname(obj));
 #endif
 	} else {
@@ -1844,7 +1842,7 @@ int magic; /* 0=Physical, otherwise skill level */
 /*JP
 		You("cannot see where to land!");
 */
-		You("着地点が見えない！");
+		pline("あなたには着地点が見えない！");
 		return 0;
 	} else if (!isok(cc.x, cc.y)) {
 /*JP
@@ -1977,7 +1975,7 @@ register struct obj *obj;
 		You("tin %s without wearing gloves.",
 			an(mons[corpse->corpsenm].mname));
 #else
-		You("小手なしで%sを缶詰にしようとした。",
+		You("手袋なしで%sを缶詰にしようとした。",
 			jtrns_mon(mons[corpse->corpsenm].mname));
 #endif
 	    else {
@@ -1985,14 +1983,14 @@ register struct obj *obj;
 		pline("Tinning %s without wearing gloves is a fatal mistake...",
 			an(mons[corpse->corpsenm].mname));
 #else
-		pline("%sを小手なしで缶詰にするのは致命的な間違いだ．．．",
+		pline("%sを手袋なしで缶詰にするのは致命的な間違いだ．．．",
 			jtrns_mon(mons[corpse->corpsenm].mname));
 #endif
 #if 0 /*JP*/
 		Sprintf(kbuf, "trying to tin %s without gloves",
 			an(mons[corpse->corpsenm].mname));
 #else
-		Sprintf(kbuf, "小手をつけずに%sを缶詰にしようとして",
+		Sprintf(kbuf, "手袋をつけずに%sを缶詰にしようとして",
 			jtrns_mon(mons[corpse->corpsenm].mname));
 #endif
 	    }
@@ -2374,7 +2372,7 @@ boolean quietly;
 /*JP
 			You("cannot fit the figurine on the boulder.");
 */
-		    You("岩の上には人形を置けない。");
+		    You("岩に人形を押し込むことはできない。");
 		return FALSE;
 	}
 	return TRUE;
@@ -2667,7 +2665,7 @@ struct obj *tstone;
 #if 0 /*JP*/
 	    pline("%s a little more polished now.", Tobjnam(tstone, "look"));
 #else
-	    pline("%sはさらにつやが出たように見える。", xname(tstone));
+	    pline("%sにさらにつやが出たように見える。", xname(tstone));
 #endif
 	    return;
 	case LIQUID:
@@ -2675,7 +2673,7 @@ struct obj *tstone;
 #if 0 /*JP*/
 		You("must think this is a wetstone, do you?");
 #else
-		You("これは砥石だと思った？");
+		You("これが砥石だと思ったのかい？");
 #endif
 	    else
 #if 0 /*JP*/
@@ -2786,7 +2784,7 @@ struct obj *otmp;
 /*JP
 	    what = "underwater";
 */
-	    what = "水面下では";
+	    what = "水中では";
 	else if (Levitation)
 /*JP
 	    what = "while levitating";
@@ -2796,12 +2794,12 @@ struct obj *otmp;
 /*JP
 	    what = "in water";
 */
-	    what = "水中では";
+	    what = "水上では";
 	else if (is_lava(u.ux, u.uy))
 /*JP
 	    what = "in lava";
 */
-	    what = "溶岩の中では";
+	    what = "溶岩の上では";
 	else if (On_stairs(u.ux, u.uy))
 	    what = (u.ux == xdnladder || u.ux == xupladder) ?
 /*JP
@@ -3861,7 +3859,7 @@ doapply()
 		else You("もう%sている。",
 			ublindf->otyp == TOWEL ?     "タオルを巻い" : 
 			ublindf->otyp == BLINDFOLD ? "目隠しをつけ" :
-						     "レンズをつけ");
+						     "眼鏡をつけ");
 #endif
 		break;
 	case CREAM_PIE:

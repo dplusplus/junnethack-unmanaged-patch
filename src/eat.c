@@ -3326,12 +3326,12 @@ floorfood(verb,corpsecheck)	/* get food from floor or pack */
 /*JP
 		Sprintf(qbuf, "There is a bear trap here (%s); eat it?",
 */
-		Sprintf(qbuf, "ここには熊の罠(%s)がある",
+		Sprintf(qbuf, "ここには%s熊の罠がある。食べますか？",
 			(u.utrap && u.utraptype == TT_BEARTRAP) ?
 /*JP
 				"holding you" : "armed");
 */
-				"あなたを掴まえている" : "稼動中");
+				"あなたを掴まえている" : "仕掛けられている");
 		if ((c = yn_function(qbuf, ynqchars, 'n')) == 'y') {
 		    u.utrap = u.utraptype = 0;
 		    deltrap(ttmp);

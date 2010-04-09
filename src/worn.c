@@ -804,7 +804,7 @@ boolean polyspot;
 		    pline("%s drops %s gloves%s!", Monnam(mon), ppronoun,
 					MON_WEP(mon) ? " and weapon" : "");
 #else
-		    pline("%s‚Í¬è%s‚ğ—‚µ‚½I", Monnam(mon), 
+		    pline("%s‚Íè‘Ü%s‚ğ—‚µ‚½I", Monnam(mon), 
 					MON_WEP(mon) ? "‚Æ•Ší" : "");
 #endif
 		if (polyspot) bypass_obj(otmp);

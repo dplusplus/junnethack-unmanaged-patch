@@ -2778,7 +2778,7 @@ struct obj *obj;	/* wand or spell */
 				You("see a swirl of %s beneath you.",
 					is_ice(x,y) ? "frost" : "dust");
 #else
-				pline("‚ ‚È‚½‚Ì‰º‚Å%s‚Ì‚¤‚¸‚ªŒ©‚¦‚½B",
+				pline("‚ ‚È‚½‚Ì‰º‚Å%s‚ª‚¤‚¸‚ğŠª‚­‚Ì‚ğŒ©‚½B",
 					is_ice(x,y) ? "‘š" : "‚Ù‚±‚è");
 #endif
 			}

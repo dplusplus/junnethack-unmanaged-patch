@@ -4692,7 +4692,7 @@ struct monst *shkp;
 #if 0 /*JP*/
 		pline("%s asks whether you've seen any untended shops recently.",
 #else
-		pline("%sは最近どこかに店員のいない店はないかとたずねた。",
+		pline("%sは店員が不在の店を最近見なかったかとたずねた。",
 #endif
 		      Monnam(shkp));
 		/* [Perhaps we ought to check whether this conversation
@@ -5031,7 +5031,7 @@ register xchar x, y;
 		pline("%s%s blocks your way!", shkname(shkp),
 				Invis ? " senses your motion and" : "");
 #else
-		pline("%sは%sあなたの前に立ちふさがった！", shkname(shkp),
+		pline("%sが%sあなたの前に立ちふさがった！", shkname(shkp),
 				Invis ? "動きを感じとり、" : "");
 #endif
 		return(TRUE);
@@ -5075,7 +5075,7 @@ register xchar x, y;
 		pline("%s%s blocks your way!", shkname(shkp),
 				Invis ? " senses your motion and" : "");
 #else
-		pline("%s%sあなたの前に立ちふさがった！", shkname(shkp),
+		pline("%sが%sあなたの前に立ちふさがった！", shkname(shkp),
 				Invis ? "動きを感じとり、" : "");
 #endif
 		return(TRUE);

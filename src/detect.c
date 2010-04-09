@@ -1012,7 +1012,7 @@ struct obj *obj;
 /*JP
 	    case 1 : You("grok some groovy globs of incandescent lava.");
 */
-	    case 1 : You("水門の鍵をもった水戸黄門が壁の影に隠れているのが見えた。");
+	    case 1 : You("水門の鍵をもった水戸黄門が壁の影に隠れているのを見た。");
 		break;
 /*JP
 	    case 2 : pline("Whoa!  Psychedelic colors, %s!",
@@ -1032,12 +1032,12 @@ struct obj *obj;
 /*JP
 	    case 4 : You("see goldfish swimming above fluorescent rocks.");
 */
-	    case 4 : You("蛍光岩の上を金魚が泳いでいるのが見えた。");
+	    case 4 : You("蛍光岩の上を金魚が泳いでいるのを見た。");
 		break;
 /*JP
 	    case 5 : You("see tiny snowflakes spinning around a miniature farmhouse.");
 */
-	    case 5 : You("小さい雪片がミニチュアの農家の家のまわりを舞ってるのが見えた。");
+	    case 5 : You("小さい雪片がミニチュアの農家の家のまわりを舞っているのを見た。");
 		break;
 /*JP
 	    default: pline("Oh wow... like a kaleidoscope!");
@@ -1300,7 +1300,7 @@ genericptr_t num;
 						"feel the shock of"));
 #else
 		    else Norep("あなたは爆発%s！",
-				cansee(zx, zy) ? "を見た" :
+				cansee(zx, zy) ? "するのを見た" :
 				   (flags.soundok ? "音を聞いた" :
 						"の衝撃を感じた"));
 #endif

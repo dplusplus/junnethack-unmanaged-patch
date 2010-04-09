@@ -833,7 +833,7 @@ break_armor()
 /*JP
 	    You("drop your gloves%s!", uwep ? " and weapon" : "");
 */
-	    You("¬è%s‚ğ—‚µ‚½I", uwep ? "‚â•Ší" : "");
+	    You("è‘Ü%s‚ğ—‚µ‚½I", uwep ? "‚â•Ší" : "");
 	    drop_weapon(0);
 	    (void) Gloves_off();
 	    dropx(otmp);

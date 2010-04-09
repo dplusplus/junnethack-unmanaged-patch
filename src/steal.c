@@ -40,7 +40,7 @@ register struct obj *otmp;
 /*JP
 		(otmp == uarmg) ? "gloves" :
 */
-		(otmp == uarmg) ? "¬è" :
+		(otmp == uarmg) ? "è‘Ü" :
 		(otmp == uarmc) ? cloak_simple_name(otmp) :
 /*JP
 		(otmp == uarmh) ? "helmet" : "armor");

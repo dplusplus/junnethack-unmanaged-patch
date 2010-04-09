@@ -1189,7 +1189,7 @@ postmov:
 /*JP
 				   You("see a door unlock and open.");
 */
-				   You("扉の鍵がはずれ、開くのが見えた。");
+				   You("扉の鍵がはずれ、開くのを見た。");
 				else if (flags.soundok)
 /*JP
 				   You_hear("a door unlock and open.");
@@ -1212,7 +1212,7 @@ postmov:
 /*JP
 				     You("see a door open.");
 */
-				     You("扉が開くのが見えた。");
+				     You("扉が開くのを見た。");
 				else if (flags.soundok)
 /*JP
 				     You_hear("a door open.");

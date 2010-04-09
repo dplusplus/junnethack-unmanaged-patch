@@ -130,7 +130,7 @@ struct monst *victim;
 /*JP
 	    if (!burn_dmg(item, "gloves")) continue;
 */
-	    if (!burn_dmg(item, "¬è")) continue;
+	    if (!burn_dmg(item, "è‘Ü")) continue;
 	    break;
 	case 4:
 	    item = (victim == &youmonst) ? uarmf : which_armor(victim, W_ARMF);
@@ -1641,7 +1641,7 @@ glovecheck:		(void) rust_dmg(uarmg, "¬è", 1, TRUE, &youmonst);
 /*JP
 		    pline("%s seems to shimmer for a moment.",
 */
-		     pline("%s‚ªˆêu‹P‚¢‚½‚æ‚¤‚ÉŒ©‚¦‚½B",
+		    pline("%s‚ªˆêu‹P‚¢‚½‚æ‚¤‚ÉŒ©‚¦‚½B",
 			  Monnam(u.usteed));
 		else
 #endif

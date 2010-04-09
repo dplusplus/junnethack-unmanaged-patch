@@ -159,13 +159,13 @@ cursed_book(bp)
 /*JP
 			Your("gloves seem unaffected.");
 */
-			pline("小手は影響を受けなかったようだ。");
+			pline("手袋は影響を受けなかったようだ。");
 		    } else if (uarmg->oeroded2 < MAX_ERODE) {
 			if (uarmg->greased) {
 /*JP
 			    grease_protect(uarmg, "gloves", &youmonst);
 */
-			    grease_protect(uarmg, "小手", &youmonst);
+			    grease_protect(uarmg, "手袋", &youmonst);
 			} else {
 #if 0 /*JP*/
 			    Your("gloves corrode%s!",
@@ -173,7 +173,7 @@ cursed_book(bp)
 				 " completely" : uarmg->oeroded2 ?
 				 " further" : "");
 #else
-			    pline("小手は%s腐食した！",
+			    pline("手袋は%s腐食した！",
 				  uarmg->oeroded2+1 == MAX_ERODE ?
 				  "完全に" : uarmg->oeroded2 ?
 				  "さらに" : "");
@@ -185,7 +185,7 @@ cursed_book(bp)
 			Your("gloves %s completely corroded.",
 			     Blind ? "feel" : "look");
 #else
-			pline("小手は完全に腐食した%s。",
+			pline("手袋は完全に腐食した%s。",
 			     Blind ? "ようだ" : "ように見える");
 #endif
 		    break;
@@ -940,12 +940,12 @@ boolean atme;
 /*JP
 	    You("strain to recall the spell.");
 */
-	    You("呪文を思いだそうとした。");
+	    You("呪文を思い出すのに苦労した。");
 	} else if (spellknow(spell) <= 1000) {
 /*JP
 	    Your("knowledge of this spell is growing faint.");
 */
-	    Your("この呪文に関する知識が消えてゆく。");
+	    Your("この呪文に関する知識が消えつつある。");
 	}
 	energy = (spellev(spell) * 5);    /* 5 <= energy <= 35 */
 
@@ -953,19 +953,19 @@ boolean atme;
 /*JP
 		You("are too hungry to cast that spell.");
 */
-	        pline("腹が減りすぎて呪文を唱えられない。");
+	        pline("呪文を唱えるには腹が減りすぎている。");
 		return(0);
 	} else if (ACURR(A_STR) < 4)  {
 /*JP
 		You("lack the strength to cast spells.");
 */
-		pline("強さが少なすぎて呪文を唱えられない。");
+		pline("呪文を唱えるには強さが足りない。");
 		return(0);
 	} else if(check_capacity(
 /*JP
 		"Your concentration falters while carrying so much stuff.")) {
 */
-		"たくさんものを持ちすぎて集中できない。")){
+		"ものを持ちすぎていて集中できない。")){
 	    return (1);
 	} else if (!freehand()) {
 /*JP

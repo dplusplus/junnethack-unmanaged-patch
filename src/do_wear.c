@@ -1465,7 +1465,7 @@ register struct obj *otmp;
 /*JP
 			nomovemsg = "You finish taking off your gloves.";
 */
-			nomovemsg = "あなたは小手を脱ぎおえた。";
+			nomovemsg = "あなたは手袋を脱ぎおえた。";
 			afternmv = Gloves_off;
 		     }
 		else if (is_boots(otmp)) {
@@ -1708,7 +1708,7 @@ boolean noisy;
 /*JP
 	    if (noisy) You("cannot wear gloves over your %s.",
 */
-	    if (noisy) You("%sの上から小手を装備できない。",
+	    if (noisy) You("%sの上から手袋を装備できない。",
 			   is_sword(uwep) ? c_sword : c_weapon);
 	    err++;
 	} else
@@ -1877,7 +1877,7 @@ doputon()
 		Your("%s%sはふさがってるし、すでに魔除けと%sも身につけている。",
 			humanoid(youmonst.data) ? "薬" : "",
 			makeplural(body_part(FINGER)),
-			ublindf->otyp==LENSES ? "レンズ" :
+			ublindf->otyp==LENSES ? "眼鏡" :
 			ublindf->otyp==TOWEL ? "タオル" : "目隠し");
 #endif
 		return(0);
@@ -1954,7 +1954,7 @@ doputon()
 /*JP
 		    You("cannot remove your gloves to put on the ring.");
 */
-		    You("指輪をはめようとしたが小手が脱げない。");
+		    You("指輪をはめようとしたが手袋が脱げない。");
 			return(0);
 		}
 		if (welded(uwep) && bimanual(uwep)) {
@@ -2008,7 +2008,7 @@ doputon()
 /*JP
 					already_wearing2("lenses", "a blindfold");
 */
-					already_wearing2("レンズ", "目隠し");
+					already_wearing2("眼鏡", "目隠し");
 				else
 /*JP
 					already_wearing("a blindfold");
@@ -2019,12 +2019,12 @@ doputon()
 /*JP
 					already_wearing2("a blindfold", "some lenses");
 */
-					already_wearing2("目隠し", "レンズ");
+					already_wearing2("目隠し", "眼鏡");
 				else
 /*JP
 					already_wearing("some lenses");
 */
-					already_wearing("レンズ", ublindf);
+					already_wearing("眼鏡", ublindf);
 			} else
 #if 0 /*JP*/
 				already_wearing(something); /* ??? */
@@ -2725,7 +2725,7 @@ register struct obj *atmp;
 /*JP
 		Your("gloves vanish!");
 */
-		Your("小手は消えた！");
+		Your("手袋は消えた！");
 		(void) Gloves_off();
 		useup(otmp);
 /*JP

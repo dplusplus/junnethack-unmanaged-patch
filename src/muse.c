@@ -1562,7 +1562,7 @@ struct monst *mtmp;
 	    			otmp->blessed ? "around" : "above",
 				mon_nam(mtmp));
 #else
-		    pline("%s‚Ì%s‚Ì%s‚©‚çƒSƒƒSƒ‚Æ‰¹‚ª•·‚±‚¦‚Ä‚«‚½B",
+		    pline("%s‚Ì%s‚Ì%s‚ÅƒSƒƒSƒ‚Æ‰¹‚ªŒ‚¢‚½I",
 			  mon_nam(mtmp),
 			  otmp->blessed ? "‚Ü‚í‚è" : "^ã",
 			  ceiling(mtmp->mx, mtmp->my));
@@ -1572,7 +1572,7 @@ struct monst *mtmp;
 /*JP
 		    pline_The("%s rumbles in the middle of nowhere!",
 */
-		    pline_The("‚Ç‚±‚©‚Ì%s‚©‚çƒSƒƒSƒ‚Æ‰¹‚ª•·‚±‚¦‚Ä‚«‚½B",
+		    pline_The("‚Ç‚±‚©‚Ì%s‚©‚çƒSƒƒSƒ‚Æ‰¹‚ªŒ‚¢‚½I",
 			ceiling(mtmp->mx, mtmp->my));
 		    if (mtmp->minvis)
 			map_invisible(mtmp->mx, mtmp->my);
