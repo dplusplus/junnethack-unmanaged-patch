@@ -1,5 +1,5 @@
 Thu Apr 15 2010  Masaki Miyaso  <so-miya@sourceforge.jp>
-	* UnNetHack SVN版r464をベースにした。
+	* UnNetHack SVN版r466をベースにした。
 	  r356 patchlevelを3.5.3にした
 	  r357 パッチ：ダンジョンマップ概要3 (Hojita Discordiaより)
 	  r358 マップ概要に闇市と道具屋を追加
@@ -171,6 +171,8 @@ Thu Apr 15 2010  Masaki Miyaso  <so-miya@sourceforge.jp>
 	       題を修正。その他の確認（食べるときなど）の中断時とは挙動を
 	       変更。
 	  r464 空白修正（日本語版は変更無し。ソースコードのみ）
+	  r466 バグ修正：C343-94 再び動き出した石像を調査するとpanicする。
+	                 SC343-8 再び動き出した石像の持つ金貨が多すぎる。
 	* 起動時の職業名が翻訳されなくなっていたのを修正
 	* ダンプ関係で終了時のトップテン表示がおかしくなっていたので修正
 	* 日本語ダンプファイル名の対処
