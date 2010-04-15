@@ -2830,7 +2830,7 @@ speak:
 	    }
 #if 0 /*JP*/
 	    Strcpy(buf, "\"For you, ");
-	    if (ANGRY(shkp)) Strcat(buf, "scum ");
+	    if (ANGRY(shkp)) Strcat(buf, "scum");
 #else
 	    Strcpy(buf, "Åu");
 	    if (ANGRY(shkp)) Strcat(buf, "Ç±ÇÃÉNÉ\Ç¡ÇΩÇÍ");
