@@ -1,5 +1,5 @@
-Fri Apr 16 2010  Masaki Miyaso  <so-miya@sourceforge.jp>
-	* UnNetHack SVN版r470をベースにした。
+Mon Apr 19 2010  Masaki Miyaso  <so-miya@sourceforge.jp>
+	* UnNetHack SVN版r471をベースにした。
 	  r356 patchlevelを3.5.3にした
 	  r357 パッチ：ダンジョンマップ概要3 (Hojita Discordiaより)
 	  r358 マップ概要に闇市と道具屋を追加
@@ -175,6 +175,8 @@ Fri Apr 16 2010  Masaki Miyaso  <so-miya@sourceforge.jp>
 	                 SC343-8 再び動き出した石像の持つ金貨が多すぎる。
 	  r467 反射の盾を魔法アイテムでなくし、少し重くした
 	  r470 願いの杖の充填数を変更： 17% 1:0, 66% 1:1, 17% 1:2
+	  r471 店で足元のアイテムの金額を表示するとき重なったアイテムでも
+	       適正な価格を表示する
 	* 起動時の職業名が翻訳されなくなっていたのを修正
 	* ダンプ関係で終了時のトップテン表示がおかしくなっていたので修正
 	* 日本語ダンプファイル名の対処
