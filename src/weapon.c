@@ -1024,7 +1024,7 @@ int enhance_skill(boolean want_dump)
 		dump_title("Your skills at the end");
 */
 		dump_title("Ç†Ç»ÇΩÇÃéùÇ¡ÇƒÇ¢ÇΩÉXÉLÉãàÍóó");
-		dump_html("<pre>", ""); /* TODO table */
+		dump_html("<table class=\"nh_skills\">\n", "");
 	    } else {
 	    win = create_nhwindow(NHW_MENU);
 	    start_menu(win);
@@ -1079,7 +1079,8 @@ int enhance_skill(boolean want_dump)
 		any.a_void = 0;
 		if (i == skill_ranges[pass].first) {
 		if (want_dump) {
-		    dump("  ",(char *)skill_ranges[pass].name);
+		    dump_text("  %s",(char *)skill_ranges[pass].name);
+		    dump_html("<tr><th>%s</th></tr>\n",(char *)skill_ranges[pass].name);
 		    logged=FALSE;
 		} else
 		    add_menu(win, NO_GLYPH, &any, 0, 0, iflags.menu_headings,
@@ -1089,13 +1090,20 @@ int enhance_skill(boolean want_dump)
 		    if (P_SKILL(i) > P_UNSKILLED) {
 		 	Sprintf(buf2,"%-*s [%s]",
 			    longest, P_NAME(i),skill_level_name(i, buf));
-			dump("    ",buf2);
+			dump_text("    %s",buf2);
+		 	Sprintf(buf2,"<tr><td>%s</td><td>[%s]</td></tr>",
+			    P_NAME(i),skill_level_name(i, buf));
+			dump_html("%s\n",buf2);
 			logged=TRUE;
 		    } else if (i == skill_ranges[pass].last && !logged) {
 /*JP
-			dump("    ","(none)");
+			dump_text("    %s","(none)");
 */
-			dump("    ","(Ç»Çµ)");
+			dump_text("    %s","(Ç»Çµ)");
+/*JP
+			dump_html("<tr><td>%s</td></tr>\n","(none)");
+*/
+			dump_html("<tr><td>%s</td></tr>\n","(Ç»Çµ)");
 		    }
                } else {
 
@@ -1158,7 +1166,7 @@ int enhance_skill(boolean want_dump)
 			u.weapon_slots, plur(u.weapon_slots));
 #endif
 	    if (want_dump) {
-		dump_html("</pre>", ""); /* TODO table */
+		dump_html("</table>\n", "");
 		dump("", "");
 		n=0;
 	    } else {

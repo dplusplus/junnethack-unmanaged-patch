@@ -1431,15 +1431,20 @@ dump_spells()
 	    return;
 	}
 /*JP
-	dump("", "Spells known in the end");
+	dump_title("Spells known in the end");
 */
-	dump("", "’m‚Á‚Ä‚¢‚½ô•¶ˆê——");
+	dump_title("’m‚Á‚Ä‚¢‚½ô•¶ˆê——");
 
 /*JP
 	Sprintf(buf, "%-20s   Level    %-12s Fail", "    Name", "Category");
 */
 	Sprintf(buf, "%-20s   Level    %-12s ¬Œ÷—¦", "    Name", "•ª—Ş");
-	dump("  ",buf);
+	dump_text("  ",buf);
+	dump_html("<table class=\"nh_spells\">\n", "");
+/*JP
+	dump_html("<tr><th></th><th>Name</th><th>Level</th><th>Category</th><th>Fail</th></tr>\n", "");
+*/
+	dump_html("<tr><th></th><th>Name</th><th>Level</th><th>•ª—Ş</th><th>¬Œ÷—¦</th></tr>\n", "");
 	for (i = 0; i < MAXSPELL && spellid(i) != NO_SPELL; i++) {
 		Sprintf(buf, "%c - %-20s  %2d%s   %-12s %3d%%",
 #if 0 /*JP*/
@@ -1453,8 +1458,20 @@ dump_spells()
 			spelltypemnemonic(spell_skilltype(spellid(i))),
 			percent_success(i));
 #endif
-		dump("  ", buf);
+		dump_text("  ", buf);
+		Sprintf(buf, "<tr><td class=\"nh_item_letter\">%c</td><td>%s</td><td align=\"right\">%d</td><td>%s</td><td align=\"right\">%d%%</td></tr>\n",
+#if 0 /*JP*/
+			spellet(i), spellname(i), spellev(i),
+			spelltypemnemonic(spell_skilltype(spellid(i))),
+			100 - percent_success(i));
+#else
+			spellet(i), jtrns_obj('+', spellname(i)), spellev(i),
+			spelltypemnemonic(spell_skilltype(spellid(i))),
+			percent_success(i));
+#endif
+		dump_html(buf,"");
 	}
+	dump_html("</table>\n", "");
 	dump("","");
 
 } /* dump_spells */
