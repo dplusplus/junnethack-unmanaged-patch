@@ -402,8 +402,11 @@ mount_steed(mtmp, force)
 	    pline("%s resists%s!", Monnam(mtmp),
 		  mtmp->mleashed ? " and its leash comes off" : "");
 #else
-	    pline("%sは拒否%s！", Monnam(mtmp),
-		  mtmp->mleashed ? "して、紐をはずした" : "した");
+	    if (mtmp->mleashed)
+		pline("%sは拒否した！", Monnam(mtmp));
+	    else
+		pline("%sは拒否して、%sをはずした！",
+			jtrns_obj('(',"leash"));
 #endif
 	    if (mtmp->mleashed) m_unleash(mtmp, FALSE);
 	    return (FALSE);

@@ -720,7 +720,7 @@ wiz_level_change()
 /*JP
 	    You("are already as inexperienced as you can get.");
 */
-	    You("すでに最低の経験レベルだ。");
+	    You("すでに可能な限りの最低の経験レベルだ。");
 	    return 0;
 	}
 	if (newlevel < 1) newlevel = 1;
@@ -734,7 +734,7 @@ wiz_level_change()
 /*JP
 	    You("are already as experienced as you can get.");
 */
-	    You("すでに最大の経験レベルだ。");
+	    You("すでに可能な限りの最大の経験レベルだ。");
 	    return 0;
 	}
 	if (newlevel > MAXULEV) newlevel = MAXULEV;
@@ -1567,12 +1567,13 @@ BOOLEAN_P want_disp;
 	} else
 #else
 	if (u.ugangr) {
-	    Sprintf(buf, "%sは%s怒って", u_gname(),
-		    u.ugangr > 6 ? "猛烈に" : u.ugangr > 3 ? "とても" : "");
+	    Sprintf(buf, "%sは%s怒って%s", u_gname(),
+		    u.ugangr > 6 ? "猛烈に" : u.ugangr > 3 ? "とても" : "",
+		    final ? ita : iru);
 #ifdef WIZARD
 	    if (wizard) Sprintf(eos(buf), "(%d)", u.ugangr);
 #endif
-	    enl_msg(buf, iru, ita, "");
+	    enl_msg(buf, "", "", "");
 	} else
 #endif
 	    /*
@@ -1595,11 +1596,17 @@ BOOLEAN_P want_disp;
 	    you_can(buf);
 #else /*JP*/
 	    Strcpy(buf, "あなたは安全に祈ることが");
-	    if(can_pray(FALSE))
-	      enl_msg(buf, "できる", "できた", "");
-	    else
-	      enl_msg(buf, "できない", "できなかった", "");
-#endif
+# if 0
+	    if(can_pray(FALSE)) Strcat(buf, final ? could : can);
+	    else Strcat(buf, final ? "できなかった" : "できない");
+# else
+	    Strcat(buf, can_pray(FALSE) ? can : "できない");
+# endif
+# ifdef WIZARD
+	    if (wizard) Sprintf(eos(buf), " (%d)", u.ublesscnt);
+# endif
+	    enl_msg(buf, "", "", "");
+#endif /*JP*/
 	}
 
     {

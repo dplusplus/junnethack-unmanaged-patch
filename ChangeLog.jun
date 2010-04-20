@@ -188,6 +188,8 @@ Tue Apr 20 2010  Masaki Miyaso  <so-miya@sourceforge.jp>
 	* 日本語ダンプファイル名の対処
 	* Makefileの修正等
 	* lensesの訳語を「レンズ」から「眼鏡」に変更
+	* leashの訳語を「紐」から「革ひも」に変更
+	* rope golemの訳語を「紐のゴーレム」から「ロープのゴーレム」に変更
 	* その他翻訳修正
 
 Sun Dec 6 2009  Masaki Miyaso  <so-miya@sourceforge.jp>

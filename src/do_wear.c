@@ -1634,7 +1634,7 @@ boolean noisy;
 		    (uwep->otyp == BATTLE_AXE) ? c_axe : c_weapon);
 #else
 		{
-		    m = jconj(jonmsg(otmp, &j), "ている");
+		    m = jconj(jonmsg(uwep, &j), "ている");
 		    You("両手持ちの%s%s%sので盾で身を守れない。",
 		        is_sword(uwep) ? c_sword :
 		        uwep->otyp == BATTLE_AXE ? c_axe : c_weapon,
@@ -1647,7 +1647,7 @@ boolean noisy;
 /*JP
 		You("cannot wear a shield while wielding two weapons.");
 */
-		You("両手持ちをしている間は盾で身を守れない。");
+		You("二刀流をしているので盾で身を守れない。");
 	    err++;
 	} else
 	    *mask = W_ARMS;

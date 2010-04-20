@@ -352,7 +352,7 @@ struct obj *corpse;
 		Your("body rises from the dead as %s...",
 			an(mons[u.ugrave_arise].mname));
 #else
-		Your("体は%sとして死体から蘇った．．．",
+		Your("身体は%sとして死体から蘇った．．．",
 			jtrns_mon_gen(mons[u.ugrave_arise].mname, mtmp->female));
 #endif
 		display_nhwindow(WIN_MESSAGE, FALSE);

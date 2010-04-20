@@ -449,7 +449,7 @@ skeleton:		骸骨:
 #
 straw golem:		藁のゴーレム:
 paper golem:		紙のゴーレム:
-rope golem:		紐のゴーレム:
+rope golem:		ロープのゴーレム:
 gold golem:		金のゴーレム:
 leather golem:		皮のゴーレム:
 wood golem:		木のゴーレム:
@@ -1024,7 +1024,7 @@ monorail cat:	モノレールねこ:
 #
 #schnippi
 #
-rape golem:	干物ゴーレム:
+rape golem:	レープのゴーレム:
 #
 # POWDER
 #

@@ -791,7 +791,7 @@ static const char * const mb_verb[2][4] = {
 	{ "prod", "amaze", "tickle", "purge" },
 #else
 	/* Mb_hit() で "%sた"の形で利用 */
-	{"調べ", "くらくらさせ", "怯えさせ", "浄化し"},
+	{ "調査し", "くらくらさせ", "怯えさせ", "浄化し"},
 	{ "励まし", "驚かせ", "くすぐっ", "清め" },
 #endif
 };
@@ -946,7 +946,7 @@ char *hittee;			/* target's name: "you" or mon_nam(mdef) */
 /*JP
 	    pline_The("%s is insightful.", verb);
 */
-	    pline("識別できた。");
+	    pline("相手を%sた。", verb);
 	    /* pre-damage status */
 	    probe_monster(mdef);
 	}
@@ -1464,7 +1464,7 @@ arti_invoke(obj)
 /*JP
 		You_feel("re-energized.");
 */
-		You("エネルギーが満たされた。");
+		You("エネルギーで満たされた。");
 		u.uen += epboost;
 		flags.botl = 1;
 	    } else
@@ -1633,7 +1633,7 @@ nothing_special:
 /*JP
 		You_feel("a surge of power, but nothing seems to happen.");
 */
-		You("力が渦巻いたような気がした、しかし何も起きなかった。");
+		You("力の高まりを感じたが、何も起きなかった。");
 	    return 1;
 	}
 	switch(oart->inv_prop) {
@@ -1661,14 +1661,14 @@ nothing_special:
 		Your("body takes on a %s transparency...",
 		     Hallucination ? "normal" : "strange");
 #else
-		pline("%s、体は透過性をもった．．．",
-		      Hallucination ? "あたりまえのことだが" : "奇妙なことに");
+		Your("身体は%s透過性をもった．．．",
+		      Hallucination ? "普通に" : "奇妙なことに");
 #endif
 	    else
 /*JP
 		Your("body seems to unfade...");
 */
-		Your("体は次第に見えるようになってきた．．．");
+		Your("身体は次第に見えるようになってきた．．．");
 	    break;
 	}
     }

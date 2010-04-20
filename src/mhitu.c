@@ -2351,7 +2351,7 @@ gulpmu(mtmp, mattk)	/* monster swallows you, or damage if u.uswallow */
 		    const char *s = (i > 1) ? "leashes" : "leash";
 		    pline_The("%s %s loose.", s, vtense(s, "snap"));
 #else
-		    pline("紐はパチンと切れた。");
+		    pline("%sはパチンと切れた。", jtrns_obj('(',"leash"));
 #endif
 		    unleash_all();
 		}
@@ -3324,7 +3324,7 @@ register struct monst *mon;
 /*JP
 		You("seem to have enjoyed it more than %s...",
 */
-		You("%sよりも楽しんだようだ．．．",
+		You("%sよりも楽しめたようだ．．．",
 		    noit_mon_nam(mon));
 		switch (rn2(5)) {
 /*JP

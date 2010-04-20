@@ -621,7 +621,7 @@ boolean force_it;
 /*JP
 		Your("leash goes slack.");
 */
-		Your("•R‚Í‚½‚é‚ñ‚¾B");
+		Your("%s‚Í‚½‚é‚ñ‚¾B", jtrns_obj('(',"leash"));
  release_it:
 		m_unleash(mtmp, FALSE);
 		return TRUE;

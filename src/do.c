@@ -795,8 +795,8 @@ register const char *word;
 /*JP
 			pline_The("leash is tied around your %s.",
 */
-			pline("•R‚Í‚ ‚È‚½‚Ì%s‚É—Ö‚É‚È‚Á‚ÄŠ|‚¯‚ç‚ê‚Ä‚¢‚éB",
-					body_part(HAND));
+			pline("%s‚Í‚ ‚È‚½‚Ì%s‚É—Ö‚É‚È‚Á‚ÄŠ|‚¯‚ç‚ê‚Ä‚¢‚éB",
+				jtrns_obj('(',"leash"), body_part(HAND));
 		return(FALSE);
 	}
 #ifdef STEED

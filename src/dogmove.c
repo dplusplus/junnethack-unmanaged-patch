@@ -299,7 +299,7 @@ register struct edog *edog;
 /*JP
 		    Your("leash goes slack.");
 */
-		    Your("紐はたるんだ。");
+		    Your("%sはたるんだ。", jtrns_obj('(',"leash"));
 		else if (cansee(mtmp->mx, mtmp->my))
 /*JP
 		    pline("%s starves.", Monnam(mtmp));
@@ -802,8 +802,8 @@ newdogpos:
 				pline("%s breaks loose of %s leash!",
 				      Monnam(mtmp), mhis(mtmp));
 #else
-				pline("%sは自分についている紐をはずした！",
-				      Monnam(mtmp));
+				pline("%sは自分についている%sをはずした！",
+				      Monnam(mtmp), jtrns_obj('(',"leash"));
 #endif
 				m_unleash(mtmp, FALSE);
 			}

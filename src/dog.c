@@ -634,10 +634,10 @@ boolean pets_only;	/* true for ascension or final escape */
 					    ? (mtmp->female ? "Her" : "His")
 					    : "Its");
 #else
-				pline("%sにつながれた紐は突然ゆるんだ。",
-				        humanoid(mtmp->data)
-					    ? (mtmp->female ? "彼女" : "彼")
-					    : "その生物");
+				pline("%sにつながれた%sは突然ゆるんだ。",
+				    humanoid(mtmp->data)
+					? (mtmp->female ? "彼女" : "彼") : "それ",
+					jtrns_obj('(',"leash"));
 #endif
 				m_unleash(mtmp, FALSE);
 			}
@@ -680,7 +680,8 @@ boolean pets_only;	/* true for ascension or final escape */
 /*JP
 		pline("%s leash goes slack.", s_suffix(Monnam(mtmp)));
 */
-		pline("%sにつながれた紐はたるんだ。", Monnam(mtmp));
+		pline("%sにつながれた%sはたるんだ。", Monnam(mtmp),
+			jtrns_obj('(',"leash"));
 		m_unleash(mtmp, FALSE);
 	    }
 	}

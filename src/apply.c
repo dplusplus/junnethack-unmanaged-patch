@@ -530,12 +530,13 @@ boolean feedback;
 /*JP
 		pline("%s pulls free of %s leash!", Monnam(mtmp), mhis(mtmp));
 */
-		pline("%sは紐を引っぱって逃れた！", Monnam(mtmp));
+		pline("%sは%sを引っぱって逃れた！", Monnam(mtmp),
+			jtrns_obj('(',"leash"));
 	    else
 /*JP
 		Your("leash falls slack.");
 */
-		Your("紐がたるんで落ちた。");
+		Your("%sがたるんで落ちた。", jtrns_obj('(',"leash"));
 	}
 	for(otmp = invent; otmp; otmp = otmp->nobj)
 		if(otmp->otyp == LEASH &&
@@ -571,7 +572,8 @@ struct obj *obj;
 /*JP
 		You("cannot leash any more pets.");
 */
-		You("これ以上ペットに紐をかけられない。");
+		You("これ以上ペットに%sをかけられない。",
+			jtrns_obj('(',"leash"));
 		return;
 	}
 
@@ -616,8 +618,8 @@ struct obj *obj;
 		pline("%s %s leashed!", Monnam(mtmp), (!obj->leashmon) ?
 				"cannot be" : "is not");
 #else
-		pline("%sは紐で%s！", Monnam(mtmp), (!obj->leashmon) ?
-				"つなげない" : "つながれてない");
+		pline("%sは%sで%s！", Monnam(mtmp), jtrns_obj('(',"leash"),
+			(!obj->leashmon) ? "つなげない" : "つながれてない");
 #endif
 	    return;
 	}
@@ -636,8 +638,8 @@ struct obj *obj;
 		You("slip the leash around %s%s.",
 		    spotmon ? "your " : "", l_monnam(mtmp));
 #else
-		You("%sを紐でつないだ。",
-		    l_monnam(mtmp));
+		You("%sを%sでつないだ。",
+		    l_monnam(mtmp), jtrns_obj('(',"leash"));
 #endif
 		mtmp->mleashed = 1;
 		obj->leashmon = (int)mtmp->m_id;
@@ -648,14 +650,15 @@ struct obj *obj;
 /*JP
 		pline("This leash is not attached to that creature.");
 */
-		pline("この紐はそれにはつながれていない。");
+		pline("この%sはそれにはつながれていない。",
+			jtrns_obj('(',"leash"));
 		return;
 	} else {
 		if(obj->cursed) {
 /*JP
 			pline_The("leash would not come off!");
 */
-			pline("紐がはずれない！");
+			pline("%sがはずれない！", jtrns_obj('(',"leash"));
 			obj->bknown = TRUE;
 			return;
 		}
@@ -665,8 +668,8 @@ struct obj *obj;
 		You("remove the leash from %s%s.",
 		    spotmon ? "your " : "", l_monnam(mtmp));
 #else
-		You("%sから紐をはずした。",
-		    l_monnam(mtmp));
+		You("%sから%sをはずした。",
+		    l_monnam(mtmp), jtrns_obj('(',"leash"));
 #endif
 	}
 	return;
@@ -709,7 +712,8 @@ next_to_u()
 				    You_feel("%s leash go slack.",
 					(number_leashed() > 1) ? "a" : "the");
 #else
-				    You("紐がたるんだような気がした。");
+				    You("%sがたるんだような気がした。",
+					jtrns_obj('(',"leash"));
 #endif
 				    mtmp->mleashed = 0;
 				    otmp->leashmon = 0;
@@ -769,7 +773,8 @@ register xchar x, y;
 /*JP
 			pline("%s chokes on the leash!", Monnam(mtmp));
 */
-			pline("%sは紐で首を絞められた！", Monnam(mtmp));
+			pline("%sは%sで首を絞められた！", Monnam(mtmp),
+				jtrns_obj('(',"leash"));
 			/* tameness eventually drops to 1 here (never 0) */
 			if (mtmp->mtame && rn2(mtmp->mtame)) mtmp->mtame--;
 		    }
@@ -778,13 +783,15 @@ register xchar x, y;
 /*JP
 			pline("%s leash snaps loose!", s_suffix(Monnam(mtmp)));
 */
-			pline("%sの紐はパチンと外れた！", Monnam(mtmp));
+			pline("%sの%sはパチンと外れた！", Monnam(mtmp),
+				jtrns_obj('(',"leash"));
 			m_unleash(mtmp, FALSE);
 		    } else {
 /*JP
 				    You("pull on the leash.");
 */
-				    You("紐を引っぱった。");
+				    You("%sを引っぱった。",
+					jtrns_obj('(',"leash"));
 			if (mtmp->data->msound != MS_SILENT)
 			    switch (rn2(3)) {
 			    case 0:  growl(mtmp);   break;
@@ -846,7 +853,7 @@ struct obj *obj;
 /*JP
 			} else You("stiffen momentarily under your gaze.");
 */
-			} else pline("一瞬あなたのにらみで硬直した。");
+			} else pline("一瞬自分自身のにらみで硬直した。");
 		    } else if (is_vampire(youmonst.data))
 /*JP
 			You("don't have a reflection.");
@@ -933,7 +940,7 @@ struct obj *obj;
 /*JP
 		    pline ("%s is too tired to look at your mirror.",
 */
-		    pline ("%sはとても疲れていて鏡を見ることができない。",
+		    pline ("%sはとても疲れていて鏡を見るどころじゃない。",
 			    Monnam(mtmp));
 	} else if (!mtmp->mcansee) {
 	    if (vis)
@@ -1192,7 +1199,7 @@ register struct obj *obj;
 /*JP
 		You("cannot make fire under water.");
 */
-		You("水中で火はおこせない。");
+		You("水中で火をおこせない。");
 		return;
 	}
 	if(obj->lamplit) {
@@ -2255,7 +2262,7 @@ long timeout;
 			You_feel("%s %s from your pack!", something,
 			    locomotion(mtmp->data,"drop"));
 #else
-			You_feel("%sがあなたの背負い袋から%sような気がした！", something,
+			You_feel("%sが背負い袋から%sような気がした！", something,
 				 jpast(locomotion(mtmp->data,"落ちる")));
 #endif
 		    else
@@ -2275,7 +2282,7 @@ long timeout;
 /*JP
 			You("suddenly see a figurine transform into %s!",
 */
-			You("突然人形は%sになった！",
+			You("人形が突然%sになったのを見た！",
 				monnambuf);
 			redraw = TRUE;	/* update figurine's map location */
 		    }
@@ -2351,7 +2358,7 @@ boolean quietly;
 /*JP
 			You("cannot put the figurine there.");
 */
-			You("ここには人形を置けない。");
+			pline("ここには人形を置けない。");
 		return FALSE;
 	}
 	if (IS_ROCK(levl[x][y].typ) &&
@@ -2361,7 +2368,7 @@ boolean quietly;
 		    You("cannot place a figurine in %s!",
 			IS_TREE(levl[x][y].typ) ? "a tree" : "solid rock");
 #else
-		    You("%sの中には人形を置けない！",
+		    pline("%sの中には人形を置けない！",
 			IS_TREE(levl[x][y].typ) ? "木" : "固い石");
 #endif
 		return FALSE;
@@ -2372,7 +2379,7 @@ boolean quietly;
 /*JP
 			You("cannot fit the figurine on the boulder.");
 */
-		    You("岩に人形を押し込むことはできない。");
+		    pline("岩に人形を押し込むことはできない。");
 		return FALSE;
 	}
 	return TRUE;
@@ -3231,7 +3238,7 @@ struct obj *obj;
 				an(mons[otmp->corpsenm].mname));
 			pline("Snatching %s is a fatal mistake.", kbuf);
 #else
-			pline("%sの死体を奪ったのは致命的なミスだ。",
+			pline("%sの死体を奪ったのは致命的な間違いだ。",
 				jtrns_mon(mons[otmp->corpsenm].mname));
 			Sprintf(kbuf, "%sの死体に触れて",
 				jtrns_mon(mons[otmp->corpsenm].mname));

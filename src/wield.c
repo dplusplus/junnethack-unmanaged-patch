@@ -595,7 +595,7 @@ can_twoweapon()
 #else
 		    pline("%s‚Í“ñ‚Â‚Ì•Ší‚ğ“¯‚Éˆµ‚¦‚È‚¢B",
 			  makeplural((flags.female && urole.name.f) ?
-				     urole.name.f : urole.name.m));
+				     urole.jname.f : urole.jname.m));
 #endif
 	} else if (!uwep || !uswapwep)
 #if 0 /*JP*/
