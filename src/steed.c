@@ -405,7 +405,7 @@ mount_steed(mtmp, force)
 	    if (mtmp->mleashed)
 		pline("%sは拒否した！", Monnam(mtmp));
 	    else
-		pline("%sは拒否して、%sをはずした！",
+		pline("%sは拒否して、%sをはずした！", Monnam(mtmp),
 			jtrns_obj('(',"leash"));
 #endif
 	    if (mtmp->mleashed) m_unleash(mtmp, FALSE);
