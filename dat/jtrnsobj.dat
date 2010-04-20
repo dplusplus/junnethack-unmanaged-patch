@@ -130,181 +130,181 @@
 #
 #	armors
 #
-]elven leather helm:	エルフの革帽子:
-]leather hat:		革帽子:
-]orcish helm:		オークの兜:
-]iron skull cap:	鉄の帽子:
-]dwarvish iron helm:	ドワーフの鉄兜:
-]hard hat:		固い帽子:
-]fedora:		フィドーラ:
-]cornuthaum:		とんがり帽子:
-]conical hat:		円錐形の帽子:
-]dunce cap:		低能帽:
-]dented pot:		くぼんだ鍋:
-]tinfoil hat:		アルミ箔の帽子:	#SporkHack
-]helmet:		兜:
-]plumed helmet:		羽兜:
-]helm of brilliance:	知性の兜:
-]etched helmet:		模様入り兜:
-]helm of opposite alignment:	逆属性の兜:
-]crested helmet:	とさかの兜:
-]helm of telepathy:	テレパシーの兜:
-]visored helmet:	面頬付きの兜:
-#]gray dragon scale mail:	灰色ドラゴンの鱗鎧:
-#]silver dragon scale mail:	銀色ドラゴンの鱗鎧:
-#]red dragon scale mail:		赤色ドラゴンの鱗鎧:
-#]white dragon scale mail:	白ドラゴンの鱗鎧:
-#]orange dragon scale mail:	オレンジドラゴンの鱗鎧:
-#]black dragon scale mail:	黒ドラゴンの鱗鎧:
-#]blue dragon scale mail:	青ドラゴンの鱗鎧:
-#]green dragon scale mail:	緑ドラゴンの鱗鎧:
-#]gold dragon scale mail:	金色ドラゴンの鱗鎧:	#UnNetHack
-#]yellow dragon scale mail:	黄色ドラゴンの鱗鎧:
-]tatzelworm scale mail:		タッツェルブルムの鱗鎧:
-]amphitere scale mail:		アンフィテァの鱗鎧:
-]draken scale mail:		ドラケンの鱗鎧:
-]lindworm scale mail:		リンドヴルムの鱗鎧:
-]sarkany scale mail:		サーカニーの鱗鎧:
-]sirrush scale mail:		ムシュフシュの鱗鎧:
-]leviathan scale mail:		リヴァイアサンの鱗鎧:
-]wyvern scale mail:		ワイバーンの鱗鎧:
-]gold dragon scale mail:	ゴールドドラゴンの鱗鎧:
-]guivre scale mail:		ギーブルの鱗鎧:
-]magic dragon scale mail:	魔法竜の鱗鎧:
-]reflecting dragon scale mail:	反射竜の鱗鎧:
-]fire dragon scale mail:	火竜の鱗鎧:
-]ice dragon scale mail:		氷竜の鱗鎧:
-]sleep dragon scale mail:	睡眠竜の鱗鎧:
-]disintegration dragon scale mail:	分解竜の鱗鎧:
-]electric dragon scale mail:	雷竜の鱗鎧:
-]poison dragon scale mail:	毒竜の鱗鎧:
-]stone dragon scale mail:	石竜の鱗鎧:
-]acid dragon scale mail:	酸竜の鱗鎧:
-#]gray dragon scales:		灰色ドラゴンの鱗:
-#]silver dragon scales:		銀色ドラゴンの鱗:
-#]red dragon scales:		赤色ドラゴンの鱗:
-#]white dragon scales:		白ドラゴンの鱗:
-#]orange dragon scales:		オレンジドラゴンの鱗:
-#]black dragon scales:		黒ドラゴンの鱗:
-#]blue dragon scales:		青ドラゴンの鱗:
-#]green dragon scales:		緑ドラゴンの鱗:
-#]gold dragon scales:		金色ドラゴンの鱗:	#UnNetHack
-#]yellow dragon scales:		黄色ドラゴンの鱗:
-]tatzelworm scales:		タッツェルブルムの鱗:
-]amphitere scales:		アンフィテァの鱗:
-]draken scales:			ドラケンの鱗:
-]lindworm scales:		リンドヴルムの鱗:
-]sarkany scales:		サーカニーの鱗:
-]sirrush scales:		ムシュフシュの鱗:
-]leviathan scales:		リヴァイアサンの鱗:
-]wyvern scales:			ワイバーンの鱗:
-]gold dragon scales:		ゴールドドラゴンの鱗:
-]guivre scales:			ギーブルの鱗:
-]magic dragon scales:		魔法竜の鱗:
-]reflecting dragon scales:	反射竜の鱗:
-]fire dragon scales:	火竜の鱗:
-]ice dragon scales:		氷竜の鱗:
-]sleep dragon scales:		睡眠竜の鱗:
-]disintegration dragon scales:	分解竜の鱗:
-]electric dragon scales:	雷竜の鱗:
-]poison dragon scales:		毒竜の鱗:
-]stone dragon scales:		石竜の鱗:
-]acid dragon scales:		酸竜の鱗:
-]plate mail:		鋼鉄の鎧:
-]crystal plate mail:	水晶の鎧:
-]bronze plate mail:	青銅の鎧:
-]splint mail:		鉄片の鎧:
-]banded mail:		帯金の鎧:
-]dwarvish mithril-coat:	ドワーフのミスリル服:
-]elven mithril-coat:	エルフのミスリル服:
-]chain mail:		鎖かたびら:
-]orcish chain mail:	オークの鎖かたびら:
-]crude chain mail:	粗末な鎖かたびら:
-]scale mail:		鱗の鎧:
-]studded leather armor:	鋲付き革鎧:
-]ring mail:		鉄環の鎧:
-]orcish ring mail:	オークの鉄環の鎧:
-]crude ring mail:	粗末な鉄環の鎧:
-]leather armor:		革鎧:
-]leather jacket:	革の服:
+[elven leather helm:	エルフの革帽子:
+[leather hat:		革帽子:
+[orcish helm:		オークの兜:
+[iron skull cap:	鉄の帽子:
+[dwarvish iron helm:	ドワーフの鉄兜:
+[hard hat:		固い帽子:
+[fedora:		フィドーラ:
+[cornuthaum:		とんがり帽子:
+[conical hat:		円錐形の帽子:
+[dunce cap:		低能帽:
+[dented pot:		くぼんだ鍋:
+[tinfoil hat:		アルミ箔の帽子:	#SporkHack
+[helmet:		兜:
+[plumed helmet:		羽兜:
+[helm of brilliance:	知性の兜:
+[etched helmet:		模様入り兜:
+[helm of opposite alignment:	逆属性の兜:
+[crested helmet:	とさかの兜:
+[helm of telepathy:	テレパシーの兜:
+[visored helmet:	面頬付きの兜:
+#[gray dragon scale mail:	灰色ドラゴンの鱗鎧:
+#[silver dragon scale mail:	銀色ドラゴンの鱗鎧:
+#[red dragon scale mail:		赤色ドラゴンの鱗鎧:
+#[white dragon scale mail:	白ドラゴンの鱗鎧:
+#[orange dragon scale mail:	オレンジドラゴンの鱗鎧:
+#[black dragon scale mail:	黒ドラゴンの鱗鎧:
+#[blue dragon scale mail:	青ドラゴンの鱗鎧:
+#[green dragon scale mail:	緑ドラゴンの鱗鎧:
+#[gold dragon scale mail:	金色ドラゴンの鱗鎧:	#UnNetHack
+#[yellow dragon scale mail:	黄色ドラゴンの鱗鎧:
+[tatzelworm scale mail:		タッツェルブルムの鱗鎧:
+[amphitere scale mail:		アンフィテァの鱗鎧:
+[draken scale mail:		ドラケンの鱗鎧:
+[lindworm scale mail:		リンドヴルムの鱗鎧:
+[sarkany scale mail:		サーカニーの鱗鎧:
+[sirrush scale mail:		ムシュフシュの鱗鎧:
+[leviathan scale mail:		リヴァイアサンの鱗鎧:
+[wyvern scale mail:		ワイバーンの鱗鎧:
+[gold dragon scale mail:	ゴールドドラゴンの鱗鎧:
+[guivre scale mail:		ギーブルの鱗鎧:
+[magic dragon scale mail:	魔法竜の鱗鎧:
+[reflecting dragon scale mail:	反射竜の鱗鎧:
+[fire dragon scale mail:	火竜の鱗鎧:
+[ice dragon scale mail:		氷竜の鱗鎧:
+[sleep dragon scale mail:	睡眠竜の鱗鎧:
+[disintegration dragon scale mail:	分解竜の鱗鎧:
+[electric dragon scale mail:	雷竜の鱗鎧:
+[poison dragon scale mail:	毒竜の鱗鎧:
+[stone dragon scale mail:	石竜の鱗鎧:
+[acid dragon scale mail:	酸竜の鱗鎧:
+#[gray dragon scales:		灰色ドラゴンの鱗:
+#[silver dragon scales:		銀色ドラゴンの鱗:
+#[red dragon scales:		赤色ドラゴンの鱗:
+#[white dragon scales:		白ドラゴンの鱗:
+#[orange dragon scales:		オレンジドラゴンの鱗:
+#[black dragon scales:		黒ドラゴンの鱗:
+#[blue dragon scales:		青ドラゴンの鱗:
+#[green dragon scales:		緑ドラゴンの鱗:
+#[gold dragon scales:		金色ドラゴンの鱗:	#UnNetHack
+#[yellow dragon scales:		黄色ドラゴンの鱗:
+[tatzelworm scales:		タッツェルブルムの鱗:
+[amphitere scales:		アンフィテァの鱗:
+[draken scales:			ドラケンの鱗:
+[lindworm scales:		リンドヴルムの鱗:
+[sarkany scales:		サーカニーの鱗:
+[sirrush scales:		ムシュフシュの鱗:
+[leviathan scales:		リヴァイアサンの鱗:
+[wyvern scales:			ワイバーンの鱗:
+[gold dragon scales:		ゴールドドラゴンの鱗:
+[guivre scales:			ギーブルの鱗:
+[magic dragon scales:		魔法竜の鱗:
+[reflecting dragon scales:	反射竜の鱗:
+[fire dragon scales:	火竜の鱗:
+[ice dragon scales:		氷竜の鱗:
+[sleep dragon scales:		睡眠竜の鱗:
+[disintegration dragon scales:	分解竜の鱗:
+[electric dragon scales:	雷竜の鱗:
+[poison dragon scales:		毒竜の鱗:
+[stone dragon scales:		石竜の鱗:
+[acid dragon scales:		酸竜の鱗:
+[plate mail:		鋼鉄の鎧:
+[crystal plate mail:	水晶の鎧:
+[bronze plate mail:	青銅の鎧:
+[splint mail:		鉄片の鎧:
+[banded mail:		帯金の鎧:
+[dwarvish mithril-coat:	ドワーフのミスリル服:
+[elven mithril-coat:	エルフのミスリル服:
+[chain mail:		鎖かたびら:
+[orcish chain mail:	オークの鎖かたびら:
+[crude chain mail:	粗末な鎖かたびら:
+[scale mail:		鱗の鎧:
+[studded leather armor:	鋲付き革鎧:
+[ring mail:		鉄環の鎧:
+[orcish ring mail:	オークの鉄環の鎧:
+[crude ring mail:	粗末な鉄環の鎧:
+[leather armor:		革鎧:
+[leather jacket:	革の服:
 #
 #	cloaks
 #
-]mummy wrapping:	ミイラの包帯:
-]elven cloak:		エルフのクローク:
-]faded pall:		陰気な外套:
-]orcish cloak:		オークのクローク:
-]coarse mantelet:	粗末なマント:
-]dwarvish cloak:	ドワーフのクローク:
-]hooded cloak:		フードつきのクローク:
-]oilskin cloak:		防水クローク:
-]slippery cloak:	つるつるしたクローク:
-]cloak of protection:	守りのクローク:
-]tattered cape:		ぼろぼろのケープ:
-]cloak of invisibility:	透明のクローク:
-]opera cloak:		オペラクローク:
-]cloak of magic resistance:	魔法を防ぐクローク:
-]ornamental cope:	装飾用の外套:
-]cloak of displacement:	幻影のクローク:
-]piece of cloth:	布切れ:
-]robe:			ローブ:
-]alchemy smock:		錬金術の仕事着:
-]apron:			エプロン:
-]leather cloak:		革のクローク:
+[mummy wrapping:	ミイラの包帯:
+[elven cloak:		エルフのクローク:
+[faded pall:		陰気な外套:
+[orcish cloak:		オークのクローク:
+[coarse mantelet:	粗末なマント:
+[dwarvish cloak:	ドワーフのクローク:
+[hooded cloak:		フードつきのクローク:
+[oilskin cloak:		防水クローク:
+[slippery cloak:	つるつるしたクローク:
+[cloak of protection:	守りのクローク:
+[tattered cape:		ぼろぼろのケープ:
+[cloak of invisibility:	透明のクローク:
+[opera cloak:		オペラクローク:
+[cloak of magic resistance:	魔法を防ぐクローク:
+[ornamental cope:	装飾用の外套:
+[cloak of displacement:	幻影のクローク:
+[piece of cloth:	布切れ:
+[robe:			ローブ:
+[alchemy smock:		錬金術の仕事着:
+[apron:			エプロン:
+[leather cloak:		革のクローク:
 #
 #	shields
 #
-]small shield:		小さな盾:
-]elven shield:		エルフの盾:
-]blue and green shield:	青と緑の盾:
-]Uruk-hai shield:	ウルク・ハイの盾:
-]white-handed shield:	白の手の盾:
-]orcish shield:		オークの盾:
-]red-eyed shield:	赤い目の盾:
-]large shield:		大きな盾:
-]dwarvish roundshield:	ドワーフの丸盾:
-]large round shield:	大きな丸盾:
-]shield of reflection:	反射の盾:
-]polished silver shield:	銀色の磨かれた盾:
+[small shield:		小さな盾:
+[elven shield:		エルフの盾:
+[blue and green shield:	青と緑の盾:
+[Uruk-hai shield:	ウルク・ハイの盾:
+[white-handed shield:	白の手の盾:
+[orcish shield:		オークの盾:
+[red-eyed shield:	赤い目の盾:
+[large shield:		大きな盾:
+[dwarvish roundshield:	ドワーフの丸盾:
+[large round shield:	大きな丸盾:
+[shield of reflection:	反射の盾:
+[polished silver shield:	銀色の磨かれた盾:
 #
 #	underwears
 #
-]Hawaiian shirt:		アロハシャツ:
-]T-shirt:		Ｔシャツ:
+[Hawaiian shirt:		アロハシャツ:
+[T-shirt:		Ｔシャツ:
 #
 #	gloves
 #
-]leather gloves:	革の手袋:
-]old gloves:		古い手袋:
-]gauntlets of fumbling:	お手玉の小手:
-]padded gloves:		詰めもののある手袋:
-]gauntlets of power:	力の小手:
-]riding gloves:		乗馬用の手袋:
-]gauntlets of dexterity:	器用さの小手:
-]fencing gloves:	フェンシングの小手:
+[leather gloves:	革の手袋:
+[old gloves:		古い手袋:
+[gauntlets of fumbling:	お手玉の小手:
+[padded gloves:		詰めもののある手袋:
+[gauntlets of power:	力の小手:
+[riding gloves:		乗馬用の手袋:
+[gauntlets of dexterity:	器用さの小手:
+[fencing gloves:	フェンシングの小手:
 #
 #	boots
 #
-]low boots:		かかとの低い靴:
-]walking shoes:		散歩用の靴:
-]iron shoes:		鉄の靴:
-]hard shoes:		固い靴:
-]high boots:		かかとの高い靴:
-]jackboots:		軍隊靴:
-]speed boots:		韋駄天の靴:
-]combat boots:		戦闘靴:
-]water walking boots:	水上歩行の靴:
-]jungle boots:		ジャングルの靴:
-]jumping boots:		飛び跳ねる靴:
-]hiking boots:		ハイキングの靴:
-]elven boots:		エルフの靴:
-]mud boots:		長靴:
-]fumble boots:		つまずきの靴:
-]riding boots:		乗馬用の靴:
-]levitation boots:	浮遊の靴:
-]snow boots:		雪靴:
-]kicking boots:		蹴り挙げ靴:
-]buckled boots:		留め金のある靴:
+[low boots:		かかとの低い靴:
+[walking shoes:		散歩用の靴:
+[iron shoes:		鉄の靴:
+[hard shoes:		固い靴:
+[high boots:		かかとの高い靴:
+[jackboots:		軍隊靴:
+[speed boots:		韋駄天の靴:
+[combat boots:		戦闘靴:
+[water walking boots:	水上歩行の靴:
+[jungle boots:		ジャングルの靴:
+[jumping boots:		飛び跳ねる靴:
+[hiking boots:		ハイキングの靴:
+[elven boots:		エルフの靴:
+[mud boots:		長靴:
+[fumble boots:		つまずきの靴:
+[riding boots:		乗馬用の靴:
+[levitation boots:	浮遊の靴:
+[snow boots:		雪靴:
+[kicking boots:		蹴り挙げ靴:
+[buckled boots:		留め金のある靴:
 #
 #	rings
 #
@@ -933,13 +933,13 @@ $gold piece:	金貨:
 #
 #	miscellaneous
 #
-'boulder:		岩:
-'statue:		像:
+`boulder:		岩:
+`statue:		像:
 0heavy iron ball:	重い鉄球:
 _iron chain:		鉄の鎖:
-'blinding venom:	盲目の毒液:
-'splash of venom:	毒液のしぶき:
-'acid venom:		酸の毒液:
+.blinding venom:	盲目の毒液:
+.splash of venom:	毒液のしぶき:
+.acid venom:		酸の毒液:
 #
 #	samurai's item
 #
@@ -951,9 +951,9 @@ _iron chain:		鉄の鎖:
 (osaku:		おさく:
 (koto:		琴:
 )shito:		刺刀:
-]tanko:		短甲:
-]kabuto:	兜:
-]yugake:	弓懸:
+[tanko:		短甲:
+[kabuto:	兜:
+[yugake:	弓懸:
 %gunyoki:	丸薬:
 %nori:		海苔:
 !sake:		酒:

@@ -299,7 +299,7 @@ register struct edog *edog;
 /*JP
 		    Your("leash goes slack.");
 */
-		    Your("%s‚Í‚½‚é‚ñ‚¾B", jtrns_obj('(',"leash"));
+		    Your("%s‚Í‚½‚é‚ñ‚¾B", jtrns_obj(TOOL_SYM,"leash"));
 		else if (cansee(mtmp->mx, mtmp->my))
 /*JP
 		    pline("%s starves.", Monnam(mtmp));
@@ -803,7 +803,7 @@ newdogpos:
 				      Monnam(mtmp), mhis(mtmp));
 #else
 				pline("%s‚Í©•ª‚É‚Â‚¢‚Ä‚¢‚é%s‚ğ‚Í‚¸‚µ‚½I",
-				      Monnam(mtmp), jtrns_obj('(',"leash"));
+				      Monnam(mtmp), jtrns_obj(TOOL_SYM,"leash"));
 #endif
 				m_unleash(mtmp, FALSE);
 			}

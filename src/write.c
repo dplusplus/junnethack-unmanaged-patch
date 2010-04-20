@@ -318,7 +318,7 @@ found:
 		      OBJ_DESCR(objects[new_obj->otyp]));
 #else
 		pline("Žô•¶‘‚Í–­‚É”½‚è‚©‚¦‚èA‚»‚µ‚Ä%s‚É‚È‚Á‚½B",
-		      jtrns_obj('+', OBJ_DESCR(objects[new_obj->otyp])));
+		      jtrns_obj(SPBOOK_SYM, OBJ_DESCR(objects[new_obj->otyp])));
 #endif
 	}
 	new_obj->blessed = (curseval > 0);

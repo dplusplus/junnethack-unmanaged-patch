@@ -2351,7 +2351,7 @@ gulpmu(mtmp, mattk)	/* monster swallows you, or damage if u.uswallow */
 		    const char *s = (i > 1) ? "leashes" : "leash";
 		    pline_The("%s %s loose.", s, vtense(s, "snap"));
 #else
-		    pline("%sはパチンと切れた。", jtrns_obj('(',"leash"));
+		    pline("%sはパチンと切れた。", jtrns_obj(TOOL_SYM,"leash"));
 #endif
 		    unleash_all();
 		}

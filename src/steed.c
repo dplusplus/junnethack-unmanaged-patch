@@ -406,7 +406,7 @@ mount_steed(mtmp, force)
 		pline("%s‚Í‹‘”Û‚µ‚½I", Monnam(mtmp));
 	    else
 		pline("%s‚Í‹‘”Û‚µ‚ÄA%s‚ð‚Í‚¸‚µ‚½I", Monnam(mtmp),
-			jtrns_obj('(',"leash"));
+			jtrns_obj(TOOL_SYM,"leash"));
 #endif
 	    if (mtmp->mleashed) m_unleash(mtmp, FALSE);
 	    return (FALSE);

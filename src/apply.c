@@ -160,7 +160,7 @@ use_towel(obj)
 			    You("push your %s %s.", what,
 				rn2(2) ? "cock-eyed" : "crooked");
 #else
-			    pline("%sがちょっと%s。", jtrns_obj('(',what),
+			    pline("%sがちょっと%s。", jtrns_obj(TOOL_SYM,what),
 				rn2(2) ? "ずれた" : "ゆがんだ");
 #endif
 			} else {
@@ -168,7 +168,8 @@ use_towel(obj)
 /*JP
 			    You("push your %s off.", what);
 */
-			    pline("%sがずり落ちてしまった。", jtrns_obj('(',what));
+			    pline("%sがずり落ちてしまった。",
+				jtrns_obj(TOOL_SYM,what));
 			    Blindf_off(ublindf);
 			    dropx(saved_ublindf);
 			}
@@ -531,12 +532,12 @@ boolean feedback;
 		pline("%s pulls free of %s leash!", Monnam(mtmp), mhis(mtmp));
 */
 		pline("%sは%sを引っぱって逃れた！", Monnam(mtmp),
-			jtrns_obj('(',"leash"));
+			jtrns_obj(TOOL_SYM,"leash"));
 	    else
 /*JP
 		Your("leash falls slack.");
 */
-		Your("%sがたるんで落ちた。", jtrns_obj('(',"leash"));
+		Your("%sがたるんで落ちた。", jtrns_obj(TOOL_SYM,"leash"));
 	}
 	for(otmp = invent; otmp; otmp = otmp->nobj)
 		if(otmp->otyp == LEASH &&
@@ -573,7 +574,7 @@ struct obj *obj;
 		You("cannot leash any more pets.");
 */
 		You("これ以上ペットに%sをかけられない。",
-			jtrns_obj('(',"leash"));
+			jtrns_obj(TOOL_SYM,"leash"));
 		return;
 	}
 
@@ -618,7 +619,7 @@ struct obj *obj;
 		pline("%s %s leashed!", Monnam(mtmp), (!obj->leashmon) ?
 				"cannot be" : "is not");
 #else
-		pline("%sは%sで%s！", Monnam(mtmp), jtrns_obj('(',"leash"),
+		pline("%sは%sで%s！", Monnam(mtmp), jtrns_obj(TOOL_SYM,"leash"),
 			(!obj->leashmon) ? "つなげない" : "つながれてない");
 #endif
 	    return;
@@ -639,7 +640,7 @@ struct obj *obj;
 		    spotmon ? "your " : "", l_monnam(mtmp));
 #else
 		You("%sを%sでつないだ。",
-		    l_monnam(mtmp), jtrns_obj('(',"leash"));
+		    l_monnam(mtmp), jtrns_obj(TOOL_SYM,"leash"));
 #endif
 		mtmp->mleashed = 1;
 		obj->leashmon = (int)mtmp->m_id;
@@ -651,14 +652,14 @@ struct obj *obj;
 		pline("This leash is not attached to that creature.");
 */
 		pline("この%sはそれにはつながれていない。",
-			jtrns_obj('(',"leash"));
+			jtrns_obj(TOOL_SYM,"leash"));
 		return;
 	} else {
 		if(obj->cursed) {
 /*JP
 			pline_The("leash would not come off!");
 */
-			pline("%sがはずれない！", jtrns_obj('(',"leash"));
+			pline("%sがはずれない！", jtrns_obj(TOOL_SYM,"leash"));
 			obj->bknown = TRUE;
 			return;
 		}
@@ -669,7 +670,7 @@ struct obj *obj;
 		    spotmon ? "your " : "", l_monnam(mtmp));
 #else
 		You("%sから%sをはずした。",
-		    l_monnam(mtmp), jtrns_obj('(',"leash"));
+		    l_monnam(mtmp), jtrns_obj(TOOL_SYM,"leash"));
 #endif
 	}
 	return;
@@ -713,7 +714,7 @@ next_to_u()
 					(number_leashed() > 1) ? "a" : "the");
 #else
 				    You("%sがたるんだような気がした。",
-					jtrns_obj('(',"leash"));
+					jtrns_obj(TOOL_SYM,"leash"));
 #endif
 				    mtmp->mleashed = 0;
 				    otmp->leashmon = 0;
@@ -774,7 +775,7 @@ register xchar x, y;
 			pline("%s chokes on the leash!", Monnam(mtmp));
 */
 			pline("%sは%sで首を絞められた！", Monnam(mtmp),
-				jtrns_obj('(',"leash"));
+				jtrns_obj(TOOL_SYM,"leash"));
 			/* tameness eventually drops to 1 here (never 0) */
 			if (mtmp->mtame && rn2(mtmp->mtame)) mtmp->mtame--;
 		    }
@@ -784,14 +785,14 @@ register xchar x, y;
 			pline("%s leash snaps loose!", s_suffix(Monnam(mtmp)));
 */
 			pline("%sの%sはパチンと外れた！", Monnam(mtmp),
-				jtrns_obj('(',"leash"));
+				jtrns_obj(TOOL_SYM,"leash"));
 			m_unleash(mtmp, FALSE);
 		    } else {
 /*JP
 				    You("pull on the leash.");
 */
 				    You("%sを引っぱった。",
-					jtrns_obj('(',"leash"));
+					jtrns_obj(TOOL_SYM,"leash"));
 			if (mtmp->data->msound != MS_SILENT)
 			    switch (rn2(3)) {
 			    case 0:  growl(mtmp);   break;

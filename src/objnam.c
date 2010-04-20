@@ -134,8 +134,8 @@ register int otyp;
 		Strcpy(buf, "coin");
 #else
 		if(nn)
-		  Strcat(buf,jtrns_obj('$',actualn));
-		type = '$';
+		  Strcat(buf,jtrns_obj(GOLD_SYM,actualn));
+		type = GOLD_SYM;
 #endif
 		break;
 	case POTION_CLASS:
@@ -143,10 +143,10 @@ register int otyp;
 		Strcpy(buf, "potion");
 #else
 		if(nn)
-		  Strcat(buf,jtrns_obj('!',actualn));
+		  Strcat(buf,jtrns_obj(POTION_SYM,actualn));
 		else if(un)
 		  Strcat(buf, "–ò");
-		type = '!';
+		type = POTION_SYM;
 #endif
 		break;
 	case SCROLL_CLASS:
@@ -154,10 +154,10 @@ register int otyp;
 		Strcpy(buf, "scroll");
 #else
 		if(nn)
-		  Strcat(buf,jtrns_obj('?',actualn));
+		  Strcat(buf,jtrns_obj(SCROLL_SYM,actualn));
 		else if(un)
 		  Strcat(buf, "Šª•¨");
-		 type = '?';
+		 type = SCROLL_SYM;
 #endif
 		break;
 	case WAND_CLASS:
@@ -165,10 +165,10 @@ register int otyp;
 		Strcpy(buf, "wand");
 #else
 		if(nn)
-		  Strcat(buf,jtrns_obj('/',actualn));
+		  Strcat(buf,jtrns_obj(WAND_SYM,actualn));
 		else if(un)
 		  Strcat(buf, "ñ");
-		type = '/';
+		type = WAND_SYM;
 #endif
 		break;
 	case SPBOOK_CLASS:
@@ -176,10 +176,10 @@ register int otyp;
 		Strcpy(buf, "spellbook");
 #else
 		if(nn)
-		  Strcat(buf,jtrns_obj('+',actualn));
+		  Strcat(buf,jtrns_obj(SPBOOK_SYM,actualn));
 		else if(un)
 		  Strcat(buf, "Žô•¶‘");
-		type = '+';
+		type = SPBOOK_SYM;
 #endif
 		break;
 	case RING_CLASS:
@@ -187,10 +187,10 @@ register int otyp;
 		Strcpy(buf, "ring");
 #else
 		if(nn)
-		  Strcat(buf,jtrns_obj('=',actualn));
+		  Strcat(buf,jtrns_obj(RING_SYM,actualn));
 		else if(un)
 		  Strcat(buf, "Žw—Ö");
-		type = '=';
+		type = RING_SYM;
 #endif
 		break;
 	case AMULET_CLASS:
@@ -205,19 +205,19 @@ register int otyp;
 			Sprintf(eos(buf)," (%s)",dn);
 		return(buf);
 #else
-			Strcat(buf,jtrns_obj('"',actualn));
+			Strcat(buf,jtrns_obj(AMULET_SYM,actualn));
 		else if(un)
 		    Strcat(buf, "–‚œ‚¯");
-		type = '"';
+		type = AMULET_SYM;
 		break;
 #endif
 #if 1 /*JP*/
 	case GEM_CLASS:
 		if(nn)
-		  Strcat(buf,jtrns_obj('*',actualn));
+		  Strcat(buf,jtrns_obj(GOLD_SYM,actualn));
 		else if(un)
 		  Strcat(buf, "•óÎ");
-		type = '*';
+		type = GOLD_SYM;
 		break;
 #endif
 	default:
@@ -402,8 +402,8 @@ register struct obj *obj;
 	switch (obj->oclass) {
 	    case AMULET_CLASS:
 #if 1 /*JP*/
-		jactualn = jtrns_obj('"', actualn);
-		jdn = jtrns_obj('"', dn);
+		jactualn = jtrns_obj(AMULET_SYM, actualn);
+		jdn = jtrns_obj(AMULET_SYM, dn);
 #endif
 		if (!obj->dknown)
 /*JP
@@ -435,8 +435,8 @@ register struct obj *obj;
 		break;
 	    case WEAPON_CLASS:
 #if 1 /*JP*/
-		jactualn = jtrns_obj(')',actualn);
-		jdn = jtrns_obj(')',dn);
+		jactualn = jtrns_obj(WEAPON_SYM,actualn);
+		jdn = jtrns_obj(WEAPON_SYM,dn);
 #endif
 		if (is_poisonable(obj) && obj->opoisoned)
 /*JP
@@ -447,12 +447,12 @@ register struct obj *obj;
 	    case TOOL_CLASS:
 #if 1 /*JP*/
 		if(obj->oclass == VENOM_CLASS){
-		  jactualn = jtrns_obj('\'',actualn);
-		  jdn = jtrns_obj('\'',dn);
+		  jactualn = jtrns_obj(VENOM_SYM,actualn);
+		  jdn = jtrns_obj(VENOM_SYM,dn);
 		}
 		else if(obj->oclass == TOOL_CLASS){
-		  jactualn = jtrns_obj('(',actualn);
-		  jdn = jtrns_obj('(',dn);
+		  jactualn = jtrns_obj(TOOL_SYM,actualn);
+		  jdn = jtrns_obj(TOOL_SYM,dn);
 		}
 		if (typ == FIGURINE)
 			Sprintf(eos(buf), "%s‚Ì", jtrns_mon(mons[obj->corpsenm].mname));
@@ -499,8 +499,8 @@ register struct obj *obj;
 		break;
 	    case ARMOR_CLASS:
 #if 1 /*JP*/
-		jactualn = jtrns_obj(']',actualn);
-		jdn = jtrns_obj(']',dn);
+		jactualn = jtrns_obj(ARMOR_SYM,actualn);
+		jdn = jtrns_obj(ARMOR_SYM,dn);
 #endif
 		if (Is_dragon_scales(obj->otyp)) {
 #if 0 /*JP*/
@@ -566,8 +566,8 @@ register struct obj *obj;
 		break;
 	    case FOOD_CLASS:
 #if 1 /*JP*/
-		jactualn = jtrns_obj('%',actualn);
-		jdn = jtrns_obj('%',dn);
+		jactualn = jtrns_obj(FOOD_SYM,actualn);
+		jdn = jtrns_obj(FOOD_SYM,dn);
 #endif
 		if (typ == SLIME_MOLD) {
 			register struct fruit *f;
@@ -619,8 +619,8 @@ register struct obj *obj;
 		break;
 	    case COIN_CLASS:
 #if 1 /*JP*/
-		jactualn = jtrns_obj('$',actualn);
-		jdn = jtrns_obj('$',dn);
+		jactualn = jtrns_obj(GOLD_SYM,actualn);
+		jdn = jtrns_obj(GOLD_SYM,dn);
 		Strcat(buf, jactualn);
 		break;
 #endif
@@ -628,15 +628,15 @@ register struct obj *obj;
 #if 0 /*JP*/
 		Strcpy(buf, actualn);
 #else
-		jactualn = jtrns_obj('_',actualn);
-		jdn = jtrns_obj('_',dn);
+		jactualn = jtrns_obj(CHAIN_SYM,actualn);
+		jdn = jtrns_obj(CHAIN_SYM,dn);
 		Strcat(buf, jactualn);
 #endif
 		break;
 	    case ROCK_CLASS:
 #if 1 /*JP*/
-		jactualn = jtrns_obj('\'',actualn);
-		jdn = jtrns_obj('\'',dn);
+		jactualn = jtrns_obj(ROCK_SYM,actualn);
+		jdn = jtrns_obj(ROCK_SYM,dn);
 #endif
 		if (typ == STATUE)
 #if 0 /*JP*/
@@ -663,13 +663,13 @@ register struct obj *obj;
 #else
 		Sprintf(eos(buf), "%s%s",
 			(obj->owt > ocl->oc_weight) ? "‚Æ‚Ä‚à" : "",
-			jtrns_obj('0', "heavy iron ball"));
+			jtrns_obj(BALL_SYM, "heavy iron ball"));
 #endif
 		break;
 	    case POTION_CLASS:
 #if 1 /*JP*/
-		jactualn = jtrns_obj('!',actualn);
-		jdn = jtrns_obj('!',dn);
+		jactualn = jtrns_obj(POTION_SYM,actualn);
+		jdn = jtrns_obj(POTION_SYM,dn);
 #endif
 		if (obj->dknown && obj->odiluted)
 /*JP
@@ -722,8 +722,8 @@ register struct obj *obj;
 		break;
 	case SCROLL_CLASS:
 #if 1 /*JP*/
-		jactualn = jtrns_obj('?', actualn);
-		jdn = jtrns_obj('?', dn);
+		jactualn = jtrns_obj(SCROLL_SYM, actualn);
+		jdn = jtrns_obj(SCROLL_SYM, dn);
 		if(!obj->dknown){
 			Strcat(buf,"Šª•¨");
 			break;
@@ -765,8 +765,8 @@ register struct obj *obj;
 		break;
 	case WAND_CLASS:
 #if 1 /*JP*/
-		jactualn = jtrns_obj('/',actualn);
-		jdn = jtrns_obj('/',dn);
+		jactualn = jtrns_obj(WAND_SYM,actualn);
+		jdn = jtrns_obj(WAND_SYM,dn);
 #endif
 		if(!obj->dknown)
 /*JP
@@ -791,8 +791,8 @@ register struct obj *obj;
 		break;
 	case SPBOOK_CLASS:
 #if 1 /*JP*/
-		jactualn = jtrns_obj('+',actualn);
-		jdn = jtrns_obj('+',dn);
+		jactualn = jtrns_obj(SPBOOK_SYM,actualn);
+		jdn = jtrns_obj(SPBOOK_SYM,dn);
 #endif
 		if (!obj->dknown) {
 /*JP
@@ -820,8 +820,8 @@ register struct obj *obj;
 		break;
 	case RING_CLASS:
 #if 1 /*JP*/
-		jactualn = jtrns_obj('=',actualn);
-		jdn = jtrns_obj('=',dn);
+		jactualn = jtrns_obj(RING_SYM,actualn);
+		jdn = jtrns_obj(RING_SYM,dn);
 #endif
 		if(!obj->dknown)
 /*JP
@@ -846,8 +846,8 @@ register struct obj *obj;
 		break;
 	case GEM_CLASS:
 #if 1 /*JP*/
-		jactualn = jtrns_obj('*',actualn);
-		jdn = jtrns_obj('*',dn);
+		jactualn = jtrns_obj(GEM_SYM,actualn);
+		jdn = jtrns_obj(GEM_SYM,dn);
 #endif
 	    {
 		const char *rock =

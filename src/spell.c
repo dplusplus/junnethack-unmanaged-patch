@@ -452,7 +452,7 @@ learn()
 #else
 	Sprintf(splname, objects[booktype].oc_name_known ?
 			"\"%s\"" : "\"%s\"",
-		jtrns_obj('+', OBJ_NAME(objects[booktype])));
+		jtrns_obj(SPBOOK_SYM, OBJ_NAME(objects[booktype])));
 #endif
 	for (i = 0; i < MAXSPELL; i++)  {
 		if (spellid(i) == booktype)  {
@@ -1377,7 +1377,7 @@ int *spell_no;
 			spelltypemnemonic(spell_skilltype(spellid(i))),
 			100 - percent_success(i));
 #else
-			jtrns_obj('+', spellname(i)), spellev(i),
+			jtrns_obj(SPBOOK_SYM, spellname(i)), spellev(i),
 			spellknow(i) ? " " : "*",
 			spelltypemnemonic(spell_skilltype(spellid(i))),
 			percent_success(i));
@@ -1453,7 +1453,7 @@ dump_spells()
 			spelltypemnemonic(spell_skilltype(spellid(i))),
 			100 - percent_success(i));
 #else
-			spellet(i), jtrns_obj('+', spellname(i)), spellev(i),
+			spellet(i), jtrns_obj(SPBOOK_SYM, spellname(i)), spellev(i),
 			spellknow(i) ? " " : "*",
 			spelltypemnemonic(spell_skilltype(spellid(i))),
 			percent_success(i));
@@ -1465,7 +1465,7 @@ dump_spells()
 			spelltypemnemonic(spell_skilltype(spellid(i))),
 			100 - percent_success(i));
 #else
-			spellet(i), jtrns_obj('+', spellname(i)), spellev(i),
+			spellet(i), jtrns_obj(SPBOOK_SYM, spellname(i)), spellev(i),
 			spelltypemnemonic(spell_skilltype(spellid(i))),
 			percent_success(i));
 #endif

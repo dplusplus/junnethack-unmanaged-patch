@@ -760,7 +760,7 @@ drinksink()
 #else
 			pline("ŽÖŒû‚©‚ç%s‰t‘Ì‚ª—¬‚ê‚½B",
 			      Blind ? "Šï–­‚È" :
-			      hcolor(jtrns_obj('!',OBJ_DESCR(objects[otmp->otyp]))));
+			      hcolor(jtrns_obj(POTION_SYM,OBJ_DESCR(objects[otmp->otyp]))));
 #endif
 			otmp->dknown = !(Blind || Hallucination);
 			otmp->quan++; /* Avoid panic upon useup() */

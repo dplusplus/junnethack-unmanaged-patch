@@ -3900,7 +3900,7 @@ drown()
 			(i > 1) ? "es" : "",
 			(i > 1) ? "" : "s");
 #else
-		pline("%s‚ª‚ä‚é‚ñ‚¾B", jtrns_obj('(',"leash"));
+		pline("%s‚ª‚ä‚é‚ñ‚¾B", jtrns_obj(TOOL_SYM,"leash"));
 #endif
 		unleash_all();
 	}

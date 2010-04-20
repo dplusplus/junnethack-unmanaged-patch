@@ -637,7 +637,7 @@ boolean pets_only;	/* true for ascension or final escape */
 				pline("%s‚É‚Â‚È‚ª‚ê‚½%s‚Í“Ë‘R‚ä‚é‚ñ‚¾B",
 				    humanoid(mtmp->data)
 					? (mtmp->female ? "”Ş—" : "”Ş") : "‚»‚ê",
-					jtrns_obj('(',"leash"));
+					jtrns_obj(TOOL_SYM,"leash"));
 #endif
 				m_unleash(mtmp, FALSE);
 			}
@@ -681,7 +681,7 @@ boolean pets_only;	/* true for ascension or final escape */
 		pline("%s leash goes slack.", s_suffix(Monnam(mtmp)));
 */
 		pline("%s‚É‚Â‚È‚ª‚ê‚½%s‚Í‚½‚é‚ñ‚¾B", Monnam(mtmp),
-			jtrns_obj('(',"leash"));
+			jtrns_obj(TOOL_SYM,"leash"));
 		m_unleash(mtmp, FALSE);
 	    }
 	}

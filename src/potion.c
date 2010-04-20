@@ -2505,8 +2505,8 @@ struct obj *potion, *obj;
 				OBJ_DESCR(objects[obj->otyp]));
 #else
 			You("%s薬に%s薬を調合した．．．", 
-				jtrns_obj('!', OBJ_DESCR(objects[potion->otyp])),
-				jtrns_obj('!', OBJ_DESCR(objects[obj->otyp])));
+				jtrns_obj(POTION_SYM, OBJ_DESCR(objects[potion->otyp])),
+				jtrns_obj(POTION_SYM, OBJ_DESCR(objects[obj->otyp])));
 #endif
 		} else
 /*JP
@@ -2584,7 +2584,7 @@ struct obj *potion, *obj;
 				hcolor(OBJ_DESCR(objects[obj->otyp])));
 #else
 			pline("混ぜた薬は%s薬に見える。",
-				jtrns_obj('!',OBJ_DESCR(objects[obj->otyp])));
+				jtrns_obj(POTION_SYM,OBJ_DESCR(objects[obj->otyp])));
 #endif
 		}
 
@@ -2808,7 +2808,7 @@ struct obj *potion, *obj;
 			    hcolor(OBJ_DESCR(objects[potion->otyp])));
 #else
 		    Sprintf(oldbuf, "%s",
-			    jtrns_obj('!', hcolor(OBJ_DESCR(objects[potion->otyp]))));
+			    hcolor(jtrns_obj(POTION_SYM, OBJ_DESCR(objects[potion->otyp]))));
 #endif
 		}
 		/* with multiple merged potions, split off one and
@@ -2849,8 +2849,8 @@ struct obj *potion, *obj;
 			pline("%s薬は透明になった。", oldbuf);
 		    else
 			pline("%s薬は%s薬になった。", oldbuf,
-			      jtrns_obj('!',
-				hcolor(OBJ_DESCR(objects[mixture]))));
+				hcolor(jtrns_obj(POTION_SYM,
+				    OBJ_DESCR(objects[mixture]))));
 #endif
 		    if(!objects[old_otyp].oc_uname &&
 			!objects[old_otyp].oc_name_known && old_dknown) {

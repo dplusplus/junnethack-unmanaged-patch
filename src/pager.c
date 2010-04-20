@@ -213,7 +213,7 @@ lookat(x, y, buf, monbuf, buf2)
 		Strcat(buf, ", leashed to you");
 #else
 		Sprintf(eos(buf), "A%s‚Å‚Â‚È‚ª‚ê‚Ä‚¢‚é",
-			jtrns_obj('(',"leash"));
+			jtrns_obj(TOOL_SYM,"leash"));
 #endif
 
 	    if (mtmp->mtrapped && cansee(mtmp->mx, mtmp->my)) {
