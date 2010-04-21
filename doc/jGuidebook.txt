@@ -2366,8 +2366,8 @@
             VWXYZ@ '&;:~]'').   この文字列は dungeon オプションと同様に処理
             される。シンボルの順序は、 ant or other insect(蟻または他 の 昆
             虫),  blob( ブ ロッ ブ),  cockatrice( コカトリス), dog or other
-            canine(犬またはイヌ科の動物), eye or sphere(目 ま た は 球 体),
-            feline( ネコ科の動物), gremlin(グレムリン), humanoid(ヒューマノ
+            canine(犬またはイヌ科の動物), eye or sphere(目または球体),  cat
+            or  other  feline( 猫 またはネコ科の動物), gremlin(グレムリン),
 
 
           NetHack 3.4                                      December 2, 2003
@@ -2380,26 +2380,29 @@
 
 
 
-            イド), imp or minor demon(インプまたは下級悪魔), jelly(ゼリー),
-            kobold( コ ボ ルド), leprechaun(レプラコーン), mimic(ミミック),
-            nymph(ニンフ), orc(オーク), piercer(穴喰い), quadruped(四 足 動
-            物),  rodent( 齧歯動物), arachnid or centipede(クモ類またはムカ
-            デ), trapper or lurker above(トラッパーまたはラー カー),  horse
-            or  unicorn( 馬またはユニコーン), vortex(渦), worm(ワーム), xan
-            or other mythical/fantastic insect(ザンまたは神話やファンタジー
-            の昆虫), light(光), zruty(ズルティ), angelic being(天使のごとき
-            存在), bat or bird(こうもりまたは鳥), centaur(ケンタ ウ ロ ス),
-            dragon( ドラゴン), elemental(精霊), fungus or mold(キノコまたは
-            モールド), gnome(ノー ム),  giant  humanoid( 巨 人),  invisible
-            monster( 見 え な い怪物), jabberwock(ジャバウォック), Keystone
-            Kop(警備員), lich(リッチ), mummy(ミイラ), naga(ナー ガ),  ogre(
-            オーガ), pudding or ooze(プリンまたはウーズ), quantum mechanic(
-            量子力学), rust monster(錆の怪物), snake(ヘビ), troll(トロ ル),
-            umber  hulk( ア ンバーハルク), vampire(吸血鬼), wraith(レイス),
-            xorn(ゾーン), apelike creature(猿のような生物), zombie(ゾンビ),
-            human( 人 間),  ghost( 幽霊), golem(ゴーレム), demon(悪魔), sea
+            humanoid(ヒューマノイド), imp or minor demon(インプまたは下級悪
+            魔), jelly(ゼリー), kobold(コボルド), leprechaun(レプラコーン),
+            mimic(ミミック), nymph(ニンフ), orc(オーク), piercer(穴 喰 い),
+            quadruped(四足動物), rodent(齧歯動物), arachnid or centipede(ク
+            モ類またはムカデ), trapper or lurker above(トラッパーまたはラー
+            カー),  horse or unicorn(馬またはユニコーン), vortex(渦), worm(
+            ワーム), xan or other mythical/fantastic insect(ザンまたは神 話
+            や ファ ン タ ジー の昆虫), light(光), zruty(ズルティ), angelic
+            being(天使のごとき存在), bat or bird( こ う も り ま た は 鳥),
+            centaur( ケンタウロス), dragon(ドラゴン), elemental(精霊), fun-
+            gus or mold(キノコまた は モー ル ド),  gnome( ノー ム),  giant
+            humanoid( 巨 人),  invisible monster(見えない怪物), jabberwock(
+            ジャバウォック), Keystone Kop(警備員), lich(リッチ), mummy(ミイ
+            ラ),  naga( ナーガ), ogre(オーガ), pudding or ooze(プリンまたは
+            ウーズ), quantum mechanic(量子力学),  rust  monster  or  disen-
+            chanter or disintegrator(錆の怪物、吸魔の怪物または粉砕の怪物),
+            snake(ヘビ), troll(トロル),  umber  hulk( ア ン バー ハ ル ク),
+            vampire( 吸 血 鬼),  wraith( レ イ ス),  xorn( ゾーン), apelike
+            creature(猿のような生物), zombie(ゾンビ), human or elf(人間また
+            は エ ル フ),  ghost( 幽 霊), golem(ゴーレム), demon(悪魔), sea
             monster(海の怪物), lizard(爬虫類), long worm tail(ロングワー ム
-            の尻尾), mimic(ミミック) `O' コマンドで設定することはできない。
+            の 尻尾), mimic(ミミック) である。 `O' コマンドで設定することは
+            できない。
 
           msghistory
             後で ^P で呼び出すために保存しておく最上行のメッセージの数(標準
@@ -2431,9 +2434,6 @@
             のオプションを無効化すること(標準設定はオン)。 `O' コマンドで設
             定することはできない。
 
-          news
-            NetHack  のニュースファイルがあればそれを読む(標準設定はオン)。
-            ニュースはゲームの最初に表示されるので、 `O' コマンドでこれを設
 
 
           NetHack 3.4                                      December 2, 2003
@@ -2446,6 +2446,9 @@
 
 
 
+          news
+            NetHack  のニュースファイルがあればそれを読む(標準設定はオン)。
+            ニュースはゲームの最初に表示されるので、 `O' コマンドでこれを設
             定するのは無意味である。
 
           null
@@ -2498,9 +2501,6 @@
             dened, streSsed, straiNed, overTaxed, overLoaded) 以上 に な る
             と、続行するかどうかを確認する。 (標準設定は `S').
 
-          pickup_dropped
-            こ の 真 偽 オ プ ショ ンが無効で autopickup が有効である場合、
-
 
           NetHack 3.4                                      December 2, 2003
 
@@ -2512,8 +2512,10 @@
 
 
 
-            pickup_types に入ってるものであっても、あなたが落としたものは自
-            動的に拾わない。初期値は無効。
+          pickup_dropped
+            こ の真偽オプションが無効で autopickup が有効である場合、 pick-
+            up_types に入ってるものであっても、あなたが落としたものは自動的
+            に拾わない。初期値は無効。
 
           pickup_thrown
             この真偽オプションと autopickup が有効である場合、 pickup_types
@@ -2564,8 +2566,6 @@
             については``name''オプションを参照のこと。普通は先頭の 1 文字だ
             け  で  判  別  さ  れ  る  が、   `r'   は   例   外   で   あ
             る。``Rogue''、``Ranger''、``random''があるからである。
-
-
 
 
           NetHack 3.4                                      December 2, 2003
