@@ -1,5 +1,5 @@
-Fri Apr 23 2010  Masaki Miyaso  <so-miya@sourceforge.jp>
-	* UnNetHack SVN版r480をベースにした。
+Mon Apr 26 2010  Masaki Miyaso  <so-miya@sourceforge.jp>
+	* UnNetHack SVN版r482をベースにした。
 	  r356 patchlevelを3.5.3にした
 	  r357 パッチ：ダンジョンマップ概要3 (Hojita Discordiaより)
 	  r358 マップ概要に闇市と道具屋を追加
@@ -185,6 +185,8 @@ Fri Apr 23 2010  Masaki Miyaso  <so-miya@sourceforge.jp>
 	  r475 ビッグルームにいくつかのろうそくを追加
 	  r478 farlookコマンドの概要に粉砕の怪物を追加
 	  r480 バグ修正：チュートリアルタイトルを正しく復号
+	  r482 SC343-20 拾った店内の金貨が複製された金貨である場合のハング
+	       アップに対処
 	* 起動時の職業名が翻訳されなくなっていたのを修正
 	* ダンプ関係で終了時のトップテン表示がおかしくなっていたので修正
 	* 日本語ダンプファイル名の対処

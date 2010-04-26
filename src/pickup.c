@@ -1457,12 +1457,11 @@ boolean telekinesis;	/* not picking it up directly by hand */
 		pline("%ld–‡‚Ì‹à‰Ý%sB", 
 		      gold_capacity, nearloadmsg);
 #endif
+		costly_gold(obj->ox, obj->oy, gold_capacity);
 		u.ugold += gold_capacity;
 		obj->quan -= gold_capacity;
-		costly_gold(obj->ox, obj->oy, gold_capacity);
 	    } else {
-		u.ugold += count;
-		if ((nearload = near_capacity()) != 0)
+		if ((nearload = calc_capacity(GOLD_WT(count))) != 0)
 #if 0 /*JP*/
 		    pline("%s %ld gold piece%s.",
 			  nearload < MOD_ENCUMBER ?
@@ -1477,6 +1476,7 @@ boolean telekinesis;	/* not picking it up directly by hand */
 		else
 		    prinv((char *) 0, obj, count);
 		costly_gold(obj->ox, obj->oy, count);
+		u.ugold += count;
 		if (count == obj->quan)
 		    delobj(obj);
 		else
