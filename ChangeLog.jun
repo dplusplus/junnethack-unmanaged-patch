@@ -1,5 +1,5 @@
 Fri Apr 30 2010  Masaki Miyaso  <so-miya@sourceforge.jp>
-	* UnNetHack SVN版r485をベースにした。
+	* UnNetHack SVN版r486をベースにした。
 	  r356 patchlevelを3.5.3にした
 	  r357 パッチ：ダンジョンマップ概要3 (Hojita Discordiaより)
 	  r358 マップ概要に闇市と道具屋を追加
@@ -189,6 +189,7 @@ Fri Apr 30 2010  Masaki Miyaso  <so-miya@sourceforge.jp>
 	       アップに対処
 	  r483 dark_roomが無効のとき、倉庫番の全ての床を明るく見せる
 	  r485 クエストの開始に必要なレベルを下げた
+	  r486 Livelog：プレイヤーの拾った倉庫番の景品をリポートするように
 	* 起動時の職業名が翻訳されなくなっていたのを修正
 	* ダンプ関係で終了時のトップテン表示がおかしくなっていたので修正
 	* 日本語ダンプファイル名の対処
