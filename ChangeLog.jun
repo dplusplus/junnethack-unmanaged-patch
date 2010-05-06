@@ -1,5 +1,5 @@
 Thu May 06 2010  Masaki Miyaso  <so-miya@sourceforge.jp>
-	* UnNetHack SVN版r490をベースにした。
+	* UnNetHack SVN版r491をベースにした。
 	  r356 patchlevelを3.5.3にした
 	  r357 パッチ：ダンジョンマップ概要3 (Hojita Discordiaより)
 	  r358 マップ概要に闇市と道具屋を追加
@@ -191,6 +191,9 @@ Thu May 06 2010  Masaki Miyaso  <so-miya@sourceforge.jp>
 	  r485 クエストの開始に必要なレベルを下げた
 	  r486 Livelog：プレイヤーの拾った倉庫番の景品をリポートするように
 	  r490 倉庫番分岐の深さを一つ減らした
+	  r487 新GUIポート：dummy
+	  r488 Dummy GUI：dummy_get_ext_cmdとdummy_getcharを実装
+	  r491 Dummy GUI：dummy_getchar を行に適応させた
 	* 起動時の職業名が翻訳されなくなっていたのを修正
 	* ダンプ関係で終了時のトップテン表示がおかしくなっていたので修正
 	* 日本語ダンプファイル名の対処
