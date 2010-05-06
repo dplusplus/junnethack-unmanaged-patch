@@ -1116,7 +1116,7 @@ spotless: clean
 	if exist $(DAT)\rumors		del $(DAT)\rumors
 	if exist $(DAT)\jrumors		del $(DAT)\jrumors
 	if exist $(DAT)\sanctum.lev	del $(DAT)\sanctum.lev
-	if exist $(DAT)\soko?-?.lev	del $(DAT)\soko?-?.lev
+	if exist $(DAT)\soko?-*.lev	del $(DAT)\soko?-*.lev
 	if exist $(DAT)\tower?.lev	del $(DAT)\tower?.lev
 	if exist $(DAT)\town-?.lev	del $(DAT)\town-?.lev
 	if exist $(DAT)\valley-?.lev	del $(DAT)\valley-?.lev
