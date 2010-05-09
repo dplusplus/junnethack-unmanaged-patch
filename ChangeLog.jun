@@ -1,5 +1,5 @@
 Sun May 09 2010  Masaki Miyaso  <so-miya@sourceforge.jp>
-	* UnNetHack SVN版r495をベースにした。
+	* UnNetHack SVN版r497をベースにした。
 	  r356 patchlevelを3.5.3にした
 	  r357 パッチ：ダンジョンマップ概要3 (Hojita Discordiaより)
 	  r358 マップ概要に闇市と道具屋を追加
@@ -196,6 +196,11 @@ Sun May 09 2010  Masaki Miyaso  <so-miya@sourceforge.jp>
 	  r491 Dummy GUI：dummy_getchar を行に適応させた
 	  r492 Tests：簡単な単体テスト
 	  r495 Tests：HACKDIR未設定時に例外を出す
+	  r493 Dummy GUI：dummy_getlin、dummy_raw_print、
+	       dummy_raw_print_boldの出力を改行で分割
+	  r494 Dummy GUI：Makefileに追加
+	  r496 Dummy GUI：コンパイル警告の修正
+	  r497 Dummy GUI：configure に --enable-dummy-graphics を追加
 	* 起動時の職業名が翻訳されなくなっていたのを修正
 	* ダンプ関係で終了時のトップテン表示がおかしくなっていたので修正
 	* 日本語ダンプファイル名の対処

@@ -321,7 +321,7 @@ dummy_player_selection()
 void dummy_askname()
 {
 	fprintf(stdout, "What is your name? ");
-	char *ret = fgets(plname, 256, stdin);
+	char *ret = fgets(plname, sizeof(plname), stdin);
 	/* Quit if they want to quit... */
 	if (ret==NULL) {
 		dummy_exit_nhwindows(0);
@@ -660,7 +660,7 @@ raw_print(str)  -- Print directly to a screen, or otherwise guarantee that
 */
 void dummy_raw_print(const char *str)
 {
-	printf("dummy_raw_print: %s\n", str);
+	printf("dummy_raw_print\n%s\n", str);
 }
 
 /*
@@ -670,7 +670,7 @@ possible).
 */
 void dummy_raw_print_bold(const char *str)
 {
-	printf("dummy_raw_print_bold: *%s*\n", str);
+	printf("dummy_raw_print_bold\n*%s*\n", str);
 }
 
 static int dummy_getchar()
@@ -825,7 +825,7 @@ getlin(const char *ques, char *input)
 void dummy_getlin(const char *question, char *input)
 {
 	printf("dummy_getlin\n");
-	fprintf(stdout, "%s: ", question);
+	fprintf(stdout, "%s:\n", question);
 	fflush(stdout);
 	char *ret = fgets(input, 256, stdin);
 
@@ -851,7 +851,7 @@ int dummy_get_ext_cmd()
 	char *ret;
 
 	printf("dummy_get_ext_cmd\n");
-	ret = fgets(cmd, 256, stdin);
+	ret = fgets(cmd, sizeof(cmd), stdin);
 
 	for (i = 0; extcmdlist[i].ef_txt != (char *)0; i++) {
 		strip_newline(ret);
