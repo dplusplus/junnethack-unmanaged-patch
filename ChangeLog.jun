@@ -1,5 +1,5 @@
 Sun May 09 2010  Masaki Miyaso  <so-miya@sourceforge.jp>
-	* UnNetHack SVN版r498をベースにした。
+	* UnNetHack SVN版r499をベースにした。
 	  r356 patchlevelを3.5.3にした
 	  r357 パッチ：ダンジョンマップ概要3 (Hojita Discordiaより)
 	  r358 マップ概要に闇市と道具屋を追加
@@ -202,6 +202,7 @@ Sun May 09 2010  Masaki Miyaso  <so-miya@sourceforge.jp>
 	  r496 Dummy GUI：コンパイル警告の修正
 	  r497 Dummy GUI：configure に --enable-dummy-graphics を追加
 	  r498 「<竜の名称> dragon scales」を願ったときの処理
+	  r499 バグ修正：倉庫番の景品が何者かに拾われて複数になるのを防止
 	* 起動時の職業名が翻訳されなくなっていたのを修正
 	* ダンプ関係で終了時のトップテン表示がおかしくなっていたので修正
 	* 日本語ダンプファイル名の対処
