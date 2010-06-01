@@ -1439,7 +1439,7 @@ dump_spells()
 	Sprintf(buf, "%-20s   Level    %-12s Fail", "    Name", "Category");
 */
 	Sprintf(buf, "%-20s   Level    %-12s ê¨å˜ó¶", "    Name", "ï™óﬁ");
-	dump_text("  ",buf);
+	dump_text("  %s\n",buf);
 	dump_html("<table class=\"nh_spells\">\n", "");
 /*JP
 	dump_html("<tr><th></th><th>Name</th><th>Level</th><th>Category</th><th>Fail</th></tr>\n", "");
@@ -1458,7 +1458,7 @@ dump_spells()
 			spelltypemnemonic(spell_skilltype(spellid(i))),
 			percent_success(i));
 #endif
-		dump_text("  ", buf);
+		dump_text("  %s\n", buf);
 		Sprintf(buf, "<tr><td class=\"nh_item_letter\">%c</td><td>%s</td><td align=\"right\">%d</td><td>%s</td><td align=\"right\">%d%%</td></tr>\n",
 #if 0 /*JP*/
 			spellet(i), spellname(i), spellev(i),
