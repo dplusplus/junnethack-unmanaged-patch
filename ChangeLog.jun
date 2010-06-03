@@ -1,5 +1,5 @@
 Thu Jun 03 2010  Masaki Miyaso  <so-miya@sourceforge.jp>
-	* UnNetHack SVN版r503をベースにした。
+	* UnNetHack SVN版r506をベースにした。
 	  r356 patchlevelを3.5.3にした
 	  r357 パッチ：ダンジョンマップ概要3 (Hojita Discordiaより)
 	  r358 マップ概要に闇市と道具屋を追加
@@ -207,6 +207,8 @@ Thu Jun 03 2010  Masaki Miyaso  <so-miya@sourceforge.jp>
 	  r501 ダンプ：HTML出力の呪文をきれいに表示するようにCSSを修正
 	  r502 修正：一番上に死体がある複数のアイテムを反転表示
 	  r503 新種族：吸血鬼(SLASH'EMから)
+	  r505 Configure：LIVELOG_BONES_KILLER用の--enable-livelog-killing
+	       オプションが使えなくなっていた
 	* 起動時の職業名が翻訳されなくなっていたのを修正
 	* ダンプ関係で終了時のトップテン表示がおかしくなっていたので修正
 	* 日本語ダンプファイル名の対処
