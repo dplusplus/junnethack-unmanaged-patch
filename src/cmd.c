@@ -1078,6 +1078,13 @@ BOOLEAN_P want_disp;
 #ifdef WIZARD
 	if (wizard) {
 #if 0 /*JP*/
+		Sprintf(buf, " %d", u.uhunger);
+		enl_msg("Hunger level ", "is", "was", buf);
+#else
+		Sprintf(buf, "‹ó• ƒŒƒxƒ‹‚Í%d", u.uhunger);
+		enl_msg(buf, "‚Å‚ ‚é", "‚¾‚Á‚½", "");
+#endif
+#if 0 /*JP*/
 		Sprintf(buf, " %d / %ld", u.ualign.record, ALIGNLIM);
 		enl_msg("Your alignment ", "is", "was", buf);
 #else
