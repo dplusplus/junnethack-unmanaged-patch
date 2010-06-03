@@ -4020,6 +4020,15 @@ drown()
 	You("drown.");
 */
 	You("溺れた。");
+	/* [ALI] Vampires return to vampiric form on drowning.
+	 */
+	if (Upolyd && !Unchanging && Race_if(PM_VAMPIRE)) {
+		rehumanize();
+		u.uinwater = 0;
+		/* should be unnecessary as spoteffects() should get called */
+		/* You("fly up out of the water!"); */
+		return (TRUE);
+	}
 	killer_format = KILLED_BY_AN;
 	killer = (levl[u.ux][u.uy].typ == POOL || Is_medusa_level(&u.uz)) ?
 /*JP
@@ -4036,13 +4045,13 @@ drown()
 		done(DROWNING);
 	}
 	if (u.uinwater) {
-	    u.uinwater = 0;
+		u.uinwater = 0;
 #if 0 /*JP*/
-	    You("find yourself back %s.", Is_waterlevel(&u.uz) ?
-		"in an air bubble" : "on land");
+		You("find yourself back %s.", Is_waterlevel(&u.uz) ?
+				"in an air bubble" : "on land");
 #else
-	    You("いつのまにか%sにいるのに気がついた。", Is_waterlevel(&u.uz) ?
-		"空気の泡の中" : "地面");
+		You("いつのまにか%sにいるのに気がついた。", Is_waterlevel(&u.uz) ?
+				"空気の泡の中" : "地面");
 #endif
 	}
 	return(TRUE);
