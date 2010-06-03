@@ -209,6 +209,7 @@ Thu Jun 03 2010  Masaki Miyaso  <so-miya@sourceforge.jp>
 	  r503 新種族：吸血鬼(SLASH'EMから)
 	  r505 Configure：LIVELOG_BONES_KILLER用の--enable-livelog-killing
 	       オプションが使えなくなっていた
+	  r506 ダンプ：ハイスコア一覧の書式を正しく
 	* 起動時の職業名が翻訳されなくなっていたのを修正
 	* ダンプ関係で終了時のトップテン表示がおかしくなっていたので修正
 	* 日本語ダンプファイル名の対処
