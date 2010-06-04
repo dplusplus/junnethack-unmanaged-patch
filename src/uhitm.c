@@ -469,7 +469,7 @@ register struct monst *mtmp;
 		return(FALSE);
 
 	tmp = find_roll_to_hit(mtmp);
-	if (Upolyd)
+	if (Upolyd || Race_if(PM_VAMPIRE))
 		(void) hmonas(mtmp, tmp);
 	else
 		(void) hitum(mtmp, tmp, youmonst.data->mattk);
@@ -2739,6 +2739,7 @@ register int tmp;
 	int	i, sum[NATTK], hittmp = 0;
 	int	nsum = 0;
 	int	dhit = 0;
+	boolean Old_Upolyd = Upolyd;
 
 	for(i = 0; i < NATTK; i++) {
 
@@ -3015,8 +3016,8 @@ use_weapon:
 		(void) passive(mon, sum[i], 1, mattk->aatyp);
 		nsum |= sum[i];
 	    }
-	    if (!Upolyd)
-		break; /* No extra attacks if no longer a monster */
+	    if (Upolyd != Old_Upolyd)
+		break; /* No extra attacks if form changed */
 	    if (multi < 0)
 		break; /* If paralyzed while attacking, i.e. floating eye */
 	}
