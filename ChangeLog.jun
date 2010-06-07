@@ -1,5 +1,5 @@
-Fri Jun 04 2010  Masaki Miyaso  <so-miya@sourceforge.jp>
-	* UnNetHack SVN版r513をベースにした。
+Mon Jun 07 2010  Masaki Miyaso  <so-miya@sourceforge.jp>
+	* UnNetHack SVN版r515をベースにした。
 	  r356 patchlevelを3.5.3にした
 	  r357 パッチ：ダンジョンマップ概要3 (Hojita Discordiaより)
 	  r358 マップ概要に闇市と道具屋を追加
@@ -216,6 +216,7 @@ Fri Jun 04 2010  Masaki Miyaso  <so-miya@sourceforge.jp>
 	  r510 吸血鬼種族の噛み付き攻撃を有効にした
 	  r512 変更履歴：吸血鬼を開始種族として選択可能に (Slash'Emから)
 	  r513 アイテムを下敷きにした岩は反転表示しない
+	  r515 階層：heck-c-5における通路の接続を修正
 	* 起動時の職業名が翻訳されなくなっていたのを修正
 	* ダンプ関係で終了時のトップテン表示がおかしくなっていたので修正
 	* 日本語ダンプファイル名の対処
