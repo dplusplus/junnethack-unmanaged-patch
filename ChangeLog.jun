@@ -1,5 +1,5 @@
-Mon Jun 07 2010  Masaki Miyaso  <so-miya@sourceforge.jp>
-	* UnNetHack SVN版r517をベースにした。
+Tue Jun 08 2010  Masaki Miyaso  <so-miya@sourceforge.jp>
+	* UnNetHack SVN版r518をベースにした。
 	  r356 patchlevelを3.5.3にした
 	  r357 パッチ：ダンジョンマップ概要3 (Hojita Discordiaより)
 	  r358 マップ概要に闇市と道具屋を追加
@@ -220,6 +220,7 @@ Mon Jun 07 2010  Masaki Miyaso  <so-miya@sourceforge.jp>
 	  r516 脆くなった武器を投げたときに確実に崩壊するようにした
 	  r517 undiscover_object：発見物一覧にあるべきアイテムが見つからない
 	       場合にさらに情報を表示
+	  r518 バグ修正：C343-12「落し穴に入るために'>'が使えない。」
 	* 起動時の職業名が翻訳されなくなっていたのを修正
 	* ダンプ関係で終了時のトップテン表示がおかしくなっていたので修正
 	* 日本語ダンプファイル名の対処

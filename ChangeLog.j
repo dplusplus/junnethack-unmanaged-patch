@@ -1,165 +1,165 @@
 2010-XX-XX  UnNetHack 3.5.3
-	* Áè¤¤¾õÂÖ¤Ï°Ç»Ô¤ÎÅ¹¼ç¤òÅÜ¤é¤»¤ë
-	* ´°Á´¤ËÉå¿©¤·¤¿ËÉ¶ñ¤Ï²õ¤ì¤ë
-	* ¥¯¥¨¥¹¥È¼Â»Ü¤ËÉ¬Í×¤Ê·Ð¸³¥ì¥Ù¥ë¤ò²¼¤²¤¿
-	* HTML¥À¥ó¥×
-	* ±ß¼þÎ¨¤ÎÆü¤ò¥µ¥Ý¡¼¥È
-	* ÁÒ¸ËÈÖÊ¬´ô¤Î¿¼¤µ¤ò°ì¤Ä¸º¤é¤·¤¿
-	* µÛ·ìµ´¤ò³«»Ï¼ïÂ²¤È¤·¤ÆÁªÂò²ÄÇ½¤Ë (Slash'Em¤«¤é)
+	* ‘ˆ‚¢ó‘Ô‚ÍˆÅŽs‚Ì“XŽå‚ð“{‚ç‚¹‚é
+	* Š®‘S‚É•…H‚µ‚½–h‹ï‚Í‰ó‚ê‚é
+	* ƒNƒGƒXƒgŽÀŽ{‚É•K—v‚ÈŒoŒ±ƒŒƒxƒ‹‚ð‰º‚°‚½
+	* HTMLƒ_ƒ“ƒv
+	* ‰~Žü—¦‚Ì“ú‚ðƒTƒ|[ƒg
+	* ‘qŒÉ”Ô•ªŠò‚Ì[‚³‚ðˆê‚ÂŒ¸‚ç‚µ‚½
+	* ‹zŒŒ‹S‚ðŠJŽnŽí‘°‚Æ‚µ‚Ä‘I‘ð‰Â”\‚É (Slash'Em‚©‚ç)
 
-	* ¥Ñ¥Ã¥Á¡§
-	  - ¥À¥ó¥¸¥ç¥ó¥Þ¥Ã¥×³µÍ×
+	* ƒpƒbƒ`F
+	  - ƒ_ƒ“ƒWƒ‡ƒ“ƒ}ƒbƒvŠT—v
 	    Dungeon Map Overview 3 (by Hojita Discordia)
-	  - ¼«È¯ÅªÄ©Àï³ÈÄ¥
+	  - Ž©”­“I’§íŠg’£
 	    Extended Conducts v2.3 (by Andreas Dorn)
-	  - ÊÐ¼¹Åª³ÎÇ§¥Ñ¥Ã¥Á
+	  - •ÎŽ·“IŠm”Fƒpƒbƒ`
 	    Paranoid Patch (by various)
-	  - Ê¬Î¥²ÄÇ½¤Ê#adjust¥Ñ¥Ã¥Á
+	  - •ª—£‰Â”\‚È#adjustƒpƒbƒ`
 	    Splittable #adjust Patch (by Sam Dennis and Jukka Lahtinen)
-	  - ¥Á¥å¡¼¥È¥ê¥¢¥ë
+	  - ƒ`ƒ…[ƒgƒŠƒAƒ‹
 	    Tutorial (by Alex Smith)
 
-	* ¥æ¡¼¥¶¥¤¥ó¥¿¥Õ¥§¡¼¥¹¤Î²þÁ±¡§
-	  - ²ø²æ¤ò¤·¤¿¤È¤­²óÉü¤Î»ØÎØ¤ò¼«Æ°¼±ÊÌ
-	  - ¥×¥ì¥¤¥ä¡¼¤ÎÎÙ¤Î²øÊª¤¬°ìÉ¤¤À¤±¤Ê¤é¤ÐÏÃ¤·¤«¤±¤ëÊý¸þ»ØÄê¤ò¼«Æ°¤Ë
-	  - ¾²¤Î¾å¤ÎÊ£¿ô¥¢¥¤¥Æ¥à¤ÏÈ¿Å¾É½¼¨¤¹¤ë
-	  - #chat ¤Ê¤·¤ËÅ¹Æâ¤Î¥¢¥¤¥Æ¥à¤ÎÃÍÃÊ¤òÉ½¼¨¤¹¤ë
+	* ƒ†[ƒUƒCƒ“ƒ^ƒtƒF[ƒX‚Ì‰ü‘PF
+	  - ‰ö‰ä‚ð‚µ‚½‚Æ‚«‰ñ•œ‚ÌŽw—Ö‚ðŽ©“®Ž¯•Ê
+	  - ƒvƒŒƒCƒ„[‚Ì—×‚Ì‰ö•¨‚ªˆê•C‚¾‚¯‚È‚ç‚Î˜b‚µ‚©‚¯‚é•ûŒüŽw’è‚ðŽ©“®‚É
+	  - °‚Ìã‚Ì•¡”ƒAƒCƒeƒ€‚Í”½“]•\Ž¦‚·‚é
+	  - #chat ‚È‚µ‚É“X“à‚ÌƒAƒCƒeƒ€‚Ì’l’i‚ð•\Ž¦‚·‚é
 
-	* ¥Ð¥Ë¥é¤Î¥Ð¥°½¤Àµ¡§
-	  - C343-94, C343-189, C343-235
+	* ƒoƒjƒ‰‚ÌƒoƒOC³F
+	  - C343-12, C343-94, C343-189, C343-235
 	  - SC343-8, SC343-20
 
-	* ¥¢¥¤¥Æ¥à¤ÎÄÉ²Ã¡§
-	  - ¿åÆñ¤Î´¬Êª
+	* ƒAƒCƒeƒ€‚Ì’Ç‰ÁF
+	  - …“ï‚ÌŠª•¨
 
-	* ¥¢¥¤¥Æ¥à¤Îºï½ü¡§
-	  - µ­²±ÁÓ¼º¤Î´¬Êª
+	* ƒAƒCƒeƒ€‚ÌíœF
+	  - ‹L‰¯‘rŽ¸‚ÌŠª•¨
 
-	* ¿·¤·¤¤Éô²°¡§
-	  - ³Ú´ïÅ¹ (NetHack Brass RS ¤«¤éÅ¬ÍÑ)
-	  - ¥Ú¥Ã¥ÈÅ¹ (Slash'Em¤«¤é)
-	  - ´ÌµÍÅ¹ (Slash'Em¤«¤é)
+	* V‚µ‚¢•”‰®F
+	  - ŠyŠí“X (NetHack Brass RS ‚©‚ç“K—p)
+	  - ƒyƒbƒg“X (Slash'Em‚©‚ç)
+	  - ŠÊ‹l“X (Slash'Em‚©‚ç)
 
 
 2010-01-10  UnNetHack 3.5.2-1
-	°Û¾ï½ªÎ»¥Ð¥°½¤Àµ¡§Â¸ºß¤·¤Ê¤¤Ìô¤Ç¤ÎÏ£¶â½Ñ¤òËÉ¤°
+	ˆÙíI—¹ƒoƒOC³F‘¶Ý‚µ‚È‚¢–ò‚Å‚Ì˜B‹àp‚ð–h‚®
 
 
 2009-12-09  UnNetHack 3.5.2
-	* ¥¹¥­¥ë¥ì¥Ù¥ë¤ÎÁý²Ã
-	* µÛ·ì¤È³ú¤ßÉÕ¤¯µÛ·ìµ´ (Slash'Em¤«¤é)
-	* ¿·¥ª¥×¥·¥ç¥ó¡§ showdmg (wizmode¤Î¤ß)
-	* ¥È¥í¥ë¥Ù¡¼¥ó¡§ ¶õÊ¢¤òÂ¥¿Ê¤·¤Ê¤¤²óÉüÇ½ÎÏ¤ÎÉÕÍ¿
-	* ¥Ü¡¼¥Ñ¥ë¥Ö¥ì¡¼¥É¡§ +1d8 ÄÉ²Ã¥À¥á¡¼¥¸
-	* rn2¤Ë0°Ê²¼¤ò»ØÄê¤·¤Æ¸Æ¤ó¤À¤È¤­¤Î¥¯¥é¥Ã¥·¥å¤òËÉ¤°
-	* ¿¶Æ°¤¹¤ë¾²¡§ ¤½¤Ð¤Ë¤¤¤ë¥×¥ì¥¤¥ä¡¼¤Ë¥á¥Ã¥»¡¼¥¸
+	* ƒXƒLƒ‹ƒŒƒxƒ‹‚Ì‘‰Á
+	* ‹zŒŒ‚ÆŠš‚Ý•t‚­‹zŒŒ‹S (Slash'Em‚©‚ç)
+	* VƒIƒvƒVƒ‡ƒ“F showdmg (wizmode‚Ì‚Ý)
+	* ƒgƒƒ‹ƒx[ƒ“F ‹ó• ‚ð‘£i‚µ‚È‚¢‰ñ•œ”\—Í‚Ì•t—^
+	* ƒ{[ƒpƒ‹ƒuƒŒ[ƒhF +1d8 ’Ç‰Áƒ_ƒ[ƒW
+	* rn2‚É0ˆÈ‰º‚ðŽw’è‚µ‚ÄŒÄ‚ñ‚¾‚Æ‚«‚ÌƒNƒ‰ƒbƒVƒ…‚ð–h‚®
+	* U“®‚·‚é°F ‚»‚Î‚É‚¢‚éƒvƒŒƒCƒ„[‚ÉƒƒbƒZ[ƒW
 
-	* ¿·¥¢¥¤¥Æ¥à¡§
-	  - ·ì±Õ¤ÈµÛ·ìµ´¤Î·ì±Õ (Slash'Em¤«¤é)
+	* VƒAƒCƒeƒ€F
+	  - ŒŒ‰t‚Æ‹zŒŒ‹S‚ÌŒŒ‰t (Slash'Em‚©‚ç)
 
-	* ¥Ñ¥Ã¥Á¡§
-	  - ¥È¥ê¥Ã¥¯¤Î³ó³ÈÄ¥¥Ñ¥Ã¥Á
+	* ƒpƒbƒ`F
+	  - ƒgƒŠƒbƒN‚ÌŠ“Šg’£ƒpƒbƒ`
 	    Bag of Tricks Enhancement Patch (by Nephi)
-	  - ¥«¥á¥é¤ò²õ¤¹¤È³¨ÉÁ¤­¤Î°­Ëâ¤¬²òÊü¤µ¤ì¤ë
+	  - ƒJƒƒ‰‚ð‰ó‚·‚ÆŠG•`‚«‚Ìˆ«–‚‚ª‰ð•ú‚³‚ê‚é
 	    Breaking a camera may release a picture painting demon (by L)
-	  - ¥«¥á¥é¤Î°­Ëâ
+	  - ƒJƒƒ‰‚Ìˆ«–‚
 	    Camera Demon (by L)
-	  - ÌµÎÏ²½¥Ñ¥Ã¥Á
+	  - –³—Í‰»ƒpƒbƒ`
 	    Cancellation Patch (by Malcolm Ryan)
-	  - ¿§¤Ë¤è¤ëÏ£¶â½Ñ¥Ñ¥Ã¥Á
+	  - F‚É‚æ‚é˜B‹àpƒpƒbƒ`
 	    Color alchemy Patch (by Nephi)
-	  - ¤ª¤Þ¤±¤ÎÀê¤¤¥¯¥Ã¥­¡¼
+	  - ‚¨‚Ü‚¯‚Ìè‚¢ƒNƒbƒL[
 	    Free Fortune Cookie (by Nephi)
-	  - ¥ê¥È¥Þ¥¹¥Ñ¥Ã¥Á
+	  - ƒŠƒgƒ}ƒXƒpƒbƒ`
 	    Litmus Patch (by Dylan O'Donnell)
-	  - ÉðÆ®²ÈÍÑ¤Î¤¢¤¤¤µ¤ÄÊ¸¤ÎÄÉ²Ã
+	  - •“¬‰Æ—p‚Ì‚ ‚¢‚³‚Â•¶‚Ì’Ç‰Á
 	    Monk specific greeting and goodbye (by Haakon Studebaker)
-	  - Ìý¤Ã¤Ý¤¤»àÂÎ
+	  - –û‚Á‚Û‚¢Ž€‘Ì
 	    Oily corpses (by L)
-	  - Qwertz¥ì¥¤¥¢¥¦¥È¥Ñ¥Ã¥Á
+	  - QwertzƒŒƒCƒAƒEƒgƒpƒbƒ`
 	    Qwertz_layout Patch (by Stanislav Traykov)
-	  - ¤Ê¤¹¤¹¤Ù¤â¤Ê¤¯»¦¤µ¤ì¤¿
+	  - ‚È‚·‚·‚×‚à‚È‚­ŽE‚³‚ê‚½
 	    While Helpless (by Pasi Kallinen)
 
-	* ¥Ð¥Ë¥é¤Î¥Ð¥°½¤Àµ¡§
+	* ƒoƒjƒ‰‚ÌƒoƒOC³F
 	  - C343-55, C343-116, C343-136, C343-211, C343-231
 
-	* ¥æ¡¼¥¶¥¤¥ó¥¿¥Õ¥§¡¼¥¹¤Î²þÁ±¡§
-	  - ÂÎÎÏ¤äËâÎÏ¤¬²óÉü¤·¤¿¾ì¹ç¤ËÊ£¿ô¥¿¡¼¥ó¾ÃÈñ¤¹¤ë¹ÔÆ°¤òÃæÃÇ
+	* ƒ†[ƒUƒCƒ“ƒ^ƒtƒF[ƒX‚Ì‰ü‘PF
+	  - ‘Ì—Í‚â–‚—Í‚ª‰ñ•œ‚µ‚½ê‡‚É•¡”ƒ^[ƒ“Á”ï‚·‚és“®‚ð’†’f
 
 
 2009-06-13  UnNetHack 3.5.1
-	* ¿·¤·¤¤³¬ÁØ¡§
-	  - ¥Õ¥©¡¼¥È¥í¡¼¥Ç¥£¥ª¥¹¥ì¥Ù¥ë
-	  - ÁÒ¸ËÈÖ¥ì¥Ù¥ë (Pasi Kallinen¤è¤ê)
-	  - ¥á¥Ç¥å¡¼¥µ¥ì¥Ù¥ë (Pasi Kallinen¤è¤ê)
-	  - ¾ë¥ì¥Ù¥ë (Pasi Kallinen¤è¤ê)
-	  - ¥Ó¥Ã¥°¥ë¡¼¥à (Pasi Kallinen¤è¤ê)
-	  - ¥Ø¥Ã¥¯¥ì¥Ù¥ë (by Kelly Bailey)
-	  - ¿·¹Û»³³¹¡§¥ª¡¼¥¯¤Î³¹ (SporkHack¤«¤é)
-	  - ¥Ë¥ó¥Õ¥ì¥Ù¥ë (Slash'Em¤«¤é)
-	  - °Ç»Ô (Massimo Campostrini¤è¤ê)
-	  - ³¬ÁØÈ¿Å¾¥Ñ¥Ã¥Á
+	* V‚µ‚¢ŠK‘wF
+	  - ƒtƒH[ƒgƒ[ƒfƒBƒIƒXƒŒƒxƒ‹
+	  - ‘qŒÉ”ÔƒŒƒxƒ‹ (Pasi Kallinen‚æ‚è)
+	  - ƒƒfƒ…[ƒTƒŒƒxƒ‹ (Pasi Kallinen‚æ‚è)
+	  - éƒŒƒxƒ‹ (Pasi Kallinen‚æ‚è)
+	  - ƒrƒbƒOƒ‹[ƒ€ (Pasi Kallinen‚æ‚è)
+	  - ƒwƒbƒNƒŒƒxƒ‹ (by Kelly Bailey)
+	  - VzŽRŠXFƒI[ƒN‚ÌŠX (SporkHack‚©‚ç)
+	  - ƒjƒ“ƒtƒŒƒxƒ‹ (Slash'Em‚©‚ç)
+	  - ˆÅŽs (Massimo Campostrini‚æ‚è)
+	  - ŠK‘w”½“]ƒpƒbƒ`
 	    flipped levels patch (by Pasi Kallinen)
 
-	* ¿·¤·¤¤Éô²°¡§
-	  - Äí±à
-	  - ¹Ó¤é¤µ¤ì¤¿Éð´ï¸Ë (L¤è¤ê)
+	* V‚µ‚¢•”‰®F
+	  - ’ë‰€
+	  - r‚ç‚³‚ê‚½•ŠíŒÉ (L‚æ‚è)
 
-	* ¿·¥¢¥¤¥Æ¥à¡§
-	  - Å´¤Î¶â¸Ë (SporkHack¤«¤é)
-	  - ÃÎÎÏ/¸­¤µ/ÁÇÁá¤µ¤Î»ØÎØ (Slash'Em¤«¤é)
-	  - ¥¢¥ë¥ßÇó¤ÎË¹»Ò (L¤è¤ê)
+	* VƒAƒCƒeƒ€F
+	  - “S‚Ì‹àŒÉ (SporkHack‚©‚ç)
+	  - ’m—Í/Œ«‚³/‘f‘‚³‚ÌŽw—Ö (Slash'Em‚©‚ç)
+	  - ƒAƒ‹ƒ~”“‚Ì–XŽq (L‚æ‚è)
 
-	* ¥¢¥¤¥Æ¥à¤ÎµóÆ°¤òÊÑ¹¹¡§
-	  - ¥¤¥§¥ó¥À¡¼¤ÎËâ½ü¤±¤ÏÍî¤È¤¹¤È¤É¤³¤«¤Ë½Ö´Ö°ÜÆ°¤¹¤ë
-	  - ¶â²ß¤òÃµ¤¹´¬Êª¡§º®Íð¤·¤ÆÆÉ¤à¤È¥é¥ó¥À¥à¤Ê¥¢¥¤¥Æ¥à¥¯¥é¥¹¤ò¸«¤»¤ë
-	  - µÔ»¦¤Î´¬Êª¤Ï¸½³¬ÁØ(¼ö¤ï¤ì¤Æ¤¤¤Ê¤¤)¤«Á´³¬ÁØ(½ËÊ¡)¤Î²øÊª¤òËõ»¦¤¹¤ë
+	* ƒAƒCƒeƒ€‚Ì‹““®‚ð•ÏXF
+	  - ƒCƒFƒ“ƒ_[‚Ì–‚œ‚¯‚Í—Ž‚Æ‚·‚Æ‚Ç‚±‚©‚ÉuŠÔˆÚ“®‚·‚é
+	  - ‹à‰Ý‚ð’T‚·Šª•¨F¬—‚µ‚Ä“Ç‚Þ‚Æƒ‰ƒ“ƒ_ƒ€‚ÈƒAƒCƒeƒ€ƒNƒ‰ƒX‚ðŒ©‚¹‚é
+	  - ‹sŽE‚ÌŠª•¨‚ÍŒ»ŠK‘w(Žô‚í‚ê‚Ä‚¢‚È‚¢)‚©‘SŠK‘w(j•Ÿ)‚Ì‰ö•¨‚ð–•ŽE‚·‚é
 
-	* ¥Ñ¥Ã¥Á¡§
-	  - ÀºÎî³¦¤Ç¤ÎÃ¦½Ð
+	* ƒpƒbƒ`F
+	  - ¸—ìŠE‚Å‚Ì’Eo
 	    Astral Escape (via GruntHack from Chi)
-	  - ¥À¥ó¥×¥Ñ¥Ã¥Á
+	  - ƒ_ƒ“ƒvƒpƒbƒ`
 	    Dump patch (by Jukka Lahtinen)
-	  - ¥À¥ó¥¸¥ç¥ó¤ÇÀ¸Ä¹
+	  - ƒ_ƒ“ƒWƒ‡ƒ“‚Å¶’·
 	    Dungeon growths (by Pasi Kallinen)
-	  - ¥¨¥­¥¾¥Á¥Ã¥¯¥Ú¥Ã¥È
+	  - ƒGƒLƒ]ƒ`ƒbƒNƒyƒbƒg
 	    Exotic Pets (by Rob Ellwood)
-	  - ²øÊª¤ÎÀäÌÇ¤ÈÀ¸À®¿ô¤ÎÉ½¼¨
+	  - ‰ö•¨‚Ìâ–Å‚Æ¶¬”‚Ì•\Ž¦
 	    Extinct and showborn patch (from Jukka Lahtinen)
-	  - ÀºÎî³¦¤Î½çÈÖ¤Î¥é¥ó¥À¥à²½
+	  - ¸—ìŠE‚Ì‡”Ô‚Ìƒ‰ƒ“ƒ_ƒ€‰»
 	    Randomized Planes (by Patric Mueller)
-	  - ´Ê°×¥á¡¼¥ë
+	  - ŠÈˆÕƒ[ƒ‹
 	    Simple mail (from dgamelaunch)
 	  - xlogfile (by Aardvark Joe)
 
-	* ¥Ð¥Ë¥é¤Î¥Ð¥°½¤Àµ¡§
+	* ƒoƒjƒ‰‚ÌƒoƒOC³F
 	  - Astral Call Bug (SC343-11, SC343-12)
 	  - C343-8, C343-19, C343-100, C343-179, C343-218, C343-258, C343-259,
 	    C343-268, C343-275, C343-276, C343-298, C343-318, C343-324
 
-	* ¿·¤·¤¤²øÊª¡§
-	  - ¥¯¥È¥¥¥ë¥Õ (Slash'Em Lethe¤«¤é)
-	  - È¿Êª¼Á¤Î±² (NetHack Brass¤«¤é)
-	  - Ê´ºÕ¤Î²øÊª (Nicholas Webbs biodiversity patch)
-	  - ¥´¡¼¥ë¥É¥É¥é¥´¥ó (Nephi¤è¤ê)
-	  - ÀãµÂ (Slash'Em¤«¤é)
-	  - ¥Ü¡¼¥Ñ¥ë¥¸¥ã¥Ð¥¦¥©¥Ã¥¯ (by L)
+	* V‚µ‚¢‰ö•¨F
+	  - ƒNƒgƒDƒ‹ƒt (Slash'Em Lethe‚©‚ç)
+	  - ”½•¨Ž¿‚Ì‰Q (NetHack Brass‚©‚ç)
+	  - •²Ó‚Ì‰ö•¨ (Nicholas Webbs biodiversity patch)
+	  - ƒS[ƒ‹ƒhƒhƒ‰ƒSƒ“ (Nephi‚æ‚è)
+	  - á‹a (Slash'Em‚©‚ç)
+	  - ƒ{[ƒpƒ‹ƒWƒƒƒoƒEƒHƒbƒN (by L)
 
-	* ¥æ¡¼¥¶¥¤¥ó¥¿¥Õ¥§¡¼¥¹¤Î²þÁ±¡§
-	  - Èâ¤ò¼«Æ°¤Ç³«¤±¤ë (Stefano Busti¤è¤ê)
-	  - menucolors (Pasi Kallinen¤è¤ê)
-	  - Åê¤²¤¿¥¢¥¤¥Æ¥à¤ò½¦¤¦ (Roderick Schertler¤è¤ê)
-	  - ¥¹¥Æ¡¼¥¿¥¹¤Î¥«¥é¡¼²½ (Shachaf & Oren Ben-Kiki¤è¤ê)
-	  - ¥¦¥£¥ó¥É¥¦¤Î¤Õ¤Á (Pasi Kallinen¤è¤ê)
+	* ƒ†[ƒUƒCƒ“ƒ^ƒtƒF[ƒX‚Ì‰ü‘PF
+	  - ”à‚ðŽ©“®‚ÅŠJ‚¯‚é (Stefano Busti‚æ‚è)
+	  - menucolors (Pasi Kallinen‚æ‚è)
+	  - “Š‚°‚½ƒAƒCƒeƒ€‚ðE‚¤ (Roderick Schertler‚æ‚è)
+	  - ƒXƒe[ƒ^ƒX‚ÌƒJƒ‰[‰» (Shachaf & Oren Ben-Kiki‚æ‚è)
+	  - ƒEƒBƒ“ƒhƒE‚Ì‚Ó‚¿ (Pasi Kallinen‚æ‚è)
 
-	* ¥¹¥³¥¢¤¬ÌµÀ©¸Â¤Ë¿­¤Ó¤ë¤Î¤òËÉ¤°
-	* Çã¼ý¤µ¤ì¤ë°­Ëâ¤Ï¤µ¤é¤Ë¶â¤òÍ×µá¤¹¤ë (SporkHack¤«¤é)
-	* ¥×¥ê¥ó¤ÎºÇÂçÂÎÎÏ¤òÈ¾¸º¤µ¤»¤ë¤³¤È¤Ç¶ËÃ¼¤Ê¥×¥ê¥óËÒ¾ì¤òËÉ»ß
-	* ÁÒ¸ËÈÖ¤ÎÊó½·¤òÁªÂòÀ©¤Ë (NetHack Brass¤«¤é)
-	* ¥¯¥¨¥¹¥È¥á¥Í¥·¥¹¤ÏElbereth¤ò¶²¤ì¤Ê¤¤
-	* °­Ëâ¥æ¥Ë¡¼¥¯¤ÏElbereth¤ò¶²¤ì¤Ê¤¤
-	* ¥¢¡¼¥ê¥Þ¥ó¤Î¿´Â¡¤Ï¸¸±Æ¤ÈËâÎÏ²óÉü¤ò¼ø¤±¤ë
-	* ²¦ºÂ¡§ ´ê¤¨¤Ê¤¤
-	* ¥¿¥ª¥ë¤ÎÆü¤ò¥µ¥Ý¡¼¥È
-	* ¥Ç¥¹¤ÏÂçÊ¸»ú¤Ç¤·¤ã¤Ù¤ë(ÏÂÌõ¤Ç¤Ï¶¯Ä´¤ÇÉ½¸½)
+	* ƒXƒRƒA‚ª–³§ŒÀ‚ÉL‚Ñ‚é‚Ì‚ð–h‚®
+	* ”ƒŽû‚³‚ê‚éˆ«–‚‚Í‚³‚ç‚É‹à‚ð—v‹‚·‚é (SporkHack‚©‚ç)
+	* ƒvƒŠƒ“‚ÌÅ‘å‘Ì—Í‚ð”¼Œ¸‚³‚¹‚é‚±‚Æ‚Å‹É’[‚ÈƒvƒŠƒ“–qê‚ð–hŽ~
+	* ‘qŒÉ”Ô‚Ì•ñV‚ð‘I‘ð§‚É (NetHack Brass‚©‚ç)
+	* ƒNƒGƒXƒgƒƒlƒVƒX‚ÍElbereth‚ð‹°‚ê‚È‚¢
+	* ˆ«–‚ƒ†ƒj[ƒN‚ÍElbereth‚ð‹°‚ê‚È‚¢
+	* ƒA[ƒŠƒ}ƒ“‚ÌS‘Ÿ‚ÍŒ¶‰e‚Æ–‚—Í‰ñ•œ‚ðŽö‚¯‚é
+	* ‰¤ÀF Šè‚¦‚È‚¢
+	* ƒ^ƒIƒ‹‚Ì“ú‚ðƒTƒ|[ƒg
+	* ƒfƒX‚Í‘å•¶Žš‚Å‚µ‚á‚×‚é(˜a–ó‚Å‚Í‹­’²‚Å•\Œ»)

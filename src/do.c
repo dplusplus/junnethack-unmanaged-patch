@@ -1188,7 +1188,7 @@ dodown()
 	}
 	if (!stairs_down && !ladder_down) {
 		if (!(trap = t_at(u.ux,u.uy)) ||
-			(trap->ttyp != TRAPDOOR && trap->ttyp != HOLE)
+			(trap->ttyp != TRAPDOOR && trap->ttyp != HOLE && trap->ttyp != PIT)
 			|| !Can_fall_thru(&u.uz) || !trap->tseen) {
 
 			if (flags.autodig && !flags.nopick &&
@@ -1244,14 +1244,34 @@ dodown()
 		return(0);
 	}
 
-	if (trap)
+	if (trap) {
+		if (trap->ttyp == PIT) {
+			if (u.utrap && (u.utraptype == TT_PIT)) {
 #if 0 /*JP*/
-	    You("%s %s.", locomotion(youmonst.data, "jump"),
-		trap->ttyp == HOLE ? "down the hole" : "through the trap door");
+				You("are already in the pit."); /* YAFM needed */
 #else
-	    You("%s%s。", locomotion(youmonst.data, "跳ぶ"),
-		trap->ttyp == HOLE ? "穴に落ちた" : "落し扉に入った");
+				You("既に落し穴に入っている。"); /* YAFM needed */
 #endif
+			} else {
+				u.utrap = 1;
+				u.utraptype = TT_PIT;
+/*JP
+				You("%s down into the pit.", locomotion(youmonst.data, "go"));
+*/
+				You("%s落し穴に降りた。",
+					jconj(locomotion(youmonst.data, "慎重に"), "て"));
+			}
+			return(0);
+		} else {
+#if 0 /*JP*/
+			You("%s %s.", locomotion(youmonst.data, "jump"),
+					trap->ttyp == HOLE ? "down the hole" : "through the trap door");
+#else
+			You("%s%s。", locomotion(youmonst.data, "跳ぶ"),
+					trap->ttyp == HOLE ? "穴に落ちた" : "落し扉に入った");
+#endif
+		}
+	}
 
 	if (trap && Is_stronghold(&u.uz)) {
 		goto_hell(FALSE, TRUE);
