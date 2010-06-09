@@ -517,6 +517,9 @@ iflags.wc_*およびiflags.wc2_*のフィールドのこれらの初期値は次のとおり：
   |  fullscreen        | WC2_FULLSCREEN     | wc2_fullscreen     |boolean |
   |  softkeyboard      | WC2_SOFTKEYBOARD   | wc2_softkeyboard   |boolean |
   |  wraptext          | WC2_WRAPTEXT       | wc2_wraptext       |boolean |
+  |  term_cols         | WC2_TERM_COLS      | wc2_term_cols      |int     |
+  |  term_rows         | WC2_TERM_ROWS      | wc2_term_rows      |int     |
+  |  windowborders     | WC2_WINDOWBORDERS  | wc2_windowborders  |int     |
   +--------------------+--------------------+--------------------+--------+
 
 align_message	-- メッセージウィンドウの配置位置 (top, bottom, left, right)。
@@ -548,6 +551,8 @@ scroll_margin	-- 表示をスクロールするときの、主人公やカーソルのウィンド
 softkeyboard    -- 可能なら、ハンドヘルドにおいてスクリーンキーボードを表
 		   示する。
 splash_screen   -- 起動時のスプラッシュ画面を表示しない。
+term_cols       -- 可能なら、ターミナルを指定幅にリサイズする。
+term_rows       -- 可能なら、ターミナルを指定高さにリサイズする。
 tiled_map	-- 可能なら、マップをタイル表示する。
 tile_width	-- 可能なら、タイルの幅をこれで指定した幅で表示する。
 tile_height	-- 可能なら、タイルの高さをこれで指定した幅で表示する。
@@ -555,6 +560,8 @@ tile_file	-- 標準以外のタイルファイルを開く。 ファイル名はウィンドウ
 		   ポートまたはプラットフォーム特有である傾向がある。
 use_inverse	-- NetHackにて反転表示指定になっているものを反転表示する。
 vary_msgcount	-- メッセージウィンドウに一度に表示するメッセージ数。
+windowborders   -- NetHackメインウィンドウの周囲に枠を表示する。
+                次の設定が可能 (1) 有効、(2) 無効、(3) 自動
 windowcolors
 		-- 各ウィンドウのforeground/backgroundに使用する色を指定する。
 		   文法：

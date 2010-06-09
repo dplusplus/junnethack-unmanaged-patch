@@ -48,6 +48,7 @@
  * Some combinations make no sense.  See the installation document.
  */
 /* #define TTY_GRAPHICS */	/* good old tty based graphics */
+/* #define CURSES_GRAPHICS */	/* Proper curses interface */
 /* #define X11_GRAPHICS */	/* X11 interface */
 /* #define QT_GRAPHICS */	/* Qt interface */
 /* #define GNOME_GRAPHICS */	/* Gnome interface */
@@ -131,6 +132,12 @@
 #ifndef DEFAULT_WINDOW_SYS
 # ifdef X11_GRAPHICS
 #  define DEFAULT_WINDOW_SYS "x11"
+# endif
+#endif
+
+#ifdef CURSES_GRAPHICS
+# ifndef DEFAULT_WINDOW_SYS
+#  define DEFAULT_WINDOW_SYS "curses"
 # endif
 #endif
 
@@ -421,7 +428,8 @@ typedef unsigned char	uchar;
 #define BLACKMARKET	/* Massimo Campostrini (campo@sunthpi3.difi.unipi.it) */
 
 
-#if defined(TTY_GRAPHICS) || defined(MSWIN_GRAPHICS)
+#if defined(TTY_GRAPHICS) || defined(MSWIN_GRAPHICS) || \
+ defined(CURSES_GRAPHICS)
 # define MENU_COLOR
 # if !defined(_MSC_VER) && !defined(__BORLANDC__)
 #  define MENU_COLOR_REGEX
