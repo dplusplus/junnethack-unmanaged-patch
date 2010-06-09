@@ -1,5 +1,5 @@
 Wed Jun 09 2010  Masaki Miyaso  <so-miya@sourceforge.jp>
-	* UnNetHack SVN版r519をベースにした。
+	* UnNetHack SVN版r520をベースにした。
 	  r356 patchlevelを3.5.3にした
 	  r357 パッチ：ダンジョンマップ概要3 (Hojita Discordiaより)
 	  r358 マップ概要に闇市と道具屋を追加
@@ -222,6 +222,7 @@ Wed Jun 09 2010  Masaki Miyaso  <so-miya@sourceforge.jp>
 	       場合にさらに情報を表示
 	  r518 バグ修正：C343-12「落し穴に入るために'>'が使えない。」
 	  r519 器用さの小手＆知性の兜の状態値不正を修正(Alex Smithより)
+	  r520 吸血鬼プレイヤーが石化怪物に噛み付いて石化するのを防ぐ
 	* 起動時の職業名が翻訳されなくなっていたのを修正
 	* ダンプ関係で終了時のトップテン表示がおかしくなっていたので修正
 	* 日本語ダンプファイル名の対処
