@@ -2114,7 +2114,7 @@ int croaked;
 	/* the simplifying principle is that first-come */
 	/* already took everything you had.		*/
 	if (numsk > 1) {
-	    if (cansee(shkp->mx, shkp->my && croaked))
+	    if (cansee(shkp->mx, shkp->my) && croaked)
 #if 0 /*JP*/
 		pline("%s %slooks at your corpse%s and %s.",
 		      Monnam(shkp),
