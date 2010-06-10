@@ -1,5 +1,5 @@
-Wed Jun 09 2010  Masaki Miyaso  <so-miya@sourceforge.jp>
-	* UnNetHack SVN版r525をベースにした。
+Thu Jun 10 2010  Masaki Miyaso  <so-miya@sourceforge.jp>
+	* UnNetHack SVN版r526をベースにした。
 	  r356 patchlevelを3.5.3にした
 	  r357 パッチ：ダンジョンマップ概要3 (Hojita Discordiaより)
 	  r358 マップ概要に闇市と道具屋を追加
@@ -227,6 +227,7 @@ Wed Jun 09 2010  Masaki Miyaso  <so-miya@sourceforge.jp>
 	  r523 CURSES_GRAPHICSが未定義時にコンパイルできるように
 	  r525 curses_gui r524をブランチからマージ：起動時クラッシュ、描画
 	       修正、拡張とダイアログ計上の改善
+	  r526 修正：失われていた大地の巻物を加え、下り階段を正しく配置
 	* 起動時の職業名が翻訳されなくなっていたのを修正
 	* ダンプ関係で終了時のトップテン表示がおかしくなっていたので修正
 	* 日本語ダンプファイル名の対処
