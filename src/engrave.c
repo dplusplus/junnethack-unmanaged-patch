@@ -580,13 +580,20 @@ register int x,y;
 			et = buf;
 		} else
 			et = ep->engr_txt;
+		if (u.roleplay.illiterate && strcmp(et, "X")) {
+/*JP
+			pline("But you cannot read.");
+*/
+			pline("しかしあなたには読めなかった。");
+		} else {
 #if 0 /*JP*/
-		You("%s: \"%s\".",
-		      (Blind) ? "feel the words" : "read",  et);
+			You("%s: \"%s\".",
+					(Blind) ? "feel the words" : "read",  et);
 #else
-		You("%s：「%s」",
-		      (Blind) ? "次のように感じた" : "読んだ",  et);
+			You("%s：「%s」",
+					(Blind) ? "次のように感じた" : "読んだ",  et);
 #endif
+		}
 		if(flags.run > 1) nomul(0, 0);
 		if (moves > 5) check_tutorial_message(QT_T_ENGRAVING);
 	    }
@@ -1459,8 +1466,7 @@ doengrave()
 	/* Prompt for engraving! (if literate) */
 	if(u.roleplay.illiterate) {
 	    Sprintf(ebuf,"X");
-	}
-	else {
+	} else {
 #if 0 /*JP*/
 	    Sprintf(qbuf,"What do you want to %s %s the %s here?", everb,
 		eloc, eground);
