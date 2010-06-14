@@ -1,5 +1,5 @@
-Fri Jun 11 2010  Masaki Miyaso  <so-miya@sourceforge.jp>
-	* UnNetHack SVN版r531をベースにした。
+Mon Jun 14 2010  Masaki Miyaso  <so-miya@sourceforge.jp>
+	* UnNetHack SVN版r536をベースにした。
 	  r356 patchlevelを3.5.3にした
 	  r357 パッチ：ダンジョンマップ概要3 (Hojita Discordiaより)
 	  r358 マップ概要に闇市と道具屋を追加
@@ -218,19 +218,20 @@ Fri Jun 11 2010  Masaki Miyaso  <so-miya@sourceforge.jp>
 	  r513 アイテムを下敷きにした岩は反転表示しない
 	  r515 階層：heck-c-5における通路の接続を修正
 	  r516 脆くなった武器を投げたときに確実に崩壊するようにした
-	  r517 undiscover_object：発見物一覧にあるべきアイテムが見つからない
-	       場合にさらに情報を表示
+	  r517 undiscover_object：発見物一覧にあるべきアイテムが見つからな
+	       い場合にさらに情報を表示
 	  r518 バグ修正：C343-12「落し穴に入るために'>'が使えない。」
 	  r519 器用さの小手＆知性の兜の状態値不正を修正(Alex Smithより)
 	  r520 吸血鬼プレイヤーが石化怪物に噛み付いて石化するのを防ぐ
-	  r522 curses_gui r521をブランチからマージ
+	  r522 Curses GUI：r521をブランチからマージ
 	  r523 CURSES_GRAPHICSが未定義時にコンパイルできるように
-	  r525 curses_gui r524をブランチからマージ：起動時クラッシュ、描画
+	  r525 Curses GUI：r524をブランチからマージ：起動時クラッシュ、描画
 	       修正、拡張とダイアログ計上の改善
 	  r526 修正：失われていた大地の巻物を加え、下り階段を正しく配置
 	  r527 ttyグラフィック無効時かつmenucolor有効時のコンパイル修正
 	  r530 修正：店主が冒険者の死を目撃したときのメッセージ条件を修正
-	  r531 無学者プレイ時は刻んだものを読めない
+	  r533 無学者プレイ時は刻んだものを読めない
+	  r536 Curses GUI：number_padとpetattrオプション用の修正
 	* 起動時の職業名が翻訳されなくなっていたのを修正
 	* ダンプ関係で終了時のトップテン表示がおかしくなっていたので修正
 	* 日本語ダンプファイル名の対処
@@ -238,7 +239,7 @@ Fri Jun 11 2010  Masaki Miyaso  <so-miya@sourceforge.jp>
 	* lensesの訳語を「レンズ」から「眼鏡」に変更
 	* leashの訳語を「紐」から「革ひも」に変更
 	* rope golemの訳語を「紐のゴーレム」から「ロープのゴーレム」に変更
-	* jtrnsobjにおいてシンボルを適正化(防具:[, 岩:`、毒:.)
+	* jtrnsobjにおいてシンボルを適正化(防具:[, 岩:`, 毒:.)
 	* その他翻訳修正
 
 Sun Dec 6 2009  Masaki Miyaso  <so-miya@sourceforge.jp>
