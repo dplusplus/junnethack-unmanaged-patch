@@ -1,5 +1,5 @@
 Wed Jun 23 2010  Masaki Miyaso  <so-miya@sourceforge.jp>
-	* UnNetHack SVN版r549をベースにした。
+	* UnNetHack SVN版r550をベースにした。
 	  r356 patchlevelを3.5.3にした
 	  r357 パッチ：ダンジョンマップ概要3 (Hojita Discordiaより)
 	  r358 マップ概要に闇市と道具屋を追加
@@ -237,6 +237,7 @@ Wed Jun 23 2010  Masaki Miyaso  <so-miya@sourceforge.jp>
 	  r547 Ctrl-eで自動的に"Elbereth"を書く
 	  r548 Curses GUIブランチのr546までをtrunkにマージ
 	  r549 二重に刻んだときのメッセージを修正
+	  r550 追加された倉庫番レベル最上階の巨大なミミックが消えていた
 	* 起動時の職業名が翻訳されなくなっていたのを修正
 	* ダンプ関係で終了時のトップテン表示がおかしくなっていたので修正
 	* 日本語ダンプファイル名の対処
