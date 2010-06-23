@@ -685,9 +685,25 @@ static NEARDATA const char styluses[] =
  * moonstone  -  6	(orthoclase)	* amber      -	2-2.5
  */
 
-/* return 1 if action took 1 (or more) moves, 0 if error or aborted */
+static int engrave(const char *, boolean);
+
+/** return 1 if action took 1 (or more) moves, 0 if error or aborted */
 int
 doengrave()
+{
+	return engrave(NULL, FALSE);
+}
+int
+doengrave_elbereth()
+{
+	return engrave("Elbereth", TRUE);
+}
+
+static
+int
+engrave(engraving, fingers)
+const char *engraving;
+boolean fingers;
 {
 	boolean dengr = FALSE;	/* TRUE if we wipe out the current engraving */
 	boolean doblind = FALSE;/* TRUE if engraving blinds the player */
@@ -780,7 +796,15 @@ doengrave()
 	 * Edited by GAN 10/20/86 so as not to change weapon wielded.
 	 */
 
-	otmp = getobj(styluses, "write with");
+	if (fingers) {
+		if (uwep && uwep->otyp == ATHAME) {
+			otmp = uwep;
+		} else {
+			otmp = &zeroobj;
+		}
+	} else {
+		otmp = getobj(styluses, "write with");
+	}
 	if(!otmp) return(0);		/* otmp == zeroobj if fingers */
 
 	if (otmp == &zeroobj) writer = makeplural(body_part(FINGER));
@@ -1301,7 +1325,7 @@ doengrave()
 
 	    /* Give player the choice to add to engraving. */
 
-	    if (type == HEADSTONE) {
+	    if (type == HEADSTONE || engraving) {
 		/* no choice, only append */
 		c = 'y';
 	    } else if ( (type == oep->engr_type) && (!Blind ||
@@ -1446,7 +1470,23 @@ doengrave()
 	}
 
 	/* Tell adventurer what is going on */
-	if (otmp != &zeroobj)
+	if (engraving && otmp == &zeroobj)
+#if 0 /*JP*/
+	    You("%s \"%s\" %swith your %s %s the %s.", everb, engraving,
+		eword, makeplural(body_part(FINGER)), eloc, eground);
+#else
+	    You("%sÇ≈%s%s%s\"%s\"Ç∆%sÅB", body_part(FINGER), eground,
+		eloc, eword, engraving, jpast(everb));
+#endif
+	else if (engraving && otmp != &zeroobj)
+#if 0 /*JP*/
+	    You("%s \"%s\" %swith %s %s the %s.", everb, engraving,
+		eword, doname(otmp), eloc, eground);
+#else
+	    You("%sÇ≈%s%s%s\"%s\"Ç∆%sÅB", doname(otmp), eground,
+		eloc, eword, engraving, jpast(everb));
+#endif
+	else if (otmp != &zeroobj)
 #if 0 /*JP*/
 	    You("%s %swith %s %s the %s.", everb, eword, doname(otmp),
 		eloc, eground);
@@ -1466,6 +1506,8 @@ doengrave()
 	/* Prompt for engraving! (if literate) */
 	if(u.roleplay.illiterate) {
 	    Sprintf(ebuf,"X");
+	} else if (engraving) {
+	    Sprintf(ebuf, engraving);
 	} else {
 #if 0 /*JP*/
 	    Sprintf(qbuf,"What do you want to %s %s the %s here?", everb,

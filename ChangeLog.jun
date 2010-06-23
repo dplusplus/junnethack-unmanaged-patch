@@ -1,5 +1,5 @@
-Tue Jun 22 2010  Masaki Miyaso  <so-miya@sourceforge.jp>
-	* UnNetHack SVN版r546をベースにした。
+Wed Jun 23 2010  Masaki Miyaso  <so-miya@sourceforge.jp>
+	* UnNetHack SVN版r547,r549をベースにした。
 	  r356 patchlevelを3.5.3にした
 	  r357 パッチ：ダンジョンマップ概要3 (Hojita Discordiaより)
 	  r358 マップ概要に闇市と道具屋を追加
@@ -234,6 +234,8 @@ Tue Jun 22 2010  Masaki Miyaso  <so-miya@sourceforge.jp>
 	  r536 Curses GUI：number_padとpetattrオプション用の修正
 	  r537 修正：飛翔怪物はトゲだらけの落し穴にも入れる
 	  r546 --enable-dump-file=FILE のデフォルト値を修正
+	  r547 Ctrl-eで自動的に"Elbereth"を書く
+	  r549 二重に刻んだときのメッセージを修正
 	* 起動時の職業名が翻訳されなくなっていたのを修正
 	* ダンプ関係で終了時のトップテン表示がおかしくなっていたので修正
 	* 日本語ダンプファイル名の対処
