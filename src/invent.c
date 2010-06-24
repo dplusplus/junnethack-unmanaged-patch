@@ -1150,6 +1150,7 @@ register const char *let,*word;
 				jpolite(jword), buf);
 #endif
 		}
+		check_tutorial_message(QT_T_CHOOSEITEM);
 #ifdef REDO
 		if (in_doagain)
 		    ilet = readchar();
@@ -2517,6 +2518,7 @@ dotypeinv()
 	    }
 	    this_type = oclass;
 	}
+	check_tutorial_oclass(this_type);
 	if (query_objlist((char *) 0, invent,
 		    (flags.invlet_constant ? USE_INVLET : 0)|INVORDER_SORT,
 		    &pick_list, PICK_NONE, this_type_only) > 0)
