@@ -1,5 +1,5 @@
-Wed Jun 30 2010  Masaki Miyaso  <so-miya@sourceforge.jp>
-	* UnNetHack SVN版r557をベースにした。
+Thu Jul 1 2010  Masaki Miyaso  <so-miya@sourceforge.jp>
+	* UnNetHack SVN版r558をベースにした。
 	  r356 patchlevelを3.5.3にした
 	  r357 パッチ：ダンジョンマップ概要3 (Hojita Discordiaより)
 	  r358 マップ概要に闇市と道具屋を追加
@@ -243,6 +243,7 @@ Wed Jun 30 2010  Masaki Miyaso  <so-miya@sourceforge.jp>
 	  r552 チュートリアル: アイテム選択用のチェックがなかったので追加
 	  r555 Curses GUIブランチのr554までをtrunkにマージ
 	  r557 クラッシュ修正：eshk->bill_p を正しく初期化
+	  r578 Curses GUIブランチのr557までをtrunkにマージ
 	* 起動時の職業名が翻訳されなくなっていたのを修正
 	* ダンプ関係で終了時のトップテン表示がおかしくなっていたので修正
 	* 日本語ダンプファイル名の対処
