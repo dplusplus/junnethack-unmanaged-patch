@@ -107,6 +107,9 @@ extern int NDECL(dowieldquiver); /**/
 extern int NDECL(dozap); /**/
 extern int NDECL(doorganize); /**/
 
+#ifdef DUMP_LOG
+extern int NDECL(dump_screenshot); /**/
+#endif
 #ifdef LIVELOG_SHOUT
 extern int NDECL(doshout); /**/
 #endif
@@ -2247,6 +2250,9 @@ struct ext_func_tab extcmdlist[] = {
 	{"ride", "ride (or stop riding) a monster", doride, FALSE},
 #endif
 	{"rub", "rub a lamp or a stone", dorub, FALSE},
+#ifdef DUMP_LOG
+	{"screenshot", "output current map to a html file", dump_screenshot, FALSE},
+#endif
 #ifdef LIVELOG_SHOUT
 	{"shout", "shout something", doshout, FALSE},
 #endif
@@ -2279,6 +2285,9 @@ struct ext_func_tab extcmdlist[] = {
 	{"ride", "怪物に乗る(または降りる)", doride, FALSE},
 #endif
 	{"rub", "ランプをこする", dorub, FALSE},
+#ifdef DUMP_LOG
+	{"screenshot", "現在マップをHTMLファイルとして出力", dump_screenshot, FALSE},
+#endif
 #ifdef LIVELOG_SHOUT
 	{"shout", "叫ぶ", doshout, FALSE},
 #endif

@@ -1,5 +1,5 @@
 Thu Jul 1 2010  Masaki Miyaso  <so-miya@sourceforge.jp>
-	* UnNetHack SVN版r561をベースにした。
+	* UnNetHack SVN版r562をベースにした。
 	  r356 patchlevelを3.5.3にした
 	  r357 パッチ：ダンジョンマップ概要3 (Hojita Discordiaより)
 	  r358 マップ概要に闇市と道具屋を追加
@@ -246,6 +246,8 @@ Thu Jul 1 2010  Masaki Miyaso  <so-miya@sourceforge.jp>
 	  r558 Curses GUIブランチのr557までをtrunkにマージ
 	  r559 Curses GUI:マップ再描画時に画面を完全消去 (karlosより)
 	  r561 武器を持たない吸血鬼が危険な怪物に噛み付くのを防ぐ
+	  r562 新しい拡張コマンド #screenshot：現在のマップのHTMLスクリー
+	       ンショット
 	* 起動時の職業名が翻訳されなくなっていたのを修正
 	* ダンプ関係で終了時のトップテン表示がおかしくなっていたので修正
 	* 日本語ダンプファイル名の対処
