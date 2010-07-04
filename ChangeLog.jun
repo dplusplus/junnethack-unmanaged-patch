@@ -1,5 +1,5 @@
 Thu Jul 4 2010  Masaki Miyaso  <so-miya@sourceforge.jp>
-	* UnNetHack SVN版r563をベースにした。
+	* UnNetHack SVN版r564をベースにした。
 	  r356 patchlevelを3.5.3にした
 	  r357 パッチ：ダンジョンマップ概要3 (Hojita Discordiaより)
 	  r358 マップ概要に闇市と道具屋を追加
@@ -249,6 +249,7 @@ Thu Jul 4 2010  Masaki Miyaso  <so-miya@sourceforge.jp>
 	  r562 新しい拡張コマンド #screenshot：現在のマップのHTMLスクリー
 	       ンショット
 	  r563 Curses GUI：hilite_petの初期値は下線よりも反転が良い
+	  r564 ダンプ：#screenshot ファイル名のベースをダンプファイル名に
 	* 起動時の職業名が翻訳されなくなっていたのを修正
 	* ダンプ関係で終了時のトップテン表示がおかしくなっていたので修正
 	* 日本語ダンプファイル名の対処
