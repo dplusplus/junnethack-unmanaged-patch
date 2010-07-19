@@ -1,5 +1,5 @@
 Mon Jul 19 2010  Masaki Miyaso  <so-miya@sourceforge.jp>
-	* UnNetHack SVN版r584をベースにした。
+	* UnNetHack SVN版r585をベースにした。
 	  r356 patchlevelを3.5.3にした
 	  r357 パッチ：ダンジョンマップ概要3 (Hojita Discordiaより)
 	  r358 マップ概要に闇市と道具屋を追加
@@ -262,6 +262,7 @@ Mon Jul 19 2010  Masaki Miyaso  <so-miya@sourceforge.jp>
 	  r582 Livelog：currenttime
 	  r583 Livelog：start/resume時のlivelogの書式を変更
 	  r584 ワームのコードの警告類を有効化
+	  r585 UI：体力グラフ表示
 	* 起動時の職業名が翻訳されなくなっていたのを修正
 	* ダンプ関係で終了時のトップテン表示がおかしくなっていたので修正
 	* 日本語ダンプファイル名の対処
