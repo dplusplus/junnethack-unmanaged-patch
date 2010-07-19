@@ -1248,11 +1248,16 @@ dodown()
 	if (trap) {
 		if (trap->ttyp == PIT || trap->ttyp == SPIKED_PIT) {
 			if (u.utrap && (u.utraptype == TT_PIT)) {
+				if (flags.autodig && !flags.nopick &&
+					uwep && is_pick(uwep)) {
+					return use_pick_axe2(uwep);
+				} else {
 #if 0 /*JP*/
-				You("are already in the pit."); /* YAFM needed */
+					You("are already in the pit."); /* YAFM needed */
 #else
-				You("Šù‚É—‚µŒŠ‚É“ü‚Á‚Ä‚¢‚éB"); /* YAFM needed */
+					You("Šù‚É—‚µŒŠ‚É“ü‚Á‚Ä‚¢‚éB"); /* YAFM needed */
 #endif
+				}
 			} else {
 				u.utrap = 1;
 				u.utraptype = TT_PIT;
