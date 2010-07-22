@@ -289,6 +289,7 @@ bot1()
 {
 #ifndef DUMP_LOG
 	char newbot1[MAXCO];
+	int save_botlx = flags.botlx;
 #endif
 	char *nb;
 	int i=0,j;
@@ -485,13 +486,11 @@ bot2()
 {
 #ifndef DUMP_LOG
 	char  newbot2[MAXCO];
+	int save_botlx = flags.botlx;
 #endif
 	register char *nb;
 	int hp, hpmax;
 	int cap = near_capacity();
-#if defined(STATUS_COLORS) && defined(TEXTCOLOR)
-	int save_botlx = flags.botlx;
-#endif
 
 	hp = Upolyd ? u.mh : u.uhp;
 	hpmax = Upolyd ? u.mhmax : u.uhpmax;
