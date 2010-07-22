@@ -424,7 +424,7 @@ const char * const *nlp;
 	} else if (nlp == shkblack) {
 	    /* special-case black marketeer */
 	    shname = "One-eyed Sam";
-	    shk->female = shk->data->mflags2 & M2_MALE ? FALSE : TRUE;
+	    shk->female = TRUE;
 #endif /* BLACKMARKET */
 	} else {
 #if 1 /*JP*/
