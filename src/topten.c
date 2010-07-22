@@ -297,7 +297,7 @@ write_xlentry(rfile,tt)
 FILE *rfile;
 struct toptenentry *tt;
 {
-
+  s_level *lev = Is_special(&u.uz);
   char buf[DTHSZ+1];
 
   /* Log all of the data found in the regular logfile */
@@ -307,6 +307,7 @@ struct toptenentry *tt;
                 SEP "deathdnum=%d"
                 SEP "deathlev=%d"
                 SEP "maxlvl=%d"
+                SEP "dlev_name=%s"
                 SEP "hp=%d"
                 SEP "maxhp=%d"
                 SEP "deaths=%d"
@@ -316,7 +317,9 @@ struct toptenentry *tt;
                 GAME_SHORT_NAME,
                 tt->ver_major, tt->ver_minor, tt->patchlevel,
                 tt->points, tt->deathdnum, tt->deathlev,
-                tt->maxlvl, tt->hp, tt->maxhp, tt->deaths,
+                tt->maxlvl,
+                lev ? lev->proto : "", /* proto level name if special level */
+                tt->hp, tt->maxhp, tt->deaths,
                 tt->deathdate, tt->birthdate, tt->uid);
 
   (void)fprintf(rfile,
