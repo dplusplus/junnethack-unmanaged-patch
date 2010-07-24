@@ -1,5 +1,5 @@
-Thu Jul 22 2010  Masaki Miyaso  <so-miya@sourceforge.jp>
-	* UnNetHack SVN版r593をベースにした。
+Fri Jul 23 2010  Masaki Miyaso  <so-miya@sourceforge.jp>
+	* UnNetHack SVN版r594をベースにした。
 	  r356 patchlevelを3.5.3にした
 	  r357 パッチ：ダンジョンマップ概要3 (Hojita Discordiaより)
 	  r358 マップ概要に闇市と道具屋を追加
@@ -271,6 +271,7 @@ Thu Jul 22 2010  Masaki Miyaso  <so-miya@sourceforge.jp>
 	  r591 statuscolorsのコンパイル修正
 	  r592 片目のサムの性別を正しく変更
 	  r593 Livelog：階層のproto名を出力
+	  r594 Curses GUIブランチのr580までをtrunkにマージ
 	* 起動時の職業名が翻訳されなくなっていたのを修正
 	* ダンプ関係で終了時のトップテン表示がおかしくなっていたので修正
 	* 日本語ダンプファイル名の対処
