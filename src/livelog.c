@@ -259,8 +259,9 @@ const char* race;
 const char* role;
 {
 	snprintf(strbuf, STRBUF_LEN,
-		"%s:game_action=%s:character=%s %s %s\n",
+		"%s:type=%s:game_action=%s:character=%s %s %s\n",
 		livelog_prefix(),
+		verb,
 		verb,
 		alignment_sex,
 		race,
@@ -274,8 +275,9 @@ livelog_game_action(verb)
 const char* verb;
 {
 	snprintf(strbuf, STRBUF_LEN,
-		"%s:game_action=%s\n",
+		"%s:type=%s:game_action=%s\n",
 		livelog_prefix(),
+		verb,
 		verb);
 	livelog_write_string(strbuf);
 }
