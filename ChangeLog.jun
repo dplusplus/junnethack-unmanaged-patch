@@ -1,5 +1,5 @@
 Sat Jul 24 2010  Masaki Miyaso  <so-miya@sourceforge.jp>
-	* UnNetHack SVN版r596をベースにした。
+	* UnNetHack SVN版r599をベースにした。
 	  r356 patchlevelを3.5.3にした
 	  r357 パッチ：ダンジョンマップ概要3 (Hojita Discordiaより)
 	  r358 マップ概要に闇市と道具屋を追加
@@ -275,7 +275,10 @@ Sat Jul 24 2010  Masaki Miyaso  <so-miya@sourceforge.jp>
 	  r595 Livelog：livelog_game_startedとlivelog_game_actionに"type"
 	       属性を追加
 	  r596 Livelog：虐殺をレポート
+	  r597 ダンプファイルに死亡時のタイムスタンプを設定
 	  r598 Livelog：livelog無効時のコンパイル修正
+	  r599 DUMP_LOG無効時のコンパイル修正とdump_html_css_file()に関す
+	       るwaningの抑制
 	* 起動時の職業名が翻訳されなくなっていたのを修正
 	* ダンプ関係で終了時のトップテン表示がおかしくなっていたので修正
 	* 日本語ダンプファイル名の対処
