@@ -582,21 +582,47 @@ can_twoweapon()
 
 #define NOT_WEAPON(obj) (!is_weptool(obj) && obj->oclass != WEAPON_CLASS)
 	if (!could_twoweap(youmonst.data)) {
-		if (Upolyd)
+		if (cantwield(youmonst.data))
+/*JP
+			pline("Don't be ridiculous!");
+*/
+			pline("ばかばかしい！");
+		else if (Upolyd)
 /*JP
 		You_cant("use two weapons in your current form.");
 */
 		You("二刀流は通常の姿でのみ使用できる。");
-		else
+		else {
+			char buf[BUFSZ];
+			boolean disallowed_by_role = P_MAX_SKILL(P_TWO_WEAPON_COMBAT) < P_BASIC;
+			boolean disallowed_by_race = youmonst.data->mattk[1].aatyp != AT_WEAP;
+			*buf = '\0';
+			if (!disallowed_by_role)
+/*JP
+				Strcpy(buf, disallowed_by_race ? urace.noun : urace.adj);
+*/
+				Strcpy(buf, urace.j);
+			if (disallowed_by_role || !disallowed_by_race) {
+				if (!disallowed_by_role)
+/*JP
+					Strcat(buf, " ");
+*/
+					Strcat(buf, "の");
 #if 0 /*JP*/
-		    pline("%s aren't able to use two weapons at once.",
-			  makeplural((flags.female && urole.name.f) ?
-				     urole.name.f : urole.name.m));
+				Strcat(buf, (flags.female && urole.name.f) ?
+						urole.name.f : urole.name.m);
 #else
-		    pline("%sは二つの武器を同時に扱えない。",
-			  makeplural((flags.female && urole.name.f) ?
-				     urole.jname.f : urole.jname.m));
+				Strcat(buf, (flags.female && urole.jname.f) ?
+						urole.jname.f : urole.jname.m);
 #endif
+			}
+#if 0 /*JP*/
+			pline("%s aren't able to use two weapons at once.",
+					makeplural(upstart(buf)));
+#else
+		    pline("%sは二つの武器を同時に扱えない。", buf);
+#endif
+		}
 	} else if (!uwep || !uswapwep)
 #if 0 /*JP*/
 		Your("%s%s%s empty.", uwep ? "left " : uswapwep ? "right " : "",
