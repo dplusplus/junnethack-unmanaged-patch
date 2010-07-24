@@ -1,5 +1,5 @@
 Sat Jul 24 2010  Masaki Miyaso  <so-miya@sourceforge.jp>
-	* UnNetHack SVN版r595をベースにした。
+	* UnNetHack SVN版r596をベースにした。
 	  r356 patchlevelを3.5.3にした
 	  r357 パッチ：ダンジョンマップ概要3 (Hojita Discordiaより)
 	  r358 マップ概要に闇市と道具屋を追加
@@ -274,6 +274,8 @@ Sat Jul 24 2010  Masaki Miyaso  <so-miya@sourceforge.jp>
 	  r594 Curses GUIブランチのr580までをtrunkにマージ
 	  r595 Livelog：livelog_game_startedとlivelog_game_actionに"type"
 	       属性を追加
+	  r596 Livelog：虐殺をレポート
+	  r598 Livelog：livelog無効時のコンパイル修正
 	* 起動時の職業名が翻訳されなくなっていたのを修正
 	* ダンプ関係で終了時のトップテン表示がおかしくなっていたので修正
 	* 日本語ダンプファイル名の対処

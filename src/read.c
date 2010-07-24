@@ -2486,7 +2486,11 @@ boolean only_on_level; /**< if TRUE only genocide monsters on current level,
 	    pline("%s‚ð%s%sˆê‘|‚µ‚½B", jtrns_mon(buf), on_this_level, which);
 #endif
 
-	    if (killplayer) {
+#ifdef LIVELOGFILE
+	livelog_genocide(buf, only_on_level);
+#endif
+
+	if (killplayer) {
 		/* might need to wipe out dual role */
 		if (urole.femalenum != NON_PM && mndx == urole.malenum)
 		    mvitals[urole.femalenum].mvflags |= (G_GENOD | G_NOCORPSE);
