@@ -219,14 +219,14 @@ struct monst *mtmp;
 */
 				jtrns_mon(mtmp->data->mname));
 		livelog_write_string(strbuf);
-	} else if ((mtmp->data->geno & G_UNIQ)
-#ifdef BLACKMARKET
-	           || (mtmp->data == &mons[PM_BLACK_MARKETEER])
-#endif
-		  ) {
+	} else if (mtmp->data->geno & G_UNIQ) {
 		char *n = noit_mon_nam(mtmp);
 		/* $player killed a uniq monster */
 		livelog_generic("killed_uniq", n);
+	} else if (mtmp->isshk) {
+		char *n = noit_mon_nam(mtmp);
+		/* $player killed a shopkeeper */
+		livelog_generic("killed_shopkeeper", n);
 	}
 }
 #endif /* LIVELOG_BONES_KILLER */
