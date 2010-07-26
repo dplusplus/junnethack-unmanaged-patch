@@ -1,5 +1,5 @@
 Sat Jul 24 2010  Masaki Miyaso  <so-miya@sourceforge.jp>
-	* UnNetHack SVN版r600をベースにした。
+	* UnNetHack SVN版r606をベースにした。
 	  r356 patchlevelを3.5.3にした
 	  r357 パッチ：ダンジョンマップ概要3 (Hojita Discordiaより)
 	  r358 マップ概要に闇市と道具屋を追加
@@ -282,6 +282,7 @@ Sat Jul 24 2010  Masaki Miyaso  <so-miya@sourceforge.jp>
 	  r600 rne()の結果が高いものになる確率をやや上げた
 	  r601 プレイヤーに二刀流が何故許容されないかを表示
 	  r602 (吸血鬼の変身で)二刀流を再び有効化するための応急措置
+	  r605,r606 幻覚状態のときの怪物をさらに
 	* 起動時の職業名が翻訳されなくなっていたのを修正
 	* ダンプ関係で終了時のトップテン表示がおかしくなっていたので修正
 	* 日本語ダンプファイル名の対処

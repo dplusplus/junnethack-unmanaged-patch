@@ -1236,10 +1236,12 @@ static const char * const bogusmons[] = {
 	"rape golem",				/* schnippi */
 	"tridude",				/* POWDER */
 	"orcus cosmicus",			/* Radomir Dopieralski */
+	"yeek", "quylthulg",
 	"Greater Hell Beast",			/* Angband */
 	"Vendor of Yizard",			/* Souljazz */
 	"Sigmund", "lernaean hydra", "Ijyb",
 	"Gloorx Vloq", "Blork the orc",		/* Dungeon Crawl Stone Soup */
+	"unicorn pegasus kitten",		/* Wil Wheaton, John Scalzi */
 };
 
 
