@@ -1137,14 +1137,13 @@ int mode;
 			You("try to ooze under the door, but can't squeeze your possessions through.");
 */
 			You("ドアの下からにじみ出た、しかし持ち物はそうはいかない。");
-		    else if (x == ux || y == uy) {
 #ifdef AUTO_OPEN
-			if (iflags.autoopen && !flags.run
+			else if (iflags.autoopen && !flags.run
 				&& !Confusion && !Stunned && !Fumbling) {
 			    door_opened = flags.move = doopen_indir(x, y);
-			} else
-
+		    }
 #endif
+		    else if (x == ux || y == uy) {
 			if (Blind || Stunned || ACURR(A_DEX) < 10 || Fumbling) {
 #ifdef STEED
 			    if (u.usteed) {
