@@ -1,5 +1,5 @@
 Tue Aug 3 2010  Masaki Miyaso  <so-miya@sourceforge.jp>
-	* UnNetHack SVN版r610をベースにした。
+	* UnNetHack SVN版r611をベースにした。
 	  r356 patchlevelを3.5.3にした
 	  r357 パッチ：ダンジョンマップ概要3 (Hojita Discordiaより)
 	  r358 マップ概要に闇市と道具屋を追加
@@ -287,6 +287,7 @@ Tue Aug 3 2010  Masaki Miyaso  <so-miya@sourceforge.jp>
 	  r608 ダンプ：虐殺と絶滅一覧をHTML化
 	  r609 命の魔除けは自己虐殺が現在の階層に限定されているときは働く
 	  r610 ナナメからドアの自動開放
+	  r611 ダンプ：iso8601形式の書式によるプレイ時間
 	* 起動時の職業名が翻訳されなくなっていたのを修正
 	* ダンプ関係で終了時のトップテン表示がおかしくなっていたので修正
 	* 日本語ダンプファイル名の対処

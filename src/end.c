@@ -1090,8 +1090,7 @@ die:
 	dump_line("  Started: ", get_formatted_time(u.ubirthday, DUMP_DATE_FORMAT));
 	dump_line("  Ended:   ", get_formatted_time(u.udeathday, DUMP_DATE_FORMAT));
 #ifdef RECORD_REALTIME
-	Sprintf(pbuf, "  Play time: %ld:%2.2ld", realtime_data.realtime / 3600, 
-			(realtime_data.realtime % 3600) / 60);
+	Sprintf(pbuf, "  Play time: %s", iso8601_duration(realtime_data.realtime));
 	dump_line(pbuf,"");
 #endif
 #else /*JP*/
@@ -1101,8 +1100,7 @@ die:
 	dump_line("  開始時刻:", get_formatted_time(u.ubirthday, DUMP_DATE_FORMAT));
 	dump_line("  終了時刻:", get_formatted_time(u.udeathday, DUMP_DATE_FORMAT));
 #ifdef RECORD_REALTIME
-	Sprintf(pbuf, "  プレイ時間: %ld:%2.2ld", realtime_data.realtime / 3600, 
-			(realtime_data.realtime % 3600) / 60);
+	Sprintf(pbuf, "  プレイ時間: %s", iso8601_duration(realtime_data.realtime));
 	dump_line(pbuf,"");
 #endif
 #endif /*JP*/
