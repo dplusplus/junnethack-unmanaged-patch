@@ -1704,6 +1704,7 @@ BOOLEAN_P want_disp;
 	    putstr(klwin, 0, "");
 	}
 	dump_title(buf);
+	dump_list_start();
 
 	    for (i = LOW_PM; i < NUMMONS; i++)
 #ifdef SHOW_EXTINCT
@@ -1732,8 +1733,9 @@ BOOLEAN_P want_disp;
 			Strcat(buf, " (â–Å)");
 #endif
 		    if (klwin) putstr(klwin, 0, buf);
-		    dump("  ", buf);
+		    dump_list_item(buf);
 		}
+	    dump_list_end();
 
 	    if (klwin) putstr(klwin, 0, "");
 #ifdef SHOW_EXTINCT
