@@ -1636,6 +1636,7 @@ E const char *FDECL(mbodypart, (struct monst *,int));
 E const char *FDECL(body_part, (int));
 E int NDECL(poly_gender);
 E void FDECL(ugolemeffects, (int,int));
+E boolean NDECL(is_playermon_genocided);
 
 /* ### potion.c ### */
 
