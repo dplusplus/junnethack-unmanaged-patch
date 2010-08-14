@@ -8,6 +8,8 @@
 	* 吸血鬼を開始種族として選択可能に (Slash'Emから)
 
 	* パッチ：
+	  - 自発的挑戦：Elberethを追跡
+	    Conduct: Elbereth tracking (by Ray Kulhanek)
 	  - ダンジョンマップ概要
 	    Dungeon Map Overview 3 (by Hojita Discordia)
 	  - 自発的挑戦拡張

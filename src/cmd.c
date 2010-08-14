@@ -2084,6 +2084,29 @@ BOOLEAN_P want_disp;
 		enl_msg("‚ ‚È‚½‚Í¹Ší‚ğŠè", "‚Á‚Ä‚¢‚È‚¢", "‚í‚È‚©‚Á‚½", "");
 #endif
 	}
+
+#ifdef ELBERETH_CONDUCT
+#ifdef ELBERETH
+	/* no point displaying the conduct if Elbereth doesn't do anything */
+	if (u.uconduct.elbereths) {
+#if 0 /*JP*/
+		Sprintf(buf, "engraved Elbereth %ld time%s",
+			u.uconduct.elbereths, plur(u.uconduct.elbereths));
+		you_have_X(buf);
+#else
+		Sprintf(buf, "Elbereth‚ğ%ld‰ñ‚ñ",
+			u.uconduct.elbereths);
+		enl_msg(You_, "‚Å‚¢‚é", "‚¾", buf);
+#endif
+	} else {
+/*JP
+		you_have_never("engraved Elbereth");
+*/
+		enl_msg(You_, "‚ñ‚Å‚¢‚È‚¢", "‚Ü‚È‚©‚Á‚½", "Elbereth‚ğ");
+	}
+#endif /* ELBERETH */
+#endif /* ELBERETH_CONDUCT */
+
 	dump_list_end();
 	dump("", "");
 
