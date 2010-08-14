@@ -136,8 +136,8 @@ boolean talk;
 	    You("%sÇ≈ÇÕÇ»Ç≠%sÇÃëÆê´Ç≈Ç†ÇÈÅB",
 		align_str(original_alignment), align_str(u.ualign.type));
 #endif
-	//} else if (u.ualignbase[A_CURRENT] != original_alignment) {
-	//    You("have converted.");
+	/*} else if (u.ualignbase[A_CURRENT] != original_alignment) {
+	      You("have converted.");*/ /* CHECK TODO is this correct? */
 	} else if (u.ualign.record < MIN_QUEST_ALIGN) {
 /*JP
 	    You("are currently %d and require %d.",
@@ -154,7 +154,7 @@ boolean talk;
 #endif
     purity = (u.ualign.record >= MIN_QUEST_ALIGN &&
 	      u.ualign.type == original_alignment &&
-	//      u.ualignbase[A_CURRENT].type == original_alignment.type) ?  1 : 0;
+	/*      u.ualignbase[A_CURRENT].type == original_alignment.type) ?  1 : 0; */ /* CHECK TODO is this correct? */
 	      u.ualignbase[A_CURRENT] == original_alignment) ?  1 :
 	     (u.ualignbase[A_CURRENT] != original_alignment) ? -1 : 0;
     return purity;

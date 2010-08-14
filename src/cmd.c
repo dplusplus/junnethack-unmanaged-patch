@@ -565,8 +565,10 @@ STATIC_PTR int
 dooverview_or_wiz_where()
 {
 #ifdef WIZARD
-	//if (wizard) return wiz_where();
-	//else
+/*
+	if (wizard) return wiz_where();
+	else
+*/
 #if 1 /*JP*/
 	if (wizard && yn("ëSï\é¶Ç∑ÇÈÅH") == 'y') return wiz_where();
 #endif

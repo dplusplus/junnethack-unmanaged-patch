@@ -1,5 +1,5 @@
 Sun Aug 15 2010  Masaki Miyaso  <so-miya@sourceforge.jp>
-	* UnNetHack SVN版r623をベースにした。
+	* UnNetHack SVN版r624をベースにした。
 	  r356 patchlevelを3.5.3にした
 	  r357 パッチ：ダンジョンマップ概要3 (Hojita Discordiaより)
 	  r358 マップ概要に闇市と道具屋を追加
@@ -302,6 +302,7 @@ Sun Aug 15 2010  Masaki Miyaso  <so-miya@sourceforge.jp>
 	  r622 Elbereth追跡のコードを修正
 	  r623 穴/トラップドアからプレイヤーがどのくらいの距離を落ちたかを
 	       表示
+	  r624 c89互換でないコメントを削除
 	* 起動時の職業名が翻訳されなくなっていたのを修正
 	* ダンプ関係で終了時のトップテン表示がおかしくなっていたので修正
 	* 日本語ダンプファイル名の対処
