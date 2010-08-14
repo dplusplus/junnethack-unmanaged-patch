@@ -1912,7 +1912,7 @@ register struct obj	*sobj;
 		}
 		/* Attack the player */
 		if (!sobj->blessed) {
-		    drop_boulder_on_player(confused, !sobj->cursed);
+		    drop_boulder_on_player(confused, !sobj->cursed, TRUE, FALSE);
 		} else {
 			if (boulder_created == 0)
 /*JP
@@ -2738,12 +2738,21 @@ create_particular()
 #endif /* OVLB */
 
 void
-drop_boulder_on_player(confused, helmet_protects)
+drop_boulder_on_player(confused, helmet_protects, by_player, drop_directly_to_floor)
 boolean confused;
 boolean helmet_protects; /**< if player is protected by a hard helmet */
+boolean by_player; /**< is boulder creation caused by player */
+boolean drop_directly_to_floor; /**< don't check if player is swallowed by a monster */
 {
 		    int dmg;
 		    struct obj *otmp2;
+
+		    /* hit monster if swallowed */
+		    if (u.uswallow && !drop_directly_to_floor) {
+			    drop_boulder_on_monster(u.ux, u.uy, confused, by_player);
+			    return;
+		    }
+
 		    /* Okay, _you_ write this without repeating the code */
 		    otmp2 = mksobj(confused ? ROCK : BOULDER,
 				FALSE, FALSE);
@@ -2827,6 +2836,18 @@ boolean by_player; /**< is boulder creation caused by player */
 #endif
 				    if (mtmp2->minvis && !canspotmon(mtmp2))
 					map_invisible(mtmp2->mx, mtmp2->my);
+				} else if (u.uswallow && mtmp2 == u.ustuck) {
+#if 0 /*JP*/
+					if (flags.soundok) You_hear("something hit %s %s over your %s!",
+							s_suffix(mon_nam(mtmp2)),
+							mbodypart(mtmp2, STOMACH),
+							body_part(HEAD));
+#else
+					if (flags.soundok)
+						You_hear("%s‚Ì%s‚Éã‚©‚ç‰½‚©‚ª‚Ô‚Â‚©‚é‰¹‚ð•·‚¢‚½I",
+							mon_nam(mtmp2),
+							mbodypart(mtmp2, STOMACH));
+#endif
 				}
 	    	    	    	mdmg = dmgval(otmp2, mtmp2) * otmp2->quan;
 				if (helmet) {
@@ -2866,7 +2887,12 @@ boolean by_player; /**< is boulder creation caused by player */
 						mondied(mtmp2);
 					}
 				}
-	    	    	    }
+			    } else if (u.uswallow && mtmp2 == u.ustuck) {
+				    obfree(otmp2, (struct obj *)0);
+				    /* fall through to player */
+				    drop_boulder_on_player(confused, TRUE, FALSE, TRUE);
+				    return 1;
+			    }
 	    	    	    /* Drop the rock/boulder to the floor */
 /*JP
 	    	    	    if (!flooreffects(otmp2, x, y, "fall")) {
