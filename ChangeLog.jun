@@ -1,5 +1,5 @@
 Sat Aug 14 2010  Masaki Miyaso  <so-miya@sourceforge.jp>
-	* UnNetHack SVN版r617をベースにした。
+	* UnNetHack SVN版r618をベースにした。
 	  r356 patchlevelを3.5.3にした
 	  r357 パッチ：ダンジョンマップ概要3 (Hojita Discordiaより)
 	  r358 マップ概要に闇市と道具屋を追加
@@ -295,6 +295,7 @@ Sat Aug 14 2010  Masaki Miyaso  <so-miya@sourceforge.jp>
 	  r615 大地の巻物の攻撃が飲み込み怪物に当たるように
 	  r616 configureの説明を更新してnethackをunnethackに置換
 	  r617 以前に見た明るい床のタイルを盲目時に探したときの表示の修正
+	  r618 魔法のアイテムを願ったかを追跡
 	* 起動時の職業名が翻訳されなくなっていたのを修正
 	* ダンプ関係で終了時のトップテン表示がおかしくなっていたので修正
 	* 日本語ダンプファイル名の対処

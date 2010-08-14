@@ -2064,6 +2064,18 @@ BOOLEAN_P want_disp;
 	    enl_msg(buf, "ている", "た", "");
 #endif
 
+	    if (u.uconduct.wishmagic) {
+#if 0 /*JP*/
+		    Sprintf(buf, "used %ld wish%s for magical items",
+				    u.uconduct.wishmagic, (u.uconduct.wishmagic > 1L) ? "es" : "");
+		    you_have_X(buf);
+#else
+		    Sprintf(buf, "魔法のアイテムのために%ld回願い事をし",
+				    u.uconduct.wishmagic);
+		    enl_msg(buf, "ている", "た", "");
+#endif
+	    }
+
 	    if (!u.uconduct.wisharti)
 #if 0 /*JP*/
 		enl_msg(You_, "have not wished", "did not wish",
