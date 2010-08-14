@@ -5111,7 +5111,7 @@ boolean disarm;
 /*JP
 			poisoned("gas cloud", A_STR, "cloud of poison gas",15);
 */
-			poisoned("ÉKÉXâ_", A_STR, "ÉKÉXâ_",15);
+			poisoned("ÉKÉXâ_", A_STR, "ì≈ÉKÉXÇÃâ_",15);
 			exercise(A_CON, FALSE);
 			break;
 		case 16:

@@ -2404,6 +2404,7 @@ int  typ, fatal;
 	int i, kprefix = KILLED_BY_AN;
 #endif
 	boolean thrown_weapon = (fatal < 0);
+	int how;
 
 	if (thrown_weapon) fatal = -fatal;
 #if 0 /*JP*/
@@ -2450,13 +2451,23 @@ int  typ, fatal;
 	    kprefix = KILLED_BY;
 	}
 #endif
+
+#if 0 /*JP*//*「毒針の毒で死んだ」はあり*/
+	how = strstri(pname, "poison") ? DIED : POISONING;
+#else
+	how = POISONING;
+#endif
 	i = rn2(fatal + 20*thrown_weapon);
 	if(i == 0 && typ != A_CHA) {
-		u.uhp = -1;
+		/* used to be instantly fatal; now just gongs your maxhp for (3d6)/2
+		 * ...which is probably pretty close to fatal anyway for low-levels */
 /*JP
-		pline_The("poison was deadly...");
+		pline_The("poison was extremely toxic!");
 */
-		pline("毒は致死量だった．．．");
+		pline("この毒はかなりの毒性がある！");
+		i = d(4,6);
+		u.uhpmax -= i / 2;
+		losehp_how(i,pname,kprefix,how);
 	} else if(i <= 5) {
 		/* Check that a stat change was made */
 		if (adjattrib(typ, thrown_weapon ? -1 : -rn1(3,3), 1))
@@ -2480,12 +2491,8 @@ int  typ, fatal;
 	if(u.uhp < 1) {
 		killer_format = kprefix;
 		killer = pname;
-#if 0 /*JP*//*「毒針の毒で死んだ」はあり*/
 		/* "Poisoned by a poisoned ___" is redundant */
-		done(strstri(pname, "poison") ? DIED : POISONING);
-#else
-		done(POISONING);
-#endif
+		done(how);
 	}
 	(void) encumber_msg();
 }

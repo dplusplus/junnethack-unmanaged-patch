@@ -3096,8 +3096,18 @@ boolean you; /**< true, if you are hit */
 
 void
 losehp(n, knam, k_format)
-register int n;
-register const char *knam;
+int n;
+const char *knam;
+boolean k_format;
+{
+	losehp_how(n, knam, k_format, DIED);
+}
+
+void
+losehp_how(n, knam, k_format, how)
+int n;
+const char *knam;
+int how;
 boolean k_format;
 {
 	showdmg(n, TRUE);
@@ -3124,7 +3134,7 @@ boolean k_format;
 		You("die...");
 */
 		pline("‚ ‚È‚½‚ÍŽ€‚É‚Ü‚µ‚½DDD");
-		done(DIED);
+		done(how);
 	} else if (n > 0 && u.uhp*10 < u.uhpmax) {
 		maybe_wail();
 	}

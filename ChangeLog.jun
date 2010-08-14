@@ -1,5 +1,5 @@
 Sat Aug 14 2010  Masaki Miyaso  <so-miya@sourceforge.jp>
-	* UnNetHack SVN版r612をベースにした。
+	* UnNetHack SVN版r614をベースにした。
 	  r356 patchlevelを3.5.3にした
 	  r357 パッチ：ダンジョンマップ概要3 (Hojita Discordiaより)
 	  r358 マップ概要に闇市と道具屋を追加
@@ -289,6 +289,9 @@ Sat Aug 14 2010  Masaki Miyaso  <so-miya@sourceforge.jp>
 	  r610 ナナメからドアの自動開放
 	  r611 ダンプ：iso8601形式の書式によるプレイ時間
 	  r612 errno.h を include した
+	  r613 毒による突然死をなくし、代わりに HP と最大HP が減るようにし
+	       た (SporkHack rev. 136,137 から)
+	  r614 毒によって死んだときの墓石のメッセージを訂正
 	* 起動時の職業名が翻訳されなくなっていたのを修正
 	* ダンプ関係で終了時のトップテン表示がおかしくなっていたので修正
 	* 日本語ダンプファイル名の対処
