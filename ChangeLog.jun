@@ -1,5 +1,5 @@
-Sat Aug 14 2010  Masaki Miyaso  <so-miya@sourceforge.jp>
-	* UnNetHack SVN版r622をベースにした。
+Sun Aug 15 2010  Masaki Miyaso  <so-miya@sourceforge.jp>
+	* UnNetHack SVN版r623をベースにした。
 	  r356 patchlevelを3.5.3にした
 	  r357 パッチ：ダンジョンマップ概要3 (Hojita Discordiaより)
 	  r358 マップ概要に闇市と道具屋を追加
@@ -300,6 +300,8 @@ Sat Aug 14 2010  Masaki Miyaso  <so-miya@sourceforge.jp>
 	  r620 自発的挑戦：Elberethを追跡 (Ray Kulhanekより)
 	  r621 Elberethの自発的挑戦の状態を常に表示
 	  r622 Elbereth追跡のコードを修正
+	  r623 穴/トラップドアからプレイヤーがどのくらいの距離を落ちたかを
+	       表示
 	* 起動時の職業名が翻訳されなくなっていたのを修正
 	* ダンプ関係で終了時のトップテン表示がおかしくなっていたので修正
 	* 日本語ダンプファイル名の対処
