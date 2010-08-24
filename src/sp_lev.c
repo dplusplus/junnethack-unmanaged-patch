@@ -70,18 +70,14 @@ extern struct engr *head_engr;
 extern int min_rx, max_rx, min_ry, max_ry; /* from mkmap.c */
 
 char SpLev_Map[COLNO][ROWNO];
-static char robjects[MAX_REGISTERS], rmonst[MAX_REGISTERS];
-static char rloc_x[MAX_REGISTERS], rloc_y[MAX_REGISTERS];
 static aligntyp	ralign[3] = { AM_CHAOTIC, AM_NEUTRAL, AM_LAWFUL };
 static NEARDATA xchar xstart, ystart;
 static NEARDATA char xsize, ysize;
-static NEARDATA int n_rloc, n_robj, n_rmon; /* # or random registers */
 
 STATIC_DCL void FDECL(set_wall_property, (XCHAR_P,XCHAR_P,XCHAR_P,XCHAR_P,int));
 STATIC_DCL int NDECL(rnddoor);
 STATIC_DCL int NDECL(rndtrap);
 STATIC_DCL void FDECL(get_location, (schar *,schar *,int, struct mkroom *));
-STATIC_DCL void FDECL(sp_lev_shuffle, (char *,char *,int));
 STATIC_DCL void FDECL(light_region, (region *));
 STATIC_DCL void FDECL(load_one_monster, (dlb *,monster *));
 STATIC_DCL void FDECL(load_one_object, (dlb *,object *));
@@ -125,9 +121,16 @@ splev_stack_done(st)
 		switch (st->stackdata[i]->spovartyp) {
 		default:
 		case SPOVAR_NULL:
+		case SPOVAR_COORD:
+		case SPOVAR_REGION:
+		case SPOVAR_MAPCHAR:
+		case SPOVAR_MONST:
+		case SPOVAR_OBJ:
 		case SPOVAR_INT:
 		    break;
+		case SPOVAR_VARIABLE:
 		case SPOVAR_STRING:
+		case SPOVAR_SEL:
 		    if (st->stackdata[i]->vardata.str) Free(st->stackdata[i]->vardata.str);
 		    st->stackdata[i]->vardata.str = NULL;
 		    break;
@@ -169,7 +172,7 @@ splev_stack_pop(st)
 {
     struct opvar *ret = NULL;
     if (!st) return ret;
-    if (!st->stackdata) panic("splev_stack_push: no stackdata allocated?");
+    if (!st->stackdata) panic("splev_stack_pop: no stackdata allocated?");
 
     if (st->depth) {
 	st->depth--;
@@ -180,26 +183,17 @@ splev_stack_pop(st)
     return ret;
 }
 
-struct opvar *
-splev_stack_getdat(st, typ)
-     struct splevstack *st;
-     xchar typ;
-{
-    if (st) {
-	struct opvar *tmp = splev_stack_pop(st);
-	if (tmp->spovartyp == typ)
-	    return tmp;
-    }
-    return NULL;
-}
-
 
 #define OV_typ(o) (o->spovartyp)
 #define OV_i(o) (o->vardata.l)
 #define OV_s(o) (o->vardata.str)
 
-#define OV_pop_i(x) (x = splev_stack_getdat(coder->stack, SPOVAR_INT))
-#define OV_pop_s(x) (x = splev_stack_getdat(coder->stack, SPOVAR_STRING))
+#define OV_pop_i(x) (x = splev_stack_getdat(coder, SPOVAR_INT))
+#define OV_pop_c(x) (x = splev_stack_getdat(coder, SPOVAR_COORD))
+#define OV_pop_r(x) (x = splev_stack_getdat(coder, SPOVAR_REGION))
+#define OV_pop_s(x) (x = splev_stack_getdat(coder, SPOVAR_STRING))
+#define OV_pop(x)   (x = splev_stack_getdat_any(coder))
+#define OV_pop_typ(x,typ) (x = splev_stack_getdat(coder, typ))
 
 
 struct opvar *
@@ -231,15 +225,33 @@ opvar_new_int(i)
     return tmpov;
 }
 
+struct opvar *
+opvar_new_coord(x,y)
+     int x,y;
+{
+    struct opvar *tmpov = (struct opvar *)alloc(sizeof(struct opvar));
+    if (!tmpov) panic("could not alloc opvar struct");
+    tmpov->spovartyp = SPOVAR_COORD;
+    tmpov->vardata.l = SP_COORD_PACK(x,y);
+    return tmpov;
+}
+
 void
 opvar_free_x(ov)
      struct opvar *ov;
 {
     if (!ov) return;
     switch (ov->spovartyp) {
+    case SPOVAR_COORD:
+    case SPOVAR_REGION:
+    case SPOVAR_MAPCHAR:
+    case SPOVAR_MONST:
+    case SPOVAR_OBJ:
     case SPOVAR_INT:
 	break;
+    case SPOVAR_VARIABLE:
     case SPOVAR_STRING:
+    case SPOVAR_SEL:
 	if (ov->vardata.str)
 	    Free(ov->vardata.str);
 	break;
@@ -248,7 +260,7 @@ opvar_free_x(ov)
     Free(ov);
 }
 
-#define opvar_free(ov) { opvar_free_x(ov); ov = NULL; }
+#define opvar_free(ov) { if (ov) { opvar_free_x(ov); ov = NULL; } else impossible("opvar_free(), %s", __FUNCTION__); }
 
 struct opvar *
 opvar_clone(ov)
@@ -257,13 +269,20 @@ opvar_clone(ov)
     struct opvar *tmpov = (struct opvar *)alloc(sizeof(struct opvar));
     if (!tmpov) panic("could not alloc opvar struct");
     switch (ov->spovartyp) {
+    case SPOVAR_COORD:
+    case SPOVAR_REGION:
+    case SPOVAR_MAPCHAR:
+    case SPOVAR_MONST:
+    case SPOVAR_OBJ:
     case SPOVAR_INT:
 	{
 	    tmpov->spovartyp = ov->spovartyp;
 	    tmpov->vardata.l = ov->vardata.l;
 	}
 	break;
+    case SPOVAR_VARIABLE:
     case SPOVAR_STRING:
+    case SPOVAR_SEL:
 	{
 	    int len = strlen(ov->vardata.str);
 	    tmpov->spovartyp = ov->spovartyp;
@@ -277,6 +296,107 @@ opvar_clone(ov)
     }
     return tmpov;
 }
+
+
+struct opvar *
+opvar_var_conversion(coder, ov)
+     struct sp_coder *coder;
+     struct opvar *ov;
+{
+    struct splev_var *tmp;
+    struct opvar *tmpov;
+    struct opvar *array_idx = NULL;
+    if (!coder || !ov) return NULL;
+    if (ov->spovartyp != SPOVAR_VARIABLE) return ov;
+    tmp = coder->frame->variables;
+    while (tmp) {
+	if (!strcmp(tmp->name, OV_s(ov))) {
+	    if ((tmp->svtyp & SPOVAR_ARRAY)) {
+		array_idx = opvar_var_conversion(coder, splev_stack_pop(coder->stack));
+		if (!array_idx || OV_typ(array_idx) != SPOVAR_INT)
+		    panic("array idx not an int");
+		if (tmp->array_len < 1) panic("array len < 1");
+		OV_i(array_idx) = (OV_i(array_idx) % tmp->array_len);
+		tmpov = opvar_clone(tmp->data.arrayvalues[OV_i(array_idx)]);
+		return tmpov;
+	    } else {
+		tmpov = opvar_clone(tmp->data.value);
+		return tmpov;
+	    }
+	}
+	tmp = tmp->next;
+    }
+    return NULL;
+}
+
+struct splev_var *
+opvar_var_defined(coder, name)
+     struct sp_coder *coder;
+     char *name;
+{
+    struct splev_var *tmp;
+    if (!coder) return NULL;
+    tmp = coder->frame->variables;
+    while (tmp) {
+	if (!strcmp(tmp->name, name)) return tmp;
+	tmp = tmp->next;
+    }
+    return NULL;
+}
+
+struct opvar *
+splev_stack_getdat(coder, typ)
+     struct sp_coder *coder;
+     xchar typ;
+{
+    if (coder && coder->stack) {
+	struct opvar *tmp = splev_stack_pop(coder->stack);
+	if (tmp->spovartyp == SPOVAR_VARIABLE)
+	    tmp = opvar_var_conversion(coder, tmp);
+	if (tmp->spovartyp == typ)
+	    return tmp;
+    }
+    return NULL;
+}
+
+struct opvar *
+splev_stack_getdat_any(coder)
+     struct sp_coder *coder;
+{
+    if (coder && coder->stack) {
+	struct opvar *tmp = splev_stack_pop(coder->stack);
+	if (tmp->spovartyp == SPOVAR_VARIABLE)
+	    tmp = opvar_var_conversion(coder, tmp);
+	return tmp;
+    }
+    return NULL;
+}
+
+
+
+void
+variable_list_del(varlist)
+     struct splev_var *varlist;
+{
+    struct splev_var *tmp = varlist;
+    if (!tmp) return;
+    while (tmp) {
+	free(tmp->name);
+	if ((tmp->svtyp & SPOVAR_ARRAY)) {
+	    long idx = tmp->array_len;
+	    while (idx-- > 0) {
+		opvar_free(tmp->data.arrayvalues[idx]);
+	    };
+	    free(tmp->data.arrayvalues);
+	} else {
+	    opvar_free(tmp->data.value);
+	}
+	tmp = varlist->next;
+	free(varlist);
+	varlist = tmp;
+    }
+}
+
 
 void
 lvlfill_maze_grid(x1,y1,x2,y2,filling)
@@ -304,8 +424,7 @@ schar lit;
 	int x,y;
 	for (x = 2; x <= x_maze_max; x++)
 	for (y = 0; y <= y_maze_max; y++) {
-			levl[x][y].typ = filling;
-		levl[x][y].lit = lit;
+	    SET_TYPLIT(x,y,filling,lit);
 	}
 }
 
@@ -602,7 +721,7 @@ shuffle_alignments()
 {
     int	i;
     aligntyp atmp;
-    /* shuffle 3 alignments; can't use sp_lev_shuffle() on aligntyp's */
+    /* shuffle 3 alignments */
     i = rn2(3);   atmp=ralign[2]; ralign[2]=ralign[i]; ralign[i]=atmp;
     if (rn2(2)) { atmp=ralign[1]; ralign[1]=ralign[0]; ralign[0]=atmp; }
 }
@@ -704,11 +823,7 @@ rndtrap()
 /*
  * Coordinates in special level files are handled specially:
  *
- *	if x or y is -(MAX_REGISTERS+1), we generate a random coordinate.
- *	if x or y is between -1 and -MAX_REGISTERS, we read one from the corresponding
- *	register (x0, x1, ... x9).
- *	if x or y is nonnegative, we convert it from relative to the local map
- *	to global coordinates.
+ *	if x or y is < 0, we generate a random coordinate.
  *	The "humidity" flag is used to insure that engravings aren't
  *	created underwater, or eels on dry land.
  */
@@ -741,13 +856,17 @@ struct mkroom *croom;
 	if (*x >= 0) {			/* normal locations */
 		*x += mx;
 		*y += my;
-	} else if (*x > -(MAX_REGISTERS+1)) {		/* special locations */
-		*y = my + rloc_y[ - *y - 1];
-		*x = mx + rloc_x[ - *x - 1];
 	} else {			/* random location */
 	    do {
-		*x = mx + rn2((int)sx);
-		*y = my + rn2((int)sy);
+		if (croom) { /* handle irregular areas */
+		    coord tmpc;
+		    somexy(croom, &tmpc);
+		    *x = tmpc.x;
+		    *y = tmpc.y;
+		} else {
+		    *x = mx + rn2((int)sx);
+		    *y = my + rn2((int)sy);
+		}
 		if (is_ok_location(*x,*y,humidity)) break;
 	    } while (++cpt < 100);
 	    if (cpt >= 100) {
@@ -790,31 +909,6 @@ register int humidity;
 		return TRUE;
 	}
 	return FALSE;
-}
-
-/*
- * Shuffle the registers for locations, objects or monsters
- */
-
-STATIC_OVL void
-sp_lev_shuffle(list1, list2, n)
-char list1[], list2[];
-int n;
-{
-	register int i, j;
-	register char k;
-
-	for (i = n - 1; i > 0; i--) {
-		if ((j = rn2(i + 1)) == i) continue;
-		k = list1[j];
-		list1[j] = list1[i];
-		list1[i] = k;
-		if (list2) {
-			k = list2[j];
-			list2[j] = list2[i];
-			list2[i] = k;
-		}
-	}
 }
 
 /*
@@ -1292,8 +1386,15 @@ struct mkroom	*croom;
 	y = t->y;
 	if (croom)
 	    get_free_room_loc(&x, &y, croom);
-	else
-	    get_location(&x, &y, DRY, croom);
+	else {
+	    int trycnt = 0;
+	    do {
+		x = t->x;
+		y = t->y;
+		get_location(&x, &y, DRY, croom);
+	    } while ((levl[x][y].typ == STAIRS || levl[x][y].typ == LADDER) && ++trycnt <= 100);
+	    if (trycnt > 100) return;
+	}
 
 	tm.x = x;
 	tm.y = y;
@@ -1317,7 +1418,7 @@ struct mkroom* croom;
 	 *
 	 * If we were given a specific coordinate, though, it doesn't have
 	 * to start from a wall... */
-	if (sp->x <= -(MAX_REGISTERS+1) || sp->y <= -(MAX_REGISTERS+1)) {
+	if (sp->x < 0 || sp->y < 0) {
 		for (j = 0;j < 500;j++) {
 			x = sp->x;
 			y = sp->y;
@@ -1332,8 +1433,7 @@ struct mkroom* croom;
 			}
 			if (!isok(nx,ny)) { continue; }
 			if (IS_WALL(levl[nx][ny].typ)) {	 /* mark it as broken through */
-				levl[nx][ny].typ = sp->typ;
-				levl[nx][ny].lit = sp->lit;
+				SET_TYPLIT(nx,ny,sp->typ, sp->lit);
 				found = TRUE;
 				break;
 			}
@@ -1351,8 +1451,7 @@ struct mkroom* croom;
 	lastdir = -1; nx = x; ny = y;
 	for (j = sp->count;j > 0;j--) {
 		guard = 0;
-		levl[nx][ny].typ = sp->typ;
-		levl[nx][ny].lit = sp->lit;
+		SET_TYPLIT(nx,ny, sp->typ, sp->lit);
 		do {
 			guard++;
 			do {
@@ -1413,8 +1512,6 @@ struct mkroom	*croom;
 
 	if (m->class >= 0)
 	    class = (char) def_char_to_monclass((char)m->class);
-	else if (m->class > -(MAX_REGISTERS+1))
-	    class = (char) def_char_to_monclass(rmonst[- m->class - 1]);
 	else
 	    class = 0;
 
@@ -1594,8 +1691,6 @@ struct mkroom	*croom;
 
 	if (o->class >= 0)
 	    c = o->class;
-	else if (o->class > -(MAX_REGISTERS+1))
-	    c = robjects[ -(o->class+1)];
 	else
 	    c = 0;
 
@@ -1674,9 +1769,14 @@ struct mkroom	*croom;
 	/* contents */
 	if (o->containment & SP_OBJ_CONTENT) {
 	    if (!container_idx) {
-		if (!invent_carrying_monster)
-		    warning("create_object: no container");
-		else {
+		if (!invent_carrying_monster) {
+		    /*impossible("create_object: no container");*/
+		    /* don't complain, the monster may be gone legally (eg. unique demon already generated)
+		       TODO: In the case of unique demon lords, they should get their inventories even when
+		       they get generated outside the des-file. Maybe another data file that determines what
+		       inventories monsters get by default?
+		     */
+		} else {
 		    int c;
 		    struct obj *objcheck = otmp;
 		    int inuse = -1;
@@ -1895,11 +1995,8 @@ int		typ;
 	x = fx;  y = fy;
 	get_location(&x, &y, DRY, croom);
 	/* Don't cover up an existing feature (particularly randomly
-	   placed stairs).  However, if the _same_ feature is already
-	   here, it came from the map drawing and we still need to
-	   update the special counters. */
-	if (IS_FURNITURE(levl[x][y].typ) && levl[x][y].typ != typ)
-	    return;
+	   placed stairs). */
+	if (IS_FURNITURE(levl[x][y].typ)) return;
 
 	levl[x][y].typ = typ;
 }
@@ -1922,88 +2019,9 @@ struct mkroom *croom;
     for (x = x1; x <= x2; x++)
 	for (y = y1; y <= y2; y++)
 	    if ((levl[x][y].typ == terr->fromter) && (rn2(100) < terr->chance)) {
-	    levl[x][y].typ = terr->toter;
-	    levl[x][y].lit = terr->tolit;
-	}
-}
-
-
-void
-put_terr_spot(x,y,ter,lit,thick)
-     schar x,y,ter,lit,thick;
-{
-    int dx, dy;
-
-    if (thick < 1) thick = 1;
-    else if (thick > 10) thick = 10;
-
-    for (dx = x-(thick/2); dx < x+((thick+1)/2); dx++)
-	for (dy = y-(thick/2); dy < y+((thick+1)/2); dy++)
-	    if (!(dx >= COLNO-1 || dx <= 0 || dy <= 0 || dy >= ROWNO-1)) {
-		levl[dx][dy].typ = ter;
-		levl[dx][dy].lit = lit;
+		SET_TYPLIT(x,y, terr->toter, terr->tolit);
 	    }
 }
-
-void
-line_midpoint_core(x1,y1,x2,y2,rough, ter,lit,thick, rec)
-     schar x1,y1,x2,y2,rough,ter,lit,thick,rec;
-{
-    int mx, my;
-    int dx, dy;
-
-    if (rec < 1) {
-	return;
-    }
-
-    if ((x2 == x1) && (y2 == y1)) {
-	put_terr_spot(x1,y1,ter,lit,thick);
-	return;
-    }
-
-    if (rough > max(abs(x2-x1), abs(y2-y1)))
-	rough = max(abs(x2-x1), abs(y2-y1));
-
-    if (rough < 2) {
-	mx = ((x1 + x2) / 2);
-	my = ((y1 + y2) / 2);
-    } else {
-	do {
-	    dx = (rand() % rough) - (rough / 2);
-	    dy = (rand() % rough) - (rough / 2);
-	    mx = ((x1 + x2) / 2) + dx;
-	    my = ((y1 + y2) / 2) + dy;
-	} while ((mx > COLNO-1 || mx < 0 || my < 0 || my > ROWNO-1));
-    }
-
-    put_terr_spot(mx,my,ter,lit,thick);
-
-    rough = (rough * 2) / 3;
-
-    rec--;
-
-    line_midpoint_core(x1,y1,mx,my, rough,ter,lit,thick, rec);
-    line_midpoint_core(mx,my,x2,y2, rough,ter,lit,thick, rec);
-}
-
-void
-line_midpoint(rndline,croom)
-randline *rndline;
-struct mkroom *croom;
-{
-    schar x1,y1,x2,y2,thick;
-
-    x1 = rndline->x1; y1 = rndline->y1;
-    get_location(&x1, &y1, DRY|WET, croom);
-
-    x2 = rndline->x2; y2 = rndline->y2;
-    get_location(&x2, &y2, DRY|WET, croom);
-
-    thick = rndline->thick;
-
-    line_midpoint_core(x1,y1,x2,y2,rndline->roughness, rndline->fg, rndline->lit, thick, 12);
-}
-
 
 
 void
@@ -2021,8 +2039,7 @@ struct mkroom *croom;
     switch (terr->areatyp) {
     case 0: /* point */
     default:
-	levl[x1][y1].typ = terr->ter;
-	levl[x1][y1].lit = terr->tlit;
+	SET_TYPLIT(x1,y1, terr->ter, terr->tlit);
 	/* handle doors and secret doors */
 	if (levl[x1][y1].typ == SDOOR || IS_DOOR(levl[x1][y1].typ)) {
 	    if(levl[x1][y1].typ == SDOOR)
@@ -2034,14 +2051,12 @@ struct mkroom *croom;
 	break;
     case 1: /* horiz line */
 	for (x = 0; x < (terr->x2); x++) {
-	    levl[x + x1][y1].typ = terr->ter;
-	    levl[x + x1][y1].lit = terr->tlit;
+	    SET_TYPLIT(x+x1,y1, terr->ter, terr->tlit);
 	}
 	break;
     case 2: /* vert line */
 	for (y = 0; y < (terr->y2); y++) {
-	    levl[x1][y + y1].typ = terr->ter;
-	    levl[x1][y + y1].lit = terr->tlit;
+	    SET_TYPLIT(x1,y+y1, terr->ter, terr->tlit);
 	}
 	break;
     case 3: /* filled rectangle */
@@ -2049,8 +2064,7 @@ struct mkroom *croom;
 	get_location(&x2, &y2, DRY|WET, croom);
 	for (x = x1; x <= x2; x++) {
 	    for (y = y1; y <= y2; y++) {
-		levl[x][y].typ = terr->ter;
-		levl[x][y].lit = terr->tlit;
+		SET_TYPLIT(x,y, terr->ter, terr->tlit);
 	    }
 	}
 	break;
@@ -2058,16 +2072,12 @@ struct mkroom *croom;
 	x2 = terr->x2;  y2 = terr->y2;
 	get_location(&x2, &y2, DRY|WET, croom);
 	for (x = x1; x <= x2; x++) {
-	    levl[x][y1].typ = terr->ter;
-	    levl[x][y1].lit = terr->tlit;
-	    levl[x][y2].typ = terr->ter;
-	    levl[x][y2].lit = terr->tlit;
+	    SET_TYPLIT(x,y1, terr->ter, terr->tlit);
+	    SET_TYPLIT(x,y2, terr->ter, terr->tlit);
 	}
 	for (y = y1; y <= y2; y++) {
-	    levl[x1][y].typ = terr->ter;
-	    levl[x1][y].lit = terr->tlit;
-	    levl[x2][y].typ = terr->ter;
-	    levl[x2][y].lit = terr->tlit;
+	    SET_TYPLIT(x1,y, terr->ter, terr->tlit);
+	    SET_TYPLIT(x2,y, terr->ter, terr->tlit);
 	}
 	break;
     }
@@ -2290,7 +2300,7 @@ corridor	*c;
 	if (c->src.room == -1) {
 	    /*sort_rooms();*/
 		fix_stair_rooms();
-		makecorridors();
+		makecorridors(c->src.door);
 		return;
 	}
 
@@ -2674,10 +2684,17 @@ sp_lev *lvl;
 
 	    switch (ov->spovartyp) {
 	    case SPOVAR_NULL: break;
+	    case SPOVAR_COORD:
+	    case SPOVAR_REGION:
+	    case SPOVAR_MAPCHAR:
+	    case SPOVAR_MONST:
+	    case SPOVAR_OBJ:
 	    case SPOVAR_INT:
 		Fread((genericptr_t)&(ov->vardata.l), 1, sizeof(ov->vardata.l), fd);
 		break;
+	    case SPOVAR_VARIABLE:
 	    case SPOVAR_STRING:
+	    case SPOVAR_SEL:
 		{
 		    char *opd;
 		    Fread((genericptr_t) &nsize, 1, sizeof(nsize), fd);
@@ -2729,15 +2746,14 @@ lev_init *linit;
     default: impossible("Unrecognized level init style."); break;
     case LVLINIT_NONE: break;
     case LVLINIT_SOLIDFILL:
-	if (linit->lit < 0) linit->lit = rn2(2);
+	if (linit->lit == -1) linit->lit = rn2(2);
 	lvlfill_solid(linit->filling, linit->lit);
 	break;
     case LVLINIT_MAZEGRID:
 	lvlfill_maze_grid(2,0, x_maze_max,y_maze_max, linit->filling);
 	break;
     case LVLINIT_MINES:
-	if (linit->lit < 0) linit->lit = rn2(2);
-	if (linit->filling > -1) lvlfill_solid(linit->filling);
+	if (linit->filling > -1) lvlfill_solid(linit->filling, 0);
 	mkmap(linit);
 	break;
     }
@@ -2750,6 +2766,7 @@ frame_new(execptr)
     struct sp_frame *frame = (struct sp_frame *)alloc(sizeof(struct sp_frame));
     if (!frame) panic("could not create execution frame.");
     frame->next = NULL;
+    frame->variables = NULL;
     frame->n_opcode = execptr;
     frame->stack = (struct splevstack *)alloc(sizeof(struct splevstack));
     if (!frame->stack) panic("could not create execution frame stack.");
@@ -2765,6 +2782,10 @@ frame_del(frame)
     if (frame->stack) {
 	splev_stack_done(frame->stack);
 	frame->stack = NULL;
+    }
+    if (frame->variables) {
+	variable_list_del(frame->variables);
+	frame->variables = NULL;
     }
     Free(frame);
 }
@@ -2896,7 +2917,7 @@ spo_monster(coder)
     int nparams = 0;
 
     struct opvar *varparam;
-    struct opvar *id, *x, *y, *class, *has_inv;
+    struct opvar *id, *coord, *has_inv;
     monster tmpmons;
 
     tmpmons.peaceful = -1;
@@ -2918,11 +2939,7 @@ spo_monster(coder)
     tmpmons.seentraps = 0;
     tmpmons.has_invent = 0;
 
-    if (!OV_pop_i(has_inv) ||
-	!OV_pop_i(id) ||
-	!OV_pop_i(class) ||
-	!OV_pop_i(y) ||
-	!OV_pop_i(x)) return;
+    if (!OV_pop_i(has_inv)) return;
 
     if (!OV_pop_i(varparam)) return;
 
@@ -2930,20 +2947,20 @@ spo_monster(coder)
 	   (OV_typ(varparam) == SPOVAR_INT) &&
 	   (OV_i(varparam) >= 0) &&
 	   (OV_i(varparam) < SP_M_V_END)) {
-	struct opvar *parm = splev_stack_pop(coder->stack);
+	struct opvar *parm = NULL;
+	OV_pop(parm);
 	switch (OV_i(varparam)) {
 	case SP_M_V_NAME:
 	    if ((OV_typ(parm) == SPOVAR_STRING) &&
 		!tmpmons.name.str)
 		tmpmons.name.str = strdup(OV_s(parm));
-	    opvar_free(parm);
 	    break;
 	case SP_M_V_APPEAR:
 	    if ((OV_typ(parm) == SPOVAR_INT) &&
 		!tmpmons.appear_as.str) {
 		tmpmons.appear = OV_i(parm);
 		opvar_free(parm);
-		parm = splev_stack_pop(coder->stack);
+		OV_pop(parm);
 		tmpmons.appear_as.str = strdup(OV_s(parm));
 	    }
 	    break;
@@ -3013,14 +3030,18 @@ spo_monster(coder)
 	opvar_free(parm);
 	if (OV_i(varparam) != SP_M_V_END) {
 	    opvar_free(varparam);
-	    varparam = splev_stack_pop(coder->stack);
+	    OV_pop(varparam);
 	}
     }
 
-    tmpmons.id = OV_i(id);
-    tmpmons.x = OV_i(x);
-    tmpmons.y = OV_i(y);
-    tmpmons.class = OV_i(class);
+    if (!OV_pop_c(coord)) panic("no monster coord?");
+
+    if (!OV_pop_typ(id, SPOVAR_MONST)) panic("no mon type");
+
+    tmpmons.id = SP_MONST_PM(OV_i(id));
+    tmpmons.class = SP_MONST_CLASS(OV_i(id));
+    tmpmons.x = SP_COORD_X(OV_i(coord));
+    tmpmons.y = SP_COORD_Y(OV_i(coord));
     tmpmons.has_invent = OV_i(has_inv);
 
     create_monster(&tmpmons, coder->croom);
@@ -3029,9 +3050,7 @@ spo_monster(coder)
     free(tmpmons.appear_as.str);
 
     opvar_free(id);
-    opvar_free(x);
-    opvar_free(y);
-    opvar_free(class);
+    opvar_free(coord);
     opvar_free(has_inv);
     opvar_free(varparam);
 }
@@ -3041,9 +3060,10 @@ spo_object(coder)
      struct sp_coder *coder;
 {
     int nparams = 0;
+    long quancnt;
 
     struct opvar *varparam;
-    struct opvar *id, *x, *y, *class, *containment;
+    struct opvar *id, *containment;
 
     object tmpobj;
 
@@ -3061,12 +3081,9 @@ spo_object(coder)
     tmpobj.invis = 0;
     tmpobj.greased = 0;
     tmpobj.broken = 0;
+    tmpobj.x = tmpobj.y = -1;
 
-    if (!OV_pop_i(containment) ||
-	!OV_pop_i(id) ||
-	!OV_pop_i(class) ||
-	!OV_pop_i(y) ||
-	!OV_pop_i(x)) return;
+    if (!OV_pop_i(containment)) return;
 
     if (!OV_pop_i(varparam)) return;
 
@@ -3074,7 +3091,8 @@ spo_object(coder)
 	   (OV_typ(varparam) == SPOVAR_INT) &&
 	   (OV_i(varparam) >= 0) &&
 	   (OV_i(varparam) < SP_O_V_END)) {
-	struct opvar *parm = splev_stack_pop(coder->stack);
+	struct opvar *parm;
+	OV_pop(parm);
 	switch (OV_i(varparam)) {
 	case SP_O_V_NAME:
 	    if ((OV_typ(parm) == SPOVAR_STRING) &&
@@ -3082,8 +3100,23 @@ spo_object(coder)
 		tmpobj.name.str = strdup(OV_s(parm));
 	    break;
 	case SP_O_V_CORPSENM:
-	    if ((OV_typ(parm) == SPOVAR_INT))
-		tmpobj.corpsenm = OV_i(parm);
+	    if ((OV_typ(parm) == SPOVAR_MONST)) {
+		char monclass = SP_MONST_CLASS(OV_i(parm));
+		int monid = SP_MONST_PM(OV_i(parm));
+		if (monid >= 0 && monid < NUMMONS) {
+		    tmpobj.corpsenm = monid;
+		    break; /* we're done! */
+		} else {
+		    struct permonst *pm = (struct permonst *)0;
+		    if (def_char_to_monclass(monclass) != MAXMCLASSES) {
+			pm = mkclass(def_char_to_monclass(monclass), G_NOGEN);
+		    } else {
+			pm = rndmonst();
+		    }
+		    if (pm)
+			tmpobj.corpsenm = monsndx(pm);
+		}
+	    }
 	    break;
 	case SP_O_V_CURSE:
 	    if (OV_typ(parm) == SPOVAR_INT)
@@ -3133,6 +3166,12 @@ spo_object(coder)
 	    if (OV_typ(parm) == SPOVAR_INT)
 		tmpobj.broken = OV_i(parm);
 	    break;
+	case SP_O_V_COORD:
+	    if (OV_typ(parm) != SPOVAR_COORD)
+		panic("no coord for obj?");
+	    tmpobj.y = SP_COORD_Y(OV_i(parm));
+	    tmpobj.x = SP_COORD_X(OV_i(parm));
+	    break;
 	case SP_O_V_END:
 	    nparams = SP_O_V_END+1;
 	    break;
@@ -3143,25 +3182,29 @@ spo_object(coder)
 	opvar_free(parm);
 	if (OV_i(varparam) != SP_O_V_END) {
 	    opvar_free(varparam);
-	    varparam = splev_stack_pop(coder->stack);
+	    OV_pop(varparam);
 	}
     }
 
-    tmpobj.id = OV_i(id);
-    tmpobj.x = OV_i(x);
-    tmpobj.y = OV_i(y);
-    tmpobj.class = OV_i(class);
+    if (!OV_pop_typ(id, SPOVAR_OBJ)) panic("no obj type");
+
+    tmpobj.id = SP_OBJ_TYP(OV_i(id));
+    tmpobj.class = SP_OBJ_CLASS(OV_i(id));
     tmpobj.containment = OV_i(containment);
 
-    create_object(&tmpobj, coder->croom);
+    quancnt = (tmpobj.id > STRANGE_OBJECT) ? tmpobj.quan : 0;
+
+    do {
+	create_object(&tmpobj, coder->croom);
+	quancnt--;
+    } while ((quancnt > 0) &&
+	     ((tmpobj.id > STRANGE_OBJECT) &&
+	      !objects[tmpobj.id].oc_merge));
 
     Free(tmpobj.name.str);
 
     opvar_free(varparam);
     opvar_free(id);
-    opvar_free(x);
-    opvar_free(y);
-    opvar_free(class);
     opvar_free(containment);
 }
 
@@ -3254,13 +3297,14 @@ spo_mon_generation(coder)
 	struct opvar *mfreq, *is_sym, *mon;
 	mgtuple = (struct mon_gen_tuple *)alloc(sizeof(struct mon_gen_tuple));
 
-	if (!OV_pop_i(mfreq) ||
-	    !OV_pop_i(is_sym) ||
-	    !OV_pop_i(mon)) {
+	if (!OV_pop_i(is_sym) ||
+	    !OV_pop_i(mon) ||
+	    !OV_pop_i(mfreq)) {
 	    panic("oopsie when loading mon_gen chances.");
 	}
 
 	mgtuple->freq = OV_i(mfreq);
+	if (OV_i(mfreq) < 1) OV_i(mfreq) = 1;
 	mgtuple->is_sym = OV_i(is_sym);
 	if (OV_i(is_sym))
 	    mgtuple->monid = def_char_to_monclass(OV_i(mon));
@@ -3290,21 +3334,20 @@ spo_level_sounds(coder)
 	return;
     }
 
-    if (!OV_pop_i(n_tuples) || !OV_pop_i(freq)) return;
+    if (!OV_pop_i(n_tuples)) return;
 
     if (OV_i(n_tuples) < 1) {
 	impossible("no level sounds attached to the sound opcode?");
     }
 
     mg = (struct lvl_sounds *)alloc(sizeof(struct lvl_sounds));
-    mg->freq = OV_i(freq);
     mg->n_sounds = OV_i(n_tuples);
     mg->sounds = (struct lvl_sound_bite *)alloc(sizeof(struct lvl_sound_bite) * mg->n_sounds);
 
     while (OV_i(n_tuples)-- > 0) {
 	struct opvar *flags, *msg;
 
-	if (!OV_pop_s(msg) || !OV_pop_i(flags)) {
+	if (!OV_pop_i(flags) || !OV_pop_s(msg)) {
 	    panic("oopsie when loading lvl_sound_bite.");
 	}
 
@@ -3314,6 +3357,11 @@ spo_level_sounds(coder)
 	opvar_free(flags);
 	opvar_free(msg);
     }
+
+    if (!OV_pop_i(freq)) mg->freq = 1;
+    else mg->freq = OV_i(freq);
+    if (mg->freq < 0) mg->freq = -(mg->freq);
+
     level.sounds = mg;
 
     opvar_free(freq);
@@ -3324,16 +3372,15 @@ void
 spo_engraving(coder)
      struct sp_coder *coder;
 {
-    struct opvar *etyp, *txt, *fy, *fx;
+    struct opvar *etyp, *txt, *coord;
     engraving tmpe;
 
     if (!OV_pop_i(etyp) ||
 	!OV_pop_s(txt) ||
-	!OV_pop_i(fy) ||
-	!OV_pop_i(fx)) return;
+	!OV_pop_c(coord)) return;
 
-    tmpe.x = OV_i(fx);
-    tmpe.y = OV_i(fy);
+    tmpe.x = SP_COORD_X(OV_i(coord));
+    tmpe.y = SP_COORD_Y(OV_i(coord));
     tmpe.engr.str = OV_s(txt);
     tmpe.etype = OV_i(etyp);
 
@@ -3341,8 +3388,7 @@ spo_engraving(coder)
 
     opvar_free(etyp);
     opvar_free(txt);
-    opvar_free(fx);
-    opvar_free(fy);
+    opvar_free(coord);
 }
 
 void
@@ -3429,78 +3475,31 @@ spo_endroom(coder)
 }
 
 void
-spo_door(coder)
-     struct sp_coder *coder;
-{
-    schar x,y;
-    struct opvar *msk, *fy, *fx;
-    struct mkroom *droom;
-    xchar typ;
-
-    if (!OV_pop_i(msk) ||
-	!OV_pop_i(fy) ||
-	!OV_pop_i(fx)) return;
-
-    droom = &rooms[0];
-
-    x = OV_i(fx); y = OV_i(fy);
-    typ = OV_i(msk) == -1 ? rnddoor() : (xchar)OV_i(msk);
-
-    get_location(&x, &y, DRY, (struct mkroom *)0);
-    if (levl[x][y].typ != SDOOR)
-	levl[x][y].typ = DOOR;
-    else {
-	if(typ < D_CLOSED)
-	    typ = D_CLOSED; /* force it to be closed */
-    }
-    levl[x][y].doormask = typ;
-    /*SpLev_Map[x][y] = 1;*/
-
-    /* Now the complicated part, list it with each subroom */
-    /* The dog move and mail daemon routines use this */
-    while(droom->hx >= 0 && doorindex < DOORMAX) {
-	if(droom->hx >= x-1 && droom->lx <= x+1 &&
-	   droom->hy >= y-1 && droom->ly <= y+1) {
-	    /* Found it */
-	    add_door(x, y, droom);
-	}
-	droom++;
-    }
-
-    opvar_free(fx);
-    opvar_free(fy);
-    opvar_free(msk);
-}
-
-void
 spo_stair(coder)
      struct sp_coder *coder;
 {
     xchar x,y;
-    struct opvar *up, *fy, *fx;
+    struct opvar *up, *coord;
     struct trap *badtrap;
 
     if (!OV_pop_i(up) ||
-	!OV_pop_i(fy) ||
-	!OV_pop_i(fx)) return;
+	!OV_pop_c(coord)) return;
+
+    x = SP_COORD_X(OV_i(coord));
+    y = SP_COORD_Y(OV_i(coord));
 
     if (coder->croom) {
-	x = OV_i(fx);
-	y = OV_i(fy);
 	get_location(&x, &y, DRY, coder->croom);
 	mkstairs(x,y,(char)OV_i(up), coder->croom);
 	SpLev_Map[x][y] = 1;
     } else {
-	x = OV_i(fx);
-	y = OV_i(fy);
 	get_location(&x, &y, DRY, coder->croom);
 	if ((badtrap = t_at(x,y)) != 0) deltrap(badtrap);
 	mkstairs(x, y, (char)OV_i(up), coder->croom);
 	SpLev_Map[x][y] = 1;
     }
 
-    opvar_free(fx);
-    opvar_free(fy);
+    opvar_free(coord);
     opvar_free(up);
 }
 
@@ -3509,14 +3508,13 @@ spo_ladder(coder)
      struct sp_coder *coder;
 {
     xchar x,y;
-    struct opvar *up, *fy, *fx;
+    struct opvar *up, *coord;
 
     if (!OV_pop_i(up) ||
-	!OV_pop_i(fy) ||
-	!OV_pop_i(fx)) return;
+	!OV_pop_c(coord)) return;
 
-    x = OV_i(fx);
-    y = OV_i(fy);
+    x = SP_COORD_X(OV_i(coord));
+    y = SP_COORD_Y(OV_i(coord));
 
     get_location(&x, &y, DRY, coder->croom);
 
@@ -3529,8 +3527,7 @@ spo_ladder(coder)
 	xdnladder = x; ydnladder = y;
 	levl[x][y].ladder = LA_DOWN;
     }
-    opvar_free(fx);
-    opvar_free(fy);
+    opvar_free(coord);
     opvar_free(up);
 }
 
@@ -3538,14 +3535,13 @@ void
 spo_grave(coder)
      struct sp_coder *coder;
 {
-    struct opvar *gx,*gy, *typ, *txt;
+    struct opvar *coord, *typ, *txt;
     schar x,y;
     if (!OV_pop_i(typ) ||
 	!OV_pop_s(txt) ||
-	!OV_pop_i(gy) ||
-	!OV_pop_i(gx)) return;
+	!OV_pop_c(coord)) return;
 
-    x = OV_i(gx); y = OV_i(gy);
+    x = SP_COORD_X(OV_i(coord)); y = SP_COORD_Y(OV_i(coord));
     get_location(&x, &y, DRY, coder->croom);
 
     if (isok(x, y) && !t_at(x, y)) {
@@ -3557,8 +3553,7 @@ spo_grave(coder)
 	}
     }
 
-    opvar_free(gx);
-    opvar_free(gy);
+    opvar_free(coord);
     opvar_free(typ);
     opvar_free(txt);
 }
@@ -3567,67 +3562,69 @@ void
 spo_altar(coder)
      struct sp_coder *coder;
 {
-    struct opvar *al, *shrine, *fy, *fx;
+    struct opvar *al, *shrine, *coord;
     altar tmpaltar;
 
     if (!OV_pop_i(al) ||
 	!OV_pop_i(shrine) ||
-	!OV_pop_i(fy) ||
-	!OV_pop_i(fx)) return;
+	!OV_pop_c(coord)) return;
 
-    tmpaltar.x = OV_i(fx);
-    tmpaltar.y = OV_i(fy);
+    tmpaltar.x = SP_COORD_X(OV_i(coord));
+    tmpaltar.y = SP_COORD_Y(OV_i(coord));
     tmpaltar.align = OV_i(al);
     tmpaltar.shrine = OV_i(shrine);
 
     create_altar(&tmpaltar, coder->croom);
 
-    opvar_free(fx);
-    opvar_free(fy);
+    opvar_free(coord);
     opvar_free(shrine);
     opvar_free(al);
 }
 
 void
-spo_feature(coder)
+spo_wallwalk(coder)
      struct sp_coder *coder;
 {
-    struct opvar *fy, *fx;
-    int typ;
+    struct opvar *coord, *fgtyp, *bgtyp, *chance;
+    xchar x,y;
 
-    if (!OV_pop_i(fy) ||
-	!OV_pop_i(fx)) return;
+    if (!OV_pop_i(chance) ||
+	!OV_pop_typ(bgtyp, SPOVAR_MAPCHAR) ||
+	!OV_pop_typ(fgtyp, SPOVAR_MAPCHAR) ||
+	!OV_pop_c(coord)) return;
 
-    switch (coder->opcode) {
-    default: impossible("spo_feature called with wrong opcode %i.", coder->opcode); break;
-    case SPO_FOUNTAIN: typ = FOUNTAIN; break;
-    case SPO_SINK:     typ = SINK;     break;
-    case SPO_POOL:     typ = POOL;     break;
-    }
+    x = SP_COORD_X(OV_i(coord));
+    y = SP_COORD_Y(OV_i(coord));
+    get_location(&x, &y, DRY|WET, coder->croom);
 
-    create_feature(OV_i(fx), OV_i(fy), coder->croom, typ);
-    opvar_free(fx);
-    opvar_free(fy);
+    if (SP_MAPCHAR_TYP(OV_i(fgtyp)) >= MAX_TYPE) return;
+    if (SP_MAPCHAR_TYP(OV_i(bgtyp)) >= MAX_TYPE) return;
+
+    wallwalk_right(x, y, SP_MAPCHAR_TYP(OV_i(fgtyp)), SP_MAPCHAR_LIT(OV_i(fgtyp)), SP_MAPCHAR_TYP(OV_i(bgtyp)), OV_i(chance));
+
+    opvar_free(coord);
+    opvar_free(chance);
+    opvar_free(fgtyp);
+    opvar_free(bgtyp);
 }
 
 void
 spo_trap(coder)
      struct sp_coder *coder;
 {
-    struct opvar *type, *fy, *fx;
+    struct opvar *type;
+    struct opvar *coord;
     trap tmptrap;
 
     if (!OV_pop_i(type) ||
-	!OV_pop_i(fy) ||
-	!OV_pop_i(fx)) return;
+	!OV_pop_c(coord)) return;
 
-    tmptrap.x = OV_i(fx);
-    tmptrap.y = OV_i(fy);
+    tmptrap.x = SP_COORD_X(OV_i(coord));
+    tmptrap.y = SP_COORD_Y(OV_i(coord));
     tmptrap.type = OV_i(type);
 
     create_trap(&tmptrap, coder->croom);
-    opvar_free(fx);
-    opvar_free(fy);
+    opvar_free(coord);
     opvar_free(type);
 }
 
@@ -3635,17 +3632,14 @@ void
 spo_gold(coder)
      struct sp_coder *coder;
 {
-    struct opvar *fy, *fx, *amt;
+    struct opvar *coord, *amt;
     gold tmpgold;
-    if (!OV_pop_i(fx) ||
-	!OV_pop_i(fy) ||
-	!OV_pop_i(amt)) return;
-    tmpgold.x = OV_i(fx);
-    tmpgold.y = OV_i(fy);
+    if (!OV_pop_c(coord) || !OV_pop_i(amt)) return;
+    tmpgold.x = SP_COORD_X(OV_i(coord));
+    tmpgold.y = SP_COORD_Y(OV_i(coord));
     tmpgold.amount = OV_i(amt);
     create_gold(&tmpgold, coder->croom);
-    opvar_free(fx);
-    opvar_free(fy);
+    opvar_free(coord);
     opvar_free(amt);
 }
 
@@ -3681,37 +3675,473 @@ spo_corridor(coder)
     opvar_free(srcroom);
 }
 
+struct opvar *
+selection_opvar(nbuf)
+     char *nbuf;
+{
+    struct opvar *ov;
+    char buf[(COLNO*ROWNO)+1];
+    int x,y,i = 0;
+
+    if (!nbuf) {
+	(void) memset(buf, 1, sizeof(buf));
+	buf[(COLNO*ROWNO)] = '\0';
+	ov = opvar_new_str(buf);
+    } else {
+	ov = opvar_new_str(nbuf);
+    }
+    ov->spovartyp = SPOVAR_SEL;
+    return ov;
+}
+
+char
+selection_getpoint(x,y,ov)
+     int x,y;
+     struct opvar *ov;
+{
+    if (!ov || ov->spovartyp != SPOVAR_SEL) return 0;
+    if (x < 0 || y < 0 || x >= COLNO || y >= ROWNO) return 0;
+
+    return (ov->vardata.str[COLNO*y + x] - 1);
+}
+
+void
+selection_setpoint(x,y,ov, c)
+     int x,y;
+     struct opvar *ov;
+     char c;
+{
+    if (!ov || ov->spovartyp != SPOVAR_SEL) return;
+    if (x < 0 || y < 0 || x >= COLNO || y >= ROWNO) return;
+
+    ov->vardata.str[COLNO*y + x] = (c + 1);
+}
+
+struct opvar *
+selection_logical_oper(s1, s2, oper)
+     struct opvar *s1, *s2;
+     char oper;
+{
+    struct opvar *ov;
+    int x,y;
+
+    ov = selection_opvar(NULL);
+    if (!ov) return NULL;
+
+    for (x = 0; x < COLNO; x++)
+	for (y = 0; y < ROWNO; y++) {
+	    switch (oper) {
+	    default:
+	    case '|':
+		if (selection_getpoint(x,y,s1) || selection_getpoint(x,y,s2))
+		    selection_setpoint(x,y,ov,1);
+		break;
+	    case '&':
+		if (selection_getpoint(x,y,s1) && selection_getpoint(x,y,s2))
+		    selection_setpoint(x,y,ov,1);
+		break;
+	    }
+	}
+
+    return ov;
+}
+
+
+
+void
+selection_filter_percent(ov, percent)
+    struct opvar *ov;
+    int percent;
+{
+    int x,y;
+    if (!ov) return;
+    for (x = 0; x < COLNO; x++)
+	for (y = 0; y < ROWNO; y++)
+	    if (selection_getpoint(x,y,ov) && (rn2(100) >= percent))
+		selection_setpoint(x,y,ov,0);
+}
+
+int
+selection_rndcoord(ov, x,y)
+    struct opvar *ov;
+    schar *x, *y;
+{
+    struct opvar *coord;
+    int idx = 0;
+    int c;
+    int dx,dy;
+
+    for (dx = 0; dx < COLNO; dx++)
+	for (dy = 0; dy < ROWNO; dy++)
+	    if (isok(dx,dy) && selection_getpoint(dx,dy,ov)) idx++;
+
+    if (idx) {
+	c = rn2(idx);
+	for (dx = 0; dx < COLNO; dx++)
+	    for (dy = 0; dy < ROWNO; dy++)
+		if (isok(dx,dy) && selection_getpoint(dx,dy, ov)) {
+		    if (!c) {
+			*x = dx;
+			*y = dy;
+			return 1;
+		    }
+		    c--;
+		}
+    }
+    *x = *y = -1;
+    return 0;
+}
+
+void
+selection_do_grow(ov, dir)
+     struct opvar *ov;
+     int dir;
+{
+    int x,y, c;
+    char tmp[COLNO][ROWNO];
+
+    if (ov->spovartyp != SPOVAR_SEL) return;
+    if (!ov) return;
+
+    (void) memset(tmp, 0, sizeof(tmp));
+
+    for (x = 0; x < COLNO; x++)
+	for (y = 0; y < ROWNO; y++) {
+	    c = 0;
+	    if ((dir & W_WEST) && (x > 0) && (selection_getpoint(x-1,y, ov))) c++;
+	    if ((dir & (W_WEST|W_NORTH)) && (x > 0) && (y > 0) && (selection_getpoint(x-1,y-1, ov))) c++;
+	    if ((dir & W_NORTH) && (y > 0) && (selection_getpoint(x,y-1, ov))) c++;
+	    if ((dir & (W_NORTH|W_EAST)) && (y > 0) && (x < COLNO-1) && (selection_getpoint(x+1,y-1, ov))) c++;
+	    if ((dir & W_EAST) && (x < COLNO-1) && (selection_getpoint(x+1,y, ov))) c++;
+	    if ((dir & (W_EAST|W_SOUTH)) && (x < COLNO-1) && (y < ROWNO-1) && (selection_getpoint(x+1,y+1, ov))) c++;
+	    if ((dir & W_SOUTH) && (y < ROWNO-1) && (selection_getpoint(x,y+1, ov))) c++;
+	    if ((dir & (W_SOUTH|W_WEST)) && (y < ROWNO-1) && (x > 0) && (selection_getpoint(x-1,y+1, ov))) c++;
+	    if (c) tmp[x][y] = 1;
+	}
+
+    for (x = 0; x < COLNO; x++)
+	for (y = 0; y < ROWNO; y++)
+	    if (tmp[x][y]) selection_setpoint(x,y,ov,1);
+}
+
+void
+selection_floodfill(ov, x,y)
+     struct opvar *ov;
+     int x,y;
+{
+    struct opvar *tmp = selection_opvar(NULL);
+#define SEL_FLOOD_STACK (COLNO*ROWNO)
+#define SEL_FLOOD(nx,ny) {if (idx<SEL_FLOOD_STACK) { dx[idx]=(nx); dy[idx]=(ny); idx++; } else panic("floodfill stack overrun");}
+    int idx = 0;
+    xchar dx[SEL_FLOOD_STACK];
+    xchar dy[SEL_FLOOD_STACK];
+    schar under = levl[x][y].typ;
+    SEL_FLOOD(x,y);
+    do {
+	idx--;
+	x = dx[idx];
+	y = dy[idx];
+	if (isok(x,y)) {
+	    selection_setpoint(x,y, ov, 1);
+	    selection_setpoint(x,y, tmp, 1);
+	}
+	if (isok(x+1,y) && (levl[x+1][y].typ == under) && !selection_getpoint(x+1,y,tmp)) SEL_FLOOD(x+1, y);
+	if (isok(x-1,y) && (levl[x-1][y].typ == under) && !selection_getpoint(x-1,y,tmp)) SEL_FLOOD(x-1, y);
+	if (isok(x,y+1) && (levl[x][y+1].typ == under) && !selection_getpoint(x,y+1,tmp)) SEL_FLOOD(x, y+1);
+	if (isok(x,y-1) && (levl[x][y-1].typ == under) && !selection_getpoint(x,y-1,tmp)) SEL_FLOOD(x, y-1);
+    } while (idx > 0);
+#undef SEL_FLOOD
+#undef SEL_FLOOD_STACK
+    opvar_free(tmp);
+}
+
+/* McIlroy's Ellipse Algorithm */
+void
+selection_do_ellipse(ov, xc,yc, a,b, filled)
+    struct opvar *ov;
+    int xc,yc,a,b,filled;
+{                       /* e(x,y) = b^2*x^2 + a^2*y^2 - a^2*b^2 */
+    int x = 0, y = b;
+    long a2 = (long)a*a, b2 = (long)b*b;
+    long crit1 = -(a2/4 + a%2 + b2);
+    long crit2 = -(b2/4 + b%2 + a2);
+    long crit3 = -(b2/4 + b%2);
+    long t = -a2*y; /* e(x+1/2,y-1/2) - (a^2+b^2)/4 */
+    long dxt = 2*b2*x, dyt = -2*a2*y;
+    long d2xt = 2*b2, d2yt = 2*a2;
+    long width = 1;
+    long i;
+
+    if (!ov) return;
+
+    filled = !filled;
+
+    if (!filled) {
+	while (y>=0 && x<=a) {
+	    selection_setpoint(xc+x, yc+y, ov, 1);
+	    if (x!=0 || y!=0)
+		selection_setpoint(xc-x, yc-y, ov, 1);
+	    if (x!=0 && y!=0) {
+		selection_setpoint(xc+x, yc-y, ov, 1);
+		selection_setpoint(xc-x, yc+y, ov, 1);
+	    }
+	    if (t + b2*x <= crit1 ||   /* e(x+1,y-1/2) <= 0 */
+		t + a2*y <= crit3) {     /* e(x+1/2,y) <= 0 */
+		x++; dxt += d2xt; t += dxt;
+	    } else if (t - a2*y > crit2) { /* e(x+1/2,y-1) > 0 */
+		y--; dyt += d2yt; t += dyt;
+	    } else {
+		x++; dxt += d2xt; t += dxt;
+		y--; dyt += d2yt; t += dyt;
+	    }
+	}
+    } else {
+	while (y>=0 && x<=a) {
+	    if (t + b2*x <= crit1 ||   /* e(x+1,y-1/2) <= 0 */
+		t + a2*y <= crit3) {     /* e(x+1/2,y) <= 0 */
+		x++; dxt += d2xt; t += dxt;
+		width += 2;
+	    } else if (t - a2*y > crit2) { /* e(x+1/2,y-1) > 0 */
+		for (i = 0; i < width; i++) selection_setpoint(xc-x+i, yc-y, ov, 1);
+		if (y!=0)
+		    for (i = 0; i < width; i++) selection_setpoint(xc-x+i, yc+y, ov, 1);
+		y--; dyt += d2yt; t += dyt;
+	    } else {
+		for (i = 0; i < width; i++) selection_setpoint(xc-x+i, yc-y, ov, 1);
+		if (y!=0)
+		    for (i = 0; i < width; i++) selection_setpoint(xc-x+i, yc+y, ov, 1);
+		x++; dxt += d2xt; t += dxt;
+		y--; dyt += d2yt; t += dyt;
+		width += 2;
+	    }
+	}
+    }
+}
+
+
+
+void
+selection_do_line(x1,y1,x2,y2, ov) /* bresenham line algo */
+     schar x1,y1,x2,y2;
+     struct opvar *ov;
+{
+    int d,dx,dy,ai,bi,xi,yi;
+
+    if (x1 < x2) {
+	xi = 1;
+	dx = x2 - x1;
+    } else {
+	xi = - 1;
+	dx = x1 - x2;
+    }
+
+    if (y1 < y2) {
+	yi = 1;
+	dy = y2 - y1;
+    } else {
+	yi = - 1;
+	dy = y1 - y2;
+    }
+
+    selection_setpoint(x1,y1, ov, 1);
+
+    if (dx > dy) {
+	ai = (dy - dx) * 2;
+	bi = dy * 2;
+	d  = bi - dx;
+	do {
+	    if (d >= 0) {
+		y1 += yi;
+		d += ai;
+	    } else d += bi;
+	    x1 += xi;
+	    selection_setpoint(x1,y1, ov, 1);
+	} while (x1 != x2);
+    } else {
+	ai = (dx - dy) * 2;
+	bi = dx * 2;
+	d  = bi - dy;
+	do {
+	    if (d >= 0) {
+		x1 += xi;
+		d += ai;
+	    } else d += bi;
+	    y1 += yi;
+	    selection_setpoint(x1,y1, ov, 1);
+	} while (y1 != y2);
+    }
+}
+
+void
+selection_do_randline(x1,y1,x2,y2,rough, rec, ov)
+     schar x1,y1,x2,y2,rough,rec;
+     struct opvar *ov;
+{
+    int mx, my;
+    int dx, dy;
+
+    if (rec < 1) {
+	return;
+    }
+
+    if ((x2 == x1) && (y2 == y1)) {
+	selection_setpoint(x1,y1, ov, 1);
+	return;
+    }
+
+    if (rough > max(abs(x2-x1), abs(y2-y1)))
+	rough = max(abs(x2-x1), abs(y2-y1));
+
+    if (rough < 2) {
+	mx = ((x1 + x2) / 2);
+	my = ((y1 + y2) / 2);
+    } else {
+	do {
+	    dx = (rand() % rough) - (rough / 2);
+	    dy = (rand() % rough) - (rough / 2);
+	    mx = ((x1 + x2) / 2) + dx;
+	    my = ((y1 + y2) / 2) + dy;
+	} while ((mx > COLNO-1 || mx < 0 || my < 0 || my > ROWNO-1));
+    }
+
+    selection_setpoint(mx,my, ov, 1);
+
+    rough = (rough * 2) / 3;
+
+    rec--;
+
+    selection_do_randline(x1,y1,mx,my, rough, rec, ov);
+    selection_do_randline(mx,my,x2,y2, rough, rec, ov);
+}
+
+
+void
+selection_iterate(ov, func, arg)
+     struct opvar *ov;
+     void FDECL((*func), (int,int,genericptr_t));
+     genericptr_t arg;
+{
+    int x,y;
+    /* yes, this is very naive, but it's not _that_ expensive. */
+    for (x = 0; x < COLNO; x++)
+	for (y = 0; y < ROWNO; y++)
+	    if (selection_getpoint(x,y, ov)) (*func)(x,y, arg);
+}
+
+void
+sel_set_ter(x,y,arg)
+     int x,y;
+     genericptr_t arg;
+{
+    terrain terr;
+    terr = (*(terrain *)arg);
+    SET_TYPLIT(x,y, terr.ter, terr.tlit);
+    /* handle doors and secret doors */
+    if (levl[x][y].typ == SDOOR || IS_DOOR(levl[x][y].typ)) {
+	if(levl[x][y].typ == SDOOR)
+	    levl[x][y].doormask = D_CLOSED;
+	if (x && (IS_WALL(levl[x-1][y].typ) ||
+		  levl[x-1][y].horizontal))
+	    levl[x][y].horizontal = 1;
+    }
+}
+
+void
+sel_set_feature(x,y,arg)
+     int x,y;
+     genericptr_t arg;
+{
+    if (IS_FURNITURE(levl[x][y].typ)) return;
+    levl[x][y].typ = (*(int *)arg);
+}
+
+void
+sel_set_door(dx,dy,arg)
+     int dx,dy;
+     genericptr_t arg;
+{
+    xchar typ = (*(xchar *)arg);
+    xchar x = dx;
+    xchar y = dy;
+    struct mkroom *droom;
+    droom = &rooms[0];
+    /*get_location(&x, &y, DRY, (struct mkroom *)0);*/
+    if (!IS_DOOR(levl[x][y].typ) && levl[x][y].typ != SDOOR)
+	levl[x][y].typ = (typ & D_SECRET) ? SDOOR : DOOR;
+    if (typ & D_SECRET) {
+	typ &= ~D_SECRET;
+	if (typ < D_CLOSED)
+	    typ = D_CLOSED;
+    }
+    levl[x][y].doormask = typ;
+    /*SpLev_Map[x][y] = 1;*/
+
+    /* Now the complicated part, list it with each subroom */
+    /* The dog move and mail daemon routines use this */
+    while(droom->hx >= 0 && doorindex < DOORMAX) {
+	if(droom->hx >= x-1 && droom->lx <= x+1 &&
+	   droom->hy >= y-1 && droom->ly <= y+1) {
+	    /* Found it */
+	    add_door(x, y, droom);
+	}
+	droom++;
+    }
+
+}
+
+void
+spo_door(coder)
+     struct sp_coder *coder;
+{
+    struct opvar *msk, *sel;
+    xchar typ;
+
+    if (!OV_pop_i(msk) ||
+	!OV_pop_typ(sel, SPOVAR_SEL)) return;
+
+    typ = OV_i(msk) == -1 ? rnddoor() : (xchar)OV_i(msk);
+
+    selection_iterate(sel, sel_set_door, (genericptr_t)&typ);
+
+    opvar_free(sel);
+    opvar_free(msk);
+}
+
+void
+spo_feature(coder)
+     struct sp_coder *coder;
+{
+    struct opvar *sel;
+    int typ;
+
+    if (!OV_pop_typ(sel, SPOVAR_SEL)) return;
+
+    switch (coder->opcode) {
+    default: impossible("spo_feature called with wrong opcode %i.", coder->opcode); break;
+    case SPO_FOUNTAIN: typ = FOUNTAIN; break;
+    case SPO_SINK:     typ = SINK;     break;
+    case SPO_POOL:     typ = POOL;     break;
+    }
+    selection_iterate(sel, sel_set_feature, (genericptr_t)&typ);
+    opvar_free(sel);
+}
+
 void
 spo_terrain(coder)
      struct sp_coder *coder;
 {
     terrain tmpterrain;
-    struct opvar *x1,*y1,*x2,*y2,*areatyp,*ter,*tlit;
+    struct opvar *ter, *sel;
 
-    if (!OV_pop_i(tlit) ||
-	!OV_pop_i(ter) ||
-	!OV_pop_i(areatyp) ||
-	!OV_pop_i(y2) ||
-	!OV_pop_i(x2) ||
-	!OV_pop_i(y1) ||
-	!OV_pop_i(x1)) return;
+    if (!OV_pop_typ(ter, SPOVAR_MAPCHAR) ||
+	!OV_pop_typ(sel, SPOVAR_SEL)) return;
 
-    tmpterrain.x1 = OV_i(x1);
-    tmpterrain.y1 = OV_i(y1);
-    tmpterrain.x2 = OV_i(x2);
-    tmpterrain.y2 = OV_i(y2);
-    tmpterrain.areatyp = OV_i(areatyp);
-    tmpterrain.ter = OV_i(ter);
-    tmpterrain.tlit = OV_i(tlit);
+    tmpterrain.ter = SP_MAPCHAR_TYP(OV_i(ter));
+    tmpterrain.tlit = SP_MAPCHAR_LIT(OV_i(ter));
+    selection_iterate(sel, sel_set_ter, (genericptr_t)&tmpterrain);
 
-    set_terrain(&tmpterrain, coder->croom);
-    opvar_free(x1);
-    opvar_free(y1);
-    opvar_free(x2);
-    opvar_free(y2);
-    opvar_free(areatyp);
     opvar_free(ter);
-    opvar_free(tlit);
+    opvar_free(sel);
 }
 
 void
@@ -3719,72 +4149,29 @@ spo_replace_terrain(coder)
      struct sp_coder *coder;
 {
     replaceterrain rt;
-    struct opvar *x1,*y1,*x2,*y2,*from_ter,*to_ter,*to_lit,*chance;
+    struct opvar *reg,*from_ter,*to_ter,*chance;
 
     if (!OV_pop_i(chance) ||
-	!OV_pop_i(to_lit) ||
-	!OV_pop_i(to_ter) ||
-	!OV_pop_i(from_ter) ||
-	!OV_pop_i(y2) ||
-	!OV_pop_i(x2) ||
-	!OV_pop_i(y1) ||
-	!OV_pop_i(x1)) return;
+	!OV_pop_typ(to_ter, SPOVAR_MAPCHAR) ||
+	!OV_pop_typ(from_ter, SPOVAR_MAPCHAR) ||
+	!OV_pop_r(reg)) return;
 
     rt.chance = OV_i(chance);
-    rt.tolit = OV_i(to_lit);
-    rt.toter = OV_i(to_ter);
-    rt.fromter = OV_i(from_ter);
-    rt.x1 = OV_i(x1);
-    rt.y1 = OV_i(y1);
-    rt.x2 = OV_i(x2);
-    rt.y2 = OV_i(y2);
+    rt.tolit = SP_MAPCHAR_LIT(OV_i(to_ter));
+    rt.toter = SP_MAPCHAR_TYP(OV_i(to_ter));
+    rt.fromter = SP_MAPCHAR_TYP(OV_i(from_ter));
+    /* TODO: use SP_MAPCHAR_LIT(OV_i(from_ter)) too */
+    rt.x1 = SP_REGION_X1(OV_i(reg));
+    rt.y1 = SP_REGION_Y1(OV_i(reg));
+    rt.x2 = SP_REGION_X2(OV_i(reg));
+    rt.y2 = SP_REGION_Y2(OV_i(reg));
 
     replace_terrain(&rt, coder->croom);
 
-    opvar_free(x1);
-    opvar_free(y1);
-    opvar_free(x2);
-    opvar_free(y2);
+    opvar_free(reg);
     opvar_free(from_ter);
     opvar_free(to_ter);
-    opvar_free(to_lit);
     opvar_free(chance);
-}
-
-void
-spo_randline(coder)
-     struct sp_coder *coder;
-{
-    randline rl;
-    struct opvar *x1,*y1,*x2,*y2,*fg,*lit,*roughness,*thick;
-    if (!OV_pop_i(thick) ||
-	!OV_pop_i(roughness) ||
-	!OV_pop_i(lit) ||
-	!OV_pop_i(fg) ||
-	!OV_pop_i(y2) ||
-	!OV_pop_i(x2) ||
-	!OV_pop_i(y1) ||
-	!OV_pop_i(x1)) return;
-
-    rl.thick = OV_i(thick);
-    rl.roughness = OV_i(roughness);
-    rl.lit = OV_i(lit);
-    rl.fg = OV_i(fg);
-    rl.x1 = OV_i(x1);
-    rl.y1 = OV_i(y1);
-    rl.x2 = OV_i(x2);
-    rl.y2 = OV_i(y2);
-
-    line_midpoint(&rl, coder->croom);
-
-    opvar_free(x1);
-    opvar_free(y1);
-    opvar_free(x2);
-    opvar_free(y2);
-    opvar_free(fg);
-    opvar_free(lit);
-    opvar_free(roughness);
-    opvar_free(thick);
 }
 
 void
@@ -3792,16 +4179,15 @@ spo_spill(coder)
      struct sp_coder *coder;
 {
     spill sp;
-    struct opvar *x,*y,*typ,*dir,*count,*lit;
+    struct opvar *coord,*typ,*dir,*count,*lit;
     if (!OV_pop_i(lit) ||
 	!OV_pop_i(count) ||
 	!OV_pop_i(dir) ||
 	!OV_pop_i(typ) ||
-	!OV_pop_i(y) ||
-	!OV_pop_i(x)) return;
+	!OV_pop_c(coord)) return;
 
-    sp.x = OV_i(x);
-    sp.y = OV_i(y);
+    sp.x = SP_COORD_X(OV_i(coord));
+    sp.y = SP_COORD_Y(OV_i(coord));
 
     sp.lit = OV_i(lit);
     sp.count = OV_i(count);
@@ -3810,8 +4196,7 @@ spo_spill(coder)
 
     spill_terrain(&sp, coder->croom);
 
-    opvar_free(x);
-    opvar_free(y);
+    opvar_free(coord);
     opvar_free(typ);
     opvar_free(dir);
     opvar_free(count);
@@ -3909,7 +4294,7 @@ void
 spo_region(coder)
      struct sp_coder *coder;
 {
-    struct opvar *rtype, *rlit, *rirreg, *y2,*x2,*y1,*x1;
+    struct opvar *rtype, *rlit, *rirreg, *area;
     xchar dx1,dy1,dx2,dy2;
     register struct mkroom *troom;
     boolean prefilled, room_not_needed;
@@ -3917,10 +4302,7 @@ spo_region(coder)
     if (!OV_pop_i(rirreg) ||
 	!OV_pop_i(rtype) ||
 	!OV_pop_i(rlit) ||
-	!OV_pop_i(y2) ||
-	!OV_pop_i(x2) ||
-	!OV_pop_i(y1) ||
-	!OV_pop_i(x1)) return;
+	!OV_pop_r(area)) return;
 
     if(OV_i(rtype) > MAXRTYPE) {
 	OV_i(rtype) -= MAXRTYPE+1;
@@ -3932,10 +4314,10 @@ spo_region(coder)
 	OV_i(rlit) = (rnd(1+abs(depth(&u.uz))) < 11 && rn2(77))
 	    ? TRUE : FALSE;
 
-    dx1 = OV_i(x1);
-    dy1 = OV_i(y1);
-    dx2 = OV_i(x2);
-    dy2 = OV_i(y2);
+    dx1 = SP_REGION_X1(OV_i(area));
+    dy1 = SP_REGION_Y1(OV_i(area));
+    dx2 = SP_REGION_X2(OV_i(area));
+    dy2 = SP_REGION_Y2(OV_i(area));
 
     get_location(&dx1, &dy1, DRY|WET, (struct mkroom *)0);
     get_location(&dx2, &dy2, DRY|WET, (struct mkroom *)0);
@@ -3955,6 +4337,12 @@ spo_region(coder)
 	tmpregion.x2 = dx2;
 	tmpregion.y2 = dy2;
 	light_region(&tmpregion);
+
+	opvar_free(area);
+	opvar_free(rirreg);
+	opvar_free(rlit);
+	opvar_free(rtype);
+
 	return;
     }
 
@@ -3983,70 +4371,20 @@ spo_region(coder)
 #endif
     }
 
-    opvar_free(x1);
-    opvar_free(y1);
-    opvar_free(x2);
-    opvar_free(y2);
+    if (!room_not_needed) {
+	if (coder->n_subroom > 1)
+	    impossible("region as subroom");
+	else {
+	    coder->tmproomlist[coder->n_subroom] = troom;
+	    coder->failed_room[coder->n_subroom] = FALSE;
+	    coder->n_subroom++;
+	}
+    }
+
+    opvar_free(area);
     opvar_free(rirreg);
     opvar_free(rlit);
     opvar_free(rtype);
-}
-
-void
-spo_random_objects(coder)
-     struct sp_coder *coder;
-{
-    struct opvar *robj;
-    if (!OV_pop_s(robj)) return;
-    n_robj = strlen(OV_s(robj));
-    if ((n_robj <= 0) || (n_robj > MAX_REGISTERS)) {
-	impossible("sp_level_coder: rnd_objs idx out-of-bounds");
-	return;
-    } else
-	(void) memcpy(robjects, OV_s(robj), n_robj);
-    opvar_free(robj);
-    sp_lev_shuffle(robjects, (char *)0, n_robj);
-}
-
-void
-spo_random_places(coder)
-     struct sp_coder *coder;
-{
-    struct opvar *places;
-    int tmpidx;
-
-    if (!OV_pop_s(places)) return;
-    if (strlen(OV_s(places)) % 2) impossible("sp_level_codes: rnd_places?");
-    n_rloc = (strlen(OV_s(places)) / 2);
-    if ((n_rloc <= 0) || (n_rloc > 2*MAX_REGISTERS)) {
-	impossible("sp_level_coder: rnd_places idx out-of-bounds");
-	return;
-    } else {
-	for (tmpidx = 0; tmpidx < n_rloc; tmpidx++) {
-	    rloc_x[tmpidx] = (places->vardata.str[tmpidx*2] - 1);
-	    rloc_y[tmpidx] = (places->vardata.str[tmpidx*2+1] - 1);
-	}
-    }
-    opvar_free(places);
-    sp_lev_shuffle(rloc_x, rloc_y, n_rloc);
-}
-
-void
-spo_random_monsters(coder)
-     struct sp_coder *coder;
-{
-    struct opvar *rmon;
-
-    if (!OV_pop_s(rmon)) return;
-
-    n_rmon = strlen(OV_s(rmon));
-    if ((n_rmon <= 0) || (n_rmon > MAX_REGISTERS)) {
-	impossible("sp_level_coder: rnd_mons idx out-of-bounds");
-	return;
-    } else
-	(void) memcpy(rmonst, OV_s(rmon), n_rmon);
-    opvar_free(rmon);
-    sp_lev_shuffle(rmonst, (char *)0, n_rmon);
 }
 
 void
@@ -4054,22 +4392,20 @@ spo_drawbridge(coder)
      struct sp_coder *coder;
 {
     xchar x,y;
-    struct opvar *dir, *db_open, *fy, *fx;
+    struct opvar *dir, *db_open, *coord;
 
     if (!OV_pop_i(dir) ||
 	!OV_pop_i(db_open) ||
-	!OV_pop_i(fy) ||
-	!OV_pop_i(fx)) return;
+	!OV_pop_c(coord)) return;
 
-    x = OV_i(fx);
-    y = OV_i(fy);
+    x = SP_COORD_X(OV_i(coord));
+    y = SP_COORD_Y(OV_i(coord));
     get_location(&x, &y, DRY|WET, coder->croom);
     if (!create_drawbridge(x, y, OV_i(dir), OV_i(db_open)))
 	impossible("Cannot create drawbridge.");
     SpLev_Map[x][y] = 1;
 
-    opvar_free(fx);
-    opvar_free(fy);
+    opvar_free(coord);
     opvar_free(db_open);
     opvar_free(dir);
 }
@@ -4079,18 +4415,17 @@ spo_mazewalk(coder)
      struct sp_coder *coder;
 {
     xchar x,y;
-    struct opvar *ftyp, *fstocked,*fdir, *fy, *fx;
+    struct opvar *ftyp, *fstocked,*fdir, *coord;
     int dir;
 
     if (!OV_pop_i(ftyp) ||
 	!OV_pop_i(fstocked) ||
 	!OV_pop_i(fdir) ||
-	!OV_pop_i(fy) ||
-	!OV_pop_i(fx)) return;
+	!OV_pop_c(coord)) return;
 
     dir = OV_i(fdir);
-    x = OV_i(fx);
-    y = OV_i(fy);
+    x = SP_COORD_X(OV_i(coord));
+    y = SP_COORD_Y(OV_i(coord));
 
     get_location(&x, &y, DRY|WET, coder->croom);
 
@@ -4143,8 +4478,7 @@ spo_mazewalk(coder)
     walkfrom(x, y, OV_i(ftyp));
     if (OV_i(fstocked)) fill_empty_maze();
 
-    opvar_free(fx);
-    opvar_free(fy);
+    opvar_free(coord);
     opvar_free(fdir);
     opvar_free(fstocked);
     opvar_free(ftyp);
@@ -4154,29 +4488,23 @@ void
 spo_wall_property(coder)
      struct sp_coder *coder;
 {
-    struct opvar *x1,*y1,*x2,*y2;
+    struct opvar *r;
     xchar dx1,dy1,dx2,dy2;
     int wprop = (coder->opcode == SPO_NON_DIGGABLE) ? W_NONDIGGABLE : W_NONPASSWALL;
 
-    if (!OV_pop_i(y2) ||
-	!OV_pop_i(x2) ||
-	!OV_pop_i(y1) ||
-	!OV_pop_i(x1)) return;
+    if (!OV_pop_r(r)) return;
 
-    dx1 = OV_i(x1);
-    dy1 = OV_i(y1);
-    dx2 = OV_i(x2);
-    dy2 = OV_i(y2);
+    dx1 = SP_REGION_X1(OV_i(r));
+    dy1 = SP_REGION_Y1(OV_i(r));
+    dx2 = SP_REGION_X2(OV_i(r));
+    dy2 = SP_REGION_Y2(OV_i(r));
 
     get_location(&dx1, &dy1, DRY|WET, (struct mkroom *)0);
     get_location(&dx2, &dy2, DRY|WET, (struct mkroom *)0);
 
     set_wall_property(dx1, dy1, dx2, dy2, wprop);
 
-    opvar_free(x1);
-    opvar_free(y1);
-    opvar_free(x2);
-    opvar_free(y2);
+    opvar_free(r);
 }
 
 void
@@ -4209,21 +4537,18 @@ void
 spo_wallify(coder)
      struct sp_coder *coder;
 {
-    struct opvar *x1,*y1,*x2,*y2;
+    struct opvar *r;
     int dx1,dy1,dx2,dy2;
-    if (!OV_pop_i(y2) ||
-	!OV_pop_i(x2) ||
-	!OV_pop_i(y1) ||
-	!OV_pop_i(x1)) return;
-    dx1 = (OV_i(x1) < 0) ? xstart : OV_i(x1);
-    dy1 = (OV_i(y1) < 0) ? ystart : OV_i(y1);
-    dx2 = (OV_i(x2) < 0) ? xstart+xsize : OV_i(x2);
-    dy2 = (OV_i(y2) < 0) ? ystart+ysize : OV_i(y2);
-    wallify_map(dx1, dy1, dx2, dy2);
-    opvar_free(x1);
-    opvar_free(y1);
-    opvar_free(x2);
-    opvar_free(y2);
+    if (!OV_pop_r(r)) return;
+    dx1 = (xchar)SP_REGION_X1(OV_i(r));
+    dy1 = (xchar)SP_REGION_Y1(OV_i(r));
+    dx2 = (xchar)SP_REGION_X2(OV_i(r));
+    dy2 = (xchar)SP_REGION_Y2(OV_i(r));
+    wallify_map(dx1 < 0 ? xstart : dx1,
+		dy1 < 0 ? ystart : dy1,
+		dx2 < 0 ? xstart+xsize : dx2,
+		dy2 < 0 ? ystart+ysize : dy2);
+    opvar_free(r);
 }
 
 void
@@ -4231,23 +4556,22 @@ spo_map(coder)
      struct sp_coder *coder;
 {
     mazepart tmpmazepart;
-    struct opvar *mpxs, *mpys, *mpmap, *mpva, *mpha, *mpkeepr, *mpzalign;
+    struct opvar *mpxs, *mpys, *mpmap, *mpa, *mpkeepr, *mpzalign;
     xchar halign, valign;
     xchar tmpxstart, tmpystart, tmpxsize, tmpysize;
 
     if (!OV_pop_i(mpxs) ||
 	!OV_pop_i(mpys) ||
 	!OV_pop_s(mpmap) ||
-	!OV_pop_i(mpva) ||
-	!OV_pop_i(mpha) ||
 	!OV_pop_i(mpkeepr) ||
-	!OV_pop_i(mpzalign)) return;
+	!OV_pop_i(mpzalign) ||
+	!OV_pop_c(mpa)) return;
 
     tmpmazepart.xsize = OV_i(mpxs);
     tmpmazepart.ysize = OV_i(mpys);
     tmpmazepart.zaligntyp = OV_i(mpzalign);
-    tmpmazepart.halign = OV_i(mpha);
-    tmpmazepart.valign = OV_i(mpva);
+    tmpmazepart.halign = SP_COORD_X(OV_i(mpa));
+    tmpmazepart.valign = SP_COORD_Y(OV_i(mpa));
 
     tmpxsize = xsize; tmpysize = ysize;
     tmpxstart = xstart; tmpystart = ystart;
@@ -4340,8 +4664,7 @@ spo_map(coder)
     opvar_free(mpxs);
     opvar_free(mpys);
     opvar_free(mpmap);
-    opvar_free(mpva);
-    opvar_free(mpha);
+    opvar_free(mpa);
     opvar_free(mpkeepr);
     opvar_free(mpzalign);
 }
@@ -4368,7 +4691,7 @@ spo_conditional_jump(coder,lvl)
 {
     struct opvar *oa, *oc;
     long a,c;
-    int test;
+    int test = 0;
     if (!OV_pop_i(oa) || !OV_pop_i(oc)) return;
 
     a = sp_code_jmpaddr(coder->frame->n_opcode, (OV_i(oa) - 1));
@@ -4376,12 +4699,12 @@ spo_conditional_jump(coder,lvl)
 
     switch (coder->opcode) {
     default: impossible("spo_conditional_jump: illegal opcode"); break;
-    case SPO_JL:  test = (c < 0); break;
-    case SPO_JLE: test = (c <= 0); break;
-    case SPO_JG:  test = (c > 0); break;
-    case SPO_JGE: test = (c >= 0); break;
-    case SPO_JE:  test = (c == 0); break;
-    case SPO_JNE: test = (c != 0); break;
+    case SPO_JL:  test = (c & SP_CPUFLAG_LT); break;
+    case SPO_JLE: test = (c & (SP_CPUFLAG_LT|SP_CPUFLAG_EQ)); break;
+    case SPO_JG:  test = (c & SP_CPUFLAG_GT); break;
+    case SPO_JGE: test = (c & (SP_CPUFLAG_GT|SP_CPUFLAG_EQ)); break;
+    case SPO_JE:  test = (c & SP_CPUFLAG_EQ); break;
+    case SPO_JNE: test = (c & ~SP_CPUFLAG_EQ); break;
     }
 
     if ((test) && (a >= 0) &&
@@ -4392,6 +4715,137 @@ spo_conditional_jump(coder,lvl)
     opvar_free(oa);
     opvar_free(oc);
 }
+
+
+void
+spo_var_init(coder)
+     struct sp_coder *coder;
+{
+    struct opvar *vname;
+    struct opvar *arraylen;
+    struct opvar *vvalue;
+    struct splev_var *tmpvar;
+    struct splev_var *tmp2;
+    long idx;
+
+    OV_pop_s(vname);
+    OV_pop_i(arraylen);
+
+    if (!vname || !arraylen)
+	panic("no values for SPO_VAR_INIT");
+
+    tmpvar = opvar_var_defined(coder, OV_s(vname));
+
+    if (tmpvar) {
+	/* variable redefinition */
+	if (OV_i(arraylen) < 0) {
+	    /* copy variable */
+	    if (tmpvar->array_len) {
+		idx = tmpvar->array_len;
+		while (idx-- > 0) {
+		    opvar_free(tmpvar->data.arrayvalues[idx]);
+		}
+		free(tmpvar->data.arrayvalues);
+	    } else {
+		opvar_free(tmpvar->data.value);
+	    }
+	    tmpvar->data.arrayvalues = NULL;
+	    goto copy_variable;
+	} else if (OV_i(arraylen)) {
+	    /* redefined array */
+	    idx = tmpvar->array_len;
+	    while (idx-- > 0) {
+		opvar_free(tmpvar->data.arrayvalues[idx]);
+	    }
+	    free(tmpvar->data.arrayvalues);
+	    tmpvar->data.arrayvalues = NULL;
+	    goto create_new_array;
+	} else {
+	    /* redefined single value */
+	    OV_pop(vvalue);
+	    if (tmpvar->svtyp != vvalue->spovartyp) panic("redefining variable as different type");
+	    opvar_free(tmpvar->data.value);
+	    tmpvar->data.value = vvalue;
+	    tmpvar->array_len = 0;
+	}
+    } else {
+	/* new variable definition */
+	tmpvar = (struct splev_var *)malloc(sizeof(struct splev_var));
+	if (!tmpvar) return;
+	tmpvar->next = coder->frame->variables;
+	tmpvar->name = strdup(OV_s(vname));
+	coder->frame->variables = tmpvar;
+
+	if (OV_i(arraylen) < 0) {
+	    /* copy variable */
+copy_variable:
+	    OV_pop(vvalue);
+	    tmp2 = opvar_var_defined(coder, OV_s(vvalue));
+	    if (!tmp2) panic("no copyable var");
+	    tmpvar->svtyp = tmp2->svtyp;
+	    tmpvar->array_len = tmp2->array_len;
+	    if (tmpvar->array_len) {
+		idx = tmpvar->array_len;
+		tmpvar->data.arrayvalues = (struct opvar **)malloc(sizeof(struct opvar *) * idx);
+		while (idx-- > 0) {
+		    tmpvar->data.arrayvalues[idx] = opvar_clone(tmp2->data.arrayvalues[idx]);
+		}
+	    } else {
+		tmpvar->data.value = opvar_clone(tmp2->data.value);
+	    }
+	    opvar_free(vvalue);
+	} else if (OV_i(arraylen)) {
+	    /* new array */
+create_new_array:
+	    idx = OV_i(arraylen);
+	    tmpvar->array_len = idx;
+	    tmpvar->data.arrayvalues = (struct opvar **)malloc(sizeof(struct opvar *) * idx);
+	    if (!tmpvar->data.arrayvalues) panic("malloc tmpvar->data.arrayvalues");
+	    while (idx-- > 0) {
+		OV_pop(vvalue);
+		if (!vvalue) panic("no value for arrayvariable");
+		tmpvar->data.arrayvalues[idx] = vvalue;
+	    }
+	    tmpvar->svtyp = SPOVAR_ARRAY;
+	} else {
+	    /* new single value */
+	    OV_pop(vvalue);
+	    if (!vvalue) panic("no value for variable");
+	    tmpvar->svtyp = OV_typ(vvalue);
+	    tmpvar->data.value = vvalue;
+	    tmpvar->array_len = 0;
+	}
+    }
+
+    opvar_free(vname);
+    opvar_free(arraylen);
+}
+
+void
+spo_shuffle_array(coder)
+     struct sp_coder *coder;
+{
+    struct opvar *vname;
+    struct splev_var *tmp;
+    struct opvar *tmp2;
+    long i,j;
+
+    if (!OV_pop_s(vname)) return;
+
+    tmp = opvar_var_defined(coder, OV_s(vname));
+    if (!tmp || (tmp->array_len < 1)) return;
+
+    for (i = tmp->array_len - 1; i > 0; i--) {
+	if ((j = rn2(i + 1)) == i) continue;
+	tmp2 = tmp->data.arrayvalues[j];
+	tmp->data.arrayvalues[j] = tmp->data.arrayvalues[i];
+	tmp->data.arrayvalues[i] = tmp2;
+    }
+
+    opvar_free(vname);
+}
+
+
 
 /* Special level coder, creates the special level from the sp_lev codes.
  * Does not free the allocated memory.
@@ -4487,18 +4941,15 @@ sp_lev *lvl;
 	case SPO_SINK:
 	case SPO_POOL:
 	case SPO_FOUNTAIN:       spo_feature(coder);        break;
+	case SPO_WALLWALK:       spo_wallwalk(coder);        break;
 	case SPO_TRAP:           spo_trap(coder);           break;
 	case SPO_GOLD:           spo_gold(coder);           break;
 	case SPO_CORRIDOR:       spo_corridor(coder);       break;
 	case SPO_TERRAIN:        spo_terrain(coder);        break;
 	case SPO_REPLACETERRAIN: spo_replace_terrain(coder); break;
-	case SPO_RANDLINE:       spo_randline(coder);        break;
 	case SPO_SPILL:          spo_spill(coder);    break;
 	case SPO_LEVREGION:      spo_levregion(coder); break;
 	case SPO_REGION:         spo_region(coder);    break;
-	case SPO_RANDOM_OBJECTS:  spo_random_objects(coder);   break;
-	case SPO_RANDOM_PLACES:   spo_random_places(coder);    break;
-	case SPO_RANDOM_MONSTERS: spo_random_monsters(coder);  break;
 	case SPO_DRAWBRIDGE:      spo_drawbridge(coder);  break;
 	case SPO_MAZEWALK:        spo_mazewalk(coder);    break;
 	case SPO_NON_PASSWALL:
@@ -4521,11 +4972,108 @@ sp_lev *lvl;
 		splev_stack_push(coder->stack, a);
 	    }
 	    break;
+	case SPO_INC:
+	    {
+		struct opvar *a;
+		if (!OV_pop_i(a)) break;
+		OV_i(a)++;
+		splev_stack_push(coder->stack, a);
+	    }
+	    break;
+	case SPO_MATH_ADD:
+	    {
+		struct opvar *a, *b;
+		if (!OV_pop(b) || !OV_pop(a)) break;
+		if (OV_typ(b) == OV_typ(a)) {
+		    if (OV_typ(a) == SPOVAR_INT) {
+			OV_i(a) = OV_i(a) + OV_i(b);
+			splev_stack_push(coder->stack, a);
+			opvar_free(b);
+		    } else if (OV_typ(a) == SPOVAR_STRING) {
+			char *tmpbuf = (char *)alloc(strlen(OV_s(a)) + strlen(OV_s(b)) + 1);
+			if (tmpbuf) {
+			    struct opvar *c;
+			    (void) sprintf(tmpbuf, "%s%s", OV_s(a), OV_s(b));
+			    c = opvar_new_str(tmpbuf);
+			    splev_stack_push(coder->stack, c);
+			    opvar_free(a);
+			    opvar_free(b);
+			    free(tmpbuf);
+			} else {
+			    splev_stack_push(coder->stack, a);
+			    opvar_free(b);
+			    impossible("malloc at str concat");
+			}
+		    } else {
+			splev_stack_push(coder->stack, a);
+			opvar_free(b);
+			impossible("adding weird types");
+		    }
+		} else {
+		    splev_stack_push(coder->stack, a);
+		    opvar_free(b);
+		    impossible("adding different types");
+		}
+	    }
+	    break;
+	case SPO_MATH_SUB:
+	    {
+		struct opvar *a, *b;
+		if (!OV_pop_i(b) || !OV_pop_i(a)) break;
+		OV_i(a) = OV_i(a) - OV_i(b);
+		splev_stack_push(coder->stack, a);
+		opvar_free(b);
+	    }
+	    break;
+	case SPO_MATH_MUL:
+	    {
+		struct opvar *a, *b;
+		if (!OV_pop_i(b) || !OV_pop_i(a)) break;
+		OV_i(a) = OV_i(a) * OV_i(b);
+		splev_stack_push(coder->stack, a);
+		opvar_free(b);
+	    }
+	    break;
+	case SPO_MATH_DIV:
+	    {
+		struct opvar *a, *b;
+		if (!OV_pop_i(b) || !OV_pop_i(a)) break;
+		if (OV_i(b) >= 1) {
+		    OV_i(a) = OV_i(a) / OV_i(b);
+		} else {
+		    OV_i(a) = 0;
+		}
+		splev_stack_push(coder->stack, a);
+		opvar_free(b);
+	    }
+	    break;
+	case SPO_MATH_MOD:
+	    {
+		struct opvar *a, *b;
+		if (!OV_pop_i(b) || !OV_pop_i(a)) break;
+		if (OV_i(b) > 0) {
+		    OV_i(a) = OV_i(a) % OV_i(b);
+		} else {
+		    OV_i(a) = 0;
+		}
+		splev_stack_push(coder->stack, a);
+		opvar_free(b);
+	    }
+	    break;
         case SPO_CMP:
 	    {
-		struct opvar *a = splev_stack_pop(coder->stack);
-		struct opvar *b = splev_stack_pop(coder->stack);
+		struct opvar *a;
+		struct opvar *b;
 		struct opvar *c;
+		long val = 0;
+
+		OV_pop(b);
+		OV_pop(a);
+
+		if (!a || !b) {
+		    impossible("spo_cmp: no values in stack");
+		    break;
+		}
 
 		if (OV_typ(a) != OV_typ(b)) {
 		    impossible("spo_cmp: trying to compare differing datatypes");
@@ -4533,11 +5081,19 @@ sp_lev *lvl;
 		}
 
 		switch (OV_typ(a)) {
+		case SPOVAR_COORD:
+		case SPOVAR_REGION:
+		case SPOVAR_MAPCHAR:
+		case SPOVAR_MONST:
+		case SPOVAR_OBJ:
 		case SPOVAR_INT:
-		    c = opvar_new_int((OV_i(b) - OV_i(a)));
+		    if (OV_i(b) > OV_i(a)) val |= SP_CPUFLAG_LT;
+		    if (OV_i(b) < OV_i(a)) val |= SP_CPUFLAG_GT;
+		    if (OV_i(b) == OV_i(a)) val |= SP_CPUFLAG_EQ;
+		    c = opvar_new_int(val);
 		    break;
 		case SPOVAR_STRING:
-		    c = opvar_new_int(strcmp(OV_s(b), OV_s(a)));
+		    c = opvar_new_int(((!strcmp(OV_s(b), OV_s(a))) ? SP_CPUFLAG_EQ : 0));
 		    break;
 		default:
 		    c = opvar_new_int(0);
@@ -4562,13 +5118,227 @@ sp_lev *lvl;
 		struct opvar *tmpv;
 		struct opvar *t;
 		if (!OV_pop_i(tmpv)) break;
-		t = opvar_new_int((OV_i(tmpv) > 0) ? rn2(OV_i(tmpv)) : 0);
+		t = opvar_new_int((OV_i(tmpv) > 1) ? rn2(OV_i(tmpv)) : 0);
 		splev_stack_push(coder->stack, t);
 		opvar_free(tmpv);
 	    }
          break;
+	case SPO_DICE:
+	    {
+		struct opvar *a, *b, *t;
+		if (!OV_pop_i(b) || !OV_pop_i(a)) break;
+		if (OV_i(b) < 1) OV_i(b) = 1;
+		if (OV_i(a) < 1) OV_i(a) = 1;
+		t = opvar_new_int(d(OV_i(a), OV_i(b)));
+		splev_stack_push(coder->stack, t);
+		opvar_free(a);
+		opvar_free(b);
+	    }
+	    break;
 	case SPO_MAP:
 	    spo_map(coder); break;
+	case SPO_VAR_INIT:
+	    spo_var_init(coder); break;
+	case SPO_SHUFFLE_ARRAY:
+	    spo_shuffle_array(coder); break;
+	case SPO_SEL_ADD: /* actually, logical or */
+	    {
+		struct opvar *sel1, *sel2, *pt;
+		if (!OV_pop_typ(sel1, SPOVAR_SEL)) panic("no sel1 for add");
+		if (!OV_pop_typ(sel2, SPOVAR_SEL)) panic("no sel1 for add");
+		pt = selection_logical_oper(sel1, sel2, '|');
+		opvar_free(sel1);
+		opvar_free(sel2);
+		splev_stack_push(coder->stack, pt);
+	    }
+	    break;
+	case SPO_SEL_FILTER: /* sorta like logical and */
+	    {
+		struct opvar *filtertype;
+		int x,y;
+		if (!OV_pop_i(filtertype)) panic("no sel filter type");
+		switch (OV_i(filtertype)) {
+		case 0: /* percentage */
+		    {
+			struct opvar *tmp1, *sel;
+			if (!OV_pop_i(tmp1)) panic("no sel filter percent");
+			if (!OV_pop_typ(sel, SPOVAR_SEL)) panic("no sel filter");
+			selection_filter_percent(sel, OV_i(tmp1));
+			splev_stack_push(coder->stack, sel);
+			opvar_free(tmp1);
+		    }
+		    break;
+		case 1: /* logical and */
+		    {
+			struct opvar *pt, *sel1, *sel2;
+			if (!OV_pop_typ(sel1, SPOVAR_SEL)) panic("no sel filter sel1");
+			if (!OV_pop_typ(sel2, SPOVAR_SEL)) panic("no sel filter sel2");
+			pt = selection_logical_oper(sel1, sel2, '&');
+			splev_stack_push(coder->stack, pt);
+			opvar_free(sel1);
+			opvar_free(sel2);
+		    }
+		    break;
+		default: panic("unknown sel filter type");
+		}
+		opvar_free(filtertype);
+	    }
+	    break;
+	case SPO_SEL_POINT:
+	    {
+		struct opvar *tmp;
+		schar x,y;
+		if (!OV_pop_c(tmp)) panic("no ter sel coord");
+		x = SP_COORD_X(OV_i(tmp));
+		y = SP_COORD_Y(OV_i(tmp));
+		get_location(&x, &y, DRY|WET, coder->croom);
+		if (isok(x,y)) {
+		    struct opvar *pt = selection_opvar(NULL);
+		    selection_setpoint(x,y, pt, 1);
+		    splev_stack_push(coder->stack, pt);
+		}
+		opvar_free(tmp);
+	    }
+	    break;
+	case SPO_SEL_RECT:
+	case SPO_SEL_FILLRECT:
+	    {
+		struct opvar *tmp, *pt = selection_opvar(NULL);
+		schar x,y,x1,y1,x2,y2;
+		if (!OV_pop_r(tmp)) panic("no ter sel region");
+		x1 = min(SP_REGION_X1(OV_i(tmp)), SP_REGION_X2(OV_i(tmp)));
+		y1 = min(SP_REGION_Y1(OV_i(tmp)), SP_REGION_Y2(OV_i(tmp)));
+		x2 = max(SP_REGION_X1(OV_i(tmp)), SP_REGION_X2(OV_i(tmp)));
+		y2 = max(SP_REGION_Y1(OV_i(tmp)), SP_REGION_Y2(OV_i(tmp)));
+		get_location(&x1, &y1, DRY|WET, coder->croom);
+		get_location(&x2, &y2, DRY|WET, coder->croom);
+		x1 = (x1 < 0) ? 0 : x1;
+		y1 = (y1 < 0) ? 0 : y1;
+		x2 = (x2 >= COLNO) ? COLNO-1 : x2;
+		y2 = (y2 >= ROWNO) ? ROWNO-1 : y2;
+		if (coder->opcode == SPO_SEL_RECT) {
+		    for (x = x1; x <= x2; x++) {
+			selection_setpoint(x,y1, pt, 1);
+			selection_setpoint(x,y2, pt, 1);
+		    }
+		    for (y = y1; y <= y2; y++) {
+			selection_setpoint(x1,y, pt, 1);
+			selection_setpoint(x2,y, pt, 1);
+		    }
+		} else {
+		    for (x = x1; x <= x2; x++)
+			for (y = y1; y <= y2; y++)
+			    selection_setpoint(x,y, pt, 1);
+		}
+		splev_stack_push(coder->stack, pt);
+		opvar_free(tmp);
+	    }
+	    break;
+	case SPO_SEL_LINE:
+	    {
+		struct opvar *tmp, *tmp2, *pt = selection_opvar(NULL);
+		schar x1,y1,x2,y2;
+		if (!OV_pop_c(tmp) || !OV_pop_c(tmp2)) panic("no ter sel linecoord");
+		x1 = SP_COORD_X(OV_i(tmp));
+		y1 = SP_COORD_Y(OV_i(tmp));
+		x2 = SP_COORD_X(OV_i(tmp2));
+		y2 = SP_COORD_Y(OV_i(tmp2));
+		get_location(&x1, &y1, DRY|WET, coder->croom);
+		get_location(&x2, &y2, DRY|WET, coder->croom);
+		x1 = (x1 < 0) ? 0 : x1;
+		y1 = (y1 < 0) ? 0 : y1;
+		x2 = (x2 >= COLNO) ? COLNO-1 : x2;
+		y2 = (y2 >= ROWNO) ? ROWNO-1 : y2;
+		selection_do_line(x1,y1,x2,y2, pt);
+		splev_stack_push(coder->stack, pt);
+		opvar_free(tmp);
+		opvar_free(tmp2);
+	    }
+	    break;
+	case SPO_SEL_RNDLINE:
+	    {
+		struct opvar *tmp, *tmp2, *tmp3, *pt = selection_opvar(NULL);
+		schar x1,y1,x2,y2;
+		if (!OV_pop_i(tmp3) || !OV_pop_c(tmp) || !OV_pop_c(tmp2)) panic("no ter sel randline");
+		x1 = SP_COORD_X(OV_i(tmp));
+		y1 = SP_COORD_Y(OV_i(tmp));
+		x2 = SP_COORD_X(OV_i(tmp2));
+		y2 = SP_COORD_Y(OV_i(tmp2));
+		get_location(&x1, &y1, DRY|WET, coder->croom);
+		get_location(&x2, &y2, DRY|WET, coder->croom);
+		x1 = (x1 < 0) ? 0 : x1;
+		y1 = (y1 < 0) ? 0 : y1;
+		x2 = (x2 >= COLNO) ? COLNO-1 : x2;
+		y2 = (y2 >= ROWNO) ? ROWNO-1 : y2;
+		selection_do_randline(x1,y1,x2,y2, OV_i(tmp3), 12, pt);
+		splev_stack_push(coder->stack, pt);
+		opvar_free(tmp);
+		opvar_free(tmp2);
+		opvar_free(tmp3);
+	    }
+	    break;
+	case SPO_SEL_GROW:
+	    {
+		struct opvar *dirs, *pt;
+		if (!OV_pop_i(dirs)) panic("no dirs for grow");
+		if (!OV_pop_typ(pt, SPOVAR_SEL)) panic("no selection for grow");
+		selection_do_grow(pt, OV_i(dirs));
+		splev_stack_push(coder->stack, pt);
+		opvar_free(dirs);
+	    }
+	    break;
+	case SPO_SEL_FLOOD:
+	    {
+		struct opvar *tmp;
+		schar x,y;
+		if (!OV_pop_c(tmp)) panic("no ter sel flood coord");
+		x = SP_COORD_X(OV_i(tmp));
+		y = SP_COORD_Y(OV_i(tmp));
+		get_location(&x, &y, DRY|WET, coder->croom);
+		if (isok(x,y)) {
+		    struct opvar *pt = selection_opvar(NULL);
+		    selection_floodfill(pt, x,y);
+		    splev_stack_push(coder->stack, pt);
+		}
+		opvar_free(tmp);
+	    }
+	    break;
+	case SPO_SEL_RNDCOORD:
+	    {
+		struct opvar *pt;
+		schar x,y;
+		if (!OV_pop_typ(pt, SPOVAR_SEL)) panic("no selection for rndcoord");
+		if (selection_rndcoord(pt, &x, &y)) {
+		    x -= xstart;
+		    y -= ystart;
+		}
+		/*get_location(&x, &y, DRY|WET, coder->croom);*/
+		splev_stack_push(coder->stack, opvar_new_coord(x,y));
+		opvar_free(pt);
+	    }
+	    break;
+	case SPO_SEL_ELLIPSE:
+	    {
+		struct opvar *filled, *xaxis, *yaxis, *pt;
+		schar x,y;
+		if (!OV_pop_i(filled)) panic("no filled for ellipse");
+		if (!OV_pop_i(yaxis)) panic("no yaxis for ellipse");
+		if (!OV_pop_i(xaxis)) panic("no xaxis for ellipse");
+		if (!OV_pop_c(pt)) panic("no pt for ellipse");
+		x = SP_COORD_X(OV_i(pt));
+		y = SP_COORD_Y(OV_i(pt));
+		get_location(&x, &y, DRY|WET, coder->croom);
+		if (isok(x,y)) {
+		    struct opvar *sel = selection_opvar(NULL);
+		    selection_do_ellipse(sel, x,y, OV_i(xaxis), OV_i(yaxis), OV_i(filled));
+		    splev_stack_push(coder->stack, sel);
+		}
+		opvar_free(filled);
+		opvar_free(yaxis);
+		opvar_free(xaxis);
+		opvar_free(pt);
+	    }
+	    break;
 	default:
 	    panic("sp_level_coder: Unknown opcode %i", coder->opcode);
 	}

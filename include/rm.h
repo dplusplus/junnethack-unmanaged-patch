@@ -247,6 +247,7 @@ extern const struct symdef def_warnsyms[WARNCOUNT];
 #define D_CLOSED	4
 #define D_LOCKED	8
 #define D_TRAPPED	16
+#define D_SECRET	32 /* only used by sp_lev.c, NOT in rm-struct */
 
 /*
  * Some altars are considered as shrines, so we need a flag.
@@ -344,6 +345,17 @@ struct rm {
 	Bitfield(roomno,6);	/* room # for special rooms */
 	Bitfield(edge,1);	/* marks boundaries for special rooms*/
 };
+
+
+#define SET_TYPLIT(x,y,ttyp,llit)				\
+{								\
+    if ((ttyp) < MAX_TYPE) levl[(x)][(y)].typ = (ttyp);		\
+    if ((ttyp) == LAVAPOOL) levl[(x)][(y)].lit = 1;		\
+    else if ((schar)(llit) != -2) {				\
+	if ((schar)(llit) == -1) levl[(x)][(y)].lit = rn2(2);	\
+	else levl[(x)][(y)].lit = (llit);			\
+    }								\
+}
 
 /*
  * Add wall angle viewing by defining "modes" for each wall type.  Each

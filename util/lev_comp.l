@@ -67,6 +67,11 @@ void FDECL(init_yyout, (FILE *));
 void FDECL(include_push, (const char *));
 int NDECL(include_pop);
 
+long NDECL(handle_varstring_check);
+
+extern struct lc_vardefs *FDECL(vardef_defined,(struct lc_vardefs *,char *, int));
+
+extern struct lc_vardefs *variable_definitions;
 
 /*
  * This doesn't always get put in lev_comp.h
@@ -131,9 +136,6 @@ DRAWBRIDGE	return DRAWBRIDGE_ID;
 MAZEWALK	return MAZEWALK_ID;
 WALLIFY		return WALLIFY_ID;
 REGION		return REGION_ID;
-RANDOM_OBJECTS	return RANDOM_OBJECTS_ID;
-RANDOM_MONSTERS	return RANDOM_MONSTERS_ID;
-RANDOM_PLACES	return RANDOM_PLACES_ID;
 ALTAR		return ALTAR_ID;
 LADDER		return LADDER_ID;
 STAIR		return STAIR_ID;
@@ -143,6 +145,7 @@ BRANCH		return BRANCH_ID;
 FOUNTAIN	return FOUNTAIN_ID;
 SINK		return SINK_ID;
 POOL		return POOL_ID;
+WALLWALK	return WALLWALK_ID;
 NON_DIGGABLE	return NON_DIGGABLE_ID;
 NON_PASSWALL	return NON_PASSWALL_ID;
 IF		return IF_ID;
@@ -153,7 +156,6 @@ SUBROOM		return SUBROOM_ID;
 RANDOM_CORRIDORS	return RAND_CORRIDOR_ID;
 CORRIDOR	return CORRIDOR_ID;
 SPILL	  return SPILL_ID;
-RANDLINE	return RANDLINE_ID;
 TERRAIN		return TERRAIN_ID;
 REPLACE_TERRAIN	return REPLACE_TERRAIN_ID;
 MON_GENERATION	return MON_GENERATION_ID;
@@ -170,6 +172,19 @@ DEFAULT		return DEFAULT_ID;
 FUNCTION	return FUNCTION_ID;
 INCLUDE		return INCLUDE_ID;
 SOUNDS		return SOUNDS_ID;
+SHUFFLE		return SHUFFLE_ID;
+montype		return MONTYPE_ID;
+selection	return selection_ID;
+rect		return rect_ID;
+fillrect	return fillrect_ID;
+line		return line_ID;
+randline	return randline_ID;
+grow		return grow_ID;
+floodfill	return flood_ID;
+rndcoord	return rndcoord_ID;
+circle		return circle_ID;
+ellipse		return ellipse_ID;
+filter		return filter_ID;
 hear		{ yylval.i=LVLSND_HEARD;  return MSG_OUTPUT_TYPE; }
 pline		{ yylval.i=LVLSND_PLINED; return MSG_OUTPUT_TYPE; }
 verbal		{ yylval.i=LVLSND_VERBAL; return MSG_OUTPUT_TYPE; }
@@ -178,6 +193,7 @@ levregion	return LEV;
 quantity	return QUANTITY_ID;
 buried		return BURIED_ID;
 eroded		return ERODED_ID;
+erodeproof	return ERODEPROOF_ID;
 trapped		return TRAPPED_ID;
 recharged	return RECHARGED_ID;
 invisible	return INVIS_ID;
@@ -200,15 +216,13 @@ closed		{ yylval.i=D_CLOSED; return DOOR_STATE; }
 locked		{ yylval.i=D_LOCKED; return DOOR_STATE; }
 nodoor		{ yylval.i=D_NODOOR; return DOOR_STATE; }
 broken		{ yylval.i=D_BROKEN; return DOOR_STATE; }
+secret		{ yylval.i=D_SECRET; return DOOR_STATE; }
 north		{ yylval.i=W_NORTH; return DIRECTION; }
 east		{ yylval.i=W_EAST; return DIRECTION; }
 south		{ yylval.i=W_SOUTH; return DIRECTION; }
 west		{ yylval.i=W_WEST; return DIRECTION; }
 random		{ yylval.i = -1; return RANDOM_TYPE; }
 none		{ yylval.i = -2; return NONE; }
-object		return O_REGISTER;
-monster		return M_REGISTER;
-place		return P_REGISTER;
 align		return A_REGISTER;
 left		{ yylval.i=1; return LEFT_OR_RIGHT; }
 half-left	{ yylval.i=2; return LEFT_OR_RIGHT; }
@@ -262,16 +276,35 @@ premapped	{ yylval.i=PREMAPPED; return FLAG_TYPE; }
 shroud		{ yylval.i=SHROUD; return FLAG_TYPE; }
 stormy		{ yylval.i=STORMY; return FLAG_TYPE; }
 graveyard	{ yylval.i=GRAVEYARD; return FLAG_TYPE; }
+[0-9]+d[0-9]+	{ char *p = strchr(yytext, 'd');
+		  if (p) {
+			*p = '\0';
+			p++;
+			yylval.dice.num=atoi(yytext);
+			yylval.dice.die=atoi(p);
+		  } else { yylval.dice.num = yylval.dice.die = 1; }
+		  return DICE;
+		}
 \[\ *[0-9]+\%\ *\] { yylval.i = atoi(yytext + 1); return PERCENT; }
+-[0-9]+		{ yylval.i=atoi(yytext); return MINUS_INTEGER; }
+\+[0-9]+	{ yylval.i=atoi(yytext); return PLUS_INTEGER; }
 [0-9]+\%	{ yylval.i = atoi(yytext); return SPERCENT; }
-[+\-]?[0-9]+	{ yylval.i=atoi(yytext); return INTEGER; }
+[0-9]+		{ yylval.i=atoi(yytext); return INTEGER; }
 \"[^"]*\"	{ yytext[yyleng-1] = 0; /* Discard the trailing \" */
 		  yylval.map = (char *) alloc(strlen(yytext+1)+1);
 		  Strcpy(yylval.map, yytext+1); /* Discard the first \" */
 		  return STRING; }
+\$[a-zA-Z_][a-zA-Z_0-9]*	{ return handle_varstring_check(); }
 [a-zA-Z_][a-zA-Z_0-9]*	{ yylval.map = (char *) alloc(strlen(yytext)+1);
 		  Strcpy(yylval.map, yytext);
 		  return NQSTRING; }
+"=="		{ yylval.i = SPO_JE; return COMPARE_TYPE; }
+"!="		{ yylval.i = SPO_JNE; return COMPARE_TYPE; }
+"<>"		{ yylval.i = SPO_JNE; return COMPARE_TYPE; }
+"<="		{ yylval.i = SPO_JLE; return COMPARE_TYPE; }
+">="		{ yylval.i = SPO_JGE; return COMPARE_TYPE; }
+"<"		{ yylval.i = SPO_JL; return COMPARE_TYPE; }
+">"		{ yylval.i = SPO_JG; return COMPARE_TYPE; }
 \r?\n		{ line_number++; }
 [ \t]+		;
 '\\.'		{ yylval.i = yytext[2]; return CHAR; }
@@ -353,6 +386,29 @@ yywrap()
 {
     if (doing_included_file >= 0) include_pop();
     return 1;
+}
+
+long
+handle_varstring_check()
+{
+  struct lc_vardefs *vd;
+  yylval.map = (char *) alloc(strlen(yytext)+1);
+  Strcpy(yylval.map, yytext);
+  if ((vd = vardef_defined(variable_definitions, yytext, 1))) {
+     long l = vd->var_type;
+     long a = ((l & SPOVAR_ARRAY) == SPOVAR_ARRAY);
+     l = (l & ~SPOVAR_ARRAY);
+     if (l == SPOVAR_INT) return (a ? VARSTRING_INT_ARRAY : VARSTRING_INT);
+     if (l == SPOVAR_STRING) return (a ? VARSTRING_STRING_ARRAY : VARSTRING_STRING);
+     if (l == SPOVAR_VARIABLE) return (a ? VARSTRING_VAR_ARRAY : VARSTRING_VAR);
+     if (l == SPOVAR_COORD) return (a ? VARSTRING_COORD_ARRAY : VARSTRING_COORD);
+     if (l == SPOVAR_REGION) return (a ? VARSTRING_REGION_ARRAY : VARSTRING_REGION);
+     if (l == SPOVAR_MAPCHAR) return (a ? VARSTRING_MAPCHAR_ARRAY : VARSTRING_MAPCHAR);
+     if (l == SPOVAR_MONST) return (a ? VARSTRING_MONST_ARRAY : VARSTRING_MONST);
+     if (l == SPOVAR_OBJ) return (a ? VARSTRING_OBJ_ARRAY : VARSTRING_OBJ);
+     if (l == SPOVAR_SEL) return (a ? VARSTRING_SEL_ARRAY : VARSTRING_SEL);
+  }
+  return VARSTRING;
 }
 
 /*lev_comp.l*/

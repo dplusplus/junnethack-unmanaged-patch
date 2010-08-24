@@ -42,29 +42,29 @@ ENGRAVING: (01,09), engrave, "万引きしようなどとは思わないことだ。"
 # black marketeer's assistants:
 # from The Hobbit (Tolkien)
 #JP
-#MONSTER: 'T', "rock troll",  (03,03), "William", asleep, peaceful
-#MONSTER: 'T', "rock troll",  (03,12), "Thomas", asleep, peaceful
-MONSTER: 'T', "rock troll",  (03,03), "ウィリアム", asleep, peaceful
-MONSTER: 'T', "rock troll",  (03,12), "トーマス", asleep, peaceful
+#MONSTER:('T', "rock troll"),  (03,03), "William", asleep, peaceful
+#MONSTER:('T', "rock troll"),  (03,12), "Thomas", asleep, peaceful
+MONSTER:('T', "rock troll"),  (03,03), "ウィリアム", asleep, peaceful
+MONSTER:('T', "rock troll"),  (03,12), "トーマス", asleep, peaceful
 # from the Bible
 #JP
-#MONSTER: 'H', "frost giant", (03,16), "Goliath", asleep, peaceful
-MONSTER: 'H', "frost giant", (03,16), "ゴリアテ", asleep, peaceful
+#MONSTER:('H', "frost giant"), (03,16), "Goliath", asleep, peaceful
+MONSTER:('H', "frost giant"), (03,16), "ゴリアテ", asleep, peaceful
 # from Greek mythology & high-energy physics
 #JP
-#MONSTER: 'n', "wood nymph",  (03,09), "Daphne",  asleep, peaceful
-MONSTER: 'n', "wood nymph",  (03,09), "ダフネ",  asleep, peaceful
+#MONSTER:('n', "wood nymph"),  (03,09), "Daphne",  asleep, peaceful
+MONSTER:('n', "wood nymph"),  (03,09), "ダフネ",  asleep, peaceful
 # Add your favorite monsters here.  Make them peaceful and named,
 # otherwise they will not behave like assistants.
 #JP
-#MONSTER: '&', "balrog",  (03,04), "Njalnohaar",  asleep, peaceful
-#MONSTER: '&', "pit fiend",  (03,02), "Hilvuuloth",  asleep, peaceful
-#MONSTER: 'c', "cockatrice",  (03,13), "Wilbur",  asleep, peaceful
-#MONSTER: 'c', "cockatrice",  (03,08), "Simon",  asleep, peaceful
-#MONSTER: ':', "salamander",  (03,11), "Izzy",  asleep, peaceful
-MONSTER: '&', "balrog",  (03,04), "ニャルノハール",  asleep, peaceful
-MONSTER: '&', "pit fiend",  (03,02), "ハイルヴーロス",  asleep, peaceful
-MONSTER: 'c', "cockatrice",  (03,13), "ウィルバー",  asleep, peaceful
-MONSTER: 'c', "cockatrice",  (03,08), "シモン",  asleep, peaceful
-MONSTER: ':', "salamander",  (03,11), "イズィー",  asleep, peaceful
+#MONSTER:('&', "balrog"),  (03,04), "Njalnohaar",  asleep, peaceful
+#MONSTER:('&', "pit fiend"),  (03,02), "Hilvuuloth",  asleep, peaceful
+#MONSTER:('c', "cockatrice"),  (03,13), "Wilbur",  asleep, peaceful
+#MONSTER:('c', "cockatrice"),  (03,08), "Simon",  asleep, peaceful
+#MONSTER:(':', "salamander"),  (03,11), "Izzy",  asleep, peaceful
+MONSTER:('&', "balrog"),  (03,04), "ニャルノハール",  asleep, peaceful
+MONSTER:('&', "pit fiend"),  (03,02), "ハイルヴーロス",  asleep, peaceful
+MONSTER:('c', "cockatrice"),  (03,13), "ウィルバー",  asleep, peaceful
+MONSTER:('c', "cockatrice"),  (03,08), "シモン",  asleep, peaceful
+MONSTER:(':', "salamander"),  (03,11), "イズィー",  asleep, peaceful
 

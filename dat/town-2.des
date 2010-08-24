@@ -8,16 +8,16 @@ LEVEL: "town-2"
 #JP
 #MESSAGE: "You reach the surface.  You hear the sounds of civilization."
 MESSAGE: "あなたは地表に辿り着いた。 あなたは市場のざわめきを聞いた。"
-RANDOM_MONSTERS:'@','r'
-RANDOM_PLACES:(4,6),(4,16),(18,2),(25,10),(40,13),(55,4),(58,12),(71,2),(73,15)
+$place = { (4,6),(4,16),(18,2),(25,10),(40,13),(55,4),(58,12),(71,2),(73,15) }
+SHUFFLE: $place
 ROOM: "ordinary", lit, random, random, (76,17)
 {
 FOUNTAIN: (55,9)
 FOUNTAIN: (22,8)
-STAIR:place[0],down
+STAIR:$place[0],down
 #JP
-#ENGRAVING: place[1], mark, "Welcome to the city of Angband!"
-ENGRAVING: place[1], mark, "アングバンドの都市にようこそ！"
+#ENGRAVING: $place[1], mark, "Welcome to the city of Angband!"
+ENGRAVING: $place[1], mark, "アングバンドの都市にようこそ！"
 #
 #       The Shops
 #
@@ -65,22 +65,22 @@ ROOMDOOR: false, closed, north, random
 #
 #       The Town Watch.
 #
-MONSTER: '@', "watchman", random, peaceful
-MONSTER: '@', "watchman", random, peaceful
-MONSTER: '@', "watchman", random, peaceful
-MONSTER: '@', "watchman", random, peaceful
-MONSTER: '@', "watch captain", random, peaceful
-MONSTER: '@', "watch captain", random, peaceful
-MONSTER: '@', "watch captain", random, peaceful
+MONSTER:('@', "watchman"), random, peaceful
+MONSTER:('@', "watchman"), random, peaceful
+MONSTER:('@', "watchman"), random, peaceful
+MONSTER:('@', "watchman"), random, peaceful
+MONSTER:('@', "watch captain"), random, peaceful
+MONSTER:('@', "watch captain"), random, peaceful
+MONSTER:('@', "watch captain"), random, peaceful
 #
 #       Some distracting townspeople
 #
-MONSTER: '@', "mugger", random, hostile
-MONSTER: '@', "mugger", random, hostile
-MONSTER: '@', "mugger", random, hostile
-MONSTER: '@', "mugger", random, hostile
-MONSTER: 'r', "sewer rat", random, hostile
-MONSTER: 'r', "sewer rat", random, hostile
-MONSTER: 'f', "kitten", random, hostile
+MONSTER:('@', "mugger"), random, hostile
+MONSTER:('@', "mugger"), random, hostile
+MONSTER:('@', "mugger"), random, hostile
+MONSTER:('@', "mugger"), random, hostile
+MONSTER:('r', "sewer rat"), random, hostile
+MONSTER:('r', "sewer rat"), random, hostile
+MONSTER:('f', "kitten"), random, hostile
 }
 

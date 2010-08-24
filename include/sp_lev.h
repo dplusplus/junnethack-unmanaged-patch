@@ -70,9 +70,6 @@ enum opcode_defs {
     SPO_GOLD,
     SPO_CORRIDOR,
     SPO_LEVREGION,
-    SPO_RANDOM_OBJECTS,
-    SPO_RANDOM_PLACES,
-    SPO_RANDOM_MONSTERS,
     SPO_DRAWBRIDGE,
     SPO_MAZEWALK,
     SPO_NON_DIGGABLE,
@@ -94,12 +91,17 @@ enum opcode_defs {
     SPO_REPLACETERRAIN,
     SPO_EXIT,
     SPO_ENDROOM,
-    SPO_RANDLINE,
     SPO_POP_CONTAINER,
     SPO_PUSH,
     SPO_POP,
     SPO_RN2,
     SPO_DEC,
+    SPO_INC,
+    SPO_MATH_ADD,
+    SPO_MATH_SUB,
+    SPO_MATH_MUL,
+    SPO_MATH_DIV,
+    SPO_MATH_MOD,
     SPO_COPY,
     SPO_MON_GENERATION,
     SPO_END_MONINVENT,
@@ -111,6 +113,22 @@ enum opcode_defs {
     SPO_INITLEVEL,
     SPO_LEVEL_FLAGS,
     SPO_LEVEL_SOUNDS,
+    SPO_WALLWALK,
+    SPO_VAR_INIT, /* variable_name data */
+    SPO_SHUFFLE_ARRAY,
+    SPO_DICE,
+
+    SPO_SEL_ADD,
+    SPO_SEL_POINT,
+    SPO_SEL_RECT,
+    SPO_SEL_FILLRECT,
+    SPO_SEL_LINE,
+    SPO_SEL_RNDLINE,
+    SPO_SEL_GROW,
+    SPO_SEL_FLOOD,
+    SPO_SEL_RNDCOORD,
+    SPO_SEL_ELLIPSE,
+    SPO_SEL_FILTER,
 
     MAX_SP_OPCODES
 };
@@ -156,7 +174,8 @@ enum opcode_defs {
 #define SP_O_V_INVIS		11
 #define SP_O_V_GREASED		12
 #define SP_O_V_BROKEN		13
-#define SP_O_V_END              14 /* end of variable parameters */
+#define SP_O_V_COORD		14
+#define SP_O_V_END              15 /* end of variable parameters */
 
 
 /* When creating objects, we need to know whether
@@ -167,9 +186,39 @@ enum opcode_defs {
 
 
 
-#define SPOVAR_NULL	0
-#define SPOVAR_INT	1 /* l */
-#define SPOVAR_STRING	2 /* str */
+#define SPOVAR_NULL	0x00
+#define SPOVAR_INT	0x01 /* l */
+#define SPOVAR_STRING	0x02 /* str */
+#define SPOVAR_VARIABLE	0x03 /* str (contains the variable name) */
+#define SPOVAR_COORD	0x04 /* coordinate, encoded in l; use SP_COORD_X() and SP_COORD_Y() */
+#define SPOVAR_REGION	0x05 /* region, encoded in l; use SP_REGION_X1() etc */
+#define SPOVAR_MAPCHAR	0x06 /* map char, in l */
+#define SPOVAR_MONST	0x07 /* monster class & specific monster, encoded in l; use SP_MONST_... */
+#define SPOVAR_OBJ	0x08 /* object class & specific object type, encoded in l; use SP_OBJ_... */
+#define SPOVAR_SEL	0x09 /* selection. char[COLNO][ROWNO] in str */
+#define SPOVAR_ARRAY	0x40 /* used in splev_var & lc_vardefs, not in opvar */
+
+#define SP_COORD_X(l)	(l & 0xff)
+#define SP_COORD_Y(l)	((l >> 16) & 0xff)
+#define SP_COORD_PACK(x,y) ((( x ) & 0xff) + ((( y ) & 0xff) << 16))
+
+#define SP_REGION_X1(l)	(l & 0xff)
+#define SP_REGION_Y1(l)	((l >> 8) & 0xff)
+#define SP_REGION_X2(l)	((l >> 16) & 0xff)
+#define SP_REGION_Y2(l)	((l >> 24) & 0xff)
+#define SP_REGION_PACK(x1,y1,x2,y2) ((( x1 ) & 0xff) + ((( y1 ) & 0xff) << 8) + ((( x2 ) & 0xff) << 16) + ((( y2 ) & 0xff) << 24))
+
+#define SP_MONST_CLASS(l) (l & 0xff)
+#define SP_MONST_PM(l)	  ((l >> 8) & 0xffff)
+#define SP_MONST_PACK(m,c) ((( m ) << 8) + ((char)( c )))
+
+#define SP_OBJ_CLASS(l)	  (l & 0xff)
+#define SP_OBJ_TYP(l)	  ((l >> 8) & 0xffff)
+#define SP_OBJ_PACK(o,c)  ((( o ) << 8) + ((char)( c )))
+
+#define SP_MAPCHAR_TYP(l) (l & 0xff)
+#define SP_MAPCHAR_LIT(l) ((l >> 8) & 0xff)
+#define SP_MAPCHAR_PACK(typ,lit) ((( lit ) << 8) + ((char)( typ )))
 
 struct opvar {
     xchar spovartyp; /* one of SPOVAR_foo */
@@ -177,6 +226,17 @@ struct opvar {
 	char *str;
 	long l;
     } vardata;
+};
+
+struct splev_var {
+    struct splev_var *next;
+    char *name;
+    xchar svtyp; /* SPOVAR_foo */
+    union {
+	struct opvar *value;
+	struct opvar **arrayvalues;
+    } data;
+    long array_len;
 };
 
 struct splevstack {
@@ -189,6 +249,7 @@ struct splevstack {
 struct sp_frame {
     struct sp_frame *next;
     struct splevstack *stack;
+    struct splev_var *variables;
     long n_opcode;
 };
 
@@ -407,6 +468,12 @@ struct lc_funcdefs {
     long addr;
     sp_lev code;
     long n_called;
+};
+
+struct lc_vardefs {
+    struct lc_vardefs *next;
+    char *name;
+    long var_type; /* SPOVAR_foo */
 };
 
 #endif /* SP_LEV_H */
