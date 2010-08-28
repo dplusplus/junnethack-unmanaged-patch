@@ -806,6 +806,9 @@ boolean so;
 	const char *jdeath;
 #endif
 	int hppos, lngr;
+#if 0 /*JP*/
+	boolean nospacefound = FALSE;
+#endif
 
 
 #if 1 /*JP*/
