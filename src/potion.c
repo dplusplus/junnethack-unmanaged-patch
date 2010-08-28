@@ -2317,20 +2317,34 @@ dodip()
 	here = levl[u.ux][u.uy].typ;
 	/* Is there a fountain to dip into here? */
 	if (IS_FOUNTAIN(here)) {
-/*JP
-		Sprintf(qbuf, "Dip %s into the fountain?", the(xname(obj)));
-*/
-		Sprintf(qbuf, "泉に%sを浸しますか？", xname(obj));
+#if 0 /*JP*/
+		Sprintf(qbuf, "Dip %s into the fountain?",
+				safe_qbuf("", sizeof("Dip  into the fountain?"),
+					the(xname(obj)), the(simple_typename(obj->otyp)),
+					"this item"));
+#else
+		Sprintf(qbuf, "泉に%sを浸しますか？",
+				safe_qbuf("", sizeof("泉にを浸しますか？"),
+					xname(obj), simple_typename(obj->otyp),
+					"このアイテム"));
+#endif
 		if(yn(qbuf) == 'y') {
 			dipfountain(obj);
 			return(1);
 		}
 	} else if (is_pool(u.ux,u.uy)) {
 		tmp = waterbody_name(u.ux,u.uy);
-/*JP
-		Sprintf(qbuf, "Dip %s into the %s?", the(xname(obj)), tmp);
-*/
-		Sprintf(qbuf, "%sに%sを浸しますか？", tmp, xname(obj));
+#if 0 /*JP*/
+		Sprintf(qbuf, "Dip %s into the %s?", 
+				safe_qbuf("", sizeof("Dip  into the pool of water?"),
+					the(xname(obj)), the(simple_typename(obj->otyp)),
+					"this item"), tmp);
+#else
+		Sprintf(qbuf, "%sに%sを浸しますか？", tmp,
+				safe_qbuf("", sizeof("水たまりにを浸しますか？"),
+					xname(obj), simple_typename(obj->otyp),
+					"このアイテム"));
+#endif
 		if (yn(qbuf) == 'y') {
 		    if (Levitation) {
 			floating_above(tmp);
@@ -2347,10 +2361,17 @@ dodip()
 		}
 	}
 
-/*JP
-	Sprintf(qbuf, "dip %s into", the(xname(obj)));
-*/
-	Sprintf(qbuf, "dip into:%s", the(xname(obj)));
+#if 0 /*JP*/
+	Sprintf(qbuf, "dip %s into",
+			safe_qbuf("", sizeof("dip  into"),
+				the(xname(obj)), the(simple_typename(obj->otyp)),
+				"this item"));
+#else
+	Sprintf(qbuf, "dip into:%s",
+			safe_qbuf("", sizeof("dip into:"),
+				xname(obj), simple_typename(obj->otyp),
+				"このアイテム"));
+#endif
 	if(!(potion = getobj(beverages, qbuf)))
 		return(0);
 	if (potion == obj && potion->quan == 1L) {
