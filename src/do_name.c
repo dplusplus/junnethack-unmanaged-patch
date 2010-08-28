@@ -386,9 +386,14 @@ register struct obj *obj;
 
 #if 0 /*JP*/
 	Sprintf(qbuf, "What do you want to name %s %s?",
-		is_plural(obj) ? "these" : "this", xname(obj));
+		is_plural(obj) ? "these" : "this",
+		safe_qbuf("", sizeof("What do you want to name these ?"),
+			xname(obj), simple_typename(obj->otyp),
+			is_plural(obj) ? "things" : "thing"));
 #else
-	Sprintf(qbuf, "%s‚ð‰½‚Æ–¼‚Ã‚¯‚Ü‚·‚©H", xname(obj));
+	Sprintf(qbuf, "%s‚ð‰½‚Æ–¼‚Ã‚¯‚Ü‚·‚©H",
+		safe_qbuf("", sizeof("‚ð‰½‚Æ–¼‚Ã‚¯‚Ü‚·‚©H"),
+			xname(obj), simple_typename(obj->otyp), "‚»‚ê"));
 #endif
 	getlin(qbuf, buf);
 	if(!*buf || *buf == '\033')	return;
