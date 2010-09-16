@@ -1,5 +1,5 @@
-Sat Aug 28 2010  Masaki Miyaso  <so-miya@sourceforge.jp>
-	* UnNetHack SVN版r663をベースにした。
+Thu Sep 16 2010  Masaki Miyaso  <so-miya@sourceforge.jp>
+	* UnNetHack SVN版r664をベースにした。
 	  r356 patchlevelを3.5.3にした
 	  r357 パッチ：ダンジョンマップ概要3 (Hojita Discordiaより)
 	  r358 マップ概要に闇市と道具屋を追加
@@ -448,6 +448,7 @@ Sat Aug 28 2010  Masaki Miyaso  <so-miya@sourceforge.jp>
 	  r661 修正：命名して聖器を生成するときに大文字小文字を区別しない
 	  r662 不適当に名付けられたアイテムを漬けたときのクラッシュを修正
 	  r663 重複していた魔除けの未確定名の削除
+	  r664 ChnageLogを更新
 	* 起動時の職業名が翻訳されなくなっていたのを修正
 	* ダンプ関係で終了時のトップテン表示がおかしくなっていたので修正
 	* 日本語ダンプファイル名の対処
