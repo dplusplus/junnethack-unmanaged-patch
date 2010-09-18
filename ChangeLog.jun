@@ -1,5 +1,5 @@
 Sat Sep 18 2010  Masaki Miyaso  <so-miya@sourceforge.jp>
-	* UnNetHack SVN版r668をベースにした。
+	* UnNetHack SVN版r671をベースにした。
 	  r356 patchlevelを3.5.3にした
 	  r357 パッチ：ダンジョンマップ概要3 (Hojita Discordiaより)
 	  r358 マップ概要に闇市と道具屋を追加
@@ -454,6 +454,8 @@ Sat Sep 18 2010  Masaki Miyaso  <so-miya@sourceforge.jp>
 	  r666 Unix用Makefileを更新
 	  r667 autoconf構築でない場合用にWHEREIS_FILEを設定しないように
 	  r668 Unix用Makefileにconfigureスクリプトの使い方を記載
+	  r670 MAIL用のifdefの抜けを修正
+	  r671 ダンプ：preはhtmlの中だけに出力する
 	* 起動時の職業名が翻訳されなくなっていたのを修正
 	* ダンプ関係で終了時のトップテン表示がおかしくなっていたので修正
 	* 日本語ダンプファイル名の対処

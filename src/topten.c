@@ -689,7 +689,7 @@ int how;
 		}
 	}
 #ifdef DUMP_LOG
-	dump("<pre>", "");
+	dump_html("<pre>", "");
 #endif
 	if(rank0 == 0) rank0 = rank1;
 	if(rank0 <= 0) rank0 = rank;
@@ -732,7 +732,7 @@ int how;
 	if(rank0 >= rank) if(!done_stopprint)
 		outentry(0, t0, TRUE);
 #ifdef DUMP_LOG
-	dump("</pre>", "");
+	dump_html("</pre>", "");
 #endif
 #ifdef UPDATE_RECORD_IN_PLACE
 	if (flg) {
