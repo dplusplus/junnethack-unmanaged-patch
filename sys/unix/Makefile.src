@@ -1,4 +1,4 @@
-#	NetHack Makefile.
+#	UnNetHack Makefile.
 #	SCCS Id: @(#)Makefile.src	3.4	2002/03/02
 
 # newer makes predefine $(MAKE) to 'make' and do smarter processing of
@@ -321,9 +321,9 @@ WINLIB = $(WINTTYLIB)
 #
 LIBS =
 
-# make NetHack
-#JP by issei(96/5/27)
-GAME     = jnethack
+# make UnNetHack
+#JP
+GAME     = junnethack
 # GAME     = nethack.prg
 
 # if you defined RANDOM in unixconf.h/tosconf.h since your system did not come
@@ -348,7 +348,7 @@ MAKEDEFS = ../util/makedefs
 CONFIG_H = ../src/config.h-t
 HACK_H	= ../src/hack.h-t
 
-# all .c that are part of the main NetHack program and are not operating- or
+# all .c that are part of the main UnNetHack program and are not operating- or
 # windowing-system specific
 HACKCSRC = allmain.c alloc.c apply.c artifact.c attrib.c ball.c bones.c \
 	   botl.c cmd.c dbridge.c decl.c detect.c dig.c display.c dlb.c do.c \
@@ -365,7 +365,8 @@ HACKCSRC = allmain.c alloc.c apply.c artifact.c attrib.c ball.c bones.c \
 	   spell.c steal.c steed.c teleport.c timeout.c topten.c track.c \
 	   trap.c tutorial.c u_init.c uhitm.c vault.c version.c vision.c \
 	   weapon.c were.c wield.c windows.c wizard.c worm.c worn.c write.c \
-	   zap.c 
+	         zap.c \
+	         livelog.c
 
 # all operating-system-dependent .c (for dependencies and such)
 SYSCSRC = ../sys/atari/tos.c ../sys/share/pcmain.c ../sys/share/pcsys.c \
@@ -423,7 +424,8 @@ HOBJ = $(FIRSTOBJ) allmain.o alloc.o apply.o artifact.o attrib.o ball.o \
 	steal.o steed.o teleport.o timeout.o topten.o track.o trap.o \
 	tutorial.o u_init.o uhitm.o vault.o vision.o vis_tab.o weapon.o \
 	were.o wield.o windows.o wizard.o worm.o worn.o write.o zap.o \
-	$(RANDOBJ) $(JOBJ) $(SYSOBJ) $(WINOBJ) version.o
+	$(RANDOBJ) $(JOBJ) $(SYSOBJ) $(WINOBJ) version.o \
+	livelog.o
 # the .o files from the HACKCSRC, SYSSRC, and WINSRC lists
 
 $(GAME):	$(SYSTEM)
@@ -457,7 +459,7 @@ SysV-AT:	DUMB.Setup $(HOBJ) Makefile
 SysBe: $(HOBJ) Makefile
 	@echo "Loading ..."
 	@$(LINK) $(LFLAGS) -o $(GAME) $(HOBJ) $(WINLIB) $(LIBS)
-	@xres -o $(GAME) ../win/BeOS/nethack.rsrc
+	@xres -o $(GAME) ../win/BeOS/unnethack.rsrc
 	@mimeset -f $(GAME)
 	@touch SysBe
 
@@ -820,6 +822,7 @@ hack.o: hack.c $(HACK_H)
 hacklib.o: hacklib.c $(HACK_H)
 invent.o: invent.c $(HACK_H)
 light.o: light.c $(HACK_H) ../include/lev.h
+livelog.o: livelog.c $(HACK_H)
 lock.o: lock.c $(HACK_H)
 mail.o: mail.c $(HACK_H) ../include/mail.h
 makemon.o: makemon.c $(HACK_H) ../include/epri.h ../include/emin.h \
