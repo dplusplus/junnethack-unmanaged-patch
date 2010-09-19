@@ -285,6 +285,9 @@ doread()
 		else pline("It is signed:");
 */
 		else pline("署名がある：");
+/*JP
+		pline("\"Odin.\"");
+*/
 		pline("\"オーディン\"");
 		u.uconduct.literate++;
 		return 1;
@@ -310,7 +313,13 @@ doread()
 				You("feel the engraved runes:");
 */
 				You("刻まれたルーン文字に触れた：");
+/*JP
+			else if (flags.verbose) pline("The runes read:");
+*/
 			else if (flags.verbose) pline("ルーン文字を読んだ：");
+/*JP
+			pline("\"Made in Elfheim.\"");
+*/
 			pline("\"エルフハイム製。\"");
 			return 1;
 		} else {
@@ -339,6 +348,9 @@ doread()
 */
 				You("刻まれた署名に触れた：");
 			else
+/*JP
+				pline("It is signed:");
+*/
 				pline("署名がある：");
 			/* TODO:変愚蛮怒のsindarin_to_kanaを使う？ */
 			pline("\"%s%s%s\"",
@@ -1068,7 +1080,7 @@ genericptr_t poolcnt;
 	}
 
 }
-
+ 
 int
 seffects(sobj)
 register struct obj	*sobj;

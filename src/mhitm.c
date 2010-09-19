@@ -715,7 +715,7 @@ defdisintagr(magr, mdef, mattk)
 		switch (attk_protection((int)mattk->aatyp)) {
 			/* this is in dire need of optimization */
 			case (W_ARMC|W_ARMG):
-				if ((otch = which_armor(magr, W_ARMG))) {	
+				if ((otch = which_armor(magr, W_ARMG))) {
 					if (!oresist_disintegration(otch)) {
 						if (canseemon(magr))
 #if 0 /*JP*/

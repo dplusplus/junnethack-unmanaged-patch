@@ -2270,7 +2270,7 @@ dooverview()
 	mapseen *mptr;
 	boolean first;
 	boolean printdun;
-	int lastdun = -1;
+	int lastdun=-1;
 
 	first = TRUE;
 
@@ -2382,7 +2382,7 @@ int rtype;
 			return "G‰İ‰®";
 		case ARMORSHOP:
 /*JP
-			return "a armor shop";
+			return "an armor shop";
 */
 			return "–h‹ï‰®";
 		case SCROLLSHOP:
@@ -2402,12 +2402,12 @@ int rtype;
 			return "•Ší‰®";
 		case FOODSHOP:
 /*JP
-			return "a delicatessen";
+			return "a delicatessen store";
 */
 			return "H•i“X";
 		case RINGSHOP:
 /*JP
-			return "a jewelers";
+			return "a jewelry store";
 */
 			return "•óü“X";
 		case WANDSHOP:
@@ -2442,7 +2442,7 @@ int rtype;
 			return "ŠÊ‹l“X";
 		case PETSHOP:
 /*JP
-+			return "a pet store";
+			return "a pet store";
 */
 			return "ƒyƒbƒg“X";
 		case BLACKSHOP:

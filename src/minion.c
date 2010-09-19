@@ -242,15 +242,15 @@ register struct monst *mtmp;
 		      Amonnam(mtmp));
 	    } else if (offer > 0L && (long)rnd(40) > (demand - offer)) {
 /*JP
-		    pline("%s scowls at you menacingly, then vanishes.",
+		pline("%s scowls at you menacingly, then vanishes.",
 */
-		    pline("%sはあなたを威嚇し、消えた。",
+		pline("%sはあなたを威嚇し、消えた。",
 		      Amonnam(mtmp));
 	    } else {
 /*JP
-		    pline("%s gets angry...", Amonnam(mtmp));
+		pline("%s gets angry...", Amonnam(mtmp));
 */
-		    pline("%sは怒った．．．", Amonnam(mtmp));
+		pline("%sは怒った．．．", Amonnam(mtmp));
 		mtmp->mpeaceful = 0;
 		set_malign(mtmp);
 		return 0;

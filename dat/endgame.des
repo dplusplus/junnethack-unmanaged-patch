@@ -350,6 +350,7 @@ OBJECT:('`',"boulder"),random
 LEVEL:"water"
 FLAGS: noteleport,hardfloor,shortsighted,mazelevel,shroud
 INIT_MAP:solidfill,' '
+#JP
 #MESSAGE: "You find yourself suspended in an air bubble surrounded by water."
 MESSAGE: "‚ ‚È‚½‚Í…’†‚Ì‹ó‹C‚Ì–A‚Ì‚È‚©‚É•‚—V‚µ‚Ä‚¢‚éB"
 GEOMETRY:center,center
@@ -433,6 +434,7 @@ LOOP [19] {
 LEVEL:"astral"
 FLAGS: noteleport,hardfloor,nommap,shortsighted,mazelevel
 INIT_MAP:solidfill,' '
+#JP
 #MESSAGE: "You arrive on the Astral Plane!"
 #MESSAGE: "Here the High Temples of the aligned gods are located."
 #MESSAGE: "You sense alarm, hostility, and excitement in the air!"

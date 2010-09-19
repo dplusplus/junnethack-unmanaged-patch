@@ -1248,7 +1248,7 @@ glovecheck:		(void) rust_dmg(uarmg, "小手", 1, TRUE, &youmonst);
 					 u.usteed->mnamelth ? ARTICLE_NONE : ARTICLE_THE,
 				 	 "poor", SUPPRESS_SADDLE, FALSE));
 #else
-		   	Sprintf(verbbuf,"と%s",
+			    Sprintf(verbbuf,"と%s",
 				x_monnam(u.usteed,
 					 u.usteed->mnamelth ? ARTICLE_NONE : ARTICLE_THE,
 				 	 "かわいそうな", SUPPRESS_SADDLE, FALSE));
@@ -1259,10 +1259,12 @@ glovecheck:		(void) rust_dmg(uarmg, "小手", 1, TRUE, &youmonst);
 		    Strcpy(verbbuf,"fall");
 */
 		    Strcpy(verbbuf,"");
-/*JP
-		   You("%s into %s pit!", verbbuf, a_your[trap->madeby_u]);
-*/
-		   pline("あなた%sは%s落し穴に落ちた！", verbbuf, dig_you[trap->madeby_u]);
+#if 0 /*JP*/
+		    You("%s into %s pit!", verbbuf, a_your[trap->madeby_u]);
+#else
+		    pline("あなた%sは%s落し穴に落ちた！",
+			verbbuf, dig_you[trap->madeby_u]);
+#endif
 		}
 		/* wumpus reference */
 		if (Role_if(PM_RANGER) && !trap->madeby_u && !trap->once &&
@@ -1482,9 +1484,9 @@ glovecheck:		(void) rust_dmg(uarmg, "小手", 1, TRUE, &youmonst);
 			u.utrap = 0;
 			if (webmsgok)
 /*JP
-				You("tear through %s web!", a_your[trap->madeby_u]);
+			    You("tear through %s web!", a_your[trap->madeby_u]);
 */
-				You("%sくもの巣を切り裂いた！", web_you[trap->madeby_u]);
+			    You("%sくもの巣を切り裂いた！", web_you[trap->madeby_u]);
 			deltrap(trap);
 			newsym(u.ux,u.uy);	/* get rid of trap symbol */
 		    }
@@ -2041,9 +2043,9 @@ int style;
 		       (otmp2 = sobj_at(BOULDER, bhitpos.x, bhitpos.y)) != 0) {
 			const char *bmsg =
 /*JP
-				" as one boulder sets another in motion";
+				     " as one boulder sets another in motion";
 */
-				"ひとつの岩が他の岩を動かしたかのような、";
+				     "ひとつの岩が他の岩を動かしたかのような、";
 
 			if (!isok(bhitpos.x + dx, bhitpos.y + dy) || !dist ||
 			    IS_ROCK(levl[bhitpos.x + dx][bhitpos.y + dy].typ))
@@ -2053,9 +2055,9 @@ int style;
 			    bmsg = "ひとつの岩が他の岩に当たったような";
 
 /*JP
-		    	You_hear("a loud crash%s!",
+			You_hear("a loud crash%s!",
 */
-		    	You_hear("%s大きなゴンという音を聞いた！",
+			You_hear("%s大きなゴンという音を聞いた！",
 				cansee(bhitpos.x, bhitpos.y) ? bmsg : "");
 			obj_extract_self(otmp2);
 			/* pass off the otrapped flag to the next boulder */
@@ -3855,9 +3857,9 @@ boolean *lostsome;
 		/* Nothing available left to drop; try gold */
 		if (u.ugold) {
 /*JP
-				pline("In desperation, you drop your purse.");
+		    pline("In desperation, you drop your purse.");
 */
-				You("やけくそで財布を落した。");
+		    You("やけくそで財布を落した。");
 		    /* Hack: gold is not in the inventory, so make a gold object
 		     * and put it at the head of the inventory list.
 		     */

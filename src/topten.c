@@ -49,7 +49,7 @@ static long final_fpos;
 #if !defined(MICRO) && !defined(MAC) && !defined(WIN32)
 #define PERS_IS_UID		/* delete for PERSMAX per name; now per uid */
 #endif
-#endif /* AUTOCONF_H */ 
+#endif /* AUTOCONF_H */
 struct toptenentry {
 	struct toptenentry *tt_next;
 #ifdef UPDATE_RECORD_IN_PLACE

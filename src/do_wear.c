@@ -1029,9 +1029,9 @@ boolean gone;
 		if (Invisible && !Blind) {
 		    newsym(u.ux,u.uy);
 /*JP
-			pline("Suddenly you cannot see yourself.");
+		    pline("Suddenly you cannot see yourself.");
 */
-			pline("突然、自分自身が見えなくなった。");
+		    pline("突然、自分自身が見えなくなった。");
 		    makeknown(RIN_SEE_INVISIBLE);
 		}
 		break;
@@ -1812,9 +1812,9 @@ dowear()
 			qstart_level.dnum == u.uz.dnum) {	/* in quest */
 		if (u.ualignbase[A_CURRENT] == u.ualignbase[A_ORIGINAL])
 /*JP
-		You("narrowly avoid losing all chance at your goal.");
+			You("narrowly avoid losing all chance at your goal.");
 */
-		You("目的を達成する可能性を失うことをなんとか回避した。");
+			You("目的を達成する可能性を失うことをなんとか回避した。");
 		else	/* converted */
 /*JP
 			You("are suddenly overcome with shame and change your mind.");

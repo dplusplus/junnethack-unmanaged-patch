@@ -709,9 +709,9 @@ mattacku(mtmp)
 			if (numhelp > 0) {
 			    if (numseen == 0)
 /*JP
-			You_feel("hemmed in.");
+				You_feel("hemmed in.");
 */
-			pline("何者かに囲まれたような気がする。");
+				pline("何者かに囲まれたような気がする。");
 /*JP
 			} else pline("But none comes.");
 */
@@ -1488,13 +1488,13 @@ dopois:
 			You("一瞬硬直した。");
 		    } else {
 /*JP
-	    	    if (Blind) You("are frozen!");
+			if (Blind) You("are frozen!");
 */
-		    if (Blind) You("動けない！");
+			if (Blind) You("動けない！");
 /*JP
-	    	    else You("are frozen by %s!", mon_nam(mtmp));
+			else You("are frozen by %s!", mon_nam(mtmp));
 */
-		    else pline("%sによって動けなくなった！", mon_nam(mtmp));
+			else pline("%sによって動けなくなった！", mon_nam(mtmp));
 			nomovemsg = 0;	/* default: "you can move again" */
 /*JP
 			nomul(-rnd(10), "paralyzed by a monster");
@@ -2425,9 +2425,9 @@ gulpmu(mtmp, mattk)	/* monster swallows you, or damage if u.uswallow */
 			if (Amphibious && !flaming(youmonst.data)) tmp = 0;
 		    } else {
 /*JP
-		    You("are pummeled with debris!");
+			You("are pummeled with debris!");
 */
-		    You("瓦礫で痛めつけられた！");
+			You("瓦礫で痛めつけられた！");
 			exercise(A_STR, FALSE);
 		    }
 		    break;
@@ -2736,15 +2736,15 @@ gazemu(mtmp, mattk)	/* monster gazes at you */
 
 		    if (useeit)
 /*JP
-		    	(void) ureflects("%s gaze is reflected by your %s.",
+			(void) ureflects("%s gaze is reflected by your %s.",
 */
-		    	(void) ureflects("%sのにらみは%sで反射された。",
+			(void) ureflects("%sのにらみは%sで反射された。",
 					 s_suffix(Monnam(mtmp)));
 		    if (mon_reflects(mtmp, !useeit ? (char *)0 :
 /*JP
-		    			"The gaze is reflected away by %s %s!"))
+				     "The gaze is reflected away by %s %s!"))
 */
-		    			"にらみは%sの%sによって反射された！"))
+				     "にらみは%sの%sによって反射された！"))
 			break;
 		    if (!m_canseeu(mtmp)) { /* probably you're invisible */
 			if (useeit)

@@ -239,14 +239,14 @@ struct obj *spellbook;
 	    spellbook->in_use = TRUE;	/* in case called from learn */
 	    pline(
 /*JP
-	  "Being confused you have difficulties in controlling your actions.");
+	"Being confused you have difficulties in controlling your actions.");
 */
-	  "混乱しているので、そういうことをするのは難しい。");
+		"混乱しているので、そういうことをするのは難しい。");
 	    display_nhwindow(WIN_MESSAGE, FALSE);
 /*JP
-			    You("accidentally tear the spellbook to pieces.");
+	    You("accidentally tear the spellbook to pieces.");
 */
-			    You("うっかり、呪文書を引きさいてしまった。");
+	    You("うっかり、呪文書を引きさいてしまった。");
 	    if (!objects[spellbook->otyp].oc_name_known &&
 		!objects[spellbook->otyp].oc_uname)
 		docall(spellbook);

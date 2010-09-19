@@ -1578,7 +1578,7 @@ register struct obj   *obj;
 			broken = 0;
 		}
 
-	    if (broken
+		if (broken
 #ifdef WEBB_DISINT
           || obj_disint
 #endif

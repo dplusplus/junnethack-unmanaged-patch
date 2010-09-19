@@ -589,9 +589,9 @@ can_twoweapon()
 			pline("ばかばかしい！");
 		else if (Upolyd)
 /*JP
-		You_cant("use two weapons in your current form.");
+		    You_cant("use two weapons in your current form.");
 */
-		You("二刀流は通常の姿でのみ使用できる。");
+		    You("二刀流は通常の姿でのみ使用できる。");
 		else {
 			char buf[BUFSZ];
 			boolean disallowed_by_role = P_MAX_SKILL(P_TWO_WEAPON_COMBAT) < P_BASIC;
@@ -691,9 +691,9 @@ drop_uswapwep()
 	/* Avoid trashing makeplural's static buffer */
 	Strcpy(str, makeplural(body_part(HAND)));
 /*JP
-		Your("%s from your %s!",  aobjnam(obj, "slip"), str);
+	Your("%s from your %s!",  aobjnam(obj, "slip"), str);
 */
-		You("%sを落してしまった！", xname(obj));
+	You("%sを落してしまった！", xname(obj));
 	dropx(obj);
 }
 

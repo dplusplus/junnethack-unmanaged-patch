@@ -184,9 +184,6 @@ static struct Bool_Opt
 #else
 	{"page_wait", (boolean *)0, FALSE, SET_IN_FILE},
 #endif
-#ifdef CURSES_GRAPHICS
-	{ "petattr",  "attributes for highlighting pets", 12, SET_IN_FILE },
-#endif
 #ifdef PARANOID
 	{"paranoid_hit", &iflags.paranoid_hit, FALSE, SET_IN_FILE},
 	{"paranoid_quit", &iflags.paranoid_quit, FALSE, SET_IN_FILE},
@@ -524,6 +521,9 @@ static struct Comp_Opt
 # endif
 #endif
 #endif /*JP*/
+#ifdef CURSES_GRAPHICS
+	{ "petattr",  "attributes for highlighting pets", 12, SET_IN_FILE },
+#endif
 #if 0 /*JP*/
 #ifdef PARANOID
 	{ "paranoid", "the kind of actions you want to be paranoid about",

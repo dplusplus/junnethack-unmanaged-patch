@@ -488,14 +488,14 @@ struct obj *obj;
 	    if (objects[otmp->otyp].oc_material == GLASS &&
 		otmp->oclass != GEM_CLASS && !obj_resists(otmp, 33, 100)) {
 /*JP
-				result = "shatter";
+		result = "shatter";
 */
-				result = "ガチャン";
+		result = "ガチャン";
 	    } else if (otmp->otyp == EGG && !rn2(3)) {
 /*JP
-				result = "cracking";
+		result = "cracking";
 */
-				result = "グシャッ";
+		result = "グシャッ";
 	    }
 	    if (result) {
 		if (otmp->otyp == MIRROR) change_luck(-2);
@@ -1285,9 +1285,9 @@ dokick()
 			}
 			if ( made )
 /*JP
-			pline("You've attracted the tree's former occupants!");
+			    pline("You've attracted the tree's former occupants!");
 */
-			pline("木の先住民を起こしてしまった！");
+			    pline("木の先住民を起こしてしまった！");
 			else
 /*JP
 			    You("smell stale honey.");
@@ -1392,9 +1392,9 @@ ouch:
 		    if (Blind) feel_location(x,y); /* we know we hit it */
 		    if (is_drawbridge_wall(x,y) >= 0) {
 /*JP
-		    pline_The("drawbridge is unaffected.");
+			pline_The("drawbridge is unaffected.");
 */
-		    pline("跳ね橋はびくともしない。");
+			pline("跳ね橋はびくともしない。");
 			/* update maploc to refer to the drawbridge */
 			(void) find_drawbridge(&x,&y);
 			maploc = &levl[x][y];
@@ -1840,9 +1840,9 @@ boolean shop_floor_obj;
 		result = "ベチャッ";
 	    }
 /*JP
-				You_hear("a muffled %s.",result);
+	    You_hear("a muffled %s.",result);
 */
-				You_hear("こもった%sという音を聞いた。", result);
+	    You_hear("こもった%sという音を聞いた。", result);
 	    obj_extract_self(otmp);
 	    obfree(otmp, (struct obj *) 0);
 	    return TRUE;

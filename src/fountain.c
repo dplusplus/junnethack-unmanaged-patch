@@ -409,9 +409,9 @@ drinkfountain()
 			if (Blind) {
 			    if (Invisible) {
 /*JP
-			    You("feel transparent.");
+				You("feel transparent.");
 */
-			    You("透明になった気がする。");
+				You("透明になった気がする。");
 			    } else {
 /*JP
 			    	You("feel very self-conscious.");

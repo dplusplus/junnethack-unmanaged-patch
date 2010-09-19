@@ -877,9 +877,9 @@ do_look(quick)
 	for (hit_trap = FALSE, i = 0; i < MAXPCHARS; i++) {
 	    x_str = defsyms[i].explanation;
 	    if (sym == (from_screen ? showsyms[i] : defsyms[i].sym) && *x_str) {
- 		/* avoid "an air", "a water", "a floor of a room", "a dark part of a room" */
+		/* avoid "an air", "a water", "a floor of a room", "a dark part of a room" */
 #if 0 /*JP*/
- 		int article = ((i == S_room)||(i == S_darkroom)) ? 2 :		/* 2=>"the" */
+		int article = ((i == S_room)||(i == S_darkroom)) ? 2 :		/* 2=>"the" */
 			      !(strcmp(x_str, "air") == 0 ||	/* 1=>"an"  */
 				strcmp(x_str, "water") == 0);	/* 0=>(none)*/
 #endif

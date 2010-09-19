@@ -1111,9 +1111,9 @@ int mode;
 		    pline("跳ね橋は上っている！");
 		if (Passes_walls && !may_passwall(x,y) && In_sokoban(&u.uz))
 /*JP
-	    		pline_The("Sokoban walls resist your ability.");
+		    pline_The("Sokoban walls resist your ability.");
 */
-	    		pline_The("倉庫番の壁はあなたの能力に抵抗した。");
+		    pline_The("倉庫番の壁はあなたの能力に抵抗した。");
 	    }
 	    return FALSE;
 	}
@@ -1138,7 +1138,7 @@ int mode;
 */
 			You("ドアの下からにじみ出た、しかし持ち物はそうはいかない。");
 #ifdef AUTO_OPEN
-			else if (iflags.autoopen && !flags.run
+		    else if (iflags.autoopen && !flags.run
 				&& !Confusion && !Stunned && !Fumbling) {
 			    door_opened = flags.move = doopen_indir(x, y);
 		    }
@@ -1807,9 +1807,9 @@ domove()
 #ifdef STEED
 			if (u.usteed)
 /*JP
-			    	Norep("%s is still in a pit.",
+			    Norep("%s is still in a pit.",
 */
-			    	Norep("%sはまだ落し穴にいる。",
+			    Norep("%sはまだ落し穴にいる。",
 				  upstart(y_monnam(u.usteed)));
 			else
 #endif
@@ -1899,9 +1899,9 @@ domove()
 #ifdef STEED
 			if (u.usteed)
 /*JP
-				pline("%s breaks out of the web.",
+			    pline("%s breaks out of the web.",
 */
-				pline("%sはくもの巣を壊した。",
+			    pline("%sはくもの巣を壊した。",
 				  upstart(y_monnam(u.usteed)));
 			else
 #endif
@@ -1942,9 +1942,9 @@ domove()
 #ifdef STEED
 			if (u.usteed)
 /*JP
-				pline("%s finally wiggles free.",
+			    pline("%s finally wiggles free.",
 */
-				pline("%sは体をくねらせてぬけた。",
+			    pline("%sは体をくねらせてぬけた。",
 				  upstart(y_monnam(u.usteed)));
 			else
 #endif
@@ -2678,6 +2678,9 @@ register boolean newlev;
 */
 			You("軍人の兵舍に入った！");
 		    else
+/*JP
+			You("enter an abandoned barracks.");
+*/
 			You("放置されたままの兵舍に入った。");
 		    break;
 		case DELPHI:
@@ -2824,9 +2827,9 @@ dopickup()
 #ifdef STEED
 		if (u.usteed && P_SKILL(P_RIDING) < P_BASIC)
 /*JP
-			You("aren't skilled enough to reach from %s.",
+		    You("aren't skilled enough to reach from %s.",
 */
-			You("まだ十分に技量を積んでいないので、%sから届かない。",
+		    You("まだ十分に技量を積んでいないので、%sから届かない。",
 			y_monnam(u.usteed));
 		else
 #endif

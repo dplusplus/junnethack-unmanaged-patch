@@ -301,9 +301,9 @@ const char *verb;
 		    if (!Underwater) {
 			if (weight(obj) > 9) {
 /*JP
-		    pline("Splash!");
+				pline("Splash!");
 */
-			pline("バシャッ！");
+				pline("バシャッ！");
 		        } else if (Levitation || Flying) {
 /*JP
 				pline("Plop!");
@@ -792,11 +792,13 @@ register const char *word;
 	}
 	if (obj->otyp == LEASH && obj->leashmon != 0) {
 		if (*word)
-/*JP
+#if 0 /*JP*/
 			pline_The("leash is tied around your %s.",
-*/
+					body_part(HAND));
+#else
 			pline("%sはあなたの%sに輪になって掛けられている。",
 				jtrns_obj(TOOL_SYM,"leash"), body_part(HAND));
+#endif
 		return(FALSE);
 	}
 #ifdef STEED
@@ -1197,9 +1199,9 @@ dodown()
 				return use_pick_axe2(uwep);
 			} else {
 /*JP
-			You_cant("go down here.");
+				You_cant("go down here.");
 */
-			pline("ここでは降りることができない。");
+				pline("ここでは降りることができない。");
 				return(0);
 			}
 		}
@@ -1687,9 +1689,9 @@ boolean at_stairs, falling, portal;
 		    else
 #endif
 /*JP
-		    losehp(rnd(3), "falling downstairs", KILLED_BY);
+			losehp(rnd(3), "falling downstairs", KILLED_BY);
 */
-		    losehp(rnd(3), "階段を転げ落ちて", KILLED_BY);
+			losehp(rnd(3), "階段を転げ落ちて", KILLED_BY);
 /*JP
 		    selftouch("Falling, you");
 */
@@ -1856,7 +1858,7 @@ boolean at_stairs, falling, portal;
 	    else
 		mesg = fam_msgs[which];
 #if 0 /*JP*/
-    if (mesg && index(mesg, '%')) {
+	    if (mesg && index(mesg, '%')) {
 		Sprintf(buf, mesg, !Blind ? "looks" : "seems");
 		mesg = buf;
 	    }

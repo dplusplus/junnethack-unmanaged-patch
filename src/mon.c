@@ -2472,9 +2472,9 @@ int  typ, fatal;
 		/* Check that a stat change was made */
 		if (adjattrib(typ, thrown_weapon ? -1 : -rn1(3,3), 1))
 /*JP
-  		    pline("You%s!", poiseff[typ]);
+		    pline("You%s!", poiseff[typ]);
 */
-  		    You("%sÅI", poiseff[typ]);
+		    You("%sÅI", poiseff[typ]);
 	} else {
 		i = thrown_weapon ? rnd(6) : rn1(10,6);
 		if(Half_physical_damage) i = (i+1) / 2;

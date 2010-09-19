@@ -269,9 +269,9 @@ mount_steed(mtmp, force)
 	/* Sanity checks */
 	if (u.usteed) {
 /*JP
-	    	You("are already riding %s.", mon_nam(u.usteed));
+	    You("are already riding %s.", mon_nam(u.usteed));
 */
-	    	You("もう%sに乗っている。", mon_nam(u.usteed));
+	    You("もう%sに乗っている。", mon_nam(u.usteed));
 	    return (FALSE);
 	}
 
@@ -311,9 +311,9 @@ mount_steed(mtmp, force)
 	if (Upolyd && (!humanoid(youmonst.data) || verysmall(youmonst.data) ||
 			bigmonst(youmonst.data) || slithy(youmonst.data))) {
 /*JP
-	    	You("won't fit on a saddle.");
+	    You("won't fit on a saddle.");
 */
-	    	You("鞍に合わない。");
+	    You("鞍に合わない。");
 	    return (FALSE);
 	}
 	if(!force && (near_capacity() > SLT_ENCUMBER)) {
@@ -330,9 +330,9 @@ mount_steed(mtmp, force)
 		mtmp->m_ap_type == M_AP_FURNITURE ||
 		mtmp->m_ap_type == M_AP_OBJECT))) {
 /*JP
-	    	pline("I see nobody there.");
+	    pline("I see nobody there.");
 */
-	    	pline("そこには何も見えない。");
+	    pline("そこには何も見えない。");
 	    return (FALSE);
 	}
 	if (u.uswallow || u.ustuck || u.utrap || Punished ||
@@ -375,9 +375,9 @@ mount_steed(mtmp, force)
 	}
 	if (!mtmp->mtame || mtmp->isminion) {
 /*JP
-	    	pline("I think %s would mind.", mon_nam(mtmp));
+	    pline("I think %s would mind.", mon_nam(mtmp));
 */
-	    	pline("%sは嫌がっているようだ。", mon_nam(mtmp));
+	    pline("%sは嫌がっているようだ。", mon_nam(mtmp));
 	    return (FALSE);
 	}
 	if (mtmp->mtrapped) {
@@ -420,9 +420,9 @@ mount_steed(mtmp, force)
 	}
 	if (!can_saddle(mtmp) || !can_ride(mtmp)) {
 /*JP
-	    	You_cant("ride such a creature.");
+	    You_cant("ride such a creature.");
 */
-	    	You("その生き物に乗ることはできない。");
+	    You("その生き物に乗ることはできない。");
 	    return (0);
 	}
 

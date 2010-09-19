@@ -1965,6 +1965,7 @@ role_init()
 	    	mons[urole.femalenum].mflags3 |= M3_INFRAVISION;
 	}
 
+	/* Fix up initial roleplay flags */
 	if (Role_if(PM_MONK)) 
 	    flags.vegetarian = TRUE;
 	flags.vegan |= flags.ascet;

@@ -154,7 +154,7 @@
  * would allow:
  *  xpmtoppm <x11tiles.xpm | pnmscale 1.25 | ppmquant 90 >x11tiles_big.xpm
  */
-/*# define USE_XPM*/		/* Disable if you do not have the XPM library */
+/* # define USE_XPM */		/* Disable if you do not have the XPM library */
 # ifdef USE_XPM
 #  define GRAPHIC_TOMBSTONE	/* Use graphical tombstone (rip.xpm) */
 #  define X11LARGETILE		/* Large tile for X11 */
@@ -211,10 +211,10 @@
 /* path and file name extension for compression program */
 /*JP: gzip is common enough */
 /* #define COMPRESS "/usr/bin/compress" */	/* Lempel-Ziv compression */
-/* #define COMPRESS_EXTENSION ".Z" */		/* compress's extension */
+/* #define COMPRESS_EXTENSION ".Z"	*/	/* compress's extension */
 /* An example of one alternative you might want to use: */
 #define COMPRESS "/usr/bin/gzip"	/* FSF gzip compression */
-#define COMPRESS_EXTENSION ".gz"	/* normal gzip extension */
+#define COMPRESS_EXTENSION ".gz"		/* normal gzip extension */
 #endif
 
 #ifndef COMPRESS

@@ -13,7 +13,7 @@ SHUFFLE: $place
 ROOM: "ordinary", lit, random, random, (76,17)
 {
 STAIR: $place[0], down
-
+#JP
 #ENGRAVING: $place[1], mark, "Welcome to the town of Angband!"
 ENGRAVING: $place[1], mark, "アングバンドの街にようこそ！"
 FOUNTAIN: ( 6,12)

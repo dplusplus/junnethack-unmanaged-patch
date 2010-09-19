@@ -546,9 +546,9 @@ creatorname()
 {
 	int index = u.ubirthday % SIZE(creator_names);
 /*JP
-        return creator_names[index];
+	return creator_names[index];
 */
-        return jtrns_mon(creator_names[index]);
+	return jtrns_mon(creator_names[index]);
 }
 
 /*questpgr.c*/

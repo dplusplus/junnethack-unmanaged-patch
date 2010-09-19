@@ -1876,9 +1876,9 @@ register struct attack *mattk;
 		    pd == &mons[PM_PAPER_GOLEM]) {
 		    if (!Blind)
 /*JP
-		    	pline("%s burns completely!", Monnam(mdef));
+			pline("%s burns completely!", Monnam(mdef));
 */
-		    	pline("%sは灰と化した！", Monnam(mdef));
+			pline("%sは灰と化した！", Monnam(mdef));
 		    xkilled(mdef,2);
 		    tmp = 0;
 		    break;
@@ -2271,9 +2271,9 @@ register struct attack *mattk;
 		if (!rn2(4) && !flaming(mdef->data) &&
 				mdef->data != &mons[PM_GREEN_SLIME]) {
 /*JP
-	    	    You("turn %s into slime.", mon_nam(mdef));
+		    You("turn %s into slime.", mon_nam(mdef));
 */
-	    	    pline("%sはスライムになった。", mon_nam(mdef));
+		    pline("%sはスライムになった。", mon_nam(mdef));
 		    (void) newcham(mdef, &mons[PM_GREEN_SLIME], FALSE, FALSE);
 		    tmp = 0;
 		}

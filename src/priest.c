@@ -498,9 +498,9 @@ register int roomno;
 			return;
 		    if (!Blind || sensemon(mtmp))
 /*JP
-		    pline("An enormous ghost appears next to you!");
+			pline("An enormous ghost appears next to you!");
 */
-		    pline("‹‘å‚È—H—ì‚ª‚ ‚È‚½‚Ì‚·‚®‚»‚Î‚ÉŒ»‚í‚ê‚½I");
+			pline("‹‘å‚È—H—ì‚ª‚ ‚È‚½‚Ì‚·‚®‚»‚Î‚ÉŒ»‚í‚ê‚½I");
 /*JP
 		    else You("sense a presence close by!");
 */

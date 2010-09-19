@@ -1337,8 +1337,8 @@ struct obj *otmp;
 	s1 = s2 = s3 = 0;
 	/* check for attempted use of accessory commands ('P','R') on armor
 	   and for corresponding armor commands ('W','T') on accessories */
-	if (ocls == ARMOR_CLASS) {/*argrath*/
-#if 0 /*JP*/
+	if (ocls == ARMOR_CLASS) {
+#if 0 /*JP*//*argrath*/
 	    if (!strcmp(word, "put on"))
 		s1 = "W", s2 = "wear", s3 = "";
 	    else if (!strcmp(word, "remove"))
@@ -1373,9 +1373,9 @@ struct obj *otmp;
 		what = "those";
 #endif
 /*JP
-		pline("Use the '%s' command to %s %s%s.", s1, s2, what, s3);
+	    pline("Use the '%s' command to %s %s%s.", s1, s2, what, s3);
 */
-		pline("それを%sには'%s'コマンドを使うこと。", s2, s1);
+	    pline("それを%sには'%s'コマンドを使うこと。", s2, s1);
 	} else {
 	    pline(silly_thing_to, word);
 	}

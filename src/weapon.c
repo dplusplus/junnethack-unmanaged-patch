@@ -585,9 +585,9 @@ boolean polyspot;
 		obj_extract_self(obj);
 		if (cansee(mon->mx, mon->my)) {
 /*JP
-			pline("%s drops %s.", Monnam(mon),
+		    pline("%s drops %s.", Monnam(mon),
 */
-			pline("%sは%sを置いた。", Monnam(mon),
+		    pline("%sは%sを置いた。", Monnam(mon),
 			  distant_name(obj, doname));
 		    newsym(mon->mx, mon->my);
 		}

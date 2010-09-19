@@ -447,9 +447,9 @@ cutworm(worm, x, y, weap)
 	pline("%s is cut in half.", Monnam(worm));
     else
 /*JP
-    You("cut %s in half.", mon_nam(worm));
+	You("cut %s in half.", mon_nam(worm));
 */
-    You("%sを真っぷたつにした。", mon_nam(worm));
+	You("%sを真っぷたつにした。", mon_nam(worm));
 }
 
 

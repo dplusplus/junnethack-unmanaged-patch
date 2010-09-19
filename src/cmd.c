@@ -2003,6 +2003,7 @@ BOOLEAN_P want_disp;
 	    enl_msg(buf, "ている", "た", "");
 #endif
 	}
+
 	if (wizard && u.uconduct.literate){
 #if 0 /*JP*/
 	    Sprintf(buf, "read items or engraved %ld time%s",
@@ -2933,9 +2934,9 @@ register char *cmd;
 		!help_dir(0, "無効な方向指定です。"))
 #endif
 /*JP
-	    Norep("Unknown command '%s'.", expcmd);
+		Norep("Unknown command '%s'.", expcmd);
 */
-	    Norep("'%s'コマンド？", expcmd);
+		Norep("'%s'コマンド？", expcmd);
 	}
 	/* didn't move */
 	flags.move = FALSE;

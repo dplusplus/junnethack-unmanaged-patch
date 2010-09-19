@@ -1,4 +1,5 @@
-Sat Sep 18 2010  Masaki Miyaso  <so-miya@sourceforge.jp>
+Sun Sep 19 2010  Masaki Miyaso  <so-miya@sourceforge.jp>
+	* JUnNetHack-3.5.3-J0.3.0リリース
 	* UnNetHack SVN版r671をベースにした。
 	  r356 patchlevelを3.5.3にした
 	  r357 パッチ：ダンジョンマップ概要3 (Hojita Discordiaより)

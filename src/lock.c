@@ -315,6 +315,7 @@ int rx,ry;
 	    static char no_longer[] = "Unfortunately, you can no longer %s %s.";
 */
 	    static char no_longer[] = "Ç¥ÇÒÇÀÇÒÇ»Ç™ÇÁÅAÇ†Ç»ÇΩÇÕ%s%s";
+
 	    if (nohands(youmonst.data)) {
 /*JP
 		const char *what = (picktyp == LOCK_PICK) ? "pick" : "key";

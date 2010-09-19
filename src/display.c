@@ -1379,7 +1379,7 @@ int *oclass;
     uchar   ch;
     register int offset;
     *oclass = 0;
-	
+
     if (glyph >= NO_GLYPH)
         return ' ';
 

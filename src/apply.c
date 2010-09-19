@@ -789,9 +789,9 @@ register xchar x, y;
 			m_unleash(mtmp, FALSE);
 		    } else {
 /*JP
-				    You("pull on the leash.");
+			You("pull on the leash.");
 */
-				    You("%s‚ðˆø‚Á‚Ï‚Á‚½B",
+			You("%s‚ðˆø‚Á‚Ï‚Á‚½B",
 					jtrns_obj(TOOL_SYM,"leash"));
 			if (mtmp->data->msound != MS_SILENT)
 			    switch (rn2(3)) {

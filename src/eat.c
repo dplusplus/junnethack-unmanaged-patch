@@ -560,13 +560,13 @@ boolean allowmsg;
 		if (allowmsg) {
 			if (Upolyd)
 /*JP
-			You("have a bad feeling deep inside.");
+				You("have a bad feeling deep inside.");
 */
-		You("嫌悪感におそわれた。");
+				You("嫌悪感におそわれた。");
 /*JP
-		You("cannibal!  You will regret this!");
+			You("cannibal!  You will regret this!");
 */
-		pline("共喰いだ！後悔するぞ！");
+			pline("共喰いだ！後悔するぞ！");
 		}
 		HAggravate_monster |= FROMOUTSIDE;
 		change_luck(-rn1(4,2));		/* -5..-2 */

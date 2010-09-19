@@ -1744,7 +1744,7 @@ BOOLEAN_P want_disp;
 */
 	    Sprintf(buf, "%dí—Ş‚Ìí‚ğ‹sE‚µ‚½B", ngenocided);
 	    if (klwin) putstr(klwin, 0, buf);
-	    dump("  ", buf);
+	    dump_line("  ", buf);
 #ifdef SHOW_EXTINCT
 	    }
 	    if (nextincted>0) {
@@ -1753,7 +1753,7 @@ BOOLEAN_P want_disp;
 */
 	      Sprintf(buf, "%dí—Ş‚Ìí‚ğâ–Å‚³‚¹‚½B", nextincted);
 	      if (klwin) putstr(klwin, 0, buf);
-	      dump(" ", buf);
+	      dump_line("  ", buf);
 	    }
 #endif /* SHOW_EXTINCT */
 	    dump("", "");

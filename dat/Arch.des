@@ -210,6 +210,7 @@ OBJECT:random,random
 OBJECT:random,random
 OBJECT:random,random
 # Treasure?
+#JP
 #ENGRAVING:random,engrave,"X marks the spot."
 #ENGRAVING:random,engrave,"X marks the spot."
 #ENGRAVING:random,engrave,"X marks the spot."

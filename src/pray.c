@@ -2678,6 +2678,9 @@ invoke_amulet(otmp)
 */
 					You("はカンザスへと帰るドロシーのような気分がした！");
 				} else {
+/*JP
+					You("return home...");
+*/
 					You("故郷に帰った．．．");
 				}
 				done(ESCAPED);

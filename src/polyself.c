@@ -858,9 +858,9 @@ break_armor()
 	    } else {
 		if (donning(otmp)) cancel_don();
 /*JP
-	    Your("helmet falls to the %s!", surface(u.ux, u.uy));
+		Your("helmet falls to the %s!", surface(u.ux, u.uy));
 */
-	    Your("Š•‚Í%s‚É—‚¿‚½I", surface(u.ux, u.uy));
+		Your("Š•‚Í%s‚É—‚¿‚½I", surface(u.ux, u.uy));
 		(void) Helmet_off();
 		dropx(otmp);
 	    }
