@@ -1,4 +1,4 @@
-Thu Sep 23 2010  Masaki Miyaso  <so-miya@sourceforge.jp>
+Sat Sep 25 2010  Masaki Miyaso  <so-miya@sourceforge.jp>
 	* UnNetHack SVN版r679をベースにした。
 	  r674 3.5.4にバージョン番号を更新
 	  r675 create_door()ルーチンを修正(SporkHack rev. 655, 656から)
@@ -8,6 +8,8 @@ Thu Sep 23 2010  Masaki Miyaso  <so-miya@sourceforge.jp>
 	  r678 ダンプ用に同一メッセージ数を数える
 	  r679 (階層ファイル等の)プログラムに基づいて生成された怪物の所持
 	       品を削除しない
+	* 水難の巻物追加時(r144)に変更された巻物の未識別名の翻訳対応が
+	  抜けていたので修正
 
 Sun Sep 19 2010  Masaki Miyaso  <so-miya@sourceforge.jp>
 	* JUnNetHack-3.5.3-J0.3.0リリース
