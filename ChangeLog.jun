@@ -1,5 +1,5 @@
-Sat Sep 25 2010  Masaki Miyaso  <so-miya@sourceforge.jp>
-	* UnNetHack SVN版r679をベースにした。
+Wed Oct 6 2010  Masaki Miyaso  <so-miya@sourceforge.jp>
+	* UnNetHack SVN版r681をベースにした。
 	  r674 3.5.4にバージョン番号を更新
 	  r675 create_door()ルーチンを修正(SporkHack rev. 655, 656から)
 	  r676 レベルコンパイラ: 鉱山階層が明るい確率が高すぎるのを修正
@@ -8,6 +8,9 @@ Sat Sep 25 2010  Masaki Miyaso  <so-miya@sourceforge.jp>
 	  r678 ダンプ用に同一メッセージ数を数える
 	  r679 (階層ファイル等の)プログラムに基づいて生成された怪物の所持
 	       品を削除しない
+	  r680 「MONSTERCOLOR=acid blog:lightcyan」のように設定することで
+	       怪物の色を変更可能とした
+	  r681 typo: acid blog -> acid blob
 	* 水難の巻物追加時(r144)に変更された巻物の未識別名の翻訳対応が
 	  抜けていたので修正
 
