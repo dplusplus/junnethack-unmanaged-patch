@@ -1,3 +1,7 @@
+Sat Oct 9 2010  Masaki Miyaso  <so-miya@sourceforge.jp>
+	* 水難の巻物追加時(r144)に変更された巻物の未識別名の翻訳対応が
+	  抜けていたので修正
+
 Sun Sep 19 2010  Masaki Miyaso  <so-miya@sourceforge.jp>
 	* JUnNetHack-3.5.3-J0.3.0リリース
 	* UnNetHack SVN版r671をベースにした。
