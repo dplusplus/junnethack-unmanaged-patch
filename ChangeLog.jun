@@ -11,6 +11,7 @@ Wed Oct 6 2010  Masaki Miyaso  <so-miya@sourceforge.jp>
 	  r680 「MONSTERCOLOR=acid blog:lightcyan」のように設定することで
 	       怪物の色を変更可能とした
 	  r681 typo: acid blog -> acid blob
+	  r686 MENUCOLORS無効時のコンパイル修正
 	* 水難の巻物追加時(r144)に変更された巻物の未識別名の翻訳対応が
 	  抜けていたので修正
 
