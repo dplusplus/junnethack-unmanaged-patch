@@ -1,4 +1,4 @@
-Wed Oct 6 2010  Masaki Miyaso  <so-miya@sourceforge.jp>
+Sat Oct 23 2010  Masaki Miyaso  <so-miya@sourceforge.jp>
 	* UnNetHack SVN版r681をベースにした。
 	  r674 3.5.4にバージョン番号を更新
 	  r675 create_door()ルーチンを修正(SporkHack rev. 655, 656から)
@@ -12,6 +12,7 @@ Wed Oct 6 2010  Masaki Miyaso  <so-miya@sourceforge.jp>
 	       怪物の色を変更可能とした
 	  r681 typo: acid blog -> acid blob
 	  r686 MENUCOLORS無効時のコンパイル修正
+	  r687 リビジョン番号をサポート
 	* 水難の巻物追加時(r144)に変更された巻物の未識別名の翻訳対応が
 	  抜けていたので修正
 
