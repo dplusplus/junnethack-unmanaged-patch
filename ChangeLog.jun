@@ -13,6 +13,8 @@ Sat Oct 23 2010  Masaki Miyaso  <so-miya@sourceforge.jp>
 	  r681 typo: acid blog -> acid blob
 	  r686 MENUCOLORS無効時のコンパイル修正
 	  r687 リビジョン番号をサポート
+	  r690 クエストネメシスにかのベルを渡す処理をハードコーディングか
+	       らdesファイルへ (SporkHack rev. 754から)
 	* 水難の巻物追加時(r144)に変更された巻物の未識別名の翻訳対応が
 	  抜けていたので修正
 
