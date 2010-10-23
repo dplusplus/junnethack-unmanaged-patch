@@ -29,7 +29,7 @@
  * and are considered only bugfix releases. Therefore the revision number isn't
  * included into VERSION_COMPATIBILITY.
  */
-/* #define VERSION_REVISION	1 */
+#define VERSION_REVISION	1
 
 #define COPYRIGHT_BANNER_A \
 "UnNetHack, Copyright 2009-2010"

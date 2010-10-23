@@ -4,6 +4,7 @@ Sat Oct 23 2010  Masaki Miyaso  <so-miya@sourceforge.jp>
 	  r684 レベルコンパイラ: 鉱山階層が明るい確率が高すぎるのを修正 (SporkHack rev. 806から)
 	  r685 create_door()ルーチンを修正(SporkHack rev. 655, 656から)
 	  r688 リビジョン番号をサポート
+	  r689 Branch 3.5.3：リビジョン番号の更新
 	* 水難の巻物追加時(r144)に変更された巻物の未識別名の翻訳対応が
 	  抜けていたので修正
 
