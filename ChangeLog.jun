@@ -1,6 +1,7 @@
 Sat Oct 9 2010  Masaki Miyaso  <so-miya@sourceforge.jp>
 	* UnNetHack SVN版r683をベースにした。
 	  r683 Branch 3.5.3: ChangeLogを更新
+	  r685 create_door()ルーチンを修正(SporkHack rev. 655, 656から)
 	* 水難の巻物追加時(r144)に変更された巻物の未識別名の翻訳対応が
 	  抜けていたので修正
 
