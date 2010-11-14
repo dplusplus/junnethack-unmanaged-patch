@@ -1088,6 +1088,12 @@ die:
 	done_money = umoney;
 #endif
 
+#ifdef DUMP_LOG
+	dumpoverview();
+	dump("", "");
+#endif
+
+	/* dump some time related information */
 #if 0 /*JP*/
 #define DUMP_DATE_FORMAT "%Y-%m-%d %H:%M:%S"
 	dump_title("Game information");

@@ -2348,7 +2348,7 @@ struct ext_func_tab extcmdlist[] = {
 	{"monster", "怪物の特別能力を使う", domonability, TRUE},
 	{"name", "アイテムや物に名前をつける", ddocall, TRUE},
 	{"offer", "神に供物を捧げる", dosacrifice, FALSE},
-	{"overview", "ダンジョンの概略を見る", dooverview, TRUE},
+	{"overview", "迷宮の概観を見る", dooverview, TRUE},
 	{"pray", "神に祈る", dopray, TRUE},
 	{"quit", "セーブしないで終了", done2, TRUE},
 #ifdef STEED

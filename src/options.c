@@ -358,7 +358,7 @@ static struct Comp_Opt
 						PL_PSIZ, SET_IN_GAME },
 #endif
 #endif
-	{ "dungeon",  "ダンジョンを描画するシンボル文字",
+	{ "dungeon",  "迷宮を描画するシンボル文字",
 						MAXDCHARS+1, SET_IN_FILE },
 #endif /*JP*/
 #if 0 /*JP*/

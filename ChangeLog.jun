@@ -1,5 +1,5 @@
 Sun Nov 14 2010  Masaki Miyaso  <so-miya@sourceforge.jp>
-	* UnNetHack SVN版r696をベースにした。
+	* UnNetHack SVN版r698をベースにした。
 	  r674 3.5.4にバージョン番号を更新
 	  r675 create_door()ルーチンを修正(SporkHack rev. 655, 656から)
 	  r676 レベルコンパイラ: 鉱山階層が明るい確率が高すぎるのを修正
@@ -18,8 +18,11 @@ Sun Nov 14 2010  Masaki Miyaso  <so-miya@sourceforge.jp>
 	  r694 修正：粉砕の怪物に触れて死んだときの文法違いを修正
 	  r695 ダンジョン概要：闇市階層の店は記録しない
 	  r696 看護婦にふさわしくない振る舞いを修正 (会話と攻撃)
+	  r697 ダンプ：迷宮概観を出力
+	  r698 ダンプ：迷宮概観出力時の時制を正確にした
 	* 水難の巻物追加時(r144)に変更された巻物の未識別名の翻訳対応が
 	  抜けていたので修正
+	* Dungeon overviewの訳語を迷宮の概観に変更
 
 Sun Sep 19 2010  Masaki Miyaso  <so-miya@sourceforge.jp>
 	* JUnNetHack-3.5.3-J0.3.0リリース

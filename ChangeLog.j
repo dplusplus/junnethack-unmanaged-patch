@@ -16,7 +16,7 @@
 	* パッチ：
 	  - 自発的挑戦：Elberethを追跡
 	    Conduct: Elbereth tracking (by Ray Kulhanek)
-	  - ダンジョンマップ概要
+	  - 迷宮地図の概要
 	    Dungeon Map Overview 3 (by Hojita Discordia)
 	  - 自発的挑戦拡張
 	    Extended Conducts v2.3 (by Andreas Dorn)

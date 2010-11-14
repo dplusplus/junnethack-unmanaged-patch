@@ -75,9 +75,9 @@ mapseen *mapseenchn = (struct mapseen *)0;
 STATIC_DCL mapseen *FDECL(load_mapseen, (int));
 STATIC_DCL void FDECL(save_mapseen, (int, mapseen *));
 STATIC_DCL mapseen *FDECL(find_mapseen, (d_level *));
-STATIC_DCL void FDECL(print_mapseen, (winid,mapseen *,boolean));
+STATIC_DCL void FDECL(print_mapseen, (winid,mapseen *,boolean, boolean, boolean));
 STATIC_DCL boolean FDECL(interest_mapseen, (mapseen *));
-STATIC_DCL char *FDECL(seen_string, (xchar x, const char *));
+STATIC_DCL char *FDECL(seen_string, (xchar, const char *));
 STATIC_DCL const char *FDECL(br_string2, (branch *));
 
 #ifdef DEBUG
@@ -2156,7 +2156,7 @@ recalc_mapseen()
 {
 	mapseen *mptr;
 	struct monst *shkp;
-	int x, y, ridx;
+	unsigned x, y, ridx;
 
 	/* Should not happen in general, but possible if in the process
 	 * of being booted from the quest.  The mapseen object gets
@@ -2289,7 +2289,7 @@ dooverview()
 		if (interest_mapseen(mptr)) {
 			printdun = (first || lastdun != mptr->lev.dnum);
 			/* if (!first) putstr(win, 0, ""); */
-			print_mapseen(win, mptr, printdun);
+			print_mapseen(win, mptr, printdun, FALSE, FALSE);
 
 			if (printdun) {
 				first = FALSE;
@@ -2303,6 +2303,59 @@ dooverview()
 
 	return 0;
 }
+
+#ifdef DUMP_LOG
+int
+dumpoverview()
+{
+	mapseen *mptr;
+	boolean printdun;
+	int lastdun=-1;
+	boolean first = TRUE;
+	boolean previous_was_interesting = FALSE;
+
+	first = TRUE;
+
+	/* lazy intialization */
+	(void) recalc_mapseen();
+
+	for (mptr = mapseenchn; mptr; mptr = mptr->next) {
+		/* try to find out if the last branch printed something */
+		if (!first && lastdun != mptr->lev.dnum && previous_was_interesting) {
+			dump_html("</li a>\n", "");
+			previous_was_interesting = FALSE;
+		}
+		/* only print out info for a level or a dungeon if interest */
+		if (interest_mapseen(mptr)) {
+			previous_was_interesting = TRUE;
+			printdun = (first || lastdun != mptr->lev.dnum);
+
+			if (first) {
+				/* Always print header as there will at least
+				 * be the output of the current level */
+/*JP
+				dump_title("Dungeon overview");
+*/
+				dump_title("–À‹{‚ÌŠTŠÏ");
+				dump_list_start();
+			}
+			/* currently dumping is always at the end of the game */
+			print_mapseen(0, mptr, printdun, TRUE, TRUE);
+
+			if (printdun) {
+				first = FALSE;
+				lastdun = mptr->lev.dnum;
+			}
+		}
+	}
+	if (!first) {
+		dump_html("</li>\n", "");
+		dump_list_end();
+	}
+
+	return 0;
+}
+#endif
 
 STATIC_OVL char *
 seen_string(x, obj)
@@ -2485,10 +2538,12 @@ int rtype;
 #endif /*JP*/
 
 STATIC_OVL void
-print_mapseen(win, mptr, printdun)
+print_mapseen(win, mptr, printdun, dump, final)
 winid win;
 mapseen *mptr;
 boolean printdun;
+boolean dump; /**< if information should be dumped to file */
+boolean final; /**< if game is finished */
 {
 	char buf[BUFSZ];
 	int i, depthstart;
@@ -2500,7 +2555,7 @@ boolean printdun;
 	if (mptr->lev.dnum == quest_dnum || mptr->lev.dnum == knox_level.dnum)
 		depthstart = 1;
 	else
-		depthstart = dungeons[mptr->lev.dnum].depth_start;  
+		depthstart = dungeons[mptr->lev.dnum].depth_start;
 
 	if (printdun) {
 		/* Sokoban lies about dunlev_ureached and we should
@@ -2524,9 +2579,19 @@ boolean printdun;
 				depthstart, depthstart + 
 				dungeons[mptr->lev.dnum].dunlev_ureached - 1);
 #endif
-		putstr(win, ATR_INVERSE, buf);
+		if (!dump) {
+			putstr(win, ATR_INVERSE, buf);
+		} else {
+#ifdef DUMP_LOG
+			dump_text("  %s\n", buf);
+			dump_html("<li>%s\n", buf);
+#endif
+		}
 	}
 
+#ifdef DUMP_LOG
+	dump_definition_list_start();
+#endif
 	/* calculate level number */
 	i = depthstart + mptr->lev.dlevel - 1;
 	if (Is_astralevel(&mptr->lev))
@@ -2554,7 +2619,7 @@ boolean printdun;
 	
 #ifdef WIZARD
 	/* wizmode prints out proto dungeon names for clarity */
-	if (wizard) {
+	if (wizard || final) {
 		s_level *slev;
 		if ((slev = Is_special(&mptr->lev)))
 			Sprintf(eos(buf), " [%s]", slev->proto);
@@ -2567,14 +2632,25 @@ boolean printdun;
 	/* print out glyph or something more interesting? */
 #if 0 /*JP*/
 	Sprintf(eos(buf), "%s", on_level(&u.uz, &mptr->lev) ? 
-		" <- You are here" : "");
+		(final ? " <- You were here" : " <- You are here") : "");
 #else
 	Sprintf(eos(buf), "%s", on_level(&u.uz, &mptr->lev) ? 
-		" © Œ»Ý’n" : "");
+		(final ? " © ÅI’n“_" : " © Œ»Ý’n“_") : "");
 #endif
-	putstr(win, ATR_BOLD, buf);
+	if (!dump) {
+		putstr(win, ATR_BOLD, buf);
+	} else {
+#ifdef DUMP_LOG
+		dump_definition_list_dt(buf);
+#endif
+	}
 
-	if (mptr->feat.forgot) return;
+	if (mptr->feat.forgot) {
+#ifdef DUMP_LOG
+		if (dump) dump_definition_list_end();
+#endif
+		return;
+	}
 
 	if (INTEREST(mptr->feat)) {
 		buf[0] = 0;
@@ -2638,7 +2714,13 @@ boolean printdun;
 		i = strlen(PREFIX);
 		*buf = highc(*buf);
 
-		putstr(win, 0, buf);
+		if (!dump) {
+			putstr(win, 0, buf);
+		} else {
+#ifdef DUMP_LOG
+			dump_definition_list_dd(buf);
+#endif
+		}
 	}
 
 	/* print out branches */
@@ -2661,8 +2743,18 @@ boolean printdun;
 			Sprintf(eos(buf), ", level %d", depth(&(mptr->br->end2)));
 */
 			Sprintf(eos(buf), " (%dŠK)", depth(&(mptr->br->end2)));
-		putstr(win, 0, buf);
+		if (!dump) {
+			putstr(win, 0, buf);
+		} else {
+#ifdef DUMP_LOG
+			dump_definition_list_dd(buf);
+#endif
+		}
 	}
+
+#ifdef DUMP_LOG
+	if (dump) dump_definition_list_end();
+#endif
 }
 
 /*dungeon.c*/
