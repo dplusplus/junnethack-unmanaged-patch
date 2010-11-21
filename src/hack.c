@@ -1138,7 +1138,7 @@ int mode;
 */
 			You("ドアの下からにじみ出た、しかし持ち物はそうはいかない。");
 #ifdef AUTO_OPEN
-		    else if (iflags.autoopen && !flags.run
+		    else if (iflags.autoopen
 				&& !Confusion && !Stunned && !Fumbling) {
 			    door_opened = flags.move = doopen_indir(x, y);
 		    }

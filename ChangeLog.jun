@@ -1,5 +1,5 @@
 Sun Nov 21 2010  Masaki Miyaso  <so-miya@sourceforge.jp>
-	* UnNetHack SVN版r700をベースにした。
+	* UnNetHack SVN版r701をベースにした。
 	  r674 3.5.4にバージョン番号を更新
 	  r675 create_door()ルーチンを修正(SporkHack rev. 655, 656から)
 	  r676 レベルコンパイラ: 鉱山階層が明るい確率が高すぎるのを修正
@@ -22,6 +22,7 @@ Sun Nov 21 2010  Masaki Miyaso  <so-miya@sourceforge.jp>
 	  r698 ダンプ：迷宮概観出力時の時制を正確にした
 	  r699 食料品の腐る振る舞いを修正したつもり
 	  r700 コンパイル警告を削除
+	  r701 自動移動使用時に扉の自動開放
 	* 水難の巻物追加時(r144)に変更された巻物の未識別名の翻訳対応が
 	  抜けていたので修正
 	* Dungeon overviewの訳語を迷宮の概観に変更
