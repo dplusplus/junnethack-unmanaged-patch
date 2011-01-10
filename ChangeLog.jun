@@ -1,4 +1,4 @@
-Sat Oct 23 2010  Masaki Miyaso  <so-miya@sourceforge.jp>
+Mon Jan 10 2011  Masaki Miyaso  <so-miya@sourceforge.jp>
 	* UnNetHack SVN版r683をベースにした。
 	  r683 Branch 3.5.3: ChangeLogを更新
 	  r684 レベルコンパイラ: 鉱山階層が明るい確率が高すぎるのを修正
@@ -11,6 +11,7 @@ Sat Oct 23 2010  Masaki Miyaso  <so-miya@sourceforge.jp>
 	  r692 ChangeLogを更新
 	* 水難の巻物追加時(r144)に変更された巻物の未識別名の翻訳対応が
 	  抜けていたので修正
+	* バグ修正 [#23993] anti-matter vortexの和訳ミスを修正
 
 Sun Sep 19 2010  Masaki Miyaso  <so-miya@sourceforge.jp>
 	* JUnNetHack-3.5.3-J0.3.0リリース
