@@ -1,4 +1,4 @@
-Sat Nov 27 2010  Masaki Miyaso  <so-miya@sourceforge.jp>
+Mon Jan 10 2011  Masaki Miyaso  <so-miya@sourceforge.jp>
 	* UnNetHack SVN版r703をベースにした。
 	  r674 3.5.4にバージョン番号を更新
 	  r675 create_door()ルーチンを修正(SporkHack rev. 655, 656から)
@@ -28,6 +28,7 @@ Sat Nov 27 2010  Masaki Miyaso  <so-miya@sourceforge.jp>
 	* 水難の巻物追加時(r144)に変更された巻物の未識別名の翻訳対応が
 	  抜けていたので修正
 	* Dungeon overviewの訳語を迷宮の概観に変更
+	* バグ修正 [#23993] anti-matter vortexの和訳ミスを修正
 
 Sun Sep 19 2010  Masaki Miyaso  <so-miya@sourceforge.jp>
 	* JUnNetHack-3.5.3-J0.3.0リリース
