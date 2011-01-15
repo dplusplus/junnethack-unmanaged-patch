@@ -1,5 +1,5 @@
 Sat Jan 15 2011  Masaki Miyaso  <so-miya@sourceforge.jp>
-	* UnNetHack SVN版r704をベースにした。
+	* UnNetHack SVN版r710をベースにした。
 	  r674 3.5.4にバージョン番号を更新
 	  r675 create_door()ルーチンを修正(SporkHack rev. 655, 656から)
 	  r676 レベルコンパイラ: 鉱山階層が明るい確率が高すぎるのを修正
@@ -28,6 +28,8 @@ Sat Jan 15 2011  Masaki Miyaso  <so-miya@sourceforge.jp>
 	  r704 paranoid_trap警告コードを正しい位置にした。これにより、罠に
 	       かかったモンスターを攻撃したときにに罠に踏み込むかの確認を
 	       行わなくなる。
+	  r709 キャラクタ選択時に最下行を更新しない (C343-198をたぶん修正)
+	  r710 ChangeLog: C343-198の修正を文書化
 	* 水難の巻物追加時(r144)に変更された巻物の未識別名の翻訳対応が
 	  抜けていたので修正
 	* Dungeon overviewの訳語を迷宮の概観に変更

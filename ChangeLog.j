@@ -1,6 +1,8 @@
 2011-XX-XX  UnNetHack 3.5.4
 	* 次のように設定することで怪物の色を変更可能とした
 	  MONSTERCOLOR=acid blob:lightcyan
+	* バニラのバグ修正：
+	  - C343-198
 
 2010-09-04  UnNetHack 3.5.3
 	* 争い状態は闇市の店主を怒らせる
