@@ -1644,8 +1644,8 @@ num_genocides()
 STATIC_OVL void
 list_genocided(defquery, ask, want_disp)
 int defquery;
-BOOLEAN_P ask;
-BOOLEAN_P want_disp;
+boolean ask;
+boolean want_disp;
 {
     register int i;
     int ngenocided=0;
