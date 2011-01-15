@@ -1547,26 +1547,6 @@ domove()
 			return;
 		}
 
-		/* warn player before walking into known traps */
-		if (iflags.paranoid_trap &&
-		    ((trap = t_at(x, y)) && trap->tseen)) {
-			char qbuf[BUFSZ];
-#if 0 /*JP*/
-			Sprintf(qbuf,"Do you really want to %s into that %s?", 
-				locomotion(youmonst.data, "step"),
-				defsyms[trap_to_defsym(trap->ttyp)].explanation);
-#else
-			Sprintf(qbuf,"本当に%sの方に%s？", 
-				jtrns_obj('^', defsyms[trap_to_defsym(trap->ttyp)].explanation),
-				locomotion(youmonst.data, "進む"));
-#endif
-			if (yn(qbuf) != 'y') {
-				nomul(0, 0);
-				flags.move = 0;
-				return;
-			}
-		}
-
 		if (((trap = t_at(x, y)) && trap->tseen) ||
 		    (Blind && !Levitation && !Flying &&
 		     !is_clinger(youmonst.data) &&
@@ -1769,6 +1749,26 @@ domove()
 #endif
 		nomul(0, 0);
 		return;
+	}
+
+	/* warn player before walking into known traps */
+	if (iflags.paranoid_trap &&
+			((trap = t_at(x, y)) && trap->tseen)) {
+		char qbuf[BUFSZ];
+#if 0 /*JP*/
+		Sprintf(qbuf,"Do you really want to %s into that %s?", 
+				locomotion(youmonst.data, "step"),
+				defsyms[trap_to_defsym(trap->ttyp)].explanation);
+#else
+		Sprintf(qbuf,"本当に%sの方に%s？", 
+			jtrns_obj('^', defsyms[trap_to_defsym(trap->ttyp)].explanation),
+			locomotion(youmonst.data, "進む"));
+#endif
+		if (yn(qbuf) != 'y') {
+			nomul(0, 0);
+			flags.move = 0;
+			return;
+		}
 	}
 	if(u.utrap) {
 		if(u.utraptype == TT_PIT) {
