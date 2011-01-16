@@ -432,6 +432,11 @@ register struct obj *obj;
 			Sprintf(buf,"amulet called %s", un);
 */
 			Sprintf(eos(buf),"%sと呼ばれる魔除け", un);
+		else if (Is_sokoprize(obj))
+/*JP
+			Strcpy(buf, "sokoban amulet");
+*/
+			Strcpy(buf, "倉庫番の魔除け");
 		else
 /*JP
 			Sprintf(buf,"%s amulet", dn);
@@ -488,6 +493,11 @@ register struct obj *obj;
 			Strcat(buf, "と呼ばれる");
 			Strcat(buf, dn ? jdn : jactualn);
 #endif
+		} else if (Is_sokoprize(obj)) {
+/*JP
+			Strcpy(buf, "sokoban bag");
+*/
+			Strcpy(buf, "倉庫番の袋");
 		} else
 /*JP
 			Strcat(buf, dn ? dn : actualn);
@@ -554,6 +564,8 @@ register struct obj *obj;
 				Strcpy(buf,"armor");
 			Strcat(buf, " called ");
 			Strcat(buf, un);
+		} else if (Is_sokoprize(obj)) {
+			Strcpy(buf, "sokoban cloak");
 		} else	Strcat(buf, dn);
 #else
 		if(nn)	Strcat(buf, jactualn);
@@ -566,6 +578,8 @@ register struct obj *obj;
 			else if(is_shield(obj)) p = "盾";
 			else p = "鎧";
 			Sprintf(eos(buf), "%sと呼ばれる%s", un, p);
+		} else if (Is_sokoprize(obj)) {
+			Strcpy(buf, "倉庫番のクローク");
 		} else	Strcat(buf, jdn);
 #endif
 		break;
