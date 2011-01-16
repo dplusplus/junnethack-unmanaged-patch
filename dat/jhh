@@ -27,7 +27,7 @@ O       options オプションを設定する。
 \       known   今までに発見したアイテムの一覧を表示する。
 v       version バージョンを表示する。
 V       history ゲームの歴史を表示する。
-X       explore ゲームを発見モードに切り替える。
+X       twoweap 二刀流戦闘に切り替える
 ^A      again   1つ前のコマンドを実行する。(^AはCtrl-Aを意味する。)
 ^R      redraw  画面を書きなおす。
 ^P      prevmsg 前のメッセージを見る。(^Pは繰り返し使える)
@@ -48,7 +48,6 @@ e       eat     何かを食べる。
 E       engrave 床のほこりに文字を書く。(E-  指を使って)
 f       fire    装填されているものを射る。
 F       fight   方向を指定し戦う。
-E       engrave 床のほこりに文字を書く。(E-  指を使って)
 i       invent  あなたの持ち物一覧。(あなたが持っているもの全て)
 I       Invent  種類を選択して持ち物一覧。
                 Iu: 未払の道具一覧。
@@ -66,7 +65,7 @@ t       throw   武器を投げる、撃つ、射る。
 T       takeoff 鎧を脱ぐ。
 w       wield   武器を装備する。(w-  何も装備しない)
 W       wear    鎧を着る。
-x       xchange	左右の武器を交換する。
+x       xchange 左右の武器を交換する。
 z       zap     杖を振る。 (qwertz_layoutオプション設定時はz)
 Z       Zap     魔法を唱える。 (qwertz_layoutオプション設定時はZ)
 <       up      階段を昇る。
@@ -107,6 +106,7 @@ M-t     turn    アンデットを土に返す。
 M-u     untrap  罠をはずす。
 M-v     version コンパイル時のオプションを表示する。
 M-w     wipe    顔を拭う。
+M-x     explore ゲームを探検(発見)モードに切り替える。
 
 `number_pad'のオプションがオンなら、次のコマンドが可能になる。
 
