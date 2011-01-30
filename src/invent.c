@@ -2217,7 +2217,7 @@ boolean want_reply, want_disp;
   return display_pickinv(lets, want_reply, (long *)0, want_disp);
 }
 
-/*
+/**
  * Returns the number of unpaid items within the given list.  This includes
  * contained objects.
  */
@@ -2231,6 +2231,25 @@ count_unpaid(list)
 	if (list->unpaid) count++;
 	if (Has_contents(list))
 	    count += count_unpaid(list->cobj);
+	list = list->nobj;
+    }
+    return count;
+}
+
+/**
+ * Returns the number of unidentified items within the given list.  This includes
+ * contained objects.
+ */
+int
+count_unidentified(list)
+    struct obj *list;
+{
+    int count = 0;
+
+    while (list) {
+	if (not_fully_identified(list)) count++;
+	if (Has_contents(list))
+	    count += count_unidentified(list->cobj);
 	list = list->nobj;
     }
     return count;

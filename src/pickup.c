@@ -365,6 +365,9 @@ struct obj *obj;
     if (((index(valid_menu_classes,'u') != (char *)0) && obj->unpaid) ||
 	(index(valid_menu_classes, obj->oclass) != (char *)0))
 	return TRUE;
+    else if (((index(valid_menu_classes,'I') != (char *)0) &&
+	(obj->oclass != COIN_CLASS && not_fully_identified(obj))))
+	return TRUE;
     else if (((index(valid_menu_classes,'U') != (char *)0) &&
 	(obj->oclass != COIN_CLASS && obj->bknown && !obj->blessed && !obj->cursed)))
 	return TRUE;
@@ -867,6 +870,7 @@ int how;			/* type of query */
 	char invlet;
 	int ccount;
 	boolean do_unpaid = FALSE;
+	boolean do_unidentified = FALSE;
 	boolean do_blessed = FALSE, do_cursed = FALSE, do_uncursed = FALSE,
 	    do_buc_unknown = FALSE;
 	int num_buc_types = 0;
@@ -874,6 +878,7 @@ int how;			/* type of query */
 	*pick_list = (menu_item *) 0;
 	if (!olist) return 0;
 	if ((qflags & UNPAID_TYPES) && count_unpaid(olist)) do_unpaid = TRUE;
+	if ((qflags & UNIDENTIFIED_TYPES) && count_unidentified(olist)) do_unidentified = TRUE;
 	if ((qflags & BUC_BLESSED) && count_buc(olist, BUC_BLESSED)) {
 	    do_blessed = TRUE;
 	    num_buc_types++;
@@ -962,7 +967,7 @@ int how;			/* type of query */
 /*JP
 			"Unpaid items", MENU_UNSELECTED);
 */
-			"未払の道具", MENU_UNSELECTED);
+			"未払のもの", MENU_UNSELECTED);
 	}
 	/* billed items: checked by caller, so always include if BILLED_TYPES */
 	if (qflags & BILLED_TYPES) {
@@ -973,7 +978,7 @@ int how;			/* type of query */
 /*JP
 			 "Unpaid items already used up", MENU_UNSELECTED);
 */
-			 "未払で使ってしまった道具", MENU_UNSELECTED);
+			 "未払で使ってしまったもの", MENU_UNSELECTED);
 	}
 	if (qflags & CHOOSE_ALL) {
 		invlet = 'A';
@@ -988,6 +993,17 @@ int how;			/* type of query */
 			"身につけられる物全て" :
 			"全て", MENU_UNSELECTED);
 #endif
+	/* unidentifed items if there are any */
+	if (do_unidentified) {
+		invlet = 'I';
+		any.a_void = 0;
+		any.a_int = 'I';
+		add_menu(win, NO_GLYPH, &any, invlet, 0, ATR_NONE,
+/*JP
+			"Unidentified items", MENU_UNSELECTED);
+*/
+			"未識別のもの", MENU_UNSELECTED);
+	}
 	}
 	/* items with b/u/c/unknown if there are any */
 	if (do_blessed) {
@@ -2796,8 +2812,8 @@ boolean put_in;
 	Sprintf(buf,"%s what type of objects?", put_in ? putin : takeout);
 */
 	Sprintf(buf,"どの種類のアイテムを%s？", put_in ? putin : takeout);
-	mflags = put_in ? ALL_TYPES | BUC_ALLBKNOWN | BUC_UNKNOWN | UNPAID_TYPES :
-		          ALL_TYPES | CHOOSE_ALL | BUC_ALLBKNOWN | BUC_UNKNOWN | UNPAID_TYPES;
+	mflags = put_in ? ALL_TYPES | BUC_ALLBKNOWN | BUC_UNKNOWN | UNPAID_TYPES | UNIDENTIFIED_TYPES :
+		          ALL_TYPES | CHOOSE_ALL | BUC_ALLBKNOWN | BUC_UNKNOWN | UNPAID_TYPES | UNIDENTIFIED_TYPES;
 	n = query_category(buf, put_in ? invent : container->cobj,
 			   mflags, &pick_list, PICK_ANY);
 	if (!n) return 0;

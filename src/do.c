@@ -1054,7 +1054,7 @@ int retry;
 */
 	n = query_category("どの種類のアイテムを置きますか？",
 			invent,
-			UNPAID_TYPES | ALL_TYPES | CHOOSE_ALL |
+			UNIDENTIFIED_TYPES | UNPAID_TYPES | ALL_TYPES | CHOOSE_ALL |
 			BUC_BLESSED | BUC_CURSED | BUC_UNCURSED | BUC_UNKNOWN,
 			&pick_list, PICK_ANY);
 	if (!n) goto drop_done;
