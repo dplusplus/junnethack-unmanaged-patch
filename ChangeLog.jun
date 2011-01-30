@@ -1,5 +1,5 @@
 Sun Jan 30 2011  Masaki Miyaso  <so-miya@sourceforge.jp>
-	* UnNetHack SVN版r726をベースにした。
+	* UnNetHack SVN版r727をベースにした。
 	  r674 3.5.4にバージョン番号を更新
 	  r675 create_door()ルーチンを修正(SporkHack rev. 655, 656から)
 	  r676 レベルコンパイラ: 鉱山階層が明るい確率が高すぎるのを修正
@@ -46,6 +46,7 @@ Sun Jan 30 2011  Masaki Miyaso  <so-miya@sourceforge.jp>
 	  r724 whereis情報更新用にSIGUSR1をキャッチする
 	  r725 xlogfile と livelog にダンジョン名を追加
 	  r726 メニューオプションに新カテゴリ：「未識別アイテム」
+	  r727 トリックの鞄拡張コードのTypo
 	* 水難の巻物追加時(r144)に変更された巻物の未識別名の翻訳対応が
 	  抜けていたので修正
 	* Dungeon overviewの訳語を迷宮の概観に変更

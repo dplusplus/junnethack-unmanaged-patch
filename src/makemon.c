@@ -1949,7 +1949,7 @@ struct obj *bag;
 				pline("‚©‚ÑL‚¢“õ‚¢‚ª‚µ‚½B");
 		} else {
 /*JP
-			pline_The("bag exhales of puff of spores.");
+			pline_The("bag exhales a puff of spores.");
 */
 			pline("Š“‚Í–Eq‚ğ“f‚«o‚µ‚½B");
 		}
