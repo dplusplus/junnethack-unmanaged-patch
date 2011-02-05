@@ -1,5 +1,5 @@
 Sun Feb 06 2011  Masaki Miyaso  <so-miya@sourceforge.jp>
-	* UnNetHack SVN版r729をベースにした。
+	* UnNetHack SVN版r732をベースにした。
 	  r674 3.5.4にバージョン番号を更新
 	  r675 create_door()ルーチンを修正(SporkHack rev. 655, 656から)
 	  r676 レベルコンパイラ: 鉱山階層が明るい確率が高すぎるのを修正
@@ -50,6 +50,10 @@ Sun Feb 06 2011  Masaki Miyaso  <so-miya@sourceforge.jp>
 	  r728 復活したクトゥルフは瞑想しない。
 	  r729 クトゥルフの復活間隔を増加させた。初回に遠くから殺された
 	       場合は逆に減少させた。
+	  r730 Doxygenの設定ファイル追加
+	  r731 Doxygen 1.7.2に更新
+	  r732 menustyleがtraditionalの場合に名前が最大長のアイテムを選
+	       択するとバッファオーバーフローでクラッシュするのを修正
 	* 水難の巻物追加時(r144)に変更された巻物の未識別名の翻訳対応が
 	  抜けていたので修正
 	* Dungeon overviewの訳語を迷宮の概観に変更
