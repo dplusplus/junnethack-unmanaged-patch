@@ -1933,7 +1933,7 @@ struct obj *bag;
 			pline("鞄は%sを吐いた。",
 				Hallucination ? "アルファベット":"有毒の雲");
 #endif
-		(void)create_gas_cloud(u.ux,u.uy,2,8);
+		(void)create_gas_cloud(u.ux, u.uy, 2, 8, rn1(3,2));
 		break;
 	case 5:
 		if (Blind) {

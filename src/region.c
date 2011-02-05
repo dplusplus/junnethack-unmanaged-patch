@@ -922,11 +922,18 @@ genericptr_t p2;
 	/* Make sure Cthulhu doesn't get the Amulet again! :-) */
 	cthulhu = makemon(&mons[PM_CTHULHU], cx, cy, 
 				MM_NOCOUNTBIRTH | NO_MINVENT);
-	if (cthulhu && canseemon(cthulhu))
+	if (cthulhu) {
+		if (canseemon(cthulhu)) {
 /*JP
-	    pline("%s reforms!", Monnam(cthulhu));
+			pline("%s reforms!", Monnam(cthulhu));
 */
-	    pline("%s‚Í•œŠˆ‚µ‚½I", Monnam(cthulhu));
+			pline("%s‚Í•œŠˆ‚µ‚½I", Monnam(cthulhu));
+		}
+		/* don't let Cthulhu meditate after being killed once
+		 * by the player */
+		wakeup(cthulhu);
+	}
+	
     }
     return ret;
 }
@@ -1004,24 +1011,26 @@ genericptr_t p2;
 }
 
 NhRegion *
-create_cthulhu_death_cloud(x, y, radius, damage)
+create_cthulhu_death_cloud(x, y, radius, damage, duration)
 xchar x, y;
 int radius;
 size_t damage;
+int duration;
 {
     NhRegion *cloud;
 
-    cloud = create_gas_cloud(x, y, radius, damage);
+    cloud = create_gas_cloud(x, y, radius, damage, duration);
     if (cloud) cloud->expire_f = REVIVE_CTHULHU;
 
     return cloud;
 }
 
 NhRegion *
-create_gas_cloud(x, y, radius, damage)
+create_gas_cloud(x, y, radius, damage, duration)
 xchar x, y;
 int radius;
 size_t damage;
+int duration;
 {
     NhRegion *cloud;
     int i, nrect;
@@ -1040,7 +1049,7 @@ size_t damage;
 	tmprect.ly++;
 	tmprect.hy--;
     }
-    cloud->ttl = rn1(3,4);
+    cloud->ttl = duration;
     if (!in_mklev && !flags.mon_moving)
 	set_heros_fault(cloud);		/* assume player has created it */
     cloud->inside_f = INSIDE_GAS_CLOUD;
