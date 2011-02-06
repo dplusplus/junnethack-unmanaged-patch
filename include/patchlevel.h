@@ -32,7 +32,7 @@
 /* #define VERSION_REVISION	1 */
 
 #define COPYRIGHT_BANNER_A \
-"UnNetHack, Copyright 2009-2010"
+"UnNetHack, Copyright 2009-2011"
 
 #define COPYRIGHT_BANNER_B \
 "    Based on NetHack, Copyright 1985-2003 by Stichting Mathematisch"
@@ -42,7 +42,7 @@
 
 #if 1 /*JP*/
 #define JA_COPYRIGHT_BANNER_A \
-"JUnNetHack, Copyright 2009-2010"
+"JUnNetHack, Copyright 2009-2011"
 
 #define JA_COPYRIGHT_BANNER_B \
 "    Base on NetHack[“ú–{Œê”Å], Copyright 1993-1996 By I. Numata,"
