@@ -10,7 +10,6 @@ autoquiver     何かを射るときに矢筒(など)が空の場合、適当な武器を
 cmdassist      方向やその他のコマンドでエラー時にヘルプを表示する      [TRUE]
 confirm        ペットや友好的な怪物を攻撃する前に確認する              [TRUE]
 DECgraphics    ダンジョンにDEC/VTの罫線を使用する                      [FALSE]
-eight_bit_tty  8-bitキャラクタを端末にそのまま送信する                 [FALSE]
 extmenu        拡張コマンド (#) を選択するときにメニューを使用する     [FALSE]
 fixinv         できるだけ、同じ物は同じ文字に当てる                    [TRUE]
 help           '/'コマンド時にさらなる情報を見るか確認する             [TRUE]
