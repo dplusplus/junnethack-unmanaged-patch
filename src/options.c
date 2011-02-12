@@ -259,6 +259,11 @@ static struct Bool_Opt
 	{"tombstone",&flags.tombstone, TRUE, SET_IN_GAME},
 	{"toptenwin",&flags.toptenwin, FALSE, SET_IN_GAME},
 	{"travel", &iflags.travelcmd, TRUE, SET_IN_GAME},
+#ifdef UTF8_GLYPHS
+	{"UTF8graphics", &iflags.UTF8graphics, FALSE, SET_IN_GAME},
+#else
+	{"UTF8graphics", (boolean *)0, FALSE, SET_IN_FILE},
+#endif
 	{"use_inverse",   &iflags.wc_inverse, TRUE, SET_IN_GAME},		/*WC*/
 #ifdef WIN_EDGE
 	{"win_edge", &iflags.win_edge, FALSE, SET_IN_GAME},
@@ -1154,7 +1159,7 @@ register char *opts;
 const char *optype;
 int maxlen, offset;
 {
-	uchar translate[MAXPCHARS+1];
+	glyph_t translate[MAXPCHARS+1];
 	int length, i;
 
 	if (!(opts = string_for_env_opt(optype, opts, FALSE)))
@@ -1165,7 +1170,7 @@ int maxlen, offset;
 	if (length > maxlen) length = maxlen;
 	/* match the form obtained from PC configuration files */
 	for (i = 0; i < length; i++)
-		translate[i] = (uchar) opts[i];
+		translate[i] = (glyph_t) opts[i];
 	assign_graphics(translate, length, maxlen, offset);
 }
 
@@ -3123,6 +3128,9 @@ goodfruit:
 # ifdef CURSES_GRAPHICS
 				 || (boolopt[i].addr) == &iflags.cursesgraphics
 # endif
+# ifdef UTF8_GLYPHS
+				 || (boolopt[i].addr) == &iflags.UTF8graphics
+# endif
 				) {
 # ifdef REINCARNATION
 			    if (!initial && Is_rogue_level(&u.uz))
@@ -3148,6 +3156,11 @@ goodfruit:
 			    if ((boolopt[i].addr) == &iflags.cursesgraphics)
 				switch_graphics(iflags.cursesgraphics ?
 						CURS_GRAPHICS : ASCII_GRAPHICS);
+# endif
+# ifdef UTF8_GLYPHS
+			    if ((boolopt[i].addr) == &iflags.UTF8graphics)
+				switch_graphics(iflags.UTF8graphics ?
+						UTF8_GRAPHICS : ASCII_GRAPHICS);
 # endif
 # ifdef REINCARNATION
 			    if (!initial && Is_rogue_level(&u.uz))

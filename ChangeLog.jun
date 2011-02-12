@@ -1,5 +1,5 @@
 Sun Feb 06 2011  Masaki Miyaso  <so-miya@sourceforge.jp>
-	* UnNetHack SVN版r737をベースにした。
+	* UnNetHack SVN版r739をベースにした。
 	  r674 3.5.4にバージョン番号を更新
 	  r675 create_door()ルーチンを修正(SporkHack rev. 655, 656から)
 	  r676 レベルコンパイラ: 鉱山階層が明るい確率が高すぎるのを修正
@@ -59,6 +59,8 @@ Sun Feb 06 2011  Masaki Miyaso  <so-miya@sourceforge.jp>
 	  r735 HTMLダンプ：IBMgraphicsキャラクタを出力
 	  r736 HTMLダンプ：DECgraphicsキャラクタを出力
 	  r737 copyrightの年を更新
+	  r738 UTF-8の絵文字でマップ表示(日本語版未対応)
+	  r739 コンパイル修正
 	* 水難の巻物追加時(r144)に変更された巻物の未識別名の翻訳対応が
 	  抜けていたので修正
 	* Dungeon overviewの訳語を迷宮の概観に変更
