@@ -1,5 +1,5 @@
 Sun Feb 06 2011  Masaki Miyaso  <so-miya@sourceforge.jp>
-	* UnNetHack SVN版r739をベースにした。
+	* UnNetHack SVN版r744をベースにした。
 	  r674 3.5.4にバージョン番号を更新
 	  r675 create_door()ルーチンを修正(SporkHack rev. 655, 656から)
 	  r676 レベルコンパイラ: 鉱山階層が明るい確率が高すぎるのを修正
@@ -61,6 +61,12 @@ Sun Feb 06 2011  Masaki Miyaso  <so-miya@sourceforge.jp>
 	  r737 copyrightの年を更新
 	  r738 UTF-8の絵文字でマップ表示(日本語版未対応)
 	  r739 コンパイル修正
+	  r740 UTF8graphics：墓と祭壇、固定梯子の上と下を交換
+	  r741 UTF8graphics：光線、爆発、胃袋のコードが抜けていた。鉄格子
+	       をπからΠに変更
+	  r743 UTF8graphics：遠隔表示用の一時的な回避策
+	  r744 UTF8graphics：from_screenは変更しない。それ以外ではダンジョ
+	       ンは従来形式でのみ遠隔表示する
 	* 水難の巻物追加時(r144)に変更された巻物の未識別名の翻訳対応が
 	  抜けていたので修正
 	* Dungeon overviewの訳語を迷宮の概観に変更
