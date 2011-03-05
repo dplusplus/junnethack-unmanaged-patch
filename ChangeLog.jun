@@ -1,5 +1,5 @@
 Sun Mar 05 2011  Masaki Miyaso  <so-miya@sourceforge.jp>
-	* UnNetHack SVN版r751をベースにした。
+	* UnNetHack SVN版r752をベースにした。
 	  r674 3.5.4にバージョン番号を更新
 	  r675 create_door()ルーチンを修正(SporkHack rev. 655, 656から)
 	  r676 レベルコンパイラ: 鉱山階層が明るい確率が高すぎるのを修正
@@ -73,6 +73,7 @@ Sun Mar 05 2011  Masaki Miyaso  <so-miya@sourceforge.jp>
 	  r749 闇市につるはしの持込みを許可
 	  r750 HTML Dump：怪物と迷宮設備用にtitle属性を追加
 	  r751 'implicit declaration of function'警告の修正
+	  r752 幻覚：架空の通貨
 	* 水難の巻物追加時(r144)に変更された巻物の未識別名の翻訳対応が
 	  抜けていたので修正
 	* Dungeon overviewの訳語を迷宮の概観に変更

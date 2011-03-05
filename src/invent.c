@@ -665,16 +665,72 @@ register int type;
 	return((struct obj *) 0);
 }
 
+/** Fictional and not-so-fictional currencies.
+ * http://concord.wikia.com/wiki/List_of_Fictional_Currencies */
+static const char * const currencies[] = {
+#if 0 /*JP*/
+	"Altarian Dollar",	/* The Hitchhiker's Guide to the Galaxy */
+	"Ankh-Morpork Dollar",	/* Discworld */
+	"auric",		/* The Domination of Draka */
+	"buckazoid",		/* Space Quest */
+	"credit chit",		/* Deus Ex */
+	"cubit",		/* Battlestar Galactica */
+	"Flainian Pibble Bead", /* The Hitchhiker's Guide to the Galaxy */
+	"fretzer",		/* Jules Verne */
+	"imperial credit",	/* Star Wars */
+	"Hong Kong Luna Dollar",/* The Moon is a Harsh Mistress */
+	"kongbuck",		/* Snow Crash */
+	"nanite",		/* System Shock 2 */
+	"quatloo",		/* Sim City */
+	"simoleon",		/* Sim City */
+	"solari",		/* Spaceballs */
+	"spacebuck",		/* Spaceballs */
+	"sporebuck",		/* Spore */
+	"Triganic Pu",		/* The Hitchhiker's Guide to the Galaxy */
+	"woolong",		/* Cowboy Bebop */
+#else
+	"アルタイル・ドル",	/* The Hitchhiker's Guide to the Galaxy */
+	"アンクモルポーク・ドル",	/* Discworld */
+	"ユーリック",		/* The Domination of Draka */
+	"バッカゾイド",		/* Space Quest */
+	"クレジット・チット",		/* Deus Ex */
+	"キュービット",		/* Battlestar Galactica */
+	"フレニアン・ピッブル・ビード", /* The Hitchhiker's Guide to the Galaxy */
+	"フレッツァ",		/* Jules Verne */
+	"帝国クレジット",	/* Star Wars */
+	"香港月ドル",/* The Moon is a Harsh Mistress */
+	"コンバック",		/* Snow Crash */
+	"ナーナイト",		/* System Shock 2 */
+	"クァトロ",		/* Sim City */
+	"シモレオン",		/* Sim City */
+	"ソラリ",		/* Spaceballs */
+	"スペースバック",		/* Spaceballs */
+	"スポアバック",		/* Spore */
+	"トライガニック・プー",		/* The Hitchhiker's Guide to the Galaxy */
+	"ウーロン",		/* Cowboy Bebop */
+#endif
+};
+
+/** Returns the currency according to amount given. */
 const char *
 currency(amount)
 long amount;
 {
+	if (Hallucination) {
+		int c = rn2(SIZE(currencies));
 #if 0 /*JP*/
-	if (amount == 1L) return "zorkmid";
-	else return "zorkmids";
+		return (amount == 1L) ? currencies[c] : makeplural(currencies[c]);
 #else
-	return "ゴールド";
+		return currencies[c];
 #endif
+	} else {
+#if 0 /*JP*/
+		if (amount == 1L) return "zorkmid";
+		else return "zorkmids";
+#else
+		return "ゴールド";
+#endif
+	}
 }
 
 boolean
