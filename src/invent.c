@@ -2605,9 +2605,9 @@ char *buf;
 #endif
 	else if (IS_ALTAR(ltyp)) {
 /*JP
-	    Sprintf(altbuf, "altar to %s (%s)", a_gname(),
+	    Sprintf(altbuf, "altar to %s (%s)", a_gname_at(x, y),
 */
-	    Sprintf(altbuf, "%s�̍Ւd(%s)", a_gname(),
+	    Sprintf(altbuf, "%s�̍Ւd(%s)", a_gname_at(x, y),
 		    align_str(Amask2align(lev->altarmask & ~AM_SHRINE)));
 	    dfeature = altbuf;
 	} else if ((x == xupstair && y == yupstair) ||
