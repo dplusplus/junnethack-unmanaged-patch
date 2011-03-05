@@ -764,7 +764,7 @@ register char *enterstring;
 #endif
 	}
 	/* can't do anything about blocking if teleported in */
-	if (!inside_shop(u.ux, u.uy)) {
+	if (!inside_shop(u.ux, u.uy) && !(Is_blackmarket(&u.uz))) {
 	    boolean should_block;
 	    int cnt;
 	    const char *tool;
