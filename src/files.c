@@ -2030,6 +2030,8 @@ char		*tmp_levels;
 #endif
 	} else if (match_varname(buf, "MONSTERCOLOR", 12)) {
 	    return parse_monster_color(bufp);
+	} else if (match_varname(buf, "SYMBOL", 6)) {
+	    return parse_symbol(bufp);
 	} else if (match_varname(buf, "GRAPHICS", 4)) {
 	    len = get_uchars(fp, buf, bufp, translate, FALSE,
 			     MAXPCHARS, "GRAPHICS");
