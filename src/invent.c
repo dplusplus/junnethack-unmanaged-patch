@@ -675,7 +675,7 @@ static const char * const currencies[] = {
 	"buckazoid",		/* Space Quest */
 	"credit chit",		/* Deus Ex */
 	"cubit",		/* Battlestar Galactica */
-	"Flainian Pibble Bead", /* The Hitchhiker's Guide to the Galaxy */
+	"Flanian Pobble Bead",  /* The Hitchhiker's Guide to the Galaxy */
 	"fretzer",		/* Jules Verne */
 	"imperial credit",	/* Star Wars */
 	"Hong Kong Luna Dollar",/* The Moon is a Harsh Mistress */
@@ -695,7 +695,7 @@ static const char * const currencies[] = {
 	"バッカゾイド",		/* Space Quest */
 	"クレジット・チット",		/* Deus Ex */
 	"キュービット",		/* Battlestar Galactica */
-	"フレニアン・ピッブル・ビード", /* The Hitchhiker's Guide to the Galaxy */
+	"フレニアン・ポッブル・ビード", /* The Hitchhiker's Guide to the Galaxy */
 	"フレッツァ",		/* Jules Verne */
 	"帝国クレジット",	/* Star Wars */
 	"香港月ドル",/* The Moon is a Harsh Mistress */
