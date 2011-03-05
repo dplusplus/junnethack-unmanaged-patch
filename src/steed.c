@@ -344,9 +344,9 @@ mount_steed(mtmp, force)
 		You("鞍をまたぐことができない。");
 	    else
 /*JP
-        		You("are stuck here for now.");
+		You("are stuck here for now.");
 */
-        		You("はまっているので出来ない。");
+		You("はまっているので出来ない。");
 	    return (FALSE);
 	}
 

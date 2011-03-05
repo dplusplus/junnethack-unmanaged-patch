@@ -993,6 +993,7 @@ int how;			/* type of query */
 			"g‚É‚Â‚¯‚ç‚ê‚é•¨‘S‚Ä" :
 			"‘S‚Ä", MENU_UNSELECTED);
 #endif
+	}
 	/* unidentifed items if there are any */
 	if (do_unidentified) {
 		invlet = 'I';
@@ -1003,7 +1004,6 @@ int how;			/* type of query */
 			"Unidentified items", MENU_UNSELECTED);
 */
 			"–¢¯•Ê‚Ì‚à‚Ì", MENU_UNSELECTED);
-	}
 	}
 	/* items with b/u/c/unknown if there are any */
 	if (do_blessed) {

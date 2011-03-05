@@ -75,7 +75,7 @@ mapseen *mapseenchn = (struct mapseen *)0;
 STATIC_DCL mapseen *FDECL(load_mapseen, (int));
 STATIC_DCL void FDECL(save_mapseen, (int, mapseen *));
 STATIC_DCL mapseen *FDECL(find_mapseen, (d_level *));
-STATIC_DCL void FDECL(print_mapseen, (winid,mapseen *,boolean, boolean, boolean));
+STATIC_DCL void FDECL(print_mapseen, (winid,mapseen *, boolean, boolean, boolean));
 STATIC_DCL boolean FDECL(interest_mapseen, (mapseen *));
 STATIC_DCL char *FDECL(seen_string, (xchar, const char *));
 STATIC_DCL const char *FDECL(br_string2, (branch *));
@@ -284,13 +284,14 @@ s_level *
 get_next_elemental_plane(lev)
 d_level *lev;
 {
+	s_level *curr;
+
 	if (!In_endgame(lev)) {
 		pline("get_next_elemental_plane not in Endgame.");
 		return (s_level *)0;
 	}
 
-    {
-	s_level *curr = find_level("astral"),
+	curr = find_level("astral"),
 	        *plane = (s_level *)0;
 	for (curr = sp_levchn; curr; curr = curr->next) {
 	    if (on_level(lev, &(curr->dlevel))) {
@@ -299,7 +300,6 @@ d_level *lev;
 	    plane = curr;
 	}
 	return (s_level *)0;
-    }
 }
 
 /**

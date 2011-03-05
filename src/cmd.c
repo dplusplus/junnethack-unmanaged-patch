@@ -2226,7 +2226,7 @@ static const struct func_tab cmdlist[] = {
 	{M('l'), FALSE, doloot, NULL},
 /*	'n' prefixes a count if number_pad is on */
 	{M('m'), TRUE, domonability, NULL},
-	{'N', TRUE, ddocall}, /* if number_pad is on */
+	{'N', TRUE, ddocall, NULL}, /* if number_pad is on */
 	{M('n'), TRUE, ddocall, NULL},
 	{M('N'), TRUE, ddocall, NULL},
 	{'o', FALSE, doopen, NULL},
@@ -2272,7 +2272,7 @@ static const struct func_tab cmdlist[] = {
 	{'?', TRUE, dohelp, NULL},
 	{M('?'), TRUE, doextlist, NULL},
 #ifdef SHELL
-	{'!', TRUE, dosh},
+	{'!', TRUE, dosh, NULL},
 #endif
 #if 0 /*JP*/
 	{'.', TRUE, donull, "waiting"},

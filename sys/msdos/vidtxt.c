@@ -441,7 +441,7 @@ int attr;
 
 	txt_get_cursor(&col,&row);
 	switch(ch) {
-	    case '\n':
+	    case '\n':	
 #if 0 /*JP*/
 #if 0
 			col = 0;

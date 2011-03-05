@@ -2,7 +2,7 @@
 	* 次のように設定することで怪物の色を変更可能とした
 	  MONSTERCOLOR=acid blob:lightcyan
 	* 反転された階層でロングワームを攻撃したときクラッシュする問題を修正
-        * HTMLダンプ：IBMgraphicsとDECgraphicsキャラクタを出力
+	* HTMLダンプ：IBMgraphicsとDECgraphicsキャラクタを出力
 
 	* ユーザインタフェースの改善：
 	  - 自動探索 (AceHackから)

@@ -675,8 +675,9 @@ STATIC_OVL void
 bot2()
 {
 	char newbot2[MAXCO];
-	int save_botlx = flags.botlx;
+	int save_botlx;
 	bot2str(newbot2);
+	save_botlx = flags.botlx;
 #endif
 	curs(WIN_STATUS, 1, 1);
 	putstr(WIN_STATUS, 0, newbot2);
