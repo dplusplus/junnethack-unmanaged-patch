@@ -284,15 +284,15 @@ s_level *
 get_next_elemental_plane(lev)
 d_level *lev;
 {
-	s_level *curr;
+	s_level *curr, *plane;
 
 	if (!In_endgame(lev)) {
 		pline("get_next_elemental_plane not in Endgame.");
 		return (s_level *)0;
 	}
 
-	curr = find_level("astral"),
-	        *plane = (s_level *)0;
+	curr = find_level("astral");
+	plane = (s_level *)0;
 	for (curr = sp_levchn; curr; curr = curr->next) {
 	    if (on_level(lev, &(curr->dlevel))) {
 	    	return plane;
