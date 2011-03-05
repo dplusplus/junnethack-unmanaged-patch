@@ -1138,22 +1138,28 @@ die:
 /* changing kilbuf really changes killer. we do it this way because
    killer is declared a (const char *)
 */
+	if (u.uhave.amulet) {
 /*JP
-	if (u.uhave.amulet) Strcat(kilbuf, " (with the Amulet)");
+		Strcat(kilbuf, " (with the Amulet)");
 */
-	if (u.uhave.amulet) Strcat(kilbuf, "–‚œ‚¯‚ğè‚É");
+		Strcat(kilbuf, "–‚œ‚¯‚ğè‚É");
+		killer_flags |= 0x1;
+	}
 	else if (how == ESCAPED) {
-	    if (Is_astralevel(&u.uz))	/* offered Amulet to wrong deity */
+	    if (Is_astralevel(&u.uz)) {	/* offered Amulet to wrong deity */
 /*JP
 		Strcat(kilbuf, " (in celestial disgrace)");
 */
 		Strcat(kilbuf, "“Vã‚Å’pJ‚ğó‚¯’Eo‚µ‚½");
-	    else if (carrying(FAKE_AMULET_OF_YENDOR))
+		killer_flags |= 0x2;
+	    } else if (carrying(FAKE_AMULET_OF_YENDOR)) {
 /*JP
 		Strcat(kilbuf, " (with a fake Amulet)");
 */
 		Strcat(kilbuf, "‹U•¨‚Ì–‚œ‚¯‚ğ’Í‚Ü‚³‚ê’Eo‚µ‚½");
+		killer_flags |= 0x4;
 		/* don't bother counting to see whether it should be plural */
+	    }
 	}
 
 #if 0 /*JP*/

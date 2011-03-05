@@ -67,6 +67,7 @@ Sun Feb 06 2011  Masaki Miyaso  <so-miya@sourceforge.jp>
 	  r743 UTF8graphics：遠隔表示用の一時的な回避策
 	  r744 UTF8graphics：from_screenは変更しない。それ以外ではダンジョ
 	       ンは従来形式でのみ遠隔表示する
+	  r745 xlogfile用の数ビットの情報をエンコード (from NAO)
 	* 水難の巻物追加時(r144)に変更された巻物の未識別名の翻訳対応が
 	  抜けていたので修正
 	* Dungeon overviewの訳語を迷宮の概観に変更
