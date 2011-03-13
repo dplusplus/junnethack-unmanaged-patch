@@ -1261,7 +1261,7 @@ postmov:
 				  makeplural(locomotion(ptr, "pass")),
 				  passes_walls(ptr) ? "through" : "between");
 #else
-			    Norep("%s‚Í“S‚Ì–_%s‚ğ‚·‚è”²‚¯‚½B", Monnam(mtmp),
+			    Norep("%s‚Í“SŠiq%s‚ğ‚·‚è”²‚¯‚½B", Monnam(mtmp),
 				  passes_walls(ptr) ? "" : "‚ÌŠÔ");
 #endif
 		}

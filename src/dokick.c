@@ -862,7 +862,7 @@ char *buf;
 /*JP
 	else if (maploc->typ == IRONBARS) what = "an iron bar";
 */
-	else if (maploc->typ == IRONBARS) what = "“S–_";
+	else if (maploc->typ == IRONBARS) what = "“SŠiŽq";
 /*JP
 	else what = "something weird";
 */

@@ -551,11 +551,11 @@ hurtle_step(arg, x, y)
 /*JP
 	    You("crash into some iron bars.  Ouch!");
 */
-	    You("“S‚Ì–_‚É‚Ô‚¿‚ ‚½‚Á‚½B‚¢‚Ä‚ÁI");
+	    You("“SŠiq‚É‚Ô‚¿‚ ‚½‚Á‚½B‚¢‚Ä‚ÁI");
 /*JP
 	    losehp(rnd(2+*range), "crashing into iron bars", KILLED_BY);
 */
-	    losehp(rnd(2+*range), "“S‚Ì–_‚É‚Ô‚¿‚ ‚½‚Á‚Ä", KILLED_BY);
+	    losehp(rnd(2+*range), "“SŠiq‚É‚Ô‚¿‚ ‚½‚Á‚Ä", KILLED_BY);
 	    return FALSE;
 	}
 	if ((obj = sobj_at(BOULDER,x,y)) != 0) {

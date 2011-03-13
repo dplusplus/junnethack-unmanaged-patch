@@ -2688,7 +2688,7 @@ char *buf;
 /*JP
 	    dfeature = "set of iron bars";
 */
-	    dfeature = "“S‚Ì–_";
+	    dfeature = "“SŠiŽq";
 	else if (ltyp == DEADTREE)
 	    cmap = S_deadtree;
 
