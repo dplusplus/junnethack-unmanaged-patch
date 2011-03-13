@@ -2367,10 +2367,10 @@ boolean quietly;
 		if (!quietly)
 #if 0 /*JP*/
 		    You("cannot place a figurine in %s!",
-			IS_TREE(levl[x][y].typ) ? "a tree" : "solid rock");
+			IS_TREES(levl[x][y].typ) ? "a tree" : "solid rock");
 #else
 		    pline("%sの中には人形を置けない！",
-			IS_TREE(levl[x][y].typ) ? "木" : "固い石");
+			IS_TREES(levl[x][y].typ) ? "木" : "固い石");
 #endif
 		return FALSE;
 	}

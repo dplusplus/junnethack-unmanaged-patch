@@ -778,10 +778,10 @@ still_chewing(x,y)
     if (!boulder && IS_ROCK(lev->typ) && !may_dig(x,y)) {
 #if 0 /*JP*/
 	You("hurt your teeth on the %s.",
-	    IS_TREE(lev->typ) ? "tree" : "hard stone");
+	    IS_TREES(lev->typ) ? "tree" : "hard stone");
 #else
 	You("%sÇ≈éïÇí…ÇﬂÇΩÅB",
-	    IS_TREE(lev->typ) ? "ñÿ" : "å≈Ç¢ä‚");
+	    IS_TREES(lev->typ) ? "ñÿ" : "å≈Ç¢ä‚");
 #endif
 	nomul(0, 0);
 	return 1;
@@ -795,16 +795,16 @@ still_chewing(x,y)
 	assign_level(&digging.level, &u.uz);
 	/* solid rock takes more work & time to dig through */
 	digging.effort =
-	    (IS_ROCK(lev->typ) && !IS_TREE(lev->typ) ? 30 : 60) + u.udaminc;
+	    (IS_ROCK(lev->typ) && !IS_TREES(lev->typ) ? 30 : 60) + u.udaminc;
 #if 0 /*JP*/
 	You("start chewing %s %s.",
-	    (boulder || IS_TREE(lev->typ)) ? "on a" : "a hole in the",
+	    (boulder || IS_TREES(lev->typ)) ? "on a" : "a hole in the",
 	    boulder ? "boulder" :
 	    IS_TREE(lev->typ) ? "tree" : IS_ROCK(lev->typ) ? "rock" : "door");
 #else
 	    You("%s%sÇÕÇ∂ÇﬂÇΩÅB",
 		boulder ? "ä‚" :
-		IS_TREE(lev->typ) ? "ñÿ" : IS_ROCK(lev->typ) ? "êŒ" : "î‡",
+		IS_TREES(lev->typ) ? "ñÿ" : IS_ROCK(lev->typ) ? "êŒ" : "î‡",
 		boulder ? "ÇäöÇ›" : "Ç…åäÇÇ†ÇØ");
 #endif
 	watch_dig((struct monst *)0, x, y, FALSE);
@@ -815,12 +815,12 @@ still_chewing(x,y)
 	    You("%s chewing on the %s.",
 		digging.chew ? "continue" : "begin",
 		boulder ? "boulder" :
-		IS_TREE(lev->typ) ? "tree" :
+		IS_TREES(lev->typ) ? "tree" :
 		IS_ROCK(lev->typ) ? "rock" : "door");
 #else
 	    You("%sÇäöÇ›%sÅB",
 		boulder ? "ä‚" :
-		IS_TREE(lev->typ) ? "ñÿ" :
+		IS_TREES(lev->typ) ? "ñÿ" :
 		IS_ROCK(lev->typ) ? "êŒ" : "î‡",
 		digging.chew ? "ë±ÇØÇΩ" : "ÇÕÇ∂ÇﬂÇΩ");
 #endif
@@ -1034,7 +1034,7 @@ may_dig(x,y)
 register xchar x,y;
 /* intended to be called only on ROCKs */
 {
-    return (boolean)(!(IS_STWALL(levl[x][y].typ) &&
+    return (boolean)(!((IS_STWALL(levl[x][y].typ) || IS_TREES(levl[x][y].typ)) &&
 			(levl[x][y].wall_info & W_NONDIGGABLE)));
 }
 
@@ -1042,7 +1042,7 @@ boolean
 may_passwall(x,y)
 register xchar x,y;
 {
-   return (boolean)(!(IS_STWALL(levl[x][y].typ) &&
+   return (boolean)(!((IS_STWALL(levl[x][y].typ) || IS_TREES(levl[x][y].typ)) &&
 			(levl[x][y].wall_info & W_NONPASSWALL)));
 }
 

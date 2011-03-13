@@ -2689,6 +2689,8 @@ char *buf;
 	    dfeature = "set of iron bars";
 */
 	    dfeature = "“S‚Ì–_";
+	else if (ltyp == DEADTREE)
+	    cmap = S_deadtree;
 
 #if 0 /*JP*/
 	if (cmap >= 0) dfeature = defsyms[cmap].explanation;

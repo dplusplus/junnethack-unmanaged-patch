@@ -529,7 +529,7 @@ hurtle_step(arg, x, y)
 	    pline("Ouch!");
 */
 	    pline("Ç¢ÇƒÇ¡ÅI");
-	    if (IS_TREE(levl[x][y].typ))
+	    if (IS_TREES(levl[x][y].typ))
 /*JP
 		s = "bumping into a tree";
 */

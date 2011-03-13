@@ -822,6 +822,10 @@ char *buf;
 */
 	else if (IS_ROCK(maploc->typ)) what = "Šâ";
 /*JP
+	else if (IS_DEADTREE(maploc->typ)) what = "a dead tree";
+*/
+	else if (IS_DEADTREE(maploc->typ)) what = "ŒÍ‚ê–Ø";
+/*JP
 	else if (IS_THRONE(maploc->typ)) what = "a throne";
 */
 	else if (IS_THRONE(maploc->typ)) what = "‹ÊÀ";
@@ -1297,6 +1301,39 @@ dokick()
 			return(1);
 		    }
 		    goto ouch;
+		}
+		if(IS_DEADTREE(maploc->typ)) {
+		    if(Levitation) goto dumb;
+/*JP
+		    You("kick %s.", Blind ? something : "the dead tree");
+*/
+		    You("%s‚ðR‚Á‚½B", Blind ? something : "ŒÍ‚ê–Ø");
+		    switch (rn2(4)) {
+			case 0:	goto ouch;
+/*JP
+			case 1:	pline("The tree is tottering...");
+*/
+			case 1:	pline("–Ø‚Í—h‚ê“®‚¢‚½DDD");
+				break;
+/*JP
+			case 2:	pline("Some branches are swinging...");
+*/
+			case 2:	pline("Ž}‚ª•s‹C–¡‚É—h‚ê‚½DDD");
+				break;
+			case 3:	if (!may_dig(x,y)) goto ouch;
+/*JP
+				pline("The dead tree falls down.");
+*/
+				pline("ŒÍ‚ê–Ø‚Í“|‰ó‚µ‚½B");
+				maploc->typ = ROOM;
+				if (Blind)
+				    feel_location(x,y);	/* we know it's gone */
+				else
+				    newsym(x,y);
+				unblock_point(x,y);	/* vision */
+				break;
+		    }
+		    return(1);
 		}
 #ifdef SINKS
 		if(IS_SINK(maploc->typ)) {

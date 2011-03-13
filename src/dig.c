@@ -157,7 +157,7 @@ xchar x, y;
 	return (ispick && sobj_at(STATUE, x, y) ? DIGTYP_STATUE :
 		ispick && sobj_at(BOULDER, x, y) ? DIGTYP_BOULDER :
 		closed_door(x, y) ? DIGTYP_DOOR :
-		IS_TREE(levl[x][y].typ) ?
+		IS_TREES(levl[x][y].typ) ?
 			(ispick ? DIGTYP_UNDIGGABLE : DIGTYP_TREE) :
 		ispick && IS_ROCK(levl[x][y].typ) &&
 			(!level.flags.arboreal || IS_WALL(levl[x][y].typ)) ?
@@ -278,7 +278,7 @@ dig()
 	if (digging.down) {
 	    if(!dig_check(BY_YOU, TRUE, u.ux, u.uy)) return(0);
 	} else { /* !digging.down */
-	    if (IS_TREE(lev->typ) && !may_dig(dpx,dpy) &&
+	    if (IS_TREES(lev->typ) && !may_dig(dpx,dpy) &&
 			dig_typ(uwep, dpx, dpy) == DIGTYP_TREE) {
 /*JP
 		pline("This tree seems to be petrified.");
@@ -349,6 +349,8 @@ dig()
 			   uwep->spe - greatest_erosion(uwep) + u.udaminc;
 	if (Race_if(PM_DWARF))
 	    digging.effort *= 2;
+	if (lev->typ == DEADTREE)
+	    digging.effort *= 2;
 	if (digging.down) {
 		register struct trap *ttmp;
 
@@ -406,7 +408,7 @@ dig()
 */
 			digtxt = "Šâ‚Í‚±‚È‚²‚È‚É‚È‚Á‚½B";
 		} else if (lev->typ == STONE || lev->typ == SCORR ||
-				IS_TREE(lev->typ)) {
+				IS_TREES(lev->typ)) {
 			if(Is_earthlevel(&u.uz)) {
 			    if(uwep->blessed && !rn2(3)) {
 				mkcavearea(FALSE);
@@ -417,7 +419,7 @@ dig()
 				goto cleanup;
 			    }
 			}
-			if (IS_TREE(lev->typ)) {
+			if (IS_TREES(lev->typ)) {
 /*JP
 			    digtxt = "You cut down the tree.";
 */
@@ -1196,7 +1198,7 @@ struct obj *obj;
 */
 			    pline("ƒKƒcƒ“I");
 			    wake_nearby();
-			} else if (IS_TREE(lev->typ))
+			} else if (IS_TREES(lev->typ))
 /*JP
 			    You("need an axe to cut down a tree.");
 */
