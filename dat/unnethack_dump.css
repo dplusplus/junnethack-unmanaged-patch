@@ -29,7 +29,9 @@ blockquote {
 span.nh_screen {
 	background-color:black;
 }
-
+pre.nh_screen { 
+	font-family: DejaVu Sans Mono,Menlo,Courier New,Courier,monospace;
+}
 .nh_skills th {
 	text-align: left;
 }
