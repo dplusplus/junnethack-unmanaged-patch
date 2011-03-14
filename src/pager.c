@@ -672,6 +672,7 @@ do_look(quick)
 */
     static const char *mon_interior = "‰ö•¨‚Ì“à•”";
 
+    force_defsyms = FALSE;
     if (quick) {
 	from_screen = TRUE;	/* yes, we want to use the cursor */
     } else {
