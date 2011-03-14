@@ -22,6 +22,7 @@ NEARDATA struct instance_flags iflags;	/* provide linkage */
 #include "tcap.h"
 #include <ctype.h>
 #endif
+#include <errno.h>
 
 #define WINTYPELEN 16
 
@@ -1444,7 +1445,9 @@ char *option_value;	/**< Output string buffer for option value */
 }
 
 /** Parse '"dungeon feature":unicode_codepoint' and change symbol in
- * UTF8graphics. */
+ * UTF8graphics.
+ * Valid codepoints are decimal numbers or U+FFFF and 0xFFFF for hexadecimal
+ * values. */
 boolean
 parse_symbol(str)
 const char *str;
@@ -1452,7 +1455,7 @@ const char *str;
 	char feature[BUFSZ];
 	char codepoint[BUFSZ];
 	char *ptr, *endptr;
-	int i, num=0;
+	int i, num=0, base;
 
 	if (!parse_extended_option(str, feature, codepoint)) {
 		return FALSE;
@@ -1462,20 +1465,17 @@ const char *str;
 	if (!strncmpi(codepoint, "u+", 2) ||
 	    !strncmpi(codepoint, "0x", 2)) {
 		/* hexadecimal */
-		ptr = &(codepoint[2]);
-		errno = 0;
-		num = strtol(ptr, &endptr, 16);
-		if (errno != 0 || *endptr != 0 || endptr == ptr) {
-			return FALSE;
-		}
+		ptr = &codepoint[2];
+		base = 16;
 	} else {
 		/* decimal */
 		ptr = &codepoint[0];
-		errno = 0;
-		num = strtol(ptr, &endptr, 10);
-		if (errno != 0 || *endptr != 0 || endptr == ptr) {
-			return FALSE;
-		}
+		base = 10;
+	}
+	errno = 0;
+	num = strtol(ptr, &endptr, base);
+	if (errno != 0 || *endptr != 0 || endptr == ptr) {
+		return FALSE;
 	}
 
 	/* find dungeon feature */
