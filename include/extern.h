@@ -2034,6 +2034,7 @@ E void NDECL(losespells);
 E int NDECL(dovspell);
 E void FDECL(initialspell, (struct obj *));
 E void NDECL(dump_spells);
+E boolean FDECL(parse_spellorder, (char *));
 
 /* ### steal.c ### */
 
