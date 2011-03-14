@@ -1,5 +1,5 @@
 Mon Mar 14 2011  Masaki Miyaso  <so-miya@sourceforge.jp>
-	* UnNetHack SVN版r765をベースにした。
+	* UnNetHack SVN版r766をベースにした。
 	  r674 3.5.4にバージョン番号を更新
 	  r675 create_door()ルーチンを修正(SporkHack rev. 655, 656から)
 	  r676 レベルコンパイラ: 鉱山階層が明るい確率が高すぎるのを修正
@@ -87,6 +87,7 @@ Mon Mar 14 2011  Masaki Miyaso  <so-miya@sourceforge.jp>
 	  r763 Livelog：天上界と精霊界用の厳密性チェック
 	  r764 呪文メニューの表示順を変更する新設定オプション：SPELLORDER
 	  r765 自動移動/自動探索で溶岩または堀に入ってしまうのを修正
+	  r766 自動探索：記憶喪失の影響がある階層では再探索を有効にする。
 	* 水難の巻物追加時(r144)に変更された巻物の未識別名の翻訳対応が
 	  抜けていたので修正
 	* Dungeon overviewの訳語を迷宮の概観に変更
