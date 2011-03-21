@@ -4,6 +4,9 @@
 	* 反転された階層でロングワームを攻撃したときクラッシュする問題を修正
 	* HTMLダンプ：IBMgraphicsとDECgraphicsキャラクタを出力
 
+	* パッチ：
+	  - Sortloot (Jukka Lahtinenより)
+
 	* ユーザインタフェースの改善：
 	  - 自動探索 (AceHackから)
 	  - メニューオプションに新カテゴリ：「未識別アイテム」

@@ -3739,6 +3739,25 @@ crawl - ``walk'' と同様だが、一歩毎にしばらく停止する。
 .lp "silent  "
 .\"O Suppress terminal beeps (default on).
 端末のビープ音を鳴らさない(標準設定はオン)。
+.lp sortloot
+.\"O Controls the behavior of the sortloot patch that sorts pickup lists for
+.\"O inventory and #loot commands and some others.
+所持品、#lootコマンドおよびその他の選択一覧の順序について、
+sortlootパッチの振る舞いを制御する。
+.\"O The possible values are:
+それぞれの値の意味：
+.sd
+.si
+.\"O full - always sort the lists;
+.\"O loot - only sort the lists that don't use inventory
+.\"O        letters, like with the #loot and pickup commands;
+.\"O none - show lists the traditional way without sorting.
+full - 一覧を常にソートする。
+loot - #lootや拾うコマンドのように、所持品の文字を使用せずに
+       一覧をソートする。
+none - 伝統的なソートされていない一覧を表示する。
+.ei
+.ed
 .lp sortpack
 .\"O Sort the pack contents by type when displaying inventory (default on).
 持物の目録を表示するとき種類毎に荷物の内容を並べ替える
