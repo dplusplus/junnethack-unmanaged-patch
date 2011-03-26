@@ -5,6 +5,7 @@
 	* HTMLダンプ：IBMgraphicsとDECgraphicsキャラクタを出力
 
 	* パッチ：
+	  - MSGTYPE option (Pasi Kallinenより)
 	  - Sortloot (Jukka Lahtinenより)
 
 	* ユーザインタフェースの改善：
