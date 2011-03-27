@@ -785,7 +785,7 @@ int how;
 		      !Blind ? "‹P‚«‚Í‚¶‚ß‚½" : "’g‚©‚­‚È‚è‚Í‚¶‚ß‚½");
 #endif
 		/* Keep it blessed! */
-		if (uamul && uamul->cursed && (rn2(4)>0)) {
+		if (uamul && uamul->cursed && rnf(1,4)) {
 #if 0 /*JP*/
 			pline("But ... the chain on your medallion breaks and it falls to the %s!", surface(u.ux,u.uy));
 			You_hear("homeric laughter!"); /* Hah ha! */
